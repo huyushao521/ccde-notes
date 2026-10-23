@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网络的目的是什么 · 第 3 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link active" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="3-whats-the-purpose-of-the-network">第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 181-208 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>业务应用</strong>：业务应用及相关的网络设计要素</li>
+<li><strong>服务模型</strong>：不同服务模型及其网络设计特征</li>
+<li><strong>云</strong>：各种形式的云及相关网络设计要素</li>
+<li><strong>数据管理</strong>：数据管理方法论</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<blockquote>
+<p>网络的目的是什么？为什么需要网络？这些问题应始终在网络设计师脑海中，因为理解网络的目的和目标对正确设计至关重要。</p>
+</blockquote>
+<p>从技术角度回答：网络的目的是在正确的时间内将数据从 A 点传输到 B 点。但从网络设计角度，我们需要更进一步——<strong>网络传输数据的根本目的是实现业务成果和目标，让业务成功！</strong></p>
+<p>企业对网络的依赖已经到了必须将网络及其相关服务的可用性设计到极高水平的地步。就像传统电话网络 (POTS) 一样——人们如此依赖它，以至于整体可用性必须设计到极高水平。</p>
+<hr />
+<h2 id="business-applications">业务应用 (Business Applications)<a class="anchor" href="#business-applications" title="Permanent link"></a></h2>
+<p>网络是当今业务应用的"信息高速公路"。为了让业务成功，这些应用必须能在用户、设备、数据、数据库和其他应用组件之间按需正确通信。</p>
+<h3 id="application-models">应用模型 (Application Models)<a class="anchor" href="#application-models" title="Permanent link"></a></h3>
+<p>网络设计师需要了解应用的构建方式，以便正确设计支持该应用的网络。</p>
+<h4 id="1-single-server-model">1. 单服务器模型 (Single-Server Model)<a class="anchor" href="#1-single-server-model" title="Permanent link"></a></h4>
+<p>最简单的应用模型，相当于在个人计算机上运行应用。应用运行所需的所有组件都在单个应用或服务器上。</p>
+<h4 id="2-2-tier-model">2. 二层模型 (2-Tier Model)<a class="anchor" href="#2-2-tier-model" title="Permanent link"></a></h4>
+<p>类似客户端/服务器架构。表示层（用户界面层）运行在客户端，数据集层在服务器端执行和存储。客户端和服务器之间没有中间层（应用层）。</p>
+<h4 id="3-3-tier-model">3. 三层模型 (3-Tier Model)<a class="anchor" href="#3-3-tier-model" title="Permanent link"></a></h4>
+<p>目前最常见的应用模型，包含三层：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>表示层 (Presentation)</strong></td>
+<td>Web 层 / GUI 层</td>
+<td>前端，最终用户访问和交互的界面。将任务和结果翻译为用户可理解的形式</td>
+</tr>
+<tr>
+<td><strong>中间层 (Intermediate)</strong></td>
+<td>应用层 / 逻辑层</td>
+<td>应用的功能和逻辑处理层。处理任务、函数和命令，做出决策和评估，执行计算。在表示层和数据库层之间移动数据</td>
+</tr>
+<tr>
+<td><strong>数据库层 (Database)</strong></td>
+<td>数据层</td>
+<td>存储和检索信息，传回中间层，最终返回给最终用户</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 将应用拆分为不同层级（n 层架构）使网络设计师可以<strong>为每层单独设计网络</strong>。每层可能需要自己的负载均衡、源 NAT、DNS、源路由和流量工程设计。</p>
+</blockquote>
+<h3 id="_2">三层模型的网络设计要素<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>流量模式</th>
+<th>网络设计要素</th>
+<th>需要考虑的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web 层</strong></td>
+<td>最终用户 ↔ Web 层</td>
+<td>无数据库层访问。通常位于 DMZ</td>
+<td>最终用户如何全球访问 Web 层？Web 层特定网络/IP 如何路由？Web 层高可用架构如何？(Active/Active, Active/Standby, Anycast 等)</td>
+</tr>
+<tr>
+<td><strong>应用层</strong></td>
+<td>Web 层 ↔ 应用层</td>
+<td>仅内部访问，无外部地址或路由。实施负载均衡。通常位于内部多层安全之后</td>
+<td>Web 层如何与应用层通信？数据库层如何与应用层通信？(SNAT, NAT, Sticky 等)</td>
+</tr>
+<tr>
+<td><strong>数据库层</strong></td>
+<td>应用层 ↔ 数据库层</td>
+<td>仅内部访问。通常位于内部多层安全之后</td>
+<td>不同数据库成员服务器之间如何复制？数据库变更如何同步？(多数据中心场景尤为重要)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">应用约束和需求<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<p>网络设计师需要了解的常见应用约束和需求：</p>
+<table>
+<thead>
+<tr>
+<th>约束/需求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>组播 (Multicast)</strong></td>
+<td>通常用于服务器集群间保持数据同步（如后端数据库复制），或作为数据流应用的传输机制（如 IPTV 和实时股市更新）。不支持组播会破坏应用</td>
+</tr>
+<tr>
+<td><strong>二层扩展 (Layer 2 Extension)</strong></td>
+<td>最常见的网络设计需求之一。应用服务器不在其二层段外通信。网络设计师需要提供二层扩展选项——这导致大型二层故障域的糟糕网络设计，但确实解决了应用需求</td>
+</tr>
+<tr>
+<td><strong>硬编码项 (Hardcoded Items)</strong></td>
+<td>代码中硬编码的 IP 地址、主机名等。需要通过 NAT、流量工程和源路由来缓解</td>
+</tr>
+<tr>
+<td><strong>高可用性 (High Availability)</strong></td>
+<td>应用如何设计高可用直接影响网络。多地点？数据如何同步？Active/Standby 还是 Active/Active？负载均衡方式？是否需要 SNAT？</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>网络设计师应注意</strong>：很多网络设计问题源于应用开发不当。例如被迫提供二层扩展作为"创可贴"方案——本应是短期方案却变成了永久方案。网络设计师和安全专家应参与应用构建和审查过程。</p>
+</blockquote>
+<hr />
+<h2 id="service-models">服务模型 (Service Models)<a class="anchor" href="#service-models" title="Permanent link"></a></h2>
+<p>服务模型决定了应用的位置以及应用的哪些元素由企业拥有和管理。</p>
+<h3 id="_4">四种主要服务模型<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<h4 id="1-on-premises">1. 本地部署 (On-premises)<a class="anchor" href="#1-on-premises" title="Permanent link"></a></h4>
+<p>企业拥有和管理应用。企业采购运行服务所需的所有基础设施，然后完全管理、维护和运营。</p>
+<p><strong>特点</strong>：
+- 完全控制所有组件
+- 本地可用
+- 托管在企业服务器环境中</p>
+<p><strong>适用场景</strong>：需要完全控制应用所有组件时，常见于安全合规和数据分类要求</p>
+<h4 id="2-saas">2. 软件即服务 (SaaS)<a class="anchor" href="#2-saas" title="Permanent link"></a></h4>
+<p>供应商通过 Internet 向用户提供软件，通常按月或年订阅。</p>
+<p><strong>特点</strong>：
+- 无需在任何计算机上安装和运行软件
+- 一切通过 Internet 访问
+- 可从任何设备、任何时间、有 Internet 连接的地方访问
+- 可扩展，按需提供服务</p>
+<p><strong>适用场景</strong>：希望应用确保可用性但不想维护应用时</p>
+<h4 id="3-paas">3. 平台即服务 (PaaS)<a class="anchor" href="#3-paas" title="Permanent link"></a></h4>
+<p>供应商提供硬件和软件工具，用户使用这些工具开发应用。PaaS 用户通常是应用开发者。</p>
+<p><strong>特点</strong>：
+- 主要供开发者创建软件和应用
+- 可扩展
+- 基于虚拟化技术构建
+- 无需从头开始即可创建应用
+- 易于运行，无需深入 IT 知识</p>
+<p><strong>适用场景</strong>：希望创建独特应用但不想花费大量资金或承担全部责任时</p>
+<h4 id="4-iaas">4. 基础设施即服务 (IaaS)<a class="anchor" href="#4-iaas" title="Permanent link"></a></h4>
+<p>按需付费的存储、网络和虚拟化服务模型——满足企业所有基础设施需求。</p>
+<p><strong>特点</strong>：
+- 高度灵活
+- 高度可扩展
+- 多用户可访问
+- 成本效益高
+- 企业保持对基础设施的控制</p>
+<p><strong>适用场景</strong>：需要完全控制虚拟基础设施但希望按需付费时</p>
+<h3 id="_5">服务模型对比<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>优势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本地部署</strong></td>
+<td>企业拥有和管理</td>
+<td>完全控制所有组件</td>
+<td>需要完全控制（安全合规、数据分类）</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>通过 Internet 可用</td>
+<td>无需安装，一切可用</td>
+<td>希望应用确保可用但不想维护</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td>多用户可访问</td>
+<td>开发者无需从零开始</td>
+<td>想创建独特应用但不想承担全部责任</td>
+</tr>
+<tr>
+<td><strong>IaaS</strong></td>
+<td>高度灵活可扩展</td>
+<td>按需付费，保持控制</td>
+<td>需要完全控制基础设施但希望按需付费</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="the-cloud">云 (The Cloud)<a class="anchor" href="#the-cloud" title="Permanent link"></a></h2>
+<p>当企业开始利用任何形式的云时，网络设计师应考虑三个用例：</p>
+<ol>
+<li><strong>安全地将私有网络扩展到单个或多个公有云环境</strong>：包括多云、多区域、多 VPC 连接；VPN；扩展数据中心到云；启用分支到云的直接连接</li>
+<li><strong>优化数据中心和分支到云 IaaS 和 SaaS 的连接性能</strong>：包括最佳路径选择、云分段、监控、流量整形/QoS</li>
+<li><strong>保护从分支到 Internet 和 SaaS 的访问</strong>：使用直接互联网接入 (DIA) 安全地连接分支用户到多云环境</li>
+</ol>
+<h3 id="_6">云连接模型<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<h4 id="1-direct-cloud-access-dca">1. 直接云接入 (Direct Cloud Access, DCA)<a class="anchor" href="#1-direct-cloud-access-dca" title="Permanent link"></a></h4>
+<p>允许远程站点直接从 Internet 访问 SaaS 应用，通过专用私有连接。</p>
+<ul>
+<li>云仅允许指定应用流量使用直接连接的 Internet 传输</li>
+<li>其他 Internet 流量走通常路径（通过区域中心、数据中心或 CNF）</li>
+<li>边缘路由器选择最优 Internet 路径访问 SaaS 应用</li>
+<li>不同应用可以走不同路径（按应用选择路径）</li>
+<li>如果路径不可达或性能不达标，移除该路径候选</li>
+<li>通常称为<strong>直接互联网接入 (DIA)</strong></li>
+</ul>
+<h4 id="2-cloud-access-through-gateway">2. 通过网关的云接入 (Cloud Access Through Gateway)<a class="anchor" href="#2-cloud-access-through-gateway" title="Permanent link"></a></h4>
+<p>许多企业不在分支使用 DIA（因为仅通过私有提供商连接，或集中策略/安全要求不允许）。</p>
+<ul>
+<li>SaaS 流量通过隧道发送到最佳性能的网关站点</li>
+<li>在网关站点路由到 Internet 访问 SaaS 应用</li>
+<li>使用网关站点的远程站点称为<strong>客户端站点 (Client Sites)</strong></li>
+<li>不同远程站点和应用可使用不同网关站点和路径</li>
+</ul>
+<h4 id="3-hybrid-approach">3. 混合方法 (Hybrid Approach)<a class="anchor" href="#3-hybrid-approach" title="Permanent link"></a></h4>
+<p>DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或网关站点，取决于哪条路径提供最佳性能。</p>
+<h3 id="_7">云类型<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>云类型</th>
+<th>定义</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>私有云 (Private Cloud)</strong></td>
+<td>云计算资源由一个企业专用。可在企业数据中心内或由 CSP 托管</td>
+<td>资源在私有网络上维护，所有设备专用于该企业</td>
+</tr>
+<tr>
+<td><strong>公有云 (Public Cloud)</strong></td>
+<td>最常见的云计算类型。资源由 CSP 拥有和运营</td>
+<td>与其他企业共享硬件、存储、虚拟化和网络设备</td>
+</tr>
+<tr>
+<td><strong>混合云 (Hybrid Cloud)</strong></td>
+<td>同时使用私有云和公有云</td>
+<td>获得两种云环境的优势同时限制其负面影响</td>
+</tr>
+<tr>
+<td><strong>多云 (Multi-cloud)</strong></td>
+<td>使用两个或更多 CSP</td>
+<td>可在不同云环境间实时移动工作负载</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">云类型详细对比<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>云类型</th>
+<th>控制权</th>
+<th>维护</th>
+<th>灵活性</th>
+<th>可扩展性</th>
+<th>迁移</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>私有云</strong></td>
+<td>最多控制</td>
+<td>高</td>
+<td>最低灵活性</td>
+<td>高可扩展性</td>
+<td>难迁移</td>
+<td>高成本</td>
+</tr>
+<tr>
+<td><strong>公有云</strong></td>
+<td>最少控制</td>
+<td>无</td>
+<td>灵活</td>
+<td>高可扩展性</td>
+<td>难迁移</td>
+<td>最低成本</td>
+</tr>
+<tr>
+<td><strong>混合云</strong></td>
+<td>两者混合</td>
+<td>中等</td>
+<td>灵活</td>
+<td>最低可扩展性</td>
+<td>易迁移</td>
+<td>高成本</td>
+</tr>
+<tr>
+<td><strong>多云</strong></td>
+<td>最少控制</td>
+<td>每个 CSP 维护高</td>
+<td>跨 CSP 最高灵活性</td>
+<td>最高可扩展性</td>
+<td>最难迁移</td>
+<td>最高成本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cloud-agnostic-architecture">云无关架构 (Cloud-Agnostic Architecture)<a class="anchor" href="#cloud-agnostic-architecture" title="Permanent link"></a></h3>
+<p>云无关架构不使用厂商特定的专有功能。专注于在不同云提供商之间利用相同的云能力。</p>
+<h4 id="_9">三大核心关注点<a class="anchor" href="#_9" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>关注点</th>
+<th>定义</th>
+<th>价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可移植性 (Portability)</strong></td>
+<td>在不同 CSP 之间移动应用和服务的能力</td>
+<td>通过适当的抽象层实现跨 CSP 移动</td>
+</tr>
+<tr>
+<td><strong>抽象 (Abstraction)</strong></td>
+<td>使用抽象层与底层云特定平台功能解耦</td>
+<td>直接降低成本，增加灵活性</td>
+</tr>
+<tr>
+<td><strong>互操作性 (Interoperability)</strong></td>
+<td>开发不被绑定到特定云功能集的应用和服务</td>
+<td>允许利用不同云平台而无需重大重新开发</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_10">实现云无关的实践<a class="anchor" href="#_10" title="Permanent link"></a></h4>
+<ol>
+<li>
+<p><strong>解耦 (Decoupling)</strong>：
+   - 应用与底层云平台解耦（通过面向服务架构 SOA）
+   - 云组件与使用它们的应用解耦</p>
+</li>
+<li>
+<p><strong>容器化 (Containerization)</strong>：
+   - 所有应用应遵循容器化架构
+   - 容器帮助将应用与云特定环境解耦
+   - 确保在不同云厂商之间迁移应用相对容易</p>
+</li>
+<li>
+<p><strong>云无关 vs 专有云服务</strong>：
+   - 需要区分云无关服务和云专有服务如何与应用交互
+   - 规划应用迁移到 CSP 的方式</p>
+</li>
+</ol>
+<h3 id="soa">面向服务架构 (SOA)<a class="anchor" href="#soa" title="Permanent link"></a></h3>
+<p>SOA 是确保云无关架构成功的关键软件设计风格。</p>
+<p><strong>SOA 的核心</strong>：服务通过网络通信协议提供给应用组件的其他部分。底层原则是厂商和技术无关的。</p>
+<p><strong>服务间通信方式</strong>：
+1. 在不同服务之间传递数据
+2. 在两个或多个服务之间协调活动事件</p>
+<p><strong>SOA 的好处</strong>：
+- 代码可复用，减少开发时间
+- 支持多种编码语言（使用中央接口）
+- 创建标准通信流程
+- 更高的可扩展性，限制客户端-服务器交互</p>
+<h3 id="_11">云容器化架构<a class="anchor" href="#_11" title="Permanent link"></a></h3>
+<p>从传统部署到容器化云部署的演进：</p>
+<pre><code>传统部署               虚拟化部署              容器部署
+┌──────────┐         ┌──────────────┐      ┌──────────────┐
+│ 物理服务器 │         │  物理服务器    │      │  物理服务器    │
+│          │         │ ┌──────────┐ │      │ ┌──────────┐ │
+│ 应用A     │         │ │ VM1      │ │      │ │ 容器1    │ │
+│          │         │ │ 应用A OS │ │      │ │ 应用A    │ │
+│ 应用B     │         │ └──────────┘ │      │ ├──────────┤ │
+│          │         │ ┌──────────┐ │      │ │ 容器2    │ │
+│ (资源竞争) │         │ │ VM2      │ │      │ │ 应用B    │ │
+│          │         │ │ 应用B OS │ │      │ ├──────────┤ │
+│          │         │ └──────────┘ │      │ │ 共享 OS   │ │
+│          │         │  Hypervisor  │      │ └──────────┘ │
+└──────────┘         └──────────────┘      └──────────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>部署方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传统部署</strong></td>
+<td>应用在物理服务器上运行。无法正确限制资源或设置控制。通常每台服务器专用于单个应用</td>
+</tr>
+<tr>
+<td><strong>虚拟化部署</strong></td>
+<td>多个 VM 在单台物理服务器上。每个 VM 独立隔离，有自己的资源和安全控制。每个 VM 运行所有组件（应用 + 操作系统）</td>
+</tr>
+<tr>
+<td><strong>容器部署</strong></td>
+<td>类似 VM 但隔离控制不那么严格，允许共享操作系统。轻量级。有自己的文件系统、共享 CPU 时间、内存、进程空间。可在不同基础设施间移动</td>
+</tr>
+</tbody>
+</table>
+<p><strong>容器的好处</strong>：
+- 敏捷的应用创建和部署 (CI/CD)
+- 开发和运维任务职责分离
+- 实时应用级健康分析
+- 跨所有环境的一致性
+- 实时分发到其他操作系统和位置
+- 提高应用性能的可预测性
+- 提高资源效率</p>
+<h3 id="_12">云应用策略<a class="anchor" href="#_12" title="Permanent link"></a></h3>
+<p>企业准备将应用迁移到云时，建议纳入<strong>应用评估流程</strong>。创建应用评估团队：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务线负责人</strong></td>
+<td>应用的业务利益相关者。理解应用的业务角色和影响</td>
+</tr>
+<tr>
+<td><strong>安全专家/合规审计员</strong></td>
+<td>负责安全控制、合规法规和代码审计</td>
+</tr>
+<tr>
+<td><strong>应用负责人/开发者</strong></td>
+<td>软件工程成员，负责创建和修改代码</td>
+</tr>
+<tr>
+<td><strong>网络工程师/设计师/架构师</strong></td>
+<td>提供网络资源以正确服务应用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="data-management">数据管理 (Data Management)<a class="anchor" href="#data-management" title="Permanent link"></a></h2>
+<blockquote>
+<p>数据是所有其他资源将利用的最关键资源。必须有效、准确、安全地管理所有数据，使其他资源能够正确利用数据，确保完整性、可用性和机密性。</p>
+</blockquote>
+<p>数据管理为数据分析奠定基础。没有良好的数据管理，就没有数据分析。</p>
+<h3 id="11">数据管理的 11 大支柱<a class="anchor" href="#11" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>支柱</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. <strong>数据治理 (Data Governance)</strong></td>
+<td>规划数据管理的所有方面，包括可用性、可用性、一致性、完整性和安全性</td>
+</tr>
+<tr>
+<td>2. <strong>数据架构 (Data Architecture)</strong></td>
+<td>企业数据的整体结构及其如何融入企业架构</td>
+</tr>
+<tr>
+<td>3. <strong>数据建模和设计 (Data Modeling and Design)</strong></td>
+<td>数据分析及相应的分析系统，包括设计、构建、测试和持续维护</td>
+</tr>
+<tr>
+<td>4. <strong>数据存储和运营 (Data Storage and Operations)</strong></td>
+<td>用于存储和管理数据的物理硬件</td>
+</tr>
+<tr>
+<td>5. <strong>数据安全 (Data Security)</strong></td>
+<td>确保数据受保护且仅被授权用户访问的所有安全要求、控制 and 组件</td>
+</tr>
+<tr>
+<td>6. <strong>数据集成和互操作性 (Data Integration and Interoperability)</strong></td>
+<td>将数据转换为结构化形式以供其他系统和资源利用</td>
+</tr>
+<tr>
+<td>7. <strong>文档和内容 (Documents and Content)</strong></td>
+<td>所有形式的非结构化数据及其可访问性工作</td>
+</tr>
+<tr>
+<td>8. <strong>参考和主数据 (Reference and Master Data)</strong></td>
+<td>以允许冗余的方式管理数据，错误可通过标准值归一化</td>
+</tr>
+<tr>
+<td>9. <strong>数据仓库和商业智能 (Data Warehousing and Business Intelligence)</strong></td>
+<td>管理和应用数据用于分析和业务决策</td>
+</tr>
+<tr>
+<td>10. <strong>元数据 (Metadata)</strong></td>
+<td>创建、收集、组织和管理元数据（引用其他数据的数据）</td>
+</tr>
+<tr>
+<td>11. <strong>数据质量 (Data Quality)</strong></td>
+<td>数据监控实践，确保交付的数据完整性得到维护</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 真正的数据管理模型需要包含所有 11 个支柱。缺少任何一个，就有数据管理领域未被覆盖。例如，没有元数据管理，企业失去轻松分类数据的能力；没有数据质量保证，所有数据都处于风险中，分析变得无用。</p>
+</blockquote>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-server Model</td>
+<td>单服务器模型</td>
+</tr>
+<tr>
+<td>2-Tier Model</td>
+<td>二层模型</td>
+</tr>
+<tr>
+<td>3-Tier Model</td>
+<td>三层模型</td>
+</tr>
+<tr>
+<td>Web Tier</td>
+<td>Web 层（表示层）</td>
+</tr>
+<tr>
+<td>Application Tier</td>
+<td>应用层（逻辑层）</td>
+</tr>
+<tr>
+<td>Database Tier</td>
+<td>数据库层</td>
+</tr>
+<tr>
+<td>On-premises</td>
+<td>本地部署</td>
+</tr>
+<tr>
+<td>SaaS (Software as a Service)</td>
+<td>软件即服务</td>
+</tr>
+<tr>
+<td>PaaS (Platform as a Service)</td>
+<td>平台即服务</td>
+</tr>
+<tr>
+<td>IaaS (Infrastructure as a Service)</td>
+<td>基础设施即服务</td>
+</tr>
+<tr>
+<td>DCA (Direct Cloud Access)</td>
+<td>直接云接入</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>直接互联网接入</td>
+</tr>
+<tr>
+<td>Private Cloud</td>
+<td>私有云</td>
+</tr>
+<tr>
+<td>Public Cloud</td>
+<td>公有云</td>
+</tr>
+<tr>
+<td>Hybrid Cloud</td>
+<td>混合云</td>
+</tr>
+<tr>
+<td>Multi-cloud</td>
+<td>多云</td>
+</tr>
+<tr>
+<td>Cloud-Agnostic</td>
+<td>云无关</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>可移植性</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>抽象</td>
+</tr>
+<tr>
+<td>Interoperability</td>
+<td>互操作性</td>
+</tr>
+<tr>
+<td>Decoupling</td>
+<td>解耦</td>
+</tr>
+<tr>
+<td>Containerization</td>
+<td>容器化</td>
+</tr>
+<tr>
+<td>SOA (Service-Oriented Architecture)</td>
+<td>面向服务架构</td>
+</tr>
+<tr>
+<td>Data Governance</td>
+<td>数据治理</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>数据架构</td>
+</tr>
+<tr>
+<td>Data Security</td>
+<td>数据安全</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>元数据</td>
+</tr>
+<tr>
+<td>Data Quality</td>
+<td>数据质量</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-02.html"><span class="pager-label">上一章</span><span class="pager-title">02 · 为商业成功而设计</span></a><a class="pager-link next" href="ch-04.html"><span class="pager-label">下一章</span><span class="pager-title">04 · 安全是普适的</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a></li>
+<li><a href="#business-applications">业务应用 (Business Applications)</a><ul>
+<li><a href="#application-models">应用模型 (Application Models)</a></li>
+<li><a href="#_2">三层模型的网络设计要素</a></li>
+<li><a href="#_3">应用约束和需求</a></li>
+</ul>
+</li>
+<li><a href="#service-models">服务模型 (Service Models)</a><ul>
+<li><a href="#_4">四种主要服务模型</a></li>
+<li><a href="#_5">服务模型对比</a></li>
+</ul>
+</li>
+<li><a href="#the-cloud">云 (The Cloud)</a><ul>
+<li><a href="#_6">云连接模型</a></li>
+<li><a href="#_7">云类型</a></li>
+<li><a href="#_8">云类型详细对比</a></li>
+<li><a href="#cloud-agnostic-architecture">云无关架构 (Cloud-Agnostic Architecture)</a></li>
+<li><a href="#soa">面向服务架构 (SOA)</a></li>
+<li><a href="#_11">云容器化架构</a></li>
+<li><a href="#_12">云应用策略</a></li>
+</ul>
+</li>
+<li><a href="#data-management">数据管理 (Data Management)</a><ul>
+<li><a href="#11">数据管理的 11 大支柱</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

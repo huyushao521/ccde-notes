@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全是普适的 · 第 4 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link active" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="4-security-is-pervasive">第 4 章：安全是普适的 (Security Is Pervasive)<a class="anchor" href="#4-security-is-pervasive" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 209-233 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>零信任架构 (Zero Trust Architecture)</strong>：零信任架构的支柱、能力和组件</li>
+<li><strong>安全 CIA 三要素</strong>：机密性、完整性和可用性及其设计要素</li>
+<li><strong>法规合规</strong>：如何根据合规标准设计解决方案</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<p>当今的融合网络承载着大量关键业务信息（语音、视频或数据），使保护和保障这些信息变得极为重要，原因有两个：
+1. <strong>信息安全和隐私</strong>
+2. <strong>维持业务连续性</strong>（如防止 DDoS 攻击）</p>
+<p>网络基础设施和网络安全的设计<strong>不能孤立进行</strong>。整体方法对于网络安全设计至关重要。<strong>安全不能是事后补充，必须处于每个设计决策的前沿。</strong></p>
+<h3 id="security-policy">安全策略 (Security Policy)<a class="anchor" href="#security-policy" title="Permanent link"></a></h3>
+<p>安全策略是关于获得组织技术和信息资产访问权限的人员必须遵守的规则的正式声明。在开始任何网络设计之前，理解组织的安全策略及其标准是关键前提。</p>
+<blockquote>
+<p><strong>示例</strong>：你可能建议将现有的 1G 暗光纤重新设计为虚拟租用线 (VLL) 解决方案。但安全策略可能规定：任何穿越非组织拥有网络的流量必须加密。因此需要添加 IPsec 或 MACsec 来提供加密 VLL。</p>
+</blockquote>
+<h3 id="security-domains-and-zones">安全域和区域 (Security Domains and Zones)<a class="anchor" href="#security-domains-and-zones" title="Permanent link"></a></h3>
+<p>使用结构化模块化方法，将网络分成多个<strong>安全域</strong>，在域之间引入<strong>检查点 (Chokepoints)</strong>：</p>
+<pre><code>┌─────────────────────────────────────────────┐
+│              企业核心层                       │
+├──────┬──────────────┬──────────┬───────────┤
+│ 互联网│   数据中心     │  网络管理  │  WAN      │
+│ 边缘域│   安全域      │  区域     │  安全域    │
+│      │ ┌──┐┌──┐┌──┐│          │          │
+│ 防火墙│ │Web││DB││App││ 防火墙    │ 防火墙    │
+│ IPS  │ │区 ││区││区 ││          │          │
+│      │ └──┘└──┘└──┘│          │          │
+└──────┴──────────────┴──────────┴───────────┘
+</code></pre>
+<p>每个域被赋予信任级别，使用 iACL、防火墙、IPS 等机制控制域间流量。</p>
+<hr />
+<h2 id="zero-trust-architecture">零信任架构 (Zero Trust Architecture)<a class="anchor" href="#zero-trust-architecture" title="Permanent link"></a></h2>
+<p>零信任架构是对安全的范式转变——不再是边界防火墙模型，而是<strong>无边界架构，拒绝所有访问直到明确允许</strong>。</p>
+<h3 id="_2">零信任架构的支柱<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<ol>
+<li><strong>网络始终被假定为敌对的</strong></li>
+<li><strong>外部和内部威胁随时随地在</strong></li>
+<li><strong>每个设备、应用、用户和网络流都被认证和授权</strong></li>
+<li><strong>自动化系统是构建和运营零信任网络的基础</strong></li>
+<li><strong>策略必须是动态的，从尽可能多的数据源计算</strong></li>
+<li><strong>所有活动都被记录</strong></li>
+</ol>
+<h3 id="_3">零信任架构概念<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>静态因素 (Static Factors)</strong></td>
+<td>我们已知的项目，可预先基于此设定访问和授权。包括凭证、设备信任、网络、物理位置、生物特征、设备方向</td>
+</tr>
+<tr>
+<td><strong>动态因素 (Dynamic Factors)</strong></td>
+<td>可在访问时分析以改变授权级别的数据源。包括威胁情报、地理速度（当前位置与上次登录位置的差异）、GPS 坐标、实时数据分析</td>
+</tr>
+<tr>
+<td><strong>有权访问 (Entitled to Access)</strong></td>
+<td>用户基于角色的访问权限。不同角色（如财务用户 vs 人力资源用户）应有不同访问权限。也适用于设备（打印机 vs IoT 设备）</td>
+</tr>
+<tr>
+<td><strong>信任分数 (Trust Score)</strong></td>
+<td>静态和动态因素的组合，持续提供身份保证。确定与资源风险值匹配的访问级别</td>
+</tr>
+<tr>
+<td><strong>风险分数 (Risk Score)</strong></td>
+<td>资产、应用和网络的风险级别阈值，必须被超过才允许访问</td>
+</tr>
+<tr>
+<td><strong>访问授权 (Authorization for Access)</strong></td>
+<td>信任分数和授权级别的组合。即使信任分数足够高，如果没有正确的授权级别，也不会被授予访问</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">零信任架构能力<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>定义</th>
+<th>也称为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>清单 (Inventory)</strong></td>
+<td>所有资源（用户、设备、工作负载、应用）的单一真相来源</td>
+<td>策略信息点 (PIP)</td>
+</tr>
+<tr>
+<td><strong>策略引擎 (Policy Engine)</strong></td>
+<td>实施策略、匹配规则、推送访问授权的位置</td>
+<td>策略管理点 (PAP) + 策略决策点 (PDP)</td>
+</tr>
+<tr>
+<td><strong>信任引擎 (Trust Engine)</strong></td>
+<td>通过持续分析资源状态动态评估整体信任。利用由静态和动态因素构建的信任分数</td>
+<td>策略信息点 (PIP)</td>
+</tr>
+<tr>
+<td><strong>终端设备 (Endpoint Device)</strong></td>
+<td>最终用户用来访问企业网络的任何设备</td>
+<td>策略执行点 (PEP)</td>
+</tr>
+<tr>
+<td><strong>基础设施设备 (Infrastructure Devices)</strong></td>
+<td>企业内的网络设备（交换机、路由器、防火墙）</td>
+<td>策略执行点 (PEP)</td>
+</tr>
+<tr>
+<td><strong>策略执行点 (PEP)</strong></td>
+<td>执行信任和策略的位置</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>反馈循环 (Feedback Loop)</strong></td>
+<td>持续信息共享，通过 AI/ML、大数据和数据湖动态更改策略</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">零信任迁移步骤<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. 建立信任</strong></td>
+<td>用户身份多因素、设备上下文和身份、设备状态和健康、位置、相关属性和上下文、开发部署</td>
+</tr>
+<tr>
+<td><strong>2. 提供基于信任的访问</strong></td>
+<td>网络、应用、资源、用户和物</td>
+</tr>
+<tr>
+<td><strong>3. 持续验证信任</strong></td>
+<td>用于建立信任的原始条件仍然成立、流量不是威胁流量、任何风险/异常/恶意行为的行为检查、如果被攻破则信任被打破</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cia-security-cia-triad">安全 CIA 三要素 (Security CIA Triad)<a class="anchor" href="#cia-security-cia-triad" title="Permanent link"></a></h2>
+<p>机密性、完整性和可用性是信息安全的基础。这些元素帮助构建保护信息和资源免受未授权访问、修改、检查或破坏的安全系统。</p>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>特征</th>
+<th>实现机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>机密性 (Confidentiality)</strong></td>
+<td>防止未授权访问信息，维持传输信息的保密性</td>
+<td>加密、用户 ID 和密码（双因素认证更常见）、安全令牌</td>
+</tr>
+<tr>
+<td><strong>完整性 (Integrity)</strong></td>
+<td>端到端维持准确信息，确保未被未授权实体篡改</td>
+<td>加密、数据校验和、哈希</td>
+</tr>
+<tr>
+<td><strong>可用性 (Availability)</strong></td>
+<td>确保服务和系统始终可用，授权用户可在需要时访问。现代网络中可用性不仅用上线/下线时间衡量，还用质量衡量（如恶意流量增加延迟导致 VoIP 质量下降）</td>
+<td>高可用性系统设计（网络、存储、计算、应用层），防止 DoS 等攻击</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="regulatory-compliance">法规合规 (Regulatory Compliance)<a class="anchor" href="#regulatory-compliance" title="Permanent link"></a></h2>
+<p>网络设计师应能够获取任何合规标准，并设计符合其特定约束的解决方案。</p>
+<h3 id="hipaa">HIPAA（美国健康保险流通与责任法案）<a class="anchor" href="#hipaa" title="Permanent link"></a></h3>
+<p>1996 年颁布，由民权办公室执行。</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>隐私规则</strong></td>
+<td>保护个人可识别健康信息 (PHI) 的隐私</td>
+</tr>
+<tr>
+<td><strong>安全规则</strong></td>
+<td>设定电子健康信息的国家安全标准</td>
+</tr>
+<tr>
+<td><strong>患者安全规则</strong></td>
+<td>保护用于分析患者安全事件和改善安全的可识别信息</td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用场景</strong>：医院、诊所、保险机构、与覆盖实体密切合作的服务提供商。</p>
+<h3 id="pci-dss">PCI DSS（支付卡行业数据安全标准）<a class="anchor" href="#pci-dss" title="Permanent link"></a></h3>
+<p>由信用卡公司强制要求，确保信用卡交易安全。由 PCI 安全标准委员会开发和管理。</p>
+<p><strong>12 项要求</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>安装和维护防火墙配置以保护持卡人数据</td>
+</tr>
+<tr>
+<td>2</td>
+<td>不使用供应商提供的默认系统密码和安全参数</td>
+</tr>
+<tr>
+<td>3</td>
+<td>保护存储的持卡人数据</td>
+</tr>
+<tr>
+<td>4</td>
+<td>加密在开放公共网络上传输的持卡人数据</td>
+</tr>
+<tr>
+<td>5</td>
+<td>保护所有系统免受恶意软件攻击，定期更新防病毒软件</td>
+</tr>
+<tr>
+<td>6</td>
+<td>开发和维护安全的系统及应用</td>
+</tr>
+<tr>
+<td>7</td>
+<td>按业务需要限制对持卡人数据的访问</td>
+</tr>
+<tr>
+<td>8</td>
+<td>识别和认证对系统组件的访问</td>
+</tr>
+<tr>
+<td>9</td>
+<td>限制对持卡人数据的物理访问</td>
+</tr>
+<tr>
+<td>10</td>
+<td>跟踪和监控对网络资源和持卡人数据的所有访问</td>
+</tr>
+<tr>
+<td>11</td>
+<td>定期测试安全系统和流程</td>
+</tr>
+<tr>
+<td>12</td>
+<td>维护针对所有人员的信息安全策略</td>
+</tr>
+</tbody>
+</table>
+<p><strong>适用场景</strong>：有销售点系统或在线订购系统的企业——快餐店、零售店、在线商店等所有存储、处理和传输持卡人数据的实体。</p>
+<h3 id="gdpr">GDPR（通用数据保护条例）<a class="anchor" href="#gdpr" title="Permanent link"></a></h3>
+<p>欧盟数据保护法规，为从个人收集和处理个人信息设定指导原则。</p>
+<p><strong>重要</strong>：GDPR 不仅适用于欧盟公司，还适用于向欧盟居民提供产品或服务的任何组织。</p>
+<p><strong>GDPR 保护的个人数据类型</strong>：
+- 基本身份信息（姓名、地址、身份证号）
+- Web 数据（位置、IP 地址、Cookie 数据、RFID 标签）
+- 健康和基因数据
+- 生物特征数据
+- 种族或民族数据
+- 政治观点
+- 性取向</p>
+<h3 id="data-sovereignty">数据主权 (Data Sovereignty)<a class="anchor" href="#data-sovereignty" title="Permanent link"></a></h3>
+<p>信息受其收集和处理所在地的法规约束。信息在某个国家收集和处理后，必须留在该国边界内，并按该国法律保护。</p>
+<blockquote>
+<p>常见于企业将数据发送到其他国家（服务器/数据中心所在地）或迁移到云提供商时。相关数据不能离开该国，必须按该国法规存储。</p>
+</blockquote>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero Trust Architecture (ZTA)</td>
+<td>零信任架构</td>
+</tr>
+<tr>
+<td>Static Factors</td>
+<td>静态因素</td>
+</tr>
+<tr>
+<td>Dynamic Factors</td>
+<td>动态因素</td>
+</tr>
+<tr>
+<td>Entitled to Access</td>
+<td>有权访问</td>
+</tr>
+<tr>
+<td>Trust Score</td>
+<td>信任分数</td>
+</tr>
+<tr>
+<td>Risk Score</td>
+<td>风险分数</td>
+</tr>
+<tr>
+<td>Authorization for Access</td>
+<td>访问授权</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>清单</td>
+</tr>
+<tr>
+<td>Policy Engine</td>
+<td>策略引擎</td>
+</tr>
+<tr>
+<td>Trust Engine</td>
+<td>信任引擎</td>
+</tr>
+<tr>
+<td>Endpoint Device</td>
+<td>终端设备</td>
+</tr>
+<tr>
+<td>Policy Enforcement Point (PEP)</td>
+<td>策略执行点</td>
+</tr>
+<tr>
+<td>Feedback Loop</td>
+<td>反馈循环</td>
+</tr>
+<tr>
+<td>Confidentiality</td>
+<td>机密性</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>完整性</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>可用性</td>
+</tr>
+<tr>
+<td>HIPAA</td>
+<td>美国健康保险流通与责任法案</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>支付卡行业数据安全标准</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>通用数据保护条例</td>
+</tr>
+<tr>
+<td>Data Sovereignty</td>
+<td>数据主权</td>
+</tr>
+<tr>
+<td>Security Domain</td>
+<td>安全域</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>区域</td>
+</tr>
+<tr>
+<td>Chokepoint</td>
+<td>检查点</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-03.html"><span class="pager-label">上一章</span><span class="pager-title">03 · 网络的目的是什么</span></a><a class="pager-link next" href="ch-05.html"><span class="pager-label">下一章</span><span class="pager-title">05 · 参考架构模型与框架</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#security-policy">安全策略 (Security Policy)</a></li>
+<li><a href="#security-domains-and-zones">安全域和区域 (Security Domains and Zones)</a></li>
+</ul>
+</li>
+<li><a href="#zero-trust-architecture">零信任架构 (Zero Trust Architecture)</a><ul>
+<li><a href="#_2">零信任架构的支柱</a></li>
+<li><a href="#_3">零信任架构概念</a></li>
+<li><a href="#_4">零信任架构能力</a></li>
+<li><a href="#_5">零信任迁移步骤</a></li>
+</ul>
+</li>
+<li><a href="#cia-security-cia-triad">安全 CIA 三要素 (Security CIA Triad)</a></li>
+<li><a href="#regulatory-compliance">法规合规 (Regulatory Compliance)</a><ul>
+<li><a href="#hipaa">HIPAA（美国健康保险流通与责任法案）</a></li>
+<li><a href="#pci-dss">PCI DSS（支付卡行业数据安全标准）</a></li>
+<li><a href="#gdpr">GDPR（通用数据保护条例）</a></li>
+<li><a href="#data-sovereignty">数据主权 (Data Sovereignty)</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

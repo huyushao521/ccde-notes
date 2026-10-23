@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二层技术 · 第 7 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link active" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="7-layer-2-technologies">第 7 章：二层技术 (Layer 2 Technologies)<a class="anchor" href="#7-layer-2-technologies" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 300-321 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>二层核心技术</strong>：STP、VLAN、Trunk、链路聚合、mLAG、FHRP</li>
+<li><strong>二层 LAN 常见设计模型</strong>：传统 STP 模型和交换机集群模型</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="layer-2-core-technologies">二层核心技术 (Layer 2 Core Technologies)<a class="anchor" href="#layer-2-core-technologies" title="Permanent link"></a></h3>
+<p>网络设计师需要了解、理解并能够正确做出设计决策的二层核心技术包括：</p>
+<ol>
+<li>生成树协议 (STP)</li>
+<li>虚拟局域网 (VLAN)</li>
+<li>Trunking（中继）</li>
+<li>链路聚合</li>
+<li>多机箱链路聚合 (mLAG)</li>
+<li>首跳冗余协议 (FHRP)</li>
+</ol>
+<hr />
+<h3 id="spanning-tree-protocol-stp">生成树协议 (Spanning Tree Protocol, STP)<a class="anchor" href="#spanning-tree-protocol-stp" title="Permanent link"></a></h3>
+<p>STP 是经典二层交换网络环境中最成熟和最常用的控制协议，用于防止二层桥接环路。它通过阻塞冗余 L2 接口来提供无环拓扑。</p>
+<h4 id="stp">STP 版本<a class="anchor" href="#stp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>标准</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.1D</strong></td>
+<td>传统 STP</td>
+<td>基础版本，收敛较慢</td>
+</tr>
+<tr>
+<td><strong>802.1W</strong></td>
+<td>快速 STP (RSTP)</td>
+<td>增强收敛时间，支持大规模部署</td>
+</tr>
+<tr>
+<td><strong>802.1S</strong></td>
+<td>多生成树 (MST)</td>
+<td>将多个 VLAN 聚合到同一 STP 实例，减少 CPU 负载，支持超大规模部署</td>
+</tr>
+</tbody>
+</table>
+<h4 id="stp_1">STP 增强特性<a class="anchor" href="#stp_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>功能</th>
+<th>部署位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loop Guard</strong></td>
+<td>防止备用端口或根端口在没有 BPDU 的情况下被选举</td>
+<td>分布层下行端口</td>
+</tr>
+<tr>
+<td><strong>Root Guard</strong></td>
+<td>防止外部或下游交换机成为根桥</td>
+<td>分布层下行端口</td>
+</tr>
+<tr>
+<td><strong>BPDU Guard</strong></td>
+<td>在启用了 PortFast 的端口收到 BPDU 时禁用该端口</td>
+<td>接入层端口</td>
+</tr>
+<tr>
+<td><strong>BPDU Filter</strong></td>
+<td>阻止在 PortFast 端口上发送或接收 BPDU</td>
+<td>接入层端口</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。</p>
+</blockquote>
+<hr />
+<h3 id="vlan-trunking">VLAN 和 Trunking<a class="anchor" href="#vlan-trunking" title="Permanent link"></a></h3>
+<p><strong>VLAN</strong> 是一种网络虚拟化技术，提供广播域的逻辑分离和策略控制。VLAN 还在二层提供一定程度的故障隔离。</p>
+<p><strong>Trunking</strong> 是允许在单条物理链路上承载多个 VLAN 的协议，使 VLAN 可以跨交换机扩展。</p>
+<blockquote>
+<p>⚠️ <strong>设计最佳实践</strong>：VLAN 不应跨多台接入交换机。但这只是一般建议——某些设计需要 VLAN 跨交换机扩展（如多数据中心虚拟机迁移场景）。</p>
+</blockquote>
+<hr />
+<h3 id="link-aggregation">链路聚合 (Link Aggregation)<a class="anchor" href="#link-aggregation" title="Permanent link"></a></h3>
+<p>IEEE 802.3ad 标准，将多条物理链路组合为一条逻辑链路。</p>
+<p><strong>优势</strong>：
+- 成本效益高的带宽增加方案（无需硬件升级）
+- 消除单点故障，增强链路级可靠性
+- 行业标准，支持多厂商互操作</p>
+<p><strong>两种连接模型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单机箱链路聚合</strong></td>
+<td>两个网络节点之间的点对点连接</td>
+</tr>
+<tr>
+<td><strong>多机箱链路聚合 (mLAG)</strong></td>
+<td>上游交换机以"交换机集群"模式部署，提供更高级别的链路和路径弹性</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 每个单独的流量受限于该流量使用的成员链路速度（基于负载均衡哈希算法）。</p>
+<p>💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。</p>
+</blockquote>
+<hr />
+<h3 id="fhrp-stp">首跳冗余协议 (FHRP) 和 STP<a class="anchor" href="#fhrp-stp" title="Permanent link"></a></h3>
+<p>FHRP 提供首跳三层网关的透明故障转移能力。两台或多台三层设备作为一个组，代表一个虚拟三层网关。</p>
+<h4 id="fhrp">FHRP 选项对比<a class="anchor" href="#fhrp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>HSRP</th>
+<th>VRRP</th>
+<th>GLBP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标准</strong></td>
+<td>Cisco 专有</td>
+<td>IEEE 标准</td>
+<td>Cisco 专有</td>
+</tr>
+<tr>
+<td><strong>IPv6 支持</strong></td>
+<td>是 (v2)</td>
+<td>是 (v3)</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>认证</strong></td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>负载分担</strong></td>
+<td>多个 HSRP 组</td>
+<td>多个 VRRP 组</td>
+<td>原生支持</td>
+</tr>
+<tr>
+<td><strong>默认 Hello 计时器</strong></td>
+<td>3 秒</td>
+<td>1 秒</td>
+<td>3 秒</td>
+</tr>
+<tr>
+<td><strong>虚拟 IP</strong></td>
+<td>可与接口 IP 不同</td>
+<td>可与接口 IP 不同</td>
+<td>与接口 IP 不同</td>
+</tr>
+<tr>
+<td><strong>BFD 支持</strong></td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fhrp-stp_1">FHRP 和 STP 对齐设计（关键！）<a class="anchor" href="#fhrp-stp_1" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>最常见的网络设计错误之一</strong>：STP 根桥未与 FHRP 活动实例对齐。</p>
+</blockquote>
+<p><strong>正确的对齐设计</strong>（图 7-3）：
+1. 分布交换机之间的链路配置为<strong>三层链路</strong>
+2. VLAN <strong>不跨交换机扩展</strong>
+3. <strong>STP 根桥与每个 VLAN 的活动 FHRP 实例对齐</strong>
+4. 接入层到分布层的上行链路从 STP 角度都是<strong>转发状态</strong></p>
+<p><strong>未对齐的后果</strong>：
+- 流量经过额外跳到达活动 FHRP 网关
+- 次优路由
+- 在大多数情况下被视为糟糕的设计</p>
+<blockquote>
+<p>💡 当使用 GLBP 作为 FHRP 时，由于 ARP 响应分配是随机的，不如 HSRP 或 VRRP 确定性强。</p>
+</blockquote>
+<hr />
+<h2 id="lan">二层 LAN 常见设计模型<a class="anchor" href="#lan" title="Permanent link"></a></h2>
+<h3 id="stp_2">基于 STP 的模型<a class="anchor" href="#stp_2" title="Permanent link"></a></h3>
+<p>四种经典 STP 拓扑：</p>
+<h4 id="1-looped-triangle">1. 环路三角形拓扑 (Looped Triangle)<a class="anchor" href="#1-looped-triangle" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │  ╲        ╱  │
+     │   ╲      ╱   │
+     │    ╲    ╱    │
+     └───── ASW ────┘
+</code></pre>
+<ul>
+<li><strong>设计顾虑</strong>：STP 限制了所有可用上行链路的利用，效率不高</li>
+<li><strong>适用场景</strong>：单归属端点，无高带宽和快速收敛需求</li>
+</ul>
+<h4 id="2-u-loop-free-inverted-u">2. 无环路倒 U 型拓扑 (Loop-Free Inverted U)<a class="anchor" href="#2-u-loop-free-inverted-u" title="Permanent link"></a></h4>
+<pre><code>    DSW1          DSW2
+     │            │
+     │            │
+     └──── ASW ────┘
+</code></pre>
+<ul>
+<li><strong>设计顾虑</strong>：如果一台分布交换机或上行链路故障，会引入单点故障</li>
+<li><strong>适用场景</strong>：双归属端点（NIC 绑定）或不需要低 MTTR 的端点</li>
+</ul>
+<h4 id="3-looped-square">3. 环路方形拓扑 (Looped Square)<a class="anchor" href="#3-looped-square" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │            │
+     │            │
+     └──── ASW ────┘
+</code></pre>
+<ul>
+<li><strong>设计顾虑</strong>：大量接入层流量可能穿越交换机间链路到达活动 FHRP</li>
+<li><strong>适用场景</strong>：非关键单/双归属端点，无高带宽需求</li>
+</ul>
+<h4 id="4-u-loop-free-u">4. 无环路 U 型拓扑 (Loop-Free U)<a class="anchor" href="#4-u-loop-free-u" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │            
+     │            
+     ASW ────────┘
+</code></pre>
+<ul>
+<li><strong>设计顾虑</strong>：无法在超过一对接入交换机上扩展相同 VLAN</li>
+<li><strong>适用场景</strong>：单/双归属端点，高转发容量和较快收敛需求，不需要跨交换机扩展 VLAN</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>共同限制</strong>：所有 STP 模型都依赖 STP 避免环路，依赖 FHRP 计时器收敛。这些依赖导致节点或链路故障时收敛时间增加。调优和对齐 STP 和 FHRP 计时器是推荐做法。</p>
+</blockquote>
+<h4 id="_2">四种拓扑综合对比<a class="anchor" href="#_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>拓扑</th>
+<th>设计顾虑</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>环路三角形</td>
+<td>STP 限制上行链路利用</td>
+<td>单归属端点，无高带宽需求</td>
+</tr>
+<tr>
+<td>无环路倒 U</td>
+<td>分布交换机故障引入单点故障</td>
+<td>双归属端点，不需要低 MTTR</td>
+</tr>
+<tr>
+<td>环路方形</td>
+<td>流量穿越交换机间链路到达 FHRP</td>
+<td>非关键端点，无高带宽需求</td>
+</tr>
+<tr>
+<td>无环路 U</td>
+<td>无法扩展 VLAN 超过一对交换机</td>
+<td>需要高转发容量和快速收敛的场景</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="switch-clustering-based-virtual-switch">交换机集群模型 (Switch Clustering Based / Virtual Switch)<a class="anchor" href="#switch-clustering-based-virtual-switch" title="Permanent link"></a></h3>
+<p>交换机集群显著改变了接入层和分布层之间的二层设计模型。</p>
+<p><strong>核心思想</strong>：一对上游分布交换机从接入交换机角度看是一台逻辑（虚拟）交换机。</p>
+<p><strong>优势</strong>：
+- <strong>消除对 STP 和 FHRP 的依赖</strong>，消除相关收敛延迟
+- 所有上行链路处于转发状态
+- 一个虚拟 IP 网关，两台交换机都转发流量（Active-Active）
+- <strong>最大化带宽容量</strong>，利用所有上行链路
+- 支持跨接入交换机安全扩展二层 VLAN，无需担心二层环路
+- 比传统 STP 设计更简单、可靠、易管理、可扩展</p>
+<p><strong>局限性 — 脑裂 (Split-Brain)</strong>：
+- 两台或更多集群设备同时充当主设备
+- 通常由集群链路故障引起
+- 使用<strong>双活检测 (Dual Active Detection)</strong> 机制来缓解</p>
+<h4 id="stacking">交换机堆叠 (Stacking)<a class="anchor" href="#stacking" title="Permanent link"></a></h4>
+<p>交换机堆叠是集群的另一种形式：
+- 多台物理交换机通过 StackWise 互联电缆连接
+- 选举主交换机
+- 作为单一对象管理，使用单一 IP 管理地址和单一配置文件
+- 可创建 EtherChannel 连接和 MEC（多机箱 EtherChannel）</p>
+<hr />
+<h3 id="daisy-chained-access-switches">菊花链接入交换机 (Daisy-Chained Access Switches)<a class="anchor" href="#daisy-chained-access-switches" title="Permanent link"></a></h3>
+<blockquote>
+<p>⚠️ 通常作为临时解决方案使用，可能引入以下问题：
+- 双活 HSRP（脑裂情况）
+- 使用分布交换机 1 作为活动 FHRP 网关的设备可能丢失 50% 的返回流量</p>
+<p>💡 当建议替代方案时，必须确保新设计不会在故障场景中引入新的问题。否则新引入的问题将超过方案的好处。</p>
+</blockquote>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spanning Tree Protocol (STP)</td>
+<td>生成树协议</td>
+</tr>
+<tr>
+<td>802.1D</td>
+<td>传统 STP</td>
+</tr>
+<tr>
+<td>802.1W (RSTP)</td>
+<td>快速生成树</td>
+</tr>
+<tr>
+<td>802.1S (MST)</td>
+<td>多生成树</td>
+</tr>
+<tr>
+<td>Loop Guard</td>
+<td>环路保护</td>
+</tr>
+<tr>
+<td>Root Guard</td>
+<td>根保护</td>
+</tr>
+<tr>
+<td>BPDU Guard</td>
+<td>BPDU 保护</td>
+</tr>
+<tr>
+<td>BPDU Filter</td>
+<td>BPDU 过滤</td>
+</tr>
+<tr>
+<td>PortFast</td>
+<td>端口快速</td>
+</tr>
+<tr>
+<td>VLAN</td>
+<td>虚拟局域网</td>
+</tr>
+<tr>
+<td>Trunking</td>
+<td>中继</td>
+</tr>
+<tr>
+<td>LACP (802.3ad)</td>
+<td>链路聚合控制协议</td>
+</tr>
+<tr>
+<td>mLAG</td>
+<td>多机箱链路聚合</td>
+</tr>
+<tr>
+<td>VSS</td>
+<td>虚拟交换系统</td>
+</tr>
+<tr>
+<td>StackWise</td>
+<td>智能堆叠</td>
+</tr>
+<tr>
+<td>FHRP</td>
+<td>首跳冗余协议</td>
+</tr>
+<tr>
+<td>HSRP</td>
+<td>热备份路由协议</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>虚拟路由冗余协议</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>网关负载均衡协议</td>
+</tr>
+<tr>
+<td>Looped Triangle</td>
+<td>环路三角形拓扑</td>
+</tr>
+<tr>
+<td>Loop-Free Inverted U</td>
+<td>无环路倒 U 型拓扑</td>
+</tr>
+<tr>
+<td>Looped Square</td>
+<td>环路方形拓扑</td>
+</tr>
+<tr>
+<td>Loop-Free U</td>
+<td>无环路 U 型拓扑</td>
+</tr>
+<tr>
+<td>Split-Brain</td>
+<td>脑裂</td>
+</tr>
+<tr>
+<td>Dual Active Detection</td>
+<td>双活检测</td>
+</tr>
+<tr>
+<td>MEC</td>
+<td>多机箱 EtherChannel</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-06.html"><span class="pager-label">上一章</span><span class="pager-title">06 · 传输技术</span></a><a class="pager-link next" href="ch-08.html"><span class="pager-label">下一章</span><span class="pager-title">08 · 三层技术</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#layer-2-core-technologies">二层核心技术 (Layer 2 Core Technologies)</a></li>
+<li><a href="#spanning-tree-protocol-stp">生成树协议 (Spanning Tree Protocol, STP)</a></li>
+<li><a href="#vlan-trunking">VLAN 和 Trunking</a></li>
+<li><a href="#link-aggregation">链路聚合 (Link Aggregation)</a></li>
+<li><a href="#fhrp-stp">首跳冗余协议 (FHRP) 和 STP</a></li>
+</ul>
+</li>
+<li><a href="#lan">二层 LAN 常见设计模型</a><ul>
+<li><a href="#stp_2">基于 STP 的模型</a></li>
+<li><a href="#switch-clustering-based-virtual-switch">交换机集群模型 (Switch Clustering Based / Virtual Switch)</a></li>
+<li><a href="#daisy-chained-access-switches">菊花链接入交换机 (Daisy-Chained Access Switches)</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

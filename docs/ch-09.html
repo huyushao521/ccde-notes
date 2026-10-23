@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网络虚拟化 · 第 9 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link active" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="9-network-virtualization">第 9 章：网络虚拟化 (Network Virtualization)<a class="anchor" href="#9-network-virtualization" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 434-506 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>MPLS</strong>：MPLS 架构、控制平面组件、L3VPN 设计</li>
+<li><strong>软件定义网络</strong>：SD-WAN 和 SD-LAN 的设计要素</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="mpls">MPLS 概述<a class="anchor" href="#mpls" title="Permanent link"></a></h3>
+<p>MPLS（多协议标签交换）在大型企业中越来越受欢迎。</p>
+<p><strong>MPLS 设计目标</strong>：
+- 支持大量客户组和每组大量站点（可扩展）
+- 提供增值服务，创建新收入来源（灵活可靠）
+- 在统一基础设施上支持所有企业客户的各种服务
+- 在各种介质接入方式上提供灵活的服务配置</p>
+<h3 id="mpls_1">MPLS 架构组件<a class="anchor" href="#mpls_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>定义</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CE (客户边缘)</strong></td>
+<td>客户侧设备</td>
+<td>连接到 PE，交换路由</td>
+</tr>
+<tr>
+<td><strong>PE (提供商边缘)</strong></td>
+<td>运营商侧边缘设备</td>
+<td>维护 VRF，交换 VPN 路由，压入/弹出标签</td>
+</tr>
+<tr>
+<td><strong>P (提供商节点)</strong></td>
+<td>核心设备</td>
+<td>标签交换，不维护 VPN 路由</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mpls_2">MPLS 控制平面组件<a class="anchor" href="#mpls_2" title="Permanent link"></a></h3>
+<h4 id="1-vrf">1. VRF (虚拟路由转发)<a class="anchor" href="#1-vrf" title="Permanent link"></a></h4>
+<p>VRF 是在三层设备级别维护路由隔离的主要机制。每个 PE 为每个客户的每个 VRF 维护独立的路由和转发实例。</p>
+<h4 id="2-rd-route-distinguisher">2. RD (Route Distinguisher, 路由区分符)<a class="anchor" href="#2-rd-route-distinguisher" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>将 IPv4 地址转换为 VPNv4 地址，使重叠地址空间在 MPLS 核心中唯一</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>格式</strong></td>
+<td><code>Type:Administrator:Assigned Number</code></td>
+</tr>
+<tr>
+<td><strong>类型</strong></td>
+<td>Type 0 (AS:NN)、Type 1 (IP:NN)、Type 2 (4-byte AS:NN)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RD 分配模型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>每 VPN 唯一 RD</strong></td>
+<td>简单、易管理</td>
+<td>无多归属需求</td>
+</tr>
+<tr>
+<td><strong>每 PE 每 VPN 唯一 RD</strong></td>
+<td>支持 Active/Active 多归属</td>
+<td>多归属远程站点</td>
+</tr>
+<tr>
+<td><strong>每接口每 VPN 唯一 RD</strong></td>
+<td>最灵活但最复杂</td>
+<td>复杂多归属场景</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-rt-route-target">3. RT (Route Target, 路由目标)<a class="anchor" href="#3-rt-route-target" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>控制 VPN 路由导入/导出哪些 VRF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Export RT</strong></td>
+<td>PE 将路由导出时附加的 RT</td>
+</tr>
+<tr>
+<td><strong>Import RT</strong></td>
+<td>PE 导入路由到 VRF 时匹配的 RT</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 RD 使路由唯一，RT 控制路由分发。VRF 使用 Import RT 决定接受哪些路由。</p>
+</blockquote>
+<h4 id="4-mp-bgp-bgp">4. MP-BGP (多协议 BGP)<a class="anchor" href="#4-mp-bgp-bgp" title="Permanent link"></a></h4>
+<p>MP-BGP 使用 VPNv4/VPNv6 地址族在 PE 之间交换 VPN 路由：
+- 携带 RD + IPv4 前缀 = VPNv4 前缀
+- 携带 VPN 标签
+- 携带 RT 扩展团体属性</p>
+<h3 id="mpls_3">MPLS 转发平面<a class="anchor" href="#mpls_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>标签类型</th>
+<th>作用</th>
+<th>压入位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VPN 标签</strong></td>
+<td>标识目标 VRF</td>
+<td>入口 PE</td>
+</tr>
+<tr>
+<td><strong>传输标签</strong></td>
+<td>标签交换路径 (LSP)</td>
+<td>入口 PE + 中间 P</td>
+</tr>
+</tbody>
+</table>
+<pre><code>CE1 → PE1 [压入 VPN 标签 + 传输标签] → P1 [交换传输标签] → P2 [交换传输标签] → PE2 [弹出传输标签, 保留 VPN 标签] → CE2
+</code></pre>
+<h3 id="pe-ce">PE-CE 路由协议<a class="anchor" href="#pe-ce" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>特点</th>
+<th>特殊考量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BGP</strong></td>
+<td>最常用，原生支持</td>
+<td>AS 覆盖</td>
+</tr>
+<tr>
+<td><strong>OSPF</strong></td>
+<td>适合企业</td>
+<td>DN 位、Domain ID、Sham Link</td>
+</tr>
+<tr>
+<td><strong>EIGRP</strong></td>
+<td>Cisco 环境</td>
+<td>SoO (Site of Origin)</td>
+</tr>
+<tr>
+<td><strong>静态</strong></td>
+<td>最简单</td>
+<td>无动态学习</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ospf-pe-ce">OSPF 作为 PE-CE 的特殊处理<a class="anchor" href="#ospf-pe-ce" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DN 位</strong></td>
+<td>防止从 MPLS 学到的路由被重分发回 MPLS（环路防止）</td>
+</tr>
+<tr>
+<td><strong>Domain ID</strong></td>
+<td>识别 OSPF 域，跨 MPLS 的路由类型取决于是否在同一域</td>
+</tr>
+<tr>
+<td><strong>Sham Link</strong></td>
+<td>在 PE 之间创建逻辑链路，使 OSPF 优选 MPLS 路径而非后门链路</td>
+</tr>
+</tbody>
+</table>
+<h4 id="eigrp-soo-site-of-origin">EIGRP SoO (Site of Origin)<a class="anchor" href="#eigrp-soo-site-of-origin" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ 当站点同时有 MPLS VPN 链路和后门链路时，EIGRP SoO 防止路由环路和路由竞速问题。</p>
+</blockquote>
+<h3 id="mpls-l3vpn">MPLS L3VPN 拓扑模型<a class="anchor" href="#mpls-l3vpn" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>拓扑</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全互连 (Full Mesh)</strong></td>
+<td>所有站点直接互连</td>
+<td>站点间需要直接通信</td>
+</tr>
+<tr>
+<td><strong>Hub-and-Spoke</strong></td>
+<td>所有流量经过 Hub</td>
+<td>需要中心检查（如防火墙）</td>
+</tr>
+<tr>
+<td><strong>多级 Hub-and-Spoke</strong></td>
+<td>分层 Hub</td>
+<td>大型分层网络</td>
+</tr>
+<tr>
+<td><strong>Extranet/共享服务</strong></td>
+<td>VPN 间共享路由</td>
+<td>共享互联网、共享数据中心服务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mpls-l2vpn">MPLS L2VPN<a class="anchor" href="#mpls-l2vpn" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VPWS</strong></td>
+<td>点对点二层伪线</td>
+</tr>
+<tr>
+<td><strong>VPLS</strong></td>
+<td>多点到多点二层服务</td>
+</tr>
+<tr>
+<td><strong>EVPN</strong></td>
+<td>基于 BGP 的下一代 L2VPN</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="software-defined-networks">软件定义网络 (Software-Defined Networks)<a class="anchor" href="#software-defined-networks" title="Permanent link"></a></h2>
+<h3 id="sdn">SDN 架构组件<a class="anchor" href="#sdn" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Underlay（底层网络）</strong></td>
+<td>物理交换机和路由器组成的局域网基础设施</td>
+</tr>
+<tr>
+<td><strong>SDN 控制器</strong></td>
+<td>集中式控制平面，管理网络设备</td>
+</tr>
+<tr>
+<td><strong>Overlay（覆盖网络）</strong></td>
+<td>在 Underlay 之上构建的虚拟网络</td>
+</tr>
+<tr>
+<td><strong>VN（虚拟网络）</strong></td>
+<td>SD-WAN 覆盖机制，提供类似 VRF 的分段</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sd-wan">SD-WAN 架构<a class="anchor" href="#sd-wan" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WAN Edge（WAN 边缘路由器）</strong></td>
+<td>部署在站点的设备，连接传输网络</td>
+</tr>
+<tr>
+<td><strong>vManage（管理面）</strong></td>
+<td>集中管理、配置和监控</td>
+</tr>
+<tr>
+<td><strong>vSmart（控制面）</strong></td>
+<td>集中式策略引擎，路由决策</td>
+</tr>
+<tr>
+<td><strong>vBond（编排器）</strong></td>
+<td>设备认证和编排</td>
+</tr>
+<tr>
+<td><strong>OMP（覆盖管理协议）</strong></td>
+<td>类似 BGP，在边缘间交换路由信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sd-wan_1">SD-WAN 核心能力<a class="anchor" href="#sd-wan_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传输无关</strong></td>
+<td>支持 MPLS、Internet、LTE、5G 等多种传输</td>
+</tr>
+<tr>
+<td><strong>动态路径选择</strong></td>
+<td>基于应用需求实时选择最优路径</td>
+</tr>
+<tr>
+<td><strong>应用感知</strong></td>
+<td>识别应用类型，应用不同策略</td>
+</tr>
+<tr>
+<td><strong>零接触部署 (ZTD)</strong></td>
+<td>自动化设备部署，无需现场配置</td>
+</tr>
+<tr>
+<td><strong>端到端分段</strong></td>
+<td>通过 VPN（类似 VRF）实现租户隔离</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sd-lan">SD-LAN<a class="anchor" href="#sd-lan" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>集中管理</strong></td>
+<td>通过控制器管理所有接入交换机</td>
+</tr>
+<tr>
+<td><strong>网络分段</strong></td>
+<td>类似 SD-WAN 的 VN 概念</td>
+</tr>
+<tr>
+<td><strong>策略驱动</strong></td>
+<td>基于用户/设备/应用的策略</td>
+</tr>
+<tr>
+<td><strong>自动化</strong></td>
+<td>自动配置和部署</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPLS</td>
+<td>多协议标签交换</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>客户边缘</td>
+</tr>
+<tr>
+<td>PE</td>
+<td>提供商边缘</td>
+</tr>
+<tr>
+<td>P</td>
+<td>提供商节点</td>
+</tr>
+<tr>
+<td>VRF</td>
+<td>虚拟路由转发</td>
+</tr>
+<tr>
+<td>RD</td>
+<td>路由区分符</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>路由目标</td>
+</tr>
+<tr>
+<td>MP-BGP</td>
+<td>多协议 BGP</td>
+</tr>
+<tr>
+<td>LSP</td>
+<td>标签交换路径</td>
+</tr>
+<tr>
+<td>LER</td>
+<td>标签边缘路由器</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>标签交换路由器</td>
+</tr>
+<tr>
+<td>VPN Label</td>
+<td>VPN 标签</td>
+</tr>
+<tr>
+<td>Transport Label</td>
+<td>传输标签</td>
+</tr>
+<tr>
+<td>DN Bit</td>
+<td>DN 位</td>
+</tr>
+<tr>
+<td>Domain ID</td>
+<td>域 ID</td>
+</tr>
+<tr>
+<td>Sham Link</td>
+<td>伪链路</td>
+</tr>
+<tr>
+<td>SoO</td>
+<td>站点起源</td>
+</tr>
+<tr>
+<td>Full Mesh</td>
+<td>全互连</td>
+</tr>
+<tr>
+<td>Hub and Spoke</td>
+<td>中心辐射</td>
+</tr>
+<tr>
+<td>Extranet</td>
+<td>外联网</td>
+</tr>
+<tr>
+<td>SDN</td>
+<td>软件定义网络</td>
+</tr>
+<tr>
+<td>Underlay</td>
+<td>底层网络</td>
+</tr>
+<tr>
+<td>Overlay</td>
+<td>覆盖网络</td>
+</tr>
+<tr>
+<td>VN</td>
+<td>虚拟网络</td>
+</tr>
+<tr>
+<td>SD-WAN</td>
+<td>软件定义广域网</td>
+</tr>
+<tr>
+<td>SD-LAN</td>
+<td>软件定义局域网</td>
+</tr>
+<tr>
+<td>OMP</td>
+<td>覆盖管理协议</td>
+</tr>
+<tr>
+<td>ZTD</td>
+<td>零接触部署</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-08.html"><span class="pager-label">上一章</span><span class="pager-title">08 · 三层技术</span></a><a class="pager-link next" href="ch-10.html"><span class="pager-label">下一章</span><span class="pager-title">10 · 安全</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#mpls">MPLS 概述</a></li>
+<li><a href="#mpls_1">MPLS 架构组件</a></li>
+<li><a href="#mpls_2">MPLS 控制平面组件</a></li>
+<li><a href="#mpls_3">MPLS 转发平面</a></li>
+<li><a href="#pe-ce">PE-CE 路由协议</a></li>
+<li><a href="#mpls-l3vpn">MPLS L3VPN 拓扑模型</a></li>
+<li><a href="#mpls-l2vpn">MPLS L2VPN</a></li>
+</ul>
+</li>
+<li><a href="#software-defined-networks">软件定义网络 (Software-Defined Networks)</a><ul>
+<li><a href="#sdn">SDN 架构组件</a></li>
+<li><a href="#sd-wan">SD-WAN 架构</a></li>
+<li><a href="#sd-wan_1">SD-WAN 核心能力</a></li>
+<li><a href="#sd-lan">SD-LAN</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

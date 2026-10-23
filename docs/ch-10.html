@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全 · 第 10 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link active" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="10-security">第 10 章：安全 (Security)<a class="anchor" href="#10-security" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 507-541 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>设备安全</strong>：设备加固技术</li>
+<li><strong>二层安全</strong>：二层安全考量</li>
+<li><strong>三层安全</strong>：控制平面安全</li>
+<li><strong>网络覆盖和远程访问</strong>：VPN 和覆盖技术</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="device-security">设备安全 (Device Security)<a class="anchor" href="#device-security" title="Permanent link"></a></h3>
+<h4 id="device-hardening">设备加固 (Device Hardening)<a class="anchor" href="#device-hardening" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>加固措施</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>管理平面保护</strong></td>
+<td>限制管理访问（SSH、ACL、控制平面监管）</td>
+</tr>
+<tr>
+<td><strong>控制平面保护</strong></td>
+<td>限制控制平面流量（CoPP、CPPr）</td>
+</tr>
+<tr>
+<td><strong>数据平面保护</strong></td>
+<td>iACL、基础设施 ACL</td>
+</tr>
+<tr>
+<td><strong>不必要服务关闭</strong></td>
+<td>关闭未使用的端口和服务</td>
+</tr>
+<tr>
+<td><strong>密码加密</strong></td>
+<td>使用 type 6/8/9 而非 type 5/7</td>
+</tr>
+<tr>
+<td><strong>AAA 认证</strong></td>
+<td>集中认证、授权和审计</td>
+</tr>
+<tr>
+<td><strong>日志记录</strong></td>
+<td>集中日志和告警</td>
+</tr>
+<tr>
+<td><strong>NTP 同步</strong></td>
+<td>确保时间一致用于日志关联</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_2">管理平面安全<a class="anchor" href="#_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSH v2</strong></td>
+<td>替代 Telnet，加密管理流量</td>
+</tr>
+<tr>
+<td><strong>ACL</strong></td>
+<td>限制管理访问来源</td>
+</tr>
+<tr>
+<td><strong>管理 VRF</strong></td>
+<td>将管理流量隔离到独立 VRF</td>
+</tr>
+<tr>
+<td><strong>带外管理 (OOB)</strong></td>
+<td>独立的管理网络</td>
+</tr>
+<tr>
+<td><strong>NetFlow</strong></td>
+<td>流量分析和异常检测</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_3">控制平面安全<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CoPP (控制平面监管)</strong></td>
+<td>限制到控制平面的流量速率</td>
+</tr>
+<tr>
+<td><strong>CPPr (控制平面保护)</strong></td>
+<td>更细粒度的控制平面保护</td>
+</tr>
+<tr>
+<td><strong>rACL (接收 ACL)</strong></td>
+<td>限制发送到路由处理器流量</td>
+</tr>
+<tr>
+<td><strong>BGP TTL 安全</strong></td>
+<td>限制 BGP 邻居的 TTL</td>
+</tr>
+<tr>
+<td><strong>MD5 认证</strong></td>
+<td>路由协议认证</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_4">数据平面安全<a class="anchor" href="#_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>iACL (基础设施 ACL)</strong></td>
+<td>限制到基础设施设备的流量</td>
+</tr>
+<tr>
+<td><strong>uRPF (单播反向路径转发)</strong></td>
+<td>防止 IP 欺骗</td>
+</tr>
+<tr>
+<td><strong>端口安全</strong></td>
+<td>限制接入端口的 MAC 地址</td>
+</tr>
+<tr>
+<td><strong>DHCP Snooping</strong></td>
+<td>防止 DHCP 欺骗</td>
+</tr>
+<tr>
+<td><strong>动态 ARP 检测 (DAI)</strong></td>
+<td>防止 ARP 欺骗</td>
+</tr>
+<tr>
+<td><strong>IP Source Guard</strong></td>
+<td>防止 IP 欺骗</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="layer-2-security">二层安全 (Layer 2 Security)<a class="anchor" href="#layer-2-security" title="Permanent link"></a></h3>
+<h4 id="_5">二层攻击与防御<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>攻击</th>
+<th>说明</th>
+<th>防御方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>STP 攻击</strong></td>
+<td>流氓交换机成为根桥</td>
+<td>Root Guard、BPDU Guard</td>
+</tr>
+<tr>
+<td><strong>VLAN 跳跃</strong></td>
+<td>通过标签注入访问其他 VLAN</td>
+<td>关闭 DTP、VLAN ACL</td>
+</tr>
+<tr>
+<td><strong>MAC 欺骗/泛洪</strong></td>
+<td>MAC 地址泛洪攻击 CAM 表</td>
+<td>端口安全、动态 ARP 检测</td>
+</tr>
+<tr>
+<td><strong>ARP 欺骗</strong></td>
+<td>中间人攻击</td>
+<td>DAI、DHCP Snooping</td>
+</tr>
+<tr>
+<td><strong>DHCP 欺骗</strong></td>
+<td>流氓 DHCP 服务器</td>
+<td>DHCP Snooping</td>
+</tr>
+<tr>
+<td><strong>CDP 攻击</strong></td>
+<td>利用 CDP 信息</td>
+<td>关闭不必要的 CDP</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">二层安全最佳实践<a class="anchor" href="#_6" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>实践</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>关闭未使用的端口</strong></td>
+<td>防止物理接入</td>
+</tr>
+<tr>
+<td><strong>PortFast + BPDU Guard</strong></td>
+<td>接入端口快速转发 + 防止流氓交换机</td>
+</tr>
+<tr>
+<td><strong>VLAN ACL</strong></td>
+<td>限制 VLAN 间流量</td>
+</tr>
+<tr>
+<td><strong>Private VLAN</strong></td>
+<td>限制同一 VLAN 内设备间通信</td>
+</tr>
+<tr>
+<td><strong>802.1X 认证</strong></td>
+<td>基于端口的网络访问控制</td>
+</tr>
+<tr>
+<td><strong>MACsec</strong></td>
+<td>二层加密</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="layer-3-security">三层安全 (Layer 3 Security)<a class="anchor" href="#layer-3-security" title="Permanent link"></a></h3>
+<h4 id="_7">控制平面安全<a class="anchor" href="#_7" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>路由协议认证</strong></td>
+<td>OSPF、IS-IS、BGP、EIGRP MD5/SHA 认证</td>
+</tr>
+<tr>
+<td><strong>BGP TTL 安全 (GTSM)</strong></td>
+<td>限制 BGP 包的 TTL 值</td>
+</tr>
+<tr>
+<td><strong>前缀列表过滤</strong></td>
+<td>过滤路由更新</td>
+</tr>
+<tr>
+<td><strong>路由映射 (Route Map)</strong></td>
+<td>基于策略控制路由</td>
+</tr>
+<tr>
+<td><strong>最大前缀限制</strong></td>
+<td>防止路由表爆炸</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_8">数据平面安全<a class="anchor" href="#_8" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>iACL</strong></td>
+<td>基础设施 ACL，保护网络设备</td>
+</tr>
+<tr>
+<td><strong>uRPF</strong></td>
+<td>防止 IP 欺骗</td>
+</tr>
+<tr>
+<td><strong>NetFlow</strong></td>
+<td>流量分析和异常检测</td>
+</tr>
+<tr>
+<td><strong>QoS 安全</strong></td>
+<td>防止 DoS 攻击影响关键流量</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="network-overlay-and-remote-access">网络覆盖和远程访问 (Network Overlay and Remote Access)<a class="anchor" href="#network-overlay-and-remote-access" title="Permanent link"></a></h3>
+<h4 id="vpn">VPN 类型<a class="anchor" href="#vpn" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>站点到站点 IPsec VPN</strong></td>
+<td>固定站点间加密隧道</td>
+<td>固定站点互连</td>
+</tr>
+<tr>
+<td><strong>远程访问 VPN</strong></td>
+<td>用户到网络的加密连接</td>
+<td>远程办公</td>
+</tr>
+<tr>
+<td><strong>SSL VPN</strong></td>
+<td>基于 Web 的 VPN</td>
+<td>零客户端远程访问</td>
+</tr>
+<tr>
+<td><strong>DMVPN</strong></td>
+<td>动态多点 VPN</td>
+<td>大规模动态站点</td>
+</tr>
+<tr>
+<td><strong>FlexVPN</strong></td>
+<td>基于 IKEv2 的灵活 VPN</td>
+<td>现代企业 VPN</td>
+</tr>
+<tr>
+<td><strong>GET VPN</strong></td>
+<td>组加密传输 VPN</td>
+<td>大规模固定站点</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ipsec-vpn">IPsec VPN 组件<a class="anchor" href="#ipsec-vpn" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IKE (Internet Key Exchange)</strong></td>
+<td>密钥交换协议</td>
+</tr>
+<tr>
+<td><strong>SA (安全关联)</strong></td>
+<td>定义加密参数</td>
+</tr>
+<tr>
+<td><strong>ESP (封装安全载荷)</strong></td>
+<td>加密和认证</td>
+</tr>
+<tr>
+<td><strong>AH (认证头)</strong></td>
+<td>仅认证</td>
+</tr>
+<tr>
+<td><strong>隧道模式 vs 传输模式</strong></td>
+<td>隧道模式加密整个原始数据包</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vpn_1">远程访问 VPN 设计考量<a class="anchor" href="#vpn_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>考量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>认证方式</strong></td>
+<td>双因素认证、证书</td>
+</tr>
+<tr>
+<td><strong>访问控制</strong></td>
+<td>基于角色的访问 (RBAC)</td>
+</tr>
+<tr>
+<td><strong>端点安全检查</strong></td>
+<td>主机检查（防病毒、补丁等）</td>
+</tr>
+<tr>
+<td><strong>分离隧道</strong></td>
+<td>仅企业流量走 VPN</td>
+</tr>
+<tr>
+<td><strong>全隧道</strong></td>
+<td>所有流量走 VPN</td>
+</tr>
+<tr>
+<td><strong>负载均衡</strong></td>
+<td>多 VPN 网关负载分担</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Device Hardening</td>
+<td>设备加固</td>
+</tr>
+<tr>
+<td>CoPP</td>
+<td>控制平面监管</td>
+</tr>
+<tr>
+<td>CPPr</td>
+<td>控制平面保护</td>
+</tr>
+<tr>
+<td>rACL</td>
+<td>接收 ACL</td>
+</tr>
+<tr>
+<td>iACL</td>
+<td>基础设施 ACL</td>
+</tr>
+<tr>
+<td>uRPF</td>
+<td>单播反向路径转发</td>
+</tr>
+<tr>
+<td>DHCP Snooping</td>
+<td>DHCP 侦听</td>
+</tr>
+<tr>
+<td>DAI</td>
+<td>动态 ARP 检测</td>
+</tr>
+<tr>
+<td>IP Source Guard</td>
+<td>IP 源保护</td>
+</tr>
+<tr>
+<td>Port Security</td>
+<td>端口安全</td>
+</tr>
+<tr>
+<td>802.1X</td>
+<td>基于端口的网络访问控制</td>
+</tr>
+<tr>
+<td>MACsec</td>
+<td>二层加密</td>
+</tr>
+<tr>
+<td>Private VLAN</td>
+<td>私有 VLAN</td>
+</tr>
+<tr>
+<td>IPsec</td>
+<td>IP 安全协议</td>
+</tr>
+<tr>
+<td>IKE</td>
+<td>Internet 密钥交换</td>
+</tr>
+<tr>
+<td>ESP</td>
+<td>封装安全载荷</td>
+</tr>
+<tr>
+<td>DMVPN</td>
+<td>动态多点 VPN</td>
+</tr>
+<tr>
+<td>FlexVPN</td>
+<td>灵活 VPN</td>
+</tr>
+<tr>
+<td>GET VPN</td>
+<td>组加密传输 VPN</td>
+</tr>
+<tr>
+<td>Split Tunneling</td>
+<td>分离隧道</td>
+</tr>
+<tr>
+<td>SSL VPN</td>
+<td>基于 SSL 的 VPN</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-09.html"><span class="pager-label">上一章</span><span class="pager-title">09 · 网络虚拟化</span></a><a class="pager-link next" href="ch-11.html"><span class="pager-label">下一章</span><span class="pager-title">11 · 无线</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#device-security">设备安全 (Device Security)</a></li>
+<li><a href="#layer-2-security">二层安全 (Layer 2 Security)</a></li>
+<li><a href="#layer-3-security">三层安全 (Layer 3 Security)</a></li>
+<li><a href="#network-overlay-and-remote-access">网络覆盖和远程访问 (Network Overlay and Remote Access)</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

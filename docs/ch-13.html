@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>组播设计 · 第 13 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link active" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="13-multicast-design">第 13 章：组播设计 (Multicast Design)<a class="anchor" href="#13-multicast-design" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 589-625 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>组播交换与 IP 地址映射</strong>：二层组播到 MAC 地址映射</li>
+<li><strong>组播路由</strong>：RPF、PIM、RP 放置</li>
+<li><strong>域间组播</strong>：跨域组播设计</li>
+<li><strong>高级组播设计</strong>：Anycast-RP、Phantom RP、Live-Live、FHRP-Aware PIM</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="_2">组播基础<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<h4 id="_3">组播地址范围<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>地址</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本地网络控制</strong></td>
+<td>224.0.0.0/24</td>
+<td>不被路由器转发</td>
+</tr>
+<tr>
+<td><strong>全网控制</strong></td>
+<td>224.0.1.0/24</td>
+<td>被路由器转发</td>
+</tr>
+<tr>
+<td><strong>SSM 范围</strong></td>
+<td>232.0.0.0/8</td>
+<td>源特定组播</td>
+</tr>
+<tr>
+<td><strong>GLOP</strong></td>
+<td>233.0.0.0/8</td>
+<td>基于 AS 号分配</td>
+</tr>
+<tr>
+<td><strong>管理范围</strong></td>
+<td>239.0.0.0/8</td>
+<td>私有组播（类似 RFC 1918）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ip-mac">IP 组播到 MAC 地址映射<a class="anchor" href="#ip-mac" title="Permanent link"></a></h4>
+<pre><code>组播 MAC = 01:00:5E:XX:XX:XX
+
+IP 组播地址 239.1.2.3
+→ 二进制: 11101111.00000001.00000010.00000011
+→ 取后 23 位: 0000001.00000010.00000011
+→ MAC: 01:00:5E:01:02:03
+
+问题: 32 个 IP 组播地址映射到同一 MAC 地址（5 位被丢弃）
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>5 位重叠问题</strong>：由于 IP 组播地址的后 28 位中只有 23 位映射到 MAC，32 个不同的 IP 组播地址会映射到同一 MAC 地址。</p>
+</blockquote>
+<hr />
+<h3 id="_4">二层组播<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CGMP (Cisco 组管理协议)</strong></td>
+<td>Cisco 专有，已过时</td>
+</tr>
+<tr>
+<td><strong>IGMP Snooping</strong></td>
+<td>交换机侦听 IGMP 报告，限制组播泛洪</td>
+</tr>
+<tr>
+<td><strong>IGMPv1/v2/v3</strong></td>
+<td>组播组成员管理协议</td>
+</tr>
+<tr>
+<td><strong>MLD</strong></td>
+<td>IPv6 的 IGMP 等价物</td>
+</tr>
+</tbody>
+</table>
+<h4 id="igmp">IGMP 版本对比<a class="anchor" href="#igmp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>IGMPv1</th>
+<th>IGMPv2</th>
+<th>IGMPv3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>组成员加入</strong></td>
+<td>加入组</td>
+<td>加入组</td>
+<td>加入组</td>
+</tr>
+<tr>
+<td><strong>组成员离开</strong></td>
+<td>无离开消息</td>
+<td>有离开消息</td>
+<td>有离开消息</td>
+</tr>
+<tr>
+<td><strong>特定源 (SSM)</strong></td>
+<td>否</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>查询器选举</strong></td>
+<td>基于 PIM DR</td>
+<td>最低 IP</td>
+<td>最低 IP</td>
+</tr>
+<tr>
+<td><strong>查询间隔</strong></td>
+<td>60s</td>
+<td>125s</td>
+<td>125s</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_5">三层组播路由<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<h4 id="rpf">RPF (反向路径转发)<a class="anchor" href="#rpf" title="Permanent link"></a></h4>
+<blockquote>
+<p>RPF 是组播路由的核心概念。路由器收到组播包后，检查源地址——只有当入接口是到达源地址的最优路径接口时，才转发该包。</p>
+</blockquote>
+<pre><code>源 → R1 → R2 → 接收者
+         ↓
+    RPF 检查: 入接口是否是到源的最优路径?
+    是 → 转发
+    否 → 丢弃
+</code></pre>
+<h4 id="pim">PIM (协议无关组播)<a class="anchor" href="#pim" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>PIM 模式</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PIM Dense Mode (PIM-DM)</strong></td>
+<td>推模式，泛洪-修剪</td>
+<td>密集用户，少量路由器</td>
+</tr>
+<tr>
+<td><strong>PIM Sparse Mode (PIM-SM)</strong></td>
+<td>拉模式，显式加入</td>
+<td>稀疏用户，大规模网络</td>
+</tr>
+<tr>
+<td><strong>PIM-SSM</strong></td>
+<td>源特定组播</td>
+<td>已知源的组播</td>
+</tr>
+<tr>
+<td><strong>Bidirectional PIM (BiDir)</strong></td>
+<td>双向组播</td>
+<td>多源到多组</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pim-sm">PIM-SM 工作流程<a class="anchor" href="#pim-sm" title="Permanent link"></a></h4>
+<pre><code>1. RP (汇聚点) 配置
+2. 接收者发送 IGMP 加入 → 最后一跳路由器
+3. 最后一跳路由器向 RP 发送 PIM (*, G) Join
+4. 源开始发送 → 第一跳路由器向 RP 注册
+5. RP 发送 PIM (S, G) Join 到源
+6. 组播流量沿共享树 → 切换到最短路径树 (SPT)
+</code></pre>
+<h4 id="spt-shortest-path-tree-switchover">SPT 切换 (Shortest Path Tree Switchover)<a class="anchor" href="#spt-shortest-path-tree-switchover" title="Permanent link"></a></h4>
+<blockquote>
+<p>💡 PIM-SM 默认在接收者收到第一个组播包后，从共享树 (RP Tree) 切换到最短路径树 (Source Tree)，获得更优路径。</p>
+</blockquote>
+<hr />
+<h3 id="rp-rendezvous-point">RP (Rendezvous Point) 放置<a class="anchor" href="#rp-rendezvous-point" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>RP 发现方法</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>静态 RP</strong></td>
+<td>手动配置，简单但不灵活</td>
+</tr>
+<tr>
+<td><strong>Auto-RP</strong></td>
+<td>Cisco 专有，自动发现 RP</td>
+</tr>
+<tr>
+<td><strong>BSR (自举路由器)</strong></td>
+<td>标准，自动发现 RP</td>
+</tr>
+<tr>
+<td><strong>Anycast-RP</strong></td>
+<td>多个 RP 共享同一 IP，负载分担和冗余</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rp">RP 放置原则<a class="anchor" href="#rp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>靠近源</strong></td>
+<td>减少源到 RP 的延迟</td>
+</tr>
+<tr>
+<td><strong>靠近接收者</strong></td>
+<td>减少接收者到 RP 的延迟</td>
+</tr>
+<tr>
+<td><strong>中心位置</strong></td>
+<td>在源和接收者之间折中</td>
+</tr>
+<tr>
+<td><strong>冗余</strong></td>
+<td>使用 Anycast-RP 或 BSR 提供备份</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anycast-rp">Anycast-RP<a class="anchor" href="#anycast-rp" title="Permanent link"></a></h3>
+<pre><code>        RP-1 (10.0.0.1)          RP-2 (10.0.0.1)
+         /  MSDP peer  \         /                \
+        /               \       /                  \
+    源 →                  接收者                  接收者
+
+    RP-1 和 RP-2 使用相同 IP (Anycast)
+    通过 MSDP 交换 (S, G) 信息
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>负载分担</strong></td>
+<td>不同接收者选择不同的 RP</td>
+</tr>
+<tr>
+<td><strong>冗余</strong></td>
+<td>一个 RP 故障，另一个接管</td>
+</tr>
+<tr>
+<td><strong>快速故障切换</strong></td>
+<td>IGP 收敛即切换</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_6">域间组播<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MSDP (组播源发现协议)</strong></td>
+<td>在不同 PIM 域之间交换源信息</td>
+</tr>
+<tr>
+<td><strong>MBGP (组播 BGP)</strong></td>
+<td>为组播提供独立的 RPF 路径</td>
+</tr>
+<tr>
+<td><strong>Anycast-RP with MSDP</strong></td>
+<td>跨域 RP 冗余</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_7">高级组播设计<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<h4 id="phantom-rp">Phantom RP<a class="anchor" href="#phantom-rp" title="Permanent link"></a></h4>
+<blockquote>
+<p>用于二层网络中无真正三层路由的场景。创建一个虚拟 RP 地址，实际不存在物理设备，通过 VRRP/HSRP VIP 实现。</p>
+</blockquote>
+<h4 id="live-live-multicast-live-live">Live-Live (Multicast Live-Live)<a class="anchor" href="#live-live-multicast-live-live" title="Permanent link"></a></h4>
+<blockquote>
+<p>通过两条不同路径同时发送相同组播流，接收者选择最优路径。当一个路径故障时，接收者无感知切换。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>双路径</strong></td>
+<td>两条不重叠的物理路径</td>
+</tr>
+<tr>
+<td><strong>独立 RP</strong></td>
+<td>每条路径独立 RP</td>
+</tr>
+<tr>
+<td><strong>唯一组地址</strong></td>
+<td>每条路径使用不同的组播组地址</td>
+</tr>
+<tr>
+<td><strong>接收者多加入</strong></td>
+<td>接收者同时加入两个组</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fhrp-aware-pim">FHRP-Aware PIM<a class="anchor" href="#fhrp-aware-pim" title="Permanent link"></a></h4>
+<blockquote>
+<p>当使用 FHRP（HSRP/VRRP）时，只有 Active 路由器发送 PIM Join。当 Active 故障切换到 Standby 时，新的 Active 需要重新建立 PIM 状态。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>消除 PIM Join 抖动</strong></td>
+<td>Standby 到 Active 切换时无需重新 Join</td>
+</tr>
+<tr>
+<td><strong>快速收敛</strong></td>
+<td>与 FHRP 故障切换同步</td>
+</tr>
+<tr>
+<td><strong>支持 HSRP v2/v3</strong></td>
+<td>支持 IPv4 和 IPv6</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multicast</td>
+<td>组播</td>
+</tr>
+<tr>
+<td>IGMP</td>
+<td>Internet 组管理协议</td>
+</tr>
+<tr>
+<td>IGMP Snooping</td>
+<td>IGMP 侦听</td>
+</tr>
+<tr>
+<td>PIM</td>
+<td>协议无关组播</td>
+</tr>
+<tr>
+<td>PIM-DM</td>
+<td>PIM 密集模式</td>
+</tr>
+<tr>
+<td>PIM-SM</td>
+<td>PIM 稀疏模式</td>
+</tr>
+<tr>
+<td>PIM-SSM</td>
+<td>源特定组播</td>
+</tr>
+<tr>
+<td>BiDir-PIM</td>
+<td>双向 PIM</td>
+</tr>
+<tr>
+<td>RPF</td>
+<td>反向路径转发</td>
+</tr>
+<tr>
+<td>RP</td>
+<td>汇聚点</td>
+</tr>
+<tr>
+<td>Auto-RP</td>
+<td>自动 RP</td>
+</tr>
+<tr>
+<td>BSR</td>
+<td>自举路由器</td>
+</tr>
+<tr>
+<td>Anycast-RP</td>
+<td>任播 RP</td>
+</tr>
+<tr>
+<td>SPT</td>
+<td>最短路径树</td>
+</tr>
+<tr>
+<td>RPT</td>
+<td>共享路径树 (RP Tree)</td>
+</tr>
+<tr>
+<td>MSDP</td>
+<td>组播源发现协议</td>
+</tr>
+<tr>
+<td>MBGP</td>
+<td>组播 BGP</td>
+</tr>
+<tr>
+<td>Phantom RP</td>
+<td>幻影 RP</td>
+</tr>
+<tr>
+<td>Live-Live</td>
+<td>双活组播</td>
+</tr>
+<tr>
+<td>FHRP-Aware PIM</td>
+<td>FHRP 感知 PIM</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-12.html"><span class="pager-label">上一章</span><span class="pager-title">12 · 自动化</span></a><a class="pager-link next" href="ch-14.html"><span class="pager-label">下一章</span><span class="pager-title">14 · 网络服务与管理</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#_2">组播基础</a></li>
+<li><a href="#_4">二层组播</a></li>
+<li><a href="#_5">三层组播路由</a></li>
+<li><a href="#rp-rendezvous-point">RP (Rendezvous Point) 放置</a></li>
+<li><a href="#anycast-rp">Anycast-RP</a></li>
+<li><a href="#_6">域间组播</a></li>
+<li><a href="#_7">高级组播设计</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

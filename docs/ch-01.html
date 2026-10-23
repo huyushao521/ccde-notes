@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网络设计 · 第 1 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link active" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="1-network-design">第 1 章：网络设计 (Network Design)<a class="anchor" href="#1-network-design" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 81-140 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>网络设计基础</strong>：思维模式、需求、设计用例、业务、约束</li>
+<li><strong>网络设计原则</strong>：安全普适性、可扩展性、可用性、成本、可管理性</li>
+<li><strong>网络设计技术</strong>：故障隔离、信息隐藏、模块化、层次化设计</li>
+<li><strong>网络设计陷阱</strong>：假设、过度设计、最佳实践误区</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<p>设计大规模网络以满足当今动态的业务和 IT 需求是一项复杂的任务。尤其是当网络是多年前按照旧的技术和需求设计的，而企业决定采用新的 IT 技术和架构来实现其目标时，现有网络可能无法满足新技术的要求。因此，网络设计师必须采用结构化的方法来处理设计。</p>
+<h3 id="_2">两种常见的网络分析与设计方法<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<p><strong>自顶向下方法 (Top-down Approach)</strong>：通过拆分设计任务来简化设计过程，使其更专注于设计范围，以更受控的方式执行。这种方法最终帮助网络设计师从业务角度审视网络设计解决方案。</p>
+<p><strong>自底向上方法 (Bottom-up Approach)</strong>：与之相反，自底向上方法首先关注选择网络技术和设计模型。这会带来很高的设计失败风险，因为网络可能无法满足业务或应用的需求。</p>
+<p>要实现成功的战略设计，必须更加重视业务。这意味着首要关注业务优先级、驱动力、成果、技术目标以及现有和未来的服务与应用。事实上，在当今的网络中，业务需求正在驱动 IT 和网络计划。</p>
+<hr />
+<h2 id="network-design-fundamentals">网络设计基础 (Network Design Fundamentals)<a class="anchor" href="#network-design-fundamentals" title="Permanent link"></a></h2>
+<p>网络设计基础是所有网络设计师应该理解并知道如何利用的基础元素：</p>
+<ol>
+<li><strong>思维模式 (Mindset)</strong></li>
+<li><strong>需求 (Requirements)</strong></li>
+<li><strong>设计用例 (Design Use Cases)</strong></li>
+<li><strong>业务 (The Business)</strong></li>
+<li><strong>约束 (Constraints)</strong></li>
+<li><strong>"为什么" (Why)</strong></li>
+</ol>
+<h3 id="mindset">思维模式 (Mindset)<a class="anchor" href="#mindset" title="Permanent link"></a></h3>
+<blockquote>
+<p>最重要的是，你的思维模式是获得 CCDE 认证的最关键因素。了解技术是必要的，但它是这段旅程中相对容易的部分。很多参加 CCDE 考试和网络设计的候选人并不具备正确的设计思维模式。</p>
+</blockquote>
+<p>实施思维模式不适用于网络设计；你需要拥有网络设计思维模式才能在网络设计场景和 CCDE 考试中取得成功。</p>
+<h3 id="functional-requirements">功能需求 (Functional Requirements)<a class="anchor" href="#functional-requirements" title="Permanent link"></a></h3>
+<p>功能需求构成任何系统设计的基础，因为它们定义了系统和技术功能。具体来说，功能需求从技术角度识别这些技术或系统将向业务交付什么。</p>
+<p>例如，一个启用了 MPLS 的服务提供商可能明确指定这样的功能需求："提供商边缘路由器必须通过 10G 光纤链路发送 VoIP 流量，而数据流量通过 OC-48 链路发送。"这意味着该服务提供商网络需要有能力通过不同路径发送不同类型流量的机制，如 MPLS 流量工程 (MPLS-TE)。</p>
+<p>功能需求有时也被称为<strong>行为需求</strong>，因为它们描述系统<strong>做什么</strong>。</p>
+<blockquote>
+<p>⚠️ 不满足业务功能需求的设计被视为糟糕的设计。然而在现实中，并非所有功能需求都会直接提供给设计师。有时候它们可以基于其他因素间接确定。大多数时候，找到和记录功能需求是网络设计师的责任。</p>
+</blockquote>
+<h3 id="technical-requirements">技术需求 (Technical Requirements)<a class="anchor" href="#technical-requirements" title="Permanent link"></a></h3>
+<p>技术需求是网络基础设施在安全、可用性和集成方面必须提供的技术方面。这些需求通常被称为<strong>非功能需求</strong>。技术需求是多变的，必须用来证明技术选择的合理性。技术需求包括：</p>
+<ul>
+<li>更高级别的网络可用性（例如使用首跳冗余协议 [FHRP]）</li>
+<li>支持与网络工具和服务的集成（例如 NetFlow 收集器或 RADIUS 认证服务器）</li>
+<li>网络基础设施安全技术（例如控制平面保护机制或基础设施访问控制列表）</li>
+</ul>
+<blockquote>
+<p>技术需求帮助网络设计师指定所需的技术规格（功能和协议）以及支持这些规格的软件版本，有时还会基于技术需求影响硬件平台的选择。</p>
+</blockquote>
+<h3 id="application-requirements">应用需求 (Application Requirements)<a class="anchor" href="#application-requirements" title="Permanent link"></a></h3>
+<p>应用需求是决定性因素，在大多数情况下会约束网络设计。如果一个应用需要二层连接，就会将设计限制为跨数据中心的二层协议（如扩展 VLAN）。</p>
+<p>从业务角度看，用户体验是任何 IT 和网络设计必须满足的首要优先级之一。最终用户类型包括：</p>
+<table>
+<thead>
+<tr>
+<th>用户类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>客户</strong></td>
+<td>可以是个人（如银行客户）或集体（如 MPLS 服务提供商的客户）。客户满意度直接影响企业声誉和收入</td>
+</tr>
+<tr>
+<td><strong>内部用户</strong></td>
+<td>目标用户是内部员工。他们的生产力可以转化为业务绩效效率，与业务成功和收入直接相关</td>
+</tr>
+<tr>
+<td><strong>业务伙伴</strong></td>
+<td>共同实现目标的实体或组织。伙伴间的高效互动可以增强业务成功</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>无法交付用户期望体验水平的网络意味着无法实现主要业务目标。网络和 IT 技术将被业务视为<strong>成本中心</strong>而非<strong>业务推动者</strong>。</p>
+</blockquote>
+<p><strong>示例</strong>：一家现代金融服务公司希望通过视频与客服坐席进行通信来区别于竞争对手。如果网络团队没有正确考虑视频通信的网络需求，应用很可能无法为最终用户交付期望的体验，从而导致无法实现公司的主要业务成果。</p>
+<h4 id="_3">应用需求驱动功能需求<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<p>如果服务提供商与客户签订了 SLA，要求 VoIP 流量单向延迟小于 150ms、丢包率小于 1%，那么 VoIP 需求作为应用需求将驱动 PE 设备的功能需求——使用能够交付 SLA 的技术（如 CBTS MPLS-TE 配合快速重路由 FRR）。</p>
+<p>网络设计师还应考虑以下基本问题：</p>
+<ol>
+<li>该应用需要多少网络流量？</li>
+<li>该应用对业务的关键程度和服务级别要求是什么？</li>
+<li>该应用是否有分离需求以满足行业法规和企业安全策略？</li>
+<li>该应用的特征是什么？</li>
+<li>该应用在失去连接后需要多长时间重置其状态或会话？</li>
+</ol>
+<h3 id="_4">构建设计需求<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<p>本节通过一个示例展示不同类型的需求如何共同实现所需的网络设计：</p>
+<blockquote>
+<p><strong>示例场景</strong>：一家全国性零售公司目前计划在未来 12 个月内扩展业务，增加多个国际站点。然而，以现有的 IT 基础设施，他们在管理和维护现有的两个数据和语音网络方面面临高昂费用。此外，企业希望投资于能提升业务效率和员工生产力的技术。</p>
+</blockquote>
+<h3 id="design-scope">设计范围 (Design Scope)<a class="anchor" href="#design-scope" title="Permanent link"></a></h3>
+<p>在任何设计项目中，网络设计师在开始收集信息和规划网络设计之前，必须仔细分析和评估设计范围。因此，确定设计任务是针对<strong>全新网络 (Greenfield)</strong> 还是现有生产网络至关重要。同样重要的是确定设计是跨越单个网络模块还是多个模块。</p>
+<table>
+<thead>
+<tr>
+<th>设计范围</th>
+<th>详细设计范围示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>企业园区</strong></td>
+<td>在企业范围内推出 IP 电话，可能需要重新设计 VLAN、QoS 等，覆盖 LAN、WAN、DC 和远程接入边缘</td>
+</tr>
+<tr>
+<td><strong>仅园区</strong></td>
+<td>向园区添加多租户概念，只需要设计 VLAN、IP 和跨园区 LAN 的路径隔离</td>
+</tr>
+<tr>
+<td><strong>优化企业边缘</strong></td>
+<td>为远程访问添加冗余链路，可能需要重新设计 WAN 模块和远程站点设计以及覆盖隧道等配置</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>CCDE 考试要点</strong>：在 CCDE 考试中识别设计范围非常重要。例如，候选人可能面临一个大型网络，但实际设计重点只是添加和集成一个新数据中心。因此，候选人只需关注该部分。但是，设计仍需考虑整个网络——"整体方法"。</p>
+</blockquote>
+<p>同样重要的是识别<strong>不在范围内的内容</strong>。这可以防止范围蔓延阻碍项目成功。</p>
+<h3 id="design-use-cases">设计用例 (Design Use Cases)<a class="anchor" href="#design-use-cases" title="Permanent link"></a></h3>
+<p>要构建成功的网络设计，需要正确识别特定网络设计用例：</p>
+<h4 id="1-greenfield">1. 全新设计 (Greenfield)<a class="anchor" href="#1-greenfield" title="Permanent link"></a></h4>
+<p>全新网络设计用例是网络设计师遇到的最佳情况之一。这是一张白纸，你从零开始设计、架构和构建环境。确保你建议的确实是业务所需的！</p>
+<h4 id="2-brownfield">2. 改造设计 (Brownfield)<a class="anchor" href="#2-brownfield" title="Permanent link"></a></h4>
+<p>大多数网络设计场景会包含某种形式的改造设计。改造用例是指已有生产流量运行的现有环境。建议先花时间发现当前状态并正确评估它。这不仅仅是协议和图表的技术发现，还需要发现业务及相关工作方向。</p>
+<p>一旦做出设计决策，确保为迁移到新设计做好准备。限制潜在故障，并依赖网络设计基础、原则和技术。</p>
+<h4 id="3">3. 添加技术或应用<a class="anchor" href="#3" title="Permanent link"></a></h4>
+<p>添加技术或应用可能是一个非常复杂的设计用例。此用例的范围涵盖向现有网络添加技术或应用的影响。新添加会破坏什么吗？必须考虑应用需求在流量模式、收敛时间、延迟等方面的因素。</p>
+<h4 id="4">4. 替换技术<a class="anchor" href="#4" title="Permanent link"></a></h4>
+<p>替换技术用例涵盖替换现有技术以满足特定需求的多种选项。可能是 WAN 技术、路由协议、安全机制、底层网络核心技术或其他技术。新技术对当前设计的影响（如增强的可扩展性或与现有应用需求的潜在冲突）需要网络设计师调整设计。</p>
+<blockquote>
+<p>⚠️ 确保在替换技术或添加新技术时，你是出于正确的原因。没有充分理由部署 SD-WAN 来替换 WAN 架构是不对的。确保有直接的业务理由。在此设计用例中，确保有经过适当测试的迁移计划。如果从 OSPF 迁移到 EIGRP，应该有一个列出每一步的计划，每一步都应有验证任务和回退计划。</p>
+</blockquote>
+<h4 id="5-merge-or-divest">5. 合并或剥离 (Merge or Divest)<a class="anchor" href="#5-merge-or-divest" title="Permanent link"></a></h4>
+<p>合并或剥离用例涵盖合并或分离不同网络的影响和挑战。</p>
+<p><strong>合并 (Merger)</strong>：合并两个独立企业，创建一个具有端到端架构的企业。注意重叠技术——例如子网重叠。大多数公司使用 RFC 1918 子网（10.0.0.0/8、172.16.0.0/12 或 192.168.0.0/16）。当出现重叠时，制定短期和长期计划。短期可能包括使用 NAT，长期可能包括在网络升级时重新编号。尽可能整合——如果两个公司有四个数据中心，合并为两个（但注意可能仍需要四个）。</p>
+<p><strong>剥离 (Divestment)</strong>：这是最困难的设计用例。当被迫拆分架构时，你将留下两个或更多不完整的系统。确保所有剩余业务仍能沿着各自的工作方向运作。每个业务都需要继续运营，在大多数情况下意味着要赚钱。</p>
+<h4 id="6-scaling-a-network">6. 网络扩展 (Scaling a Network)<a class="anchor" href="#6-scaling-a-network" title="Permanent link"></a></h4>
+<p>扩展用例涵盖不同级别的可扩展性方面，包括物理拓扑以及二层和三层可扩展性设计考量。考虑因素包括：增长是计划性的还是有机的？增长是否导致了问题？网络设计师是否应该停下来重新设计网络以适应增长？什么是最具可扩展性的设计模型？</p>
+<h4 id="7-design-failure">7. 设计失败 (Design Failure)<a class="anchor" href="#7-design-failure" title="Permanent link"></a></h4>
+<p>十有八九，设计失败是你被叫来修复的设计用例。有问题，你必须解决它。一个简单的技术示例是生成树协议 (STP) 和首跳冗余协议 (FHRP) 的关键角色不对齐。如果 STP 根桥和 FHRP 默认网关没有对齐到正确的设备，就会有次优路由问题，最终导致设计失败。</p>
+<h3 id="the-business">业务 (The Business)<a class="anchor" href="#the-business" title="Permanent link"></a></h3>
+<blockquote>
+<p>我们为什么要做网络设计决策？作为网络设计师，我们所做的一切都是为了我们支持的企业、公司和组织。具体来说，我们为企业做网络设计决策，以便这些企业能够赚钱。</p>
+</blockquote>
+<p>当然，也有企业不以盈利为目的的情况。这些非营利组织更关注覆盖支出和降低日常成本。在公共部门，许多组织专注于提供特定服务或实现特定目标，而非赚钱。</p>
+<blockquote>
+<p>💡 记录所有设计决策及其原因变得越来越普遍。这允许所有团队成员（过去、现在和未来）理解为什么实施了某个功能、设计选项或特性。记住 6 个月前为什么做出设计决策比记住 2 年前凌晨 2 点维护窗口期间为什么添加路由调整要容易得多。</p>
+</blockquote>
+<h3 id="constraints">约束 (Constraints)<a class="anchor" href="#constraints" title="Permanent link"></a></h3>
+<p>当我们为客户设计架构时，开始是干净的——没有需求、没有规则。随着我们采访客户，我们了解到不同的需求，更重要的是，了解到限制我们的特定约束。约束分为三类：</p>
+<table>
+<thead>
+<tr>
+<th>约束类型</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务约束</strong></td>
+<td>资金预算限制、人员配备、合同约束</td>
+<td>预算不足、缺乏特定技术的人员、合同范围或期限限制</td>
+</tr>
+<tr>
+<td><strong>应用约束</strong></td>
+<td>应用以特定方式开发所带来的限制</td>
+<td>需要二层连接、硬编码 IP 地址、需要组播支持的集群技术</td>
+</tr>
+<tr>
+<td><strong>技术约束</strong></td>
+<td>特定厂商硬件或解决方案的限制</td>
+<td>被限制在特定厂商、不能使用专有技术或已使用无法迁移的专有方案</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_5">最常见的设计约束<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<ol>
+<li>
+<p><strong>成本 (Cost)</strong>：成本是任何设计中最常见的限制因素。但在 CCDE 考试中，只有当场景中明确提到成本是考虑因素或两个类似方案之间的决胜因素时，才应将成本视为设计约束。不要假设技术 A 比技术 B 贵或便宜——例如，MPLS 线路在 CCDE 考试中并不自动比 Internet 线路更贵。</p>
+</li>
+<li>
+<p><strong>时间 (Time)</strong>：如果项目有完成期限，时间也可能是选择技术或架构时的关键约束。</p>
+</li>
+<li>
+<p><strong>位置 (Location)</strong>：位置约束可能引入间接影响设计的限制。例如，远程站点可能位于没有光纤基础设施的区域，唯一可用的连接类型是无线。</p>
+</li>
+<li>
+<p><strong>基础设施 (Infrastructure)</strong>：旧网络设备如果企业没有更换计划，可能对新功能或协议不兼容。</p>
+</li>
+<li>
+<p><strong>人员专长 (Staff Expertise)</strong>：如果公司员工没有使用新技术的经验，有两个选择：(a) 培训员工——但有风险，因为缺乏经验可能需要更长时间解决问题；(b) 聘请有经验的人员——但通常成本很高。</p>
+</li>
+</ol>
+<h3 id="why">"为什么" (Why)<a class="anchor" href="#why" title="Permanent link"></a></h3>
+<blockquote>
+<p>你经常听到客户说"这是需求"，但当你问"为什么？"时，他们无法给出有效理由。利用"五个为什么"的概念——像 5 岁孩子一样不断问"为什么"，直到得到你能理解和领会的答案。</p>
+</blockquote>
+<p>丰田公司使用"五个为什么"系统来调查生产问题，通过问五次"为什么"来揭示问题的根本原因。</p>
+<p>作为网络设计师，你需要确定为什么业务真正需要这些解决方案。以下是一些不包含"为什么"但能达到相同目的的问题：</p>
+<ul>
+<li>你用这项技术解决什么问题？</li>
+<li>你的员工/客户今天的工作流程是什么？</li>
+<li>这项技术将如何改变这些工作流程？</li>
+<li>你的业务（治理、策略、流程和文化）将因为这项技术如何演变？</li>
+</ul>
+<hr />
+<h2 id="network-design-principles">网络设计原则 (Network Design Principles)<a class="anchor" href="#network-design-principles" title="Permanent link"></a></h2>
+<p>网络设计原则包括以下五个：</p>
+<ol>
+<li><strong>安全 (Security)</strong></li>
+<li><strong>可扩展性 (Scalability)</strong></li>
+<li><strong>可用性 (Availability)</strong></li>
+<li><strong>成本 (Cost)</strong></li>
+<li><strong>可管理性 (Manageability)</strong></li>
+</ol>
+<h3 id="unstated-requirements">未明确需求 (Unstated Requirements)<a class="anchor" href="#unstated-requirements" title="Permanent link"></a></h3>
+<blockquote>
+<p>客户越来越不明确表达他们的具体需求。他们假设需求，作为网络设计师，你必须弄清楚哪些需求对网络设计很重要。你不仅要识别需求，还要确定每个需求的级别。例如，这个网络需要没有单点故障还是没有双点故障？</p>
+</blockquote>
+<p>每个网络设计原则都已成为一个未明确需求。</p>
+<h3 id="pervasive-security">普适安全 (Pervasive Security)<a class="anchor" href="#pervasive-security" title="Permanent link"></a></h3>
+<p>历史上，安全并未被识别为网络设计原则。由于安全对整体业务的影响，它被列为网络设计原则。</p>
+<p><strong>如果网络被攻破会怎样？如果数据完整性受损会怎样？</strong></p>
+<ul>
+<li>业务声誉受损</li>
+<li>客户失去信任</li>
+<li>业务损失资金和收入</li>
+<li>业务不再满足合规标准，可能被罚款或关闭</li>
+<li>在极端情况下，业务失败</li>
+</ul>
+<h4 id="_6">三种安全模型<a class="anchor" href="#_6" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>边界安全 (Perimeter Security)</strong></td>
+<td>又称"龟壳"模型。在边界部署防火墙，内部没有其他安全设备。东西向流量完全开放，内部威胁泛滥</td>
+</tr>
+<tr>
+<td><strong>会话和交易安全</strong></td>
+<td>从边界安全演变而来。用户和设备被锁定，基于设备、用户、位置和需求动态保护东西向流量。100% 认证 + 100% 授权每个会话和交易</td>
+</tr>
+<tr>
+<td><strong>零信任架构 (Zero Trust)</strong></td>
+<td>添加实时捕获和分析工具，允许实时 AI/ML 决策。每个设备、用户、应用、服务器、服务和资源（甚至数据本身）都被分配一个信任分数。信任分数基于分析引擎看到的动态变化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="availability">可用性 (Availability)<a class="anchor" href="#availability" title="Permanent link"></a></h3>
+<p>可用性包括冗余、弹性、可靠性等概念：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冗余 (Redundancy)</strong></td>
+<td>多个资源执行相同功能/角色，一个故障时另一个接管</td>
+</tr>
+<tr>
+<td><strong>弹性 (Resilience)</strong></td>
+<td>网络在故障发生时自动切换的能力</td>
+</tr>
+<tr>
+<td><strong>可靠性 (Reliability)</strong></td>
+<td>网络数据在正确时间内从源到达目的地的程度</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>随着可用性水平的提高，复杂性和相关成本也随之增加。消除单点故障 vs 消除双点故障——后者使成本和复杂性呈指数级增长。</p>
+</blockquote>
+<p><strong>多少冗余是过多的？</strong> 当增加的复杂性、成本和可用性的相关回报不值得时，就是过多了。例如，设计八条二层或三层链路之间的连接是不合理的——两条是标准，四条有合理理由，五条或更多增加的复杂性远超收益。</p>
+<h3 id="scalability">可扩展性 (Scalability)<a class="anchor" href="#scalability" title="Permanent link"></a></h3>
+<p>可扩展性是网络设计原则，确保设计能够适应业务的增长和扩展。网络设计师需要考虑：</p>
+<ul>
+<li>网络是否支持纵向扩展（增加设备能力）</li>
+<li>网络是否支持横向扩展（增加设备数量）</li>
+<li>增长是计划性的还是有机的</li>
+<li>当前设计是否需要在增长前重新设计</li>
+</ul>
+<h3 id="cost">成本 (Cost)<a class="anchor" href="#cost" title="Permanent link"></a></h3>
+<p>成本是设计约束之一。网络设计师需要理解以下财务概念：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CAPEX</strong></td>
+<td>资本支出——购买设备、建设设施等一次性投资</td>
+</tr>
+<tr>
+<td><strong>OPEX</strong></td>
+<td>运营支出——日常运营和维护成本</td>
+</tr>
+<tr>
+<td><strong>TCO</strong></td>
+<td>总拥有成本——CAPEX + OPEX 的总和</td>
+</tr>
+<tr>
+<td><strong>ROI</strong></td>
+<td>投资回报率——投资带来的收益与成本的比率</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manageability">可管理性 (Manageability)<a class="anchor" href="#manageability" title="Permanent link"></a></h3>
+<p>可管理性涉及网络设计在日常运营中的可管理程度。一个设计方案如果技术上完美但无法管理，就不是好的设计。可管理性包括：</p>
+<ul>
+<li>网络监控和故障排查的便利性</li>
+<li>配置管理的简化程度</li>
+<li>运维团队的技能匹配度</li>
+</ul>
+<hr />
+<h2 id="network-design-techniques">网络设计技术 (Network Design Techniques)<a class="anchor" href="#network-design-techniques" title="Permanent link"></a></h2>
+<h3 id="fault-isolation">故障隔离 (Fault Isolation)<a class="anchor" href="#fault-isolation" title="Permanent link"></a></h3>
+<p>故障隔离是网络设计中的关键技术。通过模块化设计和层次化设计，确保一个模块或层次的故障不会扩散到其他部分。</p>
+<h3 id="information-hiding">信息隐藏 (Information Hiding)<a class="anchor" href="#information-hiding" title="Permanent link"></a></h3>
+<p>信息隐藏通过路由汇总、区域划分等技术，减少网络中传播的路由信息量，提高可扩展性和收敛速度。</p>
+<h3 id="modularity">模块化设计 (Modularity)<a class="anchor" href="#modularity" title="Permanent link"></a></h3>
+<p>将网络分成多个功能模块，每个模块独立设计和管理。好处包括：
+- 故障隔离
+- 可扩展性
+- 可管理性
+- 灵活性</p>
+<h3 id="hierarchy">层次化设计 (Hierarchy)<a class="anchor" href="#hierarchy" title="Permanent link"></a></h3>
+<p>层次化设计将网络分为核心层、分布层和接入层，每层有明确职责。</p>
+<hr />
+<h2 id="network-design-pitfalls">网络设计陷阱 (Network Design Pitfalls)<a class="anchor" href="#network-design-pitfalls" title="Permanent link"></a></h2>
+<h3 id="1-assumptions">1. 假设 (Assumptions)<a class="anchor" href="#1-assumptions" title="Permanent link"></a></h3>
+<blockquote>
+<p>作为网络设计师，我们可能会基于自己的经验做出假设。例如假设 MPLS 比 Internet 贵，假设某种技术比另一种更好。在 CCDE 考试中，不要做没有场景支持的假设。</p>
+</blockquote>
+<h3 id="2-over-engineering-gold-plating">2. 过度设计 (Over-Engineering / Gold Plating)<a class="anchor" href="#2-over-engineering-gold-plating" title="Permanent link"></a></h3>
+<blockquote>
+<p>过度设计是指在网络设计中添加不必要的功能、冗余或复杂性。CCDE 考试中，应该解决当前问题，不多不少，除非场景另有说明。</p>
+</blockquote>
+<h3 id="3-best-practice-fallacy">3. 最佳实践误区 (Best Practice Fallacy)<a class="anchor" href="#3-best-practice-fallacy" title="Permanent link"></a></h3>
+<blockquote>
+<p>"最佳实践"可能不适用于所有场景。网络设计师需要理解每个"最佳实践"背后的原理和适用条件，而不是盲目应用。</p>
+</blockquote>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-down Approach</td>
+<td>自顶向下方法</td>
+</tr>
+<tr>
+<td>Bottom-up Approach</td>
+<td>自底向上方法</td>
+</tr>
+<tr>
+<td>Functional Requirements</td>
+<td>功能需求</td>
+</tr>
+<tr>
+<td>Technical Requirements</td>
+<td>技术需求</td>
+</tr>
+<tr>
+<td>Application Requirements</td>
+<td>应用需求</td>
+</tr>
+<tr>
+<td>Greenfield</td>
+<td>全新设计</td>
+</tr>
+<tr>
+<td>Brownfield</td>
+<td>改造设计</td>
+</tr>
+<tr>
+<td>Design Scope</td>
+<td>设计范围</td>
+</tr>
+<tr>
+<td>Constraints</td>
+<td>约束条件</td>
+</tr>
+<tr>
+<td>Unstated Requirements</td>
+<td>未明确需求</td>
+</tr>
+<tr>
+<td>Pervasive Security</td>
+<td>普适安全</td>
+</tr>
+<tr>
+<td>Zero Trust Architecture</td>
+<td>零信任架构</td>
+</tr>
+<tr>
+<td>Fault Isolation</td>
+<td>故障隔离</td>
+</tr>
+<tr>
+<td>Information Hiding</td>
+<td>信息隐藏</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>模块化</td>
+</tr>
+<tr>
+<td>Hierarchy</td>
+<td>层次化</td>
+</tr>
+<tr>
+<td>Gold Plating</td>
+<td>过度设计</td>
+</tr>
+<tr>
+<td>CAPEX</td>
+<td>资本支出</td>
+</tr>
+<tr>
+<td>OPEX</td>
+<td>运营支出</td>
+</tr>
+<tr>
+<td>TCO</td>
+<td>总拥有成本</td>
+</tr>
+<tr>
+<td>ROI</td>
+<td>投资回报率</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link next" href="ch-02.html"><span class="pager-label">下一章</span><span class="pager-title">02 · 为商业成功而设计</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#_2">两种常见的网络分析与设计方法</a></li>
+</ul>
+</li>
+<li><a href="#network-design-fundamentals">网络设计基础 (Network Design Fundamentals)</a><ul>
+<li><a href="#mindset">思维模式 (Mindset)</a></li>
+<li><a href="#functional-requirements">功能需求 (Functional Requirements)</a></li>
+<li><a href="#technical-requirements">技术需求 (Technical Requirements)</a></li>
+<li><a href="#application-requirements">应用需求 (Application Requirements)</a></li>
+<li><a href="#_4">构建设计需求</a></li>
+<li><a href="#design-scope">设计范围 (Design Scope)</a></li>
+<li><a href="#design-use-cases">设计用例 (Design Use Cases)</a></li>
+<li><a href="#the-business">业务 (The Business)</a></li>
+<li><a href="#constraints">约束 (Constraints)</a></li>
+<li><a href="#why">"为什么" (Why)</a></li>
+</ul>
+</li>
+<li><a href="#network-design-principles">网络设计原则 (Network Design Principles)</a><ul>
+<li><a href="#unstated-requirements">未明确需求 (Unstated Requirements)</a></li>
+<li><a href="#pervasive-security">普适安全 (Pervasive Security)</a></li>
+<li><a href="#availability">可用性 (Availability)</a></li>
+<li><a href="#scalability">可扩展性 (Scalability)</a></li>
+<li><a href="#cost">成本 (Cost)</a></li>
+<li><a href="#manageability">可管理性 (Manageability)</a></li>
+</ul>
+</li>
+<li><a href="#network-design-techniques">网络设计技术 (Network Design Techniques)</a><ul>
+<li><a href="#fault-isolation">故障隔离 (Fault Isolation)</a></li>
+<li><a href="#information-hiding">信息隐藏 (Information Hiding)</a></li>
+<li><a href="#modularity">模块化设计 (Modularity)</a></li>
+<li><a href="#hierarchy">层次化设计 (Hierarchy)</a></li>
+</ul>
+</li>
+<li><a href="#network-design-pitfalls">网络设计陷阱 (Network Design Pitfalls)</a><ul>
+<li><a href="#1-assumptions">1. 假设 (Assumptions)</a></li>
+<li><a href="#2-over-engineering-gold-plating">2. 过度设计 (Over-Engineering / Gold Plating)</a></li>
+<li><a href="#3-best-practice-fallacy">3. 最佳实践误区 (Best Practice Fallacy)</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

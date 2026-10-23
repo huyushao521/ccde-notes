@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>企业互联网边缘架构设计 · 第 16 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link active" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="16-enterprise-internet-edge-architecture-design">第 16 章：企业互联网边缘架构设计 (Enterprise Internet Edge Architecture Design)<a class="anchor" href="#16-enterprise-internet-edge-architecture-design" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 747-773 页</p>
+<p><strong>注</strong>: 本章已有更详细的解读文件 <code>Part3_详细解读.md</code>，请配合阅读。</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>互联网边缘架构</strong>：边缘分层设计</li>
+<li><strong>多宿主设计</strong>：三种多宿主场景</li>
+<li><strong>BGP 属性</strong>：用于互联网多宿主</li>
+<li><strong>非对称路由</strong>：多宿主设计陷阱</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="_2">互联网边缘架构层次<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>互联网边缘路由器</td>
+<td>BGP 对等、NAT、QoS</td>
+</tr>
+<tr>
+<td>DMZ/防火墙</td>
+<td>流量检测、安全策略、VPN 终结</td>
+</tr>
+<tr>
+<td>互联网边缘分布层</td>
+<td>聚合流量、连接企业核心</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">多宿主设计<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>灵活性</th>
+<th>可扩展性</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active-Standby</td>
+<td>最低</td>
+<td>最低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>负载分担（单路由器）</td>
+<td>中</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>负载分担（双路由器）</td>
+<td>最高</td>
+<td>最高</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">非对称路由问题<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<p>多宿主设计中最常见的问题——返回流量可能被防火墙丢弃（因为状态不匹配）。</p>
+<h3 id="_5">解决方案<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<ul>
+<li>eBGP 多跳对等</li>
+<li>私有 AS 号</li>
+<li>PI 前缀通告</li>
+<li>防火墙默认路由 + NAT</li>
+<li>路由设计优化确保故障场景路径可预测</li>
+</ul>
+<hr />
+<h2 id="_6">本章关键术语<a class="anchor" href="#_6" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Edge</td>
+<td>互联网边缘</td>
+</tr>
+<tr>
+<td>Multihoming</td>
+<td>多宿主</td>
+</tr>
+<tr>
+<td>Active-Standby</td>
+<td>主备模式</td>
+</tr>
+<tr>
+<td>Load Sharing</td>
+<td>负载分担</td>
+</tr>
+<tr>
+<td>Asymmetric Routing</td>
+<td>非对称路由</td>
+</tr>
+<tr>
+<td>DMZ</td>
+<td>非军事区</td>
+</tr>
+<tr>
+<td>PI Prefix</td>
+<td>提供商无关前缀</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-15.html"><span class="pager-label">上一章</span><span class="pager-title">15 · 可扩展企业园区架构设计</span></a><a class="pager-link next" href="ch-17.html"><span class="pager-label">下一章</span><span class="pager-title">17 · 企业WAN架构设计</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#_2">互联网边缘架构层次</a></li>
+<li><a href="#_3">多宿主设计</a></li>
+<li><a href="#_4">非对称路由问题</a></li>
+<li><a href="#_5">解决方案</a></li>
+</ul>
+</li>
+<li><a href="#_6">本章关键术语</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

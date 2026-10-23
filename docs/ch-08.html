@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三层技术 · 第 8 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link active" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="8-layer-3-technologies">第 8 章：三层技术 (Layer 3 Technologies)<a class="anchor" href="#8-layer-3-technologies" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 322-433 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>企业三层路由</strong>：链路状态路由协议、EIGRP、路由汇总、流量工程和路径选择</li>
+<li><strong>BGP 路由</strong>：BGP 基础、BGP 作为核心路由协议、BGP 可扩展性选项、路由重分发</li>
+<li><strong>企业路由设计建议</strong>：如何选择正确的路由协议</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="ip">IP 路由和转发概念回顾<a class="anchor" href="#ip" title="Permanent link"></a></h3>
+<p>路由协议的主要目标是作为交付机制，将数据包路由到目的地。端到端路由过程基于分布式数据库的概念：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RIB（路由信息库）</strong></td>
+<td>每个三层节点上维护的 IP 地址数据库，包含目的 IP 和下一跳 IP</td>
+</tr>
+<tr>
+<td><strong>FIB（转发信息库）</strong></td>
+<td>转发表，包含目的地址和到达该目的所需的接口</td>
+</tr>
+</tbody>
+</table>
+<p>路由协议分为三类：
+- <strong>链路状态协议</strong>（OSPF、IS-IS）
+- <strong>路径矢量协议</strong>（BGP）
+- <strong>距离矢量协议</strong>（RIP、EIGRP — 混合型）</p>
+<hr />
+<h2 id="link-state-routing">链路状态路由 (Link-State Routing)<a class="anchor" href="#link-state-routing" title="Permanent link"></a></h2>
+<p>链路状态路由协议使用 Dijkstra 最短路径算法计算最佳路径。OSPF 和 IS-IS 是链路状态协议。</p>
+<h3 id="lsdb">链路状态数据库 (LSDB) 构建过程<a class="anchor" href="#lsdb" title="Permanent link"></a></h3>
+<ol>
+<li>路由器发现邻居并建立邻接关系</li>
+<li>交换链路状态通告 (LSA/LSP)</li>
+<li>每个 LSA 包含路由器链路、接口、链路状态和成本信息</li>
+<li>构建 LSDB</li>
+<li>运行 Dijkstra 算法计算最短路径树 (SPT)</li>
+</ol>
+<h3 id="hub-and-spoke">Hub-and-Spoke 拓扑中的链路状态设计<a class="anchor" href="#hub-and-spoke" title="Permanent link"></a></h3>
+<p>在 Hub-and-Spoke 拓扑中使用链路状态协议时，需要考虑：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>每个 Spoke 接收所有其他 Spoke 的链路状态信息</td>
+<td>使用多区域/多泛洪域设计</td>
+</tr>
+<tr>
+<td><strong>次优路由</strong></td>
+<td>流量可能使用远程站点作为中转路径</td>
+<td>ABR 之间需要非汇总链路交换特定路由信息</td>
+</tr>
+<tr>
+<td><strong>中转流量</strong></td>
+<td>Spoke 可能被用作 Spoke-to-Spoke 的中转</td>
+<td>在 Spoke 路由器上设置 stub 区域</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>关键设计要点</strong>：在多区域设计中，ABR 之间需要一条非汇总链路来交换特定路由信息，避免使用 Spoke 站点作为中转路径。</p>
+</blockquote>
+<hr />
+<h2 id="ospf">OSPF 设计考量<a class="anchor" href="#ospf" title="Permanent link"></a></h2>
+<h3 id="ospf-lsa">OSPF LSA 类型<a class="anchor" href="#ospf-lsa" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>LSA 类型</th>
+<th>名称</th>
+<th>生成者</th>
+<th>传播范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type 1</td>
+<td>Router LSA</td>
+<td>每台路由器</td>
+<td>区域内</td>
+</tr>
+<tr>
+<td>Type 2</td>
+<td>Network LSA</td>
+<td>DR</td>
+<td>区域内</td>
+</tr>
+<tr>
+<td>Type 3</td>
+<td>Summary LSA</td>
+<td>ABR</td>
+<td>跨区域</td>
+</tr>
+<tr>
+<td>Type 4</td>
+<td>Summary ASBR LSA</td>
+<td>ABR</td>
+<td>跨区域</td>
+</tr>
+<tr>
+<td>Type 5</td>
+<td>AS External LSA</td>
+<td>ASBR</td>
+<td>整个 AS</td>
+</tr>
+<tr>
+<td>Type 7</td>
+<td>NSSA External LSA</td>
+<td>ASBR (NSSA 内)</td>
+<td>NSSA 内（转 Type 5 传出）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf_1">OSPF 区域类型<a class="anchor" href="#ospf_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>区域类型</th>
+<th>特点</th>
+<th>允许的 LSA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backbone (Area 0)</strong></td>
+<td>核心区域，所有其他区域必须连接</td>
+<td>所有类型</td>
+</tr>
+<tr>
+<td><strong>Normal Area</strong></td>
+<td>标准区域</td>
+<td>所有类型</td>
+</tr>
+<tr>
+<td><strong>Stub Area</strong></td>
+<td>不接收外部路由（Type 5），用默认路由替代</td>
+<td>Type 1, 2, 3</td>
+</tr>
+<tr>
+<td><strong>Totally Stub</strong></td>
+<td>不接收外部和跨区域路由，用默认路由替代</td>
+<td>Type 1, 2</td>
+</tr>
+<tr>
+<td><strong>NSSA</strong></td>
+<td>不接收 Type 5，但允许 Type 7（自定义外部路由）</td>
+<td>Type 1, 2, 3, 7</td>
+</tr>
+<tr>
+<td><strong>Totally NSSA</strong></td>
+<td>NSSA + 不接收 Type 3</td>
+<td>Type 1, 2, 7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf_2">OSPF 网络类型<a class="anchor" href="#ospf_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>网络类型</th>
+<th>DR/BDR 选举</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Broadcast</strong></td>
+<td>是</td>
+<td>以太网</td>
+</tr>
+<tr>
+<td><strong>Point-to-Point</strong></td>
+<td>否</td>
+<td>串行链路、点对点</td>
+</tr>
+<tr>
+<td><strong>Point-to-Multipoint</strong></td>
+<td>否</td>
+<td>NBMA 网络（如帧中继）</td>
+</tr>
+<tr>
+<td><strong>Nonbroadcast (NBMA)</strong></td>
+<td>是</td>
+<td>需要手动配置邻居</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf_3">OSPF 快速收敛技术<a class="anchor" href="#ospf_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SPF 延迟和抑制</strong></td>
+<td>控制 SPF 计算频率，避免频繁计算</td>
+</tr>
+<tr>
+<td><strong>增量 SPF (iSPF)</strong></td>
+<td>只重新计算受影响的部分，而非整棵 SPT</td>
+</tr>
+<tr>
+<td><strong>部分路由计算 (PRC)</strong></td>
+<td>只更新路由表，不重算 SPT</td>
+</tr>
+<tr>
+<td><strong>LSA 延迟</strong></td>
+<td>控制重新生成 LSA 的速率</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>提供亚秒级邻居故障检测</td>
+</tr>
+<tr>
+<td><strong>路由器 LSA 节流</strong></td>
+<td>限制 Type 1 LSA 生成频率</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf_4">OSPF 路由汇总<a class="anchor" href="#ospf_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>汇总方向</th>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>区域间汇总</strong></td>
+<td>ABR</td>
+<td>将区域内的路由汇总后通告到其他区域</td>
+</tr>
+<tr>
+<td><strong>外部路由汇总</strong></td>
+<td>ASBR</td>
+<td>将外部路由汇总后通告到 OSPF 域</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>多个 ABR 上做汇总的风险</strong>：可能导致链路故障时的次优路由。任何在多个 ABR 上做汇总的设计都存在此问题。</p>
+</blockquote>
+<hr />
+<h2 id="is-is">IS-IS 设计考量<a class="anchor" href="#is-is" title="Permanent link"></a></h2>
+<h3 id="is-is-vs-ospf">IS-IS vs OSPF 对比<a class="anchor" href="#is-is-vs-ospf" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>IS-IS</th>
+<th>OSPF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>层级</strong></td>
+<td>Level 1 (区域内)、Level 2 (区域间)</td>
+<td>Area 0 (骨干)、非骨干区域</td>
+</tr>
+<tr>
+<td><strong>路由器类型</strong></td>
+<td>L1、L2、L1/L2</td>
+<td>内部路由器、ABR、ASBR</td>
+</tr>
+<tr>
+<td><strong>区域边界</strong></td>
+<td>链路上</td>
+<td>路由器上</td>
+</tr>
+<tr>
+<td><strong>LSA 等价物</strong></td>
+<td>LSP (链路状态 PDU)</td>
+<td>LSA</td>
+</tr>
+<tr>
+<td><strong>DR 等价物</strong></td>
+<td>DIS (指定中间系统)</td>
+<td>DR</td>
+</tr>
+<tr>
+<td><strong>DIS 选举</strong></td>
+<td>优先级最高者（无备份）</td>
+<td>优先级最高者（有 BDR）</td>
+</tr>
+<tr>
+<td><strong>网络类型</strong></td>
+<td>仅 Broadcast 和 Point-to-Point</td>
+<td>多种网络类型</td>
+</tr>
+<tr>
+<td><strong>运行层</strong></td>
+<td>Layer 2 (数据链路层)</td>
+<td>Layer 3 (IP 层)</td>
+</tr>
+<tr>
+<td><strong>协议号/以太类型</strong></td>
+<td>以太类型 0xFEFE</td>
+<td>IP 协议号 89</td>
+</tr>
+<tr>
+<td><strong>MPLS-TE 支持</strong></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>高（TLV 结构易于扩展）</td>
+<td>中（需要新 LSA 类型扩展）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="is-is-dis-vs-ospf-dr">IS-IS DIS vs OSPF DR<a class="anchor" href="#is-is-dis-vs-ospf-dr" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>IS-IS DIS</th>
+<th>OSPF DR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>备份</strong></td>
+<td>无 BDR</td>
+<td>有 BDR</td>
+</tr>
+<tr>
+<td><strong>被替换</strong></td>
+<td>可被更高优先级路由器替换</td>
+<td>不会被替换（除非故障）</td>
+</tr>
+<tr>
+<td><strong>伪节点</strong></td>
+<td>生成伪节点 LSP</td>
+<td>生成 Network LSA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="is-is-overload-bit">IS-IS Overload Bit<a class="anchor" href="#is-is-overload-bit" title="Permanent link"></a></h3>
+<p>Overload Bit 的作用：
+- 设置后，其他路由器不会通过该路由器转发中转流量
+- <strong>黑洞避免</strong>：在路由器启动时设置，防止在 LSDB 同步前被用作中转
+- <strong>流量工程</strong>：有选择地将流量引导到其他路径</p>
+<h3 id="is-is_1">IS-IS 层级设计<a class="anchor" href="#is-is_1" title="Permanent link"></a></h3>
+<pre><code>    ┌─────────── L2 Backbone ───────────┐
+    │  L1/L2 ═══ L1/L2 ═══ L1/L2       │
+    └──┬──────────┬──────────┬──────────┘
+       │          │          │
+    L1 Area    L1 Area    L1 Area
+    (含 L1     (含 L1     (含 L1
+    路由器)     路由器)     路由器)
+</code></pre>
+<ul>
+<li>L1 路由器只知道区域内的路由</li>
+<li>L1/L2 路由器连接 L1 区域和 L2 骨干</li>
+<li>L2 骨干连接所有区域</li>
+</ul>
+<hr />
+<h2 id="eigrp">EIGRP 设计考量<a class="anchor" href="#eigrp" title="Permanent link"></a></h2>
+<h3 id="eigrp_1">EIGRP 核心概念<a class="anchor" href="#eigrp_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DUAL 算法</strong></td>
+<td>弥散更新算法，EIGRP 的核心算法</td>
+</tr>
+<tr>
+<td><strong>后继路由器 (Successor)</strong></td>
+<td>当前用于转发流量的下一跳路由器</td>
+</tr>
+<tr>
+<td><strong>可行后继路由器 (Feasible Successor)</strong></td>
+<td>备份路由，满足可行性条件 (FC)</td>
+</tr>
+<tr>
+<td><strong>可行性条件 (FC)</strong></td>
+<td>报告距离 (RD) &lt; 可行距离 (FD)</td>
+</tr>
+<tr>
+<td><strong>可行距离 (FD)</strong></td>
+<td>到目的地的最小计算距离</td>
+</tr>
+<tr>
+<td><strong>报告距离 (RD)</strong></td>
+<td>邻居报告的到目的地的距离</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eigrp_2">EIGRP 数据包类型<a class="anchor" href="#eigrp_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>传输方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hello</strong></td>
+<td>组播</td>
+<td>发现和维护邻居关系</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td>组播/单播</td>
+<td>传递路由更新（使用 RTP）</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td>组播</td>
+<td>查询路由信息（使用 RTP）</td>
+</tr>
+<tr>
+<td><strong>Reply</strong></td>
+<td>单播</td>
+<td>响应 Query（使用 RTP）</td>
+</tr>
+<tr>
+<td><strong>ACK</strong></td>
+<td>单播</td>
+<td>确认可靠数据包</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eigrp-query">EIGRP Query 范围控制（关键设计！）<a class="anchor" href="#eigrp-query" title="Permanent link"></a></h3>
+<blockquote>
+<p>⚠️ <strong>EIGRP 最大的设计陷阱</strong>：如果不控制 Query 范围，任何拓扑变化都会导致大量 Query 泛洪，可能导致 SIA（Stuck-in-Active），延长收敛时间。</p>
+</blockquote>
+<p><strong>Query 范围控制方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>路由汇总</strong></td>
+<td>在边界汇总路由，阻止 Query 传播到不需要的区域</td>
+</tr>
+<tr>
+<td><strong>EIGRP Stub</strong></td>
+<td>将路由器配置为 Stub，不向 Stub 路由器发送 Query</td>
+</tr>
+<tr>
+<td><strong>Stub 路由器类型</strong></td>
+<td>Receive-only、Connected、Static、Summary、Redistributed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eigrp-stub">EIGRP Stub 路由器<a class="anchor" href="#eigrp-stub" title="Permanent link"></a></h3>
+<blockquote>
+<p>Stub 路由器不会作为中转路由器，Hub 路由器不会向 Stub 发送 Query。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Stub 类型</th>
+<th>通告的路由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Receive-only</strong></td>
+<td>不通告任何路由，只接收</td>
+</tr>
+<tr>
+<td><strong>Connected</strong></td>
+<td>通告直连路由</td>
+</tr>
+<tr>
+<td><strong>Static</strong></td>
+<td>通告静态路由</td>
+</tr>
+<tr>
+<td><strong>Summary</strong></td>
+<td>通告汇总路由</td>
+</tr>
+<tr>
+<td><strong>Redistributed</strong></td>
+<td>通告重分发路由</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="route-summarization">路由汇总 (Route Summarization)<a class="anchor" href="#route-summarization" title="Permanent link"></a></h2>
+<h3 id="_2">汇总的好处<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<ol>
+<li><strong>减少路由表大小</strong> — 节省内存和 CPU</li>
+<li><strong>减少泛洪范围</strong> — 限制 LSA/LSP 传播</li>
+<li><strong>降低不稳定性传播</strong> — 网络某部分的路由翻动不会影响其他部分</li>
+<li><strong>加快收敛</strong> — 减少需要处理的信息量</li>
+<li><strong>信息隐藏</strong> — 隐藏拓扑细节，提高安全性</li>
+</ol>
+<h3 id="_3">汇总的风险<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>说明</th>
+<th>缓解方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>次优路由</strong></td>
+<td>汇总后可能选择非最优路径</td>
+<td>在多个汇总点之间使用特定路由</td>
+</tr>
+<tr>
+<td><strong>黑洞</strong></td>
+<td>汇总路由指向的路由器可能无法到达某些子网</td>
+<td>仔细规划汇总范围</td>
+</tr>
+<tr>
+<td><strong>故障检测延迟</strong></td>
+<td>汇总隐藏了具体路由状态</td>
+<td>在需要快速检测的链路上不使用汇总</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="traffic-engineering-and-path-selection">流量工程和路径选择 (Traffic Engineering and Path Selection)<a class="anchor" href="#traffic-engineering-and-path-selection" title="Permanent link"></a></h2>
+<h3 id="_4">路径选择方法<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>协议</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基于度量的路径选择</strong></td>
+<td>IGP</td>
+<td>通过调整链路成本影响路径选择</td>
+</tr>
+<tr>
+<td><strong>基于策略的路径选择</strong></td>
+<td>BGP</td>
+<td>通过 BGP 属性控制流量路径</td>
+</tr>
+<tr>
+<td><strong>MPLS-TE</strong></td>
+<td>RSVP-TE</td>
+<td>显式路径，按需建立隧道</td>
+</tr>
+<tr>
+<td><strong>策略路由 (PBR)</strong></td>
+<td>静态</td>
+<td>基于源地址、端口等策略转发</td>
+</tr>
+</tbody>
+</table>
+<h3 id="igp">IGP 度量调整<a class="anchor" href="#igp" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>度量类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OSPF Cost</strong></td>
+<td>基于带宽，可手动调整</td>
+</tr>
+<tr>
+<td><strong>IS-IS Metric</strong></td>
+<td>默认所有接口为 10，需要手动调整</td>
+</tr>
+<tr>
+<td><strong>EIGRP Metric</strong></td>
+<td>复合度量（带宽+延迟+可靠性+负载），默认仅带宽+延迟</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf-cost">OSPF Cost 计算<a class="anchor" href="#ospf-cost" title="Permanent link"></a></h3>
+<pre><code>OSPF Cost = 参考带宽 / 接口带宽
+
+默认参考带宽 = 100 Mbps
+- 10 Mbps 链路: Cost = 10
+- 100 Mbps 链路: Cost = 1
+- 1 Gbps 链路: Cost = 1 (需要调整参考带宽)
+- 10 Gbps 链路: Cost = 1 (需要调整参考带宽)
+
+建议: auto-cost reference-bandwidth 10000 (10G)
+</code></pre>
+<hr />
+<h2 id="bgp-bgp-routing">BGP 路由 (BGP Routing)<a class="anchor" href="#bgp-bgp-routing" title="Permanent link"></a></h2>
+<h3 id="bgp">BGP 基础<a class="anchor" href="#bgp" title="Permanent link"></a></h3>
+<p>BGP 是路径矢量路由协议，是互联网的核心路由协议。</p>
+<table>
+<thead>
+<tr>
+<th>BGP 类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>eBGP</strong></td>
+<td>外部 BGP，不同 AS 之间的 BGP 会话</td>
+</tr>
+<tr>
+<td><strong>iBGP</strong></td>
+<td>内部 BGP，同一 AS 内的 BGP 会话</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bgp-attributes">BGP 属性 (Attributes)<a class="anchor" href="#bgp-attributes" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+<th>影响方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Weight</strong></td>
+<td>Cisco 专有</td>
+<td>本地路由器有效，最高优先选</td>
+<td>出口流量</td>
+</tr>
+<tr>
+<td><strong>Local Preference</strong></td>
+<td>非传递</td>
+<td>整个 AS 内有效，越高越优先</td>
+<td>出口流量</td>
+</tr>
+<tr>
+<td><strong>AS Path</strong></td>
+<td>公认必遵</td>
+<td>经过的 AS 列表，越短越优先</td>
+<td>入口流量</td>
+</tr>
+<tr>
+<td><strong>Origin</strong></td>
+<td>公认必遵</td>
+<td>路由来源 (IGP &lt; EGP &lt; Incomplete)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>MED</strong></td>
+<td>可选非传递</td>
+<td>多出口鉴别器，越低越优先</td>
+<td>入口流量</td>
+</tr>
+<tr>
+<td><strong>Community</strong></td>
+<td>可选传递</td>
+<td>标记路由，用于策略</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Next Hop</strong></td>
+<td>公认必遵</td>
+<td>下一跳地址</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bgp_1">BGP 路径选择顺序<a class="anchor" href="#bgp_1" title="Permanent link"></a></h3>
+<ol>
+<li><strong>Weight</strong>（最高优先）</li>
+<li><strong>Local Preference</strong>（最高优先）</li>
+<li><strong>本地起源</strong>（本路由器起源的路由优先）</li>
+<li><strong>AS Path</strong>（最短优先）</li>
+<li><strong>Origin</strong>（IGP 优先）</li>
+<li><strong>MED</strong>（最低优先）</li>
+<li><strong>eBGP over iBGP</strong></li>
+<li><strong>最近 IGP 邻居</strong></li>
+<li>** oldest route**（最旧路由优先）</li>
+<li><strong>Router ID</strong>（最低优先）</li>
+</ol>
+<h3 id="_5">影响出口流量的方法<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Weight</strong></td>
+<td>Cisco 专有</td>
+<td>仅本路由器有效</td>
+</tr>
+<tr>
+<td><strong>Local Preference</strong></td>
+<td>标准</td>
+<td>整个 AS 内有效</td>
+</tr>
+<tr>
+<td><strong>AS Path Prepend</strong></td>
+<td>标准</td>
+<td>影响<strong>其他 AS</strong> 的入口流量选择</td>
+</tr>
+<tr>
+<td><strong>MED</strong></td>
+<td>标准</td>
+<td>影响邻居 AS 的入口流量选择</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">影响入口流量的方法<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS Path Prepend</strong></td>
+<td>在 AS Path 中添加自己的 AS 号多次，使路径变长</td>
+</tr>
+<tr>
+<td><strong>MED</strong></td>
+<td>设置较低的 MED 值，使邻居优先选择此路径</td>
+</tr>
+<tr>
+<td><strong>Community</strong></td>
+<td>使用 community 标记路由，配合邻居策略</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bgp_2">BGP 作为企业核心路由协议<a class="anchor" href="#bgp_2" title="Permanent link"></a></h3>
+<blockquote>
+<p>💡 BGP 作为企业核心路由协议越来越受欢迎，原因包括：
+- 更好的可扩展性
+- 精细的路径控制能力
+- 与 IGP 解耦的灵活策略
+- 支持多租户（VPNv4/VPNv6 地址族）</p>
+</blockquote>
+<h4 id="bgp-vs-igp">BGP vs IGP 作为核心<a class="anchor" href="#bgp-vs-igp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>BGP</th>
+<th>IGP (OSPF/IS-IS)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>极高（互联网规模）</td>
+<td>中到高</td>
+</tr>
+<tr>
+<td><strong>收敛速度</strong></td>
+<td>较慢</td>
+<td>快</td>
+</tr>
+<tr>
+<td><strong>路径控制</strong></td>
+<td>精细（属性）</td>
+<td>粗粒度（度量）</td>
+</tr>
+<tr>
+<td><strong>策略支持</strong></td>
+<td>丰富</td>
+<td>有限</td>
+</tr>
+<tr>
+<td><strong>复杂度</strong></td>
+<td>高</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>适合场景</strong></td>
+<td>大型企业、多数据中心</td>
+<td>中小企业、园区</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bgp_3">BGP 可扩展性选项<a class="anchor" href="#bgp_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>路由反射器 (RR)</strong></td>
+<td>减少 iBGP 全互联会话数量</td>
+<td>大量 iBGP 对等体</td>
+</tr>
+<tr>
+<td><strong>BGP 联盟</strong></td>
+<td>将 AS 分为子 AS</td>
+<td>超大规模网络</td>
+</tr>
+<tr>
+<td><strong>对等体组</strong></td>
+<td>共享策略的一组邻居</td>
+<td>简化配置</td>
+</tr>
+<tr>
+<td><strong>对等体模板</strong></td>
+<td>继承式配置模板</td>
+<td>简化配置</td>
+</tr>
+<tr>
+<td><strong>BGP RTC</strong></td>
+<td>基于路由目标的约束</td>
+<td>VPN 路由过滤</td>
+</tr>
+</tbody>
+</table>
+<h3 id="route-redistribution">路由重分发 (Route Redistribution)<a class="anchor" href="#route-redistribution" title="Permanent link"></a></h3>
+<blockquote>
+<p>⚠️ 路由重分发是网络设计中最容易出问题的地方之一。</p>
+</blockquote>
+<h4 id="_7">重分发设计原则<a class="anchor" href="#_7" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单向重分发</strong></td>
+<td>只从一个协议向另一个协议重分发，避免路由环路</td>
+</tr>
+<tr>
+<td><strong>双点双向重分发</strong></td>
+<td>需要额外机制防止路由环路（如 tag、前缀列表）</td>
+</tr>
+<tr>
+<td><strong>使用 Tag</strong></td>
+<td>为重分发路由添加标记，防止反向重分发</td>
+</tr>
+<tr>
+<td><strong>使用前缀列表</strong></td>
+<td>精确控制重分发的路由</td>
+</tr>
+<tr>
+<td><strong>度量设置</strong></td>
+<td>重分发时设置合理的初始度量值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_8">路由环路防止方法<a class="anchor" href="#_8" title="Permanent link"></a></h4>
+<pre><code>OSPF → EIGRP:    加 Tag 100
+EIGRP → OSPF:    过滤 Tag 100（防止反向重分发）
+                  加 Tag 200
+OSPF ← EIGRP:    过滤 Tag 200
+</code></pre>
+<hr />
+<h2 id="_9">企业路由设计建议<a class="anchor" href="#_9" title="Permanent link"></a></h2>
+<h3 id="_10">如何选择正确的路由协议<a class="anchor" href="#_10" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>OSPF</th>
+<th>IS-IS</th>
+<th>EIGRP</th>
+<th>BGP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>高</td>
+<td>高</td>
+<td>高（需正确设计）</td>
+<td>极高</td>
+</tr>
+<tr>
+<td><strong>收敛速度</strong></td>
+<td>快（优化后）</td>
+<td>快（优化后）</td>
+<td>快（配合汇总）</td>
+<td>较慢</td>
+</tr>
+<tr>
+<td><strong>路径控制</strong></td>
+<td>度量</td>
+<td>度量</td>
+<td>度量</td>
+<td>精细（属性）</td>
+</tr>
+<tr>
+<td><strong>复杂度</strong></td>
+<td>中</td>
+<td>中</td>
+<td>低到中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>厂商支持</strong></td>
+<td>标准</td>
+<td>标准</td>
+<td>Cisco（现已开放）</td>
+<td>标准</td>
+</tr>
+<tr>
+<td><strong>MPLS-TE</strong></td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>适合场景</strong></td>
+<td>园区、数据中心</td>
+<td>大型服务提供商</td>
+<td>中小企业</td>
+<td>大型企业核心</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">设计原则总结<a class="anchor" href="#_11" title="Permanent link"></a></h3>
+<ol>
+<li><strong>没有标准设计</strong> — 每个设计决策都由业务需求驱动</li>
+<li><strong>信息隐藏</strong> — 使用汇总和区域/层级设计减少信息传播</li>
+<li><strong>快速收敛</strong> — 使用 BFD、优化计时器、增量 SPF 等技术</li>
+<li><strong>故障隔离</strong> — 通过模块化和区域设计限制故障影响范围</li>
+<li><strong>避免中转流量</strong> — 使用 Stub 区域、路由策略防止不需要的中转</li>
+<li><strong>简单性</strong> — 在满足需求的前提下选择最简单的方案</li>
+</ol>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIB</td>
+<td>路由信息库</td>
+</tr>
+<tr>
+<td>FIB</td>
+<td>转发信息库</td>
+</tr>
+<tr>
+<td>LSDB</td>
+<td>链路状态数据库</td>
+</tr>
+<tr>
+<td>LSA</td>
+<td>链路状态通告</td>
+</tr>
+<tr>
+<td>ABR</td>
+<td>区域边界路由器</td>
+</tr>
+<tr>
+<td>ASBR</td>
+<td>自治系统边界路由器</td>
+</tr>
+<tr>
+<td>OSPF Area Types</td>
+<td>OSPF 区域类型</td>
+</tr>
+<tr>
+<td>Stub Area</td>
+<td>末节区域</td>
+</tr>
+<tr>
+<td>NSSA</td>
+<td>非纯末节区域</td>
+</tr>
+<tr>
+<td>DIS</td>
+<td>指定中间系统</td>
+</tr>
+<tr>
+<td>Overload Bit</td>
+<td>过载位</td>
+</tr>
+<tr>
+<td>DUAL</td>
+<td>弥散更新算法</td>
+</tr>
+<tr>
+<td>Feasible Successor</td>
+<td>可行后继路由器</td>
+</tr>
+<tr>
+<td>Feasibility Condition</td>
+<td>可行性条件</td>
+</tr>
+<tr>
+<td>Reported Distance</td>
+<td>报告距离</td>
+</tr>
+<tr>
+<td>Feasible Distance</td>
+<td>可行距离</td>
+</tr>
+<tr>
+<td>EIGRP Stub</td>
+<td>EIGRP 末节路由器</td>
+</tr>
+<tr>
+<td>Route Summarization</td>
+<td>路由汇总</td>
+</tr>
+<tr>
+<td>BGP Attributes</td>
+<td>BGP 属性</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>权重</td>
+</tr>
+<tr>
+<td>Local Preference</td>
+<td>本地优先级</td>
+</tr>
+<tr>
+<td>AS Path</td>
+<td>AS 路径</td>
+</tr>
+<tr>
+<td>MED</td>
+<td>多出口鉴别器</td>
+</tr>
+<tr>
+<td>Community</td>
+<td>团体属性</td>
+</tr>
+<tr>
+<td>Route Reflector</td>
+<td>路由反射器</td>
+</tr>
+<tr>
+<td>BGP Confederation</td>
+<td>BGP 联盟</td>
+</tr>
+<tr>
+<td>Route Redistribution</td>
+<td>路由重分发</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-07.html"><span class="pager-label">上一章</span><span class="pager-title">07 · 二层技术</span></a><a class="pager-link next" href="ch-09.html"><span class="pager-label">下一章</span><span class="pager-title">09 · 网络虚拟化</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#ip">IP 路由和转发概念回顾</a></li>
+</ul>
+</li>
+<li><a href="#link-state-routing">链路状态路由 (Link-State Routing)</a><ul>
+<li><a href="#lsdb">链路状态数据库 (LSDB) 构建过程</a></li>
+<li><a href="#hub-and-spoke">Hub-and-Spoke 拓扑中的链路状态设计</a></li>
+</ul>
+</li>
+<li><a href="#ospf">OSPF 设计考量</a><ul>
+<li><a href="#ospf-lsa">OSPF LSA 类型</a></li>
+<li><a href="#ospf_1">OSPF 区域类型</a></li>
+<li><a href="#ospf_2">OSPF 网络类型</a></li>
+<li><a href="#ospf_3">OSPF 快速收敛技术</a></li>
+<li><a href="#ospf_4">OSPF 路由汇总</a></li>
+</ul>
+</li>
+<li><a href="#is-is">IS-IS 设计考量</a><ul>
+<li><a href="#is-is-vs-ospf">IS-IS vs OSPF 对比</a></li>
+<li><a href="#is-is-dis-vs-ospf-dr">IS-IS DIS vs OSPF DR</a></li>
+<li><a href="#is-is-overload-bit">IS-IS Overload Bit</a></li>
+<li><a href="#is-is_1">IS-IS 层级设计</a></li>
+</ul>
+</li>
+<li><a href="#eigrp">EIGRP 设计考量</a><ul>
+<li><a href="#eigrp_1">EIGRP 核心概念</a></li>
+<li><a href="#eigrp_2">EIGRP 数据包类型</a></li>
+<li><a href="#eigrp-query">EIGRP Query 范围控制（关键设计！）</a></li>
+<li><a href="#eigrp-stub">EIGRP Stub 路由器</a></li>
+</ul>
+</li>
+<li><a href="#route-summarization">路由汇总 (Route Summarization)</a><ul>
+<li><a href="#_2">汇总的好处</a></li>
+<li><a href="#_3">汇总的风险</a></li>
+</ul>
+</li>
+<li><a href="#traffic-engineering-and-path-selection">流量工程和路径选择 (Traffic Engineering and Path Selection)</a><ul>
+<li><a href="#_4">路径选择方法</a></li>
+<li><a href="#igp">IGP 度量调整</a></li>
+<li><a href="#ospf-cost">OSPF Cost 计算</a></li>
+</ul>
+</li>
+<li><a href="#bgp-bgp-routing">BGP 路由 (BGP Routing)</a><ul>
+<li><a href="#bgp">BGP 基础</a></li>
+<li><a href="#bgp-attributes">BGP 属性 (Attributes)</a></li>
+<li><a href="#bgp_1">BGP 路径选择顺序</a></li>
+<li><a href="#_5">影响出口流量的方法</a></li>
+<li><a href="#_6">影响入口流量的方法</a></li>
+<li><a href="#bgp_2">BGP 作为企业核心路由协议</a></li>
+<li><a href="#bgp_3">BGP 可扩展性选项</a></li>
+<li><a href="#route-redistribution">路由重分发 (Route Redistribution)</a></li>
+</ul>
+</li>
+<li><a href="#_9">企业路由设计建议</a><ul>
+<li><a href="#_10">如何选择正确的路由协议</a></li>
+<li><a href="#_11">设计原则总结</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

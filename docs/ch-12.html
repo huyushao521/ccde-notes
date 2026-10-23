@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自动化 · 第 12 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link active" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="12-automation">第 12 章：自动化 (Automation)<a class="anchor" href="#12-automation" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 565-588 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>零接触部署 (Zero-Touch Provisioning, ZTP)</strong>：自动化设备部署</li>
+<li><strong>基础设施即代码 (Infrastructure as Code, IaC)</strong>：以代码方式管理基础设施</li>
+<li><strong>CI/CD Pipelines</strong>：持续集成/持续部署流水线</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="zero-touch-provisioning-ztp">零接触部署 (Zero-Touch Provisioning, ZTP)<a class="anchor" href="#zero-touch-provisioning-ztp" title="Permanent link"></a></h3>
+<p>ZTP 使网络设备能够在无需人工现场配置的情况下自动部署。</p>
+<h4 id="ztp">ZTP 工作流程<a class="anchor" href="#ztp" title="Permanent link"></a></h4>
+<pre><code>1. 设备启动 → 无配置
+2. 通过 DHCP 获取 IP 地址
+3. DHCP 选项提供配置文件 URL
+4. 设备下载配置文件
+5. 应用配置 → 网络连接
+6. 可选：注册到控制器/管理平台
+</code></pre>
+<h4 id="ztp_1">ZTP 的好处<a class="anchor" href="#ztp_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>好处</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>减少部署时间</strong></td>
+<td>从小时级降到分钟级</td>
+</tr>
+<tr>
+<td><strong>降低人为错误</strong></td>
+<td>模板化配置减少配置错误</td>
+</tr>
+<tr>
+<td><strong>远程部署</strong></td>
+<td>无需工程师现场操作</td>
+</tr>
+<tr>
+<td><strong>一致性</strong></td>
+<td>所有设备使用相同模板</td>
+</tr>
+<tr>
+<td><strong>可审计</strong></td>
+<td>配置变更可追踪</td>
+</tr>
+</tbody>
+</table>
+<h4 id="on-prem-ztp-vs-cloud-ztp">On-Prem ZTP vs Cloud ZTP<a class="anchor" href="#on-prem-ztp-vs-cloud-ztp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本地 ZTP</strong></td>
+<td>本地 DHCP/TFTP 服务器</td>
+<td>内部网络、安全敏感环境</td>
+</tr>
+<tr>
+<td><strong>云 ZTP</strong></td>
+<td>通过云平台管理</td>
+<td>多分支企业、SD-WAN</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="infrastructure-as-code-iac">基础设施即代码 (Infrastructure as Code, IaC)<a class="anchor" href="#infrastructure-as-code-iac" title="Permanent link"></a></h3>
+<p>IaC 是通过代码（机器可读的定义文件）管理和配置基础设施的过程，替代手动配置。</p>
+<h4 id="iac">IaC 核心原则<a class="anchor" href="#iac" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>幂等性 (Idempotency)</strong></td>
+<td>多次执行相同代码产生相同结果</td>
+</tr>
+<tr>
+<td><strong>版本控制</strong></td>
+<td>基础设施定义存储在版本控制系统中</td>
+</tr>
+<tr>
+<td><strong>声明式 vs 命令式</strong></td>
+<td>声明式描述"想要什么"，命令式描述"怎么做"</td>
+</tr>
+<tr>
+<td><strong>可重用</strong></td>
+<td>模块化设计，可复用</td>
+</tr>
+<tr>
+<td><strong>可审计</strong></td>
+<td>变更历史可追踪</td>
+</tr>
+</tbody>
+</table>
+<h4 id="iac_1">IaC 工具<a class="anchor" href="#iac_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>类型</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ansible</strong></td>
+<td>声明式、无代理</td>
+<td>网络设备配置</td>
+</tr>
+<tr>
+<td><strong>Terraform</strong></td>
+<td>声明式</td>
+<td>多云/混合基础设施</td>
+</tr>
+<tr>
+<td><strong>Python (Netmiko/NAPALM/Nornir)</strong></td>
+<td>命令式</td>
+<td>网络自动化脚本</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>版本控制</td>
+<td>配置版本管理</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ansible">Ansible 核心概念<a class="anchor" href="#ansible" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Playbook</strong></td>
+<td>YAML 格式的自动化任务定义</td>
+</tr>
+<tr>
+<td><strong>Inventory</strong></td>
+<td>目标设备清单</td>
+</tr>
+<tr>
+<td><strong>Module</strong></td>
+<td>执行特定功能的代码单元</td>
+</tr>
+<tr>
+<td><strong>Role</strong></td>
+<td>可复用的任务集合</td>
+</tr>
+<tr>
+<td><strong>Variables</strong></td>
+<td>参数化配置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="cicd-pipelines">CI/CD Pipelines<a class="anchor" href="#cicd-pipelines" title="Permanent link"></a></h3>
+<p>CI/CD 是一种通过自动化来构建、测试和部署应用程序的方法。</p>
+<h4 id="cicd">CI/CD 阶段<a class="anchor" href="#cicd" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>说明</th>
+<th>在网络中的应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CI (持续集成)</strong></td>
+<td>代码合并到主干，自动构建和测试</td>
+<td>网络配置变更提交后自动验证</td>
+</tr>
+<tr>
+<td><strong>CD (持续交付)</strong></td>
+<td>自动将变更部署到预生产环境</td>
+<td>网络配置推送到预生产环境</td>
+</tr>
+<tr>
+<td><strong>CD (持续部署)</strong></td>
+<td>自动将变更部署到生产环境</td>
+<td>网络配置自动推送到生产环境</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cicd_1">网络中的 CI/CD 流程<a class="anchor" href="#cicd_1" title="Permanent link"></a></h4>
+<pre><code>开发者修改配置 → Git 提交 → CI 触发
+→ 自动验证语法 → 自动测试（lab 环境）
+→ 代码审查 → 合并到主干
+→ CD 部署到预生产 → 验证
+→ CD 部署到生产 → 监控
+</code></pre>
+<h4 id="cicd_2">CI/CD 在网络中的好处<a class="anchor" href="#cicd_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>好处</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>变更速度</strong></td>
+<td>从天/周级降到分钟级</td>
+</tr>
+<tr>
+<td><strong>质量</strong></td>
+<td>自动测试减少人为错误</td>
+</tr>
+<tr>
+<td><strong>可回滚</strong></td>
+<td>快速回滚到上一个版本</td>
+</tr>
+<tr>
+<td><strong>可审计</strong></td>
+<td>所有变更记录在版本控制中</td>
+</tr>
+<tr>
+<td><strong>一致性</strong></td>
+<td>消除手动配置的漂移</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="api">网络自动化 API<a class="anchor" href="#api" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>API 类型</th>
+<th>说明</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NETCONF</strong></td>
+<td>XML 格式的网络配置协议</td>
+<td>设备配置管理</td>
+</tr>
+<tr>
+<td><strong>RESTCONF</strong></td>
+<td>RESTful API，JSON/XML 格式</td>
+<td>现代 Web 应用集成</td>
+</tr>
+<tr>
+<td><strong>gNMI</strong></td>
+<td>gRPC 网络管理接口</td>
+<td>高性能遥测和配置</td>
+</tr>
+<tr>
+<td><strong>REST API</strong></td>
+<td>HTTP/HTTPS RESTful API</td>
+<td>控制器集成</td>
+</tr>
+<tr>
+<td><strong>CLI/SNMP</strong></td>
+<td>传统方式</td>
+<td>遗留系统兼容</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">数据模型<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>YANG</strong></td>
+<td>数据建模语言，描述网络配置和状态</td>
+</tr>
+<tr>
+<td><strong>IETF YANG 模型</strong></td>
+<td>标准 YANG 模型</td>
+</tr>
+<tr>
+<td><strong>OpenConfig</strong></td>
+<td>厂商无关的 YANG 模型</td>
+</tr>
+<tr>
+<td><strong>原生模型</strong></td>
+<td>厂商特定 YANG 模型</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZTP</td>
+<td>零接触部署</td>
+</tr>
+<tr>
+<td>IaC</td>
+<td>基础设施即代码</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>持续集成/持续部署</td>
+</tr>
+<tr>
+<td>Ansible</td>
+<td>自动化工具</td>
+</tr>
+<tr>
+<td>Terraform</td>
+<td>基础设施编排工具</td>
+</tr>
+<tr>
+<td>Playbook</td>
+<td>Ansible 自动化任务定义</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>幂等性</td>
+</tr>
+<tr>
+<td>NETCONF</td>
+<td>网络配置协议</td>
+</tr>
+<tr>
+<td>RESTCONF</td>
+<td>RESTful 配置协议</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>gRPC 网络管理接口</td>
+</tr>
+<tr>
+<td>YANG</td>
+<td>数据建模语言</td>
+</tr>
+<tr>
+<td>OpenConfig</td>
+<td>开放配置模型</td>
+</tr>
+<tr>
+<td>Version Control</td>
+<td>版本控制</td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>流水线</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-11.html"><span class="pager-label">上一章</span><span class="pager-title">11 · 无线</span></a><a class="pager-link next" href="ch-13.html"><span class="pager-label">下一章</span><span class="pager-title">13 · 组播设计</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#zero-touch-provisioning-ztp">零接触部署 (Zero-Touch Provisioning, ZTP)</a></li>
+<li><a href="#infrastructure-as-code-iac">基础设施即代码 (Infrastructure as Code, IaC)</a></li>
+<li><a href="#cicd-pipelines">CI/CD Pipelines</a></li>
+<li><a href="#api">网络自动化 API</a></li>
+<li><a href="#_2">数据模型</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

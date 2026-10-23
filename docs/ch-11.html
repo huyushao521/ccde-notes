@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>无线 · 第 11 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link active" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="11-wireless">第 11 章：无线 (Wireless)<a class="anchor" href="#11-wireless" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 542-564 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>IEEE 802.11 标准</strong>：无线协议和频段</li>
+<li><strong>设备无线能力与安全</strong>：无线安全机制</li>
+<li><strong>企业无线网络设计</strong>：控制器部署模型</li>
+<li><strong>高密度设计</strong>：高密度无线设计考量</li>
+<li><strong>语音和视频设计</strong>：实时应用无线设计</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="ieee-80211">IEEE 802.11 标准与协议<a class="anchor" href="#ieee-80211" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>频段</th>
+<th>最大速率</th>
+<th>调制技术</th>
+<th>信道宽度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.11b</strong></td>
+<td>2.4 GHz</td>
+<td>11 Mbps</td>
+<td>DSSS/CCK</td>
+<td>20 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11a</strong></td>
+<td>5 GHz</td>
+<td>54 Mbps</td>
+<td>OFDM</td>
+<td>20 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11g</strong></td>
+<td>2.4 GHz</td>
+<td>54 Mbps</td>
+<td>OFDM</td>
+<td>20 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11n (Wi-Fi 4)</strong></td>
+<td>2.4/5 GHz</td>
+<td>600 Mbps</td>
+<td>OFDM/MIMO</td>
+<td>20/40 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11ac (Wi-Fi 5)</strong></td>
+<td>5 GHz</td>
+<td>6.9 Gbps</td>
+<td>OFDM/MU-MIMO</td>
+<td>20/40/80/160 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11ax (Wi-Fi 6/6E)</strong></td>
+<td>2.4/5/6 GHz</td>
+<td>9.6 Gbps</td>
+<td>OFDMA</td>
+<td>20/40/80/160 MHz</td>
+</tr>
+<tr>
+<td><strong>802.11be (Wi-Fi 7)</strong></td>
+<td>2.4/5/6 GHz</td>
+<td>46 Gbps</td>
+<td>OFDMA/MLO</td>
+<td>20/40/80/160/320 MHz</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-ghz">2.4 GHz 频段<a class="anchor" href="#24-ghz" title="Permanent link"></a></h3>
+<ul>
+<li>14 个信道，仅 3 个不重叠信道（1、6、11）</li>
+<li>更远覆盖距离</li>
+<li>更强穿透能力</li>
+<li>更拥挤（蓝牙、微波炉等干扰源多）</li>
+</ul>
+<h3 id="5-ghz">5 GHz 频段<a class="anchor" href="#5-ghz" title="Permanent link"></a></h3>
+<ul>
+<li>25 个不重叠信道（UNII-1/2/2e/3）</li>
+<li>更高吞吐量</li>
+<li>更短覆盖距离</li>
+<li>更少干扰源</li>
+</ul>
+<h3 id="6-ghz-wi-fi-6e7">6 GHz 频段（Wi-Fi 6E/7）<a class="anchor" href="#6-ghz-wi-fi-6e7" title="Permanent link"></a></h3>
+<ul>
+<li>59 个 20 MHz 不重叠信道</li>
+<li>29 个 40 MHz 信道</li>
+<li>14 个 80 MHz 信道</li>
+<li>7 个 160 MHz 信道</li>
+<li>极大缓解频谱拥挤问题</li>
+</ul>
+<hr />
+<h3 id="_2">企业无线架构<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<h4 id="_3">无线控制器部署模型<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>集中式 (Centralized)</strong></td>
+<td>WLC 在数据中心集中管理 AP</td>
+<td>传统企业、校园</td>
+</tr>
+<tr>
+<td><strong>分布式 (Distributed)</strong></td>
+<td>WLC 分布在各站点</td>
+<td>大型分布式企业</td>
+</tr>
+<tr>
+<td><strong>云管理 (Cloud)</strong></td>
+<td>云控制器管理 AP</td>
+<td>多分支企业</td>
+</tr>
+<tr>
+<td><strong>嵌入式 (Embedded)</strong></td>
+<td>WLC 功能嵌入交换机/路由器</td>
+<td>小型站点</td>
+</tr>
+</tbody>
+</table>
+<h4 id="capwap">CAPWAP 隧道<a class="anchor" href="#capwap" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>隧道类型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAC 模式 (Local Mode)</strong></td>
+<td>AP 的 MAC 和数据通过 CAPWAP 隧道到 WLC</td>
+</tr>
+<tr>
+<td><strong>FlexConnect (H-REAP)</strong></td>
+<td>数据在本地交换，控制在 WLC</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ap">AP 部署模型<a class="anchor" href="#ap" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local Mode</strong></td>
+<td>AP 的所有流量通过 CAPWAP 隧道到 WLC</td>
+</tr>
+<tr>
+<td><strong>FlexConnect</strong></td>
+<td>本地交换数据，远程控制。WAN 断开时仍可本地转发</td>
+</tr>
+<tr>
+<td><strong>Monitor Mode</strong></td>
+<td>仅接收，用于 RF 监控和入侵检测</td>
+</tr>
+<tr>
+<td><strong>Sniffer Mode</strong></td>
+<td>捕获数据包用于分析</td>
+</tr>
+<tr>
+<td><strong>Bridge Mode</strong></td>
+<td>Mesh 网络，AP 间无线互连</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_4">无线安全<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<h4 id="_5">安全演进<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>安全协议</th>
+<th>特点</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WEP</strong></td>
+<td>RC4 加密，40/104 位密钥</td>
+<td>已被破解，不推荐</td>
+</tr>
+<tr>
+<td><strong>WPA</strong></td>
+<td>TKIP + RC4</td>
+<td>过渡方案，不推荐</td>
+</tr>
+<tr>
+<td><strong>WPA2</strong></td>
+<td>AES-CCMP</td>
+<td>当前主流</td>
+</tr>
+<tr>
+<td><strong>WPA3</strong></td>
+<td>AES-GCMP，SAE 替换 PSK</td>
+<td>最新标准</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">认证方式<a class="anchor" href="#_6" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PSK (预共享密钥)</strong></td>
+<td>简单，适合小型环境</td>
+</tr>
+<tr>
+<td><strong>802.1X/EAP</strong></td>
+<td>企业级认证，RADIUS 服务器</td>
+</tr>
+<tr>
+<td><strong>EAP-TLS</strong></td>
+<td>证书认证，最安全</td>
+</tr>
+<tr>
+<td><strong>PEAP</strong></td>
+<td>服务器证书 + 用户密码</td>
+</tr>
+<tr>
+<td><strong>EAP-FAST</strong></td>
+<td>Cisco 专有，使用 PAC</td>
+</tr>
+</tbody>
+</table>
+<h4 id="wpa3">WPA3 增强<a class="anchor" href="#wpa3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SAE (Simultaneous Authentication of Equals)</strong></td>
+<td>替换 PSK，防止离线字典攻击</td>
+</tr>
+<tr>
+<td><strong>OWE (Opportunistic Wireless Encryption)</strong></td>
+<td>开放网络加密</td>
+</tr>
+<tr>
+<td><strong>192 位安全套件</strong></td>
+<td>政府和企业高安全需求</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="high-density-design">高密度设计 (High-Density Design)<a class="anchor" href="#high-density-design" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>设计要素</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AP 密度</strong></td>
+<td>根据用户密度增加 AP 数量</td>
+</tr>
+<tr>
+<td><strong>功率调整</strong></td>
+<td>降低 AP 发射功率，减少干扰</td>
+</tr>
+<tr>
+<td><strong>信道规划</strong></td>
+<td>使用 5/6 GHz 频段增加容量</td>
+</tr>
+<tr>
+<td><strong>频段引导</strong></td>
+<td>将支持 5 GHz 的设备引导到 5 GHz</td>
+</tr>
+<tr>
+<td><strong>负载均衡</strong></td>
+<td>AP 间均衡用户分布</td>
+</tr>
+<tr>
+<td><strong>空时分组编码 (STBC)</strong></td>
+<td>提高信号可靠性</td>
+</tr>
+<tr>
+<td><strong>最小 RSSI</strong></td>
+<td>设置最低信号强度阈值</td>
+</tr>
+<tr>
+<td><strong>BSS 着色 (802.11ax)</strong></td>
+<td>减少同频干扰</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_7">语音和视频设计<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>设计要素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>QoS 标记</strong></td>
+<td>语音流量标记为高优先级（如 DSCP 46/EF）</td>
+</tr>
+<tr>
+<td><strong>呼叫准入控制 (CAC)</strong></td>
+<td>限制并发呼叫数量</td>
+</tr>
+<tr>
+<td><strong>Fast Roaming</strong></td>
+<td>快速漫游（802.11r、OKC）</td>
+</tr>
+<tr>
+<td><strong>低延迟</strong></td>
+<td>优化漫游时间 &lt; 50ms</td>
+</tr>
+<tr>
+<td><strong>带宽保证</strong></td>
+<td>为每个语音呼叫保留带宽</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>802.11ax</td>
+<td>Wi-Fi 6/6E</td>
+</tr>
+<tr>
+<td>802.11be</td>
+<td>Wi-Fi 7</td>
+</tr>
+<tr>
+<td>WLC</td>
+<td>无线局域网控制器</td>
+</tr>
+<tr>
+<td>CAPWAP</td>
+<td>无线接入点控制和配置协议</td>
+</tr>
+<tr>
+<td>Local Mode</td>
+<td>本地模式</td>
+</tr>
+<tr>
+<td>FlexConnect</td>
+<td>弹性连接模式</td>
+</tr>
+<tr>
+<td>WPA3</td>
+<td>Wi-Fi 保护访问第 3 版</td>
+</tr>
+<tr>
+<td>SAE</td>
+<td>对等同步认证</td>
+</tr>
+<tr>
+<td>802.1X/EAP</td>
+<td>基于端口的认证</td>
+</tr>
+<tr>
+<td>High-Density Design</td>
+<td>高密度设计</td>
+</tr>
+<tr>
+<td>BSS Coloring</td>
+<td>BSS 着色</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>Fast Roaming</td>
+<td>快速漫游</td>
+</tr>
+<tr>
+<td>802.11r</td>
+<td>快速 BSS 切换</td>
+</tr>
+<tr>
+<td>Band Steering</td>
+<td>频段引导</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-10.html"><span class="pager-label">上一章</span><span class="pager-title">10 · 安全</span></a><a class="pager-link next" href="ch-12.html"><span class="pager-label">下一章</span><span class="pager-title">12 · 自动化</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#ieee-80211">IEEE 802.11 标准与协议</a></li>
+<li><a href="#24-ghz">2.4 GHz 频段</a></li>
+<li><a href="#5-ghz">5 GHz 频段</a></li>
+<li><a href="#6-ghz-wi-fi-6e7">6 GHz 频段（Wi-Fi 6E/7）</a></li>
+<li><a href="#_2">企业无线架构</a></li>
+<li><a href="#_4">无线安全</a></li>
+<li><a href="#high-density-design">高密度设计 (High-Density Design)</a></li>
+<li><a href="#_7">语音和视频设计</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>参考架构模型与框架 · 第 5 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link active" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="5-reference-architecture-models-and-frameworks">第 5 章：参考架构模型与框架 (Reference Architecture Models and Frameworks)<a class="anchor" href="#5-reference-architecture-models-and-frameworks" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 234-259 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>参考架构模型与框架</strong>：业务架构、企业架构和当前常见的架构框架</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<blockquote>
+<p>你如何知道从网络设计角度选择的是可行的？你在做正确的网络设计决策吗？你如何定义"架构"这个词？谁定义你的架构？</p>
+</blockquote>
+<p>这就是参考架构、模型和框架发挥作用的地方。它们通过利用组织的不同方面来帮助指导你的决策，以确定业务的正确前进方向。</p>
+<hr />
+<h2 id="business-architecture-ba">业务架构 (Business Architecture, BA)<a class="anchor" href="#business-architecture-ba" title="Permanent link"></a></h2>
+<p>业务架构使从战略规划团队到实施团队的每个人都能"在同一页上"，使他们能够应对挑战并实现业务目标。</p>
+<h3 id="_2">核心概念<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务解决方案 (Business Solution)</strong></td>
+<td>一组交互的业务能力，交付一个或多个业务成果</td>
+</tr>
+<tr>
+<td><strong>业务成果 (Business Outcome)</strong></td>
+<td>业务中活动、流程或事件的可衡量结果，遵循 SMART 原则（具体、可衡量、可实现、现实、有时限）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>业务成果示例</strong>（真实生产环境）：
+- Q1 前将当日订单发货量增加 20%
+- 24 个月内将客户终身价值提高 10
+- Q3 前将新产品上市时间缩短 25%
+- 本财年销售额增长 10%
+- 本财年交付效率提高 25%</p>
+<h3 id="_3">业务架构的四个对齐级别<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>技术特定 (Technology Specific)</strong></td>
+<td>领域特定架构</td>
+<td>业务需要在某个架构领域（数据中心、安全或企业网络）内找到合适的产品，不跨领域</td>
+</tr>
+<tr>
+<td><strong>技术架构 (Technology Architecture)</strong></td>
+<td>多领域架构 (MDA)</td>
+<td>业务需要理解多领域技术架构的价值。两个或更多架构领域被纳入</td>
+</tr>
+<tr>
+<td><strong>业务解决方案 (Business Solutions)</strong></td>
+<td>部分业务架构</td>
+<td>业务需要帮助解决业务问题并衡量技术投资的影响 (CAPEX, OPEX, ROI, TCO)</td>
+</tr>
+<tr>
+<td><strong>业务转型 (Business Transformation)</strong></td>
+<td>业务主导的架构</td>
+<td>业务需要帮助转变业务能力以促进创新，加速公司数字化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">业务架构指导原则<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<p>结合 TOGAF 和 ITIL 的指导原则：</p>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>战略和愿景</strong></td>
+<td>将架构能力与业务目标和成果对齐</td>
+</tr>
+<tr>
+<td><strong>业务架构</strong></td>
+<td>与业务模型和市场/行业视角一致</td>
+</tr>
+<tr>
+<td><strong>应用架构</strong></td>
+<td>与混合云模型共存，支持三层/N 层架构标准</td>
+</tr>
+<tr>
+<td><strong>技术架构</strong></td>
+<td>支持自动化、配置、编排、分析和遥测能力</td>
+</tr>
+<tr>
+<td><strong>基础设施架构</strong></td>
+<td>支持数据中心、云、协作、安全、SASE、企业网络和 IoT</td>
+</tr>
+<tr>
+<td><strong>物理架构</strong></td>
+<td>支持计算、存储和虚拟化</td>
+</tr>
+<tr>
+<td><strong>数据架构</strong></td>
+<td>支持商业智能、数据集成、数据安全、数据管理和运营</td>
+</tr>
+<tr>
+<td><strong>运营架构</strong></td>
+<td>支持 ITIL 服务能力，对齐 Day 0、Day 1、Day 2 管理服务</td>
+</tr>
+<tr>
+<td><strong>架构治理</strong></td>
+<td>支持架构管理办公室服务，对齐规划、设计、实施、运营生命周期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kpi">关键绩效指标 (KPI)<a class="anchor" href="#kpi" title="Permanent link"></a></h3>
+<p>如何知道某个框架或参考架构是否成功？需要通过 KPI 来衡量：</p>
+<ul>
+<li>IT CAPEX 和 OPEX 降低 x%</li>
+<li>上市速度和业务敏捷性提高 x%</li>
+<li>新 IT 服务上市时间减少 x%</li>
+<li>安全运维 MTTD 从 x 天降到 x 小时</li>
+<li>安全运维 MTTR 从 x 天降到 x 小时</li>
+<li>业务 ROI 贡献于 IT 解决方案</li>
+</ul>
+<hr />
+<h2 id="enterprise-architecture-ea">企业架构 (Enterprise Architecture, EA)<a class="anchor" href="#enterprise-architecture-ea" title="Permanent link"></a></h2>
+<p>企业架构是组织业务流程和 IT 基础设施逻辑的过程，反映公司运营模型的集成和标准化要求。</p>
+<p><strong>企业架构的业务收益</strong>：
+- 响应新市场机会
+- 证明投资的合理性
+- 降低成本 (CAPEX 和 OPEX)
+- 提高质量</p>
+<h3 id="_5">企业架构方法论步骤<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<ol>
+<li><strong>识别业务需求</strong> — 通过对齐利益相关者和确定运营模型</li>
+<li><strong>对齐利益相关者</strong> — 四组利益相关者：
+   - IT 指导委员会（架构管理办公室、厂商无关团队、高级管理层）
+   - 架构师（业务架构师、技术架构师、企业架构师）
+   - 财务和采购（CFO、采购团队、供应商关系）
+   - 企业级流程负责人（各部门负责人、用户组、业务单元领导）</li>
+<li><strong>识别运营模型</strong></li>
+</ol>
+<h3 id="_6">运营模型类型<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>协调型 (Coordination)</strong></td>
+<td>高集成、低标准化。数据跨组合共享。业务单元发布创新</td>
+</tr>
+<tr>
+<td><strong>统一型 (Unification)</strong></td>
+<td>集中管理和流程设计。集中化数据库和 IT 组织</td>
+</tr>
+<tr>
+<td><strong>多样化型 (Diversification)</strong></td>
+<td>独立性 + 共享服务。少量共同客户或业务实践。共享 IT 服务以实现规模经济</td>
+</tr>
+<tr>
+<td><strong>复制型 (Replication)</strong></td>
+<td>业务单元自治。运营以标准化方式运行。共享学习但独立运营</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">常见企业架构框架<a class="anchor" href="#_7" title="Permanent link"></a></h2>
+<h3 id="togaf-the-open-group-architecture-framework">TOGAF (The Open Group Architecture Framework)<a class="anchor" href="#togaf-the-open-group-architecture-framework" title="Permanent link"></a></h3>
+<p>TOGAF 是一种企业架构方法论，包含面向企业的高层框架，专注于企业 IT 架构的设计、规划、实施和治理。</p>
+<p><strong>TOGAF 架构开发方法 (ADM) 的 8 个步骤</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>架构愿景</td>
+<td>定义项目范围、利益相关者、业务目标</td>
+</tr>
+<tr>
+<td>B</td>
+<td>业务架构</td>
+<td>开发基线和目标业务架构</td>
+</tr>
+<tr>
+<td>C</td>
+<td>信息系统架构</td>
+<td>开发基线和目标数据和应用架构</td>
+</tr>
+<tr>
+<td>D</td>
+<td>技术架构</td>
+<td>开发基线和目标技术架构</td>
+</tr>
+<tr>
+<td>E</td>
+<td>机会和解决方案</td>
+<td>进行差距分析，制定解决方案</td>
+</tr>
+<tr>
+<td>F</td>
+<td>迁移规划</td>
+<td>制定实施和迁移计划</td>
+</tr>
+<tr>
+<td>G</td>
+<td>实施治理</td>
+<td>提供实施监督</td>
+</tr>
+<tr>
+<td>H</td>
+<td>架构变更管理</td>
+<td>管理架构变更</td>
+</tr>
+</tbody>
+</table>
+<h3 id="itil-information-technology-infrastructure-library">ITIL (Information Technology Infrastructure Library)<a class="anchor" href="#itil-information-technology-infrastructure-library" title="Permanent link"></a></h3>
+<p>ITIL 是一组 IT 服务管理的最佳实践流程。</p>
+<p><strong>ITIL 服务生命周期</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>服务策略</strong></td>
+<td>定义 IT 服务的业务价值和策略</td>
+</tr>
+<tr>
+<td><strong>服务设计</strong></td>
+<td>设计新的或变更的 IT 服务</td>
+</tr>
+<tr>
+<td><strong>服务转换</strong></td>
+<td>将服务从设计过渡到生产</td>
+</tr>
+<tr>
+<td><strong>服务运营</strong></td>
+<td>管理 IT 服务的日常运营</td>
+</tr>
+<tr>
+<td><strong>持续服务改进</strong></td>
+<td>持续改进 IT 服务质量和性能</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">其他框架<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FEAF (Federal Enterprise Architecture Framework)</strong></td>
+<td>美国联邦企业架构框架</td>
+</tr>
+<tr>
+<td><strong>DODAF (Department of Defense Architecture Framework)</strong></td>
+<td>美国国防部架构框架</td>
+</tr>
+<tr>
+<td><strong>RMF (Risk Management Framework)</strong></td>
+<td>风险管理框架</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Architecture (BA)</td>
+<td>业务架构</td>
+</tr>
+<tr>
+<td>Enterprise Architecture (EA)</td>
+<td>企业架构</td>
+</tr>
+<tr>
+<td>Business Solution</td>
+<td>业务解决方案</td>
+</tr>
+<tr>
+<td>Business Outcome</td>
+<td>业务成果</td>
+</tr>
+<tr>
+<td>SMART Principle</td>
+<td>SMART 原则</td>
+</tr>
+<tr>
+<td>Technology Specific</td>
+<td>技术特定（领域特定架构）</td>
+</tr>
+<tr>
+<td>Technology Architecture</td>
+<td>技术架构（多领域架构）</td>
+</tr>
+<tr>
+<td>Business Transformation</td>
+<td>业务转型</td>
+</tr>
+<tr>
+<td>KPI</td>
+<td>关键绩效指标</td>
+</tr>
+<tr>
+<td>TOGAF</td>
+<td>The Open Group 架构框架</td>
+</tr>
+<tr>
+<td>ADM</td>
+<td>架构开发方法</td>
+</tr>
+<tr>
+<td>ITIL</td>
+<td>信息技术基础设施库</td>
+</tr>
+<tr>
+<td>FEAF</td>
+<td>联邦企业架构框架</td>
+</tr>
+<tr>
+<td>DODAF</td>
+<td>国防部架构框架</td>
+</tr>
+<tr>
+<td>RMF</td>
+<td>风险管理框架</td>
+</tr>
+<tr>
+<td>Operating Model</td>
+<td>运营模型</td>
+</tr>
+<tr>
+<td>Coordination</td>
+<td>协调型</td>
+</tr>
+<tr>
+<td>Unification</td>
+<td>统一型</td>
+</tr>
+<tr>
+<td>Diversification</td>
+<td>多样化型</td>
+</tr>
+<tr>
+<td>Replication</td>
+<td>复制型</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-04.html"><span class="pager-label">上一章</span><span class="pager-title">04 · 安全是普适的</span></a><a class="pager-link next" href="ch-06.html"><span class="pager-label">下一章</span><span class="pager-title">06 · 传输技术</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a></li>
+<li><a href="#business-architecture-ba">业务架构 (Business Architecture, BA)</a><ul>
+<li><a href="#_2">核心概念</a></li>
+<li><a href="#_3">业务架构的四个对齐级别</a></li>
+<li><a href="#_4">业务架构指导原则</a></li>
+<li><a href="#kpi">关键绩效指标 (KPI)</a></li>
+</ul>
+</li>
+<li><a href="#enterprise-architecture-ea">企业架构 (Enterprise Architecture, EA)</a><ul>
+<li><a href="#_5">企业架构方法论步骤</a></li>
+<li><a href="#_6">运营模型类型</a></li>
+</ul>
+</li>
+<li><a href="#_7">常见企业架构框架</a><ul>
+<li><a href="#togaf-the-open-group-architecture-framework">TOGAF (The Open Group Architecture Framework)</a></li>
+<li><a href="#itil-information-technology-infrastructure-library">ITIL (Information Technology Infrastructure Library)</a></li>
+<li><a href="#_8">其他框架</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

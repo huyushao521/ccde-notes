@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>网络服务与管理 · 第 14 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link active" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="14-network-services-and-management">第 14 章：网络服务与管理 (Network Services and Management)<a class="anchor" href="#14-network-services-and-management" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 626-707 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>IPv6 设计考量</strong>：IPv6 地址规划、迁移策略</li>
+<li><strong>QoS 设计</strong>：质量服务的商业驱动与架构</li>
+<li><strong>网络管理与服务</strong>：监控、管理和运维</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="ipv6">IPv6 设计考量<a class="anchor" href="#ipv6" title="Permanent link"></a></h3>
+<h4 id="ipv6_1">IPv6 地址类型<a class="anchor" href="#ipv6_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>前缀</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全球单播地址 (GUA)</strong></td>
+<td>2000::/3</td>
+<td>可在全球路由</td>
+</tr>
+<tr>
+<td><strong>唯一本地地址 (ULA)</strong></td>
+<td>FC00::/7</td>
+<td>类似 RFC 1918</td>
+</tr>
+<tr>
+<td><strong>链路本地地址 (LLA)</strong></td>
+<td>FE80::/10</td>
+<td>仅链路本地，不可路由</td>
+</tr>
+<tr>
+<td><strong>组播地址</strong></td>
+<td>FF00::/8</td>
+<td>组播通信</td>
+</tr>
+<tr>
+<td><strong>任播地址</strong></td>
+<td>—</td>
+<td>共享地址，最近路由器响应</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ipv6_2">IPv6 地址分配方法<a class="anchor" href="#ipv6_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SLAAC (无状态地址自动配置)</strong></td>
+<td>路由器通告前缀，设备自生成 IID</td>
+<td>简单部署</td>
+</tr>
+<tr>
+<td><strong>DHCPv6 有状态</strong></td>
+<td>DHCP 分配完整地址</td>
+<td>需要地址追踪</td>
+</tr>
+<tr>
+<td><strong>DHCPv6 无状态</strong></td>
+<td>SLAAC + DHCP 分配额外信息（DNS 等）</td>
+<td>SLAAC + DNS</td>
+</tr>
+<tr>
+<td><strong>手动配置</strong></td>
+<td>静态配置</td>
+<td>服务器、路由器</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ipv6_3">IPv6 地址规划<a class="anchor" href="#ipv6_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>设计原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>层次化分配</strong></td>
+<td>按地理/功能分配前缀，支持汇总</td>
+</tr>
+<tr>
+<td><strong>预留扩展</strong></td>
+<td>保留足够的前缀空间</td>
+</tr>
+<tr>
+<td><strong>ULA vs GUA</strong></td>
+<td>内部通信可使用 ULA，外部使用 GUA</td>
+</tr>
+<tr>
+<td><strong>安全考量</strong></td>
+<td>不使用 EUI-64（暴露 MAC 地址）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ipv6_4">IPv6 迁移策略<a class="anchor" href="#ipv6_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>双栈 (Dual Stack)</strong></td>
+<td>同时运行 IPv4 和 IPv6</td>
+<td>最常见迁移方式</td>
+</tr>
+<tr>
+<td><strong>隧道 (Tunneling)</strong></td>
+<td>IPv6 over IPv4 或反之</td>
+<td>过渡期</td>
+</tr>
+<tr>
+<td><strong>NAT64/DNS64</strong></td>
+<td>IPv6-only 网络访问 IPv4 服务</td>
+<td>IPv6-only 部署</td>
+</tr>
+<tr>
+<td><strong>464XLAT</strong></td>
+<td>IPv4-only 应用在 IPv6 网络上</td>
+<td>移动运营商</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ipv6_5">IPv6 设计考量<a class="anchor" href="#ipv6_5" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>考量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ICMPv6 重要性</strong></td>
+<td>ICMPv6 承担更多功能（NDP、SLAAC、MLD）</td>
+</tr>
+<tr>
+<td><strong>NDP 安全</strong></td>
+<td>NDP 无认证，需 RA Guard、ND Inspection</td>
+</tr>
+<tr>
+<td><strong>扩展头</strong></td>
+<td>扩展头可能影响转发性能</td>
+</tr>
+<tr>
+<td><strong>MTU</strong></td>
+<td>IPv6 路由器不分片，需 PMTUD</td>
+</tr>
+<tr>
+<td><strong>组播</strong></td>
+<td>IPv6 大量使用组播（替代广播）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="qos">QoS 设计<a class="anchor" href="#qos" title="Permanent link"></a></h3>
+<h4 id="qos_1">QoS 的商业驱动<a class="anchor" href="#qos_1" title="Permanent link"></a></h4>
+<blockquote>
+<p>QoS 不仅仅是技术问题——它是业务需求的直接反映。QoS 确保关键应用在网络拥塞时仍能获得所需的网络资源。</p>
+</blockquote>
+<h4 id="qos_2">QoS 模型<a class="anchor" href="#qos_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Best-Effort</strong></td>
+<td>无 QoS 保障</td>
+</tr>
+<tr>
+<td><strong>IntServ (集成服务)</strong></td>
+<td>信令驱动（RSVP），端到端预留</td>
+</tr>
+<tr>
+<td><strong>DiffServ (区分服务)</strong></td>
+<td>基于标记的差异化处理，最常用</td>
+</tr>
+</tbody>
+</table>
+<h4 id="qos_3">QoS 机制<a class="anchor" href="#qos_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>说明</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分类与标记</strong></td>
+<td>识别流量类型并标记</td>
+<td>DSCP、802.1p</td>
+</tr>
+<tr>
+<td><strong>流量监管</strong></td>
+<td>限制流量速率</td>
+<td>CAR、Policing</td>
+</tr>
+<tr>
+<td><strong>流量整形</strong></td>
+<td>缓冲超额流量</td>
+<td>Shaping</td>
+</tr>
+<tr>
+<td><strong>排队</strong></td>
+<td>按优先级调度</td>
+<td>LLQ、CBWFQ</td>
+</tr>
+<tr>
+<td><strong>拥塞避免</strong></td>
+<td>主动丢包避免拥塞</td>
+<td>WRED</td>
+</tr>
+<tr>
+<td><strong>压缩</strong></td>
+<td>减少头部开销</td>
+<td>cRTP、HC</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dscp">DSCP 标记<a class="anchor" href="#dscp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>DSCP 值</th>
+<th>名称</th>
+<th>类型</th>
+<th>适用流量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>46 (EF)</td>
+<td>加速转发</td>
+<td>高优先级</td>
+<td>语音</td>
+</tr>
+<tr>
+<td>40 (CS5)</td>
+<td>信令</td>
+<td>中高</td>
+<td>呼叫信令</td>
+</tr>
+<tr>
+<td>34 (AF41)</td>
+<td>确保转发</td>
+<td>中高</td>
+<td>视频会议</td>
+</tr>
+<tr>
+<td>26 (AF31)</td>
+<td>确保转发</td>
+<td>中</td>
+<td>关键数据</td>
+</tr>
+<tr>
+<td>18 (AF21)</td>
+<td>确保转发</td>
+<td>低中</td>
+<td>一般数据</td>
+</tr>
+<tr>
+<td>0 (DF)</td>
+<td>默认</td>
+<td>尽力而为</td>
+<td>最佳努力</td>
+</tr>
+</tbody>
+</table>
+<h4 id="qos_4">QoS 设计原则<a class="anchor" href="#qos_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分类信任边界</strong></td>
+<td>尽可能靠近源标记，不信任终端标记</td>
+</tr>
+<tr>
+<td><strong>端到端 QoS</strong></td>
+<td>全链路一致标记和调度</td>
+</tr>
+<tr>
+<td><strong>LLQ for Voice</strong></td>
+<td>语音使用低延迟队列</td>
+</tr>
+<tr>
+<td><strong>带宽保证</strong></td>
+<td>为每种流量类型保证带宽</td>
+</tr>
+<tr>
+<td><strong>分层 QoS</strong></td>
+<td>在不同层级应用不同策略</td>
+</tr>
+</tbody>
+</table>
+<h4 id="qos-sd-wan">QoS 在 SD-WAN 中的应用<a class="anchor" href="#qos-sd-wan" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>应用感知</strong></td>
+<td>自动识别应用并应用 QoS</td>
+</tr>
+<tr>
+<td><strong>动态队列</strong></td>
+<td>基于应用动态创建队列</td>
+</tr>
+<tr>
+<td><strong>路径选择</strong></td>
+<td>基于应用需求选择传输路径</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_2">网络管理与服务<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<h4 id="_3">网络管理功能域<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>功能域</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FCAPS</strong></td>
+<td>故障、配置、计费、性能、安全管理</td>
+</tr>
+<tr>
+<td><strong>监控</strong></td>
+<td>实时监控网络状态</td>
+</tr>
+<tr>
+<td><strong>日志</strong></td>
+<td>集中日志和事件关联</td>
+</tr>
+<tr>
+<td><strong>告警</strong></td>
+<td>基于阈值的主动告警</td>
+</tr>
+<tr>
+<td><strong>报告</strong></td>
+<td>容量规划和趋势分析</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_4">网络管理协议<a class="anchor" href="#_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>说明</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SNMP v2c/v3</strong></td>
+<td>简单网络管理协议</td>
+<td>设备监控、轮询</td>
+</tr>
+<tr>
+<td><strong>NETCONF</strong></td>
+<td>网络配置协议</td>
+<td>设备配置</td>
+</tr>
+<tr>
+<td><strong>RESTCONF</strong></td>
+<td>RESTful API</td>
+<td>Web 应用集成</td>
+</tr>
+<tr>
+<td><strong>gNMI</strong></td>
+<td>gRPC 管理接口</td>
+<td>高性能遥测</td>
+</tr>
+<tr>
+<td><strong>Syslog</strong></td>
+<td>系统日志</td>
+<td>事件日志</td>
+</tr>
+<tr>
+<td><strong>NetFlow/IPFIX</strong></td>
+<td>流量分析</td>
+<td>流量监控</td>
+</tr>
+<tr>
+<td><strong>Streaming Telemetry</strong></td>
+<td>流式遥测</td>
+<td>实时监控</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vs">遥测 vs 传统监控<a class="anchor" href="#vs" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>传统 SNMP</th>
+<th>流式遥测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模式</strong></td>
+<td>轮询</td>
+<td>推送</td>
+</tr>
+<tr>
+<td><strong>延迟</strong></td>
+<td>秒级</td>
+<td>毫秒级</td>
+</tr>
+<tr>
+<td><strong>开销</strong></td>
+<td>高（大量轮询）</td>
+<td>低（按需推送）</td>
+</tr>
+<tr>
+<td><strong>精度</strong></td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>适合场景</strong></td>
+<td>遗留设备</td>
+<td>现代网络</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_5">网络编排<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>策略驱动网络</strong></td>
+<td>基于策略自动配置</td>
+</tr>
+<tr>
+<td><strong>意图驱动网络 (IBN)</strong></td>
+<td>声明业务意图，系统自动实现</td>
+</tr>
+<tr>
+<td><strong>闭环自动化</strong></td>
+<td>监控 → 分析 → 自动修复</td>
+</tr>
+<tr>
+<td><strong>网络分析</strong></td>
+<td>AI/ML 驱动的网络优化</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GUA</td>
+<td>全球单播地址</td>
+</tr>
+<tr>
+<td>ULA</td>
+<td>唯一本地地址</td>
+</tr>
+<tr>
+<td>LLA</td>
+<td>链路本地地址</td>
+</tr>
+<tr>
+<td>SLAAC</td>
+<td>无状态地址自动配置</td>
+</tr>
+<tr>
+<td>DHCPv6</td>
+<td>IPv6 动态主机配置协议</td>
+</tr>
+<tr>
+<td>Dual Stack</td>
+<td>双栈</td>
+</tr>
+<tr>
+<td>NAT64</td>
+<td>IPv6 到 IPv4 网络地址转换</td>
+</tr>
+<tr>
+<td>464XLAT</td>
+<td>IPv4 over IPv6 转换</td>
+</tr>
+<tr>
+<td>NDP</td>
+<td>邻居发现协议</td>
+</tr>
+<tr>
+<td>RA Guard</td>
+<td>路由器通告保护</td>
+</tr>
+<tr>
+<td>QoS</td>
+<td>服务质量</td>
+</tr>
+<tr>
+<td>DiffServ</td>
+<td>区分服务</td>
+</tr>
+<tr>
+<td>IntServ</td>
+<td>集成服务</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>差分服务代码点</td>
+</tr>
+<tr>
+<td>EF</td>
+<td>加速转发</td>
+</tr>
+<tr>
+<td>AF</td>
+<td>确保转发</td>
+</tr>
+<tr>
+<td>LLQ</td>
+<td>低延迟队列</td>
+</tr>
+<tr>
+<td>CBWFQ</td>
+<td>基于类的加权公平队列</td>
+</tr>
+<tr>
+<td>WRED</td>
+<td>加权随机早期检测</td>
+</tr>
+<tr>
+<td>FCAPS</td>
+<td>故障配置计费性能安全</td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>简单网络管理协议</td>
+</tr>
+<tr>
+<td>NetFlow</td>
+<td>流量分析</td>
+</tr>
+<tr>
+<td>Streaming Telemetry</td>
+<td>流式遥测</td>
+</tr>
+<tr>
+<td>IBN</td>
+<td>意图驱动网络</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-13.html"><span class="pager-label">上一章</span><span class="pager-title">13 · 组播设计</span></a><a class="pager-link next" href="ch-15.html"><span class="pager-label">下一章</span><span class="pager-title">15 · 可扩展企业园区架构设计</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#ipv6">IPv6 设计考量</a></li>
+<li><a href="#qos">QoS 设计</a></li>
+<li><a href="#_2">网络管理与服务</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-home">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="hero"><h1>CCDE 400-007 学习笔记</h1><p>Cisco Certified Design Expert · Official Cert Guide 中文精读</p><div class="hero-stats"><span><b>18</b> 章笔记</span><span><b>3</b> 大部分</span><span><b>400-007</b> 考试代码</span></div></div><div class="cards-wrap"><section class="card-group"><h2 class="group-title">Part I · 什么是网络设计</h2><p class="group-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</p><div class="card-grid"><a class="card" href="ch-01.html"><span class="card-num">01</span><span class="card-body"><strong>网络设计</strong><em>第 1 章：网络设计 (Network Design)</em></span></a><a class="card" href="ch-02.html"><span class="card-num">02</span><span class="card-body"><strong>为商业成功而设计</strong><em>第 2 章：为商业成功而设计 (Designing for Business Success)</em></span></a><a class="card" href="ch-03.html"><span class="card-num">03</span><span class="card-body"><strong>网络的目的是什么</strong><em>第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)</em></span></a><a class="card" href="ch-04.html"><span class="card-num">04</span><span class="card-body"><strong>安全是普适的</strong><em>第 4 章：安全是普适的 (Security Is Pervasive)</em></span></a><a class="card" href="ch-05.html"><span class="card-num">05</span><span class="card-body"><strong>参考架构模型与框架</strong><em>第 5 章：参考架构模型与框架 (Reference Architecture Models and Frameworks)</em></span></a></div></section><section class="card-group"><h2 class="group-title">Part II · 核心技术设计</h2><p class="group-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</p><div class="card-grid"><a class="card" href="ch-06.html"><span class="card-num">06</span><span class="card-body"><strong>传输技术</strong><em>第 6 章：传输技术 (Transport Technologies)</em></span></a><a class="card" href="ch-07.html"><span class="card-num">07</span><span class="card-body"><strong>二层技术</strong><em>第 7 章：二层技术 (Layer 2 Technologies)</em></span></a><a class="card" href="ch-08.html"><span class="card-num">08</span><span class="card-body"><strong>三层技术</strong><em>第 8 章：三层技术 (Layer 3 Technologies)</em></span></a><a class="card" href="ch-09.html"><span class="card-num">09</span><span class="card-body"><strong>网络虚拟化</strong><em>第 9 章：网络虚拟化 (Network Virtualization)</em></span></a><a class="card" href="ch-10.html"><span class="card-num">10</span><span class="card-body"><strong>安全</strong><em>第 10 章：安全 (Security)</em></span></a><a class="card" href="ch-11.html"><span class="card-num">11</span><span class="card-body"><strong>无线</strong><em>第 11 章：无线 (Wireless)</em></span></a><a class="card" href="ch-12.html"><span class="card-num">12</span><span class="card-body"><strong>自动化</strong><em>第 12 章：自动化 (Automation)</em></span></a><a class="card" href="ch-13.html"><span class="card-num">13</span><span class="card-body"><strong>组播设计</strong><em>第 13 章：组播设计 (Multicast Design)</em></span></a><a class="card" href="ch-14.html"><span class="card-num">14</span><span class="card-body"><strong>网络服务与管理</strong><em>第 14 章：网络服务与管理 (Network Services and Management)</em></span></a></div></section><section class="card-group"><h2 class="group-title">Part III · 企业网络架构</h2><p class="group-sub">园区 · 互联网边缘 · WAN 架构设计</p><div class="card-grid"><a class="card" href="ch-15.html"><span class="card-num">15</span><span class="card-body"><strong>可扩展企业园区架构设计</strong><em>第 15 章：可扩展企业园区架构设计 (Scalable Enterprise Campus Architecture Design)</em></span></a><a class="card" href="ch-16.html"><span class="card-num">16</span><span class="card-body"><strong>企业互联网边缘架构设计</strong><em>第 16 章：企业互联网边缘架构设计 (Enterprise Internet Edge Architecture Design)</em></span></a><a class="card" href="ch-17.html"><span class="card-num">17</span><span class="card-body"><strong>企业WAN架构设计</strong><em>第 17 章：企业 WAN 架构设计 (Enterprise WAN Architecture Design)</em></span></a></div></section><section class="card-group"><h2 class="group-title">备考准备</h2><p class="group-sub">最终准备与备考清单</p><div class="card-grid"><a class="card" href="ch-18.html"><span class="card-num">18</span><span class="card-body"><strong>最终准备</strong><em>第 18 章：最终准备 (Final Preparation)</em></span></a></div></section></div><hr class="home-sep"><h1 id="ccde-400-007-official-cert-guide-">CCDE 400-007 Official Cert Guide - 学习指南<a class="anchor" href="#ccde-400-007-official-cert-guide-" title="Permanent link"></a></h1>
+<h2 id="_1">📖 书籍基本信息<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>书名</strong></td>
+<td>Cisco Certified Design Expert (CCDE 400-007) Official Cert Guide</td>
+</tr>
+<tr>
+<td><strong>作者</strong></td>
+<td>Zig Zsiga</td>
+</tr>
+<tr>
+<td><strong>出版社</strong></td>
+<td>Cisco Press</td>
+</tr>
+<tr>
+<td><strong>版权年</strong></td>
+<td>2023</td>
+</tr>
+<tr>
+<td><strong>总页数</strong></td>
+<td>1077 页</td>
+</tr>
+<tr>
+<td><strong>考试代码</strong></td>
+<td>CCDE 400-007</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">📚 全书结构总览<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<p>本书分为 <strong>三大部分，18 章</strong>，外加附录和词汇表：</p>
+<h3 id="part-i-what-is-network-design">Part I: What is Network Design?（什么是网络设计？）<a class="anchor" href="#part-i-what-is-network-design" title="Permanent link"></a></h3>
+<blockquote>
+<p>第 1-5 章，聚焦网络设计的基础概念、商业驱动和安全架构</p>
+</blockquote>
+<h3 id="part-ii-core-technology-design">Part II: Core Technology Design（核心技术设计）<a class="anchor" href="#part-ii-core-technology-design" title="Permanent link"></a></h3>
+<blockquote>
+<p>第 6-14 章，深入各种网络技术的设计考量</p>
+</blockquote>
+<h3 id="part-iii-enterprise-network-architectures">Part III: Enterprise Network Architectures（企业网络架构）<a class="anchor" href="#part-iii-enterprise-network-architectures" title="Permanent link"></a></h3>
+<blockquote>
+<p>第 15-17 章，综合架构设计实战</p>
+</blockquote>
+<hr />
+<h2 id="_3">📋 各章详细目录与学习要点<a class="anchor" href="#_3" title="Permanent link"></a></h2>
+<h3 id="part-i">Part I: 什么是网络设计？<a class="anchor" href="#part-i" title="Permanent link"></a></h3>
+<h4 id="1-network-design">第 1 章：网络设计 (Network Design)<a class="anchor" href="#1-network-design" title="Permanent link"></a></h4>
+<ul>
+<li>网络设计基础与思维方式</li>
+<li>功能需求、技术需求、应用需求</li>
+<li>设计范围：Greenfield（全新）/ Brownfield（改造）</li>
+<li>网络设计原则：安全普适性、可用性、复杂度控制、可扩展性、成本约束</li>
+<li>网络设计技术：故障隔离、模块化、层次化设计</li>
+<li>网络设计陷阱：假设、过度设计、最佳实践误区</li>
+</ul>
+<p><strong>学习要点</strong>：理解网络设计的核心思维框架，这是整本书的基础。</p>
+<hr />
+<h4 id="2-designing-for-business-success">第 2 章：为商业成功而设计 (Designing for Business Success)<a class="anchor" href="#2-designing-for-business-success" title="Permanent link"></a></h4>
+<ul>
+<li>商业优先级与驱动因素</li>
+<li>商业成果与能力</li>
+<li>业务连续性：RPO（恢复点目标）和 RTO（恢复时间目标）</li>
+<li>项目管理方法论对比：</li>
+<li>Waterfall（瀑布法）</li>
+<li>Agile（敏捷法）</li>
+<li>Scrum</li>
+<li>Kanban</li>
+</ul>
+<p><strong>学习要点</strong>：网络设计必须服务于商业目标，理解不同项目管理方法的适用场景。</p>
+<hr />
+<h4 id="3-whats-the-purpose-of-the-network">第 3 章：网络的目的 (What's the Purpose of the Network?)<a class="anchor" href="#3-whats-the-purpose-of-the-network" title="Permanent link"></a></h4>
+<ul>
+<li>业务应用模型与约束</li>
+<li>云服务模型与连接方式</li>
+<li>云类型：Cloud-Agnostic 架构</li>
+<li>容器化与微服务架构</li>
+<li>传统部署 vs 虚拟化部署 vs 容器部署</li>
+</ul>
+<p><strong>学习要点</strong>：理解网络如何支撑现代应用和云架构。</p>
+<hr />
+<h4 id="4-security-is-pervasive">第 4 章：安全是普适的 (Security Is Pervasive)<a class="anchor" href="#4-security-is-pervasive" title="Permanent link"></a></h4>
+<ul>
+<li>零信任架构（Zero Trust Architecture）</li>
+<li>安全 CIA 三要素：机密性、完整性、可用性</li>
+<li>法规合规：HIPAA、PCI DSS、GDPR</li>
+<li>数据主权</li>
+</ul>
+<p><strong>学习要点</strong>：安全不是附加项，而是设计的核心考量。</p>
+<hr />
+<h4 id="5-reference-architecture-models-and-frameworks">第 5 章：参考架构模型与框架 (Reference Architecture Models and Frameworks)<a class="anchor" href="#5-reference-architecture-models-and-frameworks" title="Permanent link"></a></h4>
+<ul>
+<li>参考架构模型与框架的概念</li>
+</ul>
+<p><strong>学习要点</strong>：掌握业界标准的网络架构参考模型。</p>
+<hr />
+<h3 id="part-ii">Part II: 核心技术设计<a class="anchor" href="#part-ii" title="Permanent link"></a></h3>
+<h4 id="6-transport-technologies">第 6 章：传输技术 (Transport Technologies)<a class="anchor" href="#6-transport-technologies" title="Permanent link"></a></h4>
+<ul>
+<li>城域以太网</li>
+<li>MPLS 传输</li>
+<li>SONET/SDH</li>
+<li>OTN（光传输网络）</li>
+<li>PON（无源光网络）</li>
+</ul>
+<p><strong>学习要点</strong>：理解不同传输技术的选型与设计。</p>
+<hr />
+<h4 id="7-layer-2-technologies">第 7 章：二层技术 (Layer 2 Technologies)<a class="anchor" href="#7-layer-2-technologies" title="Permanent link"></a></h4>
+<ul>
+<li>VLAN 设计与 Trunk</li>
+<li>STP（生成树协议）设计考量</li>
+<li>LAN 交换技术</li>
+<li>EtherChannel/链路聚合</li>
+</ul>
+<p><strong>学习要点</strong>：掌握二层网络的设计原则与最佳实践。</p>
+<hr />
+<h4 id="8-layer-3-technologies">第 8 章：三层技术 (Layer 3 Technologies)<a class="anchor" href="#8-layer-3-technologies" title="Permanent link"></a></h4>
+<ul>
+<li>IGP（内部网关协议）设计：OSPF、IS-IS、EIGRP</li>
+<li>IGP 特性总结与路由重分发</li>
+<li>BGP 路由设计：属性与路径选择</li>
+<li>BGP 作为企业核心路由协议</li>
+<li>BGP 可扩展性：路由反射器、联盟</li>
+</ul>
+<p><strong>学习要点</strong>：这是考试重点，需要深入理解各种路由协议的设计选型。</p>
+<hr />
+<h4 id="9-network-virtualization">第 9 章：网络虚拟化 (Network Virtualization)<a class="anchor" href="#9-network-virtualization" title="Permanent link"></a></h4>
+<ul>
+<li>MPLS 架构与控制平面</li>
+<li>VRF（虚拟路由转发）</li>
+<li>Route Distinguisher &amp; Route Targets</li>
+<li>L3VPN 设计：Full Mesh、Hub-and-Spoke、Extranet</li>
+<li>PE-CE 路由设计</li>
+<li>SD-WAN 组件与策略</li>
+<li>SD-LAN</li>
+</ul>
+<p><strong>学习要点</strong>：MPLS/VPN 和 SD-WAN 是现代网络设计的核心知识。</p>
+<hr />
+<h4 id="10-security">第 10 章：安全 (Security)<a class="anchor" href="#10-security" title="Permanent link"></a></h4>
+<ul>
+<li>设备加固技术</li>
+<li>二层安全考量</li>
+<li>三层控制平面安全</li>
+<li>远程访问与网络覆盖 (VPN)</li>
+</ul>
+<p><strong>学习要点</strong>：从基础设施到覆盖层的全方位安全设计。</p>
+<hr />
+<h4 id="11-wireless">第 11 章：无线 (Wireless)<a class="anchor" href="#11-wireless" title="Permanent link"></a></h4>
+<ul>
+<li>IEEE 802.11 标准与协议</li>
+<li>设备无线能力与安全</li>
+<li>企业无线网络设计</li>
+<li>高密度设计</li>
+<li>语音和视频设计</li>
+</ul>
+<p><strong>学习要点</strong>：无线网络设计的特殊考量与高密度场景。</p>
+<hr />
+<h4 id="12-automation">第 12 章：自动化 (Automation)<a class="anchor" href="#12-automation" title="Permanent link"></a></h4>
+<ul>
+<li>Zero-Touch Provisioning（零接触部署）</li>
+<li>Infrastructure as Code（基础设施即代码）</li>
+<li>CI/CD Pipelines</li>
+</ul>
+<p><strong>学习要点</strong>：网络自动化趋势，理解 IaC 和 CI/CD 在网络中的应用。</p>
+<hr />
+<h4 id="13-multicast-design">第 13 章：组播设计 (Multicast Design)<a class="anchor" href="#13-multicast-design" title="Permanent link"></a></h4>
+<ul>
+<li>组播交换与 IP 地址映射</li>
+<li>组播路由：RPF、PIM</li>
+<li>RP 放置与域间组播</li>
+<li>Anycast-RP、Phantom RP、Live-Live 流</li>
+<li>FHRP-Aware PIM</li>
+</ul>
+<p><strong>学习要点</strong>：组播是考试难点，需要理解各种组播设计模式。</p>
+<hr />
+<h4 id="14-network-services-and-management">第 14 章：网络服务与管理 (Network Services and Management)<a class="anchor" href="#14-network-services-and-management" title="Permanent link"></a></h4>
+<ul>
+<li>IPv6 设计考量与迁移策略</li>
+<li>QoS 设计：商业驱动与架构</li>
+<li>网络管理与服务</li>
+</ul>
+<p><strong>学习要点</strong>：IPv6 迁移和 QoS 设计是实际工作中的高频需求。</p>
+<hr />
+<h3 id="part-iii">Part III: 企业网络架构<a class="anchor" href="#part-iii" title="Permanent link"></a></h3>
+<h4 id="15-scalable-enterprise-campus-architecture-design">第 15 章：可扩展企业园区架构设计 (Scalable Enterprise Campus Architecture Design)<a class="anchor" href="#15-scalable-enterprise-campus-architecture-design" title="Permanent link"></a></h4>
+<ul>
+<li>园区网络架构设计方法论</li>
+<li>层次化设计：接入层、汇聚层、核心层</li>
+<li>可扩展性与弹性设计</li>
+</ul>
+<p><strong>学习要点</strong>：综合应用前面学到的技术进行园区网络设计。</p>
+<hr />
+<h4 id="16-enterprise-internet-edge-architecture-design">第 16 章：企业互联网边缘架构设计 (Enterprise Internet Edge Architecture Design)<a class="anchor" href="#16-enterprise-internet-edge-architecture-design" title="Permanent link"></a></h4>
+<ul>
+<li>互联网边缘架构</li>
+<li>出口设计与多宿主</li>
+<li>安全边界设计</li>
+</ul>
+<p><strong>学习要点</strong>：企业连接互联网的边缘架构设计。</p>
+<hr />
+<h4 id="17-wan-enterprise-wan-architecture-design">第 17 章：企业 WAN 架构设计 (Enterprise WAN Architecture Design)<a class="anchor" href="#17-wan-enterprise-wan-architecture-design" title="Permanent link"></a></h4>
+<ul>
+<li>WAN 架构设计</li>
+<li>MPLS WAN vs Internet WAN</li>
+<li>SD-WAN 在 WAN 设计中的应用</li>
+</ul>
+<p><strong>学习要点</strong>：广域网架构的综合设计考量。</p>
+<hr />
+<h4 id="18-final-preparation">第 18 章：最终准备 (Final Preparation)<a class="anchor" href="#18-final-preparation" title="Permanent link"></a></h4>
+<ul>
+<li>考试准备策略</li>
+<li>复习建议</li>
+</ul>
+<hr />
+<h2 id="_4">🎯 如何使用本指南阅读这本书<a class="anchor" href="#_4" title="Permanent link"></a></h2>
+<h3 id="_5">推荐学习路径<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<pre><code>第 1-5 章（基础概念）→ 第 6-8 章（核心技术）→ 第 9 章（虚拟化）
+→ 第 10-11 章（安全与无线）→ 第 12-14 章（自动化/组播/服务）
+→ 第 15-17 章（综合架构）→ 第 18 章（考前复习）
+</code></pre>
+<h3 id="_6">每章学习方法<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<ol>
+<li><strong>先做 "Do I Know This Already?" 测验</strong> - 评估现有知识水平</li>
+<li><strong>阅读 Foundation Topics</strong> - 核心内容学习</li>
+<li><strong>完成 Exam Preparation Tasks</strong> - 巩固关键知识点</li>
+<li><strong>Define Key Terms</strong> - 掌握术语定义</li>
+<li><strong>Review All Key Topics</strong> - 复习重点</li>
+</ol>
+<h3 id="_7">你可以让我帮你做的事情<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>你可以这样说</th>
+<th>我能帮你做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"帮我解读第 X 章"</td>
+<td>我会提取该章内容并详细讲解</td>
+</tr>
+<tr>
+<td>"解释一下 SD-WAN"</td>
+<td>我会找到相关内容并深入解读</td>
+</tr>
+<tr>
+<td>"OSPF 和 IS-IS 有什么区别"</td>
+<td>基于书中的对比帮你分析</td>
+</tr>
+<tr>
+<td>"帮我总结第 X 章的要点"</td>
+<td>提炼核心知识点</td>
+</tr>
+<tr>
+<td>"解释零信任架构"</td>
+<td>用通俗语言讲解技术概念</td>
+</tr>
+<tr>
+<td>"第 X 章的 Key Terms 是什么"</td>
+<td>提取并解释关键术语</td>
+</tr>
+<tr>
+<td>"帮我出几道练习题"</td>
+<td>根据内容生成测试题</td>
+</tr>
+</tbody>
+</table></article>
+    
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

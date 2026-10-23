@@ -1,0 +1,20 @@
+# 原书 PDF（受版权保护，不纳入仓库）
+*.pdf
+
+# PDF 提取的原始文本
+chapters_raw/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/

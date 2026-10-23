@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>为商业成功而设计 · 第 2 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link active" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="2-designing-for-business-success">第 2 章：为商业成功而设计 (Designing for Business Success)<a class="anchor" href="#2-designing-for-business-success" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 141-180 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>商业成功</strong>：网络设计师应了解的业务要素和术语</li>
+<li><strong>项目管理方法论</strong>：当今最常见的项目管理方法</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="business-success">业务成功 (Business Success)<a class="anchor" href="#business-success" title="Permanent link"></a></h3>
+<p>理解业务需求和方向的最佳起点是查看公司或业务的全局，理解其关联的<strong>业务优先级、业务驱动力和业务成果</strong>。这使网络设计师能够引导设计以确保业务成功。</p>
+<h4 id="business-priorities">业务优先级 (Business Priorities)<a class="anchor" href="#business-priorities" title="Permanent link"></a></h4>
+<p>每个企业都有一套业务优先级，通常基于为实现目标而采用的策略。业务优先级可以影响 IT 网络基础设施的规划和设计。网络设计师必须了解这些优先级，使其与设计优先级保持一致。</p>
+<blockquote>
+<p>例如，如果公司最高优先级是提供更协作和互动的业务通信解决方案，其次是提供最终用户的移动访问，那么必须先满足协作通信解决方案，然后再扩展到移动解决方案。</p>
+</blockquote>
+<p>业务优先级示例：安全。其他术语包括零信任架构、网络安全现代化和风险管理框架。无论叫什么，意图相同——保护网络和维护数据完整性。如果企业数据被破坏，企业就会停业。</p>
+<h4 id="business-drivers">业务驱动力 (Business Drivers)<a class="anchor" href="#business-drivers" title="Permanent link"></a></h4>
+<p>业务驱动力是组织必须遵循的方向。业务驱动力通常是企业必须实现特定成果的原因。它是企业做某件事的<strong>"为什么"</strong>。</p>
+<blockquote>
+<p>例如，遵循特定合规标准（如 HIPAA 或 PCI DSS）的约束就是业务驱动力。如果企业不遵守，可能会被罚款甚至关闭。业务驱动力可以表述为"被要求遵循 HIPAA 合规标准"。</p>
+</blockquote>
+<h4 id="business-outcomes">业务成果 (Business Outcomes)<a class="anchor" href="#business-outcomes" title="Permanent link"></a></h4>
+<p>业务成果等同于最终结果，如节省资金、多元化业务、增加收入或满足特定需求。业务成果具体映射到业务驱动力。</p>
+<blockquote>
+<p>以安全为业务优先级的示例：业务驱动力 = "被要求遵循 HIPAA 合规标准"，业务成果 = "正确维护 HIPAA 合规以保持运营"。</p>
+</blockquote>
+<p>每个驱动力至少有一个成果，但多个成果可以映射到同一驱动力。</p>
+<h4 id="business-capabilities">业务能力 (Business Capabilities)<a class="anchor" href="#business-capabilities" title="Permanent link"></a></h4>
+<blockquote>
+<p>业务能力不是解决方案。业务能力是你从解决方案中获得的东西。大多数解决方案提供多种能力。</p>
+</blockquote>
+<p>例如，基于会话的安全是企业可能需要的能力。厂商无关的网络访问控制 (NAC) 解决方案提供这种能力。Cisco ISE 是厂商特定解决方案的示例，它提供基于会话的安全能力以及多种其他能力。</p>
+<p>业务能力直接映射到业务成果。多个能力通常映射到同一成果，多个成果也通常映射到同一能力。</p>
+<p><strong>业务优先级、驱动力、成果和能力关系映射：</strong></p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>驱动力</th>
+<th>成果</th>
+<th>能力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优先级 #1</td>
+<td>驱动力 #1</td>
+<td>成果 #1</td>
+<td>能力 #1, 能力 #2</td>
+</tr>
+<tr>
+<td>优先级 #1</td>
+<td>驱动力 #2</td>
+<td>成果 #2</td>
+<td>能力 #1</td>
+</tr>
+<tr>
+<td>优先级 #2</td>
+<td>驱动力 #3</td>
+<td>成果 #2</td>
+<td>能力 #1</td>
+</tr>
+<tr>
+<td>优先级 #3</td>
+<td>驱动力 #3</td>
+<td>成果 #3</td>
+<td>能力 #3, 能力 #4</td>
+</tr>
+<tr>
+<td>优先级 #4</td>
+<td>驱动力 #4</td>
+<td>成果 #4</td>
+<td>能力 #4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="business-continuity">业务连续性 (Business Continuity)<a class="anchor" href="#business-continuity" title="Permanent link"></a></h3>
+<p>业务连续性 (BC) 是指在中断后继续业务活动的能力。中断可能由系统故障或自然灾害引起。因此，企业需要建立和提高弹性水平，以应对和恢复意外中断。</p>
+<blockquote>
+<p>网络不同部分的 BC 驱动力可能因对业务影响程度不同而异。例如，零售企业的一个远程门店中断比主数据中心中断影响要小。如果主数据中心离线，会影响所有门店（更高风险），造成更大的金钱损失（有形）和声誉损失（无形）。</p>
+</blockquote>
+<h4 id="recovery-point-objective-rpo">恢复点目标 (Recovery Point Objective, RPO)<a class="anchor" href="#recovery-point-objective-rpo" title="Permanent link"></a></h4>
+<p>RPO 是在峰值业务需求期间，在对业务造成伤害之前可以丢失的数据量。RPO 被赋予一个特定的时间值，相对于上次备份进行衡量。</p>
+<ul>
+<li>大多数情况下 RPO 不到 1 小时，平均值为 10 分钟</li>
+<li>RPO 为 10 分钟意味着企业可以承受从关键中断开始到最近备份之间 10 分钟的数据丢失</li>
+</ul>
+<h4 id="recovery-time-objective-rto">恢复时间目标 (Recovery Time Objective, RTO)<a class="anchor" href="#recovery-time-objective-rto" title="Permanent link"></a></h4>
+<p>RTO 是应用、系统、网络或资源可以离线而不造成重大业务损害的时间长度，以及恢复服务所需的时间。</p>
+<blockquote>
+<p>例如，一个基于云的基础设施公司的 RPO 为 15 分钟、RTO 为 20 分钟。如果发生 10 分钟的中断，两个指标都在范围内。但如果发生 2 小时的中断，则有 1 小时 40 分钟的中断时间未被覆盖。</p>
+</blockquote>
+<hr />
+<h3 id="elasticity">弹性以支持战略业务趋势 (Elasticity)<a class="anchor" href="#elasticity" title="Permanent link"></a></h3>
+<p>弹性是指设计在响应业务变化时可以提供的灵活程度。变化可以是有机增长、业务衰退、合并或收购。</p>
+<blockquote>
+<p>示例：一个高等教育园区架构有四个直接互连的位置。任何需要添加新位置的有机会增长都会在布线、控制平面和可管理性方面引入大量复杂性。通过添加核心模块来优化模块化设计，添加或删除任何模块/位置不会影响其他位置。</p>
+</blockquote>
+<hr />
+<h3 id="it">IT 作为"业务创新"推动者<a class="anchor" href="#it" title="Permanent link"></a></h3>
+<p>当某项技术可以作为业务推动者，帮助组织在市场竞争或提高客户满意度时，该技术的采用将得到业务支持。</p>
+<blockquote>
+<p>例如，基于云的数据中心为托管服务提供商开辟了新的收入机会。企业提供基于云的服务需要可靠、灵活和高性能的数据中心基础设施。网络作为云服务的基础，将成为企业创收解决方案的推动者。</p>
+</blockquote>
+<h3 id="it_1">IT 作为"新"公用事业<a class="anchor" href="#it_1" title="Permanent link"></a></h3>
+<p>在过去十年中，IT 和网络越来越像公用事业提供商（如电力或水务）。大多数企业假设"互联网"就是能工作的，业务应用对最终用户始终可用。无论走到哪里——酒店、机场、餐厅——都有某种形式的无线连接。我们已经习以为常，就像期望开关一开灯就亮一样。</p>
+<blockquote>
+<p>这种对网络可用性的假设就是第 1 章中介绍的"未明确需求"概念。作为网络设计师，你需要确定将网络视为公用事业和始终可用的期望推到多远。</p>
+</blockquote>
+<p><strong>业务风险 vs. 回报 vs. 成本分析：</strong></p>
+<table>
+<thead>
+<tr>
+<th>设计决策</th>
+<th>成本</th>
+<th>业务风险</th>
+<th>业务回报</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单故障点设计</td>
+<td>低；无额外冗余成本</td>
+<td>很高；中断更可能直接导致业务离线</td>
+<td>低；初期节省成本</td>
+</tr>
+<tr>
+<td>消除单故障点</td>
+<td>中等；增加冗余组件成本</td>
+<td>低；单故障仍允许业务运作</td>
+<td>高；业务可以继续运营并赚钱</td>
+</tr>
+<tr>
+<td>消除双故障点</td>
+<td>高；需要大量初始投资</td>
+<td>很低；双故障仍允许业务运作</td>
+<td>很高；更强大但复杂度极高</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>消除单故障点是最佳设计选项——提供冗余解决方案，提高整体业务可用性，同时限制资金成本。</p>
+</blockquote>
+<hr />
+<h3 id="money-money-money">钱、钱、钱 (Money, Money, Money)<a class="anchor" href="#money-money-money" title="Permanent link"></a></h3>
+<p>约 90% 的企业组织是营利性公司。企业通过增加收入同时降低成本来赚钱。</p>
+<table>
+<thead>
+<tr>
+<th>财务概念</th>
+<th>定义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CAPEX</strong></td>
+<td>资本支出——购买固定资产</td>
+<td>将自有数据中心从 4 个合并为 2 个，减少固定资产</td>
+</tr>
+<tr>
+<td><strong>OPEX</strong></td>
+<td>运营支出——日常运营成本</td>
+<td>减少广告和营销预算</td>
+</tr>
+<tr>
+<td><strong>ROI</strong></td>
+<td>投资回报率——投资带来的感知潜在收益</td>
+<td>CCDE 认证投资——知识、思维模式和认证设计师身份带来极高回报</td>
+</tr>
+<tr>
+<td><strong>TCO</strong></td>
+<td>总拥有成本——CAPEX + OPEX</td>
+<td>评估解决方案的总体成本</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ROI 不总是与金钱相关。例如 CCDE 认证的 ROI 包括知识、思维模式以及成为认证网络设计师的身份。</p>
+</blockquote>
+<hr />
+<h3 id="planning">规划 (Planning)<a class="anchor" href="#planning" title="Permanent link"></a></h3>
+<blockquote>
+<p>"如果你没有计划，你就在计划失败。"</p>
+</blockquote>
+<p>网络设计师在获取需求后有时会专注于实施，依赖最佳实践，而不是规划"从 A 点到 B 点的可能方式"。</p>
+<h4 id="decision-tree">决策树 (Decision Tree)<a class="anchor" href="#decision-tree" title="Permanent link"></a></h4>
+<p>决策树是网络设计师可以使用的工具，用于基于特定标准比较多种设计选项或协议。例如，设计师可能需要根据特定拓扑或场景决定使用哪种路由协议。</p>
+<h4 id="decision-matrix">决策矩阵 (Decision Matrix)<a class="anchor" href="#decision-matrix" title="Permanent link"></a></h4>
+<p>决策矩阵与决策树目的相同，但可以添加更多维度。网络设计师可以在决策过程中同时考虑业务需求和优先级。</p>
+<table>
+<thead>
+<tr>
+<th>业务需求</th>
+<th>优先级</th>
+<th>设计选项 1</th>
+<th>设计选项 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>节约成本</td>
+<td>4</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+<tr>
+<td>可扩展</td>
+<td>1</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>安全</td>
+<td>2</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+<p>在上例中，基于业务需求和优先级，设计选项 2 更适合。</p>
+<h4 id="_2">规划方法<a class="anchor" href="#_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>特点</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>战略规划</strong></td>
+<td>面向长期业务成果和策略</td>
+<td>服务提供商将核心从 ATM 迁移到 MPLS</td>
+</tr>
+<tr>
+<td><strong>战术规划</strong></td>
+<td>面向克服问题或实现短期目标</td>
+<td>企业临时通过 Internet 提供远程访问，直到提供专用连接</td>
+</tr>
+</tbody>
+</table>
+<h4 id="strategic-balance">战略平衡 (Strategic Balance)<a class="anchor" href="#strategic-balance" title="Permanent link"></a></h4>
+<p>组织内不同部门有不同的策略：</p>
+<table>
+<thead>
+<tr>
+<th>部门</th>
+<th>关注点</th>
+<th>倾向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IT 部门</td>
+<td>服务交付</td>
+<td>最可扩展和可靠的选项（MPLS VPN）</td>
+</tr>
+<tr>
+<td>市场部门</td>
+<td>品牌声誉</td>
+<td>高速冗余链路</td>
+</tr>
+<tr>
+<td>财务部门</td>
+<td>成本节约</td>
+<td>最便宜的选项（单条 Internet 链路）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>战略平衡示例：零售企业使用两条 Internet 链路配合 VPN 覆盖解决方案——以成本效益的方式提供链路冗余、提高远程站点可用性、满足应用带宽需求，同时维护品牌声誉。</p>
+</blockquote>
+<hr />
+<h2 id="project-management-methodologies">项目管理方法论 (Project Management Methodologies)<a class="anchor" href="#project-management-methodologies" title="Permanent link"></a></h2>
+<h3 id="waterfall-methodology">瀑布方法论 (Waterfall Methodology)<a class="anchor" href="#waterfall-methodology" title="Permanent link"></a></h3>
+<p>瀑布项目管理框架遵循顺序、线性的过程，历史上是软件工程和 IT 项目最流行的项目管理方法。</p>
+<p><strong>特点</strong>：
+- 每个阶段完成后才能进入下一阶段
+- 不能回到前一阶段而不从头开始
+- 使用甘特图显示开始日期、结束日期、分配资源、依赖关系和状态</p>
+<h4 id="_3">瀑布方法的优势<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>易于管理</strong></td>
+<td>每个项目遵循相同模式，易于使用和理解。每个阶段有特定可交付成果和审查流程</td>
+</tr>
+<tr>
+<td><strong>结构化</strong></td>
+<td>每个阶段有起点和终点，便于与利益相关者分享进度</td>
+</tr>
+<tr>
+<td><strong>文档完整</strong></td>
+<td>每个阶段都需要文档，留下完整记录</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_4">瀑布方法的劣势<a class="anchor" href="#_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>劣势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>抗拒变更</strong></td>
+<td>一旦阶段完成就不能回头。如果测试阶段发现缺少业务能力，修复非常困难和昂贵</td>
+</tr>
+<tr>
+<td><strong>解决方案交付晚</strong></td>
+<td>必须完成多个阶段才能开始实施。业务领导者在整个流程后期才能看到工作解决方案</td>
+</tr>
+<tr>
+<td><strong>需求收集困难</strong></td>
+<td>在项目早期就正确识别利益相关者真正需要什么非常困难</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="agile-methodologies">敏捷方法论 (Agile Methodologies)<a class="anchor" href="#agile-methodologies" title="Permanent link"></a></h3>
+<p>敏捷方法论基于增量、迭代的方法。不像瀑布模型那样在项目开始时进行深入规划，敏捷方法论接受随时间变化的需求，并鼓励来自不同业务领导者和利益相关者的持续反馈。</p>
+<h4 id="12">敏捷 12 原则<a class="anchor" href="#12" title="Permanent link"></a></h4>
+<ol>
+<li>最高优先级是通过尽早和持续交付有价值的软件来满足客户</li>
+<li>欢迎需求变更，即使在开发后期。敏捷过程利用变化为客户创造竞争优势</li>
+<li>频繁交付可工作的软件，从几周到几个月，优先选择较短的时间尺度</li>
+<li>业务人员和开发人员必须每天在整个项目期间一起工作</li>
+<li>围绕有动力的个人构建项目。给他们需要的环境和支持，信任他们完成工作</li>
+<li>向开发团队传达信息的最有效和高效方法是面对面交流</li>
+<li>可工作的软件是进度的首要衡量标准</li>
+<li>敏捷过程促进可持续开发</li>
+<li>持续关注技术卓越和良好设计增强敏捷性</li>
+<li>简洁——最大化未完成工作量的艺术——是必不可少的</li>
+<li>最好的架构、需求和设计来自自组织团队</li>
+<li>团队定期反思如何更有效，然后相应调整行为</li>
+</ol>
+<h4 id="_5">敏捷方法的优势<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>欢迎变更</strong></td>
+<td>更短的流程和工作周期，更容易在整个项目中添加变更</td>
+</tr>
+<tr>
+<td><strong>未来状态未知</strong></td>
+<td>非常适合未来状态未明确定义的项目</td>
+</tr>
+<tr>
+<td><strong>更快交付</strong></td>
+<td>将项目分解为迭代过程，专注于更高质量的工作</td>
+</tr>
+<tr>
+<td><strong>反馈循环</strong></td>
+<td>鼓励用户和团队成员在整个项目中提供反馈</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">敏捷方法的劣势<a class="anchor" href="#_6" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>劣势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>缺乏时间表</strong></td>
+<td>很难确定完成日期。任务可以重新排列优先级</td>
+</tr>
+<tr>
+<td><strong>需要高技能团队</strong></td>
+<td>团队成员必须包括高技能的自我驱动者</td>
+</tr>
+<tr>
+<td><strong>时间投入</strong></td>
+<td>所有团队成员需要完全投入项目</td>
+</tr>
+<tr>
+<td><strong>最终解决方案蔓延</strong></td>
+<td>项目开始时没有明确计划，最终产品可能与预期大不相同</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="scrum">Scrum 方法论<a class="anchor" href="#scrum" title="Permanent link"></a></h3>
+<p>Scrum 是敏捷方法论的一种具体实现，使用固定时长的迭代称为<strong>冲刺 (Sprint)</strong>。</p>
+<h4 id="scrum_1">Scrum 角色<a class="anchor" href="#scrum_1" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>产品负责人 (Product Owner)</strong></td>
+<td>定义产品愿景、管理产品待办列表</td>
+</tr>
+<tr>
+<td><strong>Scrum 大师 (Scrum Master)</strong></td>
+<td>确保 Scrum 被正确理解和实施，消除障碍</td>
+</tr>
+<tr>
+<td><strong>开发团队</strong></td>
+<td>自组织完成冲刺目标</td>
+</tr>
+</tbody>
+</table>
+<h4 id="scrum_2">Scrum 事件<a class="anchor" href="#scrum_2" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冲刺 (Sprint)</strong></td>
+<td>固定时长（通常 2-4 周）的迭代</td>
+</tr>
+<tr>
+<td><strong>冲刺计划</strong></td>
+<td>确定冲刺目标和待办事项</td>
+</tr>
+<tr>
+<td><strong>每日站会</strong></td>
+<td>每日 15 分钟同步</td>
+</tr>
+<tr>
+<td><strong>冲刺评审</strong></td>
+<td>展示冲刺成果</td>
+</tr>
+<tr>
+<td><strong>冲刺回顾</strong></td>
+<td>反思和改进流程</td>
+</tr>
+</tbody>
+</table>
+<h4 id="scrum_3">Scrum 优势<a class="anchor" href="#scrum_3" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>快速交付</strong></td>
+<td>每个冲刺结束都有可工作的产品增量</td>
+</tr>
+<tr>
+<td><strong>高可视性</strong></td>
+<td>通过每日站会和冲刺评审保持透明</td>
+</tr>
+<tr>
+<td><strong>持续改进</strong></td>
+<td>通过冲刺回顾不断优化流程</td>
+</tr>
+<tr>
+<td><strong>适应性</strong></td>
+<td>可以在每个冲刺之间重新排列优先级</td>
+</tr>
+</tbody>
+</table>
+<h4 id="scrum_4">Scrum 劣势<a class="anchor" href="#scrum_4" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>劣势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>角色模糊</strong></td>
+<td>角色之间可能产生混淆</td>
+</tr>
+<tr>
+<td><strong>范围蔓延</strong></td>
+<td>如果产品负责人不断添加需求，项目可能永远无法完成</td>
+</tr>
+<tr>
+<td><strong>团队规模限制</strong></td>
+<td>最佳团队规模为 5-9 人</td>
+</tr>
+<tr>
+<td><strong>需要经验</strong></td>
+<td>团队需要 Scrum 经验才能有效运作</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="kanban-methodology">看板方法论 (Kanban Methodology)<a class="anchor" href="#kanban-methodology" title="Permanent link"></a></h3>
+<p>看板是一种可视化的项目管理方法，专注于持续交付和工作流程优化。</p>
+<h4 id="_7">核心原则<a class="anchor" href="#_7" title="Permanent link"></a></h4>
+<ol>
+<li><strong>可视化工作流程</strong>：使用看板列表示工作阶段</li>
+<li><strong>限制在制品 (WIP Limit)</strong>：限制每个阶段的工作量</li>
+<li><strong>管理流程</strong>：监控和优化工作流</li>
+<li><strong>明确流程政策</strong>：使流程规则显式化</li>
+<li><strong>实施反馈循环</strong>：定期回顾和改进</li>
+<li><strong>协作改进</strong>：团队共同改进实验</li>
+</ol>
+<h4 id="vs-scrum">看板 vs. Scrum 对比<a class="anchor" href="#vs-scrum" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>看板</th>
+<th>Scrum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作组织</td>
+<td>按流程阶段</td>
+<td>按冲刺</td>
+</tr>
+<tr>
+<td>变更</td>
+<td>可随时添加</td>
+<td>冲刺期间不变</td>
+</tr>
+<tr>
+<td>角色</td>
+<td>无固定角色</td>
+<td>三个明确角色</td>
+</tr>
+<tr>
+<td>会议</td>
+<td>按需</td>
+<td>固定事件</td>
+</tr>
+<tr>
+<td>度量</td>
+<td>周期时间、吞吐量</td>
+<td>速度、燃尽图</td>
+</tr>
+<tr>
+<td>适合场景</td>
+<td>运维、支持</td>
+<td>新产品开发</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Priorities</td>
+<td>业务优先级</td>
+</tr>
+<tr>
+<td>Business Drivers</td>
+<td>业务驱动力</td>
+</tr>
+<tr>
+<td>Business Outcomes</td>
+<td>业务成果</td>
+</tr>
+<tr>
+<td>Business Capabilities</td>
+<td>业务能力</td>
+</tr>
+<tr>
+<td>Business Continuity (BC)</td>
+<td>业务连续性</td>
+</tr>
+<tr>
+<td>Recovery Point Objective (RPO)</td>
+<td>恢复点目标</td>
+</tr>
+<tr>
+<td>Recovery Time Objective (RTO)</td>
+<td>恢复时间目标</td>
+</tr>
+<tr>
+<td>Elasticity</td>
+<td>弹性</td>
+</tr>
+<tr>
+<td>CAPEX</td>
+<td>资本支出</td>
+</tr>
+<tr>
+<td>OPEX</td>
+<td>运营支出</td>
+</tr>
+<tr>
+<td>ROI</td>
+<td>投资回报率</td>
+</tr>
+<tr>
+<td>TCO</td>
+<td>总拥有成本</td>
+</tr>
+<tr>
+<td>Decision Tree</td>
+<td>决策树</td>
+</tr>
+<tr>
+<td>Decision Matrix</td>
+<td>决策矩阵</td>
+</tr>
+<tr>
+<td>Strategic Planning</td>
+<td>战略规划</td>
+</tr>
+<tr>
+<td>Tactical Planning</td>
+<td>战术规划</td>
+</tr>
+<tr>
+<td>Strategic Balance</td>
+<td>战略平衡</td>
+</tr>
+<tr>
+<td>Waterfall</td>
+<td>瀑布方法论</td>
+</tr>
+<tr>
+<td>Agile</td>
+<td>敏捷方法论</td>
+</tr>
+<tr>
+<td>Scrum</td>
+<td>Scrum 方法论</td>
+</tr>
+<tr>
+<td>Kanban</td>
+<td>看板方法论</td>
+</tr>
+<tr>
+<td>Sprint</td>
+<td>冲刺</td>
+</tr>
+<tr>
+<td>Product Owner</td>
+<td>产品负责人</td>
+</tr>
+<tr>
+<td>Scrum Master</td>
+<td>Scrum 大师</td>
+</tr>
+<tr>
+<td>WIP Limit</td>
+<td>在制品限制</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-01.html"><span class="pager-label">上一章</span><span class="pager-title">01 · 网络设计</span></a><a class="pager-link next" href="ch-03.html"><span class="pager-label">下一章</span><span class="pager-title">03 · 网络的目的是什么</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#business-success">业务成功 (Business Success)</a></li>
+<li><a href="#business-continuity">业务连续性 (Business Continuity)</a></li>
+<li><a href="#elasticity">弹性以支持战略业务趋势 (Elasticity)</a></li>
+<li><a href="#it">IT 作为"业务创新"推动者</a></li>
+<li><a href="#it_1">IT 作为"新"公用事业</a></li>
+<li><a href="#money-money-money">钱、钱、钱 (Money, Money, Money)</a></li>
+<li><a href="#planning">规划 (Planning)</a></li>
+</ul>
+</li>
+<li><a href="#project-management-methodologies">项目管理方法论 (Project Management Methodologies)</a><ul>
+<li><a href="#waterfall-methodology">瀑布方法论 (Waterfall Methodology)</a></li>
+<li><a href="#agile-methodologies">敏捷方法论 (Agile Methodologies)</a></li>
+<li><a href="#scrum">Scrum 方法论</a></li>
+<li><a href="#kanban-methodology">看板方法论 (Kanban Methodology)</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>

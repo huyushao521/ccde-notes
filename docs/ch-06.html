@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>传输技术 · 第 6 章 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link active" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">备考准备</span><span class="nav-sub">最终准备与备考清单</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><h1 id="6-transport-technologies">第 6 章：传输技术 (Transport Technologies)<a class="anchor" href="#6-transport-technologies" title="Permanent link"></a></h1>
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 260-299 页</p>
+</blockquote>
+<hr />
+<h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<ul>
+<li><strong>二层介质接入</strong>：二层传输和连接模型</li>
+<li><strong>虚拟专线服务设计考量</strong>：VPLS 模型、概念和对应的网络设计要素</li>
+<li><strong>EVPN 设计模型</strong>：EVPN 概念、协议和对应的网络设计要素</li>
+</ul>
+<hr />
+<h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="layer-2-media-access">二层介质接入 (Layer 2 Media Access)<a class="anchor" href="#layer-2-media-access" title="Permanent link"></a></h3>
+<p>运营商理解提供灵活和响应迅速的网络架构的重要性，该架构支持当前和未来需求而无需大规模变更。因此，几乎所有服务提供商都已部分或完全将核心基础设施迁移到 MPLS。这使他们能够利用 MPLS 基础设施，通过一个统一的 MPLS 核心为客户提供 L2 和 L3 服务。</p>
+<h4 id="carrier-ethernet">Carrier Ethernet（载波以太网）<a class="anchor" href="#carrier-ethernet" title="Permanent link"></a></h4>
+<p>现代提供二层以太网服务（如城域以太网）的服务商被称为 Carrier Ethernet 提供商。</p>
+<p><strong>服务商采用现代 L2 服务的业务驱动力</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>驱动力</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>灵活的产品</strong></td>
+<td>定制化解决方案，灵活混合服务、数据速率和收入（EPL、EVPL、E-LAN）</td>
+</tr>
+<tr>
+<td><strong>灵活的带宽</strong></td>
+<td>可配置 1G/10G 以太网物理链路，提供基于 SLA 的分数线路接入速率</td>
+</tr>
+<tr>
+<td><strong>灵活的介质接入</strong></td>
+<td>支持多种接入网络：WiMAX、IP DSLAM、光纤以太网、铜线以太网等</td>
+</tr>
+<tr>
+<td><strong>成本节约</strong></td>
+<td>与 ATM 等传统硬件相比，以太网基础设施提供更低的 CAPEX</td>
+</tr>
+<tr>
+<td><strong>可扩展服务</strong></td>
+<td>通过一个通用基础设施支持大量客户，增加收入</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metro-ethernet">Metro Ethernet 服务类型<a class="anchor" href="#metro-ethernet" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>服务类型</th>
+<th>拓扑</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E-Line</strong></td>
+<td>点对点 (P2P)</td>
+<td>两个 UNI 之间的以太网电路，如 VPWS</td>
+</tr>
+<tr>
+<td><strong>E-LAN</strong></td>
+<td>多点到多点 (MP2MP)</td>
+<td>两个或多个 UNI 之间的以太网电路，如 VPLS</td>
+</tr>
+<tr>
+<td><strong>E-Tree</strong></td>
+<td>点对多点</td>
+<td>树状结构，叶子只能与根通信，不能互相通信。类似 Private VLAN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metro-ethernet_1">Metro Ethernet 传输模型<a class="anchor" href="#metro-ethernet_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>服务类型</th>
+<th>基于端口</th>
+<th>基于 VLAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E-Line</strong></td>
+<td>Ethernet Private Line (EPL)</td>
+<td>Ethernet Virtual Private Line (EVPL)</td>
+</tr>
+<tr>
+<td><strong>E-LAN</strong></td>
+<td>Ethernet Private LAN (EPLAN)</td>
+<td>Ethernet Virtual Private LAN (EVPLAN)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metro-ethernet_2">Metro Ethernet 组件<a class="anchor" href="#metro-ethernet_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UNI (用户网络接口)</strong></td>
+<td>连接和订户之间的物理分界点，也称为基于端口的 ME</td>
+</tr>
+<tr>
+<td><strong>EVC (以太网虚拟连接)</strong></td>
+<td>两个或多个 UNI 的关联，限制服务帧在 EVC 内交换。多个 EVC 共享一个 UNI 时使用 802.1Q VLAN 标识，即基于 VLAN (EVPL)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="virtual-private-wire-service-vpws">虚拟专线服务设计考量 (Virtual Private Wire Service, VPWS)<a class="anchor" href="#virtual-private-wire-service-vpws" title="Permanent link"></a></h2>
+<p>VPWS 基于伪线 (Pseudowire, PW) 概念（RFC 3916），是两个边缘节点之间的连接，将两条接入电路 (AC) 连接起来，模拟直接 AC 连接。</p>
+<h3 id="pw">PW 传输连接模型<a class="anchor" href="#pw" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基于 VLAN</strong></td>
+<td>物理端口上定义的 VLAN 可交换到不同的远端 PE</td>
+<td>客户不需要更改路由和 IP 地址（类似传统 FR/ATM WAN）</td>
+</tr>
+<tr>
+<td><strong>基于端口</strong></td>
+<td>隧道化进入 AC 物理端口的所有流量，不变地传输到远端 PE</td>
+<td>L3 网络为传统 WAN 串行链路需替换为高速 P2P 链路；数据中心二层互联</td>
+</tr>
+</tbody>
+</table>
+<h3 id="l2-pw">L2 介质接入的 PW 传输模式<a class="anchor" href="#l2-pw" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>L2 技术</th>
+<th>PW 上的传输模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Frame Relay</strong></td>
+<td>基于端口 / 基于 DLCI</td>
+</tr>
+<tr>
+<td><strong>ATM</strong></td>
+<td>AAL5 PDU over PW / 信元中继 over PW</td>
+</tr>
+<tr>
+<td><strong>Ethernet</strong></td>
+<td>基于协议 / 基于 VLAN</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="lan-vpls">虚拟专用 LAN 服务设计考量 (VPLS)<a class="anchor" href="#lan-vpls" title="Permanent link"></a></h2>
+<p>VPLS 满足通过一个通用二层网络互联多个站点的需求，支持现代数据中心的二层扩展和虚拟机移动性。</p>
+<h3 id="vpls">VPLS 架构组件<a class="anchor" href="#vpls" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>N-PE (网络面向 PE)</strong></td>
+<td>提供 VPLS 终止/L3 服务</td>
+</tr>
+<tr>
+<td><strong>U-PE (用户面向 PE)</strong></td>
+<td>提供客户 UNI</td>
+</tr>
+<tr>
+<td><strong>CE (客户边缘)</strong></td>
+<td>客户设备</td>
+</tr>
+<tr>
+<td><strong>VSI (虚拟交换实例)</strong></td>
+<td>执行标准 LAN 桥接功能，包括基于 MAC 地址和 VLAN 标签的学习和转发</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vpls_1">VPLS 控制平面<a class="anchor" href="#vpls_1" title="Permanent link"></a></h3>
+<p>VPLS 与 VPWS 的主要区别：VPLS 需要所有参与的 PE 之间建立<strong>全互联 PW</strong>。因此 PE 自动发现和 PW 自动建立是重要因素。</p>
+<h3 id="vpls_2">VPLS 设计模型<a class="anchor" href="#vpls_2" title="Permanent link"></a></h3>
+<h4 id="1">1. 基本模型<a class="anchor" href="#1" title="Permanent link"></a></h4>
+<pre><code>    CE1          CE2          CE3
+     │            │            │
+    U-PE1        U-PE2        U-PE3
+     │            │            │
+    ┌──────── N-PE 全互联 ────────┐
+    │  N-PE1 ═══ N-PE2 ═══ N-PE3 │
+    │     ╲    ╱   ╲    ╱       │
+    │      ╲  ╱     ╲  ╱         │
+    │       ╲╱       ╲╱          │
+    └────────────────────────────┘
+</code></pre>
+<ul>
+<li>PE 间需要全互联 PW</li>
+<li>每个 PE 维护一个 VSI</li>
+<li>MAC 地址学习和泛洪</li>
+</ul>
+<h4 id="2-vpls-h-vpls">2. 分层 VPLS (H-VPLS)<a class="anchor" href="#2-vpls-h-vpls" title="Permanent link"></a></h4>
+<pre><code>    CE1     CE2          CE3     CE4
+     │       │             │       │
+    MTU1    MTU2          MTU3    MTU4
+     │       │             │       │
+     └───┬───┘             └───┬───┘
+         │                      │
+        N-PE1 ═══════════════ N-PE2
+</code></pre>
+<ul>
+<li>多租户单元 (MTU) 作为 U-PE</li>
+<li>减少 PW 数量（无需全互联）</li>
+<li>MTU 只需连接到 N-PE，N-PE 之间全互联</li>
+</ul>
+<h3 id="vpls_3">VPLS 可扩展性限制<a class="anchor" href="#vpls_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC 学习</td>
+<td>PE 需要学习所有客户的 MAC 地址，大规模部署时内存受限</td>
+</tr>
+<tr>
+<td>PW 全互联</td>
+<td>大量 PE 时 PW 数量呈 O(n²) 增长</td>
+</tr>
+<tr>
+<td>泛洪</td>
+<td>未知单播、组播和广播泛洪消耗带宽</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="evpn">EVPN 设计模型<a class="anchor" href="#evpn" title="Permanent link"></a></h2>
+<p>EVPN（Ethernet VPN）是下一代 L2VPN 技术，基于 BGP（MP-BGP）作为控制平面，解决了 VPLS 的可扩展性限制。</p>
+<h3 id="evpn-vs-vpls">EVPN vs VPLS 对比<a class="anchor" href="#evpn-vs-vpls" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>VPLS</th>
+<th>EVPN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>控制平面</strong></td>
+<td>LDP/RSVP</td>
+<td>MP-BGP</td>
+</tr>
+<tr>
+<td><strong>MAC 学习</strong></td>
+<td>数据平面泛洪学习</td>
+<td>控制平面 BGP 通告</td>
+</tr>
+<tr>
+<td><strong>泛洪</strong></td>
+<td>高（未知单播、ARP）</td>
+<td>低（ARP 代理）</td>
+</tr>
+<tr>
+<td><strong>多归属</strong></td>
+<td>有限（需 MC-LAG）</td>
+<td>原生支持 All-Active</td>
+</tr>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>MAC 移动性</strong></td>
+<td>有限</td>
+<td>优化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evpn_1">EVPN 核心概念<a class="anchor" href="#evpn_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAC 路由通告</strong></td>
+<td>MAC 地址作为 BGP 路由在控制平面通告，无需数据平面泛洪学习</td>
+</tr>
+<tr>
+<td><strong>ARP 代理</strong></td>
+<td>PE 代理响应 ARP 请求，减少泛洪</td>
+</tr>
+<tr>
+<td><strong>All-Active 多归属</strong></td>
+<td>同一 CE 可连接多台 PE，所有链路同时活跃</td>
+</tr>
+<tr>
+<td><strong>MAC 移动性</strong></td>
+<td>虚拟机迁移时，EVPN 在控制平面快速更新 MAC 位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pbb-evpn">PBB-EVPN<a class="anchor" href="#pbb-evpn" title="Permanent link"></a></h3>
+<p>PBB-EVPN 结合了 PBB (Provider Backbone Bridging) 和 EVPN：
+- 隐藏客户 MAC 地址，只在核心传输运营商 MAC
+- 进一步提高可扩展性
+- 适合 MAC 地址数量极大的场景</p>
+<h3 id="dci">DCI（数据中心互联）选型<a class="anchor" href="#dci" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>最佳选择</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>少量数据中心，少量互联点</td>
+<td>VPLS</td>
+<td>简单成熟</td>
+</tr>
+<tr>
+<td>大量数据中心，大量互联点</td>
+<td>EVPN / PBB-EVPN</td>
+<td>高可扩展性</td>
+</tr>
+<tr>
+<td>MAC 移动性要求高</td>
+<td>EVPN</td>
+<td>控制平面 MAC 通告</td>
+</tr>
+<tr>
+<td>MAC 地址数量极大</td>
+<td>PBB-EVPN</td>
+<td>MAC 隐藏</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carrier Ethernet</td>
+<td>载波以太网</td>
+</tr>
+<tr>
+<td>Metro Ethernet</td>
+<td>城域以太网</td>
+</tr>
+<tr>
+<td>E-Line</td>
+<td>以太网专线服务</td>
+</tr>
+<tr>
+<td>E-LAN</td>
+<td>以太网局域网服务</td>
+</tr>
+<tr>
+<td>E-Tree</td>
+<td>以太网树服务</td>
+</tr>
+<tr>
+<td>EPL</td>
+<td>以太网专线</td>
+</tr>
+<tr>
+<td>EVPL</td>
+<td>以太网虚拟专线</td>
+</tr>
+<tr>
+<td>EPLAN</td>
+<td>以太网专用 LAN</td>
+</tr>
+<tr>
+<td>EVPLAN</td>
+<td>以太网虚拟专用 LAN</td>
+</tr>
+<tr>
+<td>UNI</td>
+<td>用户网络接口</td>
+</tr>
+<tr>
+<td>EVC</td>
+<td>以太网虚拟连接</td>
+</tr>
+<tr>
+<td>VPWS</td>
+<td>虚拟专线服务</td>
+</tr>
+<tr>
+<td>VPLS</td>
+<td>虚拟专用 LAN 服务</td>
+</tr>
+<tr>
+<td>H-VPLS</td>
+<td>分层 VPLS</td>
+</tr>
+<tr>
+<td>EVPN</td>
+<td>以太网 VPN</td>
+</tr>
+<tr>
+<td>PBB-EVPN</td>
+<td>提供商骨干桥接 EVPN</td>
+</tr>
+<tr>
+<td>Pseudowire (PW)</td>
+<td>伪线</td>
+</tr>
+<tr>
+<td>VSI</td>
+<td>虚拟交换实例</td>
+</tr>
+<tr>
+<td>N-PE</td>
+<td>网络面向提供商边缘</td>
+</tr>
+<tr>
+<td>U-PE</td>
+<td>用户面向提供商边缘</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>客户边缘</td>
+</tr>
+<tr>
+<td>DCI</td>
+<td>数据中心互联</td>
+</tr>
+<tr>
+<td>MAC Mobility</td>
+<td>MAC 移动性</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-05.html"><span class="pager-label">上一章</span><span class="pager-title">05 · 参考架构模型与框架</span></a><a class="pager-link next" href="ch-07.html"><span class="pager-label">下一章</span><span class="pager-title">07 · 二层技术</span></a></nav>
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
+<li><a href="#layer-2-media-access">二层介质接入 (Layer 2 Media Access)</a></li>
+<li><a href="#metro-ethernet">Metro Ethernet 服务类型</a></li>
+<li><a href="#metro-ethernet_1">Metro Ethernet 传输模型</a></li>
+<li><a href="#metro-ethernet_2">Metro Ethernet 组件</a></li>
+</ul>
+</li>
+<li><a href="#virtual-private-wire-service-vpws">虚拟专线服务设计考量 (Virtual Private Wire Service, VPWS)</a><ul>
+<li><a href="#pw">PW 传输连接模型</a></li>
+<li><a href="#l2-pw">L2 介质接入的 PW 传输模式</a></li>
+</ul>
+</li>
+<li><a href="#lan-vpls">虚拟专用 LAN 服务设计考量 (VPLS)</a><ul>
+<li><a href="#vpls">VPLS 架构组件</a></li>
+<li><a href="#vpls_1">VPLS 控制平面</a></li>
+<li><a href="#vpls_2">VPLS 设计模型</a></li>
+<li><a href="#vpls_3">VPLS 可扩展性限制</a></li>
+</ul>
+</li>
+<li><a href="#evpn">EVPN 设计模型</a><ul>
+<li><a href="#evpn-vs-vpls">EVPN vs VPLS 对比</a></li>
+<li><a href="#evpn_1">EVPN 核心概念</a></li>
+<li><a href="#pbb-evpn">PBB-EVPN</a></li>
+<li><a href="#dci">DCI（数据中心互联）选型</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+</body>
+</html>
