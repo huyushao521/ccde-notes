@@ -42,6 +42,66 @@
 <li><strong>参考架构模型与框架</strong>：业务架构、企业架构和当前常见的架构框架</li>
 </ul>
 <hr />
+<h2 id="_2">本章导读：为什么设计师需要"借来的智慧"<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<p>前四章讲的是"怎么想"——设计思维、业务语言、网络目的、安全。它们回答的是<strong>方向</strong>问题。</p>
+<p>但到了真实项目里，你会立刻遇到一个尴尬：<strong>你凭什么认为自己的设计是对的？</strong></p>
+<ul>
+<li>客户说"我们按 TOGAF 做的企业架构"，你要能接得上话</li>
+<li>老板问"这个投资怎么证明合理"，你需要一套共同语言</li>
+<li>你自己加的"最佳实践"，凭什么就是"最佳"？</li>
+</ul>
+<p>参考架构、参考模型、框架，就是解决这个问题的工具：<strong>它们把别人踩过的坑整理成了可复用的句式</strong>。你不用从零发明架构语言，只需选择合适的框架，然后在它的骨架里做具体设计。</p>
+<blockquote>
+<p>⚠️ <strong>本章的核心态度（贯穿全章）</strong>：框架是<strong>脚手架</strong>，不是<strong>建筑</strong>。框架告诉你需要考虑哪些维度，但不会告诉你选 OSPF 还是 EIGRP。CCDE 考的是——你能不能在框架给的维度里，结合业务约束做出正确取舍。</p>
+</blockquote>
+<hr />
+<h2 id="_3">三个容易混淆的概念<a class="anchor" href="#_3" title="Permanent link"></a></h2>
+<p>考试和实际工作里，这三个词经常被混用，但它们层次不同：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英文</th>
+<th>是什么</th>
+<th>作用</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>参考模型</strong></td>
+<td>Reference Model</td>
+<td>抽象的、分层的<strong>通用框架</strong></td>
+<td>提供思考维度和术语</td>
+<td>OSI 七层模型、TCP/IP 模型</td>
+</tr>
+<tr>
+<td><strong>参考架构</strong></td>
+<td>Reference Architecture</td>
+<td>针对某类场景的<strong>结构化模板</strong></td>
+<td>提供可复用的设计蓝本</td>
+<td>Cisco SAFE 安全架构、园区网分层架构</td>
+</tr>
+<tr>
+<td><strong>框架</strong></td>
+<td>Framework</td>
+<td>管理<strong>流程与方法论</strong></td>
+<td>提供做事的步骤与治理</td>
+<td>TOGAF、ITIL、FEAF</td>
+</tr>
+</tbody>
+</table>
+<p>三者的关系可以这样理解：</p>
+<pre><code>框架（Framework）      → 我该按什么流程做架构？（HOW to do architecture）
+    ↓ 产出
+参考架构（Ref. Arch.）  → 这类场景通常长什么样？（WHAT it looks like）
+    ↓ 参考
+参考模型（Ref. Model）  → 用统一的语言和分层来描述它（HOW to describe it）
+</code></pre>
+<blockquote>
+<p>💡 <strong>关键区分</strong>：<strong>TOGAF 是框架，不是参考架构</strong>。TOGAF 不会告诉你数据中心该用 spine-leaf 还是三层架构，它只告诉你"要先用架构愿景对齐利益相关者，再做技术架构"。这是 CCDE 里常见的混淆点。</p>
+</blockquote>
+<hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <blockquote>
 <p>你如何知道从网络设计角度选择的是可行的？你在做正确的网络设计决策吗？你如何定义"架构"这个词？谁定义你的架构？</p>
@@ -50,7 +110,7 @@
 <hr />
 <h2 id="business-architecture-ba">业务架构 (Business Architecture, BA)<a class="anchor" href="#business-architecture-ba" title="Permanent link"></a></h2>
 <p>业务架构使从战略规划团队到实施团队的每个人都能"在同一页上"，使他们能够应对挑战并实现业务目标。</p>
-<h3 id="_2">核心概念<a class="anchor" href="#_2" title="Permanent link"></a></h3>
+<h3 id="_4">核心概念<a class="anchor" href="#_4" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
@@ -65,23 +125,67 @@
 </tr>
 <tr>
 <td><strong>业务成果 (Business Outcome)</strong></td>
-<td>业务中活动、流程或事件的可衡量结果，遵循 SMART 原则（具体、可衡量、可实现、现实、有时限）</td>
+<td>业务中活动、流程或事件的可衡量结果，遵循 SMART 原则</td>
 </tr>
 </tbody>
 </table>
-<p><strong>业务成果示例</strong>（真实生产环境）：
-- Q1 前将当日订单发货量增加 20%
-- 24 个月内将客户终身价值提高 10
-- Q3 前将新产品上市时间缩短 25%
-- 本财年销售额增长 10%
-- 本财年交付效率提高 25%</p>
-<h3 id="_3">业务架构的四个对齐级别<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<p><strong>SMART 原则</strong>（衡量业务成果是否合格的标准）：</p>
+<table>
+<thead>
+<tr>
+<th>字母</th>
+<th>含义</th>
+<th>反例（不合格的成果）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S</strong>pecific</td>
+<td>具体</td>
+<td>"提升网络体验"</td>
+</tr>
+<tr>
+<td><strong>M</strong>easurable</td>
+<td>可衡量</td>
+<td>"让网络更快"</td>
+</tr>
+<tr>
+<td><strong>A</strong>chievable</td>
+<td>可实现</td>
+<td>"做到零故障"</td>
+</tr>
+<tr>
+<td><strong>R</strong>elevant</td>
+<td>相关</td>
+<td>与业务目标无关的纯技术指标</td>
+</tr>
+<tr>
+<td><strong>T</strong>ime-bound</td>
+<td>有时限</td>
+<td>"未来某天完成"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>业务成果示例</strong>（真实生产环境，注意每条都符合 SMART）：</p>
+<ul>
+<li>Q1 前将当日订单发货量增加 20%</li>
+<li>24 个月内将客户终身价值提高 10%</li>
+<li>Q3 前将新产品上市时间缩短 25%</li>
+<li>本财年销售额增长 10%</li>
+<li>本财年交付效率提高 25%</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>CCDE 高频陷阱</strong>：场景里给你的"需求"如果不满足 SMART，你必须<strong>回头向业务方澄清</strong>，而不是自己脑补一个可测量的版本。设计需求无法验证 = 项目无法验收。</p>
+</blockquote>
+<h3 id="_5">业务架构的四个对齐级别<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<p>这是本章第一个重点模型——<strong>业务对架构的诉求会随成熟度逐级上升</strong>：</p>
 <table>
 <thead>
 <tr>
 <th>级别</th>
 <th>类型</th>
 <th>说明</th>
+<th>设计师的产出</th>
 </tr>
 </thead>
 <tbody>
@@ -89,26 +193,42 @@
 <td><strong>技术特定 (Technology Specific)</strong></td>
 <td>领域特定架构</td>
 <td>业务需要在某个架构领域（数据中心、安全或企业网络）内找到合适的产品，不跨领域</td>
+<td>选型建议、产品对比</td>
 </tr>
 <tr>
 <td><strong>技术架构 (Technology Architecture)</strong></td>
 <td>多领域架构 (MDA)</td>
 <td>业务需要理解多领域技术架构的价值。两个或更多架构领域被纳入</td>
+<td>跨域整合方案</td>
 </tr>
 <tr>
 <td><strong>业务解决方案 (Business Solutions)</strong></td>
 <td>部分业务架构</td>
 <td>业务需要帮助解决业务问题并衡量技术投资的影响 (CAPEX, OPEX, ROI, TCO)</td>
+<td>商业论证、决策矩阵</td>
 </tr>
 <tr>
 <td><strong>业务转型 (Business Transformation)</strong></td>
 <td>业务主导的架构</td>
 <td>业务需要帮助转变业务能力以促进创新，加速公司数字化</td>
+<td>路线图、演进规划</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_4">业务架构指导原则<a class="anchor" href="#_4" title="Permanent link"></a></h3>
-<p>结合 TOGAF 和 ITIL 的指导原则：</p>
+<p><strong>四个级别的递进逻辑</strong>：</p>
+<pre><code>技术特定 → 只看&quot;这个域里买什么&quot;
+     ↓ 加入更多域
+技术架构 → 看&quot;多个域怎么协同&quot;
+     ↓ 加入钱和收益
+业务解决方案 → 看&quot;这钱花得值不值&quot;
+     ↓ 加入业务变革
+业务转型 → 看&quot;IT 如何改变公司做生意的方式&quot;
+</code></pre>
+<blockquote>
+<p>💡 <strong>判断技巧</strong>：看到场景里出现 <strong>ROI / TCO / CAPEX 讨论</strong>，说明已经上升到"业务解决方案"级别；如果出现"进入新市场""数字化战略"，就是"业务转型"。这两类的设计自由度完全不同——转型类项目允许你推翻现有架构。</p>
+</blockquote>
+<h3 id="_6">业务架构指导原则<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<p>结合 TOGAF 和 ITIL 的指导原则，业务架构需要覆盖<strong>九个架构视角</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -155,6 +275,13 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>注意"Day 0/1/2"这个划分</strong>——它是 CCDE 场景里非常常见的时间轴：
+- <strong>Day 0</strong>：规划与设计（还没上线）
+- <strong>Day 1</strong>：部署与开通（上线那一刻）
+- <strong>Day 2</strong>：日常运维与变更（长期运行）</p>
+<p>很多设计失败不是 Day 0 设计错了，而是<strong>没有考虑 Day 2 的运维成本</strong>（比如配置太复杂导致人为变更故障）。</p>
+</blockquote>
 <h3 id="kpi">关键绩效指标 (KPI)<a class="anchor" href="#kpi" title="Permanent link"></a></h3>
 <p>如何知道某个框架或参考架构是否成功？需要通过 KPI 来衡量：</p>
 <ul>
@@ -165,15 +292,24 @@
 <li>安全运维 MTTR 从 x 天降到 x 小时</li>
 <li>业务 ROI 贡献于 IT 解决方案</li>
 </ul>
+<blockquote>
+<p>💡 <strong>MTTD 与 MTTR</strong>（安全与可用性场景必考）：
+- <strong>MTTD</strong>（Mean Time To Detect，平均检测时间）→ 衡量<strong>可见性</strong>能力，靠流量分析、日志、NetFlow
+- <strong>MTTR</strong>（Mean Time To Repair/Recover，平均修复时间）→ 衡量<strong>弹性</strong>能力，靠冗余、快速收敛、自动化</p>
+<p>设计里想改善 MTTD，就得加监测点；想改善 MTTR，就得加冗余和收敛优化。这是两条完全不同的设计路径。</p>
+</blockquote>
 <hr />
 <h2 id="enterprise-architecture-ea">企业架构 (Enterprise Architecture, EA)<a class="anchor" href="#enterprise-architecture-ea" title="Permanent link"></a></h2>
 <p>企业架构是组织业务流程和 IT 基础设施逻辑的过程，反映公司运营模型的集成和标准化要求。</p>
-<p><strong>企业架构的业务收益</strong>：
-- 响应新市场机会
-- 证明投资的合理性
-- 降低成本 (CAPEX 和 OPEX)
-- 提高质量</p>
-<h3 id="_5">企业架构方法论步骤<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<p><strong>一句话理解</strong>：业务架构关注"业务要做成什么"，企业架构关注"整个企业的 IT 怎么组织起来支撑它"。</p>
+<p><strong>企业架构的业务收益</strong>：</p>
+<ul>
+<li>响应新市场机会</li>
+<li>证明投资的合理性</li>
+<li>降低成本 (CAPEX 和 OPEX)</li>
+<li>提高质量</li>
+</ul>
+<h3 id="_7">企业架构方法论步骤<a class="anchor" href="#_7" title="Permanent link"></a></h3>
 <ol>
 <li><strong>识别业务需求</strong> — 通过对齐利益相关者和确定运营模型</li>
 <li><strong>对齐利益相关者</strong> — 四组利益相关者：
@@ -183,89 +319,154 @@
    - 企业级流程负责人（各部门负责人、用户组、业务单元领导）</li>
 <li><strong>识别运营模型</strong></li>
 </ol>
-<h3 id="_6">运营模型类型<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<blockquote>
+<p>⚠️ <strong>顺序不能乱</strong>：先有业务需求，才能对齐人，才能定运营模型。反过来（先定运营模型再找需求）就是典型的<strong>自底向上</strong>错误——第 1 章已经明确批判过。</p>
+<p>💡 <strong>"厂商无关团队"这个角色值得注意</strong>：它的存在就是为了防止第 1 章讲的"厂商锁定"约束。当场景里出现"必须支持多厂商"或"不能绑定单一供应商"时，说明组织里可能存在这样一个治理角色。</p>
+</blockquote>
+<h3 id="_8">运营模型类型（核心考点）<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<p>运营模型决定了<strong>企业内部的标准化程度和集成程度</strong>，这是 MIT 经典的四象限模型。用两个维度来定位：</p>
+<ul>
+<li><strong>标准化 (Standardization)</strong>：业务流程和系统是否统一</li>
+<li><strong>集成 (Integration)</strong>：业务单元之间是否共享数据</li>
+</ul>
+<pre><code>        集成度 高
+             ↑
+   协调型     |     统一型
+ Coordination|   Unification
+ (低标/高集) |   (高标/高集)
+  ───────────┼───────────→ 标准化 高
+   多样化型   |     复制型
+ Diversification| Replication
+ (低标/低集) |   (高标/低集)
+             ↓
+        集成度 低
+</code></pre>
 <table>
 <thead>
 <tr>
 <th>类型</th>
 <th>特点</th>
+<th>标准化</th>
+<th>集成</th>
+<th>网络设计含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>协调型 (Coordination)</strong></td>
 <td>高集成、低标准化。数据跨组合共享。业务单元发布创新</td>
+<td>低</td>
+<td>高</td>
+<td>需要灵活的东西向连通、跨域数据共享（数据中心互联、SD-WAN 灵活策略）</td>
 </tr>
 <tr>
 <td><strong>统一型 (Unification)</strong></td>
 <td>集中管理和流程设计。集中化数据库和 IT 组织</td>
+<td>高</td>
+<td>高</td>
+<td>集中式架构、统一策略、强治理；标准化模板最容易落地</td>
 </tr>
 <tr>
 <td><strong>多样化型 (Diversification)</strong></td>
 <td>独立性 + 共享服务。少量共同客户或业务实践。共享 IT 服务以实现规模经济</td>
+<td>低</td>
+<td>低</td>
+<td>各业务单元独立建网 + 少量共享服务（如共享互联网出口）</td>
 </tr>
 <tr>
 <td><strong>复制型 (Replication)</strong></td>
 <td>业务单元自治。运营以标准化方式运行。共享学习但独立运营</td>
+<td>高</td>
+<td>低</td>
+<td>分支/多站点标准化模板复制，每个站点独立运营（典型连锁企业）</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>这是本章最容易被考到的模型</strong>。判断技巧：抓住两个问题的答案——
+1. "各业务单元做事情的方式一样吗？" → 一样 = 高标准化
+2. "业务单元之间要共享数据/频繁交互吗？" → 要 = 高集成</p>
+<p>得到象限后，网络设计方向基本就定了：高标准化 → 模板化、自动化、统一策略；高集成 → 高带宽东西向、跨域安全策略、低延迟互联。</p>
+</blockquote>
 <hr />
-<h2 id="_7">常见企业架构框架<a class="anchor" href="#_7" title="Permanent link"></a></h2>
+<h2 id="_9">常见企业架构框架<a class="anchor" href="#_9" title="Permanent link"></a></h2>
 <h3 id="togaf-the-open-group-architecture-framework">TOGAF (The Open Group Architecture Framework)<a class="anchor" href="#togaf-the-open-group-architecture-framework" title="Permanent link"></a></h3>
 <p>TOGAF 是一种企业架构方法论，包含面向企业的高层框架，专注于企业 IT 架构的设计、规划、实施和治理。</p>
-<p><strong>TOGAF 架构开发方法 (ADM) 的 8 个步骤</strong>：</p>
+<p><strong>TOGAF 架构开发方法 (ADM) 的 8 个步骤</strong>（注意是<strong>迭代循环</strong>，不是瀑布）：</p>
 <table>
 <thead>
 <tr>
 <th>步骤</th>
 <th>名称</th>
 <th>说明</th>
+<th>关键产出</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A</td>
+<td><strong>A</strong></td>
 <td>架构愿景</td>
 <td>定义项目范围、利益相关者、业务目标</td>
+<td>架构愿景文档</td>
 </tr>
 <tr>
-<td>B</td>
+<td><strong>B</strong></td>
 <td>业务架构</td>
 <td>开发基线和目标业务架构</td>
+<td>基线/目标业务架构</td>
 </tr>
 <tr>
-<td>C</td>
+<td><strong>C</strong></td>
 <td>信息系统架构</td>
 <td>开发基线和目标数据和应用架构</td>
+<td>数据+应用架构</td>
 </tr>
 <tr>
-<td>D</td>
+<td><strong>D</strong></td>
 <td>技术架构</td>
 <td>开发基线和目标技术架构</td>
+<td><strong>网络设计在这里落地</strong></td>
 </tr>
 <tr>
-<td>E</td>
+<td><strong>E</strong></td>
 <td>机会和解决方案</td>
 <td>进行差距分析，制定解决方案</td>
+<td>差距分析、工作包</td>
 </tr>
 <tr>
-<td>F</td>
+<td><strong>F</strong></td>
 <td>迁移规划</td>
 <td>制定实施和迁移计划</td>
+<td>迁移路线图</td>
 </tr>
 <tr>
-<td>G</td>
+<td><strong>G</strong></td>
 <td>实施治理</td>
 <td>提供实施监督</td>
+<td>合规检查</td>
 </tr>
 <tr>
-<td>H</td>
+<td><strong>H</strong></td>
 <td>架构变更管理</td>
 <td>管理架构变更</td>
+<td>变更请求</td>
 </tr>
 </tbody>
 </table>
+<p><strong>ADM 的结构理解</strong>：</p>
+<pre><code>        ┌──────── 需求管理（贯穿始终）────────┐
+        │                                      │
+   A 愿景 → B 业务 → C 信息系统 → D 技术 → E 解决方案 → F 迁移 → G 治理 → H 变更
+                                          ↑                              │
+                                          └──────────────────────────────┘
+                                                  回到 A，迭代
+</code></pre>
+<blockquote>
+<p>💡 <strong>两个必记要点</strong>：
+1. <strong>ADM 是循环的</strong>（A→H→回到 A），因此架构能随业务变化演进
+2. <strong>"需求管理"横跨所有阶段</strong>——这正好印证第 1 章的核心观点：需求不是一次性收集完的，而是持续维护的</p>
+<p>对网络设计师来说，<strong>D 阶段（技术架构）是你的主场</strong>，但你必须能追溯到 B/C 阶段的业务与信息架构，否则设计就没有依据——这就是"自顶向下"。</p>
+</blockquote>
 <h3 id="itil-information-technology-infrastructure-library">ITIL (Information Technology Infrastructure Library)<a class="anchor" href="#itil-information-technology-infrastructure-library" title="Permanent link"></a></h3>
 <p>ITIL 是一组 IT 服务管理的最佳实践流程。</p>
 <p><strong>ITIL 服务生命周期</strong>：</p>
@@ -299,26 +500,175 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_8">其他框架<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<blockquote>
+<p>💡 <strong>TOGAF vs ITIL</strong>（对比记忆）：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>TOGAF</th>
+<th>ITIL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关注点</td>
+<td><strong>架构</strong>怎么建（规划层面）</td>
+<td><strong>服务</strong>怎么交付（运营层面）</td>
+</tr>
+<tr>
+<td>时间轴</td>
+<td>Day 0（设计与规划）</td>
+<td>Day 1、Day 2（交付与运维）</td>
+</tr>
+<tr>
+<td>关键输出</td>
+<td>架构蓝图、路线图</td>
+<td>SLA、变更流程、事件管理</td>
+</tr>
+</tbody>
+</table>
+<p>实际项目里两者互补：TOGAF 决定"建什么"，ITIL 保证"建好后能稳定交付"。</p>
+</blockquote>
+<h3 id="_10">其他框架<a class="anchor" href="#_10" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>框架</th>
 <th>说明</th>
+<th>适用场景</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>FEAF (Federal Enterprise Architecture Framework)</strong></td>
 <td>美国联邦企业架构框架</td>
+<td>政府/公共部门</td>
 </tr>
 <tr>
 <td><strong>DODAF (Department of Defense Architecture Framework)</strong></td>
 <td>美国国防部架构框架</td>
+<td>国防、强安全要求场景</td>
 </tr>
 <tr>
 <td><strong>RMF (Risk Management Framework)</strong></td>
 <td>风险管理框架</td>
+<td>合规、风险驱动的设计</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这三个框架在 CCDE 里通常只作为"背景知识"出现，理解它们的<strong>适用领域</strong>即可，不需要记住细分步骤。</p>
+</blockquote>
+<hr />
+<h2 id="_11">从框架到网络参考架构<a class="anchor" href="#_11" title="Permanent link"></a></h2>
+<p>框架是通用的，但网络设计需要具体的蓝本。业界常见的网络参考架构包括：</p>
+<table>
+<thead>
+<tr>
+<th>参考架构</th>
+<th>覆盖范围</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cisco SAFE</strong></td>
+<td>安全架构</td>
+<td>安全域划分、检查点部署位置（对应第 4 章）</td>
+</tr>
+<tr>
+<td><strong>Cisco Validated Design (CVD)</strong></td>
+<td>各领域验证设计</td>
+<td>提供经过测试的配置基线与规模边界</td>
+</tr>
+<tr>
+<td><strong>园区分层架构</strong></td>
+<td>园区网</td>
+<td>核心/分布/接入的模块化与故障隔离</td>
+</tr>
+<tr>
+<td><strong>企业 WAN / SD-WAN 架构</strong></td>
+<td>广域网</td>
+<td>传输选型、拓扑、策略中心化</td>
+</tr>
+<tr>
+<td><strong>数据中心 Spine-Leaf</strong></td>
+<td>数据中心</td>
+<td>东西向流量的可扩展性与低延迟</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>CCDE 关键判断</strong>：参考架构给你"通常怎么做"，但<strong>它不承担你的约束</strong>。如果场景里出现特殊约束（预算极紧、遗留系统不能动、合规要求数据不出境），你必须<strong>有意识地偏离参考架构，并说得出理由</strong>。拿"参考架构就是这么做的"当作设计依据，是最典型的第 1 章"最佳实践陷阱"。</p>
+</blockquote>
+<hr />
+<h2 id="_12">本章考试要点<a class="anchor" href="#_12" title="Permanent link"></a></h2>
+<h3 id="_13">必背清单<a class="anchor" href="#_13" title="Permanent link"></a></h3>
+<ol>
+<li><strong>三个概念的层次</strong>：框架（流程）&gt; 参考架构（蓝本）&gt; 参考模型（语言）</li>
+<li><strong>业务成果必须满足 SMART</strong>，否则需求不成立</li>
+<li><strong>业务架构四级别</strong>：技术特定 → 技术架构(MDA) → 业务解决方案 → 业务转型</li>
+<li><strong>四个运营模型</strong>（标准化 × 集成 四象限）及其网络设计含义</li>
+<li><strong>TOGAF ADM 八步</strong>，且是<strong>循环迭代</strong>、<strong>需求管理贯穿始终</strong></li>
+<li><strong>TOGAF 管架构，ITIL 管服务</strong>（Day 0 vs Day 1/2）</li>
+<li><strong>KPI 是用来验证框架是否成功的</strong>，MTTD 看可见性、MTTR 看弹性</li>
+</ol>
+<h3 id="_14">典型考题思路<a class="anchor" href="#_14" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景线索</th>
+<th>应该想到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"业务方要求量化投资收益"</td>
+<td>已到业务解决方案级别，需要用决策矩阵 + TCO/ROI 论证</td>
+</tr>
+<tr>
+<td>"各分公司做法完全一样，但互不共享数据"</td>
+<td>复制型运营模型 → 标准化模板 + 独立运营</td>
+</tr>
+<tr>
+<td>"需要跨部门共享客户数据"</td>
+<td>协调型/统一型 → 高集成 → 东西向带宽与跨域策略</td>
+</tr>
+<tr>
+<td>"方案必须支持多厂商"</td>
+<td>参考架构不能绑定单一供应商，注意厂商锁定约束</td>
+</tr>
+<tr>
+<td>"设计已完成，但运维天天出人为故障"</td>
+<td>Day 2 考虑不足，可管理性原则未满足</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">三大陷阱<a class="anchor" href="#_15" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>表现</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>框架崇拜</strong></td>
+<td>"因为 TOGAF 说要做，所以就做"</td>
+<td>框架是脚手架，要对照本项目的约束裁剪</td>
+</tr>
+<tr>
+<td><strong>级别错配</strong></td>
+<td>用只做选型的深度去应对业务转型需求</td>
+<td>先判断处在哪个对齐级别，再决定设计深度</td>
+</tr>
+<tr>
+<td><strong>KPI 缺失</strong></td>
+<td>设计完成却无法证明价值</td>
+<td>设计之初就定义 MTTD/MTTR/上市时间等可测指标</td>
 </tr>
 </tbody>
 </table>
@@ -412,8 +762,41 @@
 <td>Replication</td>
 <td>复制型</td>
 </tr>
+<tr>
+<td>Reference Model</td>
+<td>参考模型</td>
+</tr>
+<tr>
+<td>Reference Architecture</td>
+<td>参考架构</td>
+</tr>
+<tr>
+<td>MTTD</td>
+<td>平均检测时间</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>平均修复时间</td>
+</tr>
+<tr>
+<td>Day 0 / Day 1 / Day 2</td>
+<td>规划设计 / 部署上线 / 日常运维</td>
+</tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_16">本章小结<a class="anchor" href="#_16" title="Permanent link"></a></h2>
+<p>第 5 章是前四章的"工程化落地"：</p>
+<pre><code>第 1 章（设计思维）    → 框架提供了&quot;合法的最佳实践&quot;来源，但仍是陷阱温床
+第 2 章（业务语言）    → 业务架构把&quot;优先级→驱动力→成果→能力&quot;变成架构级别
+第 3 章（网络目的）    → 企业架构中的信息/应用架构定义了网络服务对象
+第 4 章（普适安全）    → SAFE 参考架构是安全域与检查点的标准蓝本
+第 5 章（架构框架）    → 把以上全部纳入一个可治理、可衡量、可迭代的流程
+</code></pre>
+<blockquote>
+<p><strong>一句话记忆</strong>：<strong>业务架构定方向，企业架构定组织，TOGAF 定流程，ITIL 定运维，参考架构定蓝本。</strong></p>
+<p>而 CCDE 真正考的是：<strong>你能否在框架给出的维度里，结合本项目约束做出取舍，并说清为什么。</strong></p>
+</blockquote></article>
     <nav class="pager"><a class="pager-link prev" href="ch-04.html"><span class="pager-label">上一章</span><span class="pager-title">04 · 安全是普适的</span></a><a class="pager-link next" href="ch-06.html"><span class="pager-label">下一章</span><span class="pager-title">06 · 传输技术</span></a></nav>
     <footer class="foot">
       <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
@@ -423,26 +806,36 @@
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#_2">本章导读：为什么设计师需要"借来的智慧"</a></li>
+<li><a href="#_3">三个容易混淆的概念</a></li>
 <li><a href="#foundation-topics">基础内容 (Foundation Topics)</a></li>
 <li><a href="#business-architecture-ba">业务架构 (Business Architecture, BA)</a><ul>
-<li><a href="#_2">核心概念</a></li>
-<li><a href="#_3">业务架构的四个对齐级别</a></li>
-<li><a href="#_4">业务架构指导原则</a></li>
+<li><a href="#_4">核心概念</a></li>
+<li><a href="#_5">业务架构的四个对齐级别</a></li>
+<li><a href="#_6">业务架构指导原则</a></li>
 <li><a href="#kpi">关键绩效指标 (KPI)</a></li>
 </ul>
 </li>
 <li><a href="#enterprise-architecture-ea">企业架构 (Enterprise Architecture, EA)</a><ul>
-<li><a href="#_5">企业架构方法论步骤</a></li>
-<li><a href="#_6">运营模型类型</a></li>
+<li><a href="#_7">企业架构方法论步骤</a></li>
+<li><a href="#_8">运营模型类型（核心考点）</a></li>
 </ul>
 </li>
-<li><a href="#_7">常见企业架构框架</a><ul>
+<li><a href="#_9">常见企业架构框架</a><ul>
 <li><a href="#togaf-the-open-group-architecture-framework">TOGAF (The Open Group Architecture Framework)</a></li>
 <li><a href="#itil-information-technology-infrastructure-library">ITIL (Information Technology Infrastructure Library)</a></li>
-<li><a href="#_8">其他框架</a></li>
+<li><a href="#_10">其他框架</a></li>
+</ul>
+</li>
+<li><a href="#_11">从框架到网络参考架构</a></li>
+<li><a href="#_12">本章考试要点</a><ul>
+<li><a href="#_13">必背清单</a></li>
+<li><a href="#_14">典型考题思路</a></li>
+<li><a href="#_15">三大陷阱</a></li>
 </ul>
 </li>
 <li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_16">本章小结</a></li>
 </ul>
 </div>
 </div></aside>
