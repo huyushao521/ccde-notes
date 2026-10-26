@@ -33,8 +33,12 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "[3/3] 推送到 GitHub ..." -ForegroundColor Cyan
-git push origin main
-if ($LASTEXITCODE -ne 0) {
+# git 会把进度写到 stderr，直接调用会被 PowerShell 当成错误中断，这里显式降级处理
+$ErrorActionPreference = 'Continue'
+git push origin main 2>&1 | Write-Host
+$pushCode = $LASTEXITCODE
+$ErrorActionPreference = 'Stop'
+if ($pushCode -ne 0) {
     Write-Host "推送失败，请检查凭据或网络" -ForegroundColor Red
     exit 1
 }
