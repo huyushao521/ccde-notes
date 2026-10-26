@@ -108,7 +108,7 @@ def part_of(num: int):
 
 def make_md():
     return markdown.Markdown(
-        extensions=["tables", "fenced_code", "toc", "sane_lists", "attr_list"],
+        extensions=["tables", "fenced_code", "toc", "sane_lists", "attr_list", "md_in_html"],
         extension_configs={
             "toc": {"permalink": "", "permalink_class": "anchor", "toc_depth": "2-3"},
         },
