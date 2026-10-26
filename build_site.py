@@ -149,9 +149,48 @@ def sidebar_html(chapters, current_slug=None):
     return "".join(blocks)
 
 
+def board_html(page_label: str, page_key: str) -> str:
+    """页面底部的留言板（数据存浏览器 localStorage，无后端）"""
+    return f"""
+    <section class="board" id="board" data-page="{page_label}" data-key="{page_key}">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">随手记下阅读时冒出的疑问、发现的勘误、待补的例子。内容保存<strong>在本机浏览器</strong>（localStorage），换设备不同步；
+        想让我据此改稿时，点「复制全部」或「导出 .md」把内容贴给我即可。</p>
+      <form class="board-form" id="boardForm">
+        <div class="board-where">
+          <span class="board-chip" id="boardWhere">{page_label}</span>
+          <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+        </div>
+        <textarea id="boardInput" rows="3"
+          placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+        <div class="board-actions">
+          <button type="submit" class="board-btn primary">提交留言</button>
+          <span class="board-hint" id="boardHint"></span>
+        </div>
+      </form>
+      <div class="board-tools">
+        <div class="board-filter" id="boardFilter">
+          <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+          <button type="button" class="board-tab" data-scope="all">全部章节</button>
+        </div>
+        <div class="board-tools-right">
+          <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+          <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+          <button type="button" class="board-btn danger" id="boardClear">清空</button>
+        </div>
+      </div>
+      <ul class="board-list" id="boardList"></ul>
+      <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+    </section>
+"""
+
+
 def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
                prev_link: str = "", next_link: str = "", is_home: bool = False,
-               root: str = ""):
+               root: str = "", board: str = ""):
     body_class = "layout-home" if is_home else "layout-doc"
     toc_panel = (
         f'<aside class="toc-rail"><div class="toc-inner">'
@@ -171,6 +210,7 @@ def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
 <title>{title}</title>
 <meta name="description" content="{SITE_SUB}">
 <link rel="stylesheet" href="{root}assets/style.css">
+<link rel="stylesheet" href="{root}assets/board.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
 </head>
 <body class="{body_class}">
@@ -199,6 +239,7 @@ def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
   <main class="main">
     <article class="article markdown-body">{content}</article>
     {pager}
+    {board}
     <footer class="foot">
       <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
       <span class="foot-note">内容仅供个人学习使用</span>
@@ -209,6 +250,7 @@ def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
 
 <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
 <script src="{root}assets/app.js"></script>
+<script src="{root}assets/board.js"></script>
 </body>
 </html>
 """
@@ -256,6 +298,7 @@ def main():
             prev_link=pager_link(prev_ch, "prev"),
             next_link=pager_link(next_ch, "next"),
             root="",
+            board=board_html(f'第 {ch["num"]:02d} 章 · {ch["title"]}', ch["slug"]),
         )
         (OUT / f'{ch["slug"]}.html').write_text(html, encoding="utf-8")
         for shard in shard_sections(body):
@@ -317,7 +360,14 @@ def main():
         home_content += '<hr class="home-sep">' + "".join(home_parts)
 
     (OUT / "index.html").write_text(
-        page_shell(SITE_TITLE, home_content, sidebar_html(chapters), is_home=True, root=""),
+        page_shell(
+            SITE_TITLE,
+            home_content,
+            sidebar_html(chapters),
+            is_home=True,
+            root="",
+            board=board_html("首页 · 引言与目录", "index"),
+        ),
         encoding="utf-8",
     )
     print("[OK] index.html")
