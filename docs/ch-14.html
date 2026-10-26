@@ -33,499 +33,3443 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="提纲">提纲</span><span class="ch-words">约 1169 字</span></div><h1 id="14-network-services-and-management">第 14 章：网络服务与管理 (Network Services and Management)<a class="anchor" href="#14-network-services-and-management" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 19299 字</span></div><h1 id="14-network-services-and-management">第 14 章：网络服务与管理 (Network Services and Management)<a class="anchor" href="#14-network-services-and-management" title="Permanent link"></a></h1>
 <blockquote>
-<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 626-707 页</p>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译与精讲 | 原书第 626-707 页</p>
 </blockquote>
 <hr />
 <h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
 <ul>
-<li><strong>IPv6 设计考量</strong>：IPv6 地址规划、迁移策略</li>
-<li><strong>QoS 设计</strong>：质量服务的商业驱动与架构</li>
-<li><strong>网络管理与服务</strong>：监控、管理和运维</li>
+<li><strong>IPv6 设计考量</strong>：地址规划、SLAAC/DHCPv6、NDP 与安全、迁移与双栈、路由与多宿主</li>
+<li><strong>QoS 设计</strong>：业务驱动、DiffServ 模型、DSCP 与信任边界、队列与带宽计算、端到端一致性</li>
+<li><strong>网络管理与服务</strong>：管理平面设计、SNMP/日志/流/遥测、时间同步、DHCP/DNS/AAA、可观测性与告警治理</li>
 </ul>
 <hr />
+<h2 id="_2">本章导读：网络服务与管理的十二个反直觉认知<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<p>这三块内容（IPv6、QoS、管理）在大纲里被放在同一章，很多读者以为是"三个不相关的小专题"。其实它们共享同一个本质：</p>
+<blockquote>
+<p><strong>它们都不是"转发路径上的功能"，而是"让转发路径可运营、可表达优先级"的支撑系统。</strong></p>
+</blockquote>
+<p>支撑系统的设计难点不在协议，而在<strong>依赖关系与规模</strong>。以下是十二个最容易在设计评审里说错的判断。</p>
+<h3 id="1-ipv6-ipv4">1. IPv6 不是"地址更长的 IPv4"，而是一套不同的运行规则<a class="anchor" href="#1-ipv6-ipv4" title="Permanent link"></a></h3>
+<p>把 IPv6 当成"地址从 32 位变 128 位"，会在四个地方直接翻车：</p>
+<table>
+<thead>
+<tr>
+<th>差异</th>
+<th>IPv4 的直觉</th>
+<th>IPv6 的现实</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>广播</strong></td>
+<td>ARP 广播找邻居</td>
+<td><strong>没有广播</strong>，用 NS/NA 组播，强依赖 ICMPv6</td>
+</tr>
+<tr>
+<td><strong>分片</strong></td>
+<td>路由器可以分片</td>
+<td><strong>路由器不分片</strong>，只有源端可分片，必须靠 PMTUD</td>
+</tr>
+<tr>
+<td><strong>地址获取</strong></td>
+<td>DHCP 是常态</td>
+<td>SLAAC 是默认，DHCPv6 常只用于"补充 DNS"</td>
+</tr>
+<tr>
+<td><strong>子网大小</strong></td>
+<td>/24、/25 随便切</td>
+<td><strong>/64 不可破</strong>（SLAAC 与 ND 都假设 64 位 IID）</td>
+</tr>
+<tr>
+<td><strong>多宿主</strong></td>
+<td>NAT 掩盖一切</td>
+<td>无 NAT，源地址选择（RFC 6724）决定走哪个出口</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>最典型的事故</strong>：把一段 /64 切成两个 /72 给两个 VLAN "省地址"。结果部分终端拿不到地址、部分拿到地址但网关不可达 —— 而 ping 网关却是通的（因为那台机器手工配了静态）。</p>
+</blockquote>
+<h3 id="2-ipv6">2. IPv6 不缺地址，缺的是"规划纪律"<a class="anchor" href="#2-ipv6" title="Permanent link"></a></h3>
+<p>企业通常从运营商拿到 <strong>/48 或 /56</strong>（家宽 /56 或 /60）。一个 /48 = 65,536 个 /64，看起来用不完，但现实是：</p>
+<ul>
+<li><strong>没有地址规划 = 十年后无法汇总</strong>，路由表膨胀不可逆</li>
+<li><strong>改前缀比改 IPv4 更痛</strong>：终端、ACL、防火墙、DNS、监控、证书 SAN 全部绑着地址</li>
+<li><strong>重新编址理论上可行（RA 生命周期），工程上几乎没人敢做</strong></li>
+</ul>
+<p><strong>所以 IPv6 设计的第一交付物不是配置，是一张地址分配表 + 一条不可破坏的规则（永远 /64）。</strong></p>
+<h3 id="3-qos">3. QoS 不增加带宽，它只决定"拥塞时谁先受苦"<a class="anchor" href="#3-qos" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>链路状态</th>
+<th>QoS 的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>空闲</strong></td>
+<td><strong>完全没有作用</strong>（队列不排队，调度器无事可做）</td>
+</tr>
+<tr>
+<td><strong>轻度拥塞（&lt;70%）</strong></td>
+<td>作用很小（LLQ 让抖动略降）</td>
+</tr>
+<tr>
+<td><strong>中度拥塞（70%–100%）</strong></td>
+<td>作用明显（决定谁被延迟、谁被丢）</td>
+</tr>
+<tr>
+<td><strong>持续过载（&gt;100%）</strong></td>
+<td><strong>作用有限</strong>（什么队列都会溢出，只能扩容或限速）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>判断句</strong>："这条链路平时利用率 40%，上 QoS 能改善语音吗？" 答："几乎不能。但它每月有两次冲到 95%，QoS 决定那两次语音会不会断。" <strong>QoS 是买保险，不是买带宽。</strong></p>
+</blockquote>
+<h3 id="4-qos">4. QoS 的价值在信任边界，不在队列技术<a class="anchor" href="#4-qos" title="Permanent link"></a></h3>
+<p>评审时最常见的错位：花两周争论 LLQ 与 CBWFQ 的差别，却没人回答"<strong>谁有权标记 DSCP</strong>"。</p>
+<ul>
+<li>终端可以把包标成 EF（改注册表即可）</li>
+<li>接入端口若 <code>trust dscp</code>，等于把<strong>队列调度权交给用户</strong></li>
+<li>正确做法：<strong>接入层不信任终端，在信任边界重标记或限速</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>边界位置</th>
+<th>信任策略</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP 话机端口</td>
+<td>trust DSCP（PC 流量被话机重标为 0）</td>
+<td>话机是受控设备</td>
+</tr>
+<tr>
+<td>普通 PC 端口</td>
+<td><strong>不信任</strong>，一律标 BE 或用 NBAR 分类</td>
+<td>用户不可信</td>
+</tr>
+<tr>
+<td>无线（WMM）</td>
+<td>上行信任 UP→DSCP 映射，但需限速</td>
+<td>终端可伪造 UP</td>
+</tr>
+<tr>
+<td>汇聚/核心</td>
+<td>信任（已被边界清洗）</td>
+<td>内部设备可信</td>
+</tr>
+<tr>
+<td>WAN 出口</td>
+<td><strong>重标记</strong>（对齐合同与运营商能力）</td>
+<td>跨域语义不一致</td>
+</tr>
+<tr>
+<td>跨隧道</td>
+<td>内层映射到外层 / 复制</td>
+<td>外层才能被中间网络识别</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-11-qos">5. 分类超过 11 个，等于没做 QoS<a class="anchor" href="#5-11-qos" title="Permanent link"></a></h3>
+<p>每多一个类，就多一份"标记一致性、队列配置、监控、排障、文档"的成本。</p>
+<table>
+<thead>
+<tr>
+<th>类数</th>
+<th>现实后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4–6 类</td>
+<td>可维护，适合中型企业</td>
+</tr>
+<tr>
+<td><strong>8–11 类</strong></td>
+<td><strong>业界推荐区间</strong>（Cisco 八类/十一类模型）</td>
+</tr>
+<tr>
+<td>12–20 类</td>
+<td>需强自动化支撑，否则很快失真</td>
+</tr>
+<tr>
+<td>&gt;20 类</td>
+<td>事实上无法验证，等于"配了但不知道对不对"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>分类目的不是"精确"，而是"给出一个可解释的优先级顺序"。</strong> 没人能证明 AF31 与 AF32 的业务差别，但所有人都理解"语音 &gt; 视频 &gt; 信令 &gt; 事务 &gt; 批量 &gt; scavenger"。</p>
+<h3 id="6">6. 管理平面是"第二张网"，它自己的可用性要单独设计<a class="anchor" href="#6" title="Permanent link"></a></h3>
+<p>新手把管理当"设备自带的功能"，专家把它当<strong>一张必须设计的网络</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>没设计过的答案</th>
+<th>设计过的答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管理流量走哪里</td>
+<td>走业务口（带内）</td>
+<td><strong>独立管理 VRF + 独立管理交换机（OOB）</strong></td>
+</tr>
+<tr>
+<td>业务网断了怎么登录</td>
+<td>登不上（恰是最需要的时候）</td>
+<td><strong>带外 + LTE 备份 + Console 服务器</strong></td>
+</tr>
+<tr>
+<td>谁能登录</td>
+<td>所有人都有 enable</td>
+<td><strong>TACACS+ 分级授权 + 跳板机 + 双人复核</strong></td>
+</tr>
+<tr>
+<td>配置怎么备份</td>
+<td>手动</td>
+<td>每日自动 + 版本归档</td>
+</tr>
+<tr>
+<td>管理带宽够吗</td>
+<td>没算过</td>
+<td><strong>按镜像/日志/备份峰值算过</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>带内管理的悖论</strong>：管理流量与业务流量共享同一张网。<strong>故障时管理流量最先受影响，而这时你最需要管理通道。</strong></p>
+</blockquote>
+<h3 id="7">7. 可观测性的成本是"数据量 × 保留期"，不是工具价格<a class="anchor" href="#7" title="Permanent link"></a></h3>
+<pre><code>总成本 ≈ 许可 + 采集带宽 + 存储（速率 × 保留期）+ 人力（告警治理 + 看板维护）
+</code></pre>
+<p><strong>算一个真实例子</strong>：500 台设备，每 10 秒推 1,000 个计数器（约 16 B/计数）</p>
+<ul>
+<li>单轮：500 × 1,000 × 16 B = <strong>8 MB</strong></li>
+<li>速率：0.8 MB/s ≈ <strong>6.4 Mbps</strong>（不含协议开销）</li>
+<li>每天 ≈ <strong>69 GB</strong>；保留 90 天 ≈ <strong>6.2 TB</strong></li>
+</ul>
+<p><strong>结论：成本由"采样间隔"和"保留策略"决定，不由"买了哪个平台"决定。</strong> 所以设计必须明确：哪些指标 10 秒级、哪些 5 分钟级、哪些只留聚合、原始数据留几天。</p>
+<h3 id="8-snmp-cpu">8. 日志、SNMP、遥测不是越多越好：它们和管理面 CPU 抢资源<a class="anchor" href="#8-snmp-cpu" title="Permanent link"></a></h3>
+<p>设备管理面 CPU 远弱于转发面，以下操作全在打它：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>开销</th>
+<th>规模风险动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SNMP 全表 walk（ifTable/ifXTable）</td>
+<td>高</td>
+<td>每 5 分钟 walk 500 台</td>
+</tr>
+<tr>
+<td>Syslog（尤其 debug）</td>
+<td>中高</td>
+<td>端口 flapping 千条/秒</td>
+</tr>
+<tr>
+<td>NetFlow 导出</td>
+<td>中</td>
+<td>未采样 + 高 pps</td>
+</tr>
+<tr>
+<td>遥测高频推送</td>
+<td>中</td>
+<td>1 秒级 × 数万计数器</td>
+</tr>
+<tr>
+<td>配置备份（scp 大配置）</td>
+<td>中</td>
+<td>全网同时并发</td>
+</tr>
+<tr>
+<td>TACACS+ 认证</td>
+<td>低</td>
+<td>服务器不可达时超时阻塞</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>设计动作</strong>：管理面必须做<strong>限速与优先级</strong>（SNMP queue / logging rate-limit / CoPP 保护管理面 / 遥测采样分级），并按"事故工况"（日志风暴）验证，而不是按"日常工况"验证。</p>
+</blockquote>
+<h3 id="9">9. 告警的价值等于"有人会因此采取动作"，其余都是噪音<a class="anchor" href="#9" title="Permanent link"></a></h3>
+<p>一条告警如果<strong>没有人会去动它</strong>，它的唯一效果是降低团队对告警的敏感度。</p>
+<table>
+<thead>
+<tr>
+<th>告警类型</th>
+<th>是否该发</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单口 down（接入端，1 个用户）</td>
+<td>❌</td>
+<td>汇总为日报</td>
+</tr>
+<tr>
+<td>单口 flap &gt;10 次/5 分钟</td>
+<td>✅</td>
+<td>工单</td>
+</tr>
+<tr>
+<td>上行链路 down</td>
+<td>✅ 且升级</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>CPU 70% 持续 10 分钟</td>
+<td>⚠️ 看角色</td>
+<td>抑制，只报趋势</td>
+</tr>
+<tr>
+<td>CPU 95% 持续 2 分钟</td>
+<td>✅</td>
+<td>工单</td>
+</tr>
+<tr>
+<td>BGP 邻居 down（单邻居，有备份）</td>
+<td>✅ P3</td>
+<td>工单</td>
+</tr>
+<tr>
+<td>BGP 邻居 down（全部）</td>
+<td>✅ P1</td>
+<td>电话 + 短信</td>
+</tr>
+<tr>
+<td>日志里出现 <code>%DUAL-5-NBRCHANGE</code></td>
+<td>❌</td>
+<td>不告警，只入库</td>
+</tr>
+<tr>
+<td>磁盘/闪存 &lt;10% 空间</td>
+<td>✅</td>
+<td>工单（否则下次升级失败）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>告警治理的三个动作：去重、父子抑制（父故障存在时不报子故障）、维护窗口静默。</strong> 这三件事没做的平台，半年后一定被关掉声音。</p>
+<h3 id="10">10. 时间同步是所有运维数据的隐藏前提<a class="anchor" href="#10" title="Permanent link"></a></h3>
+<p>没有准确的时钟，下面这些全部失效：</p>
+<ul>
+<li><strong>日志关联</strong>（跨设备时序错乱 → 排障方向反了）</li>
+<li><strong>流数据分析</strong>（NetFlow 时间戳错 → 无法与故障时刻对齐）</li>
+<li><strong>证书校验</strong>（时间偏差 &gt; 有效期容差 → TLS/802.1X 失败）</li>
+<li><strong>一次性口令 / Kerberos</strong>（偏差 &gt;5 分钟直接拒绝）</li>
+<li><strong>SLA 与计费统计</strong></li>
+<li><strong>变更审计</strong>（谁在什么时候改的）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>精度</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NTP（公网源）</td>
+<td>1–50 ms</td>
+<td>通用运维</td>
+</tr>
+<tr>
+<td>NTP（内网 stratum 1/2 + 认证）</td>
+<td>&lt;1 ms（局域网）</td>
+<td>企业标准</td>
+</tr>
+<tr>
+<td>PTP（IEEE 1588）</td>
+<td>&lt;1 µs</td>
+<td>金融交易、工业控制、5G 前传</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>反模式</strong>：全网设备指向公网 <code>pool.ntp.org</code>。后果是（1）出口被 NTP 放大攻击滥用；（2）出口断时全体时钟漂移；（3）没有认证，可被伪造。<strong>正确做法是内部 stratum-2 层级 + NTP 认证 + 设备侧 ACL。</strong></p>
+</blockquote>
+<h3 id="11-dhcpdnsntpaaa">11. 基础服务（DHCP/DNS/NTP/AAA）是单点故障的聚集地<a class="anchor" href="#11-dhcpdnsntpaaa" title="Permanent link"></a></h3>
+<p>核心网络有冗余设计、双机、BFD、FRR；而基础服务往往是"两台虚拟机、一个 VIP、没有演练"。</p>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>常见脆弱点</th>
+<th>故障半径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DHCP</strong></td>
+<td>单中继、无 option 82、租期过长</td>
+<td>新增终端全部拿不到地址</td>
+</tr>
+<tr>
+<td><strong>DNS</strong></td>
+<td>单台转发器、TTL 过长无法切换</td>
+<td><strong>全域业务变慢/不可用（最隐蔽）</strong></td>
+</tr>
+<tr>
+<td><strong>NTP</strong></td>
+<td>只配公网源</td>
+<td>认证/日志/审计集体异常</td>
+</tr>
+<tr>
+<td><strong>RADIUS/TACACS+</strong></td>
+<td>单台、无本地回退</td>
+<td>无线认证失败 + 无法登录设备</td>
+</tr>
+<tr>
+<td><strong>IPAM</strong></td>
+<td>Excel 台账、无系统对接</td>
+<td>地址冲突，且无人知道谁在用</td>
+</tr>
+<tr>
+<td><strong>PKI/证书</strong></td>
+<td>无人管到期日</td>
+<td>某天早上所有 802.1X 同时失败</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>CCDE 视角</strong>：问"这套设计最脆弱的地方在哪"，答案往往不是核心层，而是<strong>这些被认为"不用设计"的服务</strong>。</p>
+</blockquote>
+<h3 id="12">12. "网络服务"是共享依赖：服务挂了，故障半径是全域<a class="anchor" href="#12" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>谁在用</th>
+<th>挂了以后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS</td>
+<td>所有终端、所有应用、所有设备（域名解析）</td>
+<td>表现为"网络时快时慢"，实际是全域不可用</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>所有接入终端</td>
+<td>新接入失败，老终端续租到期后掉线</td>
+</tr>
+<tr>
+<td>NTP</td>
+<td>所有设备 + 所有认证</td>
+<td>逐步显现（1 小时后证书失败）</td>
+</tr>
+<tr>
+<td>AAA</td>
+<td>无线、VPN、设备登录</td>
+<td>无法认证 + 无法运维（双重打击）</td>
+</tr>
+<tr>
+<td>日志/监控</td>
+<td>运维团队</td>
+<td><strong>故障时变成"盲飞"</strong></td>
+</tr>
+<tr>
+<td>IPAM</td>
+<td>变更流程、自动化</td>
+<td>地址冲突与自动化失败</td>
+</tr>
+</tbody>
+</table>
+<p><strong>所以这些服务的设计要求，本质上比核心网络更严：必须 HA、必须有本地回退、必须能在"主网故障"时继续工作。</strong> 而它们的成本又极低 —— 这是全书里"投入产出比最高"的一类设计改进。</p>
+<hr />
+<h2 id="_3">网络服务的四层模型（先分清你在设计哪一层）<a class="anchor" href="#_3" title="Permanent link"></a></h2>
+<p>很多方案把 IPv6、QoS、管理混在一起讲，导致职责不清。用一个四层框架来看：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>提供什么</th>
+<th>组成</th>
+<th>设计关注</th>
+<th>失效表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 基础服务层</strong></td>
+<td>"网络能被使用"</td>
+<td>DHCP/DHCPv6、DNS、NTP、AAA、PKI、IPAM、镜像服务器</td>
+<td>高可用、容量、安全、<strong>断网时是否还工作</strong></td>
+<td>终端拿不到地址/解析不了/认证失败</td>
+</tr>
+<tr>
+<td><strong>② 策略控制层</strong></td>
+<td>"拥塞时谁优先、谁被允许"</td>
+<td>分类标记、排队调度、限速整形、ACL、CoPP</td>
+<td>信任边界、类数、端到端一致性、可验证</td>
+<td>语音卡顿、关键业务被批量流量挤死</td>
+</tr>
+<tr>
+<td><strong>③ 可观测层</strong></td>
+<td>"知道网络在发生什么"</td>
+<td>SNMP、Syslog、NetFlow/IPFIX、gNMI 遥测、IP SLA、告警</td>
+<td>采集规模、保留期、告警治理、时钟</td>
+<td>故障时盲飞、MTTR 变长</td>
+</tr>
+<tr>
+<td><strong>④ 管理层</strong></td>
+<td>"改得动、改得对"</td>
+<td>NMS/编排、配置备份、SoT、ITSM、变更流水线</td>
+<td>权限、审计、可用性、自动化（见第 12 章）</td>
+<td>变更慢、配置漂移、无法审计</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计顺序建议（也是 CCDE 答题顺序）</strong>：</p>
+<pre><code>先 ①  没有基础服务，网络根本不可用（且故障半径最大）
+再 ③  没有可观测性，你无法证明 ① 和 ② 是否成立
+然后 ②  有基线、有验证手段之后，才敢动 QoS（它最容易&quot;改坏且看不出&quot;）
+最后 ④  管理层建立在前面三者之上（自动化依赖遥测与 SoT）
+</code></pre>
+<blockquote>
+<p>⚠️ 现实中企业常按"①→②→④→③"建，把可观测性放最后。结果 QoS 改了没人验证、自动化上线没人监控 —— <strong>每次变更都是盲改</strong>。</p>
+</blockquote>
+<hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
-<h3 id="ipv6">IPv6 设计考量<a class="anchor" href="#ipv6" title="Permanent link"></a></h3>
-<h4 id="ipv6_1">IPv6 地址类型<a class="anchor" href="#ipv6_1" title="Permanent link"></a></h4>
+<h2 id="ipv6">IPv6 地址体系与规划<a class="anchor" href="#ipv6" title="Permanent link"></a></h2>
+<h3 id="_4">地址类型与用途<a class="anchor" href="#_4" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>类型</th>
 <th>前缀</th>
-<th>说明</th>
+<th>可路由</th>
+<th>用途与设计注意</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>全球单播地址 (GUA)</strong></td>
+<td><strong>全球单播 (GUA)</strong></td>
 <td>2000::/3</td>
-<td>可在全球路由</td>
+<td>✅ 全球</td>
+<td>运营使用；从运营商申请 PI/PA</td>
 </tr>
 <tr>
-<td><strong>唯一本地地址 (ULA)</strong></td>
-<td>FC00::/7</td>
-<td>类似 RFC 1918</td>
+<td><strong>唯一本地 (ULA)</strong></td>
+<td>FC00::/7（实际用 FD00::/8）</td>
+<td>❌ 不出域</td>
+<td>内部稳定地址（与 ISP 无关）</td>
 </tr>
 <tr>
-<td><strong>链路本地地址 (LLA)</strong></td>
+<td><strong>链路本地 (LLA)</strong></td>
 <td>FE80::/10</td>
-<td>仅链路本地，不可路由</td>
-</tr>
-<tr>
-<td><strong>组播地址</strong></td>
-<td>FF00::/8</td>
-<td>组播通信</td>
-</tr>
-<tr>
-<td><strong>任播地址</strong></td>
-<td>—</td>
-<td>共享地址，最近路由器响应</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ipv6_2">IPv6 地址分配方法<a class="anchor" href="#ipv6_2" title="Permanent link"></a></h4>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>说明</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>SLAAC (无状态地址自动配置)</strong></td>
-<td>路由器通告前缀，设备自生成 IID</td>
-<td>简单部署</td>
-</tr>
-<tr>
-<td><strong>DHCPv6 有状态</strong></td>
-<td>DHCP 分配完整地址</td>
-<td>需要地址追踪</td>
-</tr>
-<tr>
-<td><strong>DHCPv6 无状态</strong></td>
-<td>SLAAC + DHCP 分配额外信息（DNS 等）</td>
-<td>SLAAC + DNS</td>
-</tr>
-<tr>
-<td><strong>手动配置</strong></td>
-<td>静态配置</td>
-<td>服务器、路由器</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ipv6_3">IPv6 地址规划<a class="anchor" href="#ipv6_3" title="Permanent link"></a></h4>
-<table>
-<thead>
-<tr>
-<th>设计原则</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>层次化分配</strong></td>
-<td>按地理/功能分配前缀，支持汇总</td>
-</tr>
-<tr>
-<td><strong>预留扩展</strong></td>
-<td>保留足够的前缀空间</td>
-</tr>
-<tr>
-<td><strong>ULA vs GUA</strong></td>
-<td>内部通信可使用 ULA，外部使用 GUA</td>
-</tr>
-<tr>
-<td><strong>安全考量</strong></td>
-<td>不使用 EUI-64（暴露 MAC 地址）</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ipv6_4">IPv6 迁移策略<a class="anchor" href="#ipv6_4" title="Permanent link"></a></h4>
-<table>
-<thead>
-<tr>
-<th>策略</th>
-<th>说明</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>双栈 (Dual Stack)</strong></td>
-<td>同时运行 IPv4 和 IPv6</td>
-<td>最常见迁移方式</td>
-</tr>
-<tr>
-<td><strong>隧道 (Tunneling)</strong></td>
-<td>IPv6 over IPv4 或反之</td>
-<td>过渡期</td>
-</tr>
-<tr>
-<td><strong>NAT64/DNS64</strong></td>
-<td>IPv6-only 网络访问 IPv4 服务</td>
-<td>IPv6-only 部署</td>
-</tr>
-<tr>
-<td><strong>464XLAT</strong></td>
-<td>IPv4-only 应用在 IPv6 网络上</td>
-<td>移动运营商</td>
-</tr>
-</tbody>
-</table>
-<h4 id="ipv6_5">IPv6 设计考量<a class="anchor" href="#ipv6_5" title="Permanent link"></a></h4>
-<table>
-<thead>
-<tr>
-<th>考量</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ICMPv6 重要性</strong></td>
-<td>ICMPv6 承担更多功能（NDP、SLAAC、MLD）</td>
-</tr>
-<tr>
-<td><strong>NDP 安全</strong></td>
-<td>NDP 无认证，需 RA Guard、ND Inspection</td>
-</tr>
-<tr>
-<td><strong>扩展头</strong></td>
-<td>扩展头可能影响转发性能</td>
-</tr>
-<tr>
-<td><strong>MTU</strong></td>
-<td>IPv6 路由器不分片，需 PMTUD</td>
+<td>❌ 单链路</td>
+<td><strong>每个接口必有</strong>；路由协议邻居、下一跳用它</td>
 </tr>
 <tr>
 <td><strong>组播</strong></td>
-<td>IPv6 大量使用组播（替代广播）</td>
+<td>FF00::/8</td>
+<td>域内</td>
+<td>替代广播；NDP、路由协议、流媒体</td>
+</tr>
+<tr>
+<td><strong>环回</strong></td>
+<td>::1/128</td>
+<td>—</td>
+<td>设备标识（类似 32 位 loopback）</td>
+</tr>
+<tr>
+<td><strong>未指定</strong></td>
+<td>::/128</td>
+<td>—</td>
+<td>DAD 源地址</td>
+</tr>
+<tr>
+<td><strong>IPv4 映射</strong></td>
+<td>::FFFF:0:0/96</td>
+<td>—</td>
+<td>双栈栈内部表示，<strong>不用于配置</strong></td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="qos">QoS 设计<a class="anchor" href="#qos" title="Permanent link"></a></h3>
-<h4 id="qos_1">QoS 的商业驱动<a class="anchor" href="#qos_1" title="Permanent link"></a></h4>
+<p><strong>常见组播地址（必须记住）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FF02::1</td>
+<td>链路上所有节点（all-nodes）</td>
+</tr>
+<tr>
+<td>FF02::2</td>
+<td>链路上所有路由器（all-routers）</td>
+</tr>
+<tr>
+<td>FF02::1:2</td>
+<td>所有 DHCPv6 服务器与中继</td>
+</tr>
+<tr>
+<td>FF02::1:FF00:0/104</td>
+<td>被请求节点组播（solicited-node，DAD/NS 用）</td>
+</tr>
+<tr>
+<td>FF02::5 / FF02::6</td>
+<td>OSPFv3 (all SPF / all DR)</td>
+</tr>
+<tr>
+<td>FF02::A</td>
+<td>EIGRPv6</td>
+</tr>
+<tr>
+<td>FF02::9</td>
+<td>RIPng</td>
+</tr>
+<tr>
+<td>FF05::1:3</td>
+<td>站点内所有 DHCP 服务器（site-scope）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">地址规划：把三层位数一次说清<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<p>企业地址规划的核心是把 128 位切成四段<strong>语义</strong>：</p>
+<pre><code>| 2001:0DB8:SSSS | SS |  SSSS | IIII:IIII:IIII:IIII |
+  全局路由前缀(48)   站点 子网    接口标识(64)
+                   (8)  (16)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>建议宽度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全局路由前缀</strong></td>
+<td>/48 来自运营商（也可 /56）</td>
+<td>决定可汇总范围</td>
+</tr>
+<tr>
+<td><strong>站点 ID</strong></td>
+<td>8 位 = 256 个站点</td>
+<td>地理/大区/园区</td>
+</tr>
+<tr>
+<td><strong>子网 ID</strong></td>
+<td>16 位 = 每个站点 65,536 个 /64</td>
+<td>VLAN、点到点、环回</td>
+</tr>
+<tr>
+<td><strong>接口标识</strong></td>
+<td>64 位固定</td>
+<td><strong>不可再切</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>算例（这家企业该向运营商申请多大）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>计算</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>站点数</td>
+<td>300 个站点</td>
+<td>需 ≥ 300 个 /48</td>
+</tr>
+<tr>
+<td>向上取 2 的幂</td>
+<td>512 = 2⁹</td>
+<td>512 个 /48 = <strong>一个 /39</strong></td>
+</tr>
+<tr>
+<td>实际申请</td>
+<td>运营商常给 /40 或 /44</td>
+<td>申请 <strong>/40</strong>（留一倍增长）</td>
+</tr>
+<tr>
+<td>单站点规划</td>
+<td>/48 → 16 位子网</td>
+<td>6 万个 /64 足够用十年级别</td>
+</tr>
+</tbody>
+</table>
+<p><strong>子网分配建议表（单站点内部）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>子网 ID 规划</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础设施（环回、P2P）</td>
+<td>0000–00FF</td>
+<td>便于汇总成一条 ACL</td>
+</tr>
+<tr>
+<td>楼宇/楼层用户 VLAN</td>
+<td>0100–7FFF</td>
+<td>按楼 → 层 → VLAN 层次编码</td>
+</tr>
+<tr>
+<td>数据中心</td>
+<td>8000–BFFF</td>
+<td>与园区分开，便于独立策略</td>
+</tr>
+<tr>
+<td>无线/访客/IoT</td>
+<td>C000–EFFF</td>
+<td>安全域隔离</td>
+</tr>
+<tr>
+<td>预留/DMZ/实验</td>
+<td>F000–FFFF</td>
+<td>未来扩展</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<p>QoS 不仅仅是技术问题——它是业务需求的直接反映。QoS 确保关键应用在网络拥塞时仍能获得所需的网络资源。</p>
+<p>💡 <strong>层次化的价值只有一个</strong>：让 ACL、防火墙策略、路由汇总、监控能<strong>按前缀表达</strong>，而不是枚举 500 条明细。IPv6 地址长到人眼无法记，<strong>规划错了就没有"人肉兜底"的可能</strong>。</p>
 </blockquote>
-<h4 id="qos_2">QoS 模型<a class="anchor" href="#qos_2" title="Permanent link"></a></h4>
+<h3 id="_6">特殊链路的前缀长度选择<a class="anchor" href="#_6" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>模型</th>
-<th>说明</th>
+<th>链路类型</th>
+<th>推荐前缀</th>
+<th>理由</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Best-Effort</strong></td>
-<td>无 QoS 保障</td>
+<td>用户 VLAN / LAN</td>
+<td><strong>/64</strong></td>
+<td>SLAAC、ND 的硬性假设</td>
 </tr>
 <tr>
-<td><strong>IntServ (集成服务)</strong></td>
-<td>信令驱动（RSVP），端到端预留</td>
+<td>服务器网段</td>
+<td><strong>/64</strong></td>
+<td>同上（可用 DHCPv6 但保守用 /64）</td>
 </tr>
 <tr>
-<td><strong>DiffServ (区分服务)</strong></td>
-<td>基于标记的差异化处理，最常用</td>
+<td><strong>点到点（路由互联）</strong></td>
+<td><strong>/127</strong>（RFC 6164）或 /64</td>
+<td>/127 防子网路由攻击、省地址；老设备/部分平台只支持 /64 时统一用 /64</td>
+</tr>
+<tr>
+<td><strong>环回</strong></td>
+<td><strong>/128</strong></td>
+<td>单地址，无子网</td>
+</tr>
+<tr>
+<td>主机路由/服务 VIP</td>
+<td>/128</td>
+<td>anycast 或 LO 上宣告</td>
+</tr>
+<tr>
+<td>隧道（GRE/6in4）</td>
+<td>/64（或 /127）</td>
+<td>视平台支持</td>
 </tr>
 </tbody>
 </table>
-<h4 id="qos_3">QoS 机制<a class="anchor" href="#qos_3" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>不要用 /126</strong>：早期"省地址"的做法既没省（地址多得是），又制造了"支持的平台不一致"的问题。<strong>要么 /64，要么 /127。</strong></p>
+</blockquote>
+<h3 id="_7">地址获取方式的选择<a class="anchor" href="#_7" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>机制</th>
-<th>说明</th>
-<th>目标</th>
+<th>方式</th>
+<th>谁生成 IID</th>
+<th>是否需要服务器</th>
+<th>适用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>分类与标记</strong></td>
-<td>识别流量类型并标记</td>
-<td>DSCP、802.1p</td>
+<td><strong>SLAAC</strong></td>
+<td>终端自己（EUI-64 / 稳定隐私 / 随机）</td>
+<td>❌（只需 RA）</td>
+<td>通用终端、IoT</td>
 </tr>
 <tr>
-<td><strong>流量监管</strong></td>
-<td>限制流量速率</td>
-<td>CAR、Policing</td>
+<td><strong>SLAAC + RDNSS</strong></td>
+<td>终端</td>
+<td>❌（DNS 也在 RA 里）</td>
+<td>无 DHCPv6 的干净方案（RFC 8106）</td>
 </tr>
 <tr>
-<td><strong>流量整形</strong></td>
-<td>缓冲超额流量</td>
-<td>Shaping</td>
+<td><strong>DHCPv6 有状态</strong></td>
+<td>服务器</td>
+<td>✅</td>
+<td>需要地址审计、按用户授权</td>
 </tr>
 <tr>
-<td><strong>排队</strong></td>
-<td>按优先级调度</td>
-<td>LLQ、CBWFQ</td>
+<td><strong>DHCPv6 无状态（M=0,O=1）</strong></td>
+<td>终端（SLAAC）</td>
+<td>✅（只发 DNS/域）</td>
+<td>想审计 DNS 但用 SLAAC 地址</td>
 </tr>
 <tr>
-<td><strong>拥塞避免</strong></td>
-<td>主动丢包避免拥塞</td>
-<td>WRED</td>
-</tr>
-<tr>
-<td><strong>压缩</strong></td>
-<td>减少头部开销</td>
-<td>cRTP、HC</td>
+<td><strong>静态/手动</strong></td>
+<td>人工</td>
+<td>❌</td>
+<td>服务器、网络设备、VIP</td>
 </tr>
 </tbody>
 </table>
-<h4 id="dscp">DSCP 标记<a class="anchor" href="#dscp" title="Permanent link"></a></h4>
+<p><strong>RA 里的两个关键标志位</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>DSCP 值</th>
-<th>名称</th>
-<th>类型</th>
-<th>适用流量</th>
+<th>标志</th>
+<th>含义</th>
+<th>终端行为</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>46 (EF)</td>
-<td>加速转发</td>
-<td>高优先级</td>
-<td>语音</td>
+<td><strong>M（Managed）</strong></td>
+<td>"有 DHCPv6 服务器"</td>
+<td>用 DHCPv6 取地址</td>
 </tr>
 <tr>
-<td>40 (CS5)</td>
-<td>信令</td>
-<td>中高</td>
-<td>呼叫信令</td>
-</tr>
-<tr>
-<td>34 (AF41)</td>
-<td>确保转发</td>
-<td>中高</td>
-<td>视频会议</td>
-</tr>
-<tr>
-<td>26 (AF31)</td>
-<td>确保转发</td>
-<td>中</td>
-<td>关键数据</td>
-</tr>
-<tr>
-<td>18 (AF21)</td>
-<td>确保转发</td>
-<td>低中</td>
-<td>一般数据</td>
-</tr>
-<tr>
-<td>0 (DF)</td>
-<td>默认</td>
-<td>尽力而为</td>
-<td>最佳努力</td>
+<td><strong>O（Other）</strong></td>
+<td>"其他配置在 DHCPv6"</td>
+<td>地址用 SLAAC，DNS/域用 DHCPv6</td>
 </tr>
 </tbody>
 </table>
-<h4 id="qos_4">QoS 设计原则<a class="anchor" href="#qos_4" title="Permanent link"></a></h4>
+<blockquote>
+<p>💡 <strong>实操判断</strong>：Windows 默认"有 RA 就 SLAAC + 尝试 DHCPv6"；Android <strong>不支持 DHCPv6 有状态</strong>（只认 SLAAC）。<strong>如果企业里有 Android 设备（大概率有），方案必须保留 SLAAC —— 这是很多 IPv6-only 设计被推翻的第一原因。</strong></p>
+</blockquote>
+<h3 id="iid">接口标识（IID）的三种生成方式<a class="anchor" href="#iid" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>原则</th>
-<th>说明</th>
+<th>方式</th>
+<th>例子</th>
+<th>隐私</th>
+<th>稳定性</th>
+<th>设计建议</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>分类信任边界</strong></td>
-<td>尽可能靠近源标记，不信任终端标记</td>
+<td><strong>EUI-64</strong></td>
+<td>MAC → 插入 FFFE 并翻转 U/L 位</td>
+<td>❌ 暴露厂商/OUI</td>
+<td>✅</td>
+<td><strong>不推荐</strong>（可被指纹追踪）</td>
 </tr>
 <tr>
-<td><strong>端到端 QoS</strong></td>
-<td>全链路一致标记和调度</td>
+<td><strong>稳定隐私（RFC 7217）</strong></td>
+<td>前缀 + 密钥 + 计数器哈希</td>
+<td>✅</td>
+<td>✅（同前缀下稳定）</td>
+<td><strong>推荐默认</strong></td>
 </tr>
 <tr>
-<td><strong>LLQ for Voice</strong></td>
-<td>语音使用低延迟队列</td>
+<td><strong>临时地址（RFC 8981，原 4941）</strong></td>
+<td>定期随机更换</td>
+<td>✅</td>
+<td>❌</td>
+<td>客户端默认开启，出站访问用</td>
 </tr>
 <tr>
-<td><strong>带宽保证</strong></td>
-<td>为每种流量类型保证带宽</td>
-</tr>
-<tr>
-<td><strong>分层 QoS</strong></td>
-<td>在不同层级应用不同策略</td>
+<td><strong>DHCPv6 分配</strong></td>
+<td>服务器决定</td>
+<td>✅</td>
+<td>✅</td>
+<td>需要审计时</td>
 </tr>
 </tbody>
 </table>
-<h4 id="qos-sd-wan">QoS 在 SD-WAN 中的应用<a class="anchor" href="#qos-sd-wan" title="Permanent link"></a></h4>
+<p><strong>关键点</strong>：终端通常<strong>同时持有多个地址</strong>（LLA + 稳定 GUA + 若干临时 GUA）。所以：</p>
+<ul>
+<li><strong>ACL 不要写"终端地址"</strong>（会变），要按<strong>前缀/子网</strong>写</li>
+<li><strong>日志里的源地址可能是临时地址</strong>，追踪要结合 DHCPv6/ND 日志或前缀</li>
+<li><strong>DNS 记录不要绑终端地址</strong></li>
+</ul>
+<h3 id="ndp">NDP（邻居发现）流程与五个消息<a class="anchor" href="#ndp" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>特性</th>
-<th>说明</th>
+<th>消息</th>
+<th>ICMPv6 类型</th>
+<th>作用</th>
+<th>类比 IPv4</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>应用感知</strong></td>
-<td>自动识别应用并应用 QoS</td>
+<td><strong>RS</strong>（Router Solicitation）</td>
+<td>133</td>
+<td>主机请求立即发 RA</td>
+<td>DHCP Discover 的"催促"</td>
 </tr>
 <tr>
-<td><strong>动态队列</strong></td>
-<td>基于应用动态创建队列</td>
+<td><strong>RA</strong>（Router Advertisement）</td>
+<td>134</td>
+<td>通告前缀、默认网关、标志位、MTU</td>
+<td>无对应（IPv4 靠 DHCP）</td>
 </tr>
 <tr>
-<td><strong>路径选择</strong></td>
-<td>基于应用需求选择传输路径</td>
+<td><strong>NS</strong>（Neighbor Solicitation）</td>
+<td>135</td>
+<td>地址解析 / DAD 探测</td>
+<td>ARP Request</td>
+</tr>
+<tr>
+<td><strong>NA</strong>（Neighbor Advertisement）</td>
+<td>136</td>
+<td>应答 NS</td>
+<td>ARP Reply</td>
+</tr>
+<tr>
+<td><strong>Redirect</strong></td>
+<td>137</td>
+<td>告诉主机更优下一跳</td>
+<td>ICMP Redirect</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="_2">网络管理与服务<a class="anchor" href="#_2" title="Permanent link"></a></h3>
-<h4 id="_3">网络管理功能域<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<p><strong>完整地址获取时序（SLAAC）</strong>：</p>
+<pre><code>1. 主机生成 LLA（FE80::/64，EUI-64 或随机）
+2. DAD：向 FF02::1:FFxx:xxxx 发 NS（源为 ::），等 1 秒无 NA → LLA 可用
+3. 主机发 RS（源 LLA，目的 FF02::2）
+4. 路由器回 RA（含前缀、前缀生存期、默认路由生存期、M/O 标志、MTU、RDNSS）
+5. 主机用 RA 前缀 + IID 生成 GUA
+6. 对 GUA 再做一次 DAD
+7. （若 O/M）发 DHCPv6 Solicit → Advertise → Request → Reply 取 DNS/域
+8. 完成；默认路由指向 RA 源（LLA）
+</code></pre>
+<p><strong>RA 参数的默认值与设计含义</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>功能域</th>
-<th>说明</th>
+<th>参数</th>
+<th>默认</th>
+<th>设计含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>FCAPS</strong></td>
-<td>故障、配置、计费、性能、安全管理</td>
+<td>Max RA interval</td>
+<td>600 s</td>
+<td>新终端最快 200 s 才收到 RA；<strong>终端抱怨"插上没网"就是这个</strong></td>
 </tr>
 <tr>
-<td><strong>监控</strong></td>
-<td>实时监控网络状态</td>
+<td>Router Lifetime</td>
+<td>1800 s（3×Max）</td>
+<td>RA 停止后终端还能用默认路由多久</td>
 </tr>
 <tr>
-<td><strong>日志</strong></td>
-<td>集中日志和事件关联</td>
+<td>Prefix Valid Lifetime</td>
+<td>2592000 s（30 天）</td>
+<td>前缀失效时间（renumbering 用）</td>
 </tr>
 <tr>
-<td><strong>告警</strong></td>
-<td>基于阈值的主动告警</td>
+<td>Prefix Preferred Lifetime</td>
+<td>604800 s（7 天）</td>
+<td>停止用于新连接的时间</td>
 </tr>
 <tr>
-<td><strong>报告</strong></td>
-<td>容量规划和趋势分析</td>
+<td>Cur Hop Limit</td>
+<td>64</td>
+<td>跳数上限</td>
+</tr>
+<tr>
+<td>RA 里的 MTU</td>
+<td>常不填</td>
+<td>不填时终端默认 1280（<strong>隐患，见下节</strong>）</td>
+</tr>
+<tr>
+<td>RDNSS lifetime</td>
+<td>建议 ≥ 2×RA</td>
+<td>避免 DNS 超时抖动</td>
 </tr>
 </tbody>
 </table>
-<h4 id="_4">网络管理协议<a class="anchor" href="#_4" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>两个高频现场问题</strong>：（1）<strong>"插上网线要等 30 秒才有网"</strong> —— RA 间隔太长，解决：<code>ipv6 nd ra interval msec 30000</code>；（2）<strong>"IPv6 能 ping 通但网页打不开"</strong> —— RA 没带 RDNSS 且 DHCPv6 不可达，终端没有 DNS。</p>
+</blockquote>
+<h3 id="mtu-pmtudipv6">MTU 与 PMTUD：IPv6 排障第一杀手<a class="anchor" href="#mtu-pmtudipv6" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>协议</th>
-<th>说明</th>
-<th>使用场景</th>
+<th>事实</th>
+<th>后果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>SNMP v2c/v3</strong></td>
-<td>简单网络管理协议</td>
-<td>设备监控、轮询</td>
+<td>IPv6 <strong>路由器不分片</strong>（只有源端可分段）</td>
+<td>中间链路 MTU 小 → 必须靠 ICMPv6 Type 2 通知源端</td>
 </tr>
 <tr>
-<td><strong>NETCONF</strong></td>
-<td>网络配置协议</td>
-<td>设备配置</td>
+<td>ICMPv6 Type 2（Packet Too Big）被防火墙拦</td>
+<td><strong>黑洞</strong>：小包通、大包不通（ping 通、SSH/TLS 卡死）</td>
 </tr>
 <tr>
-<td><strong>RESTCONF</strong></td>
-<td>RESTful API</td>
-<td>Web 应用集成</td>
+<td>IPv6 最小 MTU = 1280</td>
+<td>隧道里若不调整，一定踩</td>
 </tr>
 <tr>
-<td><strong>gNMI</strong></td>
-<td>gRPC 管理接口</td>
-<td>高性能遥测</td>
-</tr>
-<tr>
-<td><strong>Syslog</strong></td>
-<td>系统日志</td>
-<td>事件日志</td>
-</tr>
-<tr>
-<td><strong>NetFlow/IPFIX</strong></td>
-<td>流量分析</td>
-<td>流量监控</td>
-</tr>
-<tr>
-<td><strong>Streaming Telemetry</strong></td>
-<td>流式遥测</td>
-<td>实时监控</td>
+<td>隧道路由器会自动回 Type 2</td>
+<td>但很多安全策略"禁 ICMP"</td>
 </tr>
 </tbody>
 </table>
-<h4 id="vs">遥测 vs 传统监控<a class="anchor" href="#vs" title="Permanent link"></a></h4>
-<table>
-<thead>
-<tr>
-<th>对比</th>
-<th>传统 SNMP</th>
-<th>流式遥测</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>模式</strong></td>
-<td>轮询</td>
-<td>推送</td>
-</tr>
-<tr>
-<td><strong>延迟</strong></td>
-<td>秒级</td>
-<td>毫秒级</td>
-</tr>
-<tr>
-<td><strong>开销</strong></td>
-<td>高（大量轮询）</td>
-<td>低（按需推送）</td>
-</tr>
-<tr>
-<td><strong>精度</strong></td>
-<td>低</td>
-<td>高</td>
-</tr>
-<tr>
-<td><strong>适合场景</strong></td>
-<td>遗留设备</td>
-<td>现代网络</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_5">网络编排<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<p><strong>设计规则（写进交付物）</strong>：</p>
+<ol>
+<li><strong>ICMPv6 Type 1/2/3/4 与 133–137 必须放行</strong>（可限速，不可阻断），Type 2 尤其</li>
+<li>全网 MTU 统一 1500；隧道场景内层 MTU 1500、外层按封装减（GRE 24 B、6in4 20 B、IPsec 视模式 50–73 B）</li>
+<li>终端侧 MTU 1400 的"临时救火"要写清原因与撤销条件</li>
+<li><strong>验收方法</strong>：<code>ping -6 -s 1452 -M do</code>（Windows <code>-l</code>）逐跳验证，而不是只 ping 一次</li>
+<li>服务器网段做 <strong>TCP MSS clamping</strong>（IPv6 SYN 的 MSS option 同样可夹）</li>
+</ol>
+<blockquote>
+<p>🔥 <strong>排障口诀</strong>：<strong>IPv6 下"能 ping 通但应用不通"，先查 MTU 与 ICMPv6 Type 2，再查 DNS。</strong></p>
+</blockquote>
+<h3 id="ipv6-ndp">IPv6 首跳安全（NDP 无认证，必须靠网络侧）<a class="anchor" href="#ipv6-ndp" title="Permanent link"></a></h3>
+<p>NDP 没有 IPv4 ARP 那样的"天然信任"，也没有广泛部署的 SEND，所以防护全在交换机/路由器上：</p>
 <table>
 <thead>
 <tr>
 <th>技术</th>
+<th>防什么</th>
+<th>部署位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RA Guard</strong></td>
+<td>非法 RA（伪造默认网关/DNS）</td>
+<td>接入端口（除连路由器的上行口）</td>
+</tr>
+<tr>
+<td><strong>ND Inspection</strong></td>
+<td>伪造 NA（地址劫持）、NA 泛洪耗尽 ND 表</td>
+<td>接入端口</td>
+</tr>
+<tr>
+<td><strong>DHCPv6 Guard</strong></td>
+<td>非法 DHCPv6 服务器</td>
+<td>接入端口</td>
+</tr>
+<tr>
+<td><strong>IPv6 Source Guard / SAVI</strong></td>
+<td>源地址伪造（RFC 5213 简化版）</td>
+<td>接入端口</td>
+</tr>
+<tr>
+<td><strong>Destination Guard</strong></td>
+<td>针对不存在目标的 NS 泛洪耗尽 ND 缓存</td>
+<td>三层网关</td>
+</tr>
+<tr>
+<td><strong>邻居缓存限制 + 速率限制</strong></td>
+<td>ND 缓存耗尽（相当于 ARP 表打满）</td>
+<td>网关</td>
+</tr>
+<tr>
+<td><strong>CoPP / 控制面限速</strong></td>
+<td>RS/NS 泛洪打管理面</td>
+<td>全网</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>顺序错误会断网</strong>：先开 RA Guard 再确认上行口设为 <code>trusted</code>，一次就把整个楼层的默认网关断掉。<strong>上线顺序：先抓包看现场有没有合法 RA 源 → 配 trusted 上行 → 再逐端口开。</strong></p>
+</blockquote>
+<h3 id="ipv6-ipv4">IPv6 与 IPv4 共存的迁移策略<a class="anchor" href="#ipv6-ipv4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>原理</th>
+<th>优点</th>
+<th>代价</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>双栈（Dual Stack）</strong></td>
+<td>两套协议同时跑</td>
+<td>最干净、无转换</td>
+<td>双份地址/策略/排障成本，IPv4 地址仍需管理</td>
+<td><strong>首选</strong>（能双栈就双栈）</td>
+</tr>
+<tr>
+<td><strong>NAT64 + DNS64</strong></td>
+<td>纯 v6 客户端访问 v4 服务（DNS 回 AAAA 合成）</td>
+<td>客户端免 v4</td>
+<td>有状态、需 DNS 配合、破坏端到端、应用不兼容（字面 IP、IPsec）</td>
+<td>移动/公有云 v6-only</td>
+</tr>
+<tr>
+<td><strong>464XLAT（CLAT+PLAT）</strong></td>
+<td>终端侧 CLAT 做无状态翻译</td>
+<td>兼容 IPv4 字面 IP 应用</td>
+<td>终端支持要求（Android 有、Windows 需软）</td>
+<td>移动运营商</td>
+</tr>
+<tr>
+<td><strong>DS-Lite / MAP-E / MAP-T</strong></td>
+<td>v4 over v6 隧道 + 集中式 CGN</td>
+<td>运营商节省 v4</td>
+<td>隧道 MTU、CGN 日志合规</td>
+<td>ISP</td>
+</tr>
+<tr>
+<td><strong>6rd / 6in4 / ISATAP / Teredo</strong></td>
+<td>静态/自动隧道</td>
+<td>过渡可用</td>
+<td><strong>已被弃用</strong>，MTU 坑、安全差</td>
+<td>不推荐新建</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计判断顺序</strong>：</p>
+<pre><code>能用双栈 → 双栈（并且要有&quot;IPv6 优先还是 IPv4 优先&quot;的明确策略）
+必须 v6-only → NAT64/DNS64（应用清单先过一遍：有没有写死 IPv4 字面地址？有没有 IPsec？）
+只有终端侧缺 v4 → 464XLAT
+</code></pre>
+<blockquote>
+<p>💡 <strong>双栈的隐藏问题：不对称</strong>。终端默认偏好 IPv6（RFC 6724），如果 IPv6 路径质量差（隧道、跨区出口），业务会"变慢但不完全断"。<strong>双栈必须做到两条路径质量对等，否则宁可先关掉 AAAA。</strong></p>
+</blockquote>
+<h3 id="ipv6_1">IPv6 路由协议要点<a class="anchor" href="#ipv6_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>关键差异</th>
+<th>设计注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OSPFv3</strong></td>
+<td>拓扑与地址<strong>分离</strong>；邻居用 LLA，配置在接口；认证靠 IPsec（或v3 的 AH）</td>
+<td>同一个进程可跑多个 AF；虚链路仍用 Router-ID</td>
+</tr>
+<tr>
+<td><strong>EIGRPv6</strong></td>
+<td>邻居也用 LLA；需 <code>ipv6 unicast-routing</code> + 接口下 <code>ipv6 eigrp</code></td>
+<td>命名模式与 v4 一致，管理习惯延续</td>
+</tr>
+<tr>
+<td><strong>IS-IS</strong></td>
+<td>天然多 AF（TLV），IPv6 接入简单</td>
+<td>大网/运营商首选，但运维门槛高</td>
+</tr>
+<tr>
+<td><strong>MP-BGP</strong></td>
+<td><code>address-family ipv6 unicast</code>；下一跳可用 LLA（RFC 2545）或 IPv4 映射（RFC 5549）</td>
+<td><strong>RFC 5549 允许 v6 前缀的下一跳是 v4 地址</strong>，便于 v4-only 核心承载 v6</td>
+</tr>
+<tr>
+<td><strong>静态/默认路由</strong></td>
+<td>默认路由通常 <code>::/0</code> 指向上游 LLA 或 GUA</td>
+<td>与 RA 并存时要考虑优先级</td>
+</tr>
+</tbody>
+</table>
+<p><strong>下一跳用 LLA 的两个影响</strong>：</p>
+<ol>
+<li><strong>链路本地地址不可路由</strong>，所以路由表里看到的下一跳是 <code>FE80::x</code>，属正常（需带出接口）</li>
+<li><strong>多访问链路（如 IXP、共享 VLAN）</strong>必须显式配置下一跳或使用 <code>next-hop-self</code>，否则递归失败</li>
+</ol>
+<h3 id="pa-vs-piula-nptv6">多宿主：PA vs PI，ULA 与 NPTv6<a class="anchor" href="#pa-vs-piula-nptv6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>地址来源</th>
+<th>换运营商</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PA（Provider Aggregatable）</strong></td>
+<td>运营商分配 /48</td>
+<td><strong>必须重新编址</strong></td>
+<td>路由表小、运营商愿意给</td>
+<td>换 ISP 痛苦</td>
+</tr>
+<tr>
+<td><strong>PI（Provider Independent）</strong></td>
+<td>RIR 申请</td>
+<td>不变</td>
+<td>稳定</td>
+<td>需要 BGP 多宿主与 /48 的 DFZ 准入（通常要 /48 且多宿主）</td>
+</tr>
+<tr>
+<td><strong>ULA + NPTv6</strong></td>
+<td>内部 FD00::/8，边界做前缀转换</td>
+<td>内部不变</td>
+<td>内部地址与 ISP 解耦</td>
+<td>NPTv6 只换前缀（无端口转换），仍破坏端到端、有校验和问题</td>
+</tr>
+</tbody>
+</table>
+<p><strong>双出口的源地址选择（RFC 6724）</strong>：终端选源地址时按"最长匹配前缀 → 优先同一地址族 → 优先已用地址 → 规则表"打分，<strong>终端并不知道路由器的出口策略</strong>。</p>
+<blockquote>
+<p>⚠️ <strong>典型故障</strong>：双 ISP，一个 /48 从 A 来、一个 /48 从 B 来。终端从 A 拿到前缀，但路由器把流量从 B 送出 → B 侧入方向过滤（BCP 38/uRPF）丢包 → "时通时不通"。<strong>解决方案：入向策略路由（source-based routing）或严格按"谁的前缀走谁的出口"。</strong></p>
+</blockquote>
+<h3 id="ipv6_2">IPv6 组播与"没有广播"的连带影响<a class="anchor" href="#ipv6_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>影响</th>
+<th>设计动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无广播 → 扫描/蠕虫传播变难</td>
+<td>但 <strong>ND/RS 泛洪</strong>成为新的 DoS 面</td>
+</tr>
+<tr>
+<td>ARP 换成 NS/NA（组播）</td>
+<td>交换机需要 <strong>MLD snooping</strong>（替代 IGMP snooping），否则组播泛洪到全 VLAN</td>
+</tr>
+<tr>
+<td>IPv6 流媒体用组播</td>
+<td>需要 PIM 与 MLD，配置与 v4 类似但地址是 FF3x::/32</td>
+</tr>
+<tr>
+<td>二层域仍需抑制</td>
+<td>用 <strong>MLD snooping + 未知组播丢弃</strong>，思路与 IGMP 一致</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ipv6-10">IPv6 运维差异清单（迁移前必须培训的 10 条）<a class="anchor" href="#ipv6-10" title="Permanent link"></a></h3>
+<ol>
+<li><code>ping</code>/<code>traceroute</code> 要指定 v6；很多工具默认 v4，<strong>"ping 不通"常是敲错了</strong></li>
+<li><strong>防火墙/ACL 必须放行 ICMPv6 关键类型</strong>（否则 ND 和 PMTUD 全废）</li>
+<li>日志里出现 <code>FE80::</code> 是正常的链路本地，不代表错误</li>
+<li>抓包要过滤 <code>icmp6</code>，不是 <code>icmp</code></li>
+<li>地址太长 → <strong>必须依赖 IPAM/自动化</strong>，人肉记不住</li>
+<li><code>show ipv6 neighbors</code> 与 v4 的 ARP 表是两张表，容量独立</li>
+<li>NAT 缺席 → <strong>安全策略必须显式</strong>（不能再靠"内网不可见"）</li>
+<li>DAD 会让地址"先不可用约 1 秒" → 快速切换场景需注意</li>
+<li>部分老设备/老版本对 IPv6 的 ACL/NetFlow 支持不全 → <strong>先做能力矩阵</strong></li>
+<li>排障顺序：<strong>地址是否拿到 → 网关是否可达 → DNS 是否可用 → MTU/PMTUD → 应用绑定（v6 监听？）</strong></li>
+</ol>
+<blockquote>
+<p>💡 第 10 条最容易被忽略：应用服务器可能<strong>根本没监听 v6</strong>（<code>netstat -an | grep :::</code>），表现为"网络全通、服务不通"。</p>
+</blockquote>
+<hr />
+<h2 id="qos">QoS：从业务需求到每跳行为<a class="anchor" href="#qos" title="Permanent link"></a></h2>
+<h3 id="qos_1">QoS 的业务驱动（先写清"为什么"）<a class="anchor" href="#qos_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th>对网络的敏感度</th>
+<th>无 QoS 时的表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>语音（VoIP）</strong></td>
+<td>延迟 &lt;150 ms、抖动 &lt;30 ms、丢包 &lt;1%</td>
+<td>忙时断字、单通、杂音</td>
+</tr>
+<tr>
+<td><strong>实时视频/会议</strong></td>
+<td>延迟 &lt;150–200 ms、丢包 &lt;1%</td>
+<td>花屏、卡顿、马赛克</td>
+</tr>
+<tr>
+<td><strong>流媒体（单向）</strong></td>
+<td>延迟 &lt;4–5 s、可缓冲</td>
+<td>起播慢、清晰度下降</td>
+</tr>
+<tr>
+<td><strong>VDI / 交互式</strong></td>
+<td>延迟 &lt;50 ms（RTT）</td>
+<td>打字延迟、鼠标漂移</td>
+</tr>
+<tr>
+<td><strong>事务型（ERP/DB）</strong></td>
+<td>延迟敏感、带宽小</td>
+<td>超时、重试、批量失败</td>
+</tr>
+<tr>
+<td><strong>批量（备份/复制）</strong></td>
+<td>带宽敏感、延迟不敏感</td>
+<td>挤占其他业务（<strong>必须被限速</strong>）</td>
+</tr>
+<tr>
+<td><strong>scavenger（P2P/更新）</strong></td>
+<td>都应被压制</td>
+<td>无节制占满出口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键设计动作：把"带宽敏感"和"延迟敏感"分开处理。</strong></p>
+<ul>
+<li>带宽敏感 → <strong>限速/整形</strong>（给它一个上限，避免它伤害别人）</li>
+<li>延迟敏感 → <strong>优先队列</strong>（给它低延迟与最低带宽保证）</li>
+<li>两者都不敏感 → 默认队列，<strong>用剩余带宽</strong></li>
+</ul>
+<h3 id="diffserv-intserv-diffserv">DiffServ 与 IntServ：为什么世界选了 DiffServ<a class="anchor" href="#diffserv-intserv-diffserv" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>IntServ（RSVP）</th>
+<th>DiffServ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>粒度</td>
+<td>每流（per-flow）</td>
+<td>每类（per-class，DSCP）</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>网络核心保存每流状态</td>
+<td>核心无状态，只看 DSCP</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>❌ 不可扩展</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>信令</td>
+<td>需要 RSVP 逐跳</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>现实用途</td>
+<td>特定场景（少量、强保证、MPLS TE 结合 RSVP-TE）</td>
+<td><strong>企业/运营商主流</strong></td>
+</tr>
+<tr>
+<td>失败模式</td>
+<td>信令中断则预留失效</td>
+<td><strong>标记错则全盘错（信任边界是命门）</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>CCDE 判断</strong>：IntServ 的问题不是"技术不好"，而是"<strong>它要求网络记住每一条流</strong>"——在 10 万并发的园区里这是不可能的成本。所以答案永远是 DiffServ + 边界限速 + CAC。</p>
+</blockquote>
+<h3 id="dscp">DSCP 编码速查<a class="anchor" href="#dscp" title="Permanent link"></a></h3>
+<p><strong>6 位 DSCP = 类选择（3 位） + 丢弃优先级（2 位，AF 才有） + 1 位保留</strong></p>
+<table>
+<thead>
+<tr>
+<th>DSCP</th>
+<th>名称</th>
+<th>十进制</th>
+<th>二进制</th>
+<th>典型业务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>46</td>
+<td><strong>EF</strong></td>
+<td>46</td>
+<td>101110</td>
+<td>语音 RTP</td>
+</tr>
+<tr>
+<td>44</td>
+<td>VA（Voice Admit）</td>
+<td>44</td>
+<td>101100</td>
+<td>CAC 已准入的语音</td>
+</tr>
+<tr>
+<td>40</td>
+<td>CS5</td>
+<td>40</td>
+<td>101000</td>
+<td>广播视频</td>
+</tr>
+<tr>
+<td>34</td>
+<td>AF41</td>
+<td>34</td>
+<td>100010</td>
+<td>会议视频（低丢弃）</td>
+</tr>
+<tr>
+<td>32</td>
+<td>CS4</td>
+<td>32</td>
+<td>100000</td>
+<td>实时交互（TelePresence）</td>
+</tr>
+<tr>
+<td>26</td>
+<td>AF31</td>
+<td>26</td>
+<td>011010</td>
+<td>流媒体</td>
+</tr>
+<tr>
+<td>24</td>
+<td>CS3</td>
+<td>24</td>
+<td>011000</td>
+<td>呼叫信令</td>
+</tr>
+<tr>
+<td>18</td>
+<td>AF21</td>
+<td>18</td>
+<td>010010</td>
+<td>事务数据</td>
+</tr>
+<tr>
+<td>16</td>
+<td>CS2</td>
+<td>16</td>
+<td>010000</td>
+<td>网络控制（也可用 CS6）</td>
+</tr>
+<tr>
+<td>10</td>
+<td>AF11</td>
+<td>10</td>
+<td>001010</td>
+<td>批量数据</td>
+</tr>
+<tr>
+<td>8</td>
+<td>CS1</td>
+<td>8</td>
+<td>001000</td>
+<td>Scavenger</td>
+</tr>
+<tr>
+<td>0</td>
+<td>DF/BE</td>
+<td>0</td>
+<td>000000</td>
+<td>默认</td>
+</tr>
+</tbody>
+</table>
+<p><strong>AFxy 规律</strong>：<code>DSCP = 8x + 2y</code>（x=1..4 类，y=1..3 丢弃优先级）</p>
+<ul>
+<li>AF11=10, AF12=12, AF13=14；AF21=18, AF22=20, AF23=22；AF31=26…AF43=38</li>
+<li><strong>丢弃优先级越高，WRED 越早丢</strong>（同一类内先丢"更不重要"的）</li>
+</ul>
+<p><strong>三种标记字段的映射关系（一致性是 QoS 的第一原则）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>字段</th>
+<th>位宽</th>
+<th>何时注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L3</td>
+<td>DSCP（IP ToS 高 6 位）</td>
+<td>6</td>
+<td>端到端的主标记</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>802.1p CoS（VLAN tag）</td>
+<td>3</td>
+<td>二层域内、无线 WMM</td>
+</tr>
+<tr>
+<td>MPLS</td>
+<td>EXP/TC</td>
+<td>3</td>
+<td>跨 MPLS 域时<strong>只有 3 位</strong>，EF 会退化为 5</td>
+</tr>
+<tr>
+<td>隧道外层</td>
+<td>外层 DSCP</td>
+<td>6</td>
+<td>跨 Internet 时外层才有效</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>MPLS 的 3 位陷阱</strong>：EF(46) → EXP 5 → 出 MPLS 域若按默认映射回 DSCP 会变成 CS5(40)，语音队列匹配失败。<strong>必须显式配置 EXP↔DSCP 映射表。</strong></p>
+</blockquote>
+<h3 id="_8">十一类模型（可直接作为企业标准）<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>类别</th>
+<th>DSCP</th>
+<th>带宽（占 WAN 比例）</th>
+<th>队列特性</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>策略驱动网络</strong></td>
-<td>基于策略自动配置</td>
+<td>1</td>
+<td><strong>Voice</strong></td>
+<td>EF 46</td>
+<td>按并发算，<strong>≤33%</strong></td>
+<td><strong>LLQ + 限速</strong>（priority police）</td>
+<td>延迟最敏感</td>
 </tr>
 <tr>
-<td><strong>意图驱动网络 (IBN)</strong></td>
-<td>声明业务意图，系统自动实现</td>
+<td>2</td>
+<td><strong>TelePresence/实时交互</strong></td>
+<td>CS4 32</td>
+<td>10–20%</td>
+<td>LLQ（次优先）或 AF 带宽保证</td>
+<td>与语音同属实时</td>
 </tr>
 <tr>
-<td><strong>闭环自动化</strong></td>
-<td>监控 → 分析 → 自动修复</td>
+<td>3</td>
+<td><strong>Broadcast Video</strong></td>
+<td>CS5 40</td>
+<td>10–30%</td>
+<td>带宽保证 + CBWFQ</td>
+<td>单向、可缓冲</td>
 </tr>
 <tr>
-<td><strong>网络分析</strong></td>
-<td>AI/ML 驱动的网络优化</td>
+<td>4</td>
+<td><strong>Multimedia Conferencing</strong></td>
+<td>AF41 34</td>
+<td>10–15%</td>
+<td>AF41/42/43 + WRED</td>
+<td>允许轻微丢弃</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Multimedia Streaming</strong></td>
+<td>AF31 26</td>
+<td>5–10%</td>
+<td>AF31/32/33 + WRED</td>
+<td>VOD/培训</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Call Signaling</strong></td>
+<td>CS3 24</td>
+<td>1–2%</td>
+<td>带宽保证（小队列）</td>
+<td>太小会"打通失败"</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Network Control</strong></td>
+<td>CS2 16（或 CS6 48）</td>
+<td>1–3%</td>
+<td>带宽保证</td>
+<td>路由/管理协议</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Transactional Data</strong></td>
+<td>AF21 18</td>
+<td>10–15%</td>
+<td>AF21/22/23 + WRED</td>
+<td>ERP、DB（<strong>延迟敏感</strong>）</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Bulk Data</strong></td>
+<td>AF11 10</td>
+<td>5%</td>
+<td>AF11/12/13 + WRED</td>
+<td>备份、复制</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Best Effort</strong></td>
+<td>DF 0</td>
+<td>剩余（≥25%）</td>
+<td>默认 FIFO</td>
+<td>互联网/邮件</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Scavenger</strong></td>
+<td>CS1 8</td>
+<td><strong>1–2%（硬上限）</strong></td>
+<td>带宽保证很小 + 强丢</td>
+<td>P2P、补丁分发</td>
+</tr>
+</tbody>
+</table>
+<p><strong>配置要点</strong>：</p>
+<ul>
+<li>所有"带宽保证"之和 <strong>≤ 75%–80%</strong> 链路带宽（给 LLQ 与突发留余量）</li>
+<li><strong>LLQ 必须带 policer</strong>：否则 EF 流量无上限，其余队列<strong>饿死</strong>（语音类被滥用/环回放大时尤为危险）</li>
+<li><strong>scavenger 一定要有</strong>：没有它，P2P/更新流量就会占满 BE 剩余带宽</li>
+<li>队列深度对语音要<strong>浅</strong>（避免排队延迟），对批量可以深（吸收突发）</li>
+</ul>
+<h3 id="_9">排队与拥塞管理机制<a class="anchor" href="#_9" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+<th>适用</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FIFO</strong></td>
+<td>简单先入先出</td>
+<td>BE</td>
+<td>无隔离</td>
+</tr>
+<tr>
+<td><strong>PQ（优先级队列）</strong></td>
+<td>严格优先</td>
+<td>仅小流量（如信令）</td>
+<td><strong>高优先级可饿死全部</strong></td>
+</tr>
+<tr>
+<td><strong>CBWFQ</strong></td>
+<td>按类保证带宽 + WFQ</td>
+<td>大多数类</td>
+<td>无延迟保证</td>
+</tr>
+<tr>
+<td><strong>LLQ</strong></td>
+<td>严格优先 + 限速</td>
+<td>语音/实时</td>
+<td>未限速会饿死其他</td>
+</tr>
+<tr>
+<td><strong>WRED</strong></td>
+<td>队列满之前按丢弃优先级提前丢</td>
+<td>AF 类</td>
+<td>参数不当导致 TCP 抖动</td>
+</tr>
+<tr>
+<td><strong>ECN</strong></td>
+<td>用标记代替丢包（需端到端支持）</td>
+<td>现代 DC/WAN</td>
+<td>需两端与应用支持</td>
+</tr>
+<tr>
+<td><strong>整形（Shaping）</strong></td>
+<td>缓存超额、平滑输出</td>
+<td>WAN 出口/子速率</td>
+<td>增加延迟（缓冲膨胀）</td>
+</tr>
+<tr>
+<td><strong>监管（Policing）</strong></td>
+<td>超额直接丢/降级</td>
+<td>接入边界、运营商</td>
+<td>造成 TCP 全局同步</td>
+</tr>
+</tbody>
+</table>
+<p><strong>层级化 QoS（HQoS）</strong>：先整形到合同速率（如物理 1G、合同 200M），再在其下挂子队列。<strong>子速率链路是 QoS 最容易被漏掉的场景</strong> —— 物理口 1G 但运营商只保证 200M，若按 1G 配置队列，拥塞发生在运营商侧，你的队列形同虚设。</p>
+<h3 id="_10">带宽计算：把"语音要多少"算出来<a class="anchor" href="#_10" title="Permanent link"></a></h3>
+<p><strong>单路语音带宽（G.711，20 ms 打包）</strong>：</p>
+<pre><code>pps = 1000 / 20 = 50
+L3 每包 = 160 B 载荷 + 12 B RTP + 8 B UDP + 20 B IP = 200 B
+L3 带宽 = 200 × 8 × 50 = 80 kbps
+L2 开销 = (18 B 以太头 + 20 B 前导/IFG) × 8 × 50 = 15.2 kbps
+L2 带宽 ≈ 95 kbps/路
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>载荷/包</th>
+<th>pps</th>
+<th>L3 带宽</th>
+<th>以太网实际</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G.711 (20 ms)</td>
+<td>160 B</td>
+<td>50</td>
+<td>80 kbps</td>
+<td><strong>≈95 kbps</strong></td>
+<td>最常见</td>
+</tr>
+<tr>
+<td>G.711 (30 ms)</td>
+<td>240 B</td>
+<td>33</td>
+<td>64 kbps</td>
+<td>≈78 kbps</td>
+<td>延迟略高</td>
+</tr>
+<tr>
+<td>G.729 (20 ms)</td>
+<td>20 B</td>
+<td>50</td>
+<td>24 kbps</td>
+<td><strong>≈32 kbps</strong></td>
+<td>压缩，需 DSP</td>
+</tr>
+<tr>
+<td>G.722 (20 ms)</td>
+<td>160 B</td>
+<td>50</td>
+<td>80 kbps</td>
+<td>≈95 kbps</td>
+<td>宽带语音</td>
+</tr>
+<tr>
+<td>OPUS (20 ms)</td>
+<td>可变</td>
+<td>50</td>
+<td>24–64 kbps</td>
+<td>视码率</td>
+<td>WebRTC</td>
+</tr>
+</tbody>
+</table>
+<p><strong>并发与链路容量</strong>：</p>
+<pre><code>语音总带宽 = 站点并发通话数 × 单路带宽 × 1.2（信令+重传余量）
+并发数估算 = 员工数 × 并发率（0.1–0.2，峰呼时可达 0.3）
+</code></pre>
+<p><strong>算例</strong>：500 人站点，并发率 15% → 75 路 × 95 kbps ≈ 7.1 Mbps × 1.2 ≈ <strong>8.5 Mbps</strong>；若出口 100 Mbps，语音占 8.5% —— 健康。若出口只有 20 Mbps，语音占 42% → <strong>必须上 CAC（呼叫准入控制）限制并发</strong>，否则 LLQ 也救不了。</p>
+<p><strong>序列化延迟（决定"低带宽链路能不能跑语音"）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>链路速率</th>
+<th>1500 B 帧的序列化延迟</th>
+<th>是否适合语音</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64 kbps</td>
+<td>187 ms</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>256 kbps</td>
+<td>47 ms</td>
+<td>❌（需分片/交错）</td>
+</tr>
+<tr>
+<td>512 kbps</td>
+<td>23 ms</td>
+<td>⚠️ 勉强（需 LFI/MLPPP）</td>
+</tr>
+<tr>
+<td>1.5 Mbps</td>
+<td>8 ms</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>10 Mbps</td>
+<td>1.2 ms</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>100 Mbps+</td>
+<td>&lt;0.2 ms</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>经验判据</strong>：语音链路 <strong>≥ 768 kbps</strong> 且开启 LLQ 才比较安全；低于此需链路分片（LFI）或干脆不承载语音。<strong>序列化延迟是物理约束，QoS 队列无法消除它。</strong></p>
+</blockquote>
+<h3 id="sla">端到端时延预算（把 SLA 写进设计）<a class="anchor" href="#sla" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>预算（单向）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编码/打包</td>
+<td>20–30 ms</td>
+</tr>
+<tr>
+<td>接入+汇聚排队</td>
+<td>≤5 ms</td>
+</tr>
+<tr>
+<td>核心排队</td>
+<td>≤5 ms</td>
+</tr>
+<tr>
+<td>WAN 传播（跨城 500 km ≈ 2.5 ms/100km 光纤 ≈ 12 ms）</td>
+<td>5–40 ms</td>
+</tr>
+<tr>
+<td>抖动缓冲（去抖）</td>
+<td>20–40 ms</td>
+</tr>
+<tr>
+<td>解码</td>
+<td>10–20 ms</td>
+</tr>
+<tr>
+<td><strong>合计（G.114 建议）</strong></td>
+<td><strong>≤150 ms（单向），≤300 ms 为容忍上限</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>预算表的作用</strong>：当有人问"能不能上卫星备份链路跑语音"时，答案可以直接算出（GEO 卫星单跳 ~250 ms RTT → 单向 125 ms，加上编码与缓冲 → <strong>必然超标</strong>）。</p>
+<h3 id="diffserv">信任边界的部署模型（DiffServ 的命门）<a class="anchor" href="#diffserv" title="Permanent link"></a></h3>
+<p><strong>整个 QoS 只有一个核心问题：DSCP 在这个包里是"可信的事实"还是"用户的愿望"。</strong></p>
+<table>
+<thead>
+<tr>
+<th>部署区段</th>
+<th>标记来源</th>
+<th>动作</th>
+<th>配置要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>接入层（话机口）</strong></td>
+<td>话机标 EF/CS3，PC 流量被话机重标 0</td>
+<td>trust dscp</td>
+<td>必须在话机配置里开启"PC 口重标记"</td>
+</tr>
+<tr>
+<td><strong>接入层（PC 口）</strong></td>
+<td>用户可任意伪造</td>
+<td><strong>untrust + 重标 BE</strong>，或 NBAR 识别</td>
+<td>绝不 <code>trust dscp</code></td>
+</tr>
+<tr>
+<td><strong>接入层（无线）</strong></td>
+<td>终端标 UP(802.11e)</td>
+<td>信任 UP→DSCP 但<strong>限速</strong></td>
+<td>每 SSID 限速，防单终端打满</td>
+</tr>
+<tr>
+<td><strong>汇聚层</strong></td>
+<td>已被边界清洗</td>
+<td>trust dscp</td>
+<td>加 policer 兜底（防内部扫描/异常）</td>
+</tr>
+<tr>
+<td><strong>核心层</strong></td>
+<td>可信</td>
+<td>trust + 队列</td>
+<td>无分类，只调度</td>
+</tr>
+<tr>
+<td><strong>WAN 出口</strong></td>
+<td>与运营商能力对齐</td>
+<td><strong>重标记 + 整形到合同速率</strong></td>
+<td>运营商只认 3–6 类时要砍类</td>
+</tr>
+<tr>
+<td><strong>Internet 出口</strong></td>
+<td>跨域不可信</td>
+<td>只保证"出去的方向"，入向无法保证</td>
+<td>对外部流量<strong>不要</strong>承诺 QoS</td>
+</tr>
+<tr>
+<td><strong>跨 IPSec/GRE</strong></td>
+<td>内层被加密</td>
+<td><strong>外层复制 DSCP</strong>（或按类映射）</td>
+<td>否则中间网络看不到</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>最贵的错误</strong>：全程 <code>trust dscp</code> 但没人管终端。结果某个用户用工具把流量标成 EF，语音在忙时被自己的影子流量挤掉，而<strong>所有队列统计看起来都"正常"</strong>。</p>
+</blockquote>
+<h3 id="qoscopp">控制面与管理面 QoS（CoPP）<a class="anchor" href="#qoscopp" title="Permanent link"></a></h3>
+<p>转发面的 QoS 保护业务；<strong>CoPP 保护设备自己</strong>。没有 CoPP 时，一次扫描或组播泛洪就能把管理面 CPU 打满，导致路由协议超时。</p>
+<table>
+<thead>
+<tr>
+<th>流量类</th>
+<th>建议 DSCP</th>
+<th>限速策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路由协议（BGP/OSPF/EIGRP/IS-IS）</td>
+<td>CS6</td>
+<td>低速率 + 高优先（不可丢）</td>
+</tr>
+<tr>
+<td>管理访问（SSH/SNMP/NETCONF）</td>
+<td>CS2</td>
+<td>中速率</td>
+</tr>
+<tr>
+<td>ICMP（含 ICMPv6 ND）</td>
+<td>CS2</td>
+<td><strong>必须放行 ND</strong>，只限速不可丢</td>
+</tr>
+<tr>
+<td>二层协议（STP/LACP/LLDP）</td>
+<td>CS6</td>
+<td>低速率，punt 优先</td>
+</tr>
+<tr>
+<td>异常/未知 punt</td>
+<td>—</td>
+<td><strong>最小配额</strong>（默认丢弃）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CoPP 的设计原则</strong>：<strong>默认拒绝</strong>（未分类的 punt 流量给极小配额），并<strong>按接口角色区分</strong>（用户口 vs 上联口 vs 管理口）。做得好的 CoPP 能在"用户疯狂发 ARP/ND"时保住路由协议。</p>
+<h3 id="qos_2">隧道与 QoS：三层封装问题<a class="anchor" href="#qos_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>封装开销</th>
+<th>后果</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GRE</strong></td>
+<td>24 B（20 IP + 4 GRE）</td>
+<td>MTU 需降到 1476</td>
+<td>内层 DSCP <strong>复制到外层</strong>（<code>qos pre-classify</code>）</td>
+</tr>
+<tr>
+<td><strong>IPsec 传输模式</strong></td>
+<td>50–73 B</td>
+<td>MTU 1420–1450</td>
+<td>同上；ESP 隐藏内层 ToS，<strong>必须复制到外层</strong></td>
+</tr>
+<tr>
+<td><strong>DMVPN</strong></td>
+<td>GRE + NHRP + IPsec</td>
+<td>双重封装</td>
+<td>分支出口<strong>整形到物理速率以下</strong>（hub 侧也要）</td>
+</tr>
+<tr>
+<td><strong>VXLAN</strong></td>
+<td>50 B（外 20 IP + 8 UDP + 8 VXLAN + 14 内层以太）</td>
+<td>需 1550 MTU 或分片</td>
+<td>外层 DSCP 按内层映射</td>
+</tr>
+<tr>
+<td><strong>SD-WAN（IPsec over Internet）</strong></td>
+<td>视实现</td>
+<td>中间网络不可控</td>
+<td>用 <strong>每隧道 QoS + 应用感知 + 前向纠错</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>判断句</strong>：<strong>"我的标记在隧道里还活着吗？"</strong> 抓一次外层包看 ToS 字段即可。绝大多数"跨 WAN 语音变差"都源于外层 DSCP = 0。</p>
+</blockquote>
+<h3 id="qoswmm">无线 QoS（WMM）与有线的映射<a class="anchor" href="#qoswmm" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>WMM 接入类别（AC）</th>
+<th>802.11 用户优先级（UP）</th>
+<th>映射 DSCP</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Voice (VO)</strong></td>
+<td>6, 7</td>
+<td>EF 46</td>
+<td>严格优先，<strong>airtime 消耗最贵</strong></td>
+</tr>
+<tr>
+<td><strong>Video (VI)</strong></td>
+<td>4, 5</td>
+<td>AF41/CS4</td>
+<td>视频</td>
+</tr>
+<tr>
+<td><strong>Best Effort (BE)</strong></td>
+<td>0, 3</td>
+<td>DF 0</td>
+<td>默认</td>
+</tr>
+<tr>
+<td><strong>Background (BK)</strong></td>
+<td>1, 2</td>
+<td>CS1 8</td>
+<td>扫描/备份</td>
+</tr>
+</tbody>
+</table>
+<p><strong>无线 QoS 的三个特殊性</strong>：</p>
+<ol>
+<li><strong>Airtime 是共享介质</strong>：给语音优先不等于"免费"，高优先级帧仍占 airtime</li>
+<li><strong>上行标记由终端决定</strong>（可伪造），所以必须<strong>每 SSID 限速</strong>（per-client/per-SSID policing）</li>
+<li><strong>组播/广播帧用最低速率发送</strong>，会吃掉大量 airtime → <strong>组播转单播</strong> + 抑制</li>
+</ol>
+<h3 id="qos_3">QoS 的验收：怎么证明它真的生效<a class="anchor" href="#qos_3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>方法</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标记正确</td>
+<td>各段抓包看 DSCP（<code>tcpdump -v</code> / SPAN）</td>
+<td>端到端一致，边界外为预期值</td>
+</tr>
+<tr>
+<td>队列命中</td>
+<td><code>show policy-map interface</code> 的 class 匹配计数</td>
+<td>每类都有计数，无"全落 class-default"</td>
+</tr>
+<tr>
+<td>拥塞行为</td>
+<td>打流到 110% 再测语音（如 IXIA/iperf + 语音模拟）</td>
+<td>语音 MOS ≥4.0，抖动 &lt;30 ms</td>
+</tr>
+<tr>
+<td>限速生效</td>
+<td>超速测试</td>
+<td>scavenger 被压制在配置值</td>
+</tr>
+<tr>
+<td>LLQ 上限</td>
+<td>灌满 EF 流量</td>
+<td>语音不挤死其他类（policer 生效）</td>
+</tr>
+<tr>
+<td>跨隧道</td>
+<td>抓外层包</td>
+<td>外层 DSCP 与内层一致</td>
+</tr>
+<tr>
+<td>反向</td>
+<td>从对端测回来</td>
+<td><strong>双向都要验</strong>（大量问题只在一侧）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>必须做"拥塞下的验收"</strong>。空载测 QoS 永远是"通过"的，因为队列没排队。<strong>没有拥塞注入的 QoS 验收等于没验。</strong></p>
+</blockquote>
+<hr />
+<h2 id="_11">网络管理：把管理平面当一张网来设计<a class="anchor" href="#_11" title="Permanent link"></a></h2>
+<h3 id="vs-oob">带内 vs 带外（OOB）<a class="anchor" href="#vs-oob" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>路径</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>带内（in-band）</strong></td>
+<td>复用业务口与管理 VRF</td>
+<td>零额外成本</td>
+<td><strong>业务故障时同时失去管理</strong></td>
+<td>一般企业默认</td>
+</tr>
+<tr>
+<td><strong>带外（OOB）</strong></td>
+<td>独立管理交换机 + 独立物理口</td>
+<td>业务全断仍可登录</td>
+<td>布线成本、需独立地址段/ACL</td>
+<td>核心/数据中心/无人站点</td>
+</tr>
+<tr>
+<td><strong>Console 服务器</strong></td>
+<td>串口集中（终端服务器）</td>
+<td>设备"彻底失联"时的最后手段</td>
+<td>速率低、体验差</td>
+<td>所有关键设备</td>
+</tr>
+<tr>
+<td><strong>LTE/5G 备份</strong></td>
+<td>独立无线链路</td>
+<td>与业务链路物理隔离</td>
+<td>月租、安全（需严格 ACL）</td>
+<td>分支/无人值守</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OOB 的带宽账（经常被忽略）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>单设备数据量</th>
+<th>100 台并发</th>
+<th>10 Mbps 管理口耗时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配置备份（scp）</td>
+<td>50–500 KB</td>
+<td>5–50 MB</td>
+<td>4–40 s</td>
+</tr>
+<tr>
+<td>系统镜像升级</td>
+<td>0.5–2 GB</td>
+<td><strong>50–200 GB</strong></td>
+<td><strong>11–27 分钟/台（串行）</strong></td>
+</tr>
+<tr>
+<td>日志突发（风暴）</td>
+<td>峰值 10–50 Mbps</td>
+<td>—</td>
+<td><strong>打满 OOB</strong></td>
+</tr>
+<tr>
+<td>遥测（10 s 级）</td>
+<td>见前算例</td>
+<td>6.4 Mbps</td>
+<td>打满 10 Mbps 链路</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>结论</strong>：10/100 Mbps 的管理交换机在小网够用，但在"全网升级镜像"或"日志风暴"时必然成为瓶颈。<strong>管理链路建议 1 Gbps，并且升级要分批 + 限速。</strong></p>
+</blockquote>
+<h3 id="_12">管理平面的五个必备设计动作<a class="anchor" href="#_12" title="Permanent link"></a></h3>
+<ol>
+<li><strong>独立管理 VRF/地址段</strong>（如 <code>10.255.0.0/16</code> 或 <code>fd00:mgmt::/64</code>），不与业务地址混用</li>
+<li><strong>管理面 ACL</strong>：只允许跳板机/NMS/备份服务器网段，<strong>默认拒绝</strong></li>
+<li><strong>跳板机（Jump Host）</strong>：所有登录经过它，带会话录屏与审计</li>
+<li><strong>AAA 分级</strong>：NOC 只读、工程师读写、变更走自动化账号；<strong>本地回退账号</strong>（离线保存、定期改密）</li>
+<li><strong>带外可达性验证</strong>：<strong>每季度演练"业务全断后用 OOB 登录"</strong>（没演练的 OOB 等于没有）</li>
+</ol>
+<h3 id="12-api">设备管理协议的定位（第 12 章讲过 API，这里补运维视角）<a class="anchor" href="#12-api" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>传输/端口</th>
+<th>模式</th>
+<th>主要用途</th>
+<th>运维注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SNMPv2c</strong></td>
+<td>UDP 161/162</td>
+<td>轮询 + Trap</td>
+<td>设备健康、接口统计</td>
+<td>团体字=明文，<strong>仅限隔离网段</strong></td>
+</tr>
+<tr>
+<td><strong>SNMPv3</strong></td>
+<td>UDP 161/162</td>
+<td>轮询 + Trap/Inform</td>
+<td>同上（推荐）</td>
+<td><code>authPriv</code>（SHA-256 + AES）；注意引擎 ID 与用户绑定</td>
+</tr>
+<tr>
+<td><strong>Syslog</strong></td>
+<td>UDP 514 / TCP 601 / TLS 6514</td>
+<td>推送</td>
+<td>事件日志</td>
+<td>用 TCP/TLS 防丢；<strong>必须配限速</strong></td>
+</tr>
+<tr>
+<td><strong>NetFlow v9 / IPFIX</strong></td>
+<td>UDP 2055/4739</td>
+<td>推送</td>
+<td>流量分析</td>
+<td>模板 + 采样比要记录在案</td>
+</tr>
+<tr>
+<td><strong>sFlow</strong></td>
+<td>UDP 6343</td>
+<td>包采样</td>
+<td>吞吐分布（轻量）</td>
+<td>只采样包头，适合大流量</td>
+</tr>
+<tr>
+<td><strong>gNMI/gRPC</strong></td>
+<td>TCP 57400</td>
+<td>推送/拉取</td>
+<td>流式遥测、配置</td>
+<td>需证书与 TLS</td>
+</tr>
+<tr>
+<td><strong>NETCONF/RESTCONF</strong></td>
+<td>TCP 830 / 443</td>
+<td>会话</td>
+<td>配置（见第 12 章）</td>
+<td>锁与事务语义</td>
+</tr>
+<tr>
+<td><strong>IP SLA / 合成探测</strong></td>
+<td>设备发起</td>
+<td>主动测量</td>
+<td>端到端质量</td>
+<td>结果要送到 NMS 才有用</td>
+</tr>
+<tr>
+<td><strong>Telnet</strong></td>
+<td>TCP 23</td>
+<td>—</td>
+<td><strong>禁用</strong></td>
+<td>明文，合规硬伤</td>
+</tr>
+<tr>
+<td><strong>TFTP/SCP</strong></td>
+<td>UDP 69 / TCP 22</td>
+<td>文件</td>
+<td>镜像、配置</td>
+<td><strong>SCP/HTTPS 替代 TFTP</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="snmp">SNMP 的设计要点（不只是"配个团体字"）<a class="anchor" href="#snmp" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>版本</strong></td>
+<td>v3 <code>authPriv</code>；v2c 只在隔离管理网段</td>
+</tr>
+<tr>
+<td><strong>视图（VACM）</strong></td>
+<td>只暴露需要的 MIB（<code>ifTable</code>、<code>ifXTable</code>、CPU、内存、环境）</td>
+</tr>
+<tr>
+<td><strong>Trap vs Inform</strong></td>
+<td>Inform 有确认（可靠但耗资源）；<strong>链路/电源类用 Inform，其余 Trap</strong></td>
+</tr>
+<tr>
+<td><strong>轮询周期</strong></td>
+<td>接口 1–5 分钟；大表（路由表、ARP 表）<strong>不轮询</strong>，用事件或遥测</td>
+</tr>
+<tr>
+<td><strong>Bulk 请求</strong></td>
+<td><code>getbulk</code> 减少往返，但 <code>max-repetitions</code> 太大会打爆设备</td>
+</tr>
+<tr>
+<td><strong>引擎 ID 变更</strong></td>
+<td>换引擎/换板卡后 SNMPv3 用户失效 → <strong>纳入换板流程</strong></td>
+</tr>
+<tr>
+<td><strong>规模上限</strong></td>
+<td>单采集器轮询 500–2000 台（视 OID 数与周期），<strong>要按设备数分区</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>轮询规模算例</strong>：</p>
+<pre><code>设备 500 台 × 每台 60 个 OID × 每 5 分钟一次 = 每秒 100 个请求
+每条请求/响应往返约 300–600 B（含 UDP/IP 开销）
+→ 管理面带宽 ≈ 0.5 Mbps（可接受）
+但若改成 ifTable 全表 walk（每台 500 行 × 每行 200 B）
+→ 每次 500 KB × 500 台 / 300 s ≈ 0.83 MB/s ≈ 6.7 Mbps，且 CPU 显著上升
+</code></pre>
+<blockquote>
+<p>💡 <strong>判断</strong>：<strong>"只取需要的列（<code>ifHCInOctets</code> 等），不要 walk 整张表"</strong> —— 这一条能省掉 80% 的 SNMP 开销，也常是"设备 CPU 高但查不出原因"的答案。</p>
+</blockquote>
+<h3 id="flow">流（Flow）采集：采样比与出口容量账<a class="anchor" href="#flow" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>建议</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>采样比</td>
+<td>1:1000（核心/100G）、1:100（边缘）</td>
+<td>采样比必须<strong>记录</strong>，否则流量估算错 1000 倍</td>
+</tr>
+<tr>
+<td>活跃超时</td>
+<td>30 分钟（长连接）</td>
+<td>太短会重复导出</td>
+</tr>
+<tr>
+<td>不活跃超时</td>
+<td>15 秒</td>
+<td>影响流结束判定</td>
+</tr>
+<tr>
+<td>导出目标</td>
+<td>2 个采集器（主备）</td>
+<td>单采集器 = 单点</td>
+</tr>
+<tr>
+<td>聚合</td>
+<td>按 AS/前缀/协议聚合</td>
+<td>减少 90% 数据量</td>
+</tr>
+</tbody>
+</table>
+<p><strong>导出带宽算例</strong>：</p>
+<pre><code>核心出口 40 Gbps，平均包长 500 B → 约 10 Mpps
+若采样 1:1000 → 10,000 流/秒
+每条导出记录 ≈ 80 B（含模板/头部开销平均）
+→ 0.8 MB/s ≈ 6.4 Mbps（可接受）
+
+若**不采样**（或采样 1:1）→ 10,000,000 流/秒
+→ 约 6.4 Gbps 导出流量 → 采集器必然崩溃，且设备 CPU 打满
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>"NetFlow 一开设备就卡"的真正原因几乎都是"没采样 + 高 pps"</strong>，不是 NetFlow 本身有问题。</p>
+</blockquote>
+<h3 id="gnmi">流式遥测（gNMI）的运维视角<a class="anchor" href="#gnmi" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>拨入（dial-in）</th>
+<th>拨出（dial-out）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>谁发起连接</td>
+<td>采集器连接设备</td>
+<td><strong>设备连接采集器</strong></td>
+</tr>
+<tr>
+<td>NAT/防火墙友好</td>
+<td>差（需逐设备放通）</td>
+<td><strong>好</strong>（设备主动出站）</td>
+</tr>
+<tr>
+<td>规模</td>
+<td>采集器管理连接数</td>
+<td>设备侧配置目标</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>小规模、临时排障</td>
+<td><strong>大规模生产</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>订阅模式</strong>：<code>ONCE</code>（一次性）、<code>POLL</code>（按需拉）、<code>STREAM/SAMPLE</code>（周期推）、<code>STREAM/ON_CHANGE</code>（变化才推）。</p>
+<p><strong>设计建议</strong>：<strong>关键指标用 ON_CHANGE（接口状态、邻居状态、光功率越界），性能计数器用 SAMPLE（10–60 s），禁止对全表做 1 秒级 SAMPLE。</strong></p>
+<h3 id="_13">时间同步：所有运维数据的坐标系<a class="anchor" href="#_13" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>端口</th>
+<th>精度</th>
+<th>设计要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NTP v4</strong></td>
+<td>UDP 123</td>
+<td>局域网 &lt;1 ms，跨网 1–50 ms</td>
+<td>分层（stratum 2/3）、<strong>认证</strong>、设备侧 ACL、至少 2 个源</td>
+</tr>
+<tr>
+<td><strong>PTP（IEEE 1588v2）</strong></td>
+<td>以太网/L3 组播</td>
+<td>&lt;1 µs（硬件时间戳）</td>
+<td>需硬件支持与边界时钟；金融/工业</td>
+</tr>
+<tr>
+<td><strong>GPS 时钟源</strong></td>
+<td>—</td>
+<td>参考级</td>
+<td>大型站点/OOB 核心</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NTP 层级设计（企业标准做法）</strong>：</p>
+<pre><code>Stratum 0：GPS / 原子钟
+Stratum 1：2 台内网 NTP 服务器（接 GPS 或受信上游，开启认证）
+Stratum 2：各区核心交换机/路由器指向 Stratum 1（2 个源）
+Stratum 3：接入设备指向本区 Stratum 2
+禁止：终端与设备直接指向公网 pool.ntp.org
+</code></pre>
+<p><strong>几条硬规则</strong>：</p>
+<ul>
+<li><strong>至少 2 个 NTP 源</strong>，且 <code>ntp access-group</code> 只允许内网段查询（防放大攻击）</li>
+<li><strong>认证</strong>：NTP 的 MD5/SHA 认证虽弱，但能防误配置外的大多数伪造；关键场景用 PTP 或专用时钟网</li>
+<li><strong>时间偏移告警</strong>：偏移 &gt;1 s 就要告警（这是"日志对不上"的前兆）</li>
+<li><strong>变更前校时</strong>：变更窗口开始前确认全网时钟偏差 &lt;100 ms，否则事后无法还原时序</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>一个真实场景</strong>：NTP 服务器所在 VM 因宿主机时间同步机制被"双重同步"（宿主同步 + 自身 NTP），导致时间抖动数百毫秒。表现是"所有日志时间乱、证书偶尔失败"，排查花了三天。<strong>NTP 服务器本身也要被监控（<code>ntp offset</code>、<code>stratum</code>、<code>reach</code>）。</strong></p>
+</blockquote>
+<h3 id="dhcp-dhcpv6">基础服务设计：DHCP / DHCPv6<a class="anchor" href="#dhcp-dhcpv6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>设计项</th>
+<th>建议</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>服务器部署</strong></td>
+<td>每个大区 2 台（负载均衡/故障转移），核心交换机做中继</td>
+<td>单点会瘫痪整个区域</td>
+</tr>
+<tr>
+<td><strong>中继</strong></td>
+<td>分布式中继（每台三层网关都是中继），指向 2 个服务器</td>
+<td>中继本身不引入新单点</td>
+</tr>
+<tr>
+<td><strong>option 82</strong></td>
+<td><strong>开启</strong>（circuit-id + remote-id）</td>
+<td>定位"谁拿了哪个地址"、防私接 DHCP</td>
+</tr>
+<tr>
+<td><strong>DHCP snooping</strong></td>
+<td>接入端口 untrusted，上联 trusted</td>
+<td>防私设 DHCP 服务器</td>
+</tr>
+<tr>
+<td><strong>租期</strong></td>
+<td>有线 8–24 h；无线 2–8 h；访客 1 h</td>
+<td>太长→地址回收慢；太短→广播/服务器负载高</td>
+</tr>
+<tr>
+<td><strong>T1/T2</strong></td>
+<td>默认 50%/87.5%</td>
+<td>续租行为</td>
+</tr>
+<tr>
+<td><strong>option 43/66/67</strong></td>
+<td>用于 AP/话机/零接触部署</td>
+<td>与 ZTP 配合（见第 12 章）</td>
+</tr>
+<tr>
+<td><strong>DHCPv6</strong></td>
+<td><code>M/O</code> 标志与 RA 一致；中继需 <code>FF02::1:2</code> 可达</td>
+<td>不一致 = 终端拿不到地址</td>
+</tr>
+<tr>
+<td><strong>DHCPv6 PD</strong></td>
+<td>分支路由器向总部申请前缀</td>
+<td>前缀委派（/56 常见）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>容量算例</strong>：10,000 终端、地址池 8,000、租期 8 h → 平均每小时续租/新建 ≈ 10,000/8 ≈ 1,250 次 → 约 0.35 次/秒（轻松）。<strong>但"早高峰集中上线"时可能瞬时 500 次/秒，这才是容量设计依据。</strong></p>
+<h3 id="dns">基础服务设计：DNS<a class="anchor" href="#dns" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>设计项</th>
+<th>建议</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>架构</strong></td>
+<td>内部权威 + 内部递归（转发到外部）</td>
+<td>分离内外信任边界</td>
+</tr>
+<tr>
+<td><strong>条件转发</strong></td>
+<td>按域转发（<code>corp.example.com</code> 内部解析）</td>
+<td>避免全部查询走公网</td>
+</tr>
+<tr>
+<td><strong>TTL 设计</strong></td>
+<td>稳定记录 3600 s；<strong>故障切换类 30–60 s</strong></td>
+<td>TTL 太长导致切换无效</td>
+</tr>
+<tr>
+<td><strong>Anycast</strong></td>
+<td>多个递归解析器用同一地址</td>
+<td>客户端配置简单、天然就近/冗余</td>
+</tr>
+<tr>
+<td><strong>DNSSEC</strong></td>
+<td>对外域开启；内部视管理成本</td>
+<td>验证链断 = 全域解析失败</td>
+</tr>
+<tr>
+<td><strong>加密</strong></td>
+<td>DoT/DoH 用于终端出网</td>
+<td>注意绕过企业策略的副作用</td>
+</tr>
+<tr>
+<td><strong>监控</strong></td>
+<td>查询量、NXDOMAIN 率、响应时间 P95、缓存命中率</td>
+<td>DNS 故障最先体现在"变慢"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DNS 查询容量算例</strong>：20,000 终端 × 每人每天 3,000 次查询 / 8 h ≈ <strong>2,000 QPS</strong> 平均，峰值可到 5,000–8,000 QPS。<strong>每台递归解析器按 5,000–10,000 QPS 规划，至少 2 台。</strong></p>
+<blockquote>
+<p>⚠️ <strong>DNS 是"最隐蔽的单点"</strong>：它慢 300 ms，全公司所有应用都慢 300 ms，但 nobody 会怀疑 DNS。<strong>所以 DNS 必须进"P1 服务清单"，有独立 SLO 与容量看板。</strong></p>
+</blockquote>
+<h3 id="aaa">基础服务设计：AAA<a class="anchor" href="#aaa" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>RADIUS</th>
+<th>TACACS+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输</td>
+<td>UDP 1812/1813（可用 TCP/TLS）</td>
+<td><strong>TCP 49</strong></td>
+</tr>
+<tr>
+<td>加密范围</td>
+<td>仅密码</td>
+<td><strong>整个负载</strong></td>
+</tr>
+<tr>
+<td>认证/授权</td>
+<td>合并（一个响应）</td>
+<td><strong>分离</strong>（可逐条命令授权）</td>
+</tr>
+<tr>
+<td>计费</td>
+<td>支持</td>
+<td>支持（记录命令级）</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td><strong>网络接入</strong>（802.1X/VPN/无线）</td>
+<td><strong>设备管理</strong>（CLI 授权/审计）</td>
+</tr>
+<tr>
+<td>规模</td>
+<td>高并发接入</td>
+<td>运维登录（量小）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计要点</strong>：</p>
+<ul>
+<li><strong>两台服务器 + 本地回退</strong>（<code>aaa authentication login default group tacacs+ local</code>），本地账号离线保管</li>
+<li><strong>命令授权分级</strong>：NOC 只读 show、工程师读写、自动化账号限制在特定命令集</li>
+<li><strong>计费用于审计</strong>：谁在什么时候改了什么（配合 syslog/NETCONF 日志）</li>
+<li><strong>超时与重试</strong>：<code>timeout 5s, retries 2</code> —— 太长会让登录卡死，太短会在服务器抖动时误判为故障</li>
+<li><strong>AAA 服务器不可达时的行为要演练</strong>：很多事故是"AAA 挂了 → 没人能登录 → 无法修 AAA"</li>
+</ul>
+<h3 id="ipam-pki">基础服务设计：IPAM 与 PKI<a class="anchor" href="#ipam-pki" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>服务</th>
+<th>关键要求</th>
+<th>常见失败</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IPAM</strong></td>
+<td>与 DHCP/DNS/自动化（SoT）双向同步；IPv4+IPv6 同管</td>
+<td>Excel 台账 → 地址冲突、自动化失败</td>
+</tr>
+<tr>
+<td><strong>PKI/证书</strong></td>
+<td>有效期管理、自动续期、CRL/OCSP 可达、信任链完整</td>
+<td><strong>某天早上 802.1X 全网失败（证书过期）</strong></td>
+</tr>
+<tr>
+<td><strong>镜像/文件服务</strong></td>
+<td>内网 HTTP/SCP 分发镜像，按站点就近</td>
+<td>升级时跨 WAN 拖镜像，窗口不够</td>
+</tr>
+</tbody>
+</table>
+<p><strong>证书到期是"可预测的定时炸弹"</strong>：所有证书必须有<strong>到期前 90/30/7 天告警</strong>，并纳入变更日历。<strong>这是运维里最容易做、最容易漏的一项。</strong></p>
+<hr />
+<h2 id="_14">可观测性：从"设备健康"到"业务健康"<a class="anchor" href="#_14" title="Permanent link"></a></h2>
+<h3 id="_15">五个监控层次（越往下越接近用户）<a class="anchor" href="#_15" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>监控什么</th>
+<th>典型指标</th>
+<th>谁看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L1 设备健康</strong></td>
+<td>电源/风扇/温度/CPU/内存/闪存</td>
+<td>CPU 5 分钟均值、温度、PSU 状态</td>
+<td>NOC</td>
+</tr>
+<tr>
+<td><strong>L2 接口与链路</strong></td>
+<td>光功率、误码、CRC、up/down、利用率、丢包</td>
+<td>RxPower、input errors、errors/discards</td>
+<td>NOC</td>
+</tr>
+<tr>
+<td><strong>L3 协议与控制面</strong></td>
+<td>邻居状态、路由条目、STP 拓扑、HA 状态</td>
+<td>BGP Established、OSPF Full、STP changes</td>
+<td>网络工程师</td>
+</tr>
+<tr>
+<td><strong>L4 服务与端到端</strong></td>
+<td>关键业务路径的可用性/延迟/丢包</td>
+<td>IP SLA、合成事务、SLA 达成率</td>
+<td>运维/业务</td>
+</tr>
+<tr>
+<td><strong>L5 用户体验</strong></td>
+<td>应用响应、VoIP MOS、Wi-Fi 体验</td>
+<td>MOS、join 成功率、应用 RTT</td>
+<td>业务方</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>只做 L1/L2 是"设备视角监控"</strong>：设备全绿，用户仍然可能在投诉。<strong>CCDE 的设计题里，"如何证明方案可用"必须落到 L4/L5。</strong></p>
+</blockquote>
+<h3 id="sli-slo">SLI / SLO：把"好"定义成可测量的<a class="anchor" href="#sli-slo" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th>SLI（指标）</th>
+<th>SLO（目标）</th>
+<th>测量方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总部—分支连通</td>
+<td>丢包率、RTT</td>
+<td>丢包 &lt;0.1%，RTT &lt;30 ms（P95）</td>
+<td>IP SLA / 遥测</td>
+</tr>
+<tr>
+<td>语音质量</td>
+<td>MOS、抖动、丢包</td>
+<td>MOS ≥4.0，抖动 &lt;30 ms</td>
+<td>语音网关/VoIP 探针</td>
+</tr>
+<tr>
+<td>无线接入</td>
+<td>关联成功率、认证时延</td>
+<td>≥99%，认证 &lt;2 s</td>
+<td>无线控制器统计</td>
+</tr>
+<tr>
+<td>互联网出口</td>
+<td>可用性、DNS 解析时延</td>
+<td>99.9%，&lt;100 ms</td>
+<td>合成探测</td>
+</tr>
+<tr>
+<td>变更成功率</td>
+<td>未引发事故的变更比例</td>
+<td>≥95%</td>
+<td>ITSM 数据</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SLO 的作用不是考核，而是"当有人问'网络好不好'时有一句话能回答"。</strong></p>
+<h3 id="ip-sla">IP SLA / 合成探测的设计<a class="anchor" href="#ip-sla" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>探测类型</th>
+<th>测什么</th>
+<th>频率</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ICMP Echo</td>
+<td>连通性、RTT、丢包</td>
+<td>30–60 s</td>
+<td>最轻量，但被 ICMP 限速时失真</td>
+</tr>
+<tr>
+<td>UDP Jitter</td>
+<td>抖动、单向延迟、丢包</td>
+<td>60 s</td>
+<td>最接近语音体验</td>
+</tr>
+<tr>
+<td>TCP Connect</td>
+<td>端口可达、握手时延</td>
+<td>1–5 min</td>
+<td>能发现"ping 通但端口不通"</td>
+</tr>
+<tr>
+<td>HTTP/DNS</td>
+<td>应用层时延</td>
+<td>1–5 min</td>
+<td>需覆盖真实 DNS/URL</td>
+</tr>
+<tr>
+<td><strong>多路径探测</strong></td>
+<td>每个 WAN 链路 + 每条 SD-WAN 隧道</td>
+<td>30 s</td>
+<td>用于路径选择（见第 17 章）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>规模账</strong>：200 个站点 × 每个站点 4 条探测 × 每 30 s = <strong>约 27 次/秒</strong>，对设备几乎无负担；但<strong>结果必须有地方存</strong>（否则只是一堆本地计数）。</p>
+<h3 id="_16">监控平台架构（一个可落地的分层）<a class="anchor" href="#_16" title="Permanent link"></a></h3>
+<pre><code>采集层：SNMP poller / gNMI collector / syslog receiver / flow collector / IP SLA
+   ↓（各层水平扩展，按站点或设备分区）
+存储层：时序库（指标，7–30 天原始 + 1 年降采样）
+        日志库（事件，30–90 天，热/冷分层）
+        流库（流量，7–30 天，聚合后保留 1 年）
+   ↓
+分析层：阈值 + 基线 + 关联（拓扑感知）
+   ↓
+呈现层：看板（角色化：NOC / 工程 / 业务）+ 告警（分级 + 升级路径）+ 报表（容量/合规）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>设计项</th>
+<th>建议</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>采集器 HA</strong></td>
+<td>每区 2 台，主备或分担</td>
+<td>采集器挂了就"瞎"</td>
+</tr>
+<tr>
+<td><strong>采集与设备就近</strong></td>
+<td>采集器靠近被采设备</td>
+<td>跨 WAN 轮询浪费带宽</td>
+</tr>
+<tr>
+<td><strong>数据保留</strong></td>
+<td>原始 7–30 天、5 分钟粒度 1 年</td>
+<td>排障要原始，趋势要长期</td>
+</tr>
+<tr>
+<td><strong>时钟</strong></td>
+<td>全链路 NTP/PTP</td>
+<td>否则无法关联</td>
+</tr>
+<tr>
+<td><strong>配置备份独立</strong></td>
+<td>不要与监控共用一台机器</td>
+<td>故障时两者都不可用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>存储估算公式</strong>：</p>
+<pre><code>存储 ≈ 指标数 × 采集频率 × 每点字节（约 2–16 B 压缩后） × 保留秒数 × 副本数
+例：50,000 指标 × 每 60 s × 4 B × 30 天 × 2 副本
+  = 50,000 × (86400/60) × 4 × 30 × 2 ≈ 17 GB（压缩后，实际 20–50 GB）
+日志：500 台 × 2,000 条/天 × 500 B ≈ 0.5 GB/天 → 90 天 ≈ 45 GB（含索引 ×2–3）
+</code></pre>
+<blockquote>
+<p>💡 <strong>看起来都不大</strong> —— 真正的成本在<strong>索引与查询性能</strong>，不在原始容量。所以"保留策略 + 归档 + 只对关键字段建索引"比"买更大磁盘"更有效。</p>
+</blockquote>
+<h3 id="_17">告警治理（平台成败的关键）<a class="anchor" href="#_17" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>症状</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>告警风暴</strong></td>
+<td>一次核心故障产生 5,000 条告警</td>
+<td><strong>父子抑制</strong>（拓扑感知）+ 根因聚合</td>
+</tr>
+<tr>
+<td><strong>告警疲劳</strong></td>
+<td>团队把通知静音</td>
+<td>分级 + 只保留"会有人动作"的告警</td>
+</tr>
+<tr>
+<td><strong>抖动告警</strong></td>
+<td>端口频繁 up/down 反复通知</td>
+<td>flap 检测（N 次/M 分钟才告警）</td>
+</tr>
+<tr>
+<td><strong>阈值不合理</strong></td>
+<td>80% CPU 天天报</td>
+<td>按角色设阈值 + 用基线（P95）替代固定值</td>
+</tr>
+<tr>
+<td><strong>无处置指引</strong></td>
+<td>收到告警不知道做什么</td>
+<td><strong>每条告警必须挂 Runbook 链接</strong></td>
+</tr>
+<tr>
+<td><strong>维护窗口未静默</strong></td>
+<td>计划变更触发大量告警</td>
+<td>与 ITSM 打通，自动静默</td>
+</tr>
+</tbody>
+</table>
+<p><strong>告警分级（建议直接写进运维手册）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>判据</th>
+<th>通知方式</th>
+<th>响应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P1</strong></td>
+<td>业务中断/核心全断</td>
+<td>电话 + 短信 + 大屏</td>
+<td>15 分钟内响应，立即升级</td>
+</tr>
+<tr>
+<td><strong>P2</strong></td>
+<td>冗余失效/性能严重下降</td>
+<td>短信 + IM</td>
+<td>30 分钟</td>
+</tr>
+<tr>
+<td><strong>P3</strong></td>
+<td>单点故障但有冗余</td>
+<td>IM/工单</td>
+<td>工作日处理</td>
+</tr>
+<tr>
+<td><strong>P4</strong></td>
+<td>趋势/容量/合规</td>
+<td>日报</td>
+<td>排期</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_18">容量与性能管理<a class="anchor" href="#_18" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>看什么</th>
+<th>陷阱</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>接口利用率</strong></td>
+<td>5 分钟 P95（不是平均值）</td>
+<td>平均值掩盖峰值；<strong>95 峰值才是拥塞依据</strong></td>
+</tr>
+<tr>
+<td><strong>PPS</strong></td>
+<td>小包攻击/语音场景下先撞 pps 上限</td>
+<td>1G 线速 64 B 包 = 1.488 Mpps</td>
+</tr>
+<tr>
+<td><strong>缓冲/丢包</strong></td>
+<td>出口队列丢弃、<code>output drops</code></td>
+<td>有丢包就说明拥塞已发生</td>
+</tr>
+<tr>
+<td><strong>会话/表项</strong></td>
+<td>NAT、ARP/ND、MAC、流表</td>
+<td>表满 = 新增业务失败（最难查）</td>
+</tr>
+<tr>
+<td><strong>控制面</strong></td>
+<td>CPU、进程、路由条目增速</td>
+<td>路由表增长是"沉默的容量问题"</td>
+</tr>
+<tr>
+<td><strong>光层</strong></td>
+<td>Rx 光功率、误码</td>
+<td>劣化是渐进的，<strong>要按趋势告警而非阈值</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>容量规划的两个动作</strong>：</p>
+<ol>
+<li><strong>季度趋势报告</strong>：按链路/站点输出 90 天 P95 与增长斜率，预测"何时到 70%"</li>
+<li><strong>瓶颈排序</strong>：把"利用率 × 业务重要性"做二维排序，得到扩容优先级（而不是按谁叫得响）</li>
+</ol>
+<h3 id="_19">资产、软件生命周期与合规<a class="anchor" href="#_19" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>频率</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>软件版本清单（含 EoL/EoS）</td>
+<td>季度</td>
+<td>升级计划、风险清单</td>
+</tr>
+<tr>
+<td>硬件保修/备件</td>
+<td>季度</td>
+<td>备件缺口（关键：<strong>RMA 换机能否 ZTP 自动上线</strong>）</td>
+</tr>
+<tr>
+<td>配置基线合规</td>
+<td>每日</td>
+<td>漂移报告（见第 12 章）</td>
+</tr>
+<tr>
+<td>账号与权限复核</td>
+<td>季度</td>
+<td>离职/越权清理</td>
+</tr>
+<tr>
+<td>证书与许可到期</td>
+<td>月度</td>
+<td>90/30/7 天告警</td>
+</tr>
+<tr>
+<td>日志保留与审计</td>
+<td>按合规要求</td>
+<td>PCI/HIPAA 等通常 1 年</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>运维成熟度的分水岭</strong>：这些报表是"<strong>自动生成且有人看</strong>"，还是"<strong>需要时手工凑</strong>"。前者是运营体系，后者是救火队。</p>
+</blockquote>
+<hr />
+<h2 id="8">从设计到运营：本章必须交付的 8 张表<a class="anchor" href="#8" title="Permanent link"></a></h2>
+<p>设计文档里如果只有架构图和协议选择，运维团队接手后一定会退回"靠人记"。<strong>服务与管理设计的交付物应该是"表"，而不是"图"。</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>交付物</th>
+<th>内容</th>
+<th>谁用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>IPv6 地址分配表</strong></td>
+<td>站点前缀、子网规划、每个子网的用途与网关、P2P/环回段</td>
+<td>工程 + 自动化（SoT 输入）</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>DSCP 标记表</strong></td>
+<td>11 类 → DSCP → 队列 → 带宽比例 → 边界动作</td>
+<td>工程 + 监控</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>信任边界图</strong></td>
+<td>每类设备/端口"是否信任标记"，隧道外层处理方式</td>
+<td>工程 + 审计</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>服务分级表（P1–P4）</strong></td>
+<td>每个服务的影响面、RTO/RPO、负责人、回退手段</td>
+<td>NOC + 管理层</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>采集清单</strong></td>
+<td>每类设备采什么、频率、协议、采样比、保留期</td>
+<td>监控团队</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>告警目录</strong></td>
+<td>告警名 + 级别 + 触发条件 + 抑制规则 + Runbook 链接</td>
+<td>NOC</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>管理通道矩阵</strong></td>
+<td>站点 × 通道（带内/OOB/Console/LTE）× 验证日期</td>
+<td>运维</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>容量基线表</strong></td>
+<td>各链路/站点 90 天 P95 + 增长斜率 + 阈值</td>
+<td>规划</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_20">故障演练清单（没演练的能力等于不存在）<a class="anchor" href="#_20" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>演练</th>
+<th>方法</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务链路全断</strong></td>
+<td>关掉所有业务上联，只留 OOB</td>
+<td>15 分钟内能通过 OOB 登录并定位</td>
+</tr>
+<tr>
+<td><strong>AAA 服务器不可达</strong></td>
+<td>停 RADIUS/TACACS+</td>
+<td>本地回退账号可登录；无线有应急 SSID</td>
+</tr>
+<tr>
+<td><strong>NTP 源全失效</strong></td>
+<td>停内网 NTP</td>
+<td>告警触发；24 小时内无认证类故障</td>
+</tr>
+<tr>
+<td><strong>采集器宕机</strong></td>
+<td>停主采集器</td>
+<td>备采集器接管；无监控盲区超过 5 分钟</td>
+</tr>
+<tr>
+<td><strong>日志风暴</strong></td>
+<td>人为制造端口 flap</td>
+<td>设备 CPU &lt;60%，日志服务器不丢关键事件</td>
+</tr>
+<tr>
+<td><strong>DHCP 单台失效</strong></td>
+<td>停一台服务器</td>
+<td>终端续租失败率 &lt;1%，无人工介入</td>
+</tr>
+<tr>
+<td><strong>证书过期</strong></td>
+<td>用测试证书模拟</td>
+<td>到期告警在 90/30/7 天正确触发</td>
+</tr>
+<tr>
+<td><strong>QoS 拥塞</strong></td>
+<td>注入 110% 流量</td>
+<td>语音 MOS ≥4.0；关键业务不中断</td>
+</tr>
+<tr>
+<td><strong>双栈回退</strong></td>
+<td>关闭 IPv6 出口</td>
+<td>终端自动回退 IPv4（无长时间卡顿）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>演练的价值不是"证明系统健壮"，而是"发现 Runbook 里的空白"</strong>。每次演练后必须更新 Runbook 与服务分级表 —— 否则下一次还是同一批人凭记忆救火。</p>
+</blockquote>
+<hr />
+<h2 id="12_1">实战案例（12 个真实场景）<a class="anchor" href="#12_1" title="Permanent link"></a></h2>
+<h3 id="64-72">🔥 案例一：把 /64 切成 /72 省地址，三个月后"部分员工没网"<a class="anchor" href="#64-72" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：新办公楼 IPv6 上线后，Windows 正常，部分 Android 与 IoT 设备拿不到地址；同一 VLAN 内有的机器能上网、有的不能。</p>
+<p><strong>排查</strong>：抓 RA 发现前缀 <code>/72</code>；Windows 用 DHCPv6 拿到了地址（M=1），Android 只支持 SLAAC → 无地址；IoT 用 SLAAC + EUI-64 → 生成 64 位 IID，但前缀只有 72 位中的 8 位可用 → 实际拼出非法地址被丢弃。</p>
+<p><strong>根因</strong>：<strong>SLAAC 与 ND 都假设子网为 /64</strong>，非 /64 前缀在多数终端栈上直接失效。</p>
+<p><strong>正确做法</strong>：
+- 任何"用户/VLAN 网段"固定 /64，<strong>不做子网切分</strong>
+- 需要"节省"只能节省在<strong>上游汇总层</strong>（/48 → /56 分配粒度）
+- 设计评审时把"<strong>所有 LAN 前缀长度 = 64</strong>"写成检查项</p>
+<h3 id="ping-ipv6">🔥 案例二：安全策略"禁止 ping"，结果 IPv6 能登录不能传文件<a class="anchor" href="#ping-ipv6" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：IPv6 上线后 SSH 能连上，但 <code>scp</code>、HTTPS 大文件、数据库查询大结果集全部卡死；IPv4 完全正常。</p>
+<p><strong>排查</strong>：<code>ping -6 -s 1452</code> 失败，<code>ping -6 -s 1200</code> 成功 → MTU 问题；抓包看到中间隧道 MTU 1400，设备回 ICMPv6 Type 2，但<strong>防火墙统一策略把 ICMP 全禁</strong>，源端收不到 PTB，一直重传 1500 字节包。</p>
+<p><strong>根因</strong>：IPv6 <strong>路由器不分片</strong>，PMTUD 是唯一机制；ICMPv6 Type 2 被丢 = 黑洞。</p>
+<p><strong>正确做法</strong>：
+- 防火墙放行 ICMPv6 <strong>Type 1/2/3/4 与 133–137</strong>（可限速）
+- 隧道场景统一规划 MTU（内层 1400/1450），并在服务器侧配 MSS clamping
+- 验收用例必须包含"大包"（&gt;1400 B）而非只 ping 32 字节</p>
+<h3 id="ipv6_3">🔥 案例三：双栈上线后"网页时快时慢"，原因是 IPv6 绕地球一圈<a class="anchor" href="#ipv6_3" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：双栈改造后，访问内网应用平均加载时间从 1.2 s 涨到 3–8 s，且不稳定；关掉终端 IPv6 立刻恢复。</p>
+<p><strong>排查</strong>：终端从 RA 拿到 GUA 并优先 IPv6（RFC 6724）；但 IPv6 路由只有一条<strong>经总部再到分支的隧道</strong>（RTT 120 ms），而 IPv4 是本地直连（RTT 3 ms）。同时 RA 里的 RDNSS 指向的分支 DNS 没有 AAAA 记录 → 每次先 AAAA 超时再回退 A。</p>
+<p><strong>根因</strong>：<strong>双栈只做了"协议可达"，没做"路径对等"与"DNS 一致"</strong>。</p>
+<p><strong>正确做法</strong>：
+- 双栈上线前做<strong>路径质量对等验证</strong>（RTT/丢包差异 &lt;20%）
+- 就近出口：分支的 IPv6 与 IPv4 走同一出口策略
+- DNS 必须同时返回 A 与 AAAA，且 RDNSS 指向可用解析器
+- 分阶段：先只在内网核心开 AAAA，观察后再全网</p>
+<h3 id="ef">🔥 案例四：用户把流量标成 EF，忙时语音被自己挤死<a class="anchor" href="#ef" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：新办公区语音质量差（MOS 3.2），带宽利用率仅 55%，QoS 配置看起来完全正确。</p>
+<p><strong>排查</strong>：接入交换机对所有端口 <code>mls qos trust dscp</code>（含 PC 口）。某部门装了 P2P 工具，默认把 P2P 标为 EF；LLQ 的 priority 没有 policer → EF 类吃满 33% 上限，语音 RTP 与 P2P 在同一队列竞争 → 抖动飙到 80 ms。</p>
+<p><strong>根因</strong>：<strong>信任边界放在了用户端口</strong>，且 LLQ 没有限速。</p>
+<p><strong>正确做法</strong>：
+- PC 口 <code>no mls qos trust</code>（重标 BE）或 NBAR 分类；只有话机口 trust
+- LLQ 必须配 <code>police</code>（如语音按并发算出带宽，超出降级或丢）
+- 监控"EF 类占比"，突增即告警（这本身就是攻击/环回的信号）</p>
+<h3 id="_21">🔥 案例五：一次二层环回把语音打死，而"队列配置没错"<a class="anchor" href="#_21" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：某楼层配线间误接成环，STP 收敛期间广播风暴；语音全断 3 分钟，其他业务"只是慢"。</p>
+<p><strong>排查</strong>：<code>show policy-map interface</code> 显示 EF 类超出 policer 大量丢弃；风暴期间大量广播包被话机重标为 EF？不是 —— 真正原因是<strong>风暴把上行链路打到 100%</strong>，LLQ 的调度机会被海量 punt/广播挤占，加上 policer 把语音和"伪装的 EF"一起丢。</p>
+<p><strong>根因</strong>：<strong>QoS 在持续过载时作用有限</strong>（见导读第 3 条）；真正的防线是<strong>风暴控制 + 环回检测 + BPDU Guard</strong>。</p>
+<p><strong>正确做法</strong>：
+- 接入层开启 storm-control（广播/组播/未知单播）与 BPDU Guard
+- QoS 只保证"拥塞时相对优先"，不作为"过载救援"
+- 告警把"EF 类丢包"与"广播速率突增"关联，快速定位到二层问题</p>
+<h3 id="wan-ipsec-dscp-0">🔥 案例六：跨 WAN 语音变差，因为 IPSec 外层 DSCP 是 0<a class="anchor" href="#wan-ipsec-dscp-0" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：总部—分支语音走 IPsec 隧道，出口 LLQ 统计"语音队列几乎为 0"，但用户投诉语音断续。</p>
+<p><strong>排查</strong>：抓外层 ESP 包，ToS 字段 = 0。分支出口把内层 EF 加密后<strong>没有复制到外层</strong>；中间运营商网络看不到优先级，把 ESP 全部当 BE；拥塞时语音被随机丢弃。</p>
+<p><strong>根因</strong>：<strong>加密隐藏了内层标记</strong>，运营商只能看外层。</p>
+<p><strong>正确做法</strong>：
+- 隧道端点配置外层 DSCP 复制/映射（IPsec <code>qos pre-classify</code>、SD-WAN per-tunnel QoS）
+- 与运营商确认其能识别的类数（常只有 3–6 类）
+- 验收：抓外层包验证 ToS；并在拥塞注入下测 MOS</p>
+<h3 id="qos_4">🔥 案例七：子速率链路按物理口配队列，QoS 完全失效<a class="anchor" href="#qos_4" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：分支出口物理 1 Gbps，运营商合同 200 Mbps。分支按 1 Gbps 配了 LLQ + 带宽保证，但忙时语音仍差、<code>output drops</code> 为 0。</p>
+<p><strong>排查</strong>：设备侧从不拥塞（48 小时峰值仅 300 Mbps），<strong>拥塞发生在运营商侧</strong>的 200 Mbps 汇聚点；设备队列没有排队，自然也没有调度。</p>
+<p><strong>根因</strong>：<strong>没有整形到合同速率</strong>，队列在错误的位置生效。</p>
+<p><strong>正确做法</strong>：
+- 出口做 <strong>HQoS</strong>：父层 <code>shape 200m</code>（甚至 190m 留余量），子层再挂各类队列
+- 与运营商确认 CIR/PIR 与突发参数
+- 监控口内 <code>shaping</code> 的排队与丢弃，而不是只看物理口利用率</p>
+<h3 id="snmp-walk-bgp">🔥 案例八：SNMP 全表 walk，把核心路由器的 BGP 打抖<a class="anchor" href="#snmp-walk-bgp" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：每周三上午（报表任务）核心 BGP 邻居抖动，<code>%OSPF-5-ADJCHG</code> 也偶发；CPU 峰值 78%，但转发正常。</p>
+<p><strong>排查</strong>：监控平台对 500 台设备每 5 分钟 walk <code>ifTable + ifXTable + ipRouteTable</code>；报表任务集中在同一时段 → 管理面进程长时间占 CPU，路由协议 Hello 处理延迟 → 邻居超时。</p>
+<p><strong>根因</strong>：<strong>采集设计把"全表 walk"当成了默认做法</strong>，且没有分区与错峰。</p>
+<p><strong>正确做法</strong>：
+- 只取需要的列（<code>ifHCInOctets</code>、<code>ifHCOutOctets</code>、<code>ifOperStatus</code>），禁止 walk 路由表/ARP 表
+- 采集器分区（按站点），错峰（不同设备不同相位，不要整点齐发）
+- 设备侧 SNMP 限速 + CoPP 保护管理面
+- 路由表变化用 Trap/遥测 ON_CHANGE，不用轮询</p>
+<h3 id="flapping">🔥 案例九：一个端口 flapping，把日志服务器和交换机一起拖垮<a class="anchor" href="#flapping" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：凌晨某接入交换机端口以 200 次/秒 up/down，交换机 CPU 95%，日志服务器磁盘 IO 打满，NMS 丢告警 30 分钟；同时该交换机上的用户全部掉线。</p>
+<p><strong>排查</strong>：端口日志每条触发一次 syslog + SNMP trap，且配置了 <code>logging console</code>/<code>logging monitor</code> 高等级 → 管理面被日志本身压死。</p>
+<p><strong>根因</strong>：<strong>日志没有限速与抑制</strong>，日志通道成了故障放大器。</p>
+<p><strong>正确做法</strong>：
+- 设备侧 <code>logging rate-limit</code>（每类每秒条数）+ <code>logging buffered</code> 限制
+- 关闭 console/monitor 的高等级日志（生产环境只留 critical）
+- flap 检测在 NMS 侧做（N 次/M 分钟），单次 down 不告警
+- 日志服务器按来源限速（防单设备刷爆）</p>
+<h3 id="ntp">🔥 案例十：NTP 指向公网，出口一断全网"时间旅行"<a class="anchor" href="#ntp" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：出口链路维护 2 小时后，无线 802.1X 大量失败、日志时间戳前后乱跳，排障方向被误导（以为是新变更导致）。</p>
+<p><strong>排查</strong>：所有设备 NTP 指向 <code>pool.ntp.org</code>；出口断后设备靠自身时钟漂移（每小时约 1–5 s），恢复后证书校验窗口错位、日志跨设备无法对齐。</p>
+<p><strong>根因</strong>：<strong>基础服务依赖了外部网络</strong>，且没有内部分层与告警。</p>
+<p><strong>正确做法</strong>：
+- 内部 Stratum-1/2 层级 + 至少 2 个源，设备只指向内网
+- NTP 认证 + 设备侧 ACL（防放大与伪造）
+- 偏移 &gt;1 s 告警；变更前确认全网时钟一致
+- 出口维护窗口纳入"影响基础服务"的风险清单</p>
+<h3 id="dhcp">🔥 案例十一：早高峰三楼拿不到地址，DHCP 中继是单点<a class="anchor" href="#dhcp" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：每早 8:50 左右，三楼 300 人中有 60–80 人拿不到地址（169.254 自配），重启电脑能好；9:10 后自然恢复。</p>
+<p><strong>排查</strong>：三楼网关（一台三层交换机）做 DHCP 中继指向<strong>单台</strong> DHCP 服务器；该服务器同时处理 10,000 个租约，早高峰续租集中（租期 8 h，全员 9 点前上线）→ 队列堆积 + 超时；中继 <code>ip helper-address</code> 只配了一个（主用宕机/过载时无回退）。</p>
+<p><strong>根因</strong>：<strong>容量与冗余同时缺失</strong>：租期设计导致续租尖峰、服务器单点、中继单目标。</p>
+<p><strong>正确做法</strong>：
+- 两个 DHCP 服务器（故障转移或按网段分担）+ 中继配 2 个目标
+- 租期分层（有线 12 h、无线 4 h），并把续租尖峰错开（随机化 T1）
+- 早高峰容量以"瞬时 500 次/秒"为设计输入，而不是日均值
+- 开启 option 82，事后能定位"谁拿了哪个地址"</p>
+<h3 id="100g-netflow">🔥 案例十二：在 100G 出口开 NetFlow 不采样，采集器和设备同时崩<a class="anchor" href="#100g-netflow" title="Permanent link"></a></h3>
+<p><strong>现象</strong>：为做流量分析在核心出口开启 NetFlow，10 分钟后采集器 CPU 100%、丢数据；30 分钟后核心路由器管理面 CPU 85%，出现路由抖动。</p>
+<p><strong>排查</strong>：出口峰值 60 Gbps、平均包长 400 B → 约 18 Mpps → 约 18M 流/秒；每条 80–120 B 导出记录 → <strong>约 15 Gbps 导出流量</strong>，且全部由管理面生成。</p>
+<p><strong>根因</strong>：<strong>没有采样，也没有容量账</strong>。</p>
+<p><strong>正确做法</strong>：
+- 采样比按接口带宽设定（40G/100G 用 1:1000–1:4000），并在采集器侧记录采样比
+- 导出目标 2 个、独立管理网段、限速
+- 先算"导出带宽 = 流速率 × 记录大小"，超过管理链路 20% 就必须调采样
+- 高流量场景优先用<strong>聚合流 + 遥测计数器</strong>，而不是逐流导出</p>
+<hr />
+<h2 id="design-trade-offs">设计取舍 (Design Trade-offs)<a class="anchor" href="#design-trade-offs" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>取舍</th>
+<th>选 A 得到</th>
+<th>选 B 得到</th>
+<th>CCDE 判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A: 双栈 / B: NAT64 单栈</strong></td>
+<td>端到端、无转换、排障简单</td>
+<td>终端免 v4、地址管理简单</td>
+<td>应用是否有字面 IP/IPsec；终端是否支持 v6</td>
+</tr>
+<tr>
+<td><strong>A: PI 地址 / B: PA 地址</strong></td>
+<td>换 ISP 不用重编址</td>
+<td>路由表小、运营商配合度高</td>
+<td>是否多宿主、是否愿意跑 BGP</td>
+</tr>
+<tr>
+<td><strong>A: 全 64 子网 / B: P2P 用 127</strong></td>
+<td>统一、无例外</td>
+<td>省子网、防子网路由攻击</td>
+<td>平台一致性 vs 安全性，优先一致性</td>
+</tr>
+<tr>
+<td><strong>A: 双栈并行 / B: 先 v4 后 v6</strong></td>
+<td>一次改造、风险集中</td>
+<td>风险小、周期长</td>
+<td>变更窗口与团队熟练度</td>
+</tr>
+<tr>
+<td><strong>A: 类数多 / B: 类数少</strong></td>
+<td>业务区分细</td>
+<td>可维护、可验证</td>
+<td><strong>经验值 8–11 类</strong>，多了必失真</td>
+</tr>
+<tr>
+<td><strong>A: 信任终端 / B: 边界重标</strong></td>
+<td>部署简单</td>
+<td>安全、抗滥用</td>
+<td>终端是否受控；有 PC 口就必须 B</td>
+</tr>
+<tr>
+<td><strong>A: 严格 LLQ / B: 带宽保证</strong></td>
+<td>延迟最低</td>
+<td>公平、不会饿死</td>
+<td>语音必须 A，其余用 B</td>
+</tr>
+<tr>
+<td><strong>A: 整形 / B: 监管</strong></td>
+<td>少丢包、平滑</td>
+<td>简单、省缓冲</td>
+<td>出口用整形，入向/运营商用监管</td>
+</tr>
+<tr>
+<td><strong>A: 带内管理 / B: OOB</strong></td>
+<td>零成本</td>
+<td>故障可运维</td>
+<td>是否有无人站点、SLA 要求</td>
+</tr>
+<tr>
+<td><strong>A: SNMP 轮询 / B: 遥测</strong></td>
+<td>通用、老设备支持</td>
+<td>精度高、开销低</td>
+<td>混合：老设备轮询，新设备遥测</td>
+</tr>
+<tr>
+<td><strong>A: 全量流 / B: 采样流</strong></td>
+<td>精确</td>
+<td>可扩展</td>
+<td>采样比必须记录，否则数据不可用</td>
+</tr>
+<tr>
+<td><strong>A: 自建监控 / B: SaaS</strong></td>
+<td>可控、内网可用</td>
+<td>免运维、跨域可视</td>
+<td>数据合规 + 故障时的独立性</td>
+</tr>
+<tr>
+<td><strong>A: 单一 NMS / B: 多工具拼接</strong></td>
+<td>一致体验</td>
+<td>各取所长</td>
+<td>团队规模：小团队选 A</td>
+</tr>
+<tr>
+<td><strong>A: 集中 AAA / B: 分布式 + 本地回退</strong></td>
+<td>一致策略</td>
+<td>断网可用</td>
+<td><strong>必须 B</strong>（否则断网无法登录）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>一条通用判据</strong>：<strong>在支撑系统里，"故障时还能工作"永远优先于"平时更优雅"。</strong> 因为支撑系统的价值恰恰在故障时体现。</p>
+</blockquote>
+<hr />
+<h2 id="_22">设计陷阱<a class="anchor" href="#_22" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>陷阱</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>把 /64 切小"省地址"</td>
+<td>SLAAC 失效，部分终端无网</td>
+<td>所有 LAN 固定 /64</td>
+</tr>
+<tr>
+<td>2</td>
+<td>全网禁 ICMP/ICMPv6</td>
+<td>PMTUD 黑洞、ND 失效</td>
+<td>放行关键类型，只限速</td>
+</tr>
+<tr>
+<td>3</td>
+<td>双栈但路径不对等</td>
+<td>业务"时快时慢"，比纯 v4 更差</td>
+<td>先验路径质量再开 AAAA</td>
+</tr>
+<tr>
+<td>4</td>
+<td>PC 口 trust DSCP</td>
+<td>用户可自定优先级，语音被挤</td>
+<td>只信任话机/受控设备</td>
+</tr>
+<tr>
+<td>5</td>
+<td>LLQ 无 policer</td>
+<td>高优先级饿死其他类</td>
+<td>priority + police</td>
+</tr>
+<tr>
+<td>6</td>
+<td>子速率链路不整形</td>
+<td>队列在错误位置生效</td>
+<td>HQoS 父层整形</td>
+</tr>
+<tr>
+<td>7</td>
+<td>隧道不复制 DSCP</td>
+<td>跨 WAN 语音退化为 BE</td>
+<td>pre-classify + 外层标记</td>
+</tr>
+<tr>
+<td>8</td>
+<td>只按 MPLS EXP（3 位）映射</td>
+<td>EF 退化成 CS5，语音队列不命</td>
+<td>显式 EXP↔DSCP 映射表</td>
+</tr>
+<tr>
+<td>9</td>
+<td>空载验收 QoS</td>
+<td>永远"通过"，上线即翻车</td>
+<td>拥塞注入 + MOS 测量</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SNMP 全表 walk</td>
+<td>管理面 CPU 打满、协议抖动</td>
+<td>只取需要的列 + 错峰</td>
+</tr>
+<tr>
+<td>11</td>
+<td>NetFlow 不采样</td>
+<td>导出流量打满管理链路</td>
+<td>采样比 + 容量账</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Syslog 不限速</td>
+<td>日志风暴拖垮设备与服务器</td>
+<td>rate-limit + flap 检测</td>
+</tr>
+<tr>
+<td>13</td>
+<td>NTP 指向公网</td>
+<td>出口断 → 证书/日志/审计连锁崩</td>
+<td>内部分层 + 认证 + 告警</td>
+</tr>
+<tr>
+<td>14</td>
+<td>DHCP 单服务器/单中继</td>
+<td>早高峰整层拿不到地址</td>
+<td>双服务器 + 双中继目标</td>
+</tr>
+<tr>
+<td>15</td>
+<td>DNS TTL 过长</td>
+<td>故障切换实际不生效</td>
+<td>切换类记录 TTL 30–60 s</td>
+</tr>
+<tr>
+<td>16</td>
+<td>带内管理当唯一通道</td>
+<td>业务断时无法运维</td>
+<td>OOB + Console + LTE 备份</td>
+</tr>
+<tr>
+<td>17</td>
+<td>只监控设备不监控服务</td>
+<td>设备全绿但用户投诉</td>
+<td>L4/L5 合成探测 + SLO</td>
+</tr>
+<tr>
+<td>18</td>
+<td>告警不挂 Runbook</td>
+<td>收到告警不知道做什么</td>
+<td>每条告警必须有处置链接</td>
+</tr>
+<tr>
+<td>19</td>
+<td>证书/许可无到期告警</td>
+<td>某天早上全网认证失败</td>
+<td>90/30/7 天告警 + 变更日历</td>
+</tr>
+<tr>
+<td>20</td>
+<td>采集器单点</td>
+<td>故障时"盲飞"（正是最需要监控时）</td>
+<td>采集层 HA + 分区</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<h3 id="ipv6_4">IPv6<a class="anchor" href="#ipv6_4" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
@@ -536,71 +3480,182 @@
 <tbody>
 <tr>
 <td>GUA</td>
-<td>全球单播地址</td>
+<td>全球单播地址（2000::/3）</td>
 </tr>
 <tr>
 <td>ULA</td>
-<td>唯一本地地址</td>
+<td>唯一本地地址（FC00::/7，常用 FD00::/8）</td>
 </tr>
 <tr>
 <td>LLA</td>
-<td>链路本地地址</td>
+<td>链路本地地址（FE80::/10）</td>
+</tr>
+<tr>
+<td>IID</td>
+<td>接口标识（低 64 位）</td>
 </tr>
 <tr>
 <td>SLAAC</td>
-<td>无状态地址自动配置</td>
+<td>无状态地址自动配置（RFC 4862）</td>
 </tr>
 <tr>
 <td>DHCPv6</td>
-<td>IPv6 动态主机配置协议</td>
-</tr>
-<tr>
-<td>Dual Stack</td>
-<td>双栈</td>
-</tr>
-<tr>
-<td>NAT64</td>
-<td>IPv6 到 IPv4 网络地址转换</td>
-</tr>
-<tr>
-<td>464XLAT</td>
-<td>IPv4 over IPv6 转换</td>
+<td>有状态/无状态 IPv6 地址与参数分配</td>
 </tr>
 <tr>
 <td>NDP</td>
-<td>邻居发现协议</td>
+<td>邻居发现协议（RS/RA/NS/NA/Redirect）</td>
+</tr>
+<tr>
+<td>DAD</td>
+<td>重复地址检测</td>
+</tr>
+<tr>
+<td>RS / RA</td>
+<td>路由器请求/通告</td>
+</tr>
+<tr>
+<td>NS / NA</td>
+<td>邻居请求/通告（地址解析）</td>
+</tr>
+<tr>
+<td>RDNSS</td>
+<td>RA 中携带 DNS 服务器（RFC 8106）</td>
+</tr>
+<tr>
+<td>PMTUD</td>
+<td>路径 MTU 发现（依赖 ICMPv6 Type 2）</td>
+</tr>
+<tr>
+<td>PTB</td>
+<td>Packet Too Big（ICMPv6 Type 2）</td>
+</tr>
+<tr>
+<td>MLD</td>
+<td>组播监听发现（IPv6 版 IGMP）</td>
 </tr>
 <tr>
 <td>RA Guard</td>
-<td>路由器通告保护</td>
+<td>防伪造路由器通告</td>
 </tr>
 <tr>
-<td>QoS</td>
-<td>服务质量</td>
+<td>ND Inspection</td>
+<td>防伪造邻居通告/地址劫持</td>
 </tr>
+<tr>
+<td>DHCPv6 Guard</td>
+<td>防非法 DHCPv6 服务器</td>
+</tr>
+<tr>
+<td>SAVI</td>
+<td>源地址有效性验证改进</td>
+</tr>
+<tr>
+<td>SEND</td>
+<td>安全的邻居发现（部署很少）</td>
+</tr>
+<tr>
+<td>PI / PA</td>
+<td>独立于运营商 / 运营商聚合地址</td>
+</tr>
+<tr>
+<td>NPTv6</td>
+<td>IPv6 前缀转换（无端口）</td>
+</tr>
+<tr>
+<td>NAT64 / DNS64</td>
+<td>v6-only 访问 v4 的翻译与 DNS 合成</td>
+</tr>
+<tr>
+<td>464XLAT</td>
+<td>CLAT+PLAT 的无状态翻译方案（RFC 6877）</td>
+</tr>
+<tr>
+<td>DS-Lite</td>
+<td>v4 over v6 隧道 + 集中 CGN</td>
+</tr>
+<tr>
+<td>MAP-E / MAP-T</td>
+<td>基于映射的地址+端口复用</td>
+</tr>
+<tr>
+<td>RFC 6724</td>
+<td>默认地址选择规则（源地址选择）</td>
+</tr>
+<tr>
+<td>RFC 5549</td>
+<td>用 IPv4 下一跳承载 IPv6 前缀</td>
+</tr>
+<tr>
+<td>RFC 6164</td>
+<td>点到点链路用 /127</td>
+</tr>
+<tr>
+<td>BCP 38 / uRPF</td>
+<td>入向源地址过滤（多宿主的隐形杀手）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="qos_5">QoS<a class="anchor" href="#qos_5" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>DiffServ</td>
-<td>区分服务</td>
+<td>区分服务（按类处理，核心无状态）</td>
 </tr>
 <tr>
-<td>IntServ</td>
-<td>集成服务</td>
+<td>IntServ / RSVP</td>
+<td>集成服务/资源预留（每流状态）</td>
 </tr>
 <tr>
 <td>DSCP</td>
-<td>差分服务代码点</td>
+<td>差分服务代码点（6 位）</td>
+</tr>
+<tr>
+<td>ToS / Traffic Class</td>
+<td>IP 头中的服务字段</td>
+</tr>
+<tr>
+<td>802.1p / CoS</td>
+<td>二层优先级（3 位）</td>
+</tr>
+<tr>
+<td>EXP / TC</td>
+<td>MPLS 实验位/流类字段（3 位）</td>
+</tr>
+<tr>
+<td>PHB</td>
+<td>每跳行为</td>
 </tr>
 <tr>
 <td>EF</td>
-<td>加速转发</td>
+<td>加速转发（46）</td>
 </tr>
 <tr>
-<td>AF</td>
-<td>确保转发</td>
+<td>AFxy</td>
+<td>确保转发（类 x、丢弃优先级 y）</td>
+</tr>
+<tr>
+<td>CSx</td>
+<td>类选择器（CS0–CS7）</td>
+</tr>
+<tr>
+<td>DF / BE</td>
+<td>默认/尽力而为（0）</td>
+</tr>
+<tr>
+<td>VA</td>
+<td>Voice Admit（44，CAC 后语音）</td>
 </tr>
 <tr>
 <td>LLQ</td>
-<td>低延迟队列</td>
+<td>低延迟队列（严格优先 + 限速）</td>
 </tr>
 <tr>
 <td>CBWFQ</td>
@@ -611,27 +3666,582 @@
 <td>加权随机早期检测</td>
 </tr>
 <tr>
+<td>ECN</td>
+<td>显式拥塞通知（RFC 3168）</td>
+</tr>
+<tr>
+<td>Policing</td>
+<td>监管（超限丢弃/降级）</td>
+</tr>
+<tr>
+<td>Shaping</td>
+<td>整形（缓冲超额、平滑输出）</td>
+</tr>
+<tr>
+<td>HQoS</td>
+<td>层级化 QoS（父整形 + 子队列）</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>CoPP</td>
+<td>控制面策略（保护设备 CPU）</td>
+</tr>
+<tr>
+<td>Serialization Delay</td>
+<td>序列化延迟（帧长/链路速率）</td>
+</tr>
+<tr>
+<td>MOS</td>
+<td>语音质量评分（1–5，≥4.0 为良好）</td>
+</tr>
+<tr>
+<td>G.114</td>
+<td>单向时延 ≤150 ms 的建议</td>
+</tr>
+<tr>
+<td>WMM</td>
+<td>无线多媒体（VO/VI/BE/BK 四类）</td>
+</tr>
+<tr>
+<td>LFI</td>
+<td>链路分片与交错（低带宽语音）</td>
+</tr>
+<tr>
+<td>Scavenger Class</td>
+<td>最低优先级类（P2P/更新）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_23">管理与服务<a class="anchor" href="#_23" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>FCAPS</td>
-<td>故障配置计费性能安全</td>
+<td>故障/配置/计费/性能/安全（ISO 管理域）</td>
+</tr>
+<tr>
+<td>OOB</td>
+<td>带外管理</td>
+</tr>
+<tr>
+<td>管理 VRF</td>
+<td>隔离管理流量的路由实例</td>
 </tr>
 <tr>
 <td>SNMP</td>
-<td>简单网络管理协议</td>
+<td>简单网络管理协议（v2c/v3）</td>
 </tr>
 <tr>
-<td>NetFlow</td>
-<td>流量分析</td>
+<td>MIB / OID</td>
+<td>管理信息库/对象标识</td>
+</tr>
+<tr>
+<td>VACM</td>
+<td>视图访问控制模型（SNMPv3）</td>
+</tr>
+<tr>
+<td>Trap / Inform</td>
+<td>陷阱（无确认）/通知（有确认）</td>
+</tr>
+<tr>
+<td>GetBulk</td>
+<td>批量读取（减少往返）</td>
+</tr>
+<tr>
+<td>Syslog</td>
+<td>系统日志（severity 0–7）</td>
+</tr>
+<tr>
+<td>RFC 5424</td>
+<td>Syslog 协议格式（结构化数据）</td>
+</tr>
+<tr>
+<td>NetFlow / IPFIX</td>
+<td>流导出（v9 模板/IPFIX RFC 7011）</td>
+</tr>
+<tr>
+<td>sFlow</td>
+<td>包采样流量统计</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>gRPC 网络管理接口（配置+遥测）</td>
 </tr>
 <tr>
 <td>Streaming Telemetry</td>
-<td>流式遥测</td>
+<td>流式遥测（推送模型）</td>
 </tr>
 <tr>
-<td>IBN</td>
-<td>意图驱动网络</td>
+<td>Dial-in / Dial-out</td>
+<td>采集器连设备 / 设备连采集器</td>
+</tr>
+<tr>
+<td>ON_CHANGE / SAMPLE</td>
+<td>变化触发 / 周期采样订阅</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>主动合成探测（延迟/抖动/丢包）</td>
+</tr>
+<tr>
+<td>SLI / SLO</td>
+<td>服务指标/服务目标</td>
+</tr>
+<tr>
+<td>MTTD / MTTR</td>
+<td>平均发现时间/平均修复时间</td>
+</tr>
+<tr>
+<td>NTP</td>
+<td>网络时间协议（stratum 层级）</td>
+</tr>
+<tr>
+<td>PTP</td>
+<td>精确时间协议（IEEE 1588，亚微秒）</td>
+</tr>
+<tr>
+<td>NTP 认证</td>
+<td>防伪造时间源</td>
+</tr>
+<tr>
+<td>DHCP option 82</td>
+<td>中继信息（circuit-id/remote-id）</td>
+</tr>
+<tr>
+<td>DHCP snooping</td>
+<td>防私设 DHCP 服务器</td>
+</tr>
+<tr>
+<td>DHCPv6 PD</td>
+<td>前缀委派（分支机构获取 /56）</td>
+</tr>
+<tr>
+<td>T1 / T2</td>
+<td>续租定时器（50%/87.5%）</td>
+</tr>
+<tr>
+<td>DNS 递归/权威</td>
+<td>代查 / 本域权威应答</td>
+</tr>
+<tr>
+<td>条件转发</td>
+<td>按域转发到指定解析器</td>
+</tr>
+<tr>
+<td>DNSSEC</td>
+<td>DNS 数据签名验证</td>
+</tr>
+<tr>
+<td>DoT / DoH</td>
+<td>DNS over TLS / HTTPS</td>
+</tr>
+<tr>
+<td>Anycast DNS</td>
+<td>同一地址多点部署（就近+冗余）</td>
+</tr>
+<tr>
+<td>RADIUS</td>
+<td>接入认证（UDP 1812/1813，密码加密）</td>
+</tr>
+<tr>
+<td>TACACS+</td>
+<td>设备管理 AAA（TCP 49，全负载加密，命令级授权）</td>
+</tr>
+<tr>
+<td>IPAM</td>
+<td>IP 地址管理系统</td>
+</tr>
+<tr>
+<td>PKI / CRL / OCSP</td>
+<td>证书体系/吊销列表/在线状态查询</td>
+</tr>
+<tr>
+<td>Flap Damping</td>
+<td>抖动抑制（N 次/M 分钟）</td>
+</tr>
+<tr>
+<td>Parent-Child Suppression</td>
+<td>父子告警抑制</td>
+</tr>
+<tr>
+<td>Runbook</td>
+<td>处置手册（每条告警对应动作）</td>
 </tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_24">实战经验总结<a class="anchor" href="#_24" title="Permanent link"></a></h2>
+<ol>
+<li><strong>IPv6 的第一条规则不是"怎么配"，而是"所有 LAN 前缀必须是 /64"</strong>；违反它的方案会在三个月后被 IoT 和 Android 推翻。</li>
+<li><strong>ICMPv6 不是可选项</strong>：禁了它，ND 与 PMTUD 一起死。安全策略的正确写法是"放行关键类型 + 限速"，不是"一律拒绝"。</li>
+<li><strong>双栈的成本不在协议栈，在"两套排障能力"</strong>：团队必须能独立用 v6 走完 地址 → 网关 → DNS → MTU → 应用绑定 这条链。</li>
+<li><strong>QoS 评审先问三个问题</strong>：谁有权标记？几类？拥塞时谁先丢？答不上来，队列配置再漂亮也没意义。</li>
+<li><strong>QoS 只在拥塞时起作用</strong>。所以"要不要上 QoS"等价于"这条链路会不会拥塞"，而不是"语音重不重要"。</li>
+<li><strong>信任边界必须画在图上</strong>，并且标注"这里之后 DSCP 可信"。没有这张图，QoS 一定会在某次变更中被破坏。</li>
+<li><strong>所有带宽承诺都要落成数字</strong>：并发数 × 单路带宽 × 1.2，以及"LLQ ≤ 33%、保证总和 ≤ 80%"。</li>
+<li><strong>子速率链路必须整形</strong>，否则你的队列在替运营商做无用功。</li>
+<li><strong>隧道里必须验证外层 DSCP</strong>：抓一次包，比讨论十条设计原则有用。</li>
+<li><strong>空载验收等于没验</strong>：QoS、冗余、故障切换都必须在"坏工况"下验证。</li>
+<li><strong>管理平面要按一张网来设计</strong>：独立 VRF、OOB、跳板机、AAA 分级、带宽账，一个都不能省。</li>
+<li><strong>采集设计的三条硬约束</strong>：只取需要的列、采样比要记录、采集器要分区并错峰。</li>
+<li><strong>日志必须有上限</strong>：设备侧限速、服务器侧按来源限速、告警侧做 flap 检测。否则日志会成为故障放大器。</li>
+<li><strong>NTP 是所有数据的坐标系</strong>：内部分层 + 认证 + 偏移告警，成本极低，收益是"排障时能对齐时序"。</li>
+<li><strong>基础服务（DHCP/DNS/NTP/AAA）的可用性要求应高于核心网络</strong>，因为它们的影响面是全域。</li>
+<li><strong>告警的价值 = 有人会动作</strong>：每条告警都要有分级、Runbook、抑制规则，否则半年后一定被静音。</li>
+<li><strong>可观测性的容量账要提前算</strong>（指标×频率×保留期），否则平台会在"多加点监控"的呼声中慢慢死掉。</li>
+<li><strong>证书与许可是可预测的故障</strong>：到期告警比任何故障演练都便宜。</li>
+<li><strong>CCDE 的答案里，"如何证明"和"如何设计"同等重要</strong>：没有测量方案的 QoS 与没有 OOB 的管理设计，都不算完成。</li>
+<li><strong>支撑系统的设计哲学</strong>：<strong>平时最不显眼，故障时最关键</strong>。所以它们的第一优先级永远是"故障时还能工作"。</li>
+</ol>
+<hr />
+<h2 id="ccde">CCDE 情景题：服务与管理类场景题的三道练习<a class="anchor" href="#ccde" title="Permanent link"></a></h2>
+<blockquote>
+<p>本章题型的陷阱是：<strong>把"服务"当成"功能开关"</strong>（开个 DHCP、配个团体字）。正确的做法是先写清影响面（谁的依赖）、故障时的降级路径、以及"如何证明它有效"。</p>
+</blockquote>
+<h3 id="5000-ipv6-androidiot-ip">情景一：5000 终端要上 IPv6，但清单里有 Android、IoT 和写死 IP 的老应用<a class="anchor" href="#5000-ipv6-androidiot-ip" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：一家 5000 人的企业，园区 30 栋楼、两个数据中心、一个分支。终端构成：Windows 70%、macOS 10%、Android 15%（BYOD）、IoT/打印机/摄像头 5%。服务器 300 台，其中 40 台是老系统（应用配置里写死了 IPv4 字面地址，部分用 IPsec）。运营商可提供 /48，但<strong>只提供 IPv6 出口，IPv4 需走 CGN 或保留旧链路 12 个月</strong>。IT 团队 6 人，无 IPv6 运维经验。</p>
+<p><strong>问题</strong>：给出 IPv6 引入的分期方案、地址规划要点，并回答"是否可以一步到位做 v6-only"。</p>
+<details>
+<summary>参考解析</summary>
+<p><strong>核心思路：先做"双栈 + 内网 v6 先行"，不做 v6-only。原因是约束清单里同时存在 Android（只认 SLAAC）与"写死 IPv4 字面地址 + IPsec"的老应用 —— 这两条直接排除 NAT64 单栈。</strong></p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>交付物</th>
+<th>关键判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一：规划与能力</strong></td>
+<td>0–2 月</td>
+<td>地址分配表（/48 → 站点 /56 → 子网 /64）、<strong>"LAN 必须 /64"规则</strong>、设备/工具能力矩阵（ACL、NetFlow、防火墙 v6 支持）</td>
+<td>地址表是后面一切的前提；能力矩阵找出"不支持 v6 的设备"</td>
+</tr>
+<tr>
+<td><strong>二：基础设施先行</strong></td>
+<td>2–4 月</td>
+<td>管理网/环回/P2P v6、OSPFv3、DNS AAAA、NTP/AAA 双栈、监控 v6</td>
+<td>让"支撑系统"先能跑 v6，否则终端的 v6 不可运营</td>
+</tr>
+<tr>
+<td><strong>三：数据中心与服务器</strong></td>
+<td>4–6 月</td>
+<td>服务器双栈（应用确认监听 <code>::</code>）、DNS 同步发布 A/AAAA、MSS clamping</td>
+<td><strong>先有服务端 AAAA，终端 v6 才有意义</strong></td>
+</tr>
+<tr>
+<td><strong>四：园区终端分批</strong></td>
+<td>6–12 月</td>
+<td>按楼分批开 RA（SLAAC + RDNSS），先 IT/试点楼层</td>
+<td>每批观察 2 周：地址获取率、DNS 成功率、应用时延</td>
+</tr>
+<tr>
+<td><strong>五：出口与外部</strong></td>
+<td>12 月+</td>
+<td>IPv6 出口 + 双栈并存；IPv4 保留 12 个月</td>
+<td><strong>路径质量对等</strong>才把 AAAA 全量发布</td>
+</tr>
+</tbody>
+</table>
+<p><strong>地址规划三条硬规则</strong>：</p>
+<ol>
+<li><strong>站点 = /56（或 /48），子网固定 /64</strong>，永不切分</li>
+<li><strong>P2P 用 /127、环回 /128</strong>，并在 ACL 中按"基础设施汇总前缀"一条覆盖</li>
+<li><strong>站点 ID 与物理/组织编码绑定</strong>（大区-园区-楼），保证十年后可汇总</li>
+</ol>
+<p><strong>为什么不能 v6-only</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>阻碍项</th>
+<th>说明</th>
+<th>替代方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Android 只支持 SLAAC</td>
+<td>无法用 DHCPv6 有状态做地址审计</td>
+<td>保留 SLAAC（也就保留 /64 与 RA）</td>
+</tr>
+<tr>
+<td>40 台老应用写死 IPv4 字面地址</td>
+<td>NAT64 对字面地址无效（除非 DNS64 覆盖）</td>
+<td>双栈过渡，或改造应用</td>
+</tr>
+<tr>
+<td>部分 IPsec 场景</td>
+<td>NAT64 破坏端到端与部分 IPsec 模式</td>
+<td>双栈</td>
+</tr>
+<tr>
+<td>团队无 v6 经验</td>
+<td>单栈意味着"出错就没有 v4 兜底"</td>
+<td>双栈练兵</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最容易被追问的一点</strong>：为什么不直接 NAT64 + DNS64 省掉 IPv4？—— <strong>因为 NAT64 的成本被低估</strong>：它把"地址管理"换成"翻译状态 + 日志 + 应用兼容性排查"，而这 40 台老应用的排查成本远高于保留一条 IPv4 链路。</p>
+</details>
+<hr />
+<h3 id="50-qos">情景二：50 个站点语音质量差，QoS 配置"看起来全对"<a class="anchor" href="#50-qos" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：50 个分支，MPLS（10–100 Mbps 子速率）为主、互联网 IPSec 为备。语音集中部署在总部，分支出口设备已配置 LLQ（EF 优先）、AF 类带宽保证，配置审阅"符合 Cisco 推荐值"。但用户持续投诉忙时语音断续，<code>show policy-map</code> 显示语音队列几乎没流量。</p>
+<p><strong>问题</strong>：给出端到端 QoS 的修正方案，并说明为什么现有配置不生效。</p>
+<details>
+<summary>参考解析</summary>
+<p><strong>核心思路：先定位"队列是否真的在工作"，再谈参数。<code>语音队列几乎没流量</code> 是最关键的证据 —— 说明语音包在到达该队列前就已经不是 EF 了，或该队列根本不是拥塞点。</strong></p>
+<table>
+<thead>
+<tr>
+<th>可能原因</th>
+<th>验证方法</th>
+<th>修正</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 子速率未整形</strong></td>
+<td>物理口 1G、合同 10–100M；物理口 <code>output drops</code> = 0</td>
+<td>父层 <code>shape</code> 到 CIR（留 5–10% 余量），子队列挂在其下</td>
+</tr>
+<tr>
+<td><strong>② 隧道未复制 DSCP</strong></td>
+<td>抓 IPsec 外层 ESP，ToS=0</td>
+<td><code>qos pre-classify</code> / 外层映射；与运营商确认可识别类数</td>
+</tr>
+<tr>
+<td><strong>③ 边界未清洗</strong></td>
+<td>抓接入层包，EF 占比异常高或低</td>
+<td>话机口 trust，PC 口重标；LLQ 加 policer</td>
+</tr>
+<tr>
+<td><strong>④ MPLS EXP 映射丢失</strong></td>
+<td>出 MPLS 域后 DSCP 从 46 变 40</td>
+<td>显式 EXP↔DSCP 映射</td>
+</tr>
+<tr>
+<td><strong>⑤ 语音带宽超预算</strong></td>
+<td>并发数 × 95 kbps 与 LLQ 的 33% 上限</td>
+<td>上 CAC，或扩容/换 G.729</td>
+</tr>
+</tbody>
+</table>
+<p><strong>目标设计（每个分支出口）</strong>：</p>
+<pre><code>policy-map WAN-PARENT
+ class class-default
+  shape average &lt;CIR × 0.95&gt;
+  service-policy WAN-CHILD
+
+policy-map WAN-CHILD
+ class VOICE        → priority percent 30 + police（48 kbps/路 × 并发）
+ class SIGNALING    → bandwidth percent 2
+ class VIDEO-CONF   → bandwidth percent 15 + random-detect dscp-based
+ class TRANSACTION  → bandwidth percent 15 + random-detect
+ class BULK         → bandwidth percent 5  + random-detect
+ class SCAVENGER    → bandwidth percent 2  + police
+ class class-default→ bandwidth percent 25
+</code></pre>
+<p><strong>验收（必须做，否则无法证明修好了）</strong>：</p>
+<ol>
+<li><strong>拥塞注入</strong>：用 iperf/测试仪打到 110% CIR，同时跑 20 路语音模拟器，测 MOS ≥4.0、抖动 &lt;30 ms</li>
+<li><strong>双向验证</strong>：总部 → 分支、分支 → 总部 各测一次</li>
+<li><strong>跨隧道</strong>：抓外层包确认 ToS 与内层一致</li>
+<li><strong>监控</strong>：EF 类丢包率、LLQ policer 丢弃计数、<code>shaping</code> 队列深度进看板并设告警</li>
+</ol>
+<p><strong>最容易被追问的一点</strong>：为什么不干脆扩容？—— 因为<strong>在子速率链路上"扩容"往往受合同与预算限制</strong>，而且"语音断续"的根因是<strong>标记与整形</strong>，扩容后下一个应用高峰还会复现。<strong>先把 QoS 修对，再谈扩容，才是有序的投资。</strong></p>
+</details>
+<hr />
+<h3 id="2000-5000-snmp">情景三：2000 台设备、每天 5000 条告警、没有带外，SNMP 已把核心打抖<a class="anchor" href="#2000-5000-snmp" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：制造业集团，2000 台设备、80 个站点（20 个无人值守）。NOC 6 人。现状：单台 SNMP 采集器轮询全部设备（5 分钟周期，含 ifTable 全表 walk），核心路由器管理面 CPU 峰值 82%；每天 5000+ 条告警，其中 90% 无人处理；主站全部带内管理，无人站点只有单条 4G 备份链路；日志服务器单台、无保留策略。</p>
+<p><strong>问题</strong>：给出目标架构、迁移顺序，以及"如何在预算有限时排优先级"。</p>
+<details>
+<summary>参考解析</summary>
+<p><strong>核心思路：先把"瞎飞"和"打爆设备"解决（采集重构 + 告警治理），再做 OOB。因为采集重构与告警治理不花钱，OOB 花钱。</strong></p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>动作</th>
+<th>成本</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0</strong></td>
+<td>采集只取需要的列、按站点分区、错峰相位、设备侧 SNMP 限速 + CoPP</td>
+<td>极低（配置）</td>
+<td>立刻消除 CPU 抖动风险</td>
+</tr>
+<tr>
+<td><strong>P0</strong></td>
+<td>告警治理：分级 + 父子抑制 + flap 检测 + 每条挂 Runbook，砍掉"不会有人动作"的告警</td>
+<td>低（人力）</td>
+<td>5000 → 200–400 条/天，NOC 才可能真的看</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td>采集层 HA（每区 2 台）、日志集中 + 保留策略 + 按来源限速</td>
+<td>中</td>
+<td>故障时不再"盲飞"</td>
+</tr>
+<tr>
+<td><strong>P1</strong></td>
+<td>关键站点（20 个无人站点 + 核心/DC）先做 OOB（管理交换机 + Console 服务器 + LTE）</td>
+<td>中高</td>
+<td>故障时可运维</td>
+</tr>
+<tr>
+<td><strong>P2</strong></td>
+<td>关键设备转遥测（ON_CHANGE + 60 s SAMPLE），老设备保留 SNMP</td>
+<td>中</td>
+<td>精度与开销同时改善</td>
+</tr>
+<tr>
+<td><strong>P2</strong></td>
+<td>SLO 与合成探测（L4/L5），季度容量趋势</td>
+<td>低</td>
+<td>从"设备视角"走向"业务视角"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>目标架构</strong>：</p>
+<pre><code>采集层（按站点分区，每区 2 台 HA）
+  ├─ SNMP poller（只取需要的列，错峰）
+  ├─ gNMI collector（关键设备：ON_CHANGE + 60s SAMPLE）
+  ├─ Syslog receiver（TLS 6514，按来源限速）
+  ├─ Flow collector（采样比登记在案）
+  └─ IP SLA 汇总（每站点关键路径）
+        ↓
+存储层：时序（原始 30 天 + 1 年降采样）/ 日志（90 天，冷热分层）/ 流（聚合 30 天）
+        ↓
+分析层：阈值 + 基线（P95）+ 拓扑感知的父子抑制
+        ↓
+呈现层：NOC 大屏（P1/P2）/ 工程看板 / 业务 SLO 报表
+        ↓
+管理通道：管理 VRF + OOB（关键站点）+ Console 服务器 + AAA 分级 + 跳板机
+</code></pre>
+<p><strong>告警治理的具体量化目标</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>现状</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日告警量</td>
+<td>5,000</td>
+<td>≤400</td>
+</tr>
+<tr>
+<td>有处置动作的比例</td>
+<td>10%</td>
+<td>≥90%</td>
+</tr>
+<tr>
+<td>P1 平均发现时间</td>
+<td>未知（用户投诉）</td>
+<td>&lt;2 分钟</td>
+</tr>
+<tr>
+<td>采集器单点</td>
+<td>1 台</td>
+<td>每区 2 台</td>
+</tr>
+<tr>
+<td>核心管理面 CPU 峰值</td>
+<td>82%</td>
+<td>&lt;40%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么这个顺序</strong>：NOC 只有 6 人，<strong>告警量不降下来，任何新平台都会被静音</strong>；而采集重构与告警治理是"零采购"的工程动作，能在两周内见效，为后续 OOB 投入争取预算与信任。</p>
+<p><strong>最容易被追问的一点</strong>：为什么先做 OOB 的核心/无人站点，而不是全部？—— 因为 OOB 的成本与站点数线性相关，而<strong>风险集中在"无人值守 + 单链路"这 20 个站点</strong>。<strong>先覆盖风险最高的部分，是 CCDE 里最标准的资源分配答案。</strong></p>
+</details>
+<hr />
+<h2 id="ccde_1">CCDE 答题框架：服务与管理类情景题的通用套路<a class="anchor" href="#ccde_1" title="Permanent link"></a></h2>
+<pre><code>① 先列依赖（谁依赖这个服务）
+   终端 → DHCP/DNS/NTP；设备 → AAA/NTP/镜像；业务 → DNS/出口
+② 再写影响面（挂了以后故障半径多大）
+   全域（DNS/AAA）&gt; 区域（DHCP 服务器）&gt; 单点（某台设备的管理口）
+③ 分层作答
+   基础服务 → 可观测性 → 策略（QoS）→ 管理层（自动化）
+④ 每个选择都写代价（Trade-off）
+   双栈 = 双份成本；NAT64 = 兼容性；OOB = 布线；遥测 = 存储
+⑤ 最后一公里：如何证明
+   SLO/SLI、拥塞注入验收、故障演练（拔电/断链/关 AAA）、告警演练
+⑥ 写清未决项与假设
+   应用是否监听 v6、运营商可识别类数、预算与人力、合规保留期
+</code></pre>
+<p><strong>一句话总结</strong>：<strong>服务与管理类情景题考的不是"你会不会配 SNMP/QoS"，而是"你能不能识别出这个场景里哪两个依赖是全域性的、并且在预算受限时先修它们"。</strong></p>
+<hr />
+<h2 id="_25">本章小结<a class="anchor" href="#_25" title="Permanent link"></a></h2>
+<p>IPv6、QoS、网络管理看似三个专题，本质上都是<strong>支撑系统</strong>：它们不转发包，但决定了网络<strong>能不能被使用、能不能被表达优先级、能不能被运维</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>本质</th>
+<th>三个必答问题</th>
+<th>成败判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IPv6</strong></td>
+<td>一套不同的运行规则 + 规划纪律</td>
+<td>子网是否全 /64？ICMPv6 是否放行？双栈路径是否对等？</td>
+<td>终端自己就能上网，且排障链完整</td>
+</tr>
+<tr>
+<td><strong>QoS</strong></td>
+<td>拥塞时的排序权</td>
+<td>谁有权标记？几类？拥塞时谁先丢？</td>
+<td>拥塞注入下语音 MOS ≥4.0</td>
+</tr>
+<tr>
+<td><strong>管理与服务</strong></td>
+<td>一张必须设计的第二网络</td>
+<td>业务断时能否登录？数据从哪来、留多久？告警有人动作吗？</td>
+<td>故障时仍可观测、可运维、可证明</td>
+</tr>
+</tbody>
+</table>
+<p><strong>四条贯穿全章的判断</strong>：</p>
+<ol>
+<li><strong>支撑系统的第一优先级是"故障时还能工作"</strong> —— OOB、本地回退、独立采集层，都是这一条的推论。</li>
+<li><strong>容量账要提前算</strong>：SNMP 轮询、流导出、遥测、日志、存储、OOB 带宽，全部是"乘法"而不是"加法"。</li>
+<li><strong>信任边界决定 QoS 的成败</strong>，就像 <strong>数据质量决定自动化的成败</strong>（第 12 章）——两者都是"垃圾进、垃圾出"。</li>
+<li><strong>没有测量的设计不算完成</strong>：QoS 要拥塞注入，双栈要路径对等验证，可观测性要能证明"故障时看得见"。</li>
+</ol>
+<p>CCDE 视角下，本章真正要回答的六个问题：</p>
+<ol>
+<li><strong>地址规划十年后还能汇总吗？</strong>（IPv6 规划纪律）</li>
+<li><strong>ICMPv6 与 PMTUD 在安全策略下还活着吗？</strong>（可达性的隐藏前提）</li>
+<li><strong>拥塞时谁先受苦，这个顺序是设计出来的还是碰巧的？</strong>（QoS 信任边界与类数）</li>
+<li><strong>业务全断时，我还能登录设备吗？</strong>（OOB 与 break-glass）</li>
+<li><strong>故障发生时，我能在 2 分钟内看见它吗？</strong>（可观测性与告警治理）</li>
+<li><strong>这些基础服务（DNS/DHCP/NTP/AAA）的故障半径，我算过吗？</strong>（共享依赖）</li>
+</ol>
+<p>这六问答清楚，具体选哪家 NMS、用哪个队列算法，都只是实现细节。</p>
+<blockquote>
+<p>📌 <strong>下一章（第 15 章 可扩展企业园区架构设计）</strong> 将进入 Part III：把前面所有"单点技术"（二层/三层/无线/安全/QoS/自动化）组合成<strong>可扩展的园区架构</strong>——那时你会发现，园区设计里最难的从来不是某个协议，而是"<strong>需求如何转成模块、层次与容量模型</strong>"。</p>
+</blockquote></article>
     <nav class="pager"><a class="pager-link prev" href="ch-13.html"><span class="pager-label">上一章</span><span class="pager-title">13 · 组播设计</span></a><a class="pager-link next" href="ch-15.html"><span class="pager-label">下一章</span><span class="pager-title">15 · 可扩展企业园区架构设计</span></a></nav>
     
     <section class="board" id="board" data-page="第 14 章 · 网络服务与管理" data-key="ch-14">
@@ -685,13 +4295,114 @@
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
-<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
-<li><a href="#ipv6">IPv6 设计考量</a></li>
-<li><a href="#qos">QoS 设计</a></li>
-<li><a href="#_2">网络管理与服务</a></li>
+<li><a href="#_2">本章导读：网络服务与管理的十二个反直觉认知</a><ul>
+<li><a href="#1-ipv6-ipv4">1. IPv6 不是"地址更长的 IPv4"，而是一套不同的运行规则</a></li>
+<li><a href="#2-ipv6">2. IPv6 不缺地址，缺的是"规划纪律"</a></li>
+<li><a href="#3-qos">3. QoS 不增加带宽，它只决定"拥塞时谁先受苦"</a></li>
+<li><a href="#4-qos">4. QoS 的价值在信任边界，不在队列技术</a></li>
+<li><a href="#5-11-qos">5. 分类超过 11 个，等于没做 QoS</a></li>
+<li><a href="#6">6. 管理平面是"第二张网"，它自己的可用性要单独设计</a></li>
+<li><a href="#7">7. 可观测性的成本是"数据量 × 保留期"，不是工具价格</a></li>
+<li><a href="#8-snmp-cpu">8. 日志、SNMP、遥测不是越多越好：它们和管理面 CPU 抢资源</a></li>
+<li><a href="#9">9. 告警的价值等于"有人会因此采取动作"，其余都是噪音</a></li>
+<li><a href="#10">10. 时间同步是所有运维数据的隐藏前提</a></li>
+<li><a href="#11-dhcpdnsntpaaa">11. 基础服务（DHCP/DNS/NTP/AAA）是单点故障的聚集地</a></li>
+<li><a href="#12">12. "网络服务"是共享依赖：服务挂了，故障半径是全域</a></li>
 </ul>
 </li>
-<li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_3">网络服务的四层模型（先分清你在设计哪一层）</a></li>
+<li><a href="#foundation-topics">基础内容 (Foundation Topics)</a></li>
+<li><a href="#ipv6">IPv6 地址体系与规划</a><ul>
+<li><a href="#_4">地址类型与用途</a></li>
+<li><a href="#_5">地址规划：把三层位数一次说清</a></li>
+<li><a href="#_6">特殊链路的前缀长度选择</a></li>
+<li><a href="#_7">地址获取方式的选择</a></li>
+<li><a href="#iid">接口标识（IID）的三种生成方式</a></li>
+<li><a href="#ndp">NDP（邻居发现）流程与五个消息</a></li>
+<li><a href="#mtu-pmtudipv6">MTU 与 PMTUD：IPv6 排障第一杀手</a></li>
+<li><a href="#ipv6-ndp">IPv6 首跳安全（NDP 无认证，必须靠网络侧）</a></li>
+<li><a href="#ipv6-ipv4">IPv6 与 IPv4 共存的迁移策略</a></li>
+<li><a href="#ipv6_1">IPv6 路由协议要点</a></li>
+<li><a href="#pa-vs-piula-nptv6">多宿主：PA vs PI，ULA 与 NPTv6</a></li>
+<li><a href="#ipv6_2">IPv6 组播与"没有广播"的连带影响</a></li>
+<li><a href="#ipv6-10">IPv6 运维差异清单（迁移前必须培训的 10 条）</a></li>
+</ul>
+</li>
+<li><a href="#qos">QoS：从业务需求到每跳行为</a><ul>
+<li><a href="#qos_1">QoS 的业务驱动（先写清"为什么"）</a></li>
+<li><a href="#diffserv-intserv-diffserv">DiffServ 与 IntServ：为什么世界选了 DiffServ</a></li>
+<li><a href="#dscp">DSCP 编码速查</a></li>
+<li><a href="#_8">十一类模型（可直接作为企业标准）</a></li>
+<li><a href="#_9">排队与拥塞管理机制</a></li>
+<li><a href="#_10">带宽计算：把"语音要多少"算出来</a></li>
+<li><a href="#sla">端到端时延预算（把 SLA 写进设计）</a></li>
+<li><a href="#diffserv">信任边界的部署模型（DiffServ 的命门）</a></li>
+<li><a href="#qoscopp">控制面与管理面 QoS（CoPP）</a></li>
+<li><a href="#qos_2">隧道与 QoS：三层封装问题</a></li>
+<li><a href="#qoswmm">无线 QoS（WMM）与有线的映射</a></li>
+<li><a href="#qos_3">QoS 的验收：怎么证明它真的生效</a></li>
+</ul>
+</li>
+<li><a href="#_11">网络管理：把管理平面当一张网来设计</a><ul>
+<li><a href="#vs-oob">带内 vs 带外（OOB）</a></li>
+<li><a href="#_12">管理平面的五个必备设计动作</a></li>
+<li><a href="#12-api">设备管理协议的定位（第 12 章讲过 API，这里补运维视角）</a></li>
+<li><a href="#snmp">SNMP 的设计要点（不只是"配个团体字"）</a></li>
+<li><a href="#flow">流（Flow）采集：采样比与出口容量账</a></li>
+<li><a href="#gnmi">流式遥测（gNMI）的运维视角</a></li>
+<li><a href="#_13">时间同步：所有运维数据的坐标系</a></li>
+<li><a href="#dhcp-dhcpv6">基础服务设计：DHCP / DHCPv6</a></li>
+<li><a href="#dns">基础服务设计：DNS</a></li>
+<li><a href="#aaa">基础服务设计：AAA</a></li>
+<li><a href="#ipam-pki">基础服务设计：IPAM 与 PKI</a></li>
+</ul>
+</li>
+<li><a href="#_14">可观测性：从"设备健康"到"业务健康"</a><ul>
+<li><a href="#_15">五个监控层次（越往下越接近用户）</a></li>
+<li><a href="#sli-slo">SLI / SLO：把"好"定义成可测量的</a></li>
+<li><a href="#ip-sla">IP SLA / 合成探测的设计</a></li>
+<li><a href="#_16">监控平台架构（一个可落地的分层）</a></li>
+<li><a href="#_17">告警治理（平台成败的关键）</a></li>
+<li><a href="#_18">容量与性能管理</a></li>
+<li><a href="#_19">资产、软件生命周期与合规</a></li>
+</ul>
+</li>
+<li><a href="#8">从设计到运营：本章必须交付的 8 张表</a><ul>
+<li><a href="#_20">故障演练清单（没演练的能力等于不存在）</a></li>
+</ul>
+</li>
+<li><a href="#12_1">实战案例（12 个真实场景）</a><ul>
+<li><a href="#64-72">🔥 案例一：把 /64 切成 /72 省地址，三个月后"部分员工没网"</a></li>
+<li><a href="#ping-ipv6">🔥 案例二：安全策略"禁止 ping"，结果 IPv6 能登录不能传文件</a></li>
+<li><a href="#ipv6_3">🔥 案例三：双栈上线后"网页时快时慢"，原因是 IPv6 绕地球一圈</a></li>
+<li><a href="#ef">🔥 案例四：用户把流量标成 EF，忙时语音被自己挤死</a></li>
+<li><a href="#_21">🔥 案例五：一次二层环回把语音打死，而"队列配置没错"</a></li>
+<li><a href="#wan-ipsec-dscp-0">🔥 案例六：跨 WAN 语音变差，因为 IPSec 外层 DSCP 是 0</a></li>
+<li><a href="#qos_4">🔥 案例七：子速率链路按物理口配队列，QoS 完全失效</a></li>
+<li><a href="#snmp-walk-bgp">🔥 案例八：SNMP 全表 walk，把核心路由器的 BGP 打抖</a></li>
+<li><a href="#flapping">🔥 案例九：一个端口 flapping，把日志服务器和交换机一起拖垮</a></li>
+<li><a href="#ntp">🔥 案例十：NTP 指向公网，出口一断全网"时间旅行"</a></li>
+<li><a href="#dhcp">🔥 案例十一：早高峰三楼拿不到地址，DHCP 中继是单点</a></li>
+<li><a href="#100g-netflow">🔥 案例十二：在 100G 出口开 NetFlow 不采样，采集器和设备同时崩</a></li>
+</ul>
+</li>
+<li><a href="#design-trade-offs">设计取舍 (Design Trade-offs)</a></li>
+<li><a href="#_22">设计陷阱</a></li>
+<li><a href="#key-terms">本章关键术语 (Key Terms)</a><ul>
+<li><a href="#ipv6_4">IPv6</a></li>
+<li><a href="#qos_5">QoS</a></li>
+<li><a href="#_23">管理与服务</a></li>
+</ul>
+</li>
+<li><a href="#_24">实战经验总结</a></li>
+<li><a href="#ccde">CCDE 情景题：服务与管理类场景题的三道练习</a><ul>
+<li><a href="#5000-ipv6-androidiot-ip">情景一：5000 终端要上 IPv6，但清单里有 Android、IoT 和写死 IP 的老应用</a></li>
+<li><a href="#50-qos">情景二：50 个站点语音质量差，QoS 配置"看起来全对"</a></li>
+<li><a href="#2000-5000-snmp">情景三：2000 台设备、每天 5000 条告警、没有带外，SNMP 已把核心打抖</a></li>
+</ul>
+</li>
+<li><a href="#ccde_1">CCDE 答题框架：服务与管理类情景题的通用套路</a></li>
+<li><a href="#_25">本章小结</a></li>
 </ul>
 </div>
 </div></aside>
