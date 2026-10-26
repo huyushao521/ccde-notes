@@ -117,7 +117,7 @@ def make_md():
 
 def render(raw: str):
     md = make_md()
-    return md.convert(raw), md.toc
+    return md.convert(STATUS_RE.sub("", raw)), md.toc
 
 
 def strip_html(text: str) -> str:
