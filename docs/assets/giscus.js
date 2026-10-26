@@ -10,7 +10,12 @@
   var CFG = {
     repo: 'huyushao521/ccde2023-notes',
     repoId: 'R_kgDOVXWldQ',
-    category: 'Announcements', /* 必须与 categoryId 对应的分类名一致；改名/换分类时两者一起改 */
+    /* 分类名与 categoryId 必须成对匹配，否则留言框加载失败。
+       本仓库可选值（2026-10 实测）：
+         Comments      DIC_kwDOVXWldc4DJoTI   ← 当前：Open 类型，所有 GitHub 用户都能开新帖
+         General       DIC_kwDOVXWldc4DJoSN   Open 类型（备用）
+         Announcements DIC_kwDOVXWldc4DJoSM   Announcements 类型，仅维护者能建帖，勿用于评论 */
+    category: 'Comments',
     categoryId: 'DIC_kwDOVXWldc4DJoTI',
     mapping: 'pathname',       /* 每页一个独立讨论帖 */
     strict: '1',
