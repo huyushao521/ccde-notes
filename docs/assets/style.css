@@ -397,3 +397,57 @@ html[data-theme="dark"] .markdown-body code { color: #ff9b8a; }
   .markdown-body { font-size: 15px; }
   .to-top { right: 16px; bottom: 16px; }
 }
+
+/* ===== 章节成熟度徽章 / 学习进度 ===== */
+.badge {
+  display: inline-block;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-soft);
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.badge[data-s="精讲"] { color: #0b7a45; background: #e7f7ee; border-color: #bfe8d2; }
+.badge[data-s="精读"] { color: #1e5fd0; background: #e8f0fe; border-color: #c9dcfb; }
+.badge[data-s="提纲"] { color: #9a6400; background: #fdf3e0; border-color: #f0dcb0; }
+.badge[data-s="骨架"] { color: var(--text-mute); }
+
+html[data-theme="dark"] .badge[data-s="精讲"] { color: #64d69f; background: #12301f; border-color: #1d4a31; }
+html[data-theme="dark"] .badge[data-s="精读"] { color: #7aa9f7; background: #16233a; border-color: #263a5c; }
+html[data-theme="dark"] .badge[data-s="提纲"] { color: #e0b062; background: #2a2214; border-color: #4a3a1c; }
+
+.card .badge { margin-top: 8px; }
+
+.hero-progress {
+  max-width: 420px;
+  height: 6px;
+  margin: 18px auto 0;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.hero-progress span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--brand);
+  transition: width .4s ease;
+}
+
+.ch-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.ch-meta .ch-words { font-size: 12.5px; color: var(--text-mute); }

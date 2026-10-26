@@ -120,8 +120,9 @@
       return;
     }
     results.innerHTML = list.map(function (it, i) {
+      var label = it.n + ' · ' + it.t + (it.s ? ' › ' + it.s : '');
       return '<a class="sr-item" data-i="' + i + '" href="' + it.u + '">' +
-        '<strong>' + esc(it.n + ' · ' + it.t) + '</strong>' +
+        '<strong>' + esc(label) + '</strong>' +
         '<span>' + esc(snippet(it.x, kw) || it.t) + '</span></a>';
     }).join('');
     results.classList.add('open');
@@ -134,13 +135,25 @@
       var hits = [];
       data.forEach(function (ch) {
         var titleHit = (ch.t + ' ' + ch.n).toLowerCase().indexOf(q) >= 0;
+        var secHit = (ch.s || '').toLowerCase().indexOf(q) >= 0;
         var bodyHit = ch.x.toLowerCase().indexOf(q) >= 0;
-        if (titleHit || bodyHit) {
-          hits.push({ u: ch.u, n: ch.n, t: ch.t, x: ch.x, score: titleHit ? 0 : 1 });
+        if (titleHit || secHit || bodyHit) {
+          hits.push({
+            u: ch.u, n: ch.n, t: ch.t, s: ch.s, x: ch.x,
+            score: titleHit ? 0 : (secHit ? 1 : 2)
+          });
         }
       });
       hits.sort(function (a, b) { return a.score - b.score || a.n - b.n; });
-      render(hits.slice(0, 8), q);
+      var seen = {};
+      var uniq = [];
+      hits.forEach(function (h) {
+        var key = h.u.split('#')[0] + '|' + (h.s || '');
+        if (seen[key]) return;
+        seen[key] = 1;
+        uniq.push(h);
+      });
+      render(uniq.slice(0, 10), q);
     });
   }
 

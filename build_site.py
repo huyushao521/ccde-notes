@@ -21,14 +21,54 @@ PART_DEFS = [
     ("part1", "Part I · 什么是网络设计", "设计思维 · 需求 · 业务 · 安全 · 架构框架", 1, 5),
     ("part2", "Part II · 核心技术设计", "传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理", 6, 14),
     ("part3", "Part III · 企业网络架构", "园区 · 互联网边缘 · WAN 架构设计", 15, 17),
-    ("part4", "备考准备", "最终准备与备考清单", 18, 18),
+    ("part4", "收尾与回顾", "全书回顾与学习收尾", 18, 18),
 ]
 
 FILENAME_RE = re.compile(r"^第(\d{2})章[_-](.+)\.md$")
 
+# 章节成熟度：按中文字数自动判定（也可在 md 顶部用 <!-- status: 精讲 --> 覆盖）
+STATUS_RULES = [(4000, "精讲"), (1800, "精读"), (800, "提纲"), (0, "骨架")]
+STATUS_RE = re.compile(r"<!--\s*status:\s*(.+?)\s*-->")
+H2_RE = re.compile(r'<h2[^>]*id="([^"]*)"[^>]*>(.*?)</h2>', re.S)
+
 
 def slug(num: int) -> str:
     return f"ch-{num:02d}"
+
+
+def cn_count(text: str) -> int:
+    return len(re.findall(r"[\u4e00-\u9fa5]", text))
+
+
+def detect_status(raw: str, words: int) -> str:
+    m = STATUS_RE.search(raw)
+    if m:
+        return m.group(1)
+    for threshold, name in STATUS_RULES:
+        if words >= threshold:
+            return name
+    return "骨架"
+
+
+def shard_sections(body: str):
+    """把一章正文按 h2 切片，保证长章节每个小节都能被搜到"""
+    chunks = []
+    for part in re.split(r"(?=<h2[^>]*>)", body):
+        m = H2_RE.search(part)
+        anchor = m.group(1) if m else ""
+        section = strip_html(m.group(2)) if m else ""
+        text = strip_html(part)
+        if not text:
+            continue
+        for i in range(0, len(text), 2000):
+            chunks.append(
+                {
+                    "anchor": anchor if i == 0 else "",
+                    "section": section,
+                    "text": text[i : i + 2000],
+                }
+            )
+    return chunks
 
 
 def collect_chapters():
@@ -199,11 +239,18 @@ def main():
 
     for i, ch in enumerate(chapters):
         body, toc = render(ch["raw"])
+        ch["words"] = cn_count(ch["raw"])
+        ch["status"] = detect_status(ch["raw"], ch["words"])
+        meta = (
+            f'<div class="ch-meta">'
+            f'<span class="badge" data-s="{ch["status"]}">{ch["status"]}</span>'
+            f'<span class="ch-words">约 {ch["words"]} 字</span></div>'
+        )
         prev_ch = chapters[i - 1] if i > 0 else None
         next_ch = chapters[i + 1] if i < len(chapters) - 1 else None
         html = page_shell(
             f'{ch["title"]} · 第 {ch["num"]} 章 · {SITE_TITLE}',
-            body,
+            meta + body,
             sidebar_html(chapters, ch["slug"]),
             toc=toc,
             prev_link=pager_link(prev_ch, "prev"),
@@ -211,14 +258,19 @@ def main():
             root="",
         )
         (OUT / f'{ch["slug"]}.html').write_text(html, encoding="utf-8")
-        search_index.append(
-            {
-                "u": f'{ch["slug"]}.html',
-                "n": ch["num"],
-                "t": ch["title"],
-                "x": strip_html(body)[:6000],
-            }
-        )
+        for shard in shard_sections(body):
+            target = f'{ch["slug"]}.html'
+            if shard["anchor"]:
+                target += f'#{shard["anchor"]}'
+            search_index.append(
+                {
+                    "u": target,
+                    "n": ch["num"],
+                    "t": ch["title"],
+                    "s": shard["section"],
+                    "x": shard["text"],
+                }
+            )
         print(f"[OK] {ch['slug']}.html  <- {ch['path'].name}")
 
     # 首页
@@ -237,7 +289,9 @@ def main():
             f'<a class="card" href="{c["slug"]}.html">'
             f'<span class="card-num">{c["num"]:02d}</span>'
             f'<span class="card-body"><strong>{c["title"]}</strong>'
-            f'<em>{c["h1"]}</em></span></a>'
+            f'<em>{c["h1"]}</em>'
+            f'<span class="badge" data-s="{c["status"]}">{c["status"]}</span>'
+            f'</span></a>'
             for c in items
         )
         cards.append(
@@ -245,12 +299,17 @@ def main():
             f'<p class="group-sub">{sub}</p><div class="card-grid">{links}</div></section>'
         )
 
+    done = sum(1 for c in chapters if c["status"] == "精讲")
+    pct = round(done / len(chapters) * 100)
     hero = (
         '<div class="hero">'
         f'<h1>{SITE_TITLE}</h1>'
         f'<p>{SITE_SUB}</p>'
         f'<div class="hero-stats"><span><b>{len(chapters)}</b> 章笔记</span>'
-        f'<span><b>3</b> 大部分</span><span><b>400-007</b> 考试代码</span></div>'
+        f'<span><b>{len(PART_DEFS)}</b> 大部分</span>'
+        f'<span><b>{done}/{len(chapters)}</b> 已精讲</span></div>'
+        f'<div class="hero-progress" title="精讲进度 {pct}%">'
+        f'<span style="width:{pct}%"></span></div>'
         "</div>"
     )
     home_content = hero + '<div class="cards-wrap">' + "".join(cards) + "</div>"
