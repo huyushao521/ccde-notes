@@ -1,4 +1,4 @@
-/* ===== 留言板：本地存储版（无后端，数据存在当前浏览器） ===== */
+/* ===== 留言板：本地草稿 + 仓库归档（跑 update.ps1 并入仓库，跨浏览器可见） ===== */
 (function () {
   'use strict';
 
@@ -6,8 +6,11 @@
   if (!board) return;
 
   var KEY = 'ccde_board_v1';
+  var DEL_KEY = 'ccde_board_del_v1';           /* 已删除 id 墓碑，防止归档数据被重新拉回 */
+  var ARCHIVE_URL = 'assets/board-data.json';  /* 由 update.ps1 合并生成，随仓库走 */
   var PAGE = board.dataset.page || '未命名页面';
   var PAGE_KEY = board.dataset.key || '';
+  var archiveIds = {};   /* 已并入仓库的留言 id */
 
   var form = document.getElementById('boardForm');
   var input = document.getElementById('boardInput');
@@ -38,6 +41,57 @@
       hint('保存失败：浏览器禁用了本地存储', 'err');
       return false;
     }
+  }
+
+  function loadDel() {
+    try {
+      var raw = localStorage.getItem(DEL_KEY);
+      var data = raw ? JSON.parse(raw) : {};
+      return (data && typeof data === 'object') ? data : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveDel(obj) {
+    try { localStorage.setItem(DEL_KEY, JSON.stringify(obj)); } catch (e) { /* 忽略 */ }
+  }
+
+  /* ---------- 仓库归档：读取并合并进本地 ---------- */
+
+  function mergeArchive(remote) {
+    var local = load();
+    var del = loadDel();
+    var byId = {};
+    var changed = false;
+
+    local.forEach(function (it) { byId[it.id] = it; });
+
+    (remote || []).forEach(function (it) {
+      if (!it || !it.id) return;
+      archiveIds[it.id] = true;
+      if (del[it.id]) return;                 /* 本地已删除，不再拉回 */
+      if (!byId[it.id]) {
+        local.push(it);
+        byId[it.id] = it;
+        changed = true;
+      }
+    });
+
+    if (changed) save(local);
+  }
+
+  function loadArchive() {
+    function done() { render(); }
+    if (typeof fetch !== 'function') { done(); return; }
+    fetch(ARCHIVE_URL + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        var items = Array.isArray(data) ? data : (data && data.items) || [];
+        mergeArchive(items);
+      })
+      .catch(function () { /* 首次没有归档文件属正常 */ })
+      .then(done, done);
   }
 
   function hint(text, kind) {
@@ -122,6 +176,14 @@
     time.textContent = fmtTime(item.t || Date.now());
     head.appendChild(time);
 
+    if (!archiveIds[item.id]) {
+      var badge = document.createElement('span');
+      badge.className = 'board-item-sync';
+      badge.textContent = '未同步';
+      badge.title = '仅存在当前浏览器，导出 .json 后运行 update.ps1 才会并入仓库';
+      head.appendChild(badge);
+    }
+
     li.appendChild(head);
 
     var text = document.createElement('p');
@@ -148,6 +210,12 @@
     delBtn.addEventListener('click', function () {
       if (!confirm('删除这条留言？')) return;
       var items = load().filter(function (x) { return x.id !== item.id; });
+      /* 已入库的留言要留墓碑，否则下次打开会被归档数据拉回来 */
+      if (archiveIds[item.id]) {
+        var del = loadDel();
+        del[item.id] = Date.now();
+        saveDel(del);
+      }
       save(items);
       render();
     });
@@ -241,6 +309,35 @@
     hint('已导出 Markdown 文件', 'ok');
   }
 
+  function download(text, filename, mime) {
+    var blob = new Blob([text], { type: mime + ';charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  /* 导出给 update.ps1 合并的 JSON（文件名固定前缀，脚本按前缀匹配下载目录） */
+  function exportJson() {
+    var items = load().sort(function (a, b) { return (a.t || 0) - (b.t || 0); });
+    var del = Object.keys(loadDel());
+    if (!items.length && !del.length) { hint('还没有留言可导出', 'err'); return; }
+
+    var payload = {
+      v: 1,
+      exported: Date.now(),
+      exportedText: fmtTime(Date.now()),
+      items: items,
+      deleted: del
+    };
+    download(JSON.stringify(payload, null, 2), 'ccde-board.json', 'application/json');
+    hint('已导出 ccde-board.json，运行 update.ps1 即并入仓库', 'ok');
+  }
+
   /* ---------- 事件绑定 ---------- */
 
   form.addEventListener('submit', function (e) {
@@ -289,6 +386,9 @@
 
   document.getElementById('boardExport').addEventListener('click', exportMarkdown);
 
+  var syncBtn = document.getElementById('boardSync');
+  if (syncBtn) syncBtn.addEventListener('click', exportJson);
+
   document.getElementById('boardClear').addEventListener('click', function () {
     var all = load();
     if (!all.length) { hint('本来就没有留言', 'err'); return; }
@@ -300,4 +400,5 @@
   });
 
   render();
+  loadArchive();
 })();

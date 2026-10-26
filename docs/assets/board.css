@@ -240,6 +240,15 @@
 
 .board-item-time { font-variant-numeric: tabular-nums; }
 
+.board-item-sync {
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px dashed var(--line-strong);
+  color: var(--text-mute);
+  font-size: 11px;
+  cursor: help;
+}
+
 .board-item-text {
   margin: 8px 0 0;
   font-size: 14px;

@@ -511,7 +511,9 @@
         <h2 class="board-title">留言板 · 想法与勘误</h2>
         <span class="board-count" id="boardCount"></span>
       </div>
-      <p class="board-tip">随手记下阅读时冒出的疑问、发现的勘误、待补的例子。内容保存<strong>在本机浏览器</strong>（localStorage），换设备不同步；
+      <p class="board-tip">随手记下阅读时冒出的疑问、发现的勘误、待补的例子。新留言先存<strong>本机浏览器</strong>并标记「未同步」；
+        点「导出 .json」后回到项目目录运行 <code>.\update.ps1</code>，留言会并入仓库的
+        <code>assets/board-data.json</code> 并推送，换浏览器/换设备打开都能看到全部历史留言。
         想让我据此改稿时，点「复制全部」或「导出 .md」把内容贴给我即可。</p>
       <form class="board-form" id="boardForm">
         <div class="board-where">
@@ -532,6 +534,7 @@
         </div>
         <div class="board-tools-right">
           <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+          <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
           <button type="button" class="board-btn" id="boardExport">导出 .md</button>
           <button type="button" class="board-btn danger" id="boardClear">清空</button>
         </div>
