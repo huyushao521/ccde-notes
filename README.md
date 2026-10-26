@@ -17,6 +17,7 @@ https://huyushao521.github.io/ccde2023-notes/
 | Part II · 核心技术设计 | 第 6-14 章 | 传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理 |
 | Part III · 企业网络架构 | 第 15-17 章 | 园区 · 互联网边缘 · WAN 架构设计 |
 | 收尾 | 第 18 章 | 全书回顾与学习路径 |
+| 附录 | 附录 A / B / C | 术语总表（924 条）· 跨章对比速查 · 自测题库（90 题） |
 
 每章 Markdown 顶部有一行成熟度标记，站点首页会据此显示徽章与进度：
 
@@ -61,6 +62,7 @@ python -m http.server 8000 --directory docs
 |------|------|
 | `build_site.py` | 生成站点、分片搜索索引、状态徽章与进度 |
 | `set_status.py` | 批量写入/刷新各章成熟度标记 |
+| `_gen_terms.py` | 从各章「本章关键术语」重新汇总 `附录A_术语总表.md`（改过术语表后运行） |
 | `update.ps1` | 一键构建 + 提交 + 推送 |
 
 ## 站点结构
@@ -69,11 +71,15 @@ python -m http.server 8000 --directory docs
 docs/                       # GitHub Pages 站点（构建产物）
   index.html                # 首页（进度条 + 章节卡片 + 状态徽章）
   ch-01.html ... ch-18.html
+  apx-a.html                # 附录 A 术语总表
+  apx-b.html                # 附录 B 跨章对比速查
+  apx-c.html                # 附录 C 自测题库
   assets/style.css          # 样式
   assets/app.js             # 搜索 / 主题切换 / 目录高亮
-  assets/search-index.json  # 按小节分片的搜索索引
+  assets/search-index.json  # 按小节分片的搜索索引（含附录）
 build_site.py               # 站点生成脚本
 set_status.py               # 章节状态维护脚本
+_gen_terms.py               # 附录 A 术语汇总脚本
 update.ps1                  # 一键更新脚本
 ```
 

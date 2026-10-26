@@ -120,7 +120,7 @@
       return;
     }
     results.innerHTML = list.map(function (it, i) {
-      var label = it.n + ' · ' + it.t + (it.s ? ' › ' + it.s : '');
+      var label = (it.lb || (it.n + ' · ' + it.t)) + (it.s ? ' › ' + it.s : '');
       return '<a class="sr-item" data-i="' + i + '" href="' + it.u + '">' +
         '<strong>' + esc(label) + '</strong>' +
         '<span>' + esc(snippet(it.x, kw) || it.t) + '</span></a>';

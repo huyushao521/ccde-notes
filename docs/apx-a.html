@@ -1,0 +1,4433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>术语总表 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与回顾</span><span class="nav-sub">全书回顾与学习收尾</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link active" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="附录">附录 A</span><span class="ch-words">全书术语按章速刷</span></div><h1 id="a">附录 A：全书术语总表<a class="anchor" href="#a" title="Permanent link"></a></h1>
+<blockquote>
+<p>由 18 章「本章关键术语」汇总而成，按章分组，用于考前速刷与写作时统一用词。
+想按关键词检索，直接用顶部搜索框（本页已纳入搜索索引）。</p>
+</blockquote>
+<hr />
+<h2 id="01">第 01 章 · 网络设计<a class="anchor" href="#01" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part I · 什么是网络设计 · 21 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-down Approach</td>
+<td>自顶向下方法</td>
+</tr>
+<tr>
+<td>Bottom-up Approach</td>
+<td>自底向上方法</td>
+</tr>
+<tr>
+<td>Functional Requirements</td>
+<td>功能需求</td>
+</tr>
+<tr>
+<td>Technical Requirements</td>
+<td>技术需求</td>
+</tr>
+<tr>
+<td>Application Requirements</td>
+<td>应用需求</td>
+</tr>
+<tr>
+<td>Greenfield</td>
+<td>全新设计</td>
+</tr>
+<tr>
+<td>Brownfield</td>
+<td>改造设计</td>
+</tr>
+<tr>
+<td>Design Scope</td>
+<td>设计范围</td>
+</tr>
+<tr>
+<td>Constraints</td>
+<td>约束条件</td>
+</tr>
+<tr>
+<td>Unstated Requirements</td>
+<td>未明确需求</td>
+</tr>
+<tr>
+<td>Pervasive Security</td>
+<td>普适安全</td>
+</tr>
+<tr>
+<td>Zero Trust Architecture</td>
+<td>零信任架构</td>
+</tr>
+<tr>
+<td>Fault Isolation</td>
+<td>故障隔离</td>
+</tr>
+<tr>
+<td>Information Hiding</td>
+<td>信息隐藏</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>模块化</td>
+</tr>
+<tr>
+<td>Hierarchy</td>
+<td>层次化</td>
+</tr>
+<tr>
+<td>Gold Plating</td>
+<td>过度设计</td>
+</tr>
+<tr>
+<td>CAPEX</td>
+<td>资本支出</td>
+</tr>
+<tr>
+<td>OPEX</td>
+<td>运营支出</td>
+</tr>
+<tr>
+<td>TCO</td>
+<td>总拥有成本</td>
+</tr>
+<tr>
+<td>ROI</td>
+<td>投资回报率</td>
+</tr>
+</tbody>
+</table>
+<h2 id="02">第 02 章 · 为商业成功而设计<a class="anchor" href="#02" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part I · 什么是网络设计 · 25 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Priorities</td>
+<td>业务优先级</td>
+</tr>
+<tr>
+<td>Business Drivers</td>
+<td>业务驱动力</td>
+</tr>
+<tr>
+<td>Business Outcomes</td>
+<td>业务成果</td>
+</tr>
+<tr>
+<td>Business Capabilities</td>
+<td>业务能力</td>
+</tr>
+<tr>
+<td>Business Continuity (BC)</td>
+<td>业务连续性</td>
+</tr>
+<tr>
+<td>Recovery Point Objective (RPO)</td>
+<td>恢复点目标</td>
+</tr>
+<tr>
+<td>Recovery Time Objective (RTO)</td>
+<td>恢复时间目标</td>
+</tr>
+<tr>
+<td>Elasticity</td>
+<td>弹性</td>
+</tr>
+<tr>
+<td>CAPEX</td>
+<td>资本支出</td>
+</tr>
+<tr>
+<td>OPEX</td>
+<td>运营支出</td>
+</tr>
+<tr>
+<td>ROI</td>
+<td>投资回报率</td>
+</tr>
+<tr>
+<td>TCO</td>
+<td>总拥有成本</td>
+</tr>
+<tr>
+<td>Decision Tree</td>
+<td>决策树</td>
+</tr>
+<tr>
+<td>Decision Matrix</td>
+<td>决策矩阵</td>
+</tr>
+<tr>
+<td>Strategic Planning</td>
+<td>战略规划</td>
+</tr>
+<tr>
+<td>Tactical Planning</td>
+<td>战术规划</td>
+</tr>
+<tr>
+<td>Strategic Balance</td>
+<td>战略平衡</td>
+</tr>
+<tr>
+<td>Waterfall</td>
+<td>瀑布方法论</td>
+</tr>
+<tr>
+<td>Agile</td>
+<td>敏捷方法论</td>
+</tr>
+<tr>
+<td>Scrum</td>
+<td>Scrum 方法论</td>
+</tr>
+<tr>
+<td>Kanban</td>
+<td>看板方法论</td>
+</tr>
+<tr>
+<td>Sprint</td>
+<td>冲刺</td>
+</tr>
+<tr>
+<td>Product Owner</td>
+<td>产品负责人</td>
+</tr>
+<tr>
+<td>Scrum Master</td>
+<td>Scrum 大师</td>
+</tr>
+<tr>
+<td>WIP Limit</td>
+<td>在制品限制</td>
+</tr>
+</tbody>
+</table>
+<h2 id="03">第 03 章 · 网络的目的是什么<a class="anchor" href="#03" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part I · 什么是网络设计 · 28 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-server Model</td>
+<td>单服务器模型</td>
+</tr>
+<tr>
+<td>2-Tier Model</td>
+<td>二层模型</td>
+</tr>
+<tr>
+<td>3-Tier Model</td>
+<td>三层模型</td>
+</tr>
+<tr>
+<td>Web Tier</td>
+<td>Web 层（表示层）</td>
+</tr>
+<tr>
+<td>Application Tier</td>
+<td>应用层（逻辑层）</td>
+</tr>
+<tr>
+<td>Database Tier</td>
+<td>数据库层</td>
+</tr>
+<tr>
+<td>On-premises</td>
+<td>本地部署</td>
+</tr>
+<tr>
+<td>SaaS (Software as a Service)</td>
+<td>软件即服务</td>
+</tr>
+<tr>
+<td>PaaS (Platform as a Service)</td>
+<td>平台即服务</td>
+</tr>
+<tr>
+<td>IaaS (Infrastructure as a Service)</td>
+<td>基础设施即服务</td>
+</tr>
+<tr>
+<td>DCA (Direct Cloud Access)</td>
+<td>直接云接入</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>直接互联网接入</td>
+</tr>
+<tr>
+<td>Private Cloud</td>
+<td>私有云</td>
+</tr>
+<tr>
+<td>Public Cloud</td>
+<td>公有云</td>
+</tr>
+<tr>
+<td>Hybrid Cloud</td>
+<td>混合云</td>
+</tr>
+<tr>
+<td>Multi-cloud</td>
+<td>多云</td>
+</tr>
+<tr>
+<td>Cloud-Agnostic</td>
+<td>云无关</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>可移植性</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>抽象</td>
+</tr>
+<tr>
+<td>Interoperability</td>
+<td>互操作性</td>
+</tr>
+<tr>
+<td>Decoupling</td>
+<td>解耦</td>
+</tr>
+<tr>
+<td>Containerization</td>
+<td>容器化</td>
+</tr>
+<tr>
+<td>SOA (Service-Oriented Architecture)</td>
+<td>面向服务架构</td>
+</tr>
+<tr>
+<td>Data Governance</td>
+<td>数据治理</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>数据架构</td>
+</tr>
+<tr>
+<td>Data Security</td>
+<td>数据安全</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>元数据</td>
+</tr>
+<tr>
+<td>Data Quality</td>
+<td>数据质量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="04">第 04 章 · 安全是普适的<a class="anchor" href="#04" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part I · 什么是网络设计 · 23 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero Trust Architecture (ZTA)</td>
+<td>零信任架构</td>
+</tr>
+<tr>
+<td>Static Factors</td>
+<td>静态因素</td>
+</tr>
+<tr>
+<td>Dynamic Factors</td>
+<td>动态因素</td>
+</tr>
+<tr>
+<td>Entitled to Access</td>
+<td>有权访问</td>
+</tr>
+<tr>
+<td>Trust Score</td>
+<td>信任分数</td>
+</tr>
+<tr>
+<td>Risk Score</td>
+<td>风险分数</td>
+</tr>
+<tr>
+<td>Authorization for Access</td>
+<td>访问授权</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>清单</td>
+</tr>
+<tr>
+<td>Policy Engine</td>
+<td>策略引擎</td>
+</tr>
+<tr>
+<td>Trust Engine</td>
+<td>信任引擎</td>
+</tr>
+<tr>
+<td>Endpoint Device</td>
+<td>终端设备</td>
+</tr>
+<tr>
+<td>Policy Enforcement Point (PEP)</td>
+<td>策略执行点</td>
+</tr>
+<tr>
+<td>Feedback Loop</td>
+<td>反馈循环</td>
+</tr>
+<tr>
+<td>Confidentiality</td>
+<td>机密性</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>完整性</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>可用性</td>
+</tr>
+<tr>
+<td>HIPAA</td>
+<td>美国健康保险流通与责任法案</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>支付卡行业数据安全标准</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>通用数据保护条例</td>
+</tr>
+<tr>
+<td>Data Sovereignty</td>
+<td>数据主权</td>
+</tr>
+<tr>
+<td>Security Domain</td>
+<td>安全域</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>区域</td>
+</tr>
+<tr>
+<td>Chokepoint</td>
+<td>检查点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="05">第 05 章 · 参考架构模型与框架<a class="anchor" href="#05" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part I · 什么是网络设计 · 25 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Architecture (BA)</td>
+<td>业务架构</td>
+</tr>
+<tr>
+<td>Enterprise Architecture (EA)</td>
+<td>企业架构</td>
+</tr>
+<tr>
+<td>Business Solution</td>
+<td>业务解决方案</td>
+</tr>
+<tr>
+<td>Business Outcome</td>
+<td>业务成果</td>
+</tr>
+<tr>
+<td>SMART Principle</td>
+<td>SMART 原则</td>
+</tr>
+<tr>
+<td>Technology Specific</td>
+<td>技术特定（领域特定架构）</td>
+</tr>
+<tr>
+<td>Technology Architecture</td>
+<td>技术架构（多领域架构）</td>
+</tr>
+<tr>
+<td>Business Transformation</td>
+<td>业务转型</td>
+</tr>
+<tr>
+<td>KPI</td>
+<td>关键绩效指标</td>
+</tr>
+<tr>
+<td>TOGAF</td>
+<td>The Open Group 架构框架</td>
+</tr>
+<tr>
+<td>ADM</td>
+<td>架构开发方法</td>
+</tr>
+<tr>
+<td>ITIL</td>
+<td>信息技术基础设施库</td>
+</tr>
+<tr>
+<td>FEAF</td>
+<td>联邦企业架构框架</td>
+</tr>
+<tr>
+<td>DODAF</td>
+<td>国防部架构框架</td>
+</tr>
+<tr>
+<td>RMF</td>
+<td>风险管理框架</td>
+</tr>
+<tr>
+<td>Operating Model</td>
+<td>运营模型</td>
+</tr>
+<tr>
+<td>Coordination</td>
+<td>协调型</td>
+</tr>
+<tr>
+<td>Unification</td>
+<td>统一型</td>
+</tr>
+<tr>
+<td>Diversification</td>
+<td>多样化型</td>
+</tr>
+<tr>
+<td>Replication</td>
+<td>复制型</td>
+</tr>
+<tr>
+<td>Reference Model</td>
+<td>参考模型</td>
+</tr>
+<tr>
+<td>Reference Architecture</td>
+<td>参考架构</td>
+</tr>
+<tr>
+<td>MTTD</td>
+<td>平均检测时间</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>平均修复时间</td>
+</tr>
+<tr>
+<td>Day 0 / Day 1 / Day 2</td>
+<td>规划设计 / 部署上线 / 日常运维</td>
+</tr>
+</tbody>
+</table>
+<h2 id="06">第 06 章 · 传输技术<a class="anchor" href="#06" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 33 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Carrier Ethernet</td>
+<td>载波以太网</td>
+</tr>
+<tr>
+<td>Metro Ethernet</td>
+<td>城域以太网</td>
+</tr>
+<tr>
+<td>E-Line</td>
+<td>以太网专线服务</td>
+</tr>
+<tr>
+<td>E-LAN</td>
+<td>以太网局域网服务</td>
+</tr>
+<tr>
+<td>E-Tree</td>
+<td>以太网树服务</td>
+</tr>
+<tr>
+<td>EPL</td>
+<td>以太网专线（端口型 E-Line）</td>
+</tr>
+<tr>
+<td>EVPL</td>
+<td>以太网虚拟专线（VLAN 型 E-Line）</td>
+</tr>
+<tr>
+<td>EPLAN</td>
+<td>以太网专用 LAN（端口型 E-LAN）</td>
+</tr>
+<tr>
+<td>EVPLAN</td>
+<td>以太网虚拟专用 LAN（VLAN 型 E-LAN）</td>
+</tr>
+<tr>
+<td>UNI</td>
+<td>用户网络接口</td>
+</tr>
+<tr>
+<td>NNI</td>
+<td>网络节点接口</td>
+</tr>
+<tr>
+<td>EVC</td>
+<td>以太网虚拟连接</td>
+</tr>
+<tr>
+<td>AC</td>
+<td>接入电路</td>
+</tr>
+<tr>
+<td>VPWS</td>
+<td>虚拟专线服务</td>
+</tr>
+<tr>
+<td>VPLS</td>
+<td>虚拟专用 LAN 服务</td>
+</tr>
+<tr>
+<td>H-VPLS</td>
+<td>分层 VPLS</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td>多租户单元</td>
+</tr>
+<tr>
+<td>EVPN</td>
+<td>以太网 VPN</td>
+</tr>
+<tr>
+<td>PBB-EVPN</td>
+<td>提供商骨干桥接 EVPN</td>
+</tr>
+<tr>
+<td>Pseudowire (PW)</td>
+<td>伪线</td>
+</tr>
+<tr>
+<td>VSI</td>
+<td>虚拟交换实例</td>
+</tr>
+<tr>
+<td>N-PE</td>
+<td>网络面向提供商边缘</td>
+</tr>
+<tr>
+<td>U-PE</td>
+<td>用户面向提供商边缘</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>客户边缘</td>
+</tr>
+<tr>
+<td>DCI</td>
+<td>数据中心互联</td>
+</tr>
+<tr>
+<td>MAC Mobility</td>
+<td>MAC 移动性</td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>以太网段标识</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>指定转发者</td>
+</tr>
+<tr>
+<td>A-D Route</td>
+<td>以太网自动发现路由（Type 1）</td>
+</tr>
+<tr>
+<td>IMET Route</td>
+<td>包含式组播以太网标签路由（Type 3）</td>
+</tr>
+<tr>
+<td>Split Horizon</td>
+<td>水平分割</td>
+</tr>
+<tr>
+<td>BUM Traffic</td>
+<td>广播/未知单播/组播流量</td>
+</tr>
+<tr>
+<td>Martini / Kompella</td>
+<td>两种 PW 信令方式（LDP / BGP）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="07">第 07 章 · 二层技术<a class="anchor" href="#07" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 50 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+<th>一句话记忆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spanning Tree Protocol (STP)</td>
+<td>生成树协议</td>
+<td>用砍链路换无环</td>
+</tr>
+<tr>
+<td>802.1D</td>
+<td>传统 STP</td>
+<td>等计时器，30–50 秒</td>
+</tr>
+<tr>
+<td>802.1W (RSTP)</td>
+<td>快速生成树</td>
+<td>问邻居，1–3 秒</td>
+</tr>
+<tr>
+<td>802.1S (MST)</td>
+<td>多生成树</td>
+<td>多 VLAN 映射到少数实例；三参数必须全网一致</td>
+</tr>
+<tr>
+<td>PVST+ / Rapid PVST+</td>
+<td>Cisco 每 VLAN 一实例</td>
+<td>实例数 = VLAN 数，规模上限低</td>
+</tr>
+<tr>
+<td>Root Bridge</td>
+<td>根桥</td>
+<td>全网树根；必须与 FHRP Active 同设备</td>
+</tr>
+<tr>
+<td>Root Port</td>
+<td>根端口</td>
+<td>我去根桥的最优口</td>
+</tr>
+<tr>
+<td>Alternate Port</td>
+<td>替代端口</td>
+<td>这就是被浪费的带宽</td>
+</tr>
+<tr>
+<td>Edge Port / PortFast</td>
+<td>边缘端口</td>
+<td>立即转发 + 不产生 TCN</td>
+</tr>
+<tr>
+<td>TCN</td>
+<td>拓扑变更通知</td>
+<td>一次端口 up/down 可让全网 MAC 表老化</td>
+</tr>
+<tr>
+<td>Loop Guard</td>
+<td>环路保护</td>
+<td>防单向链路导致端口误升转发</td>
+</tr>
+<tr>
+<td>Root Guard</td>
+<td>根保护</td>
+<td>防下游抢根；不 err-disable，可自愈</td>
+</tr>
+<tr>
+<td>BPDU Guard</td>
+<td>BPDU 保护</td>
+<td>收到 BPDU 就 err-disable；朝终端用</td>
+</tr>
+<tr>
+<td>BPDU Filter</td>
+<td>BPDU 过滤</td>
+<td>等于放弃 STP 保护，慎用</td>
+</tr>
+<tr>
+<td>UDLD</td>
+<td>单向链路检测</td>
+<td>链路层探测，光纤互联必备</td>
+</tr>
+<tr>
+<td>VLAN</td>
+<td>虚拟局域网</td>
+<td>广播域 = 最小故障域</td>
+</tr>
+<tr>
+<td>Native VLAN</td>
+<td>本征 VLAN（不打标签）</td>
+<td>两端不一致会把两个 VLAN 桥接</td>
+</tr>
+<tr>
+<td>Trunking</td>
+<td>中继</td>
+<td>一条链路多 VLAN；裁剪 + <code>add</code> 增量</td>
+</tr>
+<tr>
+<td>VTP</td>
+<td>VLAN 中继协议</td>
+<td>配错会全网传染；建议 off</td>
+</tr>
+<tr>
+<td>LACP (802.3ad)</td>
+<td>链路聚合控制协议</td>
+<td>至少一端 active；不用 <code>mode on</code></td>
+</tr>
+<tr>
+<td>Port-channel / EtherChannel</td>
+<td>链路聚合组</td>
+<td>加总容量 ≠ 单流速率</td>
+</tr>
+<tr>
+<td>Hash（负载分担）</td>
+<td>哈希算法</td>
+<td>按流分配；改 L3+L4 改善分布</td>
+</tr>
+<tr>
+<td><code>min-links</code></td>
+<td>最小成员数</td>
+<td>带宽不足时主动 down，触发路由切换</td>
+</tr>
+<tr>
+<td>mLAG</td>
+<td>多机箱链路聚合</td>
+<td>让接入以为上联是一台设备</td>
+</tr>
+<tr>
+<td>VSS</td>
+<td>虚拟交换系统</td>
+<td>双主控合一，真单控制面</td>
+</tr>
+<tr>
+<td>StackWise</td>
+<td>智能堆叠</td>
+<td>单一管理面，控制面共命运</td>
+</tr>
+<tr>
+<td>vPC</td>
+<td>虚拟端口通道（Nexus）</td>
+<td>双控制面 + peer-link + keepalive</td>
+</tr>
+<tr>
+<td>M-LAG</td>
+<td>标准多机箱链路聚合</td>
+<td>多厂商版 vPC</td>
+</tr>
+<tr>
+<td>EVPN Multihoming</td>
+<td>EVPN 多归属</td>
+<td>用 BGP 控制面替代 peer-link</td>
+</tr>
+<tr>
+<td>Peer-Link</td>
+<td>对等链路</td>
+<td>同步 MAC、承载 BUM；断则 vPC 挂起</td>
+</tr>
+<tr>
+<td>Peer-Keepalive</td>
+<td>对等保活</td>
+<td>防脑裂的心跳，必须物理独立</td>
+</tr>
+<tr>
+<td>Split-Brain</td>
+<td>脑裂</td>
+<td>两台同时当主；爆炸半径 = 全网</td>
+</tr>
+<tr>
+<td>Dual Active Detection</td>
+<td>双活检测</td>
+<td>脑裂兜底；最好再加自动化隔离</td>
+</tr>
+<tr>
+<td>Orphan Port</td>
+<td>孤口（单归端口）</td>
+<td>重启对应设备就会断它</td>
+</tr>
+<tr>
+<td>MEC</td>
+<td>多机箱 EtherChannel</td>
+<td>堆叠环境下的跨成员聚合</td>
+</tr>
+<tr>
+<td>FHRP</td>
+<td>首跳冗余协议</td>
+<td>网关冗余的统称</td>
+</tr>
+<tr>
+<td>HSRP</td>
+<td>热备份路由协议</td>
+<td>Cisco 专有；多组分流</td>
+</tr>
+<tr>
+<td>VRRP</td>
+<td>虚拟路由冗余协议</td>
+<td>标准，多厂商唯一选择</td>
+</tr>
+<tr>
+<td>GLBP</td>
+<td>网关负载均衡协议</td>
+<td>原生负载分担，确定性差</td>
+</tr>
+<tr>
+<td>Object Tracking</td>
+<td>对象跟踪</td>
+<td>上行断了要主动让出 Active</td>
+</tr>
+<tr>
+<td>Preempt Delay</td>
+<td>延迟抢占</td>
+<td>避免路由未收敛就抢回网关</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测</td>
+<td>亚秒检测，优于猛调计时器</td>
+</tr>
+<tr>
+<td>E2V (End-to-End VLAN)</td>
+<td>端到端 VLAN 模型</td>
+<td>移动性好，故障域灾难</td>
+</tr>
+<tr>
+<td>Local VLAN</td>
+<td>本地 VLAN 模型</td>
+<td>故障域小，需 IP 规划能力</td>
+</tr>
+<tr>
+<td>Looped Triangle</td>
+<td>环路三角形拓扑</td>
+<td>浪费 50% 上行</td>
+</tr>
+<tr>
+<td>Loop-Free Inverted U</td>
+<td>无环路倒 U 型</td>
+<td>单点，仅特例</td>
+</tr>
+<tr>
+<td>Looped Square</td>
+<td>环路方形拓扑</td>
+<td>流量绕行核心间链路</td>
+</tr>
+<tr>
+<td>Loop-Free U</td>
+<td>无环路 U 型</td>
+<td>现代主流，需配 mLAG</td>
+</tr>
+<tr>
+<td>Daisy Chain</td>
+<td>菊花链</td>
+<td>中间故障下游全断</td>
+</tr>
+<tr>
+<td>Failure Domain</td>
+<td>失效域</td>
+<td>冗余的判据：两个副本的失效域是否独立</td>
+</tr>
+</tbody>
+</table>
+<h2 id="08">第 08 章 · 三层技术<a class="anchor" href="#08" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 55 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+<th>一句话记忆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIB</td>
+<td>路由信息库</td>
+<td>所有协议的候选池</td>
+</tr>
+<tr>
+<td>FIB</td>
+<td>转发信息库</td>
+<td>真正用来转发的表</td>
+</tr>
+<tr>
+<td>AD（管理距离）</td>
+<td>不同来源的优先级</td>
+<td>跨协议比较用 AD；eBGP(20) 优于 OSPF(110)，iBGP(200) 最劣</td>
+</tr>
+<tr>
+<td>Metric（度量）</td>
+<td>同协议内的路径优劣</td>
+<td>跨协议不可比——重分发的根本难题</td>
+</tr>
+<tr>
+<td>最长匹配</td>
+<td>掩码最长者胜</td>
+<td>明细永远压过汇总</td>
+</tr>
+<tr>
+<td>递归查找</td>
+<td>下一跳逐层解析</td>
+<td>BGP 下一跳不可达则不装表</td>
+</tr>
+<tr>
+<td>LSDB</td>
+<td>链路状态数据库</td>
+<td>区域内必须完全一致</td>
+</tr>
+<tr>
+<td>SPF / Dijkstra</td>
+<td>最短路径优先算法</td>
+<td>以自己为根建树</td>
+</tr>
+<tr>
+<td>Area 0 / Backbone</td>
+<td>骨干区域</td>
+<td>必须连续；不连续要靠 virtual-link（应急）</td>
+</tr>
+<tr>
+<td>ABR</td>
+<td>区域边界路由器</td>
+<td>汇总与 Type 3 的产生者</td>
+</tr>
+<tr>
+<td>ASBR</td>
+<td>AS 边界路由器</td>
+<td>重分发与 Type 5 的产生者</td>
+</tr>
+<tr>
+<td>Type 1–7 LSA</td>
+<td>OSPF 的链路状态通告</td>
+<td>1/2 拓扑，3/4 区域间，5/7 外部</td>
+</tr>
+<tr>
+<td>Stub / Totally Stub</td>
+<td>末节区域</td>
+<td>不允许 ASBR；路由表最小</td>
+</tr>
+<tr>
+<td>NSSA</td>
+<td>非完全末节</td>
+<td>允许本地重分发（有本地出口时用）</td>
+</tr>
+<tr>
+<td>Virtual Link</td>
+<td>虚链路</td>
+<td>应急手段，不是设计选项</td>
+</tr>
+<tr>
+<td>P2P / P2MP / Broadcast</td>
+<td>OSPF 网络类型</td>
+<td>网络类型是设计变量，不是自动检测</td>
+</tr>
+<tr>
+<td>SPF Throttle</td>
+<td>SPF 节流</td>
+<td>快检测必须配抑制</td>
+</tr>
+<tr>
+<td><code>auto-cost reference-bandwidth</code></td>
+<td>参考带宽</td>
+<td>默认 100M → 所有 G 以上接口 cost=1</td>
+</tr>
+<tr>
+<td>Area Range / Summary-address</td>
+<td>OSPF 汇总</td>
+<td>ABR 汇总区域内；ASBR 汇总外部</td>
+</tr>
+<tr>
+<td>Null0</td>
+<td>丢弃路由</td>
+<td>汇总必须配 null0</td>
+</tr>
+<tr>
+<td>IS-IS</td>
+<td>中间系统到中间系统</td>
+<td>跑在二层，TLV 扩展性最好</td>
+</tr>
+<tr>
+<td>Level 1 / Level 2</td>
+<td>IS-IS 层级</td>
+<td>L2 = 骨干，天然连续</td>
+</tr>
+<tr>
+<td>NET / System ID</td>
+<td>IS-IS 路由器标识</td>
+<td>全网唯一</td>
+</tr>
+<tr>
+<td>DIS</td>
+<td>指定中间系统</td>
+<td>无备份，抢占式（对比 DR 有 BDR）</td>
+</tr>
+<tr>
+<td><code>metric-style wide</code></td>
+<td>IS-IS 宽度量</td>
+<td>必须开，否则无法区分高速链路</td>
+</tr>
+<tr>
+<td>Overload Bit</td>
+<td>IS-IS 过载位</td>
+<td>维护窗口用，避免提前吸引流量</td>
+</tr>
+<tr>
+<td>Multi-Topology (MT)</td>
+<td>IS-IS 多拓扑</td>
+<td>IPv4/IPv6 可走不同路径</td>
+</tr>
+<tr>
+<td>EIGRP / DUAL</td>
+<td>扩散更新算法</td>
+<td>距离矢量中的"混合型"</td>
+</tr>
+<tr>
+<td>FD / RD (AD)</td>
+<td>可行距离 / 报告距离</td>
+<td>RD &lt; FD 才能成为可行后继</td>
+</tr>
+<tr>
+<td>Successor / Feasible Successor</td>
+<td>后继 / 可行后继</td>
+<td>有 FS 时本地修复，最快收敛</td>
+</tr>
+<tr>
+<td>Query / SIA</td>
+<td>查询 / 卡在活跃状态</td>
+<td>Query 扩散是 EIGRP 的主要规模风险</td>
+</tr>
+<tr>
+<td>EIGRP Stub</td>
+<td>末端路由</td>
+<td>截断 Query 范围</td>
+</tr>
+<tr>
+<td>BGP</td>
+<td>边界网关协议</td>
+<td>路径矢量，跑在 TCP 179</td>
+</tr>
+<tr>
+<td>eBGP / iBGP</td>
+<td>外部 / 内部 BGP</td>
+<td>eBGP 直连；iBGP 需全互连或 RR</td>
+</tr>
+<tr>
+<td>iBGP 全互连规则</td>
+<td>iBGP 路由不再传给 iBGP</td>
+<td>N(N−1)/2 条会话</td>
+</tr>
+<tr>
+<td>Next-hop-self</td>
+<td>下一跳自指</td>
+<td>iBGP 必配（或保证下一跳可达）</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>权重</td>
+<td>Cisco 专有，本机有效，大者优</td>
+</tr>
+<tr>
+<td>Local Preference</td>
+<td>本地优先</td>
+<td>整个 AS 有效，控制出向</td>
+</tr>
+<tr>
+<td>AS_PATH</td>
+<td>AS 路径</td>
+<td>短者优；prepend 可加长</td>
+</tr>
+<tr>
+<td>Origin</td>
+<td>起源类型</td>
+<td>IGP &lt; EGP &lt; Incomplete</td>
+</tr>
+<tr>
+<td>MED</td>
+<td>多出口判别器</td>
+<td>小者优；只在同一邻居 AS 内比较</td>
+</tr>
+<tr>
+<td>Route Reflector (RR)</td>
+<td>路由反射器</td>
+<td>打破全互连需求</td>
+</tr>
+<tr>
+<td>Cluster ID / Cluster List</td>
+<td>集群 ID / 列表</td>
+<td>防环；多 RR 必须唯一</td>
+</tr>
+<tr>
+<td>Originator ID</td>
+<td>起源者 ID</td>
+<td>RR 场景的第二道防环</td>
+</tr>
+<tr>
+<td>Confederation</td>
+<td>联盟</td>
+<td>把大 AS 拆子 AS；复杂度高，一般不选</td>
+</tr>
+<tr>
+<td>Peer Group / Template</td>
+<td>邻居组 / 模板</td>
+<td>配置量从 N 条降到 1 条</td>
+</tr>
+<tr>
+<td><code>update-delay</code></td>
+<td>更新延迟</td>
+<td>启动时等邻居收敛，避免不完整表转发</td>
+</tr>
+<tr>
+<td>Route Dampening</td>
+<td>路由抑制</td>
+<td>慎用，容易造成长时间黑洞</td>
+</tr>
+<tr>
+<td>Redistribution</td>
+<td>重分发</td>
+<td>跨协议翻译；度量不可比是根本难题</td>
+</tr>
+<tr>
+<td>Seed Metric</td>
+<td>种子度量</td>
+<td>重分发时"拍"的度量</td>
+</tr>
+<tr>
+<td>Route Tag</td>
+<td>路由标记</td>
+<td>双点双向重分发防环的唯一标准解法</td>
+</tr>
+<tr>
+<td>Route Feedback</td>
+<td>路由回馈</td>
+<td>双点双向重分发的环路来源</td>
+</tr>
+<tr>
+<td>Egress / Ingress Traffic</td>
+<td>出向 / 入向流量</td>
+<td>出向完全可控，入向只能请求</td>
+</tr>
+<tr>
+<td>PBR</td>
+<td>策略路由</td>
+<td>最后手段，破坏路由表一致性</td>
+</tr>
+<tr>
+<td>ECMP</td>
+<td>等开销多路径</td>
+<td>按流哈希，不等速链路慎用</td>
+</tr>
+</tbody>
+</table>
+<h2 id="09">第 09 章 · 网络虚拟化<a class="anchor" href="#09" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 58 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPLS</td>
+<td>多协议标签交换</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>客户边缘</td>
+</tr>
+<tr>
+<td>PE</td>
+<td>提供商边缘</td>
+</tr>
+<tr>
+<td>P</td>
+<td>提供商节点</td>
+</tr>
+<tr>
+<td>VRF</td>
+<td>虚拟路由转发</td>
+</tr>
+<tr>
+<td>RD</td>
+<td>路由区分符</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>路由目标</td>
+</tr>
+<tr>
+<td>MP-BGP</td>
+<td>多协议 BGP</td>
+</tr>
+<tr>
+<td>VPNv4</td>
+<td>携带 RD 的 IPv4 VPN 路由</td>
+</tr>
+<tr>
+<td>LSP</td>
+<td>标签交换路径</td>
+</tr>
+<tr>
+<td>LER</td>
+<td>标签边缘路由器</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>标签交换路由器</td>
+</tr>
+<tr>
+<td>LIB / LFIB</td>
+<td>标签信息库 / 标签转发表</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>倒数第二跳弹出</td>
+</tr>
+<tr>
+<td>Implicit / Explicit Null</td>
+<td>隐式空（标签 3）/ 显式空（标签 0）</td>
+</tr>
+<tr>
+<td>EXP / TC</td>
+<td>MPLS 中的 QoS 字段</td>
+</tr>
+<tr>
+<td>LDP</td>
+<td>标签分发协议</td>
+</tr>
+<tr>
+<td>RSVP-TE</td>
+<td>带流量工程的资源预留协议</td>
+</tr>
+<tr>
+<td>SR-MPLS</td>
+<td>Segment Routing MPLS</td>
+</tr>
+<tr>
+<td>RR</td>
+<td>路由反射器</td>
+</tr>
+<tr>
+<td>DN Bit</td>
+<td>DN 位（OSPF 防环）</td>
+</tr>
+<tr>
+<td>Domain ID</td>
+<td>域 ID（OSPF 域标识）</td>
+</tr>
+<tr>
+<td>Sham Link</td>
+<td>伪链路</td>
+</tr>
+<tr>
+<td>SoO</td>
+<td>站点起源（Site of Origin）</td>
+</tr>
+<tr>
+<td>as-override</td>
+<td>BGP AS 覆盖</td>
+</tr>
+<tr>
+<td>Full Mesh</td>
+<td>全互连</td>
+</tr>
+<tr>
+<td>Hub and Spoke</td>
+<td>中心辐射</td>
+</tr>
+<tr>
+<td>Extranet</td>
+<td>外联网</td>
+</tr>
+<tr>
+<td>VPWS</td>
+<td>虚拟专用线服务（E-Line）</td>
+</tr>
+<tr>
+<td>VPLS</td>
+<td>虚拟专用局域网服务（E-LAN）</td>
+</tr>
+<tr>
+<td>EVPN</td>
+<td>以太网 VPN</td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>以太网段标识（多归属）</td>
+</tr>
+<tr>
+<td>DF Election</td>
+<td>指定转发者选举</td>
+</tr>
+<tr>
+<td>MPLS TE</td>
+<td>MPLS 流量工程</td>
+</tr>
+<tr>
+<td>CSPF</td>
+<td>约束最短路径优先</td>
+</tr>
+<tr>
+<td>FRR</td>
+<td>快速重路由</td>
+</tr>
+<tr>
+<td>SDN</td>
+<td>软件定义网络</td>
+</tr>
+<tr>
+<td>Underlay</td>
+<td>底层网络</td>
+</tr>
+<tr>
+<td>Overlay</td>
+<td>覆盖网络</td>
+</tr>
+<tr>
+<td>VN</td>
+<td>虚拟网络</td>
+</tr>
+<tr>
+<td>VXLAN</td>
+<td>虚拟可扩展局域网</td>
+</tr>
+<tr>
+<td>VTEP</td>
+<td>VXLAN 隧道端点</td>
+</tr>
+<tr>
+<td>VNI</td>
+<td>VXLAN 网络标识符</td>
+</tr>
+<tr>
+<td>BUM</td>
+<td>广播/未知单播/组播</td>
+</tr>
+<tr>
+<td>SD-WAN</td>
+<td>软件定义广域网</td>
+</tr>
+<tr>
+<td>SD-LAN</td>
+<td>软件定义局域网</td>
+</tr>
+<tr>
+<td>SD-Access</td>
+<td>思科园区 fabric 方案</td>
+</tr>
+<tr>
+<td>OMP</td>
+<td>覆盖管理协议</td>
+</tr>
+<tr>
+<td>TLOC</td>
+<td>传输定位器（System-IP + Color + 封装）</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测</td>
+</tr>
+<tr>
+<td>AAR</td>
+<td>应用感知路由</td>
+</tr>
+<tr>
+<td>ZTD / ZTP</td>
+<td>零接触部署 / 零接触配置</td>
+</tr>
+<tr>
+<td>SGT</td>
+<td>可扩展组标签（TrustSec）</td>
+</tr>
+<tr>
+<td>LISP</td>
+<td>位置/标识分离协议</td>
+</tr>
+<tr>
+<td>Anycast Gateway</td>
+<td>任播网关</td>
+</tr>
+<tr>
+<td>MTU / MSS Clamp</td>
+<td>最大传输单元 / TCP 最大段长钳制</td>
+</tr>
+<tr>
+<td>PMTUD</td>
+<td>路径 MTU 发现</td>
+</tr>
+<tr>
+<td>SIG / SASE</td>
+<td>安全互联网网关 / 安全访问服务边缘</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10">第 10 章 · 安全<a class="anchor" href="#10" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 35 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+<th>一句话记忆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Device Hardening</td>
+<td>设备加固</td>
+<td>三平面（管理/控制/数据）分别设防</td>
+</tr>
+<tr>
+<td>Management Plane</td>
+<td>管理平面</td>
+<td>被攻破后果最严重的一条通路</td>
+</tr>
+<tr>
+<td>Control Plane</td>
+<td>控制平面</td>
+<td>决定转发决策，攻击它影响全路径业务</td>
+</tr>
+<tr>
+<td>Data Plane</td>
+<td>数据平面</td>
+<td>承载业务流量，ACL/uRPF 的作用面</td>
+</tr>
+<tr>
+<td>CoPP</td>
+<td>控制平面监管</td>
+<td>按类限速上送 CPU 的流量，速率必须实测</td>
+</tr>
+<tr>
+<td>CPPr</td>
+<td>控制平面保护</td>
+<td>CoPP 的细化版（host/transit/CEF-exception 分开）</td>
+</tr>
+<tr>
+<td>rACL</td>
+<td>接收 ACL</td>
+<td>只允许合法源访问设备自身</td>
+</tr>
+<tr>
+<td>iACL</td>
+<td>基础设施 ACL</td>
+<td>在边界限制"谁能访问基础设施地址空间"</td>
+</tr>
+<tr>
+<td>uRPF</td>
+<td>单播反向路径转发</td>
+<td>strict/loose/feasible，模式必须匹配路由对称性</td>
+</tr>
+<tr>
+<td>GTSM</td>
+<td>BGP TTL 安全</td>
+<td>要求 TTL=255，防伪造邻居</td>
+</tr>
+<tr>
+<td>TCP-AO</td>
+<td>TCP 认证选项</td>
+<td>BGP MD5 的现代替代</td>
+</tr>
+<tr>
+<td>RTBH</td>
+<td>远端触发黑洞</td>
+<td>把攻击目标从路由上"抹掉"，自损八百</td>
+</tr>
+<tr>
+<td>RPKI / ROA</td>
+<td>路由源授权</td>
+<td>防 BGP 前缀劫持</td>
+</tr>
+<tr>
+<td>DHCP Snooping</td>
+<td>DHCP 侦听</td>
+<td>建立 MAC-IP-端口绑定表，是 DAI/Source Guard 的基础</td>
+</tr>
+<tr>
+<td>DAI</td>
+<td>动态 ARP 检测</td>
+<td>用绑定表校验 ARP，依赖 DHCP，静态 IP 不覆盖</td>
+</tr>
+<tr>
+<td>IP Source Guard</td>
+<td>IP 源保护</td>
+<td>用绑定表校验源 IP，同样只覆盖 DHCP 设备</td>
+</tr>
+<tr>
+<td>Port Security</td>
+<td>端口安全</td>
+<td>限制单端口 MAC 数量，注意随机 MAC</td>
+</tr>
+<tr>
+<td>BPDU Guard / Root Guard</td>
+<td>BPDU 保护 / 根保护</td>
+<td>朝终端用 BPDU Guard，朝下游用 Root Guard</td>
+</tr>
+<tr>
+<td>Private VLAN</td>
+<td>私有 VLAN</td>
+<td>isolated/community/promiscuous，现代多被 SGT/微分段替代</td>
+</tr>
+<tr>
+<td>802.1X</td>
+<td>基于端口的准入</td>
+<td>EAP-TLS 最强，PEAP 常用，MAB 兜底</td>
+</tr>
+<tr>
+<td>MAB</td>
+<td>MAC 认证绕过</td>
+<td>MAC 可伪造，只用于不支持 1X 的设备</td>
+</tr>
+<tr>
+<td>MACsec</td>
+<td>二层加密</td>
+<td>逐跳、低开销、需硬件；不能跨三层网络</td>
+</tr>
+<tr>
+<td>SGT / TrustSec</td>
+<td>安全组标签</td>
+<td>与地址解耦的授权；不做威胁检查</td>
+</tr>
+<tr>
+<td>Micro-segmentation</td>
+<td>微分段</td>
+<td>数据中心东西向隔离，网络侧或主机侧实现</td>
+</tr>
+<tr>
+<td>IPsec</td>
+<td>IP 安全协议</td>
+<td>ESP 隧道模式是主流；注意 MTU/MSS</td>
+</tr>
+<tr>
+<td>IKEv1 / IKEv2</td>
+<td>密钥交换协议</td>
+<td>新建一律 IKEv2</td>
+</tr>
+<tr>
+<td>PFS</td>
+<td>完美前向保密</td>
+<td>主密钥泄露也不影响历史会话</td>
+</tr>
+<tr>
+<td>DMVPN</td>
+<td>动态多点 VPN</td>
+<td>mGRE + NHRP；Phase 3 需 nhrp shortcut + redirect</td>
+</tr>
+<tr>
+<td>FlexVPN</td>
+<td>灵活 VPN</td>
+<td>基于 IKEv2 的统一框架，新建首选</td>
+</tr>
+<tr>
+<td>GET VPN</td>
+<td>组加密传输 VPN</td>
+<td>无隧道、保留原始 IP 头，适合 MPLS WAN</td>
+</tr>
+<tr>
+<td>Split Tunneling</td>
+<td>分离隧道</td>
+<td>体验好但失去网络可见性，必须靠 EDR 补偿</td>
+</tr>
+<tr>
+<td>Full Tunnel</td>
+<td>全隧道</td>
+<td>可见性最好，带宽与体验代价大</td>
+</tr>
+<tr>
+<td>ZTNA</td>
+<td>零信任网络访问</td>
+<td>应用级访问替代网络级访问</td>
+</tr>
+<tr>
+<td>SASE</td>
+<td>安全访问服务边缘</td>
+<td>就近 PoP 融合网络与云安全</td>
+</tr>
+<tr>
+<td>MFA Fatigue</td>
+<td>MFA 疲劳攻击</td>
+<td>用数字匹配/FIDO2 对抗</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11">第 11 章 · 无线<a class="anchor" href="#11" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 109 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>802.11ax</td>
+<td>Wi-Fi 6/6E</td>
+</tr>
+<tr>
+<td>802.11be</td>
+<td>Wi-Fi 7</td>
+</tr>
+<tr>
+<td>WLC</td>
+<td>无线局域网控制器</td>
+</tr>
+<tr>
+<td>CAPWAP</td>
+<td>无线接入点控制和配置协议</td>
+</tr>
+<tr>
+<td>Local Mode</td>
+<td>本地模式</td>
+</tr>
+<tr>
+<td>FlexConnect</td>
+<td>弹性连接模式</td>
+</tr>
+<tr>
+<td>WPA3</td>
+<td>Wi-Fi 保护访问第 3 版</td>
+</tr>
+<tr>
+<td>SAE</td>
+<td>对等同步认证</td>
+</tr>
+<tr>
+<td>802.1X/EAP</td>
+<td>基于端口的认证</td>
+</tr>
+<tr>
+<td>High-Density Design</td>
+<td>高密度设计</td>
+</tr>
+<tr>
+<td>BSS Coloring</td>
+<td>BSS 着色</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>Fast Roaming</td>
+<td>快速漫游</td>
+</tr>
+<tr>
+<td>802.11r</td>
+<td>快速 BSS 切换</td>
+</tr>
+<tr>
+<td>Band Steering</td>
+<td>频段引导</td>
+</tr>
+<tr>
+<td>Airtime</td>
+<td>介质时间（无线真正的稀缺资源）</td>
+</tr>
+<tr>
+<td>CCI</td>
+<td>同频干扰（Co-Channel Interference）</td>
+</tr>
+<tr>
+<td>SNR</td>
+<td>信噪比</td>
+</tr>
+<tr>
+<td>RSSI</td>
+<td>接收信号强度</td>
+</tr>
+<tr>
+<td>MIN RSSI</td>
+<td>最小接收信号强度（强制断开阈值）</td>
+</tr>
+<tr>
+<td>RRM</td>
+<td>无线资源管理（自动信道/功率）</td>
+</tr>
+<tr>
+<td>BSS / BSSID / SSID</td>
+<td>基本服务集 / BSS 标识（AP 射频 MAC）/ 网络名</td>
+</tr>
+<tr>
+<td>ESS</td>
+<td>扩展服务集（同一 SSID 的多个 BSS）</td>
+</tr>
+<tr>
+<td>DFS</td>
+<td>动态频率选择（雷达信道）</td>
+</tr>
+<tr>
+<td>TPC</td>
+<td>发射功率控制</td>
+</tr>
+<tr>
+<td>UNII</td>
+<td>5 GHz 的非授权频段划分</td>
+</tr>
+<tr>
+<td>LPI / VLP / AFC</td>
+<td>6 GHz 低功率室内 / 超低功率 / 自动频率协调</td>
+</tr>
+<tr>
+<td>OFDMA</td>
+<td>正交频分多址（Wi-Fi 6 的核心效率特性）</td>
+</tr>
+<tr>
+<td>MU-MIMO</td>
+<td>多用户多入多出</td>
+</tr>
+<tr>
+<td>MLO</td>
+<td>多链路操作（Wi-Fi 7）</td>
+</tr>
+<tr>
+<td>BSS Coloring</td>
+<td>BSS 着色（同频并行传输）</td>
+</tr>
+<tr>
+<td>TWT</td>
+<td>目标唤醒时间（IoT 省电）</td>
+</tr>
+<tr>
+<td>A-MPDU</td>
+<td>帧聚合（聚合多个 MPDU）</td>
+</tr>
+<tr>
+<td>MCS</td>
+<td>调制与编码策略（决定速率档位）</td>
+</tr>
+<tr>
+<td>Spatial Stream</td>
+<td>空间流</td>
+</tr>
+<tr>
+<td>WMM / EDCA</td>
+<td>Wi-Fi 多媒体 / 增强分布式信道访问</td>
+</tr>
+<tr>
+<td>AC_VO / AC_VI / AC_BE / AC_BK</td>
+<td>WMM 的四个接入类别</td>
+</tr>
+<tr>
+<td>UP</td>
+<td>用户优先级（802.11 QoS 标记）</td>
+</tr>
+<tr>
+<td>DSCP / EF / AF41</td>
+<td>IP 层 QoS 标记</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>DIFS / SIFS</td>
+<td>分布式/短帧间间隔</td>
+</tr>
+<tr>
+<td>CSMA/CA</td>
+<td>载波侦听多路访问/冲突避免</td>
+</tr>
+<tr>
+<td>PMK / PTK</td>
+<td>成对主密钥 / 成对临时密钥</td>
+</tr>
+<tr>
+<td>OKC / PKC / CCKM</td>
+<td>机会密钥缓存 / 主动密钥缓存 / 集中密钥管理</td>
+</tr>
+<tr>
+<td>802.11k</td>
+<td>无线资源测量（邻居报告）</td>
+</tr>
+<tr>
+<td>802.11v</td>
+<td>BSS 过渡管理（引导客户端换 AP）</td>
+</tr>
+<tr>
+<td>802.11r / FT</td>
+<td>快速 BSS 过渡</td>
+</tr>
+<tr>
+<td>802.11w / PMF</td>
+<td>管理帧保护</td>
+</tr>
+<tr>
+<td>Adaptive 11r</td>
+<td>自适应 802.11r（对不支持的终端回退）</td>
+</tr>
+<tr>
+<td>Mobility Group / Domain</td>
+<td>移动组 / 移动域</td>
+</tr>
+<tr>
+<td>Anchor / Foreign</td>
+<td>锚点 / 外地控制器（三层漫游）</td>
+</tr>
+<tr>
+<td>WLC</td>
+<td>无线局域网控制器</td>
+</tr>
+<tr>
+<td>CAPWAP</td>
+<td>无线接入点控制和配置协议（UDP 5246/5247）</td>
+</tr>
+<tr>
+<td>DTLS</td>
+<td>CAPWAP 的传输层加密</td>
+</tr>
+<tr>
+<td>AP Group / Tag</td>
+<td>AP 分组 / 标签（Site/Policy/RF Tag）</td>
+</tr>
+<tr>
+<td>FlexConnect / H-REAP</td>
+<td>弹性连接（本地转发）</td>
+</tr>
+<tr>
+<td>Local Switching</td>
+<td>本地交换</td>
+</tr>
+<tr>
+<td>Local Auth</td>
+<td>本地认证（断链自治）</td>
+</tr>
+<tr>
+<td>Rogue AP</td>
+<td>非法 AP</td>
+</tr>
+<tr>
+<td>wIPS</td>
+<td>无线入侵防御系统</td>
+</tr>
+<tr>
+<td>MFP / Management Frame Protection</td>
+<td>管理帧保护（同 802.11w）</td>
+</tr>
+<tr>
+<td>PPSK / iPSK / dPSK</td>
+<td>每用户/每设备预共享密钥</td>
+</tr>
+<tr>
+<td>SAE</td>
+<td>对等同步认证（WPA3-Personal）</td>
+</tr>
+<tr>
+<td>OWE</td>
+<td>机会无线加密（开放网络加密）</td>
+</tr>
+<tr>
+<td>GCMP</td>
+<td>Galois/Counter 模式协议（WPA3 加密算法）</td>
+</tr>
+<tr>
+<td>802.1X / Supplicant / Authenticator</td>
+<td>端口认证 / 客户端 / 认证者（AP）</td>
+</tr>
+<tr>
+<td>EAP-TLS / PEAP / EAP-TTLS / TEAP / EAP-FAST</td>
+<td>EAP 认证方法</td>
+</tr>
+<tr>
+<td>RADIUS / CoA</td>
+<td>远程认证拨号用户服务 / 授权变更</td>
+</tr>
+<tr>
+<td>Portal 认证</td>
+<td>门户认证（访客）</td>
+</tr>
+<tr>
+<td>Multicast-to-Unicast</td>
+<td>组播转单播</td>
+</tr>
+<tr>
+<td>Airtime Fairness</td>
+<td>介质时间公平性</td>
+</tr>
+<tr>
+<td>Sticky Client</td>
+<td>粘滞客户端</td>
+</tr>
+<tr>
+<td>AP-on-a-stick</td>
+<td>临时单 AP 实地勘测法</td>
+</tr>
+<tr>
+<td>CMX / 定位服务</td>
+<td>无线定位与位置分析（可选扩展）</td>
+</tr>
+<tr>
+<td>CSMA/CA</td>
+<td>载波侦听多路访问/冲突避免（无线介质访问机制）</td>
+</tr>
+<tr>
+<td>Slot Time</td>
+<td>时隙（退避粒度，5 GHz 9 µs / 2.4 GHz 20 µs）</td>
+</tr>
+<tr>
+<td>NAV</td>
+<td>网络分配向量（虚拟载波侦听，预约信道时间）</td>
+</tr>
+<tr>
+<td>隐藏终端 / 暴露终端</td>
+<td>互相听不到导致碰撞 / 误以为信道忙而不敢发</td>
+</tr>
+<tr>
+<td>RTS / CTS</td>
+<td>请求发送 / 允许发送（用两帧换长帧的碰撞代价）</td>
+</tr>
+<tr>
+<td>A-MPDU / A-MSDU</td>
+<td>帧聚合（MPDU 级 / MSDU 级）</td>
+</tr>
+<tr>
+<td>Block ACK</td>
+<td>块确认（一次确认整批帧）</td>
+</tr>
+<tr>
+<td>Preamble</td>
+<td>前导码（每帧固定开销，11ax 约 40 µs）</td>
+</tr>
+<tr>
+<td>Minstrel</td>
+<td>常用的速率自适应算法（按客户端独立选 MCS）</td>
+</tr>
+<tr>
+<td>Airtime 黑洞</td>
+<td>弱信号低速客户端占用大量介质时间</td>
+</tr>
+<tr>
+<td>EIRP</td>
+<td>等效全向辐射功率（Tx + 天线增益 − 馈线损耗）</td>
+</tr>
+<tr>
+<td>FSPL</td>
+<td>自由空间路径损耗</td>
+</tr>
+<tr>
+<td>Low-E 玻璃</td>
+<td>低辐射镀膜玻璃（对 5 GHz 衰减可达 30 dB）</td>
+</tr>
+<tr>
+<td>Downtilt</td>
+<td>下倾天线（场馆/高挑高空间用）</td>
+</tr>
+<tr>
+<td>DTIM</td>
+<td>交付流量指示消息周期（省电与组播延迟的平衡）</td>
+</tr>
+<tr>
+<td>DCA</td>
+<td>动态信道分配（RRM 的信道优化）</td>
+</tr>
+<tr>
+<td>RX-SOP</td>
+<td>接收信号起始阈值（提高空间复用，也可能"听不到"远端）</td>
+</tr>
+<tr>
+<td>Probe Request / Response</td>
+<td>探测请求/响应（客户端扫描与 AP 应答，消耗 airtime）</td>
+</tr>
+<tr>
+<td>RNR 元素</td>
+<td>缩减邻居报告（6 GHz 的 SSID 通过 5 GHz Beacon 指示）</td>
+</tr>
+<tr>
+<td>BTM</td>
+<td>BSS 过渡管理（802.11v 的引导换 AP 消息）</td>
+</tr>
+<tr>
+<td>Hysteresis</td>
+<td>滞回（防止乒乓漫游的阈值差）</td>
+</tr>
+<tr>
+<td>Ping-Pong Roaming</td>
+<td>乒乓漫游（在两 AP 间反复切换）</td>
+</tr>
+<tr>
+<td>Sticky Client</td>
+<td>粘滞客户端（赖在弱信号 AP 不走）</td>
+</tr>
+<tr>
+<td>mDNS / Bonjour</td>
+<td>链路本地组播域名解析（投屏、打印机发现依赖它）</td>
+</tr>
+<tr>
+<td>Multicast-to-Unicast</td>
+<td>组播转单播（无线侧把组播流改为单播发送）</td>
+</tr>
+<tr>
+<td>Multicast Direct</td>
+<td>组播直通（以最低速率在空口广播）</td>
+</tr>
+<tr>
+<td>iPSK / dPSK</td>
+<td>每设备预共享密钥</td>
+</tr>
+<tr>
+<td>SGT / TrustSec</td>
+<td>安全组标签（用于微隔离）</td>
+</tr>
+<tr>
+<td>CoA</td>
+<td>授权变更（RADIUS 动态改策略）</td>
+</tr>
+<tr>
+<td>Dead Time</td>
+<td>认证服务器失效期间（跳过该服务器的时长）</td>
+</tr>
+<tr>
+<td>Session Timeout</td>
+<td>会话超时（重认证周期）</td>
+</tr>
+<tr>
+<td>Private MAC Randomization</td>
+<td>私有 MAC 随机化（导致租约数与 MAC 认证失效）</td>
+</tr>
+<tr>
+<td>AP-on-a-stick</td>
+<td>单 AP 实地勘测法</td>
+</tr>
+<tr>
+<td>WLC HA SSO</td>
+<td>控制器主备状态同步（切换 &lt; 1 s）</td>
+</tr>
+<tr>
+<td>APSP</td>
+<td>AP Service Pack（AP 固件包，需与 WLC 版本匹配）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12">第 12 章 · 自动化<a class="anchor" href="#12" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 88 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZTP</td>
+<td>零接触部署</td>
+</tr>
+<tr>
+<td>IaC</td>
+<td>基础设施即代码</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>持续集成/持续部署</td>
+</tr>
+<tr>
+<td>Ansible</td>
+<td>自动化工具</td>
+</tr>
+<tr>
+<td>Terraform</td>
+<td>基础设施编排工具</td>
+</tr>
+<tr>
+<td>Playbook</td>
+<td>Ansible 自动化任务定义</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>幂等性</td>
+</tr>
+<tr>
+<td>NETCONF</td>
+<td>网络配置协议</td>
+</tr>
+<tr>
+<td>RESTCONF</td>
+<td>RESTful 配置协议</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>gRPC 网络管理接口</td>
+</tr>
+<tr>
+<td>YANG</td>
+<td>数据建模语言</td>
+</tr>
+<tr>
+<td>OpenConfig</td>
+<td>开放配置模型</td>
+</tr>
+<tr>
+<td>Version Control</td>
+<td>版本控制</td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>流水线</td>
+</tr>
+<tr>
+<td>Day 0 / Day 1 / Day 2</td>
+<td>到货安装 / 上线纳管 / 日常变更与运维</td>
+</tr>
+<tr>
+<td>PnP</td>
+<td>即插即用（Cisco 零接触部署）</td>
+</tr>
+<tr>
+<td>SZiP / 802.1AR</td>
+<td>安全唯一标识 / 设备身份证书标准</td>
+</tr>
+<tr>
+<td>Bootstrap</td>
+<td>引导配置（最小化初始配置）</td>
+</tr>
+<tr>
+<td>DHCP Option 43</td>
+<td>向设备下发控制器地址的私有选项</td>
+</tr>
+<tr>
+<td>Declarative / Imperative</td>
+<td>声明式 / 命令式</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>幂等性（重复执行结果一致）</td>
+</tr>
+<tr>
+<td>Drift</td>
+<td>配置漂移</td>
+</tr>
+<tr>
+<td>SoT</td>
+<td>单一数据源</td>
+</tr>
+<tr>
+<td>IPAM / DCIM</td>
+<td>IP 地址管理 / 数据中心基础设施管理</td>
+</tr>
+<tr>
+<td>Jinja2</td>
+<td>配置模板引擎</td>
+</tr>
+<tr>
+<td>Playbook / Inventory / Role</td>
+<td>Ansible 的编排 / 清单 / 复用单元</td>
+</tr>
+<tr>
+<td>Check Mode</td>
+<td>Ansible 演练模式（不实际下发）</td>
+</tr>
+<tr>
+<td>Screen Scraping</td>
+<td>屏幕抓取（解析 CLI 文本输出）</td>
+</tr>
+<tr>
+<td>Nornir</td>
+<td>Python 网络自动化框架</td>
+</tr>
+<tr>
+<td>Netmiko</td>
+<td>多厂商 SSH CLI 库</td>
+</tr>
+<tr>
+<td>NAPALM</td>
+<td>多厂商统一网络抽象层</td>
+</tr>
+<tr>
+<td>pyATS / Genie</td>
+<td>Cisco 测试与解析框架</td>
+</tr>
+<tr>
+<td>Batfish</td>
+<td>离线配置静态分析与可达性验证</td>
+</tr>
+<tr>
+<td>Digital Twin</td>
+<td>数字孪生（仿真环境中的网络副本）</td>
+</tr>
+<tr>
+<td>CML / containerlab</td>
+<td>网络仿真平台</td>
+</tr>
+<tr>
+<td>Canary / Ring</td>
+<td>灰度发布 / 灰度批次</td>
+</tr>
+<tr>
+<td>Blast Radius</td>
+<td>爆炸半径（故障影响范围）</td>
+</tr>
+<tr>
+<td>Rollback / Roll-forward</td>
+<td>回滚 / 前滚</td>
+</tr>
+<tr>
+<td>Manual Gate</td>
+<td>人工确认门禁</td>
+</tr>
+<tr>
+<td>CI / CD</td>
+<td>持续集成 / 持续交付（部署）</td>
+</tr>
+<tr>
+<td>GitOps</td>
+<td>以 Git 为唯一事实来源的运维范式</td>
+</tr>
+<tr>
+<td>Pull Request / Code Review</td>
+<td>合并请求 / 代码评审</td>
+</tr>
+<tr>
+<td>Lint</td>
+<td>静态代码/配置检查</td>
+</tr>
+<tr>
+<td>JSON Schema</td>
+<td>数据校验模式</td>
+</tr>
+<tr>
+<td>NETCONF</td>
+<td>网络配置协议（RFC 6241，SSH 830）</td>
+</tr>
+<tr>
+<td>RESTCONF</td>
+<td>RESTful 配置协议（RFC 8040）</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>gRPC 网络管理接口</td>
+</tr>
+<tr>
+<td>gRPC</td>
+<td>高性能 RPC 框架（基于 HTTP/2 + Protobuf）</td>
+</tr>
+<tr>
+<td>YANG</td>
+<td>数据建模语言（RFC 7950）</td>
+</tr>
+<tr>
+<td>OpenConfig</td>
+<td>厂商无关的 YANG 模型集合</td>
+</tr>
+<tr>
+<td>Datastore</td>
+<td>数据存储（running / candidate / startup）</td>
+</tr>
+<tr>
+<td>candidate config</td>
+<td>候选配置（可预校验、可整体提交）</td>
+</tr>
+<tr>
+<td>confirmed-commit</td>
+<td>确认提交（超时未确认自动回滚）</td>
+</tr>
+<tr>
+<td>rollback-on-error</td>
+<td>出错自动回滚能力</td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td>能力协商（HELLO 交换支持特性）</td>
+</tr>
+<tr>
+<td>MDT</td>
+<td>模型驱动遥测</td>
+</tr>
+<tr>
+<td>Dial-out / Dial-in</td>
+<td>设备主动推送 / 采集器拉取</td>
+</tr>
+<tr>
+<td>ON_CHANGE / SAMPLE</td>
+<td>变化触发 / 周期采样订阅</td>
+</tr>
+<tr>
+<td>Policy as Code</td>
+<td>以代码表达的合规策略</td>
+</tr>
+<tr>
+<td>Runbook</td>
+<td>操作手册（含回滚步骤）</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>平均修复时间</td>
+</tr>
+<tr>
+<td>Zero Trust（关联）</td>
+<td>零信任（自动化需与身份/权限结合）</td>
+</tr>
+<tr>
+<td>Intent / Derived / Device</td>
+<td>意图层 / 派生层 / 设备层（网络数据的三层结构）</td>
+</tr>
+<tr>
+<td>Derived Value</td>
+<td>派生值（由规则计算而非人工填写的值，如网关 IP = 子网 +1）</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>对账（期望状态与实际状态的持续比较与处置）</td>
+</tr>
+<tr>
+<td>Normalization</td>
+<td>归一化（消除等价写法差异后比对，否则漂移检测全是噪音）</td>
+</tr>
+<tr>
+<td>Exemption List</td>
+<td>豁免清单（无法纳入自动化的对象，须写明原因/责任人/复审日期）</td>
+</tr>
+<tr>
+<td>Pre-flight Check</td>
+<td>变更前置检查（下发前的阻断性校验）</td>
+</tr>
+<tr>
+<td>DORA Metrics</td>
+<td>前置时间 / 变更频率 / 变更失败率 / 恢复时长</td>
+</tr>
+<tr>
+<td>Blast Radius（依赖放大）</td>
+<td>爆炸半径；核心/出口/认证类变更需乘依赖放大系数</td>
+</tr>
+<tr>
+<td>candidate Lock</td>
+<td>NETCONF 候选配置锁（异常路径未释放会导致全网写入停摆）</td>
+</tr>
+<tr>
+<td>Capability Matrix</td>
+<td>设备能力矩阵（型号 × 版本 × 支持的模型/特性）</td>
+</tr>
+<tr>
+<td>YANG Deviation</td>
+<td>模型偏差（同一模型在特定设备上不支持某些节点）</td>
+</tr>
+<tr>
+<td>StrictUndefined</td>
+<td>Jinja2 严格模式（未定义变量直接失败，而非渲染为空）</td>
+</tr>
+<tr>
+<td>Negative Testing</td>
+<td>负向测试（故意注入坏数据，证明防线会拦）</td>
+</tr>
+<tr>
+<td>Sample Rate</td>
+<td>采样速率（遥测容量估算的核心参数）</td>
+</tr>
+<tr>
+<td>Collector / Pipeline</td>
+<td>遥测采集器与数据管道（需自监控丢样率与积压）</td>
+</tr>
+<tr>
+<td>Break-glass</td>
+<td>应急通道（平台失效时的手工操作路径，须演练）</td>
+</tr>
+<tr>
+<td>Secret Manager / Vault</td>
+<td>密钥管理系统（运行时注入凭据，避免落盘/进日志）</td>
+</tr>
+<tr>
+<td>Secret Scanning</td>
+<td>密钥扫描（pre-commit/CI 阻断凭据入库）</td>
+</tr>
+<tr>
+<td>Command Authorization</td>
+<td>命令授权（TACACS+ 限制自动化账号可执行的命令集）</td>
+</tr>
+<tr>
+<td>Least Privilege</td>
+<td>最小权限（自动化账号不能修改自身的恢复能力）</td>
+</tr>
+<tr>
+<td><code>prevent_destroy</code> / plan</td>
+<td>Terraform 生命周期保护 / 执行计划（必须先读破坏性动作）</td>
+</tr>
+<tr>
+<td>Workspace</td>
+<td>Terraform 环境隔离单元（生产/测试必须硬隔离）</td>
+</tr>
+<tr>
+<td>Adapter Layer</td>
+<td>适配层（吸收多厂商差异，隔离意图层与实现）</td>
+</tr>
+<tr>
+<td>CoE / Platform as Product</td>
+<td>卓越中心 / 平台即产品（自动化的两种组织模式）</td>
+</tr>
+<tr>
+<td>Circuit Breaker</td>
+<td>熔断器（自愈动作限次并在异常复发时停止）</td>
+</tr>
+<tr>
+<td>Bounded Action</td>
+<td>有界动作（幂等 + 次数上限 + 可回退的自动化动作）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13">第 13 章 · 组播设计<a class="anchor" href="#13" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 122 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multicast</td>
+<td>组播</td>
+</tr>
+<tr>
+<td>IGMP</td>
+<td>Internet 组管理协议</td>
+</tr>
+<tr>
+<td>IGMP Snooping</td>
+<td>IGMP 侦听</td>
+</tr>
+<tr>
+<td>PIM</td>
+<td>协议无关组播</td>
+</tr>
+<tr>
+<td>PIM-DM</td>
+<td>PIM 密集模式</td>
+</tr>
+<tr>
+<td>PIM-SM</td>
+<td>PIM 稀疏模式</td>
+</tr>
+<tr>
+<td>PIM-SSM</td>
+<td>源特定组播</td>
+</tr>
+<tr>
+<td>BiDir-PIM</td>
+<td>双向 PIM</td>
+</tr>
+<tr>
+<td>RPF</td>
+<td>反向路径转发</td>
+</tr>
+<tr>
+<td>RP</td>
+<td>汇聚点</td>
+</tr>
+<tr>
+<td>Auto-RP</td>
+<td>自动 RP</td>
+</tr>
+<tr>
+<td>BSR</td>
+<td>自举路由器</td>
+</tr>
+<tr>
+<td>Anycast-RP</td>
+<td>任播 RP</td>
+</tr>
+<tr>
+<td>SPT</td>
+<td>最短路径树</td>
+</tr>
+<tr>
+<td>RPT</td>
+<td>共享路径树 (RP Tree)</td>
+</tr>
+<tr>
+<td>MSDP</td>
+<td>组播源发现协议</td>
+</tr>
+<tr>
+<td>MBGP</td>
+<td>组播 BGP</td>
+</tr>
+<tr>
+<td>Phantom RP</td>
+<td>幻影 RP</td>
+</tr>
+<tr>
+<td>Live-Live</td>
+<td>双活组播</td>
+</tr>
+<tr>
+<td>FHRP-Aware PIM</td>
+<td>FHRP 感知 PIM</td>
+</tr>
+<tr>
+<td>ASM</td>
+<td>任意源组播（Any-Source Multicast）</td>
+</tr>
+<tr>
+<td>SFM</td>
+<td>单源组播（Source-Specific Multicast 的早期叫法）</td>
+</tr>
+<tr>
+<td>LHR / FHR</td>
+<td>最后一跳路由器 / 第一跳路由器</td>
+</tr>
+<tr>
+<td>DR</td>
+<td>PIM 指定路由器（负责 Join/Register）</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>BiDir PIM 的指定转发者</td>
+</tr>
+<tr>
+<td>Join / Prune</td>
+<td>PIM 加入 / 剪枝消息</td>
+</tr>
+<tr>
+<td>Register / Register-Stop</td>
+<td>PIM-SM 源注册 / 停止注册</td>
+</tr>
+<tr>
+<td>Assert</td>
+<td>PIM 断言（同一 LAN 选唯一转发者）</td>
+</tr>
+<tr>
+<td>Join Suppression</td>
+<td>加入抑制（避免重复 Join）</td>
+</tr>
+<tr>
+<td>State Refresh</td>
+<td>PIM-DM 的状态刷新</td>
+</tr>
+<tr>
+<td>Graft</td>
+<td>PIM-DM 的接回消息</td>
+</tr>
+<tr>
+<td>SPT / RPT</td>
+<td>最短路径树 / 共享树（RP 树）</td>
+</tr>
+<tr>
+<td><code>spt-threshold</code></td>
+<td>SPT 切换阈值</td>
+</tr>
+<tr>
+<td>RPF Failure</td>
+<td>反向路径检查失败</td>
+</tr>
+<tr>
+<td>静态 mroute</td>
+<td>静态组播路由（覆盖 RPF）</td>
+</tr>
+<tr>
+<td>MBGP / SAFI 2</td>
+<td>组播 BGP / 组播地址族</td>
+</tr>
+<tr>
+<td>MTR</td>
+<td>多拓扑路由</td>
+</tr>
+<tr>
+<td>SSM Mapping</td>
+<td>把 IGMPv2 加入映射为 (S,G)</td>
+</tr>
+<tr>
+<td>IGMP Querier</td>
+<td>IGMP 查询器（维持组成员关系）</td>
+</tr>
+<tr>
+<td>Mrouter Port</td>
+<td>组播路由器端口</td>
+</tr>
+<tr>
+<td>Report Suppression</td>
+<td>报告抑制</td>
+</tr>
+<tr>
+<td>MVR</td>
+<td>组播 VLAN 注册</td>
+</tr>
+<tr>
+<td>MVPN</td>
+<td>组播 VPN（MPLS）</td>
+</tr>
+<tr>
+<td>mLDP</td>
+<td>多点标签分发协议（P2MP LSP）</td>
+</tr>
+<tr>
+<td>Ingress Replication</td>
+<td>入口复制（overlay 的 BUM 复制方式）</td>
+</tr>
+<tr>
+<td>GRE</td>
+<td>通用路由封装（承载组播的隧道）</td>
+</tr>
+<tr>
+<td>PIM Boundary</td>
+<td>PIM 边界（限制组播扩散）</td>
+</tr>
+<tr>
+<td>TTL Threshold</td>
+<td>组播 TTL 阈值</td>
+</tr>
+<tr>
+<td>SA / SA-Cache</td>
+<td>源活跃消息 / 源活跃缓存（MSDP）</td>
+</tr>
+<tr>
+<td>mesh-group</td>
+<td>MSDP 网状组（减少 peer 数量）</td>
+</tr>
+<tr>
+<td>P2MP</td>
+<td>点到多点</td>
+</tr>
+<tr>
+<td>AAR</td>
+<td>应用感知路由（SD-WAN 关联概念）</td>
+</tr>
+<tr>
+<td>SPOF</td>
+<td>单点故障</td>
+</tr>
+<tr>
+<td>GLOP</td>
+<td>按 AS 号分配全球组播地址（233.0.0.0/8）</td>
+</tr>
+<tr>
+<td>SSM Range</td>
+<td>SSM 使用的组地址范围（默认 232.0.0.0/8）</td>
+</tr>
+<tr>
+<td>INCLUDE / EXCLUDE</td>
+<td>IGMPv3 的两种源过滤模式（白名单 / 黑名单）</td>
+</tr>
+<tr>
+<td>Group-and-Source-Specific Query</td>
+<td>IGMPv3 的组源特定查询</td>
+</tr>
+<tr>
+<td>General Query</td>
+<td>通用查询（0.0.0.0）</td>
+</tr>
+<tr>
+<td>Group-Specific Query</td>
+<td>组特定查询（Leave 后确认）</td>
+</tr>
+<tr>
+<td>Max Response Time</td>
+<td>最大响应时间（主机随机延迟）</td>
+</tr>
+<tr>
+<td>Other Querier Present Timeout</td>
+<td>其他查询者存在超时（260 s）</td>
+</tr>
+<tr>
+<td>Last Member Query Interval</td>
+<td>最后成员查询间隔（离开时延）</td>
+</tr>
+<tr>
+<td>Fast Leave</td>
+<td>快速离开（收到 Leave 立即删除端口）</td>
+</tr>
+<tr>
+<td>IGMP Profile / Filter</td>
+<td>IGMP 组白名单（接入层限制可加入的组）</td>
+</tr>
+<tr>
+<td>IGMP Limit</td>
+<td>每端口/VLAN 组数上限</td>
+</tr>
+<tr>
+<td>MLD / MLDv2</td>
+<td>IPv6 的组管理协议</td>
+</tr>
+<tr>
+<td>MLD Snooping</td>
+<td>IPv6 的二层组播侦听</td>
+</tr>
+<tr>
+<td>PIM Hello</td>
+<td>PIM 邻居发现与能力协商报文</td>
+</tr>
+<tr>
+<td>Holdtime</td>
+<td>Join/Hello/SA 的有效期</td>
+</tr>
+<tr>
+<td>Join Suppression</td>
+<td>Join 抑制</td>
+</tr>
+<tr>
+<td>Prune Override</td>
+<td>剪枝否决（同 LAN 保留转发）</td>
+</tr>
+<tr>
+<td>Encoded Group / Source</td>
+<td>PIM Join 报文中的组/源编码</td>
+</tr>
+<tr>
+<td>Wildcard（W 位）</td>
+<td>(*,G) 的标志位</td>
+</tr>
+<tr>
+<td>RP-bit（R 位）</td>
+<td>指向 RP 的共享树标志</td>
+</tr>
+<tr>
+<td>SSM-bit（s 位）</td>
+<td>mroute 中标识 SSM</td>
+</tr>
+<tr>
+<td>SPT-bit（T 位）</td>
+<td>已收 SPT 流量</td>
+</tr>
+<tr>
+<td>OIL（Outgoing Interface List）</td>
+<td>mroute 的出接口列表</td>
+</tr>
+<tr>
+<td>MFIB</td>
+<td>组播转发信息库（数据面）</td>
+</tr>
+<tr>
+<td>RPF Neighbor</td>
+<td>RPF 邻居（上游）</td>
+</tr>
+<tr>
+<td>RPF Failure</td>
+<td>RPF 检查失败</td>
+</tr>
+<tr>
+<td>RPF Override（静态 mroute）</td>
+<td>用静态路由覆盖 RPF 判断</td>
+</tr>
+<tr>
+<td>MPF（Multicast Forwarding）</td>
+<td>组播转发</td>
+</tr>
+<tr>
+<td>Register Rate Limit</td>
+<td>Register 速率限制（抑制风暴）</td>
+</tr>
+<tr>
+<td>Register Probe</td>
+<td>FHR 在 Register-Stop 后的周期性探测</td>
+</tr>
+<tr>
+<td>DR Priority</td>
+<td>PIM DR 优先级</td>
+</tr>
+<tr>
+<td>Assert Metric</td>
+<td>Assert 选举使用的度量</td>
+</tr>
+<tr>
+<td>DF Election</td>
+<td>BiDir 指定转发者选举</td>
+</tr>
+<tr>
+<td>Phantom RP</td>
+<td>不存在的 RP 地址（用路由"分区"指物理 RP）</td>
+</tr>
+<tr>
+<td>Scoped Zone</td>
+<td>管理范围（组播域分层）</td>
+</tr>
+<tr>
+<td>Multicast Boundary</td>
+<td>组播地址边界（ACL 过滤）</td>
+</tr>
+<tr>
+<td>TTL Threshold</td>
+<td>组播 TTL 阈值（按跳数限制范围）</td>
+</tr>
+<tr>
+<td>BSR Border</td>
+<td>BSR 边界（阻断 RP-Set 越界）</td>
+</tr>
+<tr>
+<td>RP-Set</td>
+<td>BSR 分发的 RP 集合</td>
+</tr>
+<tr>
+<td>C-RP / C-BSR</td>
+<td>候选 RP / 候选 BSR</td>
+</tr>
+<tr>
+<td>RP Priority / RP Hash</td>
+<td>RP 选择依据</td>
+</tr>
+<tr>
+<td>MSDP SA（Source-Active）</td>
+<td>源活跃消息</td>
+</tr>
+<tr>
+<td>SA Cache</td>
+<td>SA 缓存（跨 RP 建树依据）</td>
+</tr>
+<tr>
+<td>SA Request / Response</td>
+<td>SA 请求与响应</td>
+</tr>
+<tr>
+<td>MD5 / TCP-AO</td>
+<td>MSDP/PIM 的认证方式</td>
+</tr>
+<tr>
+<td>MVPN</td>
+<td>组播 VPN</td>
+</tr>
+<tr>
+<td>MDT（Default / Data）</td>
+<td>组播分发树（默认/数据）</td>
+</tr>
+<tr>
+<td>I-PMSI / S-PMSI</td>
+<td>包含性/选择性 P-MSI（MVPN 树）</td>
+</tr>
+<tr>
+<td>A-D Route</td>
+<td>自动发现路由（MVPN BGP）</td>
+</tr>
+<tr>
+<td>Rosen / Partitioned MDT</td>
+<td>MVPN 的 profile 形态</td>
+</tr>
+<tr>
+<td>Ingress Replication</td>
+<td>入口复制（overlay BUM）</td>
+</tr>
+<tr>
+<td>Assisted Replication</td>
+<td>辅助复制（指定复制服务器）</td>
+</tr>
+<tr>
+<td>EVPN Multicast</td>
+<td>基于 EVPN 的组播优化</td>
+</tr>
+<tr>
+<td>IGMP Proxy</td>
+<td>IGMP 代理（防火墙场景）</td>
+</tr>
+<tr>
+<td>Multicast-to-Unicast</td>
+<td>组播转单播（无线）</td>
+</tr>
+<tr>
+<td>Multicast Direct</td>
+<td>Cisco WLC 的组播转单播特性</td>
+</tr>
+<tr>
+<td>FCC（Fast Channel Change）</td>
+<td>快速频道切换</td>
+</tr>
+<tr>
+<td>ST 2022-7</td>
+<td>无缝保护切换（Live-Live 标准）</td>
+</tr>
+<tr>
+<td>FEC（前向纠错）</td>
+<td>冗余校验恢复丢包</td>
+</tr>
+<tr>
+<td>Microburst</td>
+<td>微突发（毫秒级超线速）</td>
+</tr>
+<tr>
+<td>Output Drops</td>
+<td>出方向丢弃（队列溢出）</td>
+</tr>
+<tr>
+<td>PIM over GRE</td>
+<td>用 GRE 承载组播</td>
+</tr>
+<tr>
+<td>mLDP</td>
+<td>多点标签分发协议</td>
+</tr>
+<tr>
+<td>P2MP LSP</td>
+<td>点到多点标签交换路径</td>
+</tr>
+<tr>
+<td>Multicast VRF</td>
+<td>组播 VRF（MVPN 客户侧）</td>
+</tr>
+<tr>
+<td>MoFRR</td>
+<td>组播快速重路由（厂商特性）</td>
+</tr>
+<tr>
+<td>UMH（Upstream Multicast Hop）</td>
+<td>MVPN 中的上游组播跳选择</td>
+</tr>
+<tr>
+<td>RPF Vector</td>
+<td>MVPN 中辅助 RPF 的 BGP 属性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="14">第 14 章 · 网络服务与管理<a class="anchor" href="#14" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part II · 核心技术设计 · 94 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GUA</td>
+<td>全球单播地址（2000::/3）</td>
+</tr>
+<tr>
+<td>ULA</td>
+<td>唯一本地地址（FC00::/7，常用 FD00::/8）</td>
+</tr>
+<tr>
+<td>LLA</td>
+<td>链路本地地址（FE80::/10）</td>
+</tr>
+<tr>
+<td>IID</td>
+<td>接口标识（低 64 位）</td>
+</tr>
+<tr>
+<td>SLAAC</td>
+<td>无状态地址自动配置（RFC 4862）</td>
+</tr>
+<tr>
+<td>DHCPv6</td>
+<td>有状态/无状态 IPv6 地址与参数分配</td>
+</tr>
+<tr>
+<td>NDP</td>
+<td>邻居发现协议（RS/RA/NS/NA/Redirect）</td>
+</tr>
+<tr>
+<td>DAD</td>
+<td>重复地址检测</td>
+</tr>
+<tr>
+<td>RS / RA</td>
+<td>路由器请求/通告</td>
+</tr>
+<tr>
+<td>NS / NA</td>
+<td>邻居请求/通告（地址解析）</td>
+</tr>
+<tr>
+<td>RDNSS</td>
+<td>RA 中携带 DNS 服务器（RFC 8106）</td>
+</tr>
+<tr>
+<td>PMTUD</td>
+<td>路径 MTU 发现（依赖 ICMPv6 Type 2）</td>
+</tr>
+<tr>
+<td>PTB</td>
+<td>Packet Too Big（ICMPv6 Type 2）</td>
+</tr>
+<tr>
+<td>MLD</td>
+<td>组播监听发现（IPv6 版 IGMP）</td>
+</tr>
+<tr>
+<td>RA Guard</td>
+<td>防伪造路由器通告</td>
+</tr>
+<tr>
+<td>ND Inspection</td>
+<td>防伪造邻居通告/地址劫持</td>
+</tr>
+<tr>
+<td>DHCPv6 Guard</td>
+<td>防非法 DHCPv6 服务器</td>
+</tr>
+<tr>
+<td>SAVI</td>
+<td>源地址有效性验证改进</td>
+</tr>
+<tr>
+<td>SEND</td>
+<td>安全的邻居发现（部署很少）</td>
+</tr>
+<tr>
+<td>PI / PA</td>
+<td>独立于运营商 / 运营商聚合地址</td>
+</tr>
+<tr>
+<td>NPTv6</td>
+<td>IPv6 前缀转换（无端口）</td>
+</tr>
+<tr>
+<td>NAT64 / DNS64</td>
+<td>v6-only 访问 v4 的翻译与 DNS 合成</td>
+</tr>
+<tr>
+<td>464XLAT</td>
+<td>CLAT+PLAT 的无状态翻译方案（RFC 6877）</td>
+</tr>
+<tr>
+<td>DS-Lite</td>
+<td>v4 over v6 隧道 + 集中 CGN</td>
+</tr>
+<tr>
+<td>MAP-E / MAP-T</td>
+<td>基于映射的地址+端口复用</td>
+</tr>
+<tr>
+<td>RFC 6724</td>
+<td>默认地址选择规则（源地址选择）</td>
+</tr>
+<tr>
+<td>RFC 5549</td>
+<td>用 IPv4 下一跳承载 IPv6 前缀</td>
+</tr>
+<tr>
+<td>RFC 6164</td>
+<td>点到点链路用 /127</td>
+</tr>
+<tr>
+<td>BCP 38 / uRPF</td>
+<td>入向源地址过滤（多宿主的隐形杀手）</td>
+</tr>
+<tr>
+<td>DiffServ</td>
+<td>区分服务（按类处理，核心无状态）</td>
+</tr>
+<tr>
+<td>IntServ / RSVP</td>
+<td>集成服务/资源预留（每流状态）</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>差分服务代码点（6 位）</td>
+</tr>
+<tr>
+<td>ToS / Traffic Class</td>
+<td>IP 头中的服务字段</td>
+</tr>
+<tr>
+<td>802.1p / CoS</td>
+<td>二层优先级（3 位）</td>
+</tr>
+<tr>
+<td>EXP / TC</td>
+<td>MPLS 实验位/流类字段（3 位）</td>
+</tr>
+<tr>
+<td>PHB</td>
+<td>每跳行为</td>
+</tr>
+<tr>
+<td>EF</td>
+<td>加速转发（46）</td>
+</tr>
+<tr>
+<td>AFxy</td>
+<td>确保转发（类 x、丢弃优先级 y）</td>
+</tr>
+<tr>
+<td>CSx</td>
+<td>类选择器（CS0–CS7）</td>
+</tr>
+<tr>
+<td>DF / BE</td>
+<td>默认/尽力而为（0）</td>
+</tr>
+<tr>
+<td>VA</td>
+<td>Voice Admit（44，CAC 后语音）</td>
+</tr>
+<tr>
+<td>LLQ</td>
+<td>低延迟队列（严格优先 + 限速）</td>
+</tr>
+<tr>
+<td>CBWFQ</td>
+<td>基于类的加权公平队列</td>
+</tr>
+<tr>
+<td>WRED</td>
+<td>加权随机早期检测</td>
+</tr>
+<tr>
+<td>ECN</td>
+<td>显式拥塞通知（RFC 3168）</td>
+</tr>
+<tr>
+<td>Policing</td>
+<td>监管（超限丢弃/降级）</td>
+</tr>
+<tr>
+<td>Shaping</td>
+<td>整形（缓冲超额、平滑输出）</td>
+</tr>
+<tr>
+<td>HQoS</td>
+<td>层级化 QoS（父整形 + 子队列）</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>CoPP</td>
+<td>控制面策略（保护设备 CPU）</td>
+</tr>
+<tr>
+<td>Serialization Delay</td>
+<td>序列化延迟（帧长/链路速率）</td>
+</tr>
+<tr>
+<td>MOS</td>
+<td>语音质量评分（1–5，≥4.0 为良好）</td>
+</tr>
+<tr>
+<td>G.114</td>
+<td>单向时延 ≤150 ms 的建议</td>
+</tr>
+<tr>
+<td>WMM</td>
+<td>无线多媒体（VO/VI/BE/BK 四类）</td>
+</tr>
+<tr>
+<td>LFI</td>
+<td>链路分片与交错（低带宽语音）</td>
+</tr>
+<tr>
+<td>Scavenger Class</td>
+<td>最低优先级类（P2P/更新）</td>
+</tr>
+<tr>
+<td>FCAPS</td>
+<td>故障/配置/计费/性能/安全（ISO 管理域）</td>
+</tr>
+<tr>
+<td>OOB</td>
+<td>带外管理</td>
+</tr>
+<tr>
+<td>管理 VRF</td>
+<td>隔离管理流量的路由实例</td>
+</tr>
+<tr>
+<td>SNMP</td>
+<td>简单网络管理协议（v2c/v3）</td>
+</tr>
+<tr>
+<td>MIB / OID</td>
+<td>管理信息库/对象标识</td>
+</tr>
+<tr>
+<td>VACM</td>
+<td>视图访问控制模型（SNMPv3）</td>
+</tr>
+<tr>
+<td>Trap / Inform</td>
+<td>陷阱（无确认）/通知（有确认）</td>
+</tr>
+<tr>
+<td>GetBulk</td>
+<td>批量读取（减少往返）</td>
+</tr>
+<tr>
+<td>Syslog</td>
+<td>系统日志（severity 0–7）</td>
+</tr>
+<tr>
+<td>RFC 5424</td>
+<td>Syslog 协议格式（结构化数据）</td>
+</tr>
+<tr>
+<td>NetFlow / IPFIX</td>
+<td>流导出（v9 模板/IPFIX RFC 7011）</td>
+</tr>
+<tr>
+<td>sFlow</td>
+<td>包采样流量统计</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>gRPC 网络管理接口（配置+遥测）</td>
+</tr>
+<tr>
+<td>Streaming Telemetry</td>
+<td>流式遥测（推送模型）</td>
+</tr>
+<tr>
+<td>Dial-in / Dial-out</td>
+<td>采集器连设备 / 设备连采集器</td>
+</tr>
+<tr>
+<td>ON_CHANGE / SAMPLE</td>
+<td>变化触发 / 周期采样订阅</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>主动合成探测（延迟/抖动/丢包）</td>
+</tr>
+<tr>
+<td>SLI / SLO</td>
+<td>服务指标/服务目标</td>
+</tr>
+<tr>
+<td>MTTD / MTTR</td>
+<td>平均发现时间/平均修复时间</td>
+</tr>
+<tr>
+<td>NTP</td>
+<td>网络时间协议（stratum 层级）</td>
+</tr>
+<tr>
+<td>PTP</td>
+<td>精确时间协议（IEEE 1588，亚微秒）</td>
+</tr>
+<tr>
+<td>NTP 认证</td>
+<td>防伪造时间源</td>
+</tr>
+<tr>
+<td>DHCP option 82</td>
+<td>中继信息（circuit-id/remote-id）</td>
+</tr>
+<tr>
+<td>DHCP snooping</td>
+<td>防私设 DHCP 服务器</td>
+</tr>
+<tr>
+<td>DHCPv6 PD</td>
+<td>前缀委派（分支机构获取 /56）</td>
+</tr>
+<tr>
+<td>T1 / T2</td>
+<td>续租定时器（50%/87.5%）</td>
+</tr>
+<tr>
+<td>DNS 递归/权威</td>
+<td>代查 / 本域权威应答</td>
+</tr>
+<tr>
+<td>条件转发</td>
+<td>按域转发到指定解析器</td>
+</tr>
+<tr>
+<td>DNSSEC</td>
+<td>DNS 数据签名验证</td>
+</tr>
+<tr>
+<td>DoT / DoH</td>
+<td>DNS over TLS / HTTPS</td>
+</tr>
+<tr>
+<td>Anycast DNS</td>
+<td>同一地址多点部署（就近+冗余）</td>
+</tr>
+<tr>
+<td>RADIUS</td>
+<td>接入认证（UDP 1812/1813，密码加密）</td>
+</tr>
+<tr>
+<td>TACACS+</td>
+<td>设备管理 AAA（TCP 49，全负载加密，命令级授权）</td>
+</tr>
+<tr>
+<td>IPAM</td>
+<td>IP 地址管理系统</td>
+</tr>
+<tr>
+<td>PKI / CRL / OCSP</td>
+<td>证书体系/吊销列表/在线状态查询</td>
+</tr>
+<tr>
+<td>Flap Damping</td>
+<td>抖动抑制（N 次/M 分钟）</td>
+</tr>
+<tr>
+<td>Parent-Child Suppression</td>
+<td>父子告警抑制</td>
+</tr>
+<tr>
+<td>Runbook</td>
+<td>处置手册（每条告警对应动作）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="15">第 15 章 · 可扩展企业园区架构设计<a class="anchor" href="#15" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part III · 企业网络架构 · 45 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Three-Tier Model</td>
+<td>三层模型（核心/分布/接入）</td>
+</tr>
+<tr>
+<td>Two-Tier Model / Collapsed Core</td>
+<td>二层模型（核心与分布合一）</td>
+</tr>
+<tr>
+<td>Functional Distribution Block</td>
+<td>功能分布块（拥有自己分布层的块）</td>
+</tr>
+<tr>
+<td>Access–Distribution Model</td>
+<td>接入—分布设计模型</td>
+</tr>
+<tr>
+<td>Multitier STP Based</td>
+<td>多层 STP 模型（L2 到分布层）</td>
+</tr>
+<tr>
+<td>Routed Access</td>
+<td>路由接入（L3 网关在接入层）</td>
+</tr>
+<tr>
+<td>Switch Clustering</td>
+<td>交换机集群（多台呈现为一台）</td>
+</tr>
+<tr>
+<td>mLAG</td>
+<td>跨设备链路聚合</td>
+</tr>
+<tr>
+<td>Gold Plating</td>
+<td>过度设计（超出需求的设计）</td>
+</tr>
+<tr>
+<td>Fate Sharing</td>
+<td>命运共享（共享底层即共享故障）</td>
+</tr>
+<tr>
+<td>Many-to-One / One-to-Many</td>
+<td>多对一 / 一对多虚拟化</td>
+</tr>
+<tr>
+<td>STP / RSTP / MSTP</td>
+<td>生成树 / 快速生成树 / 多实例生成树</td>
+</tr>
+<tr>
+<td>Root Guard / BPDU Guard / Loop Guard</td>
+<td>根保护 / BPDU 保护 / 环路保护</td>
+</tr>
+<tr>
+<td>UDLD</td>
+<td>单向链路检测（光纤单通防护）</td>
+</tr>
+<tr>
+<td>Storm Control</td>
+<td>广播/组播/未知单播风暴抑制</td>
+</tr>
+<tr>
+<td>FHRP / HSRP / VRRP</td>
+<td>首跳冗余协议 / 热备路由协议 / 虚拟路由冗余协议</td>
+</tr>
+<tr>
+<td>vPC / VSS / StackWise</td>
+<td>虚拟端口通道 / 虚拟交换系统 / 堆叠技术</td>
+</tr>
+<tr>
+<td>peer-link / peer-keepalive</td>
+<td>vPC 对等链路 / 对等保活链路</td>
+</tr>
+<tr>
+<td>Orphan Port</td>
+<td>仅归属单台 vPC 成员的端口</td>
+</tr>
+<tr>
+<td>Dual-Active</td>
+<td>双主（集群分裂）</td>
+</tr>
+<tr>
+<td>EIGRP / DUAL</td>
+<td>增强内部网关路由协议 / 扩散更新算法</td>
+</tr>
+<tr>
+<td>Stub Routing</td>
+<td>末梢路由（不转发查询）</td>
+</tr>
+<tr>
+<td>SIA (Stuck-in-Active)</td>
+<td>卡在活跃状态（EIGRP 收敛超时）</td>
+</tr>
+<tr>
+<td>OSPF Area / ABR / ASBR</td>
+<td>OSPF 区域 / 区域边界路由器 / 自治系统边界路由器</td>
+</tr>
+<tr>
+<td>Area Range / Summary-address</td>
+<td>区域汇总 / 汇总地址</td>
+</tr>
+<tr>
+<td>Stub / Totally-Stubby Area</td>
+<td>末梢 / 完全末梢区域</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测（毫秒级故障检测）</td>
+</tr>
+<tr>
+<td>ECMP</td>
+<td>等价多路径</td>
+</tr>
+<tr>
+<td>Route Summarization</td>
+<td>路由汇总（同时带来次优代价）</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>主动探测（用于 track 与切换）</td>
+</tr>
+<tr>
+<td>VRF / VRF-Lite</td>
+<td>虚拟路由转发实例 / 无 MPLS 的 VRF</td>
+</tr>
+<tr>
+<td>RD / RT</td>
+<td>路由区分符 / 路由目标（MP-BGP 控制导入导出）</td>
+</tr>
+<tr>
+<td>MP-BGP / VPNv4</td>
+<td>多协议 BGP / VPN IPv4 地址族</td>
+</tr>
+<tr>
+<td>RR (Route Reflector)</td>
+<td>路由反射器</td>
+</tr>
+<tr>
+<td>GRE / mGRE / NHRP</td>
+<td>通用路由封装 / 多点 GRE / 下一跳解析协议</td>
+</tr>
+<tr>
+<td>VXLAN / EVPN</td>
+<td>虚拟可扩展局域网 / 以太网 VPN（现代覆盖）</td>
+</tr>
+<tr>
+<td>VNI / VN</td>
+<td>VXLAN 网络标识 / 虚拟网络</td>
+</tr>
+<tr>
+<td>Fusion Router</td>
+<td>融合路由器（合并多个 VRF 访问共享服务）</td>
+</tr>
+<tr>
+<td>VRF-Aware NAT</td>
+<td>感知 VRF 的地址转换</td>
+</tr>
+<tr>
+<td>VASI</td>
+<td>VRF 感知服务基础设施（节点内 VRF 互联）</td>
+</tr>
+<tr>
+<td>vFW / Context</td>
+<td>虚拟防火墙 / 防火墙虚拟上下文</td>
+</tr>
+<tr>
+<td>NFV</td>
+<td>网络功能虚拟化</td>
+</tr>
+<tr>
+<td>Service Chaining / SFC</td>
+<td>服务链 / 服务功能链</td>
+</tr>
+<tr>
+<td>SGT / SXP</td>
+<td>安全组标记 / 安全组交换协议（SDA 常用）</td>
+</tr>
+<tr>
+<td>SDA / LISP</td>
+<td>软件定义接入 / 位置与身份分离协议</td>
+</tr>
+</tbody>
+</table>
+<h2 id="16">第 16 章 · 企业互联网边缘架构设计<a class="anchor" href="#16" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part III · 企业网络架构 · 53 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Edge</td>
+<td>互联网边缘</td>
+</tr>
+<tr>
+<td>Edge Router / Border Router</td>
+<td>边缘路由器 / 边界路由器</td>
+</tr>
+<tr>
+<td>Edge Distribution Layer</td>
+<td>边缘分布层（聚合边缘设备、接内部核心）</td>
+</tr>
+<tr>
+<td>DMZ (Demilitarized Zone)</td>
+<td>非军事区（对外服务区）</td>
+</tr>
+<tr>
+<td>Reverse Proxy</td>
+<td>反向代理</td>
+</tr>
+<tr>
+<td>Internet Edge Functions</td>
+<td>边缘功能集合（路由/NAT/检测/发布/接入）</td>
+</tr>
+<tr>
+<td>Stateful Inspection</td>
+<td>状态检测</td>
+</tr>
+<tr>
+<td>uRPF (Unicast RPF)</td>
+<td>单播反向路径转发</td>
+</tr>
+<tr>
+<td>Transparent / Routed Mode</td>
+<td>透明模式 / 路由模式</td>
+</tr>
+<tr>
+<td>Single-Homed</td>
+<td>单宿主（单一 ISP、单一链路）</td>
+</tr>
+<tr>
+<td>Multihomed</td>
+<td>多宿主</td>
+</tr>
+<tr>
+<td>Dual-Homed</td>
+<td>双宿主（同一 ISP 两条链路）</td>
+</tr>
+<tr>
+<td>Dual-Multihomed</td>
+<td>双运营商双宿主</td>
+</tr>
+<tr>
+<td>Active-Standby</td>
+<td>主备（主动-备用）</td>
+</tr>
+<tr>
+<td>Load Sharing</td>
+<td>负载分担</td>
+</tr>
+<tr>
+<td>PA (Provider Aggregatable)</td>
+<td>提供商聚合地址</td>
+</tr>
+<tr>
+<td>PI (Provider Independent)</td>
+<td>提供商无关地址</td>
+</tr>
+<tr>
+<td>AS (Autonomous System)</td>
+<td>自治系统</td>
+</tr>
+<tr>
+<td>Private AS</td>
+<td>私有 AS 号（64512–65534）</td>
+</tr>
+<tr>
+<td>eBGP Multihop</td>
+<td>eBGP 多跳对等</td>
+</tr>
+<tr>
+<td>Local Preference</td>
+<td>本地优先级</td>
+</tr>
+<tr>
+<td>MED (Multi-Exit Discriminator)</td>
+<td>多出口鉴别器</td>
+</tr>
+<tr>
+<td>AS-Path Prepending</td>
+<td>AS 路径预置（人为加长）</td>
+</tr>
+<tr>
+<td>Community</td>
+<td>团体属性（用于策略标记）</td>
+</tr>
+<tr>
+<td>Next-Hop-Self</td>
+<td>下一跳自指</td>
+</tr>
+<tr>
+<td>BGP Route Reflector</td>
+<td>路由反射器</td>
+</tr>
+<tr>
+<td>RPKI / ROA</td>
+<td>资源公钥基础设施 / 路由起源授权</td>
+</tr>
+<tr>
+<td>GTSM / TTL Security</td>
+<td>通用 TTL 安全机制</td>
+</tr>
+<tr>
+<td>Maximum-Prefix</td>
+<td>最大前缀数限制</td>
+</tr>
+<tr>
+<td>RTBH (Remotely Triggered Black Hole)</td>
+<td>远端触发黑洞</td>
+</tr>
+<tr>
+<td>Flowspec</td>
+<td>流规范（按流下发过滤）</td>
+</tr>
+<tr>
+<td>NAT44</td>
+<td>IPv4 到 IPv4 地址转换</td>
+</tr>
+<tr>
+<td>NAT444 / CGNAT</td>
+<td>双层 NAT / 运营商级 NAT</td>
+</tr>
+<tr>
+<td>NAT64 / DNS64</td>
+<td>IPv6 与 IPv4 互访的转换机制</td>
+</tr>
+<tr>
+<td>NPTv6</td>
+<td>IPv6 前缀转换（无状态）</td>
+</tr>
+<tr>
+<td>PAT / Overload</td>
+<td>端口复用</td>
+</tr>
+<tr>
+<td>NAT Pool</td>
+<td>地址池</td>
+</tr>
+<tr>
+<td>Port Exhaustion</td>
+<td>端口耗尽</td>
+</tr>
+<tr>
+<td>Session Table</td>
+<td>会话表</td>
+</tr>
+<tr>
+<td>Split Tunnel</td>
+<td>分离隧道（仅内网流量走 VPN）</td>
+</tr>
+<tr>
+<td>ZTNA</td>
+<td>零信任网络访问</td>
+</tr>
+<tr>
+<td>SASE</td>
+<td>安全访问服务边缘</td>
+</tr>
+<tr>
+<td>DDoS</td>
+<td>分布式拒绝服务攻击</td>
+</tr>
+<tr>
+<td>Scrubbing Center</td>
+<td>清洗中心</td>
+</tr>
+<tr>
+<td>Anycast</td>
+<td>任播（多地点同一地址）</td>
+</tr>
+<tr>
+<td>WAF</td>
+<td>Web 应用防火墙</td>
+</tr>
+<tr>
+<td>BCP38</td>
+<td>出口源地址过滤最佳实践</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>IP 服务等级协议探测（Cisco）</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测</td>
+</tr>
+<tr>
+<td>HSRP / VRRP</td>
+<td>首跳冗余协议</td>
+</tr>
+<tr>
+<td>State Synchronization</td>
+<td>状态同步（HA 会话复制）</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>直接互联网接入</td>
+</tr>
+<tr>
+<td>Cloud On-Ramp</td>
+<td>云接入点（专线/IPsec/SD-WAN）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="17-wan">第 17 章 · 企业WAN架构设计<a class="anchor" href="#17-wan" title="Permanent link"></a></h2>
+<p><span class="ch-words">Part III · 企业网络架构 · 52 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WAN (Wide Area Network)</td>
+<td>广域网</td>
+</tr>
+<tr>
+<td>L2 MPLS VPN</td>
+<td>二层 MPLS VPN（运营商提供二层管道）</td>
+</tr>
+<tr>
+<td>L3 MPLS VPN</td>
+<td>三层 MPLS VPN（运营商提供 VRF 路由）</td>
+</tr>
+<tr>
+<td>VPLS (E-LAN)</td>
+<td>虚拟专用局域网服务（多点二层）</td>
+</tr>
+<tr>
+<td>VLL / Pseudowire (E-Line)</td>
+<td>虚拟租用线路（点对点二层）</td>
+</tr>
+<tr>
+<td>E-Tree</td>
+<td>一点到多点二层服务</td>
+</tr>
+<tr>
+<td>Metro Ethernet</td>
+<td>城域以太网</td>
+</tr>
+<tr>
+<td>Last Mile</td>
+<td>最后一公里（本地环路）</td>
+</tr>
+<tr>
+<td>CIR (Committed Information Rate)</td>
+<td>承诺信息速率</td>
+</tr>
+<tr>
+<td>Hub-Spoke</td>
+<td>星型（中心-分支）拓扑</td>
+</tr>
+<tr>
+<td>Partial Mesh</td>
+<td>部分网状</td>
+</tr>
+<tr>
+<td>Any-to-Any</td>
+<td>全互联</td>
+</tr>
+<tr>
+<td>CE / PE / P</td>
+<td>客户边缘 / 运营商边缘 / 运营商骨干</td>
+</tr>
+<tr>
+<td>CPE (Customer Premises Equipment)</td>
+<td>客户侧设备</td>
+</tr>
+<tr>
+<td>Overlay / Underlay</td>
+<td>覆盖网络 / 底层承载网络</td>
+</tr>
+<tr>
+<td>IPsec</td>
+<td>IP 安全协议（加密与认证）</td>
+</tr>
+<tr>
+<td>IKEv1 / IKEv2</td>
+<td>因特网密钥交换协议</td>
+</tr>
+<tr>
+<td>SVTI</td>
+<td>静态虚拟隧道接口</td>
+</tr>
+<tr>
+<td>GRE</td>
+<td>通用路由封装</td>
+</tr>
+<tr>
+<td>mGRE</td>
+<td>多点 GRE</td>
+</tr>
+<tr>
+<td>NHRP</td>
+<td>下一跳解析协议（DMVPN 核心）</td>
+</tr>
+<tr>
+<td>DMVPN</td>
+<td>动态多点 VPN</td>
+</tr>
+<tr>
+<td>FlexVPN</td>
+<td>基于 IKEv2 的灵活 VPN 框架</td>
+</tr>
+<tr>
+<td>GET VPN</td>
+<td>组加密传输 VPN（无隧道）</td>
+</tr>
+<tr>
+<td>SD-WAN</td>
+<td>软件定义广域网</td>
+</tr>
+<tr>
+<td>ZTP</td>
+<td>零接触部署</td>
+</tr>
+<tr>
+<td>DPD</td>
+<td>死对等检测</td>
+</tr>
+<tr>
+<td>NAT-T</td>
+<td>NAT 穿透</td>
+</tr>
+<tr>
+<td>MSS Clamping</td>
+<td>最大报文段长度钳制</td>
+</tr>
+<tr>
+<td>PMTUD</td>
+<td>路径 MTU 发现</td>
+</tr>
+<tr>
+<td>VRF</td>
+<td>虚拟路由转发实例</td>
+</tr>
+<tr>
+<td>VRF-Lite / Multi-VRF CE</td>
+<td>轻量 VRF / 多 VRF 客户边缘</td>
+</tr>
+<tr>
+<td>RD / RT</td>
+<td>路由区分符 / 路由目标</td>
+</tr>
+<tr>
+<td>MP-BGP</td>
+<td>多协议 BGP（承载 VPNv4/VPNv6）</td>
+</tr>
+<tr>
+<td>CSC (Carrier Supporting Carrier)</td>
+<td>运营商支撑运营商</td>
+</tr>
+<tr>
+<td>Inter-AS Option A/B/C</td>
+<td>跨 AS 的三种互联方式</td>
+</tr>
+<tr>
+<td>mVPN</td>
+<td>组播 VPN</td>
+</tr>
+<tr>
+<td>NFV / vCPE</td>
+<td>网络功能虚拟化 / 虚拟 CPE</td>
+</tr>
+<tr>
+<td>eBGP / iBGP</td>
+<td>外部 / 内部 BGP</td>
+</tr>
+<tr>
+<td>Route Reflector</td>
+<td>路由反射器</td>
+</tr>
+<tr>
+<td>Route Redistribution</td>
+<td>路由重分发</td>
+</tr>
+<tr>
+<td>Route Summarization</td>
+<td>路由汇总</td>
+</tr>
+<tr>
+<td>LLQ (Low Latency Queueing)</td>
+<td>低时延队列</td>
+</tr>
+<tr>
+<td>WRED</td>
+<td>加权随机早期检测</td>
+</tr>
+<tr>
+<td>Shaping / Policing</td>
+<td>整形 / 限速丢弃</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>差分服务代码点</td>
+</tr>
+<tr>
+<td>SLA</td>
+<td>服务等级协议</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>IP 服务等级探测</td>
+</tr>
+<tr>
+<td>BDP</td>
+<td>带宽时延积</td>
+</tr>
+<tr>
+<td>DIA</td>
+<td>直接互联网接入</td>
+</tr>
+<tr>
+<td>Cloud On-Ramp</td>
+<td>云接入点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="18">第 18 章 · 最终准备<a class="anchor" href="#18" title="Permanent link"></a></h2>
+<p><span class="ch-words">收尾与回顾 · 8 条</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business-driven Design</td>
+<td>业务驱动设计</td>
+</tr>
+<tr>
+<td>Design Trade-off</td>
+<td>设计权衡</td>
+</tr>
+<tr>
+<td>Requirement Traceability</td>
+<td>需求可追溯性</td>
+</tr>
+<tr>
+<td>Design Review</td>
+<td>设计评审</td>
+</tr>
+<tr>
+<td>Day 2 Operations</td>
+<td>运维阶段（上线之后）</td>
+</tr>
+<tr>
+<td>Failure Domain</td>
+<td>故障域</td>
+</tr>
+<tr>
+<td>Technical Debt</td>
+<td>技术债</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>基线（现状与性能基准）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">跨章重复出现的术语<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<blockquote>
+<p>在多章出现的术语，说明它是<strong>贯穿性概念</strong>——这类词最容易被问到「在哪一章讲过」，也最容易在各章之间说法不一致。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>出现章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BFD</td>
+<td>7、9、15、16、17</td>
+</tr>
+<tr>
+<td>IP SLA</td>
+<td>14、15、16、17</td>
+</tr>
+<tr>
+<td>PMTUD</td>
+<td>9、14、17</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>11、14</td>
+</tr>
+<tr>
+<td>Multicast-to-Unicast</td>
+<td>11、13</td>
+</tr>
+<tr>
+<td>gNMI</td>
+<td>12、14</td>
+</tr>
+<tr>
+<td>Gold Plating</td>
+<td>1、15</td>
+</tr>
+<tr>
+<td>CAPEX</td>
+<td>1、2</td>
+</tr>
+<tr>
+<td>OPEX</td>
+<td>1、2</td>
+</tr>
+<tr>
+<td>TCO</td>
+<td>1、2</td>
+</tr>
+<tr>
+<td>ROI</td>
+<td>1、2</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>3、16</td>
+</tr>
+<tr>
+<td>MTTR</td>
+<td>5、12</td>
+</tr>
+<tr>
+<td>Day 0 / Day 1 / Day 2</td>
+<td>5、12</td>
+</tr>
+<tr>
+<td>Metro Ethernet</td>
+<td>6、17</td>
+</tr>
+<tr>
+<td>E-Tree</td>
+<td>6、17</td>
+</tr>
+<tr>
+<td>VPWS</td>
+<td>6、9</td>
+</tr>
+<tr>
+<td>VPLS</td>
+<td>6、9</td>
+</tr>
+<tr>
+<td>EVPN</td>
+<td>6、9</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>6、9</td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>6、9</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>6、13</td>
+</tr>
+<tr>
+<td>A-D Route</td>
+<td>6、13</td>
+</tr>
+<tr>
+<td>UDLD</td>
+<td>7、15</td>
+</tr>
+<tr>
+<td>mLAG</td>
+<td>7、15</td>
+</tr>
+<tr>
+<td>Orphan Port</td>
+<td>7、15</td>
+</tr>
+<tr>
+<td>Failure Domain</td>
+<td>7、18</td>
+</tr>
+<tr>
+<td>Area Range / Summary-address</td>
+<td>8、15</td>
+</tr>
+<tr>
+<td>EIGRP / DUAL</td>
+<td>8、15</td>
+</tr>
+<tr>
+<td>eBGP / iBGP</td>
+<td>8、17</td>
+</tr>
+<tr>
+<td>Local Preference</td>
+<td>8、16</td>
+</tr>
+<tr>
+<td>ECMP</td>
+<td>8、15</td>
+</tr>
+<tr>
+<td>VRF</td>
+<td>9、17</td>
+</tr>
+<tr>
+<td>MP-BGP</td>
+<td>9、17</td>
+</tr>
+<tr>
+<td>EXP / TC</td>
+<td>9、14</td>
+</tr>
+<tr>
+<td>DF Election</td>
+<td>9、13</td>
+</tr>
+<tr>
+<td>SD-WAN</td>
+<td>9、17</td>
+</tr>
+<tr>
+<td>AAR</td>
+<td>9、13</td>
+</tr>
+<tr>
+<td>CoPP</td>
+<td>10、14</td>
+</tr>
+<tr>
+<td>RPKI / ROA</td>
+<td>10、16</td>
+</tr>
+<tr>
+<td>SGT / TrustSec</td>
+<td>10、11</td>
+</tr>
+<tr>
+<td>IPsec</td>
+<td>10、17</td>
+</tr>
+<tr>
+<td>IKEv1 / IKEv2</td>
+<td>10、17</td>
+</tr>
+<tr>
+<td>DMVPN</td>
+<td>10、17</td>
+</tr>
+<tr>
+<td>FlexVPN</td>
+<td>10、17</td>
+</tr>
+<tr>
+<td>GET VPN</td>
+<td>10、17</td>
+</tr>
+<tr>
+<td>ZTNA</td>
+<td>10、16</td>
+</tr>
+<tr>
+<td>SASE</td>
+<td>10、16</td>
+</tr>
+<tr>
+<td>WLC</td>
+<td>11</td>
+</tr>
+<tr>
+<td>CAPWAP</td>
+<td>11</td>
+</tr>
+<tr>
+<td>SAE</td>
+<td>11</td>
+</tr>
+<tr>
+<td>BSS Coloring</td>
+<td>11</td>
+</tr>
+<tr>
+<td>CSMA/CA</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Sticky Client</td>
+<td>11</td>
+</tr>
+<tr>
+<td>AP-on-a-stick</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Multicast Direct</td>
+<td>11、13</td>
+</tr>
+<tr>
+<td>ZTP</td>
+<td>12、17</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>12</td>
+</tr>
+<tr>
+<td>NETCONF</td>
+<td>12</td>
+</tr>
+<tr>
+<td>RESTCONF</td>
+<td>12</td>
+</tr>
+</tbody>
+</table></article>
+    <nav class="pager"><a class="pager-link prev" href="ch-18.html"><span class="pager-label">上一章</span><span class="pager-title">18 · 最终准备</span></a><a class="pager-link next" href="apx-b.html"><span class="pager-label">下一章</span><span class="pager-title">附录 B · 跨章对比速查</span></a></nav>
+    
+    <section class="board" id="board" data-page="附录 A · 术语总表" data-key="apx-a">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">附录 A · 术语总表</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#01">第 01 章 · 网络设计</a></li>
+<li><a href="#02">第 02 章 · 为商业成功而设计</a></li>
+<li><a href="#03">第 03 章 · 网络的目的是什么</a></li>
+<li><a href="#04">第 04 章 · 安全是普适的</a></li>
+<li><a href="#05">第 05 章 · 参考架构模型与框架</a></li>
+<li><a href="#06">第 06 章 · 传输技术</a></li>
+<li><a href="#07">第 07 章 · 二层技术</a></li>
+<li><a href="#08">第 08 章 · 三层技术</a></li>
+<li><a href="#09">第 09 章 · 网络虚拟化</a></li>
+<li><a href="#10">第 10 章 · 安全</a></li>
+<li><a href="#11">第 11 章 · 无线</a></li>
+<li><a href="#12">第 12 章 · 自动化</a></li>
+<li><a href="#13">第 13 章 · 组播设计</a></li>
+<li><a href="#14">第 14 章 · 网络服务与管理</a></li>
+<li><a href="#15">第 15 章 · 可扩展企业园区架构设计</a></li>
+<li><a href="#16">第 16 章 · 企业互联网边缘架构设计</a></li>
+<li><a href="#17-wan">第 17 章 · 企业WAN架构设计</a></li>
+<li><a href="#18">第 18 章 · 最终准备</a></li>
+<li><a href="#_1">跨章重复出现的术语</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>

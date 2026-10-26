@@ -416,6 +416,8 @@ html[data-theme="dark"] .markdown-body code { color: #ff9b8a; }
 .badge[data-s="精读"] { color: #1e5fd0; background: #e8f0fe; border-color: #c9dcfb; }
 .badge[data-s="提纲"] { color: #9a6400; background: #fdf3e0; border-color: #f0dcb0; }
 .badge[data-s="骨架"] { color: var(--text-mute); }
+.badge[data-s="附录"] { color: #6b3fa0; background: #f2ebfb; border-color: #dcccf3; }
+html[data-theme="dark"] .badge[data-s="附录"] { color: #c0a2ea; background: #241a33; border-color: #3d2b57; }
 
 html[data-theme="dark"] .badge[data-s="精讲"] { color: #64d69f; background: #12301f; border-color: #1d4a31; }
 html[data-theme="dark"] .badge[data-s="精读"] { color: #7aa9f7; background: #16233a; border-color: #263a5c; }

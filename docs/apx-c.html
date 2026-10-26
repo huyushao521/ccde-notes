@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自测题库 · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与回顾</span><span class="nav-sub">全书回顾与学习收尾</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link active" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="附录">附录 C</span><span class="ch-words">18 章 × 5 题 · 答案折叠</span></div><h1 id="c18-5">附录 C：自测题库（18 章 × 5 题）<a class="anchor" href="#c18-5" title="Permanent link"></a></h1>
+<blockquote>
+<p>每题对应一章的核心判断，<strong>答案默认折叠</strong>，先自己想再展开。
+用法：读完一章做 5 题；错 2 题以上，回该章重读对应小节。
+这些题不考命令细节，只考"在什么条件下选什么、代价是什么"——这正是 CCDE 的考法。</p>
+</blockquote>
+<hr />
+<h2 id="01">第 01 章 · 网络设计<a class="anchor" href="#01" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 用户说"网络太卡"，运维给的监控显示出口峰值利用率只有 40%。这个数据能否否定"带宽不足"？</p>
+<details><summary>答案</summary>
+
+不能。40% 是**平均利用率**，5 分钟平均会抹平 3–5 秒的突发。要看：监控粒度是否与现象同尺度、接口是否有出方向丢包、队列是否被打满。第 1 章案例一的根因是突发 + 队列缓冲不足。
+
+</details>
+
+<p><strong>Q2.</strong> 自顶向下与自底向上两种方法，实际项目里应该用哪个？</p>
+<details><summary>答案</summary>
+
+两者都要用，方向不同：**需求自顶向下推**（业务目标 → 功能/技术/应用需求），**可行性自底向上验**（现有设备、链路、团队能力）。只在单向成立的设计不可落地。
+
+</details>
+
+<p><strong>Q3.</strong> "未明确需求"（unstated requirements）通常以什么形式出现？举两个例子。</p>
+<details><summary>答案</summary>
+
+客户没说出来但实际存在的约束，例如：遗留系统 IP 不能改、夜间不能停机、运维团队只会一种协议、机房没有空间/电力。它们不做访谈挖不出来，事后暴露就是返工。
+
+</details>
+
+<p><strong>Q4.</strong> 分部负责人要求"双核心、双运营商，和总部标准一样"。如何用第 1 章的方法回应？</p>
+<details><summary>答案</summary>
+
+把"要求"翻译成"可用性目标"：单台核心故障停多久能接受？园区历史上是否有运营商中断记录？峰值流量多少？用 RTO 与测量数据判断，结果往往是"堆叠 + 单专线 + 5G 备份"，成本降一半而可用性目标不变。"和总部一样"是习惯，不是需求。
+
+</details>
+
+<p><strong>Q5.</strong> 第 1 章列出的三个设计缺陷是什么？各自的现实伪装是什么？</p>
+<details><summary>答案</summary>
+
+**假设**（伪装成"经验"）、**过度设计**（伪装成"标准化/最佳实践"）、**最佳实践误区**（伪装成"厂商推荐"）。共同点：都不问前提条件。
+
+</details>
+
+<hr />
+<h2 id="02">第 02 章 · 为商业成功而设计<a class="anchor" href="#02" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> RPO 与 RTO 分别决定什么？它们如何影响架构？</p>
+<details><summary>答案</summary>
+
+RPO 决定**允许多少数据丢失**（影响复制方式：同步/异步/快照间隔）；RTO 决定**允许停多久**（影响冗余形态：双活/主备/备件）。两个数字直接决定投资规模，且必须配演练验证。
+
+</details>
+
+<p><strong>Q2.</strong> 一个 500 万立项最后花了 620 万，超支通常出现在哪几格？</p>
+<details><summary>答案</summary>
+
+迁移过渡期双线并行、实施服务的旧设备退网与夜间割接、5 年运维、培训与文档——这些都不在 CAPEX 口径里。立项必须用 TCO。
+
+</details>
+
+<p><strong>Q3.</strong> 什么类型的项目适合瀑布，什么适合敏捷/Scrum，什么适合看板？</p>
+<details><summary>答案</summary>
+
+需求稳定、外部依赖强 → **瀑布**；需求探索、增量交付 → **敏捷/Scrum**；持续运维与支持、按队列流转 → **看板**（WIP 限制）。范围可变的项目套瀑布必翻车。
+
+</details>
+
+<p><strong>Q4.</strong> 关键路径由什么决定？举一个网络项目里的典型例子。</p>
+<details><summary>答案</summary>
+
+由**最不能等的任务**决定，不是工作量最大的任务。典型：运营商专线开通 5–6 个月，是全项目前置条件；设备采购 3 个月反而有浮动时间。必须准备 Plan B（微波/5G/临时机房）。
+
+</details>
+
+<p><strong>Q5.</strong> "弹性（Elasticity）"在业务语境里指的是什么？为什么它不等于"加设备"？</p>
+<details><summary>答案</summary>
+
+指**能力可快速伸缩以匹配业务波动**。靠的是标准化 + 自动化 + 可计量，而不是堆硬件。只会扩张不会收缩的基础设施，成本刚性且长期闲置。
+
+</details>
+
+<hr />
+<h2 id="03">第 03 章 · 网络的目的是什么<a class="anchor" href="#03" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 视频会议卡顿，扩带宽为什么常常无效？</p>
+<details><summary>答案</summary>
+
+视频对**丢包与抖动**极敏感（1% 丢包即花屏），对带宽需求中等；且是**双向对称**流量，上行不足就卡。真正要解决的是队列隔离（与备份分离）、时延/抖动是否在终端自适应范围内、上行是否够。
+
+</details>
+
+<p><strong>Q2.</strong> SaaS、PaaS、IaaS 的选择依据是什么？举一个常见误选。</p>
+<details><summary>答案</summary>
+
+按"谁最擅长这件事"：非差异化能力外购（SaaS/PaaS），差异化能力自建（IaaS）。常见误选：为了"可控"把标准办公应用放在 IaaS 上自建运维，承担了本不该承担的运维责任。
+
+</details>
+
+<p><strong>Q3.</strong> 应用从自建机房迁到公有云后变慢，最先怀疑什么？</p>
+<details><summary>答案</summary>
+
+**应用架构是否 chatty**（大量小往返）。RTT 从 1ms 变 35ms 后，40 次串行查询就是 2.8 秒纯往返。网络只能缓解（专线/就近区域/缓存），修复要靠应用侧（批量、缓存、读写分离）。
+
+</details>
+
+<p><strong>Q4.</strong> "云无关架构"的收益与代价分别是什么？</p>
+<details><summary>答案</summary>
+
+收益：可移植、避免锁定、便于多云。代价：放弃云原生能力（托管服务、弹性伸缩、全球骨干），运维负担与成本上升。正确定位：只在该买的层（数据与身份）追求可移植。
+
+</details>
+
+<p><strong>Q5.</strong> 数据管理的 11 支柱里，最常被网络/基础设施项目忽略的是哪几个？</p>
+<details><summary>答案</summary>
+
+**元数据管理**与**数据质量**：它们的缺失让数据"存得住但不可查、不可信"。此外数据治理（谁负责）常无人认领。项目里只做存储与备份，就等于只覆盖了 11 条中的 1–2 条。
+
+</details>
+
+<hr />
+<h2 id="04">第 04 章 · 安全是普适的<a class="anchor" href="#04" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 安全策略的四类来源是什么？为什么必须区分来源？</p>
+<details><summary>答案</summary>
+
+法规与标准、合同与 SLA、内部制度、架构原则。它们的**可协商性与变更成本完全不同**：法规不可谈只能改实现，内部制度可谈但推动慢。不分来源，就无法判断哪些要求可以讨论。
+
+</details>
+
+<p><strong>Q2.</strong> 安全域划分的三条依据？域是不是越多越好？</p>
+<details><summary>答案</summary>
+
+依据：**信任等级、合规边界、故障/爆炸半径**。域不是越多越好——每加一个域就多一组策略、一个故障点与一条排障路径，典型企业 5–12 个域是可持续的数量级。
+
+</details>
+
+<p><strong>Q3.</strong> 零信任落地的三个前提是什么？为什么它们常导致项目失败？</p>
+<details><summary>答案</summary>
+
+**权威身份目录、资产与应用清单、设备可评估性**。三者都在网络团队之外（HR/IT 桌面/资产团队），没人负责时策略只能写成"全通"，项目停在 PoC。
+
+</details>
+
+<p><strong>Q4.</strong> "全链路加密"之后，IPS 与 DLP 会怎样？正确做法是什么？</p>
+<details><summary>答案</summary>
+
+**失效**——加密流量无法被内容检查。正确做法二选一：在检查点终结加密（解密→检查→再加密），或明确接受该段不可见，用终端侧手段（EDR、日志关联、行为基线）补偿，并写进设计文档。
+
+</details>
+
+<p><strong>Q5.</strong> 为什么说"合规看证据，不看配置"？</p>
+<details><summary>答案</summary>
+
+审计要证明"在任意时刻它确实如此"。因此日志、NTP 统一时间源、变更记录、审批与定期复核记录是**交付物的一部分**；配置正确但无法证明，审计不过，也无法在事故后定界。
+
+</details>
+
+<hr />
+<h2 id="05">第 05 章 · 参考架构模型与框架<a class="anchor" href="#05" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 业务架构（BA）、企业架构（EA）与参考架构三者的分工是什么？</p>
+<details><summary>答案</summary>
+
+BA 定义**方向与成果**（业务成果、能力、对齐级别）；EA 定义**组织与治理**（信息/应用/技术架构、标准与流程）；参考架构提供**经过验证的蓝本与规模边界**（如 SAFE、CVD）。BA 错，后面全错。
+
+</details>
+
+<p><strong>Q2.</strong> 四种运营模型（统一/协调/复制/多样化）用什么两个问题定位？</p>
+<details><summary>答案</summary>
+
+**要不要统一标准化？****要不要统一集成？** 两个"是/否"组合出四种模型。这一步决定标准化范围与集权程度，比选技术更早。
+
+</details>
+
+<p><strong>Q3.</strong> 使用 TOGAF 最常见的问题是什么？</p>
+<details><summary>答案</summary>
+
+**框架崇拜**：全套流程照搬，产出大量文档却不产生决策。正确做法是裁剪到"能产出交付物"的阶段，并明确每个阶段的决策与责任人。
+
+</details>
+
+<p><strong>Q4.</strong> MTTD 与 MTTR 分别指向什么技术方向？</p>
+<details><summary>答案</summary>
+
+MTTD（平均检测时间）靠**可见性**：流量采集、日志、告警与关联分析。MTTR（平均修复时间）靠**弹性与自动化**：冗余、快速收敛、自动切换、预案。指标定在 Day 0，才能反向决定买什么。
+
+</details>
+
+<p><strong>Q5.</strong> 为什么说"架构如果没有进入预算与评审，就只是文档工程"？</p>
+<details><summary>答案</summary>
+
+架构的价值在于**约束项目**。只有进入立项与预算评审，标准才具备强制力；否则每个项目都会长出自己的"本地最优"，三年后形成孤岛。
+
+</details>
+
+<hr />
+<h2 id="06">第 06 章 · 传输技术<a class="anchor" href="#06" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> E-Line、E-LAN、E-Tree 三种以太网服务的区别？</p>
+<details><summary>答案</summary>
+
+E-Line 点到点（EPL/EVPL）；E-LAN 多点任意互通（EPLAN/EVPLAN，全互联）；E-Tree 一点到多点（Hub 可与叶子通，叶子之间不通，适合视频分发/零售 POS）。
+
+</details>
+
+<p><strong>Q2.</strong> VPWS 与 VPLS 的本质区别？为什么 VPLS 会有 O(n²) 问题？</p>
+<details><summary>答案</summary>
+
+VPWS 只在两点间透传，**不学 MAC**；VPLS 是多点桥接，**数据面学习 MAC**，需要全互联 PW、BUM 泛洪，PW 数量随站点数呈 n² 增长，且没有控制平面。
+
+</details>
+
+<p><strong>Q3.</strong> EVPN 相比 VPLS 解决了哪三个结构性问题？</p>
+<details><summary>答案</summary>
+
+① 控制面学习（BGP 通告 MAC/IP），免除数据面泛洪；② 原生多归属（ESI + DF 选举 + aliasing），链路不再闲置；③ ARP 代理与 MAC 移动性管理，抑制广播与迁移丢包。
+
+</details>
+
+<p><strong>Q4.</strong> 上 MPLS 二层服务后，为什么会出现"能 ping 通但传文件卡"？</p>
+<details><summary>答案</summary>
+
+封装吃掉 MTU（标签栈 + 二层封装让有效 MTU 降到 1492 或更低），大包被丢，靠 TCP 重传表现为慢。需两端核对 `ip mtu` 与 `ip tcp adjust-mss`，并用大包做验收。
+
+</details>
+
+<p><strong>Q5.</strong> 一家零售连锁想把 500 家门店拉成一个大二层，最该反问什么？</p>
+<details><summary>答案</summary>
+
+**"这些业务是不是纯 IP？"** 95% 是（POS/WiFi/监控），不需要二层。拉平大二层会把 STP 环路、广播、ARP 的故障面从单店扩大到全公司——**二层域范围 = 故障域范围**。
+
+</details>
+
+<hr />
+<h2 id="07">第 07 章 · 二层技术<a class="anchor" href="#07" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> STP、RSTP、MSTP 的差别，各自适用什么规模？</p>
+<details><summary>答案</summary>
+
+STP（802.1D）收敛数十秒；RSTP（802.1w）毫秒~秒级，端口角色/状态精简；MSTP（802.1s）支持多实例，可为不同 VLAN 组做不同拓扑（负载分担）。现代园区用 RSTP/MSTP，纯 STP 只在极老设备上。
+
+</details>
+
+<p><strong>Q2.</strong> 堆叠（StackWise/VSS）与 vPC/M-LAG 的核心差异是什么？</p>
+<details><summary>答案</summary>
+
+堆叠是**单一控制面**（两台合成一台，管理简单，但控制面故障同生共死、升级需整机重启）；vPC 是**双控制面**（对端设备独立，故障域小，配置更复杂）。判据是故障域与运维能力。
+
+</details>
+
+<p><strong>Q3.</strong> 接入层环路防护分别该在哪个方向用 BPDU Guard / Root Guard？</p>
+<details><summary>答案</summary>
+
+朝**终端**的端口用 **BPDU Guard**（收到 BPDU 就 err-disable）；朝**下游交换机**的端口用 **Root Guard**（阻止下游成为根）。配反了会整片断网。
+
+</details>
+
+<p><strong>Q4.</strong> EtherChannel 配置有哪些必须两端一致、否则不起来的参数？</p>
+<details><summary>答案</summary>
+
+速率/双工、允许 VLAN 列表（Trunk）、Native VLAN、LACP 模式与 key。此外建议用 LACP（active/active）而非 on 模式，避免静默不一致。
+
+</details>
+
+<p><strong>Q5.</strong> 什么情况下应该"把二层做到三层"而不是扩大二层？</p>
+<details><summary>答案</summary>
+
+当站点数超过数十、需要跨站点互通、或对广播/STP 收敛敏感时。判据：**二层域范围直接等于故障域范围**，能用三层解决的问题不要用二层。
+
+</details>
+
+<hr />
+<h2 id="08">第 08 章 · 三层技术<a class="anchor" href="#08" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 为什么默认配置下 1G 与 10G 链路会被判为等价？</p>
+<details><summary>答案</summary>
+
+`auto-cost reference-bandwidth` 默认 100 Mbps，所有 ≥100M 接口的 cost 都取整为 1。必须在**全网统一**改为 10G/100G 参考带宽。
+
+</details>
+
+<p><strong>Q2.</strong> iBGP 邻居 <code>show ip bgp</code> 有 best 路径，但 RIB 没有该路由，最可能的原因？</p>
+<details><summary>答案</summary>
+
+**下一跳不可达**（iBGP 不修改下一跳）。边界路由器需配 `next-hop-self`，或保证 IGP 能到达该下一跳地址。
+
+</details>
+
+<p><strong>Q3.</strong> 路由反射器（RR）设计的四条最低要求？</p>
+<details><summary>答案</summary>
+
+① RR **成对**部署；② **cluster-id 唯一**（多集群不能相同）；③ 客户端同时连接**两个 RR**；④ 需要时用 `next-hop-self`/`set ip next-hop unchanged` 保持路径正确。缺任一条都会表现为"路由偶尔不全"。
+
+</details>
+
+<p><strong>Q4.</strong> 双点双向重分发为什么必须配 tag + route-map + AD？</p>
+<details><summary>答案</summary>
+
+防止**环路**与**次优**：tag 阻止路由回灌，route-map/prefix-list 限制范围，AD 规划保证优选正确。三者缺一，平时看不出，故障切换时爆发。长期应统一到单一协议。
+
+</details>
+
+<p><strong>Q5.</strong> 出向与入向的 BGP 路径控制分别用什么属性？</p>
+<details><summary>答案</summary>
+
+**出向**（本地决定怎么走）：Local Preference（本 AS 内）、Weight（本设备）。**入向**（影响对端怎么来）：AS-PATH prepend、MED（只在相邻 AS 有意义）。方向用反，怎么调都无效。
+
+</details>
+
+<hr />
+<h2 id="09">第 09 章 · 网络虚拟化<a class="anchor" href="#09" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> RD 与 RT 各解决什么问题？</p>
+<details><summary>答案</summary>
+
+**RD** 只用于让不同 VRF 中相同前缀在 MP-BGP 中**唯一**（8 字节前缀区分符）；**RT** 决定路由的**导入/导出**（BGP 扩展团体）。RD 保证不冲突，RT 决定拓扑。
+
+</details>
+
+<p><strong>Q2.</strong> 一个 Hub-and-Spoke L3VPN 需求：分部之间互不通信，只能与总部通。RT 怎么设计？</p>
+<details><summary>答案</summary>
+
+Hub 导出 rt-hub、导入 rt-spoke（所有分部）；每个 Spoke 导出 rt-spoke、只导入 rt-hub。若分部间误通，通常是 Spoke 也导入了 rt-spoke，或 Hub 侧对 Spoke 路由做了回灌。
+
+</details>
+
+<p><strong>Q3.</strong> MPLS L3VPN 是否提供加密？企业有保密要求时怎么办？</p>
+<details><summary>答案</summary>
+
+**不提供**。MPLS VPN 提供的是隔离与私密性（类似 VRF 分离），不是加密。需要保密性时在客户侧叠加 IPsec/MACsec，或使用 GET VPN 保留原 IP 头以便 QoS。
+
+</details>
+
+<p><strong>Q4.</strong> SD-WAN 的三个平面分别对应传统网络的哪些元素？</p>
+<details><summary>答案</summary>
+
+**管理平面**（控制器/编排，对应网管与变更流程）、**控制平面**（OMP 等，分发拓扑/策略/密钥，对应路由协议）、**数据平面**（加密隧道转发，对应路由器转发面）。分离使得策略可以集中定义、分布执行。
+
+</details>
+
+<p><strong>Q5.</strong> VXLAN 隧道 ping 通，但传文件/SSH 卡死，最可能是什么问题？</p>
+<details><summary>答案</summary>
+
+**MTU/MSS**。VXLAN 封装增加 50+ 字节，超过底层 MTU 的大包被丢，表现为小包正常、大包卡死。需调整 `ip mtu` 与 `ip tcp adjust-mss`，并用大包验证。
+
+</details>
+
+<hr />
+<h2 id="10">第 10 章 · 安全<a class="anchor" href="#10" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 三个平面分别指什么？保护手段各举一个。</p>
+<details><summary>答案</summary>
+
+**管理平面**：谁能登录设备（带外 + MFA + 跳板机 + 日志外送）；**控制平面**：谁能消耗 CPU（CoPP/CPPr、rACL、GTSM）；**数据平面**：谁能穿过（ACL、uRPF、分段、加密）。
+
+</details>
+
+<p><strong>Q2.</strong> CoPP 速率配得过低会导致什么现象？怎么定值？</p>
+<details><summary>答案</summary>
+
+路由协议报文被丢弃，邻居抖动或路由不全，表现为**"部分不通"**这类难查的故障。速率按**实测峰值 × 2~3 倍**配置，并先告警后丢弃。
+
+</details>
+
+<p><strong>Q3.</strong> 802.1X 直接上 Closed Mode 的风险？正确路径？</p>
+<details><summary>答案</summary>
+
+不支持 802.1X 的设备（打印机、医疗、工控、IoT）会大面积断网，项目被回退。正确路径：**Monitor（只记录）→ Low-Impact（失败放行到受限 VLAN）→ Closed**，每阶段有量化退出条件。
+
+</details>
+
+<p><strong>Q4.</strong> 多出口网络为什么不能配 strict uRPF？</p>
+<details><summary>答案</summary>
+
+strict 要求回程路径与入接口一致，非对称路由会被误杀，表现为丢包/性能问题。应使用 **loose** 或 **feasible**（配合路由表/ACL 白名单）。
+
+</details>
+
+<p><strong>Q5.</strong> SGT/TrustSec 能替代防火墙吗？</p>
+<details><summary>答案</summary>
+
+不能。SGT 是**授权标签**（决定"能不能通"），不做威胁检查（不判断"这个流量是不是恶意"）。完整链路是：身份 → 授权 → 检查 → 隔离，四层并行。
+
+</details>
+
+<hr />
+<h2 id="11">第 11 章 · 无线<a class="anchor" href="#11" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 2.4 GHz、5 GHz、6 GHz 三频段在设计上的分工？</p>
+<details><summary>答案</summary>
+
+2.4 GHz：覆盖好、干扰多、速率低，留给 IoT/低速设备；5 GHz：主力频段，容量与覆盖平衡；6 GHz（Wi-Fi 6E/7）：干净频谱、容量最大，但覆盖略差、需终端支持。设计上"低频保覆盖、高频保容量"。
+
+</details>
+
+<p><strong>Q2.</strong> 高密度场景（体育馆/会议室）最常被忽略的三个因素？</p>
+<details><summary>答案</summary>
+
+① **上行带宽与 AP 回传**（AP 数量够但上联不够）；② **客户端能力差异**（老旧终端拖慢整组速率，需关闭低速率）；③ **信道规划与功率**（相邻 AP 同信道、功率过大导致粘滞不漫游）。
+
+</details>
+
+<p><strong>Q3.</strong> 802.11r 快速漫游为什么有时会导致老终端连不上？</p>
+<details><summary>答案</summary>
+
+部分老终端对 FT 支持不完整。生产解法是开启 **Adaptive 11r**（不支持的自动回退传统漫游），并注意 WPA3 强制 PMF 需与 802.11r 一起验证。
+
+</details>
+
+<p><strong>Q4.</strong> 无线语音/视频设计与数据设计的关键差异？</p>
+<details><summary>答案</summary>
+
+语音/视频要求**低抖动与稳定漫游**：需要 WMM/优先级队列、限制单 AP 客户端数、控制漫游粘滞、保证上行与回传带宽；数据设计更关注吞吐。二者常在同一 SSID 冲突，应按 SSID 分离并分别做容量规划。
+
+</details>
+
+<p><strong>Q5.</strong> 无线安全的三个层次？</p>
+<details><summary>答案</summary>
+
+**接入认证**（WPA2/WPA3-Enterprise + 802.1X/EAP-TLS）、**数据加密**（AES-CCMP/GCMP，WPA3 起强制 PMF）、**准入与分段**（按 SSID/VLAN/SGT 隔离，访客与 IoT 单独 SSID 且禁止东西向）。
+
+</details>
+
+<hr />
+<h2 id="12">第 12 章 · 自动化<a class="anchor" href="#12" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> ZTP 的前提条件是什么？</p>
+<details><summary>答案</summary>
+
+**设备可达引导服务器**（DHCP option/PnP）、**配置模板与变量来源**（IPAM/CMDB 是权威）、**镜像与校验**（版本与哈希）、**幂等与回滚**。缺 IPAM 权威数据，ZTP 只会把错误配置批量下发。
+
+</details>
+
+<p><strong>Q2.</strong> IaC（基础设施即代码）的核心价值是什么？它与"脚本"的差别？</p>
+<details><summary>答案</summary>
+
+核心是**声明式 + 版本化 + 可重复**：状态在 Git 里、变更有评审、环境可重建。脚本是"执行步骤"，IaC 描述"目标状态"，并靠 diff 保证一致性与可回滚。
+
+</details>
+
+<p><strong>Q3.</strong> CI/CD 在网络变更中的作用点？</p>
+<details><summary>答案</summary>
+
+**提交 → 静态检查（lint/合规）→ 渲染配置 → 测试（lab/仿真/单元断言）→ 分批下发（先小爆炸半径）→ 验证（后检查）→ 回滚**。关键是把"验证"和"回滚"做成流程的一部分，而不是靠人记住。
+
+</details>
+
+<p><strong>Q4.</strong> 漂移检测发现漂移后，为什么不能自动重下发？</p>
+<details><summary>答案</summary>
+
+漂移常常来自**故障中的应急修改**。自动"纠正"会立刻引发第二次故障。正确做法：告警 + 人工确认 + 事后把有效应急变更**正式化**进 Git。
+
+</details>
+
+<p><strong>Q5.</strong> "爆炸半径"如何影响自动化方案设计？</p>
+<details><summary>答案</summary>
+
+决定**分批策略与回滚粒度**：核心/边缘分批、按站点或按设备角色灰度、每批有验证点与自动回滚。半径越大，越需要预演、限速（rate-limit）与人工确认卡点。
+
+</details>
+
+<hr />
+<h2 id="13">第 13 章 · 组播设计<a class="anchor" href="#13" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> PIM-SM 与 PIM-SSM 的根本区别？什么场景该用 SSM？</p>
+<details><summary>答案</summary>
+
+SM 需要 RP 与共享树（(*,G)）再切换到源树；SSM 直接 (S,G) 加入，**不需要 RP**。当源与接收者可枚举（企业视频、行情分发）时应优先 SSM，省掉整个 RP 体系。
+
+</details>
+
+<p><strong>Q2.</strong> RPF 检查失败会导致什么？多路径场景如何设计？</p>
+<details><summary>答案</summary>
+
+组播包被丢弃（"树建不起来"或"接收者收不到"）。多路径时需保证 RPF 接口与单播回程一致：用静态 mroute、调整 IGP metric，或使用支持多路径的机制；设计上应让组播源与 RP 的路径可预测。
+
+</details>
+
+<p><strong>Q3.</strong> 多 RP 场景下"某些人能看、某些人不能看"的最常见原因？</p>
+<details><summary>答案</summary>
+
+**RP 映射不一致**：不同设备上静态 RP 列表/BSR 学习结果不同，部分接收者加入了错误的 RP。要求全网映射一致，并有校验手段（脚本比对 + 监控）。
+
+</details>
+
+<p><strong>Q4.</strong> 二层为什么是组播的"最后一公里"？忽略什么会出现什么问题？</p>
+<details><summary>答案</summary>
+
+组播在接入层依赖 **IGMP Snooping + Querier**。忽略 snooping 会全端口泛洪打满接入；忽略 querier（或 querier 选举异常）会出现"每几分钟断一次"的加组失效。
+
+</details>
+
+<p><strong>Q5.</strong> 组播 QoS 设计中最容易出问题的一点？</p>
+<details><summary>答案</summary>
+
+**复制点与限速位置**：组播在分叉点复制，若在错误位置做限速或用单播思维做队列，会造成丢包集中在某些分支。语音/视频组播还要注意 FHRP-aware PIM，避免 FHRP 切换后 RPF 失效。
+
+</details>
+
+<hr />
+<h2 id="14">第 14 章 · 网络服务与管理<a class="anchor" href="#14" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> IPv6 迁移三种方式的取舍？</p>
+<details><summary>答案</summary>
+
+**双栈**：最平滑、无翻译损失，代价是运维双份；**NAT64/DNS64**：存量 IPv4 无需改，但破坏端到端、影响部分应用；**隧道**：快速接通孤岛，但 MTU 与排障困难。主流选择是双栈，翻译只用于无法升级的存量。
+
+</details>
+
+<p><strong>Q2.</strong> QoS 的"信任边界"指什么？为什么重要？</p>
+<details><summary>答案</summary>
+
+指**在哪里开始信任报文的标记**。终端侧不可信（用户可自行打 DSCP），因此在接入/边缘重新分类并标记，内部链路信任该标记。边界位置选错，会让终端伪造的 EF 标记挤占语音队列。
+
+</details>
+
+<p><strong>Q3.</strong> 跨 MPLS 域时语音队列失效，最常见的配置错误？</p>
+<details><summary>答案</summary>
+
+**DSCP↔EXP（TC）映射不一致**：EF(46) → EXP 5，出域按默认映射回 CS5(40)，语音队列匹配失败。必须显式配置双向映射表并逐跳验证。
+
+</details>
+
+<p><strong>Q4.</strong> DNS/DHCP/NTP 这三项"基础服务"在设计上最容易漏什么？</p>
+<details><summary>答案</summary>
+
+**DNS**：分区与转发策略、内外解析分离；**DHCP**：与 IPAM 同步、DHCP Snooping、地址池容量与租期；**NTP**：双上游 + 认证 + 偏移监控（时间不准会让证书、日志关联、审计全部失效）。
+
+</details>
+
+<p><strong>Q5.</strong> 如何证明 QoS 真的生效了？</p>
+<details><summary>答案</summary>
+
+用**可测指标**：各队列的丢弃与队列深度、每类业务的端到端时延/抖动/丢包（如 IP SLA/ TWAMP）、以及业务侧体验指标。只看配置不算验证。
+
+</details>
+
+<hr />
+<h2 id="15">第 15 章 · 可扩展企业园区架构设计<a class="anchor" href="#15" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 园区三层（接入/汇聚/核心）各自的设计目标，什么时候可以合并层次？</p>
+<details><summary>答案</summary>
+
+接入：端口密度、准入、PoE；汇聚：策略边界、路由汇总、冗余；核心：高速转发、少策略。小型园区可"接入+核心"两层（Collapsed Core），判据是**规模、故障域与策略复杂度**。
+
+</details>
+
+<p><strong>Q2.</strong> 汇聚层为什么是园区最关键的一层？</p>
+<details><summary>答案</summary>
+
+它是**策略与故障域的边界**：L2/L3 分界、路由汇总点、网关位置、安全策略落点都在这里。汇聚层设计错误（如跨层大二层、网关位置混乱）会在后续所有扩展中持续放大。
+
+</details>
+
+<p><strong>Q3.</strong> 园区冗余模型的选型依据是什么？</p>
+<details><summary>答案</summary>
+
+以 RTO 与运维能力为准：堆叠（简单、控制面共享）→ vPC/M-LAG（多活、双控制面）→ 三层路由化接入（无 STP、收敛最快、要求最高）。不是"越先进越好"，而是"团队接得住"。
+
+</details>
+
+<p><strong>Q4.</strong> 园区分段应该在哪些维度切分？</p>
+<details><summary>答案</summary>
+
+按**业务（生产/办公/研发）**、**信任等级（员工/访客/IoT/管理）**、**合规边界**切分，并结合位置（楼宇/楼层）做容量规划。分段要能映射到 VRF/VLAN/SGT，且跨段必须过检查点。
+
+</details>
+
+<p><strong>Q5.</strong> 园区容量规划应采集哪些数据？</p>
+<details><summary>答案</summary>
+
+每用户峰值带宽与并发比、无线终端密度与类型、上行收敛比、DHCP 地址池峰值、组播/广播比例、以及**未来 3 年增长预期**。缺少终端密度数据是无线容量翻车的主要原因。
+
+</details>
+
+<hr />
+<h2 id="16">第 16 章 · 企业互联网边缘架构设计<a class="anchor" href="#16" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 多宿主的"入向不可控"具体指什么？</p>
+<details><summary>答案</summary>
+
+入向流量走哪条 ISP 由**对端**按 BGP 选路决定。你能做的只有宣告粒度、AS-PATH prepend、MED（仅相邻 AS 有效）。因此不能用 BGP 精确实现"入向负载分担"。
+
+</details>
+
+<p><strong>Q2.</strong> 双出口做"状态同步"为什么很难？影响哪些业务？</p>
+<details><summary>答案</summary>
+
+防火墙/NAT/IPS 的会话状态需要跨设备实时同步，跨 ISP 时源/目的地址与路径都变。不同步时，切换瞬间所有长连接（ERP、数据库、SSH、VoIP）中断，表现为"切换成功但业务断了"。
+
+</details>
+
+<p><strong>Q3.</strong> 多 ISP 场景下使用私有 AS 有什么风险？</p>
+<details><summary>答案</summary>
+
+同一私有 AS 号在两个 ISP 侧出现时，标准 AS-PATH 环路检测会当作"自己的 AS"而丢弃。建议申请公网 AS，或确保双方正确执行 `remove-private-as`。
+
+</details>
+
+<p><strong>Q4.</strong> 互联网边缘的安全分层通常怎么划分？</p>
+<details><summary>答案</summary>
+
+**边界路由（宣告/前缀过滤/RPKI）→ 防火墙（策略）→ IPS（已知威胁）→ WAF（对外应用）→ 清洗/抗 DDoS**。再叠加出向代理/CASB 控制内部访问。分段上把 DMZ、办公、数据中心、管理平面分开。
+
+</details>
+
+<p><strong>Q5.</strong> 出口带宽怎么定？只看总流量为什么不够？</p>
+<details><summary>答案</summary>
+
+要区分**上下行比例**（企业上行常被低估，影响云应用与视频）、**峰值与平均**、**并发会话数**（NAT/防火墙表项）、以及**每类业务的时延要求**。只看总流量会漏掉上行瓶颈与会话表耗尽。
+
+</details>
+
+<hr />
+<h2 id="17-wan">第 17 章 · 企业 WAN 架构设计<a class="anchor" href="#17-wan" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> WAN 设计的正确输入顺序是什么？</p>
+<details><summary>答案</summary>
+
+**业务地图 → 流量矩阵 → 站点分级 → 传输模型 → 冗余形态 → 覆盖与隔离 → 路由与 QoS → 容量与验证**。直接跳到"选 MPLS 还是 SD-WAN"是最常见的失分点。
+
+</details>
+
+<p><strong>Q2.</strong> MPLS 与 Internet + SD-WAN 的取舍维度？</p>
+<details><summary>答案</summary>
+
+**SLA 与确定性**（MPLS 有运营商承诺）、**成本与弹性**（Internet 便宜、带宽可扩）、**云访问路径**（本地 Internet 出更优）、**运维能力**（SD-WAN 要自己管策略与隧道）、**覆盖范围**（偏远站点 Internet 更易接入）。
+
+</details>
+
+<p><strong>Q3.</strong> 站点分级的作用是什么？通常怎么分级？</p>
+<details><summary>答案</summary>
+
+把有限的预算与冗余放到关键站点。常见分级：A（总部/核心生产，双运营商 + 双设备）、B（重要分支，双链路 + 单设备）、C（小型/临时，单链路 + 快速替换）。分级要与 RTO 对应。
+
+</details>
+
+<p><strong>Q4.</strong> 为什么"限速语音"是个坑？</p>
+<details><summary>答案</summary>
+
+LLQ 必须配 `police`，否则大量被标记为"语音"的流量会饿死其他队列；而限速值要"物理合理"（如链路 30%）。既要防滥用，又不能掐死真实语音。
+
+</details>
+
+<p><strong>Q5.</strong> 上线前必须做哪三类 WAN 验证？</p>
+<details><summary>答案</summary>
+
+① **大包/MTU**（封装后有效 MTU、MSS）；② **故障切换**（链路/设备/运营商中断时业务中断时长，对齐 RTO）；③ **业务体验**（语音 MOS、视频抖动、关键应用时延与丢包）。缺任一类，故障都会在投产后才暴露。
+
+</details>
+
+<hr />
+<h2 id="18">第 18 章 · 全书回顾<a class="anchor" href="#18" title="Permanent link"></a></h2>
+<p><strong>Q1.</strong> 拿到一道情景题，第一步该做什么？</p>
+<details><summary>答案</summary>
+
+**判断它落在哪一层**（业务成果/需求、技术选型、场景架构），再用第 18 章的"跨章取舍速查"定位对应章。跨层回答（如用"扩带宽"回答应用架构问题）是最常见的失分点。
+
+</details>
+
+<p><strong>Q2.</strong> "设计判断清单"里最有效的自检是哪一条？</p>
+<details><summary>答案</summary>
+
+**"能不能自己说出三个反对这个方案的理由，并逐个回答？"** 说不出，说明方案经不起评审；能说出并回答，评审时就不会被问倒。
+
+</details>
+
+<p><strong>Q3.</strong> 为什么"知识地图用来定位，不用来记忆"？</p>
+<details><summary>答案</summary>
+
+18 章的知识量超出记忆负荷，但**层次结构是稳定的**。做题时只需判断"属于哪一层"，再回该层找依据——这比强行回忆细节更快、更可靠。
+
+</details>
+
+<p><strong>Q4.</strong> 复习时"只看各章小结与案例"为什么有效？</p>
+<details><summary>答案</summary>
+
+小结压缩了**取舍与结论**，案例提供了**现象→根因→修正**的判断链，两者合起来正好覆盖考试与实战所需的能力；细节可以随时回查，取舍记不住则无法决策。
+
+</details>
+
+<p><strong>Q5.</strong> 用一句话概括"设计能力"的本质。</p>
+<details><summary>答案</summary>
+
+**在约束条件下做取舍，并能说清为什么。** 技术知识只是素材，取舍与论证才是设计。
+
+</details>
+
+<hr />
+<h2 id="_1">使用建议<a class="anchor" href="#_1" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一遍读章</td>
+<td>读完立刻做该章 5 题，错题回读对应小节</td>
+</tr>
+<tr>
+<td>第二遍复习</td>
+<td>只看答案折叠前的题目，能秒答的跳过</td>
+</tr>
+<tr>
+<td>考前 3 天</td>
+<td>全部 90 题过一遍，只标记"答不上来的"，考前最后一晚只看这些</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>错题不是用来记住答案的，而是用来发现"哪一章的取舍逻辑还没内化"。</p>
+</blockquote></article>
+    <nav class="pager"><a class="pager-link prev" href="apx-b.html"><span class="pager-label">上一章</span><span class="pager-title">附录 B · 跨章对比速查</span></a></nav>
+    
+    <section class="board" id="board" data-page="附录 C · 自测题库" data-key="apx-c">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">附录 C · 自测题库</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#01">第 01 章 · 网络设计</a></li>
+<li><a href="#02">第 02 章 · 为商业成功而设计</a></li>
+<li><a href="#03">第 03 章 · 网络的目的是什么</a></li>
+<li><a href="#04">第 04 章 · 安全是普适的</a></li>
+<li><a href="#05">第 05 章 · 参考架构模型与框架</a></li>
+<li><a href="#06">第 06 章 · 传输技术</a></li>
+<li><a href="#07">第 07 章 · 二层技术</a></li>
+<li><a href="#08">第 08 章 · 三层技术</a></li>
+<li><a href="#09">第 09 章 · 网络虚拟化</a></li>
+<li><a href="#10">第 10 章 · 安全</a></li>
+<li><a href="#11">第 11 章 · 无线</a></li>
+<li><a href="#12">第 12 章 · 自动化</a></li>
+<li><a href="#13">第 13 章 · 组播设计</a></li>
+<li><a href="#14">第 14 章 · 网络服务与管理</a></li>
+<li><a href="#15">第 15 章 · 可扩展企业园区架构设计</a></li>
+<li><a href="#16">第 16 章 · 企业互联网边缘架构设计</a></li>
+<li><a href="#17-wan">第 17 章 · 企业 WAN 架构设计</a></li>
+<li><a href="#18">第 18 章 · 全书回顾</a></li>
+<li><a href="#_1">使用建议</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>

@@ -26,6 +26,13 @@ PART_DEFS = [
 
 FILENAME_RE = re.compile(r"^第(\d{2})章[_-](.+)\.md$")
 
+# (文件名, slug, 编号字母, 标题, 副标题)
+APPENDIX_DEFS = [
+    ("附录A_术语总表.md", "apx-a", "A", "术语总表", "全书术语按章速刷"),
+    ("附录B_跨章对比速查.md", "apx-b", "B", "跨章对比速查", "13 个横向对比矩阵"),
+    ("附录C_自测题库.md", "apx-c", "C", "自测题库", "18 章 × 5 题 · 答案折叠"),
+]
+
 # 章节成熟度：按中文字数自动判定（也可在 md 顶部用 <!-- status: 精讲 --> 覆盖）
 STATUS_RULES = [(4000, "精讲"), (1800, "精读"), (800, "提纲"), (0, "骨架")]
 STATUS_RE = re.compile(r"<!--\s*status:\s*(.+?)\s*-->")
@@ -99,6 +106,35 @@ def collect_chapters():
     return chapters
 
 
+def collect_appendices():
+    items = []
+    for idx, (fname, slug_str, letter, title, sub) in enumerate(APPENDIX_DEFS):
+        path = ROOT / fname
+        if not path.exists():
+            print(f"[WARN] missing appendix: {fname}")
+            continue
+        raw = path.read_text(encoding="utf-8")
+        h1 = ""
+        for line in raw.splitlines():
+            if line.startswith("# "):
+                h1 = line[2:].strip()
+                break
+        items.append(
+            {
+                "slug": slug_str,
+                "letter": letter,
+                "title": title,
+                "sub": sub,
+                "h1": h1,
+                "path": path,
+                "raw": raw,
+                "num": f"附录 {letter}",
+                "order": 19 + idx,
+            }
+        )
+    return items
+
+
 def part_of(num: int):
     for key, name, sub, start, end in PART_DEFS:
         if start <= num <= end:
@@ -126,7 +162,7 @@ def strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def sidebar_html(chapters, current_slug=None):
+def sidebar_html(chapters, current_slug=None, appendices=()):
     blocks = []
     for key, name, sub, start, end in PART_DEFS:
         items = [c for c in chapters if start <= c["num"] <= end]
@@ -144,6 +180,21 @@ def sidebar_html(chapters, current_slug=None):
             f'<div class="nav-group">'
             f'<div class="nav-head"><span class="nav-part">{name}</span>'
             f'<span class="nav-sub">{sub}</span></div>'
+            f'<div class="nav-items">{"".join(links)}</div></div>'
+        )
+    if appendices:
+        links = []
+        for a in appendices:
+            cls = "nav-link active" if a["slug"] == current_slug else "nav-link"
+            links.append(
+                f'<a class="{cls}" href="{a["slug"]}.html">'
+                f'<span class="nav-num">{a["letter"]}</span>'
+                f'<span class="nav-title">{a["title"]}</span></a>'
+            )
+        blocks.append(
+            f'<div class="nav-group">'
+            f'<div class="nav-head"><span class="nav-part">附录 · 速查工具</span>'
+            f'<span class="nav-sub">术语 · 对比 · 自测</span></div>'
             f'<div class="nav-items">{"".join(links)}</div></div>'
         )
     return "".join(blocks)
@@ -271,10 +322,12 @@ def pager_link(ch, direction):
     if not ch:
         return ""
     label = "上一章" if direction == "prev" else "下一章"
+    num = ch["num"]
+    num_txt = f"{num:02d}" if isinstance(num, int) else str(num)
     return (
         f'<a class="pager-link {direction}" href="{ch["slug"]}.html">'
         f'<span class="pager-label">{label}</span>'
-        f'<span class="pager-title">{ch["num"]:02d} · {ch["title"]}</span></a>'
+        f'<span class="pager-title">{num_txt} · {ch["title"]}</span></a>'
     )
 
 
@@ -288,6 +341,9 @@ def main():
         print("[ERROR] no chapter markdown found")
         return 1
 
+    appendices = collect_appendices()
+    nav_chain = chapters + appendices
+
     search_index = []
 
     for i, ch in enumerate(chapters):
@@ -300,11 +356,11 @@ def main():
             f'<span class="ch-words">约 {ch["words"]} 字</span></div>'
         )
         prev_ch = chapters[i - 1] if i > 0 else None
-        next_ch = chapters[i + 1] if i < len(chapters) - 1 else None
+        next_ch = nav_chain[i + 1] if i + 1 < len(nav_chain) else None
         html = page_shell(
             f'{ch["title"]} · 第 {ch["num"]} 章 · {SITE_TITLE}',
             meta + body,
-            sidebar_html(chapters, ch["slug"]),
+            sidebar_html(chapters, ch["slug"], appendices),
             toc=toc,
             prev_link=pager_link(prev_ch, "prev"),
             next_link=pager_link(next_ch, "next"),
@@ -326,6 +382,44 @@ def main():
                 }
             )
         print(f"[OK] {ch['slug']}.html  <- {ch['path'].name}")
+
+    # 附录页
+    for i, ap in enumerate(appendices):
+        body, toc = render(ap["raw"])
+        prev_item = nav_chain[len(chapters) + i - 1] if (len(chapters) + i - 1) >= 0 else None
+        next_item = appendices[i + 1] if i + 1 < len(appendices) else None
+        meta = (
+            f'<div class="ch-meta">'
+            f'<span class="badge" data-s="附录">附录 {ap["letter"]}</span>'
+            f'<span class="ch-words">{ap["sub"]}</span></div>'
+        )
+        html = page_shell(
+            f'{ap["title"]} · {SITE_TITLE}',
+            meta + body,
+            sidebar_html(chapters, ap["slug"], appendices),
+            toc=toc,
+            prev_link=pager_link(prev_item, "prev"),
+            next_link=pager_link(next_item, "next"),
+            root="",
+            board=board_html(f'附录 {ap["letter"]} · {ap["title"]}', ap["slug"]),
+        )
+        (OUT / f'{ap["slug"]}.html').write_text(html, encoding="utf-8")
+        label = f'附录 {ap["letter"]} · {ap["title"]}'
+        for shard in shard_sections(body):
+            target = f'{ap["slug"]}.html'
+            if shard["anchor"]:
+                target += f'#{shard["anchor"]}'
+            search_index.append(
+                {
+                    "u": target,
+                    "n": ap["order"],
+                    "lb": label,
+                    "t": ap["title"],
+                    "s": shard["section"],
+                    "x": shard["text"],
+                }
+            )
+        print(f'[OK] {ap["slug"]}.html  <- {ap["path"].name}')
 
     # 首页
     guide = ROOT / "CCDE_Study_Guide.md"
@@ -353,6 +447,22 @@ def main():
             f'<p class="group-sub">{sub}</p><div class="card-grid">{links}</div></section>'
         )
 
+    if appendices:
+        links = "".join(
+            f'<a class="card" href="{a["slug"]}.html">'
+            f'<span class="card-num">{a["letter"]}</span>'
+            f'<span class="card-body"><strong>{a["title"]}</strong>'
+            f'<em>{a["sub"]}</em>'
+            f'<span class="badge" data-s="附录">附录</span>'
+            f'</span></a>'
+            for a in appendices
+        )
+        cards.append(
+            f'<section class="card-group"><h2 class="group-title">附录 · 速查工具</h2>'
+            f'<p class="group-sub">术语表 · 跨章对比 · 自测题</p>'
+            f'<div class="card-grid">{links}</div></section>'
+        )
+
     done = sum(1 for c in chapters if c["status"] == "精讲")
     pct = round(done / len(chapters) * 100)
     hero = (
@@ -361,6 +471,7 @@ def main():
         f'<p>{SITE_SUB}</p>'
         f'<div class="hero-stats"><span><b>{len(chapters)}</b> 章笔记</span>'
         f'<span><b>{len(PART_DEFS)}</b> 大部分</span>'
+        f'<span><b>{len(appendices)}</b> 个附录</span>'
         f'<span><b>{done}/{len(chapters)}</b> 已精讲</span></div>'
         f'<div class="hero-progress" title="精讲进度 {pct}%">'
         f'<span style="width:{pct}%"></span></div>'
@@ -374,7 +485,7 @@ def main():
         page_shell(
             SITE_TITLE,
             home_content,
-            sidebar_html(chapters),
+            sidebar_html(chapters, None, appendices),
             is_home=True,
             root="",
             board=board_html("首页 · 引言与目录", "index"),
