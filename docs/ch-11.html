@@ -33,19 +33,143 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="提纲">提纲</span><span class="ch-words">约 775 字</span></div><h1 id="11-wireless">第 11 章：无线 (Wireless)<a class="anchor" href="#11-wireless" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 14855 字</span></div><h1 id="11-wireless">第 11 章：无线 (Wireless)<a class="anchor" href="#11-wireless" title="Permanent link"></a></h1>
 <blockquote>
-<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 542-564 页</p>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译与精讲 | 原书第 542–564 页</p>
 </blockquote>
 <hr />
 <h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
 <ul>
-<li><strong>IEEE 802.11 标准</strong>：无线协议和频段</li>
-<li><strong>设备无线能力与安全</strong>：无线安全机制</li>
-<li><strong>企业无线网络设计</strong>：控制器部署模型</li>
-<li><strong>高密度设计</strong>：高密度无线设计考量</li>
-<li><strong>语音和视频设计</strong>：实时应用无线设计</li>
+<li><strong>IEEE 802.11 标准与频谱</strong>：协议演进、频段、信道宽度、真实吞吐</li>
+<li><strong>无线介质的时间模型</strong>：airtime（介质时间）为什么才是无线的"带宽"</li>
+<li><strong>企业无线架构</strong>：控制器部署模型、CAPWAP、FlexConnect、冗余与上线流程</li>
+<li><strong>无线安全</strong>：WPA3/SAE、802.1X/EAP、访客网络、wIPS</li>
+<li><strong>漫游设计</strong>：二层/三层漫游、PMK 缓存、802.11r、漫游域</li>
+<li><strong>高密度设计</strong>：容量估算、功率与信道规划、BSS Coloring、OFDMA</li>
+<li><strong>语音与视频</strong>：WMM/EDCA、端到端 QoS、CAC、漫游时延预算</li>
+<li><strong>勘测与验收</strong>：预测性勘测、AP-on-a-stick、可量化验收指标</li>
 </ul>
+<hr />
+<h2 id="_2">本章导读：无线的七个反直觉认知<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<p>有线工程师转做无线，最容易犯的错是把"有线思维"直接搬过来：以为加了 AP 就有带宽、以为信号能连上就算覆盖、以为 5 GHz 比 2.4 GHz"高级所以更好"。以下七条是本章所有技术细节的底层逻辑。</p>
+<h3 id="1-airtime">1. 无线的"带宽"不是比特率，是介质时间（airtime）<a class="anchor" href="#1-airtime" title="Permanent link"></a></h3>
+<p>有线是全双工、独享介质；无线是<strong>半双工、共享介质</strong>。一块射频在同一毫秒只能服务一个客户端。所以一台标称 1.2 Gbps 的 AP，真实可分配的不是"1200 Mbps 带宽"，而是"每秒 1,000,000 微秒的 airtime"。<strong>客户端数量、帧大小、信号质量、管理帧开销，全部在消耗同一份 airtime。</strong></p>
+<blockquote>
+<p>💡 <strong>一句话</strong>：有线的稀缺资源是<strong>带宽</strong>，无线的稀缺资源是<strong>时间</strong>。这个思维切换不过来，后面所有容量计算都会算错。</p>
+</blockquote>
+<h3 id="2">2. 信号"能连上"和"能用"是两件事<a class="anchor" href="#2" title="Permanent link"></a></h3>
+<p>802.11 的调制编码是自适应的：信号弱就降速率。一个 -85 dBm 的客户端仍然能连上，但它用最低速率（如 6 Mbps）发送，发一个 1500 字节的包要占用比 -55 dBm 客户端（866 Mbps）<strong>长 100 倍以上的 airtime</strong>。</p>
+<p><strong>结论：弱信号客户端不是"自己慢"，而是"拖慢整个 AP"。</strong> 这就是为什么企业设计必须定 <strong>-67 dBm 边界设计值</strong>（语音 -65 dBm、SNR ≥ 25 dB），而不是"能连上就行"。</p>
+<h3 id="3">3. 信道宽度越大不等于越好<a class="anchor" href="#3" title="Permanent link"></a></h3>
+<p>把 80 MHz 改成 160 MHz，理论速率翻倍，但：
+- 可用信道数从 14 个（6 GHz 80 MHz）降到 7 个（160 MHz），<strong>同频复用距离缩短</strong>；
+- 每个信道占用的频谱翻倍，<strong>同频干扰（CCI）概率翻倍</strong>；
+- 在密集部署里，实际吞吐往往<strong>下降</strong>。</p>
+<p><strong>高密度场景的标准答案是 20 MHz（甚至 5 GHz 只用 20 MHz）</strong>。信道宽度是"频谱预算"问题，不是"性能"问题。</p>
+<h3 id="4-ap">4. 客户端才是短板，不是 AP<a class="anchor" href="#4-ap" title="Permanent link"></a></h3>
+<p>AP 可以 4x4 MIMO、160 MHz、MU-MIMO，但用户手上的手机通常是 <strong>2x2、80 MHz</strong>。链路速率永远由双方较差的一方决定。<strong>买更贵的 AP 不等于给用户更快的网</strong>，AP 的价值在于<strong>服务的客户端数量</strong>与<strong>上行链路/多千兆口</strong>。</p>
+<h3 id="5">5. 管理帧和开销不是"零头"<a class="anchor" href="#5" title="Permanent link"></a></h3>
+<p>一个数据帧的真实开销包括：DIFS + 随机退避 + 前导码（20–40 µs）+ MAC 头 + 帧间间隔 + ACK。传 1500 字节时开销约占 20–30%；传 150 字节（VoIP、POS、IoT 心跳）时开销可能占 <strong>80% 以上</strong>。所以"语音只占 100 kbps"这种算法在无线上完全不成立 —— 要看<strong>每秒多少帧</strong>。</p>
+<h3 id="6">6. 漫游不是"协议特性"，是"覆盖设计的结果"<a class="anchor" href="#6" title="Permanent link"></a></h3>
+<p>再好的 802.11r 也救不了覆盖规划错误。漫游发生的位置必须是<strong>两个 AP 信号强度接近（差值 &lt; 5 dB）且都足够强（&gt; -67 dBm）的地方</strong>。如果 AP 按"最大功率、最远覆盖"配，客户端会在信号已经很差时才被迫切换，每次漫游都是一次业务中断。</p>
+<h3 id="7-70">7. 无线故障 70% 不在无线设备上<a class="anchor" href="#7-70" title="Permanent link"></a></h3>
+<p>DHCP 池耗尽、RADIUS 超时、CAPWAP 隧道 MTU、DNS 解析不到控制器、上游交换机端口没有 trunk 全部 VLAN、组播/广播抑制——这些"有线侧"问题在无线里表现为"Wi-Fi 有问题"。<strong>无线排障必须同时看 RF、控制器、有线侧、认证侧四层。</strong></p>
+<hr />
+<h2 id="_3">无线设计方法论（六步）<a class="anchor" href="#_3" title="Permanent link"></a></h2>
+<p>CCDE 不考"怎么配 SSID"，考的是"给一个业务场景，你怎么算出需要多少 AP、多少控制器、什么频段、什么安全策略"。下面这套流程可以直接放进设计文档。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>要做的事</th>
+<th>产出物</th>
+<th>常见错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 业务画像</strong></td>
+<td>谁在用、用什么应用、并发比例、高峰时段</td>
+<td>应用清单 + 并发率假设</td>
+<td>直接用"员工总数"当并发数（实际并发率 30–60%）</td>
+</tr>
+<tr>
+<td><strong>② 容量估算</strong></td>
+<td>按 <strong>airtime 预算</strong> 算 AP 数，而非按面积</td>
+<td>每区域 AP 数、每 AP 客户端上限</td>
+<td>按"每 AP 50 人"拍脑袋，不看应用</td>
+</tr>
+<tr>
+<td><strong>③ 覆盖设计</strong></td>
+<td>定边界 RSSI/SNR，反推 AP 功率与位置</td>
+<td>覆盖图 + 功率设置</td>
+<td>追求"最远覆盖"，结果漫游点信号太差</td>
+</tr>
+<tr>
+<td><strong>④ 频谱规划</strong></td>
+<td>选频段、定信道宽度、定信道复用图</td>
+<td>信道分配表</td>
+<td>全用 80 MHz 导致 CCI</td>
+</tr>
+<tr>
+<td><strong>⑤ 架构选型</strong></td>
+<td>集中式/分布式/云、Local/FlexConnect</td>
+<td>控制器与 AP 模式、冗余方案</td>
+<td>分支用集中式隧道，WAN 断全线瘫</td>
+</tr>
+<tr>
+<td><strong>⑥ 验证闭环</strong></td>
+<td>勘测、验收指标、监控基线</td>
+<td>勘测报告 + 验收表 + 告警阈值</td>
+<td>只测"能连上"，不测 airtime 与漫游</td>
+</tr>
+</tbody>
+</table>
+<p><strong>贯穿全程的一条铁律</strong>：<strong>先算 airtime，再算 AP 数，最后才谈覆盖。</strong> 顺序颠倒（先画覆盖、再想容量）是园区无线项目最常见的返工原因。</p>
+<h3 id="airtime">airtime 预算速算（设计文档里可以直接引用的公式）<a class="anchor" href="#airtime" title="Permanent link"></a></h3>
+<pre><code>单个 AP 每秒可用 airtime = 1,000,000 µs
+实际可用（扣管理帧/Beacon/探测/重传）≈ 60% ~ 75%
+单客户端可用吞吐 ≈ AP 有效吞吐 × (该客户端 airtime 占比)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>AP 有效吞吐（真实 TCP）</th>
+<th>目标客户端数/AP</th>
+<th>人均可用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>办公（网页/邮件/视频会议）</td>
+<td>350–450 Mbps（5 GHz 40 MHz, 2SS）</td>
+<td>30–40</td>
+<td>10–15 Mbps</td>
+</tr>
+<tr>
+<td>高密度（会场/教室）</td>
+<td>300–400 Mbps（5 GHz 20 MHz）</td>
+<td>60–80（仅短时突发应用）</td>
+<td>4–6 Mbps</td>
+</tr>
+<tr>
+<td>语音优先（仓储/医疗）</td>
+<td>250–350 Mbps</td>
+<td>20–25</td>
+<td>保证每呼叫 &lt; 1% airtime</td>
+</tr>
+<tr>
+<td>IoT/工业</td>
+<td>100–200 Mbps（2.4 GHz）</td>
+<td>100+（小包为主）</td>
+<td>极低带宽但极多帧</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 上表是<strong>设计起点</strong>，不是保证值。真实项目必须用勘测数据校正（见"勘测与验收"一节）。任何"每 AP 支持 200 用户"的厂商标称值，都是在<strong>零重传、无干扰、全小流量</strong>条件下的实验室数字。</p>
+</blockquote>
 <hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <h3 id="ieee-80211">IEEE 802.11 标准与协议<a class="anchor" href="#ieee-80211" title="Permanent link"></a></h3>
@@ -53,331 +177,2739 @@
 <thead>
 <tr>
 <th>标准</th>
+<th>别名</th>
 <th>频段</th>
-<th>最大速率</th>
-<th>调制技术</th>
+<th>理论最大速率</th>
+<th>关键调制/技术</th>
 <th>信道宽度</th>
+<th>现实意义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>802.11b</strong></td>
+<td>—</td>
 <td>2.4 GHz</td>
 <td>11 Mbps</td>
 <td>DSSS/CCK</td>
 <td>20 MHz</td>
+<td>已淘汰，仅遗留 IoT</td>
 </tr>
 <tr>
 <td><strong>802.11a</strong></td>
+<td>—</td>
 <td>5 GHz</td>
 <td>54 Mbps</td>
 <td>OFDM</td>
 <td>20 MHz</td>
+<td>首个 5 GHz 标准，开创 5 GHz 生态</td>
 </tr>
 <tr>
 <td><strong>802.11g</strong></td>
+<td>—</td>
 <td>2.4 GHz</td>
 <td>54 Mbps</td>
 <td>OFDM</td>
 <td>20 MHz</td>
+<td>与 b 兼容，导致 2.4 GHz 保护机制开销</td>
 </tr>
 <tr>
-<td><strong>802.11n (Wi-Fi 4)</strong></td>
+<td><strong>802.11n</strong></td>
+<td>Wi-Fi 4</td>
 <td>2.4/5 GHz</td>
 <td>600 Mbps</td>
-<td>OFDM/MIMO</td>
+<td>OFDM + MIMO（4SS）</td>
 <td>20/40 MHz</td>
+<td>MIMO 与帧聚合（A-MPDU）奠基，效率首次上来</td>
 </tr>
 <tr>
-<td><strong>802.11ac (Wi-Fi 5)</strong></td>
+<td><strong>802.11ac</strong></td>
+<td>Wi-Fi 5</td>
 <td>5 GHz</td>
 <td>6.9 Gbps</td>
-<td>OFDM/MU-MIMO</td>
+<td>OFDM + DL MU-MIMO</td>
 <td>20/40/80/160 MHz</td>
+<td>只做 5 GHz，80 MHz 成为主流</td>
 </tr>
 <tr>
-<td><strong>802.11ax (Wi-Fi 6/6E)</strong></td>
+<td><strong>802.11ax</strong></td>
+<td>Wi-Fi 6 / 6E</td>
 <td>2.4/5/6 GHz</td>
 <td>9.6 Gbps</td>
-<td>OFDMA</td>
+<td><strong>OFDMA</strong> + UL/DL MU-MIMO + BSS Coloring + TWT</td>
 <td>20/40/80/160 MHz</td>
+<td>重点不是峰值而是<strong>高密度效率</strong></td>
 </tr>
 <tr>
-<td><strong>802.11be (Wi-Fi 7)</strong></td>
+<td><strong>802.11be</strong></td>
+<td>Wi-Fi 7</td>
 <td>2.4/5/6 GHz</td>
 <td>46 Gbps</td>
-<td>OFDMA/MLO</td>
+<td>OFDMA + <strong>MLO</strong> + 4096-QAM</td>
 <td>20/40/80/160/320 MHz</td>
+<td>多链路聚合，时延与可靠性同时改善</td>
 </tr>
 </tbody>
 </table>
+<p><strong>读这张表的正确姿势</strong>：不要记峰值速率（那是 8 空间流、160 MHz、理想信道、零开销的实验室数字）。要记<strong>每一代解决了什么结构性问题</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>代际</th>
+<th>解决的核心问题</th>
+<th>为什么重要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11n</td>
+<td>用 MIMO + 聚合提高<strong>单用户效率</strong></td>
+<td>把开销从 70% 降到 30%，第一次让无线"能用"</td>
+</tr>
+<tr>
+<td>11ac</td>
+<td>用<strong>宽信道</strong>换峰值速率</td>
+<td>峰值好看，但高密度下反而制造 CCI</td>
+</tr>
+<tr>
+<td>11ax</td>
+<td>用 <strong>OFDMA</strong> 让多用户共享同一次传输机会</td>
+<td>真正解决"人多就慢"，是高密度场景的分水岭</td>
+</tr>
+<tr>
+<td>11be</td>
+<td>用 <strong>MLO</strong> 同时用多个频段</td>
+<td>降低时延与漫游中断，AR/VR、工业场景受益</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>设计上最容易踩的坑</strong>：客户说"我们上了 Wi-Fi 6，为什么还是慢"。答案通常是：终端是 Wi-Fi 4/5、信道宽度设成 80 MHz 导致 CCI、或者 AP 上行只有 1 Gbps —— <strong>Wi-Fi 6 的增益（OFDMA/BSS Coloring）只有在对端也支持、且信道规划正确时才生效</strong>。</p>
+</blockquote>
+<h4 id="_4">速率是怎么算出来的（面试与设计答辩必问）<a class="anchor" href="#_4" title="Permanent link"></a></h4>
+<pre><code>理论 PHY 速率 = 子载波数 × 每子载波比特数(MCS) × 空间流数 × 编码率 / 符号时间
+</code></pre>
+<p>工程上只需要记下面这张"常见组合"表（2 空间流，这是绝大多数终端的天花板）：</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>信道宽度</th>
+<th>MCS</th>
+<th>理论 PHY</th>
+<th>实际 TCP 吞吐（单客户端）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11ac</td>
+<td>20 MHz</td>
+<td>9</td>
+<td>173 Mbps</td>
+<td>90–110 Mbps</td>
+</tr>
+<tr>
+<td>11ac</td>
+<td>40 MHz</td>
+<td>9</td>
+<td>400 Mbps</td>
+<td>200–240 Mbps</td>
+</tr>
+<tr>
+<td>11ac</td>
+<td>80 MHz</td>
+<td>9</td>
+<td>867 Mbps</td>
+<td>420–500 Mbps</td>
+</tr>
+<tr>
+<td>11ax</td>
+<td>20 MHz</td>
+<td>11</td>
+<td>287 Mbps</td>
+<td>150–180 Mbps</td>
+</tr>
+<tr>
+<td>11ax</td>
+<td>40 MHz</td>
+<td>11</td>
+<td>574 Mbps</td>
+<td>300–350 Mbps</td>
+</tr>
+<tr>
+<td>11ax</td>
+<td>80 MHz</td>
+<td>11</td>
+<td>1201 Mbps</td>
+<td>600–700 Mbps</td>
+</tr>
+<tr>
+<td>11ax</td>
+<td>160 MHz</td>
+<td>11</td>
+<td>2402 Mbps</td>
+<td>900–1100 Mbps（且几乎无法在高密度复用）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>经验换算</strong>：<strong>实际 TCP 吞吐 ≈ 理论 PHY 速率 × 50%–60%</strong>（半双工、ACK、退避、管理帧、重传全部算在内）。所有厂商的"每 AP 支持 X Gbps"都用的是 PHY 值，你写设计文档时必须换算成 TCP 值再算容量。</p>
 <h3 id="24-ghz">2.4 GHz 频段<a class="anchor" href="#24-ghz" title="Permanent link"></a></h3>
 <ul>
-<li>14 个信道，仅 3 个不重叠信道（1、6、11）</li>
-<li>更远覆盖距离</li>
-<li>更强穿透能力</li>
-<li>更拥挤（蓝牙、微波炉等干扰源多）</li>
+<li>信道 1–13（部分地区含 14），每个 20 MHz，<strong>互不重叠只有 3 个：1、6、11</strong></li>
+<li>波长长、绕射强、穿透损耗小 → <strong>覆盖半径大</strong>（穿一堵承重墙约衰减 10–15 dB，5 GHz 同条件 20–30 dB）</li>
+<li>干扰源密集：蓝牙、微波炉、无线鼠标/摄像头、Zigbee、邻居 AP</li>
+<li>只有 3 个不重叠信道 → <strong>同频复用几乎不可能规划</strong>，CCI 不可避免</li>
 </ul>
+<p><strong>2.4 GHz 的正确用法（三条）</strong>：</p>
+<ol>
+<li><strong>只承载"必须用它"的设备</strong>：老 IoT（无线打印机、标签、医疗遥测）、访客兜底</li>
+<li><strong>信道宽度固定 20 MHz</strong>（绝不开 40 MHz，那等于只用 1 个信道）</li>
+<li><strong>关闭低速率的强制支持</strong>（disable 1/2/5.5/11 Mbps），让弱信号客户端主动离开而不是拖垮 airtime</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>不要为了"更好覆盖"把重要业务放 2.4 GHz</strong>。2.4 GHz 的覆盖优势在会议室/仓库这类多金属、多隔断环境里是假象：信号到了，airtime 却挤不进去。</p>
+</blockquote>
 <h3 id="5-ghz">5 GHz 频段<a class="anchor" href="#5-ghz" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>UNII 子带</th>
+<th>信道</th>
+<th>特性</th>
+<th>设计要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UNII-1</strong></td>
+<td>36–48</td>
+<td>室内、无 DFS</td>
+<td>首选，可做 80 MHz</td>
+</tr>
+<tr>
+<td><strong>UNII-2</strong></td>
+<td>52–64</td>
+<td><strong>需 DFS + TPC</strong></td>
+<td>雷达信道，可能因雷达事件被强制切走</td>
+</tr>
+<tr>
+<td><strong>UNII-2e</strong></td>
+<td>100–144</td>
+<td><strong>需 DFS</strong></td>
+<td>容量池主体，但雷达误检会引发整信道静默</td>
+</tr>
+<tr>
+<td><strong>UNII-3 / ISM</strong></td>
+<td>149–165</td>
+<td>功率上限较高</td>
+<td>部分国家受限，常做室外桥接</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>25 个不重叠信道（UNII-1/2/2e/3）</li>
-<li>更高吞吐量</li>
-<li>更短覆盖距离</li>
-<li>更少干扰源</li>
+<li>20 MHz 不重叠信道：<strong>约 25 个</strong>（视国家法规）</li>
+<li>80 MHz 信道：<strong>约 6 个</strong>；160 MHz：<strong>约 2 个</strong></li>
+<li>干扰远小于 2.4 GHz，但<strong>墙体衰减大</strong>（设计时按每个隔断 3–5 dB 估算，混凝土墙更高）</li>
 </ul>
-<h3 id="6-ghz-wi-fi-6e7">6 GHz 频段（Wi-Fi 6E/7）<a class="anchor" href="#6-ghz-wi-fi-6e7" title="Permanent link"></a></h3>
+<p><strong>DFS 是 5 GHz 最大的隐性风险</strong>：</p>
+<blockquote>
+<p>🔥 <strong>典型现象</strong>：某个会议室每天不定时"Wi-Fi 掉十几秒"，日志里 AP 显示 <code>Channel changed due to radar detection</code>。原因：DFS 信道检测到雷达脉冲（可能来自气象雷达、机场雷达，也可能是相邻 AP 的误检），法规要求 <strong>30 分钟内静默该信道</strong>，AP 必须换信道 —— 所有客户端被迫重新关联。</p>
+</blockquote>
+<p><strong>设计对策</strong>：①高密度区域优先用 UNII-1 与 UNII-3（非 DFS）；②DFS 信道用于容量补充，并在控制器上开启 <strong>channel reuse / 选择性信道分配</strong>，避免雷达误检引发的连续跳变；③不要把<strong>关键实时业务</strong>只部署在单一 DFS 信道上。</p>
+<h3 id="6-ghz-wi-fi-6e-7">6 GHz 频段（Wi-Fi 6E / 7）<a class="anchor" href="#6-ghz-wi-fi-6e-7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20 MHz 信道</td>
+<td>59 个（5925–7125 MHz，视国家开放范围）</td>
+</tr>
+<tr>
+<td>40 MHz 信道</td>
+<td>29 个</td>
+</tr>
+<tr>
+<td>80 MHz 信道</td>
+<td>14 个</td>
+</tr>
+<tr>
+<td>160 MHz 信道</td>
+<td>7 个</td>
+</tr>
+<tr>
+<td>320 MHz 信道（Wi-Fi 7）</td>
+<td>3 个（部分地区）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6 GHz 是近十年唯一"干净"的频谱</strong>：没有老设备、没有蓝牙、没有微波炉，理论上可以做"全 80 MHz + 零 CCI"的部署。但它带来四个<strong>设计层面的新约束</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>说明</th>
+<th>设计影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>仅 Wi-Fi 6E/7 终端可见</strong></td>
+<td>老终端完全看不到 6 GHz 的 SSID</td>
+<td>必须保留 5 GHz 覆盖，6 GHz 只能做"增量容量"</td>
+</tr>
+<tr>
+<td><strong>强制 WPA3 + PMF</strong></td>
+<td>6 GHz 不允许 WPA2、不允许开放（除 OWE）</td>
+<td>老终端无法接入；PSK 也要改成 WPA3-SAE</td>
+</tr>
+<tr>
+<td><strong>功率等级分级</strong></td>
+<td>LPI（室内低功率）、VLP（超低功率）、Standard Power（需 <strong>AFC</strong> 查询）</td>
+<td>室外/标准功率部署必须通过 AFC 服务，项目周期增加</td>
+</tr>
+<tr>
+<td><strong>不广播 SSID（无 Beacon 于旧频段）</strong></td>
+<td>6 GHz 的 SSID 通过 <strong>RNR 元素</strong>在 5 GHz Beacon 中指示</td>
+<td>客户端扫描逻辑变化，部分老终端"看不到 6 GHz"是正常的</td>
+</tr>
+</tbody>
+</table>
+<p><strong>6 GHz 的规划建议（可以直接写进方案）</strong>：</p>
 <ul>
-<li>59 个 20 MHz 不重叠信道</li>
-<li>29 个 40 MHz 信道</li>
-<li>14 个 80 MHz 信道</li>
-<li>7 个 160 MHz 信道</li>
-<li>极大缓解频谱拥挤问题</li>
+<li><strong>新项目</strong>：5 GHz 用 20/40 MHz 保覆盖与兼容，6 GHz 用 80 MHz 做容量层，形成"覆盖层 + 容量层"双频分工</li>
+<li><strong>存量改造</strong>：先确认终端比例（6E 终端通常 &lt; 30%），再决定是否值得为 6 GHz 单独加 AP</li>
+<li><strong>WPA3 强制</strong>的连带影响：必须同步升级 RADIUS 与客户端配置，且<strong>开启 WPA3 过渡模式（WPA2/WPA3 混合）</strong>以避免老终端掉线</li>
+<li><strong>不要指望 6 GHz 解决 2.4 GHz 的 IoT 问题</strong>：IoT 设备几乎全是 2.4 GHz 单频</li>
 </ul>
+<h3 id="_5">信道规划：从"分配信道"到"分配复用距离"<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<p>真正决定无线容量的不是"有几个信道"，而是<strong>同频信道的物理间隔（复用距离）</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>部署形态</th>
+<th>推荐信道宽度</th>
+<th>复用图</th>
+<th>目标同频间隔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通办公（AP 间距 15–20 m）</td>
+<td>5 GHz 40 MHz</td>
+<td>1-6-11 式交错（5 GHz 用非重叠组）</td>
+<td>≥ 2 层 AP</td>
+</tr>
+<tr>
+<td>高密度（AP 间距 8–12 m）</td>
+<td>5 GHz <strong>20 MHz</strong></td>
+<td>严格交错，禁止相邻同信道</td>
+<td>≥ 3 层 AP</td>
+</tr>
+<tr>
+<td>仓库/大堂（高挑高、少隔断）</td>
+<td>5 GHz 40 MHz + 定向天线</td>
+<td>按区域分区</td>
+<td>视覆盖半径</td>
+</tr>
+<tr>
+<td>6 GHz 容量层</td>
+<td>80 MHz</td>
+<td>少量 AP，几乎无复用压力</td>
+<td>≥ 1 层</td>
+</tr>
+</tbody>
+</table>
+<p><strong>功率与信道必须一起调</strong>：信道宽度决定"频谱占用"，发射功率决定"覆盖半径"。如果功率不降，即使信道规划正确，<strong>相邻 AP 仍会互相听到</strong>（co-channel overlap），BSS Coloring 只能缓解而不能消除。</p>
+<blockquote>
+<p>💡 <strong>黄金组合</strong>：高密度区域 = <strong>低功率（5–8 dBm）+ 20 MHz + MIN RSSI -67 dBm</strong>。这三项必须同时设置，只调其中一项等于没调。</p>
+</blockquote>
 <hr />
-<h3 id="_2">企业无线架构<a class="anchor" href="#_2" title="Permanent link"></a></h3>
-<h4 id="_3">无线控制器部署模型<a class="anchor" href="#_3" title="Permanent link"></a></h4>
+<h2 id="_6">企业无线架构<a class="anchor" href="#_6" title="Permanent link"></a></h2>
+<h3 id="_7">为什么无线需要一个"控制器"<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<p>有线网络里，交换机的控制面是分布式的（每台自己跑 STP、自己学 MAC）。无线为什么不能照做？三个结构性原因：</p>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RF 是全局资源</strong></td>
+<td>信道、功率、客户端负载必须在<strong>全局视野</strong>下协调。两台相邻 AP 各自"聪明地"选最强功率，结果就是互相干扰</td>
+</tr>
+<tr>
+<td><strong>认证状态需要共享</strong></td>
+<td>客户端漫游时必须复用 PMK（密钥缓存），否则每次换 AP 都要重新做 802.1X（几百毫秒到数秒）</td>
+</tr>
+<tr>
+<td><strong>策略需要统一下发</strong></td>
+<td>SSID、ACL、QoS、VLAN 映射若逐台配置，几千台 AP 的配置漂移无法管理</td>
+</tr>
+</tbody>
+</table>
+<p><strong>所以控制器管三件事：RF 协调、认证/密钥状态同步、策略统一下发。</strong> 数据是否也经过控制器，是可以选择的 —— 这就是 Local Mode 与 FlexConnect 的分野。</p>
+<h3 id="_8">控制面与数据面：四种组合<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>组合</th>
+<th>控制面</th>
+<th>数据面</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>集中控制 + 集中转发</strong></td>
+<td>WLC</td>
+<td>CAPWAP 隧道回 WLC</td>
+<td>Local Mode（传统园区）</td>
+</tr>
+<tr>
+<td><strong>集中控制 + 本地转发</strong></td>
+<td>WLC</td>
+<td>AP 本地桥接到接入交换机</td>
+<td>FlexConnect / 本地转发</td>
+</tr>
+<tr>
+<td><strong>集中控制 + 分布式转发（边缘）</strong></td>
+<td>WLC</td>
+<td>本地转发 + 本地策略</td>
+<td>FlexConnect + 本地认证（分支）</td>
+</tr>
+<tr>
+<td><strong>云控制 + 本地转发</strong></td>
+<td>云（Meraki 等）</td>
+<td>本地</td>
+<td>多分支/中小企业</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>设计判断的关键问题不是"哪种先进"，而是"数据回传的路径上有多少带宽、多少故障点"</strong>。100 个分支把用户流量全部隧道回总部 WLC，等于给总部造了一个带宽与可用性的双单点。</p>
+</blockquote>
+<h3 id="_9">无线控制器部署模型<a class="anchor" href="#_9" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>模型</th>
 <th>特点</th>
+<th>优势</th>
+<th>代价</th>
 <th>适用场景</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>集中式 (Centralized)</strong></td>
-<td>WLC 在数据中心集中管理 AP</td>
-<td>传统企业、校园</td>
+<td>所有 AP 的 CAPWAP 隧道回数据中心 WLC</td>
+<td>策略统一、漫游简单、RF 全局可视</td>
+<td><strong>数据回传带宽</strong>与<strong>WAN 依赖</strong>；控制器是单点</td>
+<td>单园区、多楼栋、局域网内多站点</td>
 </tr>
 <tr>
 <td><strong>分布式 (Distributed)</strong></td>
-<td>WLC 分布在各站点</td>
-<td>大型分布式企业</td>
+<td>每站点/每区域部署 WLC</td>
+<td>数据本地、抗 WAN 故障</td>
+<td>控制器数量多，配置一致性难保证</td>
+<td>大型多站点企业（每站点 &gt; 100 AP）</td>
 </tr>
 <tr>
 <td><strong>云管理 (Cloud)</strong></td>
-<td>云控制器管理 AP</td>
-<td>多分支企业</td>
+<td>控制面在云（Meraki、云 AC）</td>
+<td>零现场运维、多分支快速上线</td>
+<td>依赖互联网可达；深度定制受限</td>
+<td>分支多、IT 人力少</td>
 </tr>
 <tr>
 <td><strong>嵌入式 (Embedded)</strong></td>
-<td>WLC 功能嵌入交换机/路由器</td>
-<td>小型站点</td>
+<td>控制器功能内嵌于交换机/路由器</td>
+<td>成本低、单箱交付</td>
+<td>规模有限、功能裁剪</td>
+<td>小型站点、零售门店</td>
+</tr>
+<tr>
+<td><strong>无控制器（Mobility Express / 虚拟化 WLC）</strong></td>
+<td>一台 AP 当"主"，或 WLC 跑在 VM/云</td>
+<td>部署极简 / 弹性伸缩</td>
+<td>规模与高可用弱</td>
+<td>小型办公、临时场景</td>
 </tr>
 </tbody>
 </table>
-<h4 id="capwap">CAPWAP 隧道<a class="anchor" href="#capwap" title="Permanent link"></a></h4>
+<p><strong>选型决策树（写方案时可以直接用）</strong>：</p>
+<pre><code>多站点企业
+│
+├─ 站点内 AP 数 &gt; 100，且站点间有专线？
+│  ├─ 是 ──→ 每站点独立 WLC（分布式）+ 统一管理平台（DNA Center / 云）
+│  └─ 否
+│     ├─ 分支 WAN 带宽 &lt; 50 Mbps 或不可靠？
+│     │  ├─ 是 ──→ FlexConnect 本地转发 + 本地认证（WAN 断网仍可上网）
+│     │  └─ 否 ──→ 集中式 WLC + Local Mode（策略最统一）
+│     └─ 站点 &lt; 10 个且无专职网络团队？
+│        └─ 是 ──→ 云管理（Meraki / 云 AC）
+└─ 单园区多楼栋 ──→ 集中式 WLC（HA SSO 双机）+ 双上行
+</code></pre>
+<h3 id="capwapap">CAPWAP：AP 与控制器之间的协议<a class="anchor" href="#capwapap" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>隧道类型</th>
-<th>特点</th>
+<th>项目</th>
+<th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>MAC 模式 (Local Mode)</strong></td>
-<td>AP 的 MAC 和数据通过 CAPWAP 隧道到 WLC</td>
+<td><strong>全称</strong></td>
+<td>Control and Provisioning of Wireless Access Points（RFC 5415）</td>
 </tr>
 <tr>
-<td><strong>FlexConnect (H-REAP)</strong></td>
-<td>数据在本地交换，控制在 WLC</td>
+<td><strong>传输</strong></td>
+<td>UDP，<strong>控制面 5246</strong>、<strong>数据面 5247</strong>（可用 IP 协议 136 封装，但少见）</td>
+</tr>
+<tr>
+<td><strong>控制隧道</strong></td>
+<td>承载配置下发、AP 状态、RF 信息、客户端上下文、密钥同步</td>
+</tr>
+<tr>
+<td><strong>数据隧道</strong></td>
+<td>承载客户端 802.11 帧的 802.3 封装（Local Mode 才有）</td>
+</tr>
+<tr>
+<td><strong>加密</strong></td>
+<td>控制面 DTLS 加密；数据面可选 DTLS</td>
+</tr>
+<tr>
+<td><strong>心跳</strong></td>
+<td>Echo Request/Reply（默认 30 s，超时 4 次判定断链）</td>
 </tr>
 </tbody>
 </table>
-<h4 id="ap">AP 部署模型<a class="anchor" href="#ap" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>必须写进设计文档的一条</strong>：CAPWAP 数据隧道会把 802.11 帧完整封装在 UDP/IP 里，<strong>每帧额外增加 40+ 字节</strong>。如果客户端 MTU 是 1500，隧道内会出现分片。生产上标准的做法是<strong>把 AP 与 WLC 之间的路径 MTU 统一放大（≥ 1550）</strong>，或在 WLC 上启用 <code>pmtu</code>/<code>fragment</code> 让 AP 自己分片（代价是性能下降）。</p>
+</blockquote>
+<h4 id="ap">AP 上线全流程（排障顺序就是它）<a class="anchor" href="#ap" title="Permanent link"></a></h4>
+<pre><code>① AP 上电 → 从 DHCP 拿到 IP（必须能拿到地址！）
+② 发现控制器，顺序：
+   a. DHCP Option 43（厂商私有，Cisco 是十六进制 IP 列表）
+   b. DNS 解析 CISCO-CAPWAP-CONTROLLER.&lt;domain&gt;
+   c. 本地子网广播（同一广播域）
+   d. 上次记住的控制器（AP 会缓存）
+③ 与 WLC 建立 CAPWAP 控制隧道（UDP 5246），DTLS 握手 + 证书校验（可选）
+④ 下载镜像与控制配置 → 可能重启
+⑤ 加入 WLC，按 AP Group / Site Tag / Policy Tag 绑定配置
+⑥ 数据隧道建立，SSID 开始广播
+</code></pre>
+<p><strong>排障映射表</strong>（这一张表能解决 80% 的"AP 不上线"）：</p>
 <table>
 <thead>
 <tr>
-<th>模型</th>
-<th>说明</th>
+<th>现象</th>
+<th>最可能的原因</th>
+<th>验证命令</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Local Mode</strong></td>
-<td>AP 的所有流量通过 CAPWAP 隧道到 WLC</td>
+<td>AP 拿不到 IP</td>
+<td>接入端口 VLAN 错、DHCP 中继缺失、端口安全限制</td>
+<td>交换机 <code>show interface status</code>、AP console</td>
+</tr>
+<tr>
+<td>拿到 IP 但找不到 WLC</td>
+<td>Option 43 未配 / DNS 不可达 / 跨网段无路由</td>
+<td>AP 上 <code>debug capwap client</code>、<code>ping</code> WLC</td>
+</tr>
+<tr>
+<td>找到 WLC 但卡在 join</td>
+<td>证书时间不同步、WLC 已达到 AP 数量上限、授权不足</td>
+<td>WLC <code>show ap join stats summary</code>、<code>show license</code></td>
+</tr>
+<tr>
+<td>join 后反复重启</td>
+<td>镜像下载中断（MTU/带宽）、配置模板不匹配</td>
+<td><code>show ap image</code>、WLC <code>show ap logs</code></td>
+</tr>
+<tr>
+<td>上线但 SSID 不广播</td>
+<td>AP Group / Tag 未绑定 WLAN、RF Profile 禁用该频段</td>
+<td><code>show ap config general</code></td>
+</tr>
+<tr>
+<td>客户端能连但拿不到地址</td>
+<td>接口/VLAN 未在 WLC 上创建、外置 DHCP 中继未指</td>
+<td>WLC <code>show interface</code>、<code>debug dhcp</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ap_1">AP 工作模式<a class="anchor" href="#ap_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>功能</th>
+<th>设计用途</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local</strong></td>
+<td>数据与控制都走 CAPWAP 到 WLC</td>
+<td>园区标准模式</td>
+<td>需要足够回传带宽与低时延</td>
 </tr>
 <tr>
 <td><strong>FlexConnect</strong></td>
-<td>本地交换数据，远程控制。WAN 断开时仍可本地转发</td>
+<td>控制走 WLC，<strong>数据本地交换</strong></td>
+<td>分支、WAN 不可靠站点</td>
+<td>需本地 VLAN 配置 + 本地 DHCP</td>
 </tr>
 <tr>
-<td><strong>Monitor Mode</strong></td>
-<td>仅接收，用于 RF 监控和入侵检测</td>
+<td><strong>Monitor</strong></td>
+<td>只收不发，全信道扫描</td>
+<td>wIPS、RF 分析、CleanAir</td>
+<td>不服务客户端，属于"传感器"</td>
 </tr>
 <tr>
-<td><strong>Sniffer Mode</strong></td>
-<td>捕获数据包用于分析</td>
+<td><strong>Sniffer</strong></td>
+<td>抓包转发给分析器（如 Wireshark/ACI）</td>
+<td>疑难故障定位</td>
+<td>只抓指定信道，需人工切换</td>
 </tr>
 <tr>
-<td><strong>Bridge Mode</strong></td>
-<td>Mesh 网络，AP 间无线互连</td>
+<td><strong>Bridge / Mesh</strong></td>
+<td>AP 间无线回传</td>
+<td>无法布线的区域（仓库、广场）</td>
+<td>每次回传跳数消耗一半吞吐</td>
+</tr>
+<tr>
+<td><strong>Sensor（专用）</strong></td>
+<td>专用 wIPS 传感器硬件</td>
+<td>高安全场所</td>
+<td>成本高，纯监听</td>
+</tr>
+<tr>
+<td><strong>Sniffer + Monitor 混合（SE-Connect）</strong></td>
+<td>扫描 + 远程频谱分析</td>
+<td>频谱排障</td>
+<td>单台专用</td>
+</tr>
+</tbody>
+</table>
+<h4 id="flexconnect">FlexConnect 的四个必须配对的设置<a class="anchor" href="#flexconnect" title="Permanent link"></a></h4>
+<p>FlexConnect 不是"打开一个开关就本地转发"，它需要四件事同时正确：</p>
+<table>
+<thead>
+<tr>
+<th>设置</th>
+<th>位置</th>
+<th>错了会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WLAN 的本地交换（Local Switching）</strong></td>
+<td>WLC 上 WLAN 配置</td>
+<td>数据仍然回隧道，等于没用 FlexConnect</td>
+</tr>
+<tr>
+<td><strong>VLAN 映射（VLAN-ACL Mapping）</strong></td>
+<td>AP 上 <code>flexconnect vlan-name → vlan-id</code></td>
+<td>客户端被塞进 AP 的管理 VLAN，跨业务串网</td>
+</tr>
+<tr>
+<td><strong>接入交换机端口 Trunk 化</strong></td>
+<td>交换机侧</td>
+<td>除 AP 管理 VLAN 外的业务 VLAN 不通</td>
+</tr>
+<tr>
+<td><strong>本地 DHCP / 本地认证（可选）</strong></td>
+<td>分支侧服务器</td>
+<td>WAN 断链时新客户端拿不到地址</td>
+</tr>
+</tbody>
+</table>
+<p><strong>FlexConnect 断链行为矩阵</strong>（这是分支设计必须写清的 SLA）：</p>
+<table>
+<thead>
+<tr>
+<th>WAN 状态</th>
+<th>已关联客户端</th>
+<th>新客户端</th>
+<th>认证</th>
+<th>漫游</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正常</td>
+<td>正常</td>
+<td>正常</td>
+<td>集中（RADIUS）</td>
+<td>跨 AP 正常（本地）</td>
+</tr>
+<tr>
+<td>断链（Local Auth 开启）</td>
+<td><strong>保持在线</strong></td>
+<td>可关联</td>
+<td><strong>本地认证（需预置凭据）</strong></td>
+<td>同 AP 组内正常</td>
+</tr>
+<tr>
+<td>断链（Local Auth 关闭）</td>
+<td>保持在线（数据本地转发）</td>
+<td>可关联但可能无法认证</td>
+<td>失败</td>
+<td>受限</td>
+</tr>
+<tr>
+<td>断链（未启用本地转发）</td>
+<td><strong>全部离线</strong></td>
+<td>无法关联</td>
+<td>失败</td>
+<td>失败</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>分支设计最常见的错误</strong>：只配了 FlexConnect 但没配本地认证与本地 DHCP。WAN 一断，老客户端还能用（因为已关联），但<strong>第二天早上所有人重新上班时全部连不上</strong> —— 这个故障总是在最糟的时间出现。</p>
+</blockquote>
+<h3 id="_10">控制器高可用设计<a class="anchor" href="#_10" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>机制</th>
+<th>切换时间</th>
+<th>AP 影响</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HA SSO（Active/Standby）</strong></td>
+<td>两台 WLC 通过 RP 端口同步客户端/AP 状态，AP 同时与主备建会话</td>
+<td><strong>&lt; 1 s</strong>（AP 无感知）</td>
+<td>无重新 join</td>
+<td>两台设备 + 直连/冗余端口</td>
+</tr>
+<tr>
+<td><strong>N+1</strong></td>
+<td>多台 Active 共享一台 Standby</td>
+<td>30–60 s（AP 重新 join）</td>
+<td>短暂断连、重新下载配置</td>
+<td>较少</td>
+</tr>
+<tr>
+<td><strong>N+N</strong></td>
+<td>每台 Active 有对应备份</td>
+<td>同 N+1</td>
+<td>同 N+1</td>
+<td>高</td>
+</tr>
+<tr>
+<td><strong>Mobility Group 内互备</strong></td>
+<td>多台 WLC 组成移动域，故障时 AP 可加入其他控制器</td>
+<td>数十秒</td>
+<td>重新 join + 客户端重关联</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<p><strong>HA SSO 的物理要求（写方案时必须明确）</strong>：</p>
+<ul>
+<li>两台 WLC 必须<strong>同型号、同软件版本、同许可</strong>；</li>
+<li>需要 <strong>Redundancy Port（RP）直连</strong>或通过专用 VLAN 二层可达；</li>
+<li>需要<strong>同一二层域内的 Peer RK 与 Mobility MAC</strong>；</li>
+<li>升级必须<strong>主备同步升级</strong>（不能长期版本不一致）。</li>
+</ul>
+<h3 id="_11">控制器容量规划清单<a class="anchor" href="#_11" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>要问的问题</th>
+<th>典型瓶颈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AP 数</strong></td>
+<td>当前 AP 数与 3 年增长</td>
+<td>授权（License）比硬件更早到顶</td>
+</tr>
+<tr>
+<td><strong>客户端数</strong></td>
+<td>峰值并发客户端</td>
+<td>高密度会先在客户端表打满</td>
+</tr>
+<tr>
+<td><strong>吞吐</strong></td>
+<td>所有 AP 峰值之和 × 收敛比</td>
+<td>Local Mode 下所有流量都过控制器</td>
+</tr>
+<tr>
+<td><strong>隧道数</strong></td>
+<td>AP 数（每 AP 一条控制隧道 + 一条数据隧道）</td>
+<td>WLC 的 CAPWAP 会话表</td>
+</tr>
+<tr>
+<td><strong>漫游域规模</strong></td>
+<td>Mobility Group 内成员数</td>
+<td>跨控制器漫游的数据库同步开销</td>
+</tr>
+<tr>
+<td><strong>管理面</strong></td>
+<td>模板/配置变更的批量下发时间</td>
+<td>上千 AP 时一次改 WLAN 可能耗时很久</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="_4">无线安全<a class="anchor" href="#_4" title="Permanent link"></a></h3>
-<h4 id="_5">安全演进<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<h2 id="_12">无线漫游设计<a class="anchor" href="#_12" title="Permanent link"></a></h2>
+<h3 id="_13">漫游到底发生了什么<a class="anchor" href="#_13" title="Permanent link"></a></h3>
+<p>客户端从一个 AP 换到另一个 AP，不是"切换一个信号"，而是完整的三步过程：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>动作</th>
+<th>耗时</th>
+<th>优化手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 扫描/发现</strong></td>
+<td>客户端扫描信道，寻找候选 AP</td>
+<td><strong>35–200 ms</strong>（全信道扫描最慢）</td>
+<td><strong>802.11k</strong> Neighbor Report（告诉客户端"该扫哪些信道"）</td>
+</tr>
+<tr>
+<td><strong>② 认证/关联</strong></td>
+<td>802.11 Open 认证（无实际意义）+ Reassociation Request → Response</td>
+<td>5–30 ms</td>
+<td><strong>802.11r</strong>（FT，把密钥协商提前）、<strong>802.11v</strong> BSS Transition</td>
+</tr>
+<tr>
+<td><strong>③ 密钥协商</strong></td>
+<td>4 次握手（若 PMK 未缓存）或直接派生 PTK</td>
+<td><strong>20–150 ms</strong>（完整 802.1X 可达数秒）</td>
+<td><strong>PMK 缓存（OKC/PKC/CCKM）</strong>、<strong>802.11r</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>总时延预算</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th>可接受漫游中断</th>
+<th>必须启用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网页/邮件</td>
+<td>&lt; 1 s（感知不明显）</td>
+<td>无特殊要求</td>
+</tr>
+<tr>
+<td><strong>语音（VoIP）</strong></td>
+<td><strong>&lt; 50 ms</strong>（否则丢音）</td>
+<td>802.11k + 802.11r（或 CCKM）+ WMM CAC</td>
+</tr>
+<tr>
+<td>视频会议</td>
+<td>&lt; 150 ms</td>
+<td>802.11k + 802.11r + QoS</td>
+</tr>
+<tr>
+<td>实时工业控制</td>
+<td>&lt; 20 ms</td>
+<td>802.11r + 单一频段/专用 SSID + MLO（Wi-Fi 7）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>最常见的语音故障</strong>："Wi-Fi 通话走到走廊就断一下"。九成原因是<strong>只开了 802.11k/v，没开 802.11r 也没做 PMK 缓存</strong> —— 每次漫游都要重新做完整 802.1X，中断 300 ms 以上，语音流直接丢包。</p>
+</blockquote>
+<h3 id="_14">漫游类型矩阵<a class="anchor" href="#_14" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>场景</th>
+<th>客户端 IP 变化</th>
+<th>关键机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AP 内漫游（同 AP 换 BSSID）</strong></td>
+<td>同一 AP 不同射频</td>
+<td>不变</td>
+<td>无需特殊处理</td>
+</tr>
+<tr>
+<td><strong>控制器内二层漫游</strong></td>
+<td>同一 WLC、同一 VLAN</td>
+<td>不变</td>
+<td>控制器内部重关联，PMK 缓存命中</td>
+</tr>
+<tr>
+<td><strong>控制器间二层漫游</strong></td>
+<td>不同 WLC、同一 VLAN（二层连通）</td>
+<td>不变</td>
+<td><strong>Mobility Group</strong>：同步客户端表与 PMK</td>
+</tr>
+<tr>
+<td><strong>控制器间三层漫游</strong></td>
+<td>不同 WLC、不同子网</td>
+<td><strong>保持旧 IP</strong>（靠隧道）</td>
+<td><strong>Anchor / Foreign</strong>（流量折返原锚点）</td>
+</tr>
+<tr>
+<td><strong>跨移动域漫游</strong></td>
+<td>不同 Mobility Domain</td>
+<td>通常要重新获取 IP</td>
+<td>不支持无缝，业务中断</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mobility-group">二层漫游：Mobility Group<a class="anchor" href="#mobility-group" title="Permanent link"></a></h4>
+<p><strong>前置条件（四条，缺一不可）</strong>：</p>
+<ol>
+<li>所有 WLC 加入<strong>同一 Mobility Group</strong>，并配置<strong>同一 Mobility Domain 名称</strong></li>
+<li>WLAN <strong>SSID 与安全策略完全一致</strong>（同名不同策略 = 漫游失败）</li>
+<li><strong>同一 VLAN/子网</strong>在两端都存在（二层连通）</li>
+<li>WLC 之间 <strong>16666/16667（mobility）端口可达</strong>，且时延 &lt; 100 ms</li>
+</ol>
+<p><strong>同步了什么</strong>：客户端 MAC、IP、QoS 状态、<strong>PMK 缓存（PMKID）</strong>、802.11r 密钥信息。正因为 PMK 同步了，跨控制器漫游才不需要重新做 802.1X。</p>
+<h4 id="anchor-foreign">三层漫游：Anchor / Foreign 的代价<a class="anchor" href="#anchor-foreign" title="Permanent link"></a></h4>
+<p>三层漫游的机制是：客户端在 Foreign 控制器上关联，但控制器把它"挂"在原来的 <strong>Anchor</strong> 上，<strong>所有流量经隧道折返 Anchor 的网关</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端 IP 不变，会话不断（VoIP、视频、数据库连接）</td>
+<td><strong>流量折返</strong>：物理路径变长，时延增加</td>
+</tr>
+<tr>
+<td>无需客户端支持移动 IP</td>
+<td><strong>Anchor 成为带宽与故障单点</strong></td>
+</tr>
+<tr>
+<td>与现有子网规划解耦</td>
+<td>排障复杂（<code>show client detail</code> 要看 anchor 关系）</td>
+</tr>
+<tr>
+<td></td>
+<td>大规模漫游时隧道数量与状态压力大</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>现代设计建议</strong>：能用<strong>单一二层漫游域（大 VLAN 或统一子网）</strong>解决的，就不要用三层漫游。三层漫游的适用场景通常是"跨楼栋/跨园区，无法统一大二层"，且业务确实不能容忍 IP 变化。Wi-Fi 7 的 MLO 与 802.11r 使"快速重连 + 重建会话"在某些应用上已可接受，三层漫游的必要性在下降。</p>
+</blockquote>
+<h3 id="_15">四种密钥缓存机制对比<a class="anchor" href="#_15" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>标准化</th>
+<th>谁缓存</th>
+<th>原理</th>
+<th>兼容性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OKC（Opportunistic Key Caching）</strong></td>
+<td>厂商共识（非 802.11 标准）</td>
+<td>客户端 + 控制器</td>
+<td>从 PMK 派生 PMK-R0/R1，客户端复用它</td>
+<td>支持 802.11i 的终端普遍支持</td>
+</tr>
+<tr>
+<td><strong>PKC（Proactive Key Caching，Cisco 802.11i）</strong></td>
+<td>Cisco 扩展</td>
+<td>控制器</td>
+<td>通过 RADIUS 主动把 PMK 分发给邻居控制器</td>
+<td>需要 RADIUS 支持（Cisco ACS/ISE）</td>
+</tr>
+<tr>
+<td><strong>CCKM（Cisco Centralized Key Management）</strong></td>
+<td>Cisco 专有</td>
+<td>控制器</td>
+<td>客户端用 CCKM IE 请求新 AP 的密钥，跳过 802.1X</td>
+<td>仅 Cisco 客户端/部分第三方</td>
+</tr>
+<tr>
+<td><strong>802.11r FT（Fast BSS Transition）</strong></td>
+<td><strong>标准</strong></td>
+<td>全网（Mobility Domain）</td>
+<td>预先把 PMK-R1 分发给邻居 AP，重关联时直接派生 PTK</td>
+<td>需要终端支持 FT（iOS/Android 新机型基本支持）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>802.11r 的两种模式</strong>：</p>
+<ul>
+<li><strong>Over-the-Air（FT-OA）</strong>：客户端直接与新 AP 交换 FT 认证帧。延迟最低（&lt; 50 ms），推荐。</li>
+<li><strong>Over-the-DS（FT-ODS）</strong>：通过旧 AP 经 DS（有线侧）转发 FT 帧。适用于客户端无法直接与新 AP 通信的场景，但需要额外的隧道机制。</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>802.11r 的兼容性陷阱</strong>：部分老终端（尤其是某些 IoT、老款 Android、部分打印机）在开启 802.11r 后<strong>无法关联或反复掉线</strong>。生产上的标准解法是开启 <strong>Adaptive 11r（自适应 802.11r）</strong>：对不支持 FT 的终端自动回退到传统漫游，对支持的使用 FT。同时 <strong>WPA3 强制 PMF</strong>，而 802.11r 需要 PMF 配合，配置时要一起验证。</p>
+</blockquote>
+<h3 id="80211k-v-r">802.11k / v / r 三件套的分工<a class="anchor" href="#80211k-v-r" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>名称</th>
+<th>解决什么</th>
+<th>没有它会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.11k</strong></td>
+<td>Radio Resource Measurement</td>
+<td>给客户端一份<strong>邻居 AP 列表</strong>（Neighbor Report）</td>
+<td>客户端盲扫全信道，漫游前扫描耗时 100–200 ms</td>
+</tr>
+<tr>
+<td><strong>802.11v</strong></td>
+<td>BSS Transition Management</td>
+<td>控制器/AP 可以<strong>建议</strong>客户端换到更好的 AP</td>
+<td>客户端"粘"在弱信号 AP 上不走（sticky client）</td>
+</tr>
+<tr>
+<td><strong>802.11r</strong></td>
+<td>Fast BSS Transition</td>
+<td>提前分发密钥，重关联时跳过 802.1X</td>
+<td>每次漫游都重做认证，中断 300 ms+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三者的关系</strong>：k 解决"往哪扫"，v 解决"该走了"，r 解决"走得快"。<strong>只开其中一个效果都有限</strong>，语音场景建议三个全开（配合 Adaptive 11r）。</p>
+<h3 id="_16">漫游设计检查清单<a class="anchor" href="#_16" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>目标值</th>
+<th>怎么验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>相邻 AP 覆盖重叠</strong></td>
+<td><strong>15%–20%</strong> 的覆盖交叠区</td>
+<td>勘测图，交叠区 RSSI 均 &gt; -67 dBm</td>
+</tr>
+<tr>
+<td><strong>漫游点信号差</strong></td>
+<td>相邻 AP 在漫游点 <strong>差值 ≤ 5 dB</strong></td>
+<td>主动勘测沿路径走动记录</td>
+</tr>
+<tr>
+<td><strong>MIN RSSI（强制断开）</strong></td>
+<td>-67 dBm（语音 -65 dBm）</td>
+<td>控制器 RF Profile</td>
+</tr>
+<tr>
+<td><strong>数据速率下限</strong></td>
+<td>关闭 1/2/5.5/11 Mbps</td>
+<td>WLC <code>data-rate</code> 配置</td>
+</tr>
+<tr>
+<td><strong>PMK 缓存 / 802.11r</strong></td>
+<td>语音 SSID 必开</td>
+<td>抓包看 Reassoc 后是否直接 4-way（无 802.1X）</td>
+</tr>
+<tr>
+<td><strong>802.11k/v</strong></td>
+<td>建议开启</td>
+<td>抓包看是否有 Neighbor Report / BTM Request</td>
+</tr>
+<tr>
+<td><strong>移动域一致性</strong></td>
+<td>同 SSID、同安全、同 VLAN</td>
+<td>跨控制器检查配置差异</td>
+</tr>
+<tr>
+<td><strong>回退能力</strong></td>
+<td>Adaptive 11r / WPA2+WPA3 过渡</td>
+<td>用老终端实测</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_17">无线安全与认证<a class="anchor" href="#_17" title="Permanent link"></a></h2>
+<h3 id="_18">安全协议演进<a class="anchor" href="#_18" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>安全协议</th>
-<th>特点</th>
+<th>加密/完整性</th>
+<th>密钥管理</th>
+<th>抗离线字典</th>
 <th>状态</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>WEP</strong></td>
-<td>RC4 加密，40/104 位密钥</td>
-<td>已被破解，不推荐</td>
+<td>RC4 + CRC32</td>
+<td>静态密钥（40/104 bit）</td>
+<td>否</td>
+<td><strong>已被攻破（几分钟可破）</strong>，禁用</td>
 </tr>
 <tr>
-<td><strong>WPA</strong></td>
-<td>TKIP + RC4</td>
-<td>过渡方案，不推荐</td>
+<td><strong>WPA（WPA1）</strong></td>
+<td>TKIP + Michael MIC（RC4）</td>
+<td>PSK / 802.1X</td>
+<td>否</td>
+<td>过渡方案，仅兼容老设备</td>
 </tr>
 <tr>
-<td><strong>WPA2</strong></td>
+<td><strong>WPA2-Personal</strong></td>
 <td>AES-CCMP</td>
-<td>当前主流</td>
+<td>PSK（4 次握手）</td>
+<td><strong>否</strong>（抓到握手包可离线爆破）</td>
+<td>当前主流（但 PSK 有风险）</td>
 </tr>
 <tr>
-<td><strong>WPA3</strong></td>
-<td>AES-GCMP，SAE 替换 PSK</td>
-<td>最新标准</td>
+<td><strong>WPA2-Enterprise</strong></td>
+<td>AES-CCMP</td>
+<td>802.1X/EAP + RADIUS</td>
+<td>不适用（用户级凭据）</td>
+<td>企业标准</td>
+</tr>
+<tr>
+<td><strong>WPA3-Personal</strong></td>
+<td>AES-CCMP / GCMP</td>
+<td><strong>SAE</strong>（对等认证）</td>
+<td><strong>是</strong>（每会话独立，前向保密）</td>
+<td>新部署首选</td>
+</tr>
+<tr>
+<td><strong>WPA3-Enterprise</strong></td>
+<td>AES-GCMP-256</td>
+<td>802.1X + 192 位套件</td>
+<td>不适用</td>
+<td>高安全（政府/金融）</td>
+</tr>
+<tr>
+<td><strong>OWE（增强开放）</strong></td>
+<td>AES-CCMP</td>
+<td>无认证，仅加密</td>
+<td>不适用</td>
+<td>访客网"加密的开放网络"</td>
 </tr>
 </tbody>
 </table>
-<h4 id="_6">认证方式<a class="anchor" href="#_6" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>必须区分"加密"与"认证"</strong>：WEP/WPA2 都是<strong>加密</strong>方案；"这个 Wi-Fi 要不要密码"是<strong>认证</strong>问题。访客网用 OWE 只解决"空口被窃听"，不解决"谁能连"——后者仍要靠 Portal / PPSK / MAC 过滤 + 上层策略。</p>
+</blockquote>
+<h3 id="8021xeap">企业认证：802.1X/EAP 全流程<a class="anchor" href="#8021xeap" title="Permanent link"></a></h3>
+<pre><code>       客户端(Supplicant)          AP/WLC(Authenticator)         RADIUS(认证服务器)
+             |                            |                            |
+             |--- EAPOL-Start -----------&gt;|                            |
+             |&lt;-- EAP-Request/Identity ---|                            |
+             |--- EAP-Response/Identity -&gt;|                            |
+             |                            |--- Access-Request --------&gt;|
+             |&lt;-- EAP-Request(方法) ------|&lt;-- Access-Challenge -------|
+             |      ... 多轮 EAP 交换（TLS 隧道/证书/密码） ...           |
+             |                            |--- Access-Accept ---------&gt;|
+             |                            |    (+ MS-MPPE 主密钥)      |
+             |&lt;== 4 次握手（派生 PTK）====&gt;|                            |
+             |&lt;== 加密数据通道 ===========&gt;|                            |
+</code></pre>
+<p><strong>四个关键认知</strong>：</p>
+<ol>
+<li><strong>AP 是"二传手"</strong>：EAP 报文由客户端封装在 802.11 帧里，AP 用 <strong>RADIUS 封装</strong>转给服务器。AP 不理解凭据内容。</li>
+<li><strong>密钥在 RADIUS 里生成</strong>：Access-Accept 会带 <code>MS-MPPE-Recv-Key</code>/<code>Send-Key</code>（即 PMK 材料），这才是 4 次握手的根。</li>
+<li><strong>PMK 缓存的基础就在这</strong>：PMK 一旦算出，可以被缓存（OKC/PKC/802.11r），漫游时不再访问 RADIUS。</li>
+<li><strong>RADIUS 挂了 = 新用户全挂</strong>：已关联客户端不受影响，但任何新关联/漫游到未缓存 AP 都会失败。这是无线认证的<strong>头号单点</strong>。</li>
+</ol>
+<h3 id="eap">EAP 方法选型<a class="anchor" href="#eap" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>凭据</th>
+<th>服务端证书</th>
+<th>客户端证书</th>
+<th>抗中间人</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EAP-TLS</strong></td>
+<td>双向证书</td>
+<td>必须</td>
+<td><strong>必须</strong></td>
+<td>最强</td>
+<td>企业设备（域内 PC、受管移动设备）</td>
+</tr>
+<tr>
+<td><strong>PEAP-MSCHAPv2</strong></td>
+<td>用户名/密码</td>
+<td>必须</td>
+<td>不需要</td>
+<td>中（依赖客户端校验证书）</td>
+<td>通用企业（最常见）</td>
+</tr>
+<tr>
+<td><strong>EAP-TTLS</strong></td>
+<td>任意（可多因素）</td>
+<td>必须</td>
+<td>不需要</td>
+<td>中</td>
+<td>需要灵活内层认证</td>
+</tr>
+<tr>
+<td><strong>EAP-FAST</strong></td>
+<td>用户名/密码 + PAC</td>
+<td>可选</td>
+<td>PAC 文件</td>
+<td>中</td>
+<td>Cisco 遗留环境</td>
+</tr>
+<tr>
+<td><strong>TEAP</strong></td>
+<td>证书 + 密码（链式）</td>
+<td>必须</td>
+<td>可选</td>
+<td>强</td>
+<td>需要"机器 + 用户"双重认证</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>PEAP 最经典的配置错误</strong>：客户端<strong>没有勾选"验证服务器证书"或没有指定信任的 CA</strong>，于是任何伪造 SSID 的钓鱼 AP 都能骗到用户的域凭据。这不是无线设备的问题，是<strong>终端配置基线</strong>的问题 —— 设计文档里必须把"终端 802.1X 配置基线（含服务端证书校验、CA 信任链、SSID 白名单）"写成交付项。</p>
+</blockquote>
+<h3 id="radius">RADIUS 侧的设计要点<a class="anchor" href="#radius" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>做法</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冗余</strong></td>
+<td>至少两台 RADIUS（ISE 节点/集群），WLC 上配多个 RADIUS server</td>
+<td>单台 RADIUS 故障 = 全网新关联失败</td>
+</tr>
+<tr>
+<td><strong>共享密钥</strong></td>
+<td>强密钥 + 定期轮换，<strong>每台设备独立密钥</strong></td>
+<td>全网一个密钥，泄露即全泄</td>
+</tr>
+<tr>
+<td><strong>CoA（RFC 5176）</strong></td>
+<td>支持动态改授权（改 VLAN/ACL/重认证）</td>
+<td>不支持 CoA 则策略变更需用户重连</td>
+</tr>
+<tr>
+<td><strong>计费（Accounting）</strong></td>
+<td>记录 Start/Interim/Stop</td>
+<td>缺计费无法做审计与容量分析</td>
+</tr>
+<tr>
+<td><strong>时延预算</strong></td>
+<td>RADIUS 往返 &lt; 200 ms（理想 &lt; 100 ms）</td>
+<td>跨广域网认证导致关联超时</td>
+</tr>
+<tr>
+<td><strong>属性设计</strong></td>
+<td>用 Tunnel-Type/Private-Group-ID 下发动态 VLAN</td>
+<td>属性写错 → 客户端进错 VLAN 却"能连上"</td>
+</tr>
+<tr>
+<td><strong>证书有效期</strong></td>
+<td>纳入监控（EAP 证书过期是"突然全部连不上"的经典原因）</td>
+<td>到期当天全网故障</td>
+</tr>
+</tbody>
+</table>
+<h3 id="psk">PSK 的规模问题与替代方案<a class="anchor" href="#psk" title="Permanent link"></a></h3>
+<p>WPA2-PSK 在企业里几乎必然演变成"密钥在离职群里流传"。三种替代：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>机制</th>
+<th>规模</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>iPSK / dPSK（每设备 PSK）</strong></td>
+<td>每台设备一个 PSK，映射到不同 VLAN/ACL</td>
+<td>数百到数千</td>
+<td>需要 WLC 支持 + 设备注册流程</td>
+</tr>
+<tr>
+<td><strong>PPSK + Portal</strong></td>
+<td>用户自助注册获取专属 PSK</td>
+<td>数千（访客/承包商）</td>
+<td>需 Portal/云服务</td>
+</tr>
+<tr>
+<td><strong>改用 802.1X</strong></td>
+<td>用户级凭据</td>
+<td>无限</td>
+<td>IoT 设备常不支持 802.1X</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IoT 的现实选择</strong>：大量 IoT（打印机、摄像头、标签、医疗设备）只支持 WPA2-PSK。标准做法是<strong>为 IoT 单开一个 SSID + 独立 VLAN + iPSK</strong>，再用 ACL/防火墙把它隔离到"只能访问指定服务器"。把 IoT 塞进员工 SSID 是零信任架构里最常见的一处破口。</p>
+<h3 id="wpa3">WPA3 的三个模式<a class="anchor" href="#wpa3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>特性</th>
+<th>说明</th>
+<th>迁移注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WPA3-Personal（SAE）</strong></td>
+<td>对等认证（Dragonfly 握手），前向保密</td>
+<td>即使知道密码，也无法解密历史流量；抗离线爆破</td>
+<td>老终端不支持 → 需<strong>WPA2/WPA3 过渡模式</strong></td>
+</tr>
+<tr>
+<td><strong>WPA3-Enterprise（192 位）</strong></td>
+<td>GCMP-256 + SHA-384 + 384 位 ECDHE/ECDSA</td>
+<td>政府/金融合规要求</td>
+<td>极少数终端支持，通常单开 SSID</td>
+</tr>
+<tr>
+<td><strong>OWE（Opportunistic Wireless Encryption）</strong></td>
+<td>开放网络自动加密（无认证）</td>
+<td>访客网"无密码但加密"</td>
+<td>与 Portal 配合使用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>配套的强制项</strong>：</p>
+<ul>
+<li><strong>PMF（802.11w，管理帧保护）</strong>：WPA3 强制开启，防<strong>去认证攻击（deauth flood）</strong>。WPA2 时代可设"可选/必需"，WPA3 必须"必需"。</li>
+<li><strong>6 GHz 强制 WPA3 + PMF</strong>：这是 6 GHz 的法规性要求，也是"老终端看不到 6 GHz SSID"的技术原因之一。</li>
+</ul>
+<h3 id="_19">访客网络设计：四种模型<a class="anchor" href="#_19" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>做法</th>
+<th>隔离强度</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本地 breakout（推荐）</strong></td>
+<td>访客 SSID 直接映射到 DMZ VLAN，本地出互联网</td>
+<td>高（不碰内网）</td>
+<td>分支、有本地互联网出口</td>
+</tr>
+<tr>
+<td><strong>Guest Anchor（集中隧道）</strong></td>
+<td>访客流量隧道回 DMZ 的 Anchor WLC</td>
+<td>高</td>
+<td>集中管理、统一 Portal</td>
+</tr>
+<tr>
+<td><strong>PPSK + 防火墙</strong></td>
+<td>每访客一个 PSK，指向隔离 VLAN</td>
+<td>中</td>
+<td>无 Portal 基础设施</td>
+</tr>
+<tr>
+<td><strong>Portal + 短信/微信认证</strong></td>
+<td>强制 Portal 认证后再放行</td>
+<td>中（合规审计需要）</td>
+<td>商场、酒店、公共场所</td>
+</tr>
+</tbody>
+</table>
+<p><strong>访客网的六条硬要求（写进设计文档）</strong>：</p>
+<ol>
+<li><strong>二层隔离</strong>（<code>peer-to-peer blocking</code> 或 AP 隔离），防访客互扫</li>
+<li><strong>只能到互联网</strong>，禁止访问内网任意网段（含管理网段）</li>
+<li><strong>独立 DNS</strong>（可用公共 DNS 或 DMZ 解析器）</li>
+<li><strong>限速</strong>（每客户端上下行），防单用户占满 airtime</li>
+<li><strong>禁止组播/广播泛洪</strong>（<code>multicast/broadcast suppression</code>）</li>
+<li><strong>会话超时 + 日志留存</strong>（合规要求通常 6 个月）</li>
+</ol>
+<h3 id="ips-ap">无线 IPS 与非法 AP 防护<a class="anchor" href="#ips-ap" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>说明</th>
+<th>落地方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rogue AP 检测</strong></td>
+<td>发现"连在同一有线网上的非法 AP"</td>
+<td>AP 扫描 + 交换机侧 MAC/端口关联（有线侧联动）</td>
+</tr>
+<tr>
+<td><strong>Rogue 抑制</strong></td>
+<td>对非法 AP 发 deauth（有法律与误伤风险）</td>
+<td>必须先在交换机侧找到端口并 shutdown（更安全）</td>
+</tr>
+<tr>
+<td><strong>Ad-hoc / Hotspot 检测</strong></td>
+<td>客户端自建热点（员工私接）</td>
+<td>策略禁止 + 检测告警</td>
+</tr>
+<tr>
+<td><strong>Deauth 攻击检测</strong></td>
+<td>大量管理帧异常</td>
+<td>802.11w/PMF + wIPS 告警</td>
+</tr>
+<tr>
+<td><strong>频谱攻击检测</strong></td>
+<td>干扰源（微波、无线摄像头）</td>
+<td>CleanAir / 频谱分析</td>
+</tr>
+<tr>
+<td><strong>客户端异常行为</strong></td>
+<td>大量探测、异常 DHCP</td>
+<td>wIPS + NetFlow</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Rogue 抑制的正确顺序</strong>：<strong>先定位有线端口 → 交换机上 shutdown / 端口隔离 → 再考虑空口抑制</strong>。直接在空口发 deauth 会误伤邻近合法客户端，还可能违反当地无线电管理规定。</p>
+</blockquote>
+<hr />
+<h2 id="high-density-design">高密度设计 (High-Density Design)<a class="anchor" href="#high-density-design" title="Permanent link"></a></h2>
+<h3 id="_20">什么叫"高密度"<a class="anchor" href="#_20" title="Permanent link"></a></h3>
+<p>高密度不是"AP 装得多"，而是<strong>单位面积内的 airtime 需求超过频谱能提供的总量</strong>。判断依据是三个数的组合：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>普通办公</th>
+<th>高密度</th>
+<th>极高密度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>并发客户端 / 100 m²</strong></td>
+<td>3–8</td>
+<td>15–30</td>
+<td>30–60+</td>
+</tr>
+<tr>
+<td><strong>AP 间距</strong></td>
+<td>15–25 m</td>
+<td>8–15 m</td>
+<td>5–10 m</td>
+</tr>
+<tr>
+<td><strong>峰值 airtime 利用率</strong></td>
+<td>&lt; 30%</td>
+<td>40–60%</td>
+<td><strong>&gt; 60%（已进入劣化区）</strong></td>
+</tr>
+<tr>
+<td><strong>典型场所</strong></td>
+<td>开放办公</td>
+<td>阶梯教室、会议室群</td>
+<td>体育馆、演唱会、大型发布会、医院门诊</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>airtime 利用率一旦稳定超过 60%，用户体验会非线性下降</strong> —— 因为重传率上升会进一步消耗 airtime，形成正反馈。这个阈值是设计红线，也是验收指标。</p>
+</blockquote>
+<h3 id="_21">高密度设计的量化流程（带算例）<a class="anchor" href="#_21" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：一个 300 人的阶梯教室，学生普遍用笔记本/手机看课件与视频，峰值并发率 80%，每客户端需求 3 Mbps。</p>
+<pre><code>① 并发客户端 = 300 × 80% = 240
+② 总吞吐需求 = 240 × 3 Mbps = 720 Mbps
+③ 单 AP 有效吞吐（5 GHz 20 MHz, 2SS, 11ax）= 约 160 Mbps
+④ 保守按 70% airtime 可用 = 112 Mbps
+⑤ 需要的 AP 数 = 720 / 112 ≈ 6.4 → 取 7 台
+⑥ 每 AP 承载 ≈ 34 客户端 → 在 30–40 的健康区间内
+⑦ 频谱检查：5 GHz 20 MHz 有 25 个信道，7 台 AP 无需复用 → 可放心
+</code></pre>
+<p><strong>如果这里错误地选了 80 MHz</strong>：单 AP 速率上升（约 500 Mbps），但可用信道降到 6 个，7 台 AP 必然复用，<strong>同频干扰（CCI）导致实际吞吐腰斩</strong>，同时信道宽度使相邻 AP 重叠 → 最终结果往往比 20 MHz 更差。<strong>这是高密度设计里最反直觉、也最常犯的错误。</strong></p>
+<h3 id="_22">高密度关键技术矩阵<a class="anchor" href="#_22" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>解决什么</th>
+<th>生效条件</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>20 MHz 信道</strong></td>
+<td>频谱复用与 CCI</td>
+<td>无（随时可做）</td>
+<td>★★★★★ 最高性价比</td>
+</tr>
+<tr>
+<td><strong>降低发射功率（5–8 dBm）</strong></td>
+<td>缩小覆盖半径，让"蜂窝"变小变多</td>
+<td>必须配合功率规划</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td><strong>MIN RSSI（强制断开）</strong></td>
+<td>驱逐弱信号"粘滞客户端"</td>
+<td>-67 dBm 左右</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>Band Steering（频段引导）</strong></td>
+<td>把双频终端推向 5/6 GHz</td>
+<td>与 MIN RSSI 配合</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>OFDMA（Wi-Fi 6）</strong></td>
+<td>一次传输机会服务多个小包终端</td>
+<td>终端也支持 11ax</td>
+<td>★★★★☆（小包场景显著）</td>
+</tr>
+<tr>
+<td><strong>MU-MIMO（DL/UL）</strong></td>
+<td>同时向多终端发送</td>
+<td>终端天线数、信道条件</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td><strong>BSS Coloring</strong></td>
+<td>同频 AP 的帧可"并行发送"</td>
+<td>11ax + 双方支持</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>TWT（目标唤醒时间）</strong></td>
+<td>IoT 定时唤醒，减少竞争</td>
+<td>终端支持 11ax</td>
+<td>★★★☆☆（IoT 场景 ★★★★★）</td>
+</tr>
+<tr>
+<td><strong>Airtime Fairness</strong></td>
+<td>防止低速客户端占满 airtime</td>
+<td>控制器开启</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td><strong>组播转单播 / 广播抑制</strong></td>
+<td>避免低速率组播拖垮全网</td>
+<td>控制器开启</td>
+<td>★★★★☆（视频/IPTV 关键）</td>
+</tr>
+<tr>
+<td><strong>负载均衡（Load Balancing）</strong></td>
+<td>引导客户端到较空闲 AP</td>
+<td>客户端配合（部分终端拒绝）</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td><strong>禁用低速率（1/2/5.5/11 Mbps）</strong></td>
+<td>抬高最小调制档位</td>
+<td>覆盖良好</td>
+<td>★★★★☆</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_23">功率设计：上下行不对称才是真问题<a class="anchor" href="#_23" title="Permanent link"></a></h3>
+<p>无线的链路是双向的，而<strong>AP 的发射功率（通常可到 20 dBm）远大于手机（通常 14–15 dBm，且受 SAR 限制）</strong>。常见的错误设计是"AP 满功率"，结果：</p>
+<table>
+<thead>
+<tr>
+<th>后果</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>上行覆盖比下行小 5–8 dB</strong></td>
+<td>客户端"听到"AP 却"喊不到"AP，出现"信号满格但上传慢/断流"</td>
+</tr>
+<tr>
+<td><strong>蜂窝过大</strong></td>
+<td>一台 AP 服务过多客户端，airtime 被均摊</td>
+</tr>
+<tr>
+<td><strong>漫游点太差</strong></td>
+<td>客户端直到信号极弱才切换，漫游体验崩坏</td>
+</tr>
+<tr>
+<td><strong>CCI 严重</strong></td>
+<td>相邻 AP 互相听到，介质竞争加剧</td>
+</tr>
+</tbody>
+</table>
+<p><strong>正确的功率/覆盖设计值</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>普通办公</th>
+<th>高密度/语音</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>边界 RSSI</strong></td>
+<td>-67 dBm</td>
+<td>-65 dBm</td>
+</tr>
+<tr>
+<td><strong>SNR</strong></td>
+<td>≥ 25 dB</td>
+<td>≥ 25 dB（语音 ≥ 25–30 dB）</td>
+</tr>
+<tr>
+<td><strong>AP 发射功率</strong></td>
+<td>自动（RRM）或 11–14 dBm</td>
+<td><strong>手动/自动下限 5–8 dBm</strong></td>
+</tr>
+<tr>
+<td><strong>相邻覆盖重叠</strong></td>
+<td>15%–20%</td>
+<td>15%–20%（且差值 ≤ 5 dB）</td>
+</tr>
+<tr>
+<td><strong>数据速率下限</strong></td>
+<td>12 Mbps</td>
+<td>12–24 Mbps</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>RRM（Radio Resource Management）不是万能</strong>：自动信道/功率在<strong>稀疏部署</strong>下表现不错，但在<strong>高密度人工规划过的场景</strong>里往往会"自作聪明"地把功率调回去。高密度区域通常的做法是<strong>关闭自动功率（固定低功率）+ 保留自动信道</strong>，或把 RRM 的功率范围锁死在很窄的区间（如 5–8 dBm）。</p>
+</blockquote>
+<h3 id="_24">有线侧配套（最容易被漏掉的一段）<a class="anchor" href="#_24" title="Permanent link"></a></h3>
+<p>无线 AP 的"上游"是有线网，它经常比 RF 先成为瓶颈：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>要求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AP 上行端口速率</strong></td>
+<td>Wi-Fi 6 AP ≥ <strong>2.5 G</strong>，Wi-Fi 6E/7 ≥ <strong>5 G/10 G</strong></td>
+<td>1 G 上行会直接卡死 1.2 Gbps 的 AP</td>
+</tr>
+<tr>
+<td><strong>布线等级</strong></td>
+<td><strong>Cat6a</strong>（mGig 2.5/5/10G 需要）</td>
+<td>Cat5e 只能跑 1G/2.5G（短距离）</td>
+</tr>
+<tr>
+<td><strong>PoE 供电</strong></td>
+<td>Wi-Fi 6：<strong>802.3at（PoE+，30 W）</strong>；Wi-Fi 6E/7：<strong>802.3bt（60–90 W）</strong></td>
+<td>供电不足会让 AP 降级（关射频/降 MIMO）</td>
+</tr>
+<tr>
+<td><strong>接入交换机上行</strong></td>
+<td>收敛比 1:10 ~ 1:20（办公）、1:5（高密度）</td>
+<td>40 台 AP × 2.5 G = 100 G，必须收敛</td>
+</tr>
+<tr>
+<td><strong>VLAN/Trunk</strong></td>
+<td>AP 管理 VLAN + 所有业务 VLAN</td>
+<td>FlexConnect 尤其依赖</td>
+</tr>
+<tr>
+<td><strong>DHCP 池</strong></td>
+<td>按峰值并发 × 1.5 规划，租期缩短（2–4 h）</td>
+<td>池耗尽 = "连上但上不了网"</td>
+</tr>
+<tr>
+<td><strong>组播/广播抑制</strong></td>
+<td>接入端口开启</td>
+<td>防泛洪打满 airtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_25">不同场所的容量基线（可直接引用的设计参考表）<a class="anchor" href="#_25" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场所</th>
+<th>并发率</th>
+<th>人均带宽</th>
+<th>AP 覆盖面积</th>
+<th>每 AP 客户端</th>
+<th>主要风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开放办公</td>
+<td>50%–70%</td>
+<td>2–5 Mbps</td>
+<td>150–250 m²</td>
+<td>30–40</td>
+<td>隔断多导致覆盖空洞</td>
+</tr>
+<tr>
+<td>会议室（10–20 人）</td>
+<td>90%</td>
+<td>5–10 Mbps</td>
+<td>1 AP/间（小间隔 1AP/2 间）</td>
+<td>10–20</td>
+<td>高功率 AP 跨墙干扰</td>
+</tr>
+<tr>
+<td>阶梯教室（200–400 人）</td>
+<td>80%</td>
+<td>2–3 Mbps</td>
+<td>1 AP / 40–60 座</td>
+<td>30–40</td>
+<td>上行功率不足、人体吸收</td>
+</tr>
+<tr>
+<td>体育馆/场馆</td>
+<td>70%–90%</td>
+<td>1–2 Mbps</td>
+<td>定向天线分区</td>
+<td>50–80</td>
+<td>高空安装、无法近距覆盖</td>
+</tr>
+<tr>
+<td>医院门诊/病房</td>
+<td>60%</td>
+<td>3–5 Mbps（含医疗设备）</td>
+<td>100–150 m²</td>
+<td>20–30</td>
+<td>医疗设备 2.4 GHz 专用、漫游（移动查房）</td>
+</tr>
+<tr>
+<td>仓储/制造</td>
+<td>30%–50%</td>
+<td>1–3 Mbps（扫码/PDA）</td>
+<td>按货架高度与金属</td>
+<td>20–30</td>
+<td>金属反射、漫游（叉车移动）</td>
+</tr>
+<tr>
+<td>酒店客房</td>
+<td>60%</td>
+<td>2–4 Mbps</td>
+<td>1 AP / 4–8 间房</td>
+<td>10–20</td>
+<td>走廊式覆盖、墙体衰减</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_26">高密度设计的八个误区<a class="anchor" href="#_26" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>误区</th>
+<th>现实</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"AP 越多越好"</td>
+<td>过多 AP 导致 CCI 与漫游频繁，反而更差；密度必须与功率/信道配套</td>
+</tr>
+<tr>
+<td>"上 Wi-Fi 6 就能解决人多"</td>
+<td>老终端不参与 OFDMA；上行仍受终端功率限制</td>
+</tr>
+<tr>
+<td>"80/160 MHz 更快"</td>
+<td>高密度下频谱不够复用，20 MHz 才是容量最优</td>
+</tr>
+<tr>
+<td>"信号越强越好"</td>
+<td>强信号 = 大蜂窝 = airtime 均摊 + 漫游点恶化</td>
+</tr>
+<tr>
+<td>"自动 RRM 会自己搞定"</td>
+<td>高密度需人工规划，RRM 只做微调</td>
+</tr>
+<tr>
+<td>"客户端能连上就行了"</td>
+<td>弱信号客户端拖垮整个 AP 的 airtime</td>
+</tr>
+<tr>
+<td>"只看下行带宽"</td>
+<td>上行（客户端→AP）常是真正的瓶颈</td>
+</tr>
+<tr>
+<td>"无线问题都在无线设备"</td>
+<td>DHCP、RADIUS、MTU、组播抑制都在有线侧</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_27">语音和视频设计<a class="anchor" href="#_27" title="Permanent link"></a></h2>
+<h3 id="qos">端到端 QoS 链路（无线只是其中一段）<a class="anchor" href="#qos" title="Permanent link"></a></h3>
+<pre><code>终端 → [WMM/EDCA 队列] → [AP: 802.11e UP → DSCP 映射] → [CAPWAP/本地转发]
+     → [有线 QoS: DSCP 分类/排队] → [WAN QoS] → [呼叫服务器/网关]
+</code></pre>
+<p><strong>任何一段没配对，端到端 QoS 就失效。</strong> 无线侧的关键动作是"<strong>信任并正确映射</strong>"：</p>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>机制</th>
+<th>配置要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WMM（802.11e）</strong></td>
+<td>4 个接入类别（AC）</td>
+<td>必须启用（默认开启）；语音走 AC_VO</td>
+</tr>
+<tr>
+<td><strong>UP → DSCP 映射</strong></td>
+<td>802.11 用户优先级 → IP DSCP</td>
+<td>控制器 QoS Profile（Platinum/Gold/Silver/Bronze）</td>
+</tr>
+<tr>
+<td><strong>CAPWAP 外层</strong></td>
+<td>隧道内 DSCP 继承</td>
+<td>确保外层不被重置（<code>tunnel dscp</code>）</td>
+</tr>
+<tr>
+<td><strong>有线侧信任</strong></td>
+<td>交换机/路由信任 AP 发来的 DSCP</td>
+<td>端口 <code>mls qos trust dscp</code>（AP 已做标记）</td>
+</tr>
+<tr>
+<td><strong>上游队列</strong></td>
+<td>语音队列（LLQ/Priority）</td>
+<td>保证 EF 有带宽上限与优先调度</td>
+</tr>
+</tbody>
+</table>
+<p><strong>WMM 的四个接入类别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>AC</th>
+<th>802.11 UP</th>
+<th>典型应用</th>
+<th>默认 DSCP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Voice（AC_VO）</strong></td>
+<td>6、7</td>
+<td>VoIP、语音信令</td>
+<td>EF (46) / CS5 (40)</td>
+</tr>
+<tr>
+<td><strong>Video（AC_VI）</strong></td>
+<td>4、5</td>
+<td>视频会议、流媒体</td>
+<td>AF41 (34)</td>
+</tr>
+<tr>
+<td><strong>Best Effort（AC_BE）</strong></td>
+<td>0、3</td>
+<td>普通数据、网页</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Background（AC_BK）</strong></td>
+<td>1、2</td>
+<td>备份、打印、更新</td>
+<td>CS1 (8)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>VIDEO 与 VOICE 的区别很重要</strong>：视频通常是"高带宽 + 可容忍少量丢包"，语音是"低带宽 + 极不容忍丢包与抖动"。把视频会议放进 AC_VO 会挤掉真正的语音 —— 这是很多"语音质量差"投诉的真实原因。</p>
+</blockquote>
+<h3 id="cac">呼叫准入控制（CAC）<a class="anchor" href="#cac" title="Permanent link"></a></h3>
+<p><strong>问题</strong>：一台 AP 的 airtime 是有限的。第 20 个语音呼叫进来时，如果不拒绝，20 个呼叫<strong>全部</strong>劣化。</p>
+<table>
+<thead>
+<tr>
+<th>CAC 类型</th>
+<th>机制</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>基于带宽（Bandwidth-based）</strong></td>
+<td>为 AC_VO 预留固定 airtime 比例（如 75%）</td>
+<td>简单、终端无关</td>
+<td>估算粗糙</td>
+</tr>
+<tr>
+<td><strong>基于呼叫数（Call-count / SIP）</strong></td>
+<td>与呼叫服务器联动，按实际呼叫数与编码计算</td>
+<td>精确</td>
+<td>需要 SIP 互通/呼叫服务器支持</td>
+</tr>
+<tr>
+<td><strong>负载型（Load-based）</strong></td>
+<td>按实测信道利用率动态判断</td>
+<td>自适应</td>
+<td>参数难调</td>
+</tr>
+<tr>
+<td><strong>802.11v BSS Load</strong></td>
+<td>AP 广播负载，终端自行决策</td>
+<td>终端参与</td>
+<td>依赖终端实现</td>
+</tr>
+</tbody>
+</table>
+<p><strong>典型配置目标</strong>：AC_VO 预留 <strong>70%–75%</strong> 的 airtime；每 AP 语音呼叫上限按编码算：</p>
+<pre><code>G.711（无压缩，~80 kbps + 开销 ≈ 100 kbps 单向）→ 每呼叫约占 1.5%–2% airtime
+G.729（压缩，~30 kbps）→ 每呼叫约占 0.6%–1% airtime
+</code></pre>
+<h3 id="_28">语音的漫游时延预算<a class="anchor" href="#_28" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>目标</th>
+<th>手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>扫描发现</td>
+<td>&lt; 30 ms</td>
+<td>802.11k Neighbor Report</td>
+</tr>
+<tr>
+<td>重关联</td>
+<td>&lt; 20 ms</td>
+<td>802.11r FT（Over-the-Air）</td>
+</tr>
+<tr>
+<td>密钥派生</td>
+<td>&lt; 10 ms</td>
+<td>PMK 缓存 + FT</td>
+</tr>
+<tr>
+<td><strong>总漫游中断</strong></td>
+<td><strong>&lt; 50 ms</strong></td>
+<td>以上全部 + 覆盖重叠 15%–20%</td>
+</tr>
+<tr>
+<td>丢包容忍</td>
+<td>&lt; 1%（&lt; 3 个连续包）</td>
+<td>WMM + CAC + 无重传风暴</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_29">视频/流媒体设计的特殊点<a class="anchor" href="#_29" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>机制</th>
+<th>对策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>组播视频拖垮全网</strong></td>
+<td>组播以最低速率发送，占用大量 airtime</td>
+<td><strong>组播转单播（Multicast-to-Unicast）</strong> + 组播抑制</td>
+</tr>
+<tr>
+<td><strong>重传导致花屏</strong></td>
+<td>视频容忍丢包但对抖动敏感</td>
+<td>开 Airtime Fairness、限制每 AP 视频流数</td>
+</tr>
+<tr>
+<td><strong>大量并发流</strong></td>
+<td>每流需稳定 airtime</td>
+<td>用 IGMP snooping + 组播 VLAN 规划</td>
+</tr>
+<tr>
+<td><strong>带宽突发</strong></td>
+<td>4K 流启动时突发</td>
+<td>上游整形 + 缓冲（DASH/HLS 客户端侧缓冲）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_30">勘测与验收：把"感觉好"变成"可测量"<a class="anchor" href="#_30" title="Permanent link"></a></h2>
+<h3 id="_31">四种勘测方式<a class="anchor" href="#_31" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>方式</th>
-<th>说明</th>
+<th>做法</th>
+<th>优点</th>
+<th>缺点</th>
+<th>使用阶段</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>PSK (预共享密钥)</strong></td>
-<td>简单，适合小型环境</td>
+<td><strong>预测性勘测（Predictive）</strong></td>
+<td>用 CAD 图纸 + 材质衰减模型仿真</td>
+<td>快、便宜、可对比多种方案</td>
+<td>模型与实际差异大（家具、人体、金属）</td>
+<td>方案阶段、投标</td>
 </tr>
 <tr>
-<td><strong>802.1X/EAP</strong></td>
-<td>企业级认证，RADIUS 服务器</td>
+<td><strong>被动勘测（Passive）</strong></td>
+<td>只听不发，记录现有 AP 的覆盖与干扰</td>
+<td>反映真实 RF 环境</td>
+<td>只能看已有信号</td>
+<td>改造前评估</td>
 </tr>
 <tr>
-<td><strong>EAP-TLS</strong></td>
-<td>证书认证，最安全</td>
+<td><strong>主动勘测（Active）</strong></td>
+<td>关联 SSID 后测吞吐/时延/漫游</td>
+<td>最接近用户体验</td>
+<td>耗时，需要走遍全场</td>
+<td>验收</td>
 </tr>
 <tr>
-<td><strong>PEAP</strong></td>
-<td>服务器证书 + 用户密码</td>
+<td><strong>AP-on-a-stick</strong></td>
+<td>用一台 AP 在临时位置模拟最终部署</td>
+<td>在空场地/新建场地最准确</td>
+<td>需往返移动，人力大</td>
+<td>高密度/关键场所验收</td>
 </tr>
 <tr>
-<td><strong>EAP-FAST</strong></td>
-<td>Cisco 专有，使用 PAC</td>
+<td><strong>持续监测（Validation/Sensor）</strong></td>
+<td>部署后由 Monitor 模式 AP 持续采集</td>
+<td>可发现"只在高峰期出现"的问题</td>
+<td>需额外 AP/传感器</td>
+<td>运行期</td>
 </tr>
 </tbody>
 </table>
-<h4 id="wpa3">WPA3 增强<a class="anchor" href="#wpa3" title="Permanent link"></a></h4>
+<h3 id="_32">可量化验收指标（写进合同/交付文档）<a class="anchor" href="#_32" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>特性</th>
+<th>指标</th>
+<th>目标值</th>
+<th>测量方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>覆盖 RSSI</strong></td>
+<td>目标区域 ≥ <strong>-67 dBm</strong></td>
+<td>主动勘测，网格化（每 5–10 m）</td>
+</tr>
+<tr>
+<td><strong>SNR</strong></td>
+<td>≥ <strong>25 dB</strong></td>
+<td>勘测工具</td>
+</tr>
+<tr>
+<td><strong>同频干扰（CCI）</strong></td>
+<td>第二强 AP 信号比主 AP 低 ≥ <strong>5–10 dB</strong></td>
+<td>勘测工具（同信道第二强）</td>
+</tr>
+<tr>
+<td><strong>下行吞吐</strong></td>
+<td>≥ 设计值的 80%</td>
+<td>iperf3（多流，双向）</td>
+</tr>
+<tr>
+<td><strong>上行吞吐</strong></td>
+<td>≥ 设计值的 70%</td>
+<td>iperf3 反向</td>
+</tr>
+<tr>
+<td><strong>时延/抖动</strong></td>
+<td>空载 RTT &lt; 10 ms；语音抖动 &lt; 30 ms</td>
+<td>打流 + 抓包</td>
+</tr>
+<tr>
+<td><strong>漫游中断</strong></td>
+<td>语音 &lt; 50 ms、数据 &lt; 200 ms</td>
+<td>边走边 ping / 专用漫游测试工具</td>
+</tr>
+<tr>
+<td><strong>airtime 利用率</strong></td>
+<td>峰值 <strong>&lt; 60%</strong></td>
+<td>控制器统计 / 频谱分析</td>
+</tr>
+<tr>
+<td><strong>信道利用率（单 AP）</strong></td>
+<td>&lt; 50%</td>
+<td>控制器 <code>show ap stats</code></td>
+</tr>
+<tr>
+<td><strong>并发客户端</strong></td>
+<td>单 AP 不超过设计值</td>
+<td>控制器统计</td>
+</tr>
+<tr>
+<td><strong>重传率</strong></td>
+<td>&lt; 10%（理想 &lt; 5%）</td>
+<td>控制器/抓包</td>
+</tr>
+<tr>
+<td><strong>DHCP 成功率</strong></td>
+<td>&gt; 99%</td>
+<td>日志统计</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>验收必须在"最坏时刻"做</strong>：工作日上班后 30 分钟、会议开始前 5 分钟、下课/散场瞬间。在空场测出的漂亮数字没有任何意义。</p>
+</blockquote>
+<h3 id="_33">上线后的监控基线<a class="anchor" href="#_33" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>监控项</th>
+<th>告警阈值</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>SAE (Simultaneous Authentication of Equals)</strong></td>
-<td>替换 PSK，防止离线字典攻击</td>
+<td>AP 离线数</td>
+<td>&gt; 0（立即）</td>
+<td>单体故障或供电/上行问题</td>
 </tr>
 <tr>
-<td><strong>OWE (Opportunistic Wireless Encryption)</strong></td>
-<td>开放网络加密</td>
+<td>客户端关联失败率</td>
+<td>&gt; 5%</td>
+<td>RADIUS、DHCP、容量</td>
 </tr>
 <tr>
-<td><strong>192 位安全套件</strong></td>
-<td>政府和企业高安全需求</td>
+<td>airtime 利用率</td>
+<td>&gt; 70% 持续 5 min</td>
+<td>扩容信号</td>
+</tr>
+<tr>
+<td>信道利用率 / 重传率</td>
+<td>重传 &gt; 15%</td>
+<td>RF 干扰或覆盖问题</td>
+</tr>
+<tr>
+<td>RADIUS 响应时延</td>
+<td>&gt; 500 ms</td>
+<td>认证瓶颈</td>
+</tr>
+<tr>
+<td>控制器 CPU / 客户端表</td>
+<td>&gt; 70%</td>
+<td>容量规划</td>
+</tr>
+<tr>
+<td>DFS 信道切换事件</td>
+<td>频繁发生</td>
+<td>RF 稳定性风险</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="high-density-design">高密度设计 (High-Density Design)<a class="anchor" href="#high-density-design" title="Permanent link"></a></h3>
+<h2 id="_34">实战案例<a class="anchor" href="#_34" title="Permanent link"></a></h2>
+<h3 id="wi-fi-6-ap">🔥 案例一：千人发布会，"Wi-Fi 6 AP 装够了，但所有人都在转圈"<a class="anchor" href="#wi-fi-6-ap" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：会场 1,200 m²，部署 24 台 Wi-Fi 6 AP，双频。现场 800 人。测试时"每人 20 Mbps"，实际开始后所有人网页打不开、直播卡死。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li>控制器显示 <strong>airtime 利用率 95%+</strong>，每 AP 平均 33 客户端（看似不高）</li>
+<li>信道规划检查：<strong>全部 80 MHz</strong> → 5 GHz 只有 6 个可用信道，24 台 AP 严重复用</li>
+<li>功率检查：<strong>自动 RRM 把功率拉到最大 20 dBm</strong> → 每台 AP 覆盖半径 40 m+，整个会场互相听得见</li>
+<li>低速检查：1/2/5.5/11 Mbps <strong>未禁用</strong> → 部分老终端与弱信号终端以 6 Mbps 发送，单个小包占用 airtime 是高速率的 20 倍以上</li>
+<li>组播/广播：现场有 iPad 投屏（mDNS/Bonjour）<strong>大量组播泛洪，且以最低速率发送</strong></li>
+</ol>
+<p><strong>根因</strong>：这不是"AP 不够"，而是<strong>频谱被自己占满</strong>。24 台 80 MHz AP 在一个会场里，实际可用容量远低于 24 台 20 MHz AP。</p>
+<p><strong>修复（按效果排序）</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>设计要素</th>
-<th>建议</th>
+<th>动作</th>
+<th>效果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>AP 密度</strong></td>
-<td>根据用户密度增加 AP 数量</td>
+<td><strong>80 MHz → 20 MHz</strong></td>
+<td>可用信道从 6 增至 25，CCI 大幅下降（单 AP 速率降，但总容量升）</td>
 </tr>
 <tr>
-<td><strong>功率调整</strong></td>
-<td>降低 AP 发射功率，减少干扰</td>
+<td><strong>禁用 1/2/5.5/11 Mbps，最小 12 Mbps</strong></td>
+<td>消灭低速"airtime 黑洞"</td>
 </tr>
 <tr>
-<td><strong>信道规划</strong></td>
-<td>使用 5/6 GHz 频段增加容量</td>
+<td><strong>功率固定 5–8 dBm</strong></td>
+<td>蜂窝变小、客户端更均匀分布、漫游更合理</td>
 </tr>
 <tr>
-<td><strong>频段引导</strong></td>
-<td>将支持 5 GHz 的设备引导到 5 GHz</td>
+<td><strong>开启组播转单播 + 广播抑制</strong></td>
+<td>mDNS/投屏不再泛洪</td>
 </tr>
 <tr>
-<td><strong>负载均衡</strong></td>
-<td>AP 间均衡用户分布</td>
+<td><strong>MIN RSSI -67 dBm</strong></td>
+<td>强制弱信号客户端漫游或断开</td>
 </tr>
 <tr>
-<td><strong>空时分组编码 (STBC)</strong></td>
-<td>提高信号可靠性</td>
-</tr>
-<tr>
-<td><strong>最小 RSSI</strong></td>
-<td>设置最低信号强度阈值</td>
-</tr>
-<tr>
-<td><strong>BSS 着色 (802.11ax)</strong></td>
-<td>减少同频干扰</td>
+<td><strong>Band Steering</strong></td>
+<td>把双频终端推上 5 GHz</td>
 </tr>
 </tbody>
 </table>
+<p><strong>结果</strong>：airtime 利用率从 95% 降到 55%，人均可用速率从 &lt; 1 Mbps 升到 6–8 Mbps。</p>
+<p><strong>教训</strong>：<strong>高密度场景的瓶颈永远是 airtime，不是 AP 数量。</strong> 信道宽度、功率、低速禁用、组播抑制，这四项加起来的效果远大于"再多装 10 台 AP"。</p>
 <hr />
-<h3 id="_7">语音和视频设计<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<h3 id="wi-fi-2">🔥 案例二：Wi-Fi 语音"走到楼梯口就断 2 秒"<a class="anchor" href="#wi-fi-2" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：医院移动查房 + 无线话机，共 600 台终端。用户反馈：在走廊走动时通话丢音 1–3 秒，有时直接掉话。静止时质量很好。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li>抓包：漫游时客户端发 Reassociation 后，<strong>执行了完整 4 次握手 + EAP 重认证</strong>，中断 380 ms</li>
+<li>控制器检查：<strong>PMK 缓存未启用、802.11r 未开启</strong>、802.11k/v 也未开启</li>
+<li>覆盖检查：走廊 AP 间距 25 m，<strong>漫游点一侧 AP 已 -78 dBm 才开始切换</strong>（重叠不足）</li>
+<li>移动域检查：两层楼属于<strong>不同控制器</strong>，且 <strong>Mobility Group 未建</strong>（只做了同控制器内漫游测试）</li>
+</ol>
+<p><strong>根因</strong>：三个问题叠加 —— ①漫游点信号太差（覆盖设计问题）；②跨控制器 PMK 未同步（架构问题）；③未启用 802.11r（协议配置问题）。</p>
+<p><strong>修复</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>设计要素</th>
+<th>动作</th>
+<th>落地</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>加 AP / 调低功率，重叠提到 15–20%</strong></td>
+<td>漫游点两 AP 差值 ≤ 5 dB，均 &gt; -67 dBm</td>
+</tr>
+<tr>
+<td><strong>建 Mobility Group + 同 Mobility Domain</strong></td>
+<td>跨控制器 PMK 同步</td>
+</tr>
+<tr>
+<td><strong>开启 802.11k + 802.11v + Adaptive 802.11r</strong></td>
+<td>语音 SSID 强制 FT</td>
+</tr>
+<tr>
+<td><strong>开启 WMM + 语音 CAC（75% 预留）</strong></td>
+<td>防拥塞时语音被挤</td>
+</tr>
+<tr>
+<td><strong>禁用低速率（最小 12 Mbps）</strong></td>
+<td>减少 airtime 浪费</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结果</strong>：漫游中断从 380 ms 降到 35 ms，语音 MOS 从 3.2 提升到 4.2。</p>
+<p><strong>教训</strong>：<strong>"漫游慢"从来不是单一原因</strong>。覆盖（RF 层）+ 移动域（架构层）+ 快速漫游（协议层）+ QoS（策略层）四层必须一起设计。只配 802.11r 而不改覆盖，等于给一条烂路装了个好导航。</p>
+<hr />
+<h3 id="wan-4-wi-fi">🔥 案例三：分支 WAN 断链 4 小时，第二天全员连不上 Wi-Fi<a class="anchor" href="#wan-4-wi-fi" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：30 个零售门店，集中式 WLC 在总部，AP 用 FlexConnect 本地转发。某门店光缆被挖断，WAN 中断 4 小时。</p>
+<p><strong>现象</strong>：断链当天，已有客户端<strong>仍能正常上网</strong>（本地转发生效）。但第二天开业时，<strong>所有员工和 POS 都连不上 Wi-Fi</strong>，POS 无法交易，门店停业半天。</p>
+<p><strong>根因</strong>：</p>
+<ol>
+<li>FlexConnect 只配了<strong>本地转发</strong>，但<strong>未开本地认证</strong>（Local Authentication）→ WAN 断链时新关联无法完成 802.1X</li>
+<li><strong>DHCP 只在总部</strong>，本地没有 DHCP → 新客户端拿不到 IP</li>
+<li>AP 的 <code>flexconnect</code> 配置里<strong>没有预置本地认证凭据</strong>（<code>flexconnect local-auth</code> + 用户/PSK）</li>
+</ol>
+<blockquote>
+<p>这一组合的可怕之处在于：<strong>故障不是立刻发生的</strong>。WAN 断的当下一切正常，问题要等到"客户端下一次重新关联"才暴露 —— 可能是几小时后，可能是第二天早上。</p>
+</blockquote>
+<p><strong>修复（分支标准配置模板）</strong>：</p>
+<pre><code class="language-cfg">! WLC 侧：WLAN 开启 FlexConnect 本地交换 + 本地认证
+wlan GUEST-STORE 1 STORE
+ flexconnect local-switching
+ flexconnect local-auth
+ no flexconnect central-dhcp
+ accounting-list local-acct
+
+! AP 侧：VLAN 映射
+ap name STORE-AP-01
+ flexconnect vlan-name DATA vlan-id 110
+ flexconnect vlan-name POS  vlan-id 120
+
+! 分支交换机：本地 DHCP（关键）
+ip dhcp pool STORE-DATA
+ network 10.20.10.0 255.255.255.0
+ default-router 10.20.10.1
+ dns-server 10.20.10.1
+</code></pre>
+<p><strong>分支无线设计的强制要求清单</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本地 DHCP（交换机或本地服务器）</td>
+<td>WAN 断链时新客户端仍能拿地址</td>
+</tr>
+<tr>
+<td>本地认证（Local Auth）或预置 PSK</td>
+<td>无 RADIUS 也能认证</td>
+</tr>
+<tr>
+<td>本地 DNS 或公共 DNS 兜底</td>
+<td>域名解析不依赖总部</td>
+</tr>
+<tr>
+<td>本地互联网出口（breakout）</td>
+<td>WAN 断链仍可访问云 POS/SaaS</td>
+</tr>
+<tr>
+<td>FlexConnect AP Group + 预置配置</td>
+<td>集中管理、断链自治</td>
+</tr>
+<tr>
+<td>断链演练（每季度）</td>
+<td>没人演练过的冗余等于没有冗余</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教训</strong>：<strong>FlexConnect 只解决"数据不回传"，不解决"认证与地址"</strong>。WAN 不可靠站点的设计必须假设"WAN 随时会断、且断的时候会有一批新客户端上线"。</p>
+<hr />
+<h3 id="40-ap-join">🔥 案例四：新楼 40 台 AP 全部 join 不上控制器<a class="anchor" href="#40-ap-join" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：新办公楼启用，40 台 AP 全部无法加入 WLC。AP 能拿到 IP、能 ping 通 WLC 管理地址，但一直卡在 <code>Join</code> 阶段。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li>AP 上 <code>debug capwap client</code>：控制隧道建立后<strong>立刻超时</strong></li>
+<li>中间有防火墙（新楼与数据中心之间）→ 检查策略：<strong>UDP 5246 只放行了单向</strong></li>
+<li>同时发现：<strong>UDP 5247（数据）未放行</strong>、且<strong>未放行 ICMP（PMTUD 需要）</strong></li>
+<li>另有一批 AP 在新楼的另一个网段，<strong>DHCP Option 43 未配置</strong>，靠广播发现失败</li>
+</ol>
+<p><strong>修复</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>防火墙</td>
+<td>双向 UDP 5246（控制）、5247（数据）；ICMP type 3 code 4</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td><code>option 43 hex f1040a0a0a0a</code>（十六进制 IP 列表）或 DNS 指向</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td>AP 与 WLC 之间路径 MTU ≥ 1550（避免 CAPWAP 分片）</td>
+</tr>
+<tr>
+<td>证书/时间</td>
+<td>NTP 同步（DTLS 证书校验依赖时间）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教训</strong>：<strong>AP 上线是"跨域"问题</strong>：DHCP（网络层）→ 发现（应用层）→ 防火墙（安全层）→ MTU（链路层）→ 证书（时间）。排障必须按这个链条逐段验证，而不是反复在控制器上找原因。</p>
+<hr />
+<h3 id="wpa3-ssid">🔥 案例五：升级 WPA3 后，一半老终端从"信号满格"变成"看不到 SSID"<a class="anchor" href="#wpa3-ssid" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：为满足合规，把企业 SSID 从 WPA2-Enterprise 改为 <strong>WPA3-Enterprise（192 位）</strong>。升级后，一批老笔记本、部分医疗设备、扫码枪完全无法连接。</p>
+<p><strong>根因</strong>（三层原因叠加）：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>终端</strong></td>
+<td>老网卡不支持 WPA3，部分不支持 PMF（802.11w）</td>
+</tr>
+<tr>
+<td><strong>SSID 配置</strong></td>
+<td>直接改成纯 WPA3，<strong>未使用过渡模式</strong></td>
+</tr>
+<tr>
+<td><strong>6 GHz</strong></td>
+<td>同时开启 6 GHz，而 6 GHz 强制 WPA3 + PMF，老终端连 5 GHz 的同一 SSID 也被策略影响</td>
+</tr>
+</tbody>
+</table>
+<p><strong>修复策略（分 SSID 分阶段迁移）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>SSID</th>
+<th>安全策略</th>
+<th>承载终端</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CORP-WPA3</code></td>
+<td>WPA3-Enterprise（可选 192 位）</td>
+<td>受管新设备（域 PC、新手机）</td>
+</tr>
+<tr>
+<td><code>CORP-TRANS</code></td>
+<td><strong>WPA2/WPA3 过渡模式 + PMF 可选</strong></td>
+<td>未升级的老设备（过渡期 6–12 个月）</td>
+</tr>
+<tr>
+<td><code>IOT</code></td>
+<td>WPA2-PSK + iPSK + 独立 VLAN</td>
+<td>医疗设备、扫码枪、打印机</td>
+</tr>
+<tr>
+<td><code>GUEST</code></td>
+<td>OWE 或 Portal</td>
+<td>访客</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教训</strong>：<strong>安全升级必须按"终端能力矩阵"分批</strong>。合规要求"用 WPA3"往往可以解释为"新建 SSID 用 WPA3、存量设备有过渡期"，但直接把唯一 SSID 切成 WPA3 一定会引发大面积事故。设计文档里应该有<strong>终端兼容性清单</strong>与<strong>回滚方案</strong>。</p>
+<hr />
+<h3 id="wi-fi">🔥 案例六：一家工厂的组播把整个车间的 Wi-Fi 打瘫<a class="anchor" href="#wi-fi" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：工厂用 Wi-Fi 承载 AGV 调度与手持扫码。每天早上 8 点开工后，AGV 频繁失联、扫码延迟高。</p>
+<p><strong>排查过程</strong>：</p>
+<ol>
+<li>控制器显示 airtime 利用率 8 点后<strong>从 20% 跳到 85%</strong></li>
+<li>抓包发现<strong>大量组播包</strong>（视频监控预览、设备发现协议 SSDP/mDNS）</li>
+<li>关键机制：<strong>组播帧必须以最低强制速率发送</strong>（默认 6 Mbps），且<strong>没有 ACK、没有重传</strong>，一帧组播占用 airtime 是单播的数十倍</li>
+<li>车间有 3 路摄像头预览常开，每秒数百个组播包</li>
+</ol>
+<p><strong>修复</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>动作</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>QoS 标记</strong></td>
-<td>语音流量标记为高优先级（如 DSCP 46/EF）</td>
+<td><strong>组播转单播（Multicast-to-Unicast）</strong></td>
+<td>每个客户端单独发一份，可用高速率 + 重传</td>
 </tr>
 <tr>
-<td><strong>呼叫准入控制 (CAC)</strong></td>
-<td>限制并发呼叫数量</td>
+<td><strong>IGMP Snooping</strong></td>
+<td>有线侧只把组播送到真正有订阅者的端口</td>
 </tr>
 <tr>
-<td><strong>Fast Roaming</strong></td>
-<td>快速漫游（802.11r、OKC）</td>
+<td><strong>关闭不必要的 mDNS/SSDP 泛洪</strong></td>
+<td>或用 mDNS gateway 代理</td>
 </tr>
 <tr>
-<td><strong>低延迟</strong></td>
-<td>优化漫游时间 &lt; 50ms</td>
+<td><strong>提高组播速率</strong>（若必须保留组播）</td>
+<td>设为 24 Mbps，减少 airtime 占用</td>
 </tr>
 <tr>
-<td><strong>带宽保证</strong></td>
-<td>为每个语音呼叫保留带宽</td>
+<td><strong>AGV 与摄像头分区部署</strong></td>
+<td>不同 SSID/不同 AP，隔离 airtime 竞争</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教训</strong>：<strong>组播是无线最隐蔽的容量杀手</strong>。设计时必须问："这个网络里有多少组播/广播源？"（视频监控、投屏、mDNS、DHCP、ARP、工业协议发现 —— 全部算）。默认开启组播抑制与转单播，是低成本的保险。</p>
+<hr />
+<h3 id="24-ghz_1">🔥 案例七：客户端"粘"在 2.4 GHz 不走<a class="anchor" href="#24-ghz_1" title="Permanent link"></a></h3>
+<p><strong>场景</strong>：办公室用户反馈"在工位上网很快，去另一头会议室就很慢"。检查发现该客户端一直关联在<strong>远处工位的 2.4 GHz 射频</strong>上，信号已 -79 dBm，却不肯漫游到会议室旁边 5 GHz 的 AP。</p>
+<p><strong>根因</strong>（四个机制共同作用）：</p>
+<ol>
+<li><strong>Band Steering 未启用</strong> → 客户端优先选 2.4 GHz（探测响应更快、信号看似更强）</li>
+<li><strong>MIN RSSI 未设置</strong> → -79 dBm 仍被允许保持关联</li>
+<li><strong>客户端自身漫游算法保守</strong>（很多终端只在丢包严重时才扫描）</li>
+<li><strong>2.4 GHz 未禁用低速率</strong> → 该客户端以 6 Mbps 发送，占用了大量 airtime</li>
+</ol>
+<p><strong>修复</strong>：</p>
+<pre><code class="language-cfg">! 1. 频段引导 + 最小速率
+ap dot11 24ghz rate RATE_1 disable
+ap dot11 24ghz rate RATE_2 disable
+ap dot11 24ghz rate RATE_5.5 disable
+ap dot11 24ghz rate RATE_11 disable
+ap dot11 24ghz band-steering
+
+! 2. MIN RSSI（RF Profile）
+ap dot11 5ghz rrm profile RF-HD
+ min-rssi -67
+! 3. 802.11v BSS Transition 让 AP 主动&quot;建议&quot;客户端离开
+</code></pre>
+<p><strong>效果</strong>：双频终端在 5 GHz 关联比例从 55% 提升到 92%，全网 airtime 利用率下降 15 个百分点。</p>
+<p><strong>教训</strong>：<strong>"粘滞客户端"是设计缺失，不是终端缺陷</strong>。频段引导、MIN RSSI、802.11v、禁用低速率这四项配好，粘滞问题基本消失。反过来，只配 band steering 不配 MIN RSSI，客户端被"推"上 5 GHz 后仍会因信号弱而掉回来。</p>
+<hr />
+<h2 id="design-trade-offs">无线设计的取舍 (Design Trade-offs)<a class="anchor" href="#design-trade-offs" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>取舍维度</th>
+<th>选 A</th>
+<th>选 B</th>
+<th>判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>信道宽度</strong></td>
+<td><strong>20 MHz</strong>：多复用、抗 CCI、高密度最优</td>
+<td><strong>80/160 MHz</strong>：单用户峰值高</td>
+<td>高密度/多人场景选 20；单人/低密度/6 GHz 可选宽</td>
+</tr>
+<tr>
+<td><strong>发射功率</strong></td>
+<td><strong>低功率</strong>：蜂窝小、容量高、漫游好</td>
+<td><strong>高功率</strong>：覆盖远、AP 少省成本</td>
+<td>有容量诉求选低功率；只有覆盖诉求（仓库/户外）可选高</td>
+</tr>
+<tr>
+<td><strong>覆盖边界</strong></td>
+<td><strong>-67 dBm 严格边界</strong>：容量与体验稳定</td>
+<td><strong>-75 dBm 宽松边界</strong>：省 AP</td>
+<td>有语音/视频/密集用户时必须严格</td>
+</tr>
+<tr>
+<td><strong>控制器</strong></td>
+<td><strong>集中式</strong>：策略统一、漫游简单</td>
+<td><strong>分布式/云</strong>：本地转发、抗 WAN 故障</td>
+<td>单园区选集中；多分支且 WAN 不可靠选分布/Flex</td>
+</tr>
+<tr>
+<td><strong>漫游方式</strong></td>
+<td><strong>二层大漫游域</strong>：简单、时延低</td>
+<td><strong>三层漫游（Anchor）</strong>：IP 不变、支持跨子网</td>
+<td>能统一二层就不要三层；三层要接受流量折返</td>
+</tr>
+<tr>
+<td><strong>频段策略</strong></td>
+<td><strong>2.4 GHz 仅兜底</strong>：airtime 宝贵</td>
+<td><strong>2.4 GHz 广覆盖</strong>：兼容老设备</td>
+<td>IoT 必须留 2.4；员工终端强推 5/6 GHz</td>
+</tr>
+<tr>
+<td><strong>安全模式</strong></td>
+<td><strong>WPA3 + PMF</strong>：安全合规</td>
+<td><strong>WPA2/WPA3 过渡</strong>：兼容老终端</td>
+<td>新项目 WPA3；存量分 SSID 过渡</td>
+</tr>
+<tr>
+<td><strong>认证方式</strong></td>
+<td><strong>802.1X/EAP-TLS</strong>：最强、用户级</td>
+<td><strong>PSK/iPSK</strong>：简单、IoT 友好</td>
+<td>员工用 802.1X；IoT 用 iPSK + 隔离</td>
+</tr>
+<tr>
+<td><strong>AP 模式</strong></td>
+<td><strong>Local</strong>：集中控制、功能全</td>
+<td><strong>FlexConnect</strong>：本地转发、抗断链</td>
+<td>看 WAN 质量与流量回传成本</td>
+</tr>
+<tr>
+<td><strong>数据转发</strong></td>
+<td><strong>隧道回控制器</strong>：可集中做策略/审计</td>
+<td><strong>本地转发</strong>：省带宽、低时延</td>
+<td>有集中安全审计诉求选隧道</td>
+</tr>
+<tr>
+<td><strong>监视手段</strong></td>
+<td><strong>专用 Monitor AP</strong>：持续 wIPS/RF</td>
+<td><strong>普通 AP 兼职扫描</strong>：省成本</td>
+<td>高安全场所用专用；一般场所兼职</td>
+</tr>
+<tr>
+<td><strong>勘察方式</strong></td>
+<td><strong>AP-on-a-stick 实测</strong>：最准</td>
+<td><strong>预测性仿真</strong>：快、便宜</td>
+<td>关键场所必须实测</td>
+</tr>
+<tr>
+<td><strong>新频段</strong></td>
+<td><strong>6 GHz 立即上</strong>：干净频谱、大带宽</td>
+<td><strong>观望</strong>：终端渗透率低</td>
+<td>看终端比例（&lt; 30% 时增益有限）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_35">设计陷阱<a class="anchor" href="#_35" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>典型现象</th>
+<th>根因</th>
+<th>规避方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>按面积算 AP 数</strong></td>
+<td>AP 装够了但高峰还是慢</td>
+<td>容量按 airtime 算，不按面积</td>
+<td>六步法：业务画像 → airtime → AP 数</td>
+</tr>
+<tr>
+<td><strong>高密度用 80/160 MHz</strong></td>
+<td>全场互相干扰、总容量反而下降</td>
+<td>频谱复用不足</td>
+<td>高密度统一 20 MHz</td>
+</tr>
+<tr>
+<td><strong>AP 满功率运行</strong></td>
+<td>蜂窝过大、漫游点极差、CCI 严重</td>
+<td>未做功率规划，RRM 自动拉满</td>
+<td>高密度固定 5–8 dBm + MIN RSSI</td>
+</tr>
+<tr>
+<td><strong>只看"能连上"</strong></td>
+<td>弱信号客户端拖慢全网</td>
+<td>无边界 RSSI 要求</td>
+<td>-67 dBm 边界设计 + 禁用低速率</td>
+</tr>
+<tr>
+<td><strong>2.4 GHz 开 40 MHz</strong></td>
+<td>可用信道只剩 1 个</td>
+<td>误解"更宽更快"</td>
+<td>2.4 GHz 永远 20 MHz</td>
+</tr>
+<tr>
+<td><strong>未启用 PMK 缓存/802.11r</strong></td>
+<td>漫游断 300 ms+，语音丢音</td>
+<td>每次漫游重做 802.1X</td>
+<td>k + v + r 三件套，语音必配</td>
+</tr>
+<tr>
+<td><strong>Mobility Group 未建</strong></td>
+<td>跨控制器漫游要重新认证</td>
+<td>PMK 未同步</td>
+<td>同 SSID/同安全/同 Domain + 组建移动域</td>
+</tr>
+<tr>
+<td><strong>覆盖重叠不足</strong></td>
+<td>客户端走到很远才切换</td>
+<td>AP 间距按"最远覆盖"设计</td>
+<td>重叠 15%–20%，切换点差值 ≤ 5 dB</td>
+</tr>
+<tr>
+<td><strong>分支只用 FlexConnect 本地转发</strong></td>
+<td>WAN 断链次日全员连不上</td>
+<td>无本地 DHCP / 本地认证</td>
+<td>本地 DHCP + Local Auth + 断链演练</td>
+</tr>
+<tr>
+<td><strong>CAPWAP 隧道 MTU 未规划</strong></td>
+<td>大包丢、性能异常</td>
+<td>隧道封装 + 分片</td>
+<td>AP-WLC 路径 MTU ≥ 1550</td>
+</tr>
+<tr>
+<td><strong>防火墙未放行 CAPWAP</strong></td>
+<td>AP 卡在 Join</td>
+<td>UDP 5246/5247 单向或未放行</td>
+<td>双向放行 + ICMP + NTP</td>
+</tr>
+<tr>
+<td><strong>DHCP Option 43 缺失</strong></td>
+<td>跨网段 AP 找不到控制器</td>
+<td>依赖广播发现</td>
+<td>Option 43 或 DNS 指向</td>
+</tr>
+<tr>
+<td><strong>RADIUS 单点</strong></td>
+<td>全网新关联失败</td>
+<td>认证服务器未冗余</td>
+<td>至少 2 节点 + 多 server 配置</td>
+</tr>
+<tr>
+<td><strong>EAP 客户端未校验服务端证书</strong></td>
+<td>钓鱼 AP 可窃取域凭据</td>
+<td>终端配置基线缺失</td>
+<td>强制证书校验 + SSID 白名单</td>
+</tr>
+<tr>
+<td><strong>组播/广播未抑制</strong></td>
+<td>视频监控/投屏把 airtime 打满</td>
+<td>组播以最低速率发送</td>
+<td>组播转单播 + IGMP Snooping</td>
+</tr>
+<tr>
+<td><strong>DHCP 池按人数配</strong></td>
+<td>"连上但上不了网"</td>
+<td>未考虑并发 + 租期</td>
+<td>按峰值 × 1.5，缩短租期</td>
+</tr>
+<tr>
+<td><strong>AP 上行只有 1 G</strong></td>
+<td>Wi-Fi 6 AP 速率被上游卡住</td>
+<td>未上 mGig</td>
+<td>2.5G/5G 上行 + Cat6a</td>
+</tr>
+<tr>
+<td><strong>PoE 功率不足</strong></td>
+<td>AP 降级（关射频/降 MIMO）</td>
+<td>用 802.3af 带 Wi-Fi 6 AP</td>
+<td>802.3at/bt，核对 AP 功率需求</td>
+</tr>
+<tr>
+<td><strong>直接切纯 WPA3</strong></td>
+<td>一批老终端失联</td>
+<td>未做终端兼容矩阵</td>
+<td>分 SSID 过渡 + 回滚方案</td>
+</tr>
+<tr>
+<td><strong>6 GHz 期待覆盖兜底</strong></td>
+<td>终端看不到 SSID</td>
+<td>6 GHz 仅 6E/7 终端、强制 WPA3</td>
+<td>5 GHz 保覆盖，6 GHz 做容量</td>
+</tr>
+<tr>
+<td><strong>验收在空场测</strong></td>
+<td>上线后高峰崩</td>
+<td>测试场景不代表真实负载</td>
+<td>在最坏时刻做主动勘测</td>
+</tr>
+<tr>
+<td><strong>忽略 6 GHz 的 AFC</strong></td>
+<td>室外/标准功率部署无法启用</td>
+<td>未提前申请 AFC 服务</td>
+<td>项目早期确认功率等级与 AFC</td>
 </tr>
 </tbody>
 </table>
@@ -451,8 +2983,309 @@
 <td>Band Steering</td>
 <td>频段引导</td>
 </tr>
+<tr>
+<td>Airtime</td>
+<td>介质时间（无线真正的稀缺资源）</td>
+</tr>
+<tr>
+<td>CCI</td>
+<td>同频干扰（Co-Channel Interference）</td>
+</tr>
+<tr>
+<td>SNR</td>
+<td>信噪比</td>
+</tr>
+<tr>
+<td>RSSI</td>
+<td>接收信号强度</td>
+</tr>
+<tr>
+<td>MIN RSSI</td>
+<td>最小接收信号强度（强制断开阈值）</td>
+</tr>
+<tr>
+<td>RRM</td>
+<td>无线资源管理（自动信道/功率）</td>
+</tr>
+<tr>
+<td>BSS / BSSID / SSID</td>
+<td>基本服务集 / BSS 标识（AP 射频 MAC）/ 网络名</td>
+</tr>
+<tr>
+<td>ESS</td>
+<td>扩展服务集（同一 SSID 的多个 BSS）</td>
+</tr>
+<tr>
+<td>DFS</td>
+<td>动态频率选择（雷达信道）</td>
+</tr>
+<tr>
+<td>TPC</td>
+<td>发射功率控制</td>
+</tr>
+<tr>
+<td>UNII</td>
+<td>5 GHz 的非授权频段划分</td>
+</tr>
+<tr>
+<td>LPI / VLP / AFC</td>
+<td>6 GHz 低功率室内 / 超低功率 / 自动频率协调</td>
+</tr>
+<tr>
+<td>OFDMA</td>
+<td>正交频分多址（Wi-Fi 6 的核心效率特性）</td>
+</tr>
+<tr>
+<td>MU-MIMO</td>
+<td>多用户多入多出</td>
+</tr>
+<tr>
+<td>MLO</td>
+<td>多链路操作（Wi-Fi 7）</td>
+</tr>
+<tr>
+<td>BSS Coloring</td>
+<td>BSS 着色（同频并行传输）</td>
+</tr>
+<tr>
+<td>TWT</td>
+<td>目标唤醒时间（IoT 省电）</td>
+</tr>
+<tr>
+<td>A-MPDU</td>
+<td>帧聚合（聚合多个 MPDU）</td>
+</tr>
+<tr>
+<td>MCS</td>
+<td>调制与编码策略（决定速率档位）</td>
+</tr>
+<tr>
+<td>Spatial Stream</td>
+<td>空间流</td>
+</tr>
+<tr>
+<td>WMM / EDCA</td>
+<td>Wi-Fi 多媒体 / 增强分布式信道访问</td>
+</tr>
+<tr>
+<td>AC_VO / AC_VI / AC_BE / AC_BK</td>
+<td>WMM 的四个接入类别</td>
+</tr>
+<tr>
+<td>UP</td>
+<td>用户优先级（802.11 QoS 标记）</td>
+</tr>
+<tr>
+<td>DSCP / EF / AF41</td>
+<td>IP 层 QoS 标记</td>
+</tr>
+<tr>
+<td>CAC</td>
+<td>呼叫准入控制</td>
+</tr>
+<tr>
+<td>DIFS / SIFS</td>
+<td>分布式/短帧间间隔</td>
+</tr>
+<tr>
+<td>CSMA/CA</td>
+<td>载波侦听多路访问/冲突避免</td>
+</tr>
+<tr>
+<td>PMK / PTK</td>
+<td>成对主密钥 / 成对临时密钥</td>
+</tr>
+<tr>
+<td>OKC / PKC / CCKM</td>
+<td>机会密钥缓存 / 主动密钥缓存 / 集中密钥管理</td>
+</tr>
+<tr>
+<td>802.11k</td>
+<td>无线资源测量（邻居报告）</td>
+</tr>
+<tr>
+<td>802.11v</td>
+<td>BSS 过渡管理（引导客户端换 AP）</td>
+</tr>
+<tr>
+<td>802.11r / FT</td>
+<td>快速 BSS 过渡</td>
+</tr>
+<tr>
+<td>802.11w / PMF</td>
+<td>管理帧保护</td>
+</tr>
+<tr>
+<td>Adaptive 11r</td>
+<td>自适应 802.11r（对不支持的终端回退）</td>
+</tr>
+<tr>
+<td>Mobility Group / Domain</td>
+<td>移动组 / 移动域</td>
+</tr>
+<tr>
+<td>Anchor / Foreign</td>
+<td>锚点 / 外地控制器（三层漫游）</td>
+</tr>
+<tr>
+<td>WLC</td>
+<td>无线局域网控制器</td>
+</tr>
+<tr>
+<td>CAPWAP</td>
+<td>无线接入点控制和配置协议（UDP 5246/5247）</td>
+</tr>
+<tr>
+<td>DTLS</td>
+<td>CAPWAP 的传输层加密</td>
+</tr>
+<tr>
+<td>AP Group / Tag</td>
+<td>AP 分组 / 标签（Site/Policy/RF Tag）</td>
+</tr>
+<tr>
+<td>FlexConnect / H-REAP</td>
+<td>弹性连接（本地转发）</td>
+</tr>
+<tr>
+<td>Local Switching</td>
+<td>本地交换</td>
+</tr>
+<tr>
+<td>Local Auth</td>
+<td>本地认证（断链自治）</td>
+</tr>
+<tr>
+<td>Rogue AP</td>
+<td>非法 AP</td>
+</tr>
+<tr>
+<td>wIPS</td>
+<td>无线入侵防御系统</td>
+</tr>
+<tr>
+<td>MFP / Management Frame Protection</td>
+<td>管理帧保护（同 802.11w）</td>
+</tr>
+<tr>
+<td>PPSK / iPSK / dPSK</td>
+<td>每用户/每设备预共享密钥</td>
+</tr>
+<tr>
+<td>SAE</td>
+<td>对等同步认证（WPA3-Personal）</td>
+</tr>
+<tr>
+<td>OWE</td>
+<td>机会无线加密（开放网络加密）</td>
+</tr>
+<tr>
+<td>GCMP</td>
+<td>Galois/Counter 模式协议（WPA3 加密算法）</td>
+</tr>
+<tr>
+<td>802.1X / Supplicant / Authenticator</td>
+<td>端口认证 / 客户端 / 认证者（AP）</td>
+</tr>
+<tr>
+<td>EAP-TLS / PEAP / EAP-TTLS / TEAP / EAP-FAST</td>
+<td>EAP 认证方法</td>
+</tr>
+<tr>
+<td>RADIUS / CoA</td>
+<td>远程认证拨号用户服务 / 授权变更</td>
+</tr>
+<tr>
+<td>Portal 认证</td>
+<td>门户认证（访客）</td>
+</tr>
+<tr>
+<td>Multicast-to-Unicast</td>
+<td>组播转单播</td>
+</tr>
+<tr>
+<td>Airtime Fairness</td>
+<td>介质时间公平性</td>
+</tr>
+<tr>
+<td>Sticky Client</td>
+<td>粘滞客户端</td>
+</tr>
+<tr>
+<td>AP-on-a-stick</td>
+<td>临时单 AP 实地勘测法</td>
+</tr>
+<tr>
+<td>CMX / 定位服务</td>
+<td>无线定位与位置分析（可选扩展）</td>
+</tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_36">实战经验总结<a class="anchor" href="#_36" title="Permanent link"></a></h2>
+<ol>
+<li>
+<p><strong>无线设计的第一性原理是 airtime，不是覆盖面积。</strong> 先算"每秒有多少微秒可以分"，再算需要多少 AP。任何跳过 airtime 直接画覆盖图的设计，都会在高密度场景返工。</p>
+</li>
+<li>
+<p><strong>功率、信道宽度、MIN RSSI、禁用低速率，这四项必须一起调。</strong> 单独改任何一项都几乎没有效果，四项同调能让同一套硬件容量翻倍。这是投入产出比最高的一组动作。</p>
+</li>
+<li>
+<p><strong>漫游体验是覆盖设计的产物，协议只是加速器。</strong> 802.11r/k/v 能省下几百毫秒，但如果切换点信号只有 -80 dBm，再快也是断。先修覆盖重叠，再谈快速漫游。</p>
+</li>
+<li>
+<p><strong>分支无线必须假设"WAN 随时会断"。</strong> FlexConnect 只解决数据回传，本地 DHCP + 本地认证才解决"断链后还能不能上班"。冗余没演练过，等于没有。</p>
+</li>
+<li>
+<p><strong>安全升级要按终端能力分批，不要一刀切。</strong> WPA3 是方向，但存量终端、IoT、医疗设备不会同一天升级。分 SSID + 过渡模式 + 回滚方案，是唯一可执行路径。</p>
+</li>
+<li>
+<p><strong>无线故障永远要跨四层看</strong>：RF（信号/干扰/airtime）、控制器（AP 状态/配置）、有线（DHCP/VLAN/MTU/组播）、认证（RADIUS/证书/策略）。只在无线设备上找原因，会错过大部分真实根因。</p>
+</li>
+<li>
+<p><strong>验收必须在最坏时刻做，指标必须可量化。</strong> "-67 dBm / SNR 25 dB / airtime &lt; 60% / 漫游 &lt; 50 ms / 重传 &lt; 10%"，这五个数字写进交付文档，比"用户体验良好"有用一万倍。</p>
+</li>
+</ol>
+<hr />
+<h2 id="_37">本章小结<a class="anchor" href="#_37" title="Permanent link"></a></h2>
+<p>无线看起来是"一堆协议和标准"，本质却是<strong>三个物理约束的工程化</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>表现</th>
+<th>设计应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>共享介质（半双工）</strong></td>
+<td>容量由 airtime 决定，不由 PHY 速率决定</td>
+<td>20 MHz、低功率、禁低速、组播抑制、OFDMA</td>
+</tr>
+<tr>
+<td><strong>无线链路是概率性的</strong></td>
+<td>速率随 SNR 变化，弱信号拖累全网</td>
+<td>边界 RSSI、MIN RSSI、覆盖重叠、速率下限</td>
+</tr>
+<tr>
+<td><strong>移动性带来状态迁移</strong></td>
+<td>漫游要迁移密钥、IP、QoS 状态</td>
+<td>PMK 缓存、802.11k/v/r、移动域、二层域优先</td>
+</tr>
+</tbody>
+</table>
+<p>CCDE 视角下，无线设计真正要回答的四个问题：</p>
+<ol>
+<li><strong>每个区域的 airtime 预算够不够？</strong>（容量）</li>
+<li><strong>覆盖边界与重叠是否支撑"该漫游时才漫游"？</strong>（RF）</li>
+<li><strong>WAN/控制器故障时，这个站点还能不能营业？</strong>（可用性）</li>
+<li><strong>终端能力矩阵是否支撑所选的加密与漫游特性？</strong>（安全与兼容）</li>
+</ol>
+<p>这四问答清楚，具体选哪家控制器、哪款 AP 只是实现细节。</p>
+<blockquote>
+<p>📌 <strong>下一章（第 12 章 自动化）</strong>将从"单点设计"转向"规模化运维"：当网络有几千台设备、上百个站点时，靠 CLI 与人工核对已经不可能，配置模型、模板、CI/CD 与基础设施即代码成为设计的一部分。</p>
+</blockquote></article>
     <nav class="pager"><a class="pager-link prev" href="ch-10.html"><span class="pager-label">上一章</span><span class="pager-title">10 · 安全</span></a><a class="pager-link next" href="ch-12.html"><span class="pager-label">下一章</span><span class="pager-title">12 · 自动化</span></a></nav>
     
     <section class="board" id="board" data-page="第 11 章 · 无线" data-key="ch-11">
@@ -506,18 +3339,95 @@
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#_2">本章导读：无线的七个反直觉认知</a><ul>
+<li><a href="#1-airtime">1. 无线的"带宽"不是比特率，是介质时间（airtime）</a></li>
+<li><a href="#2">2. 信号"能连上"和"能用"是两件事</a></li>
+<li><a href="#3">3. 信道宽度越大不等于越好</a></li>
+<li><a href="#4-ap">4. 客户端才是短板，不是 AP</a></li>
+<li><a href="#5">5. 管理帧和开销不是"零头"</a></li>
+<li><a href="#6">6. 漫游不是"协议特性"，是"覆盖设计的结果"</a></li>
+<li><a href="#7-70">7. 无线故障 70% 不在无线设备上</a></li>
+</ul>
+</li>
+<li><a href="#_3">无线设计方法论（六步）</a><ul>
+<li><a href="#airtime">airtime 预算速算（设计文档里可以直接引用的公式）</a></li>
+</ul>
+</li>
 <li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
 <li><a href="#ieee-80211">IEEE 802.11 标准与协议</a></li>
 <li><a href="#24-ghz">2.4 GHz 频段</a></li>
 <li><a href="#5-ghz">5 GHz 频段</a></li>
-<li><a href="#6-ghz-wi-fi-6e7">6 GHz 频段（Wi-Fi 6E/7）</a></li>
-<li><a href="#_2">企业无线架构</a></li>
-<li><a href="#_4">无线安全</a></li>
-<li><a href="#high-density-design">高密度设计 (High-Density Design)</a></li>
-<li><a href="#_7">语音和视频设计</a></li>
+<li><a href="#6-ghz-wi-fi-6e-7">6 GHz 频段（Wi-Fi 6E / 7）</a></li>
+<li><a href="#_5">信道规划：从"分配信道"到"分配复用距离"</a></li>
 </ul>
 </li>
+<li><a href="#_6">企业无线架构</a><ul>
+<li><a href="#_7">为什么无线需要一个"控制器"</a></li>
+<li><a href="#_8">控制面与数据面：四种组合</a></li>
+<li><a href="#_9">无线控制器部署模型</a></li>
+<li><a href="#capwapap">CAPWAP：AP 与控制器之间的协议</a></li>
+<li><a href="#ap_1">AP 工作模式</a></li>
+<li><a href="#_10">控制器高可用设计</a></li>
+<li><a href="#_11">控制器容量规划清单</a></li>
+</ul>
+</li>
+<li><a href="#_12">无线漫游设计</a><ul>
+<li><a href="#_13">漫游到底发生了什么</a></li>
+<li><a href="#_14">漫游类型矩阵</a></li>
+<li><a href="#_15">四种密钥缓存机制对比</a></li>
+<li><a href="#80211k-v-r">802.11k / v / r 三件套的分工</a></li>
+<li><a href="#_16">漫游设计检查清单</a></li>
+</ul>
+</li>
+<li><a href="#_17">无线安全与认证</a><ul>
+<li><a href="#_18">安全协议演进</a></li>
+<li><a href="#8021xeap">企业认证：802.1X/EAP 全流程</a></li>
+<li><a href="#eap">EAP 方法选型</a></li>
+<li><a href="#radius">RADIUS 侧的设计要点</a></li>
+<li><a href="#psk">PSK 的规模问题与替代方案</a></li>
+<li><a href="#wpa3">WPA3 的三个模式</a></li>
+<li><a href="#_19">访客网络设计：四种模型</a></li>
+<li><a href="#ips-ap">无线 IPS 与非法 AP 防护</a></li>
+</ul>
+</li>
+<li><a href="#high-density-design">高密度设计 (High-Density Design)</a><ul>
+<li><a href="#_20">什么叫"高密度"</a></li>
+<li><a href="#_21">高密度设计的量化流程（带算例）</a></li>
+<li><a href="#_22">高密度关键技术矩阵</a></li>
+<li><a href="#_23">功率设计：上下行不对称才是真问题</a></li>
+<li><a href="#_24">有线侧配套（最容易被漏掉的一段）</a></li>
+<li><a href="#_25">不同场所的容量基线（可直接引用的设计参考表）</a></li>
+<li><a href="#_26">高密度设计的八个误区</a></li>
+</ul>
+</li>
+<li><a href="#_27">语音和视频设计</a><ul>
+<li><a href="#qos">端到端 QoS 链路（无线只是其中一段）</a></li>
+<li><a href="#cac">呼叫准入控制（CAC）</a></li>
+<li><a href="#_28">语音的漫游时延预算</a></li>
+<li><a href="#_29">视频/流媒体设计的特殊点</a></li>
+</ul>
+</li>
+<li><a href="#_30">勘测与验收：把"感觉好"变成"可测量"</a><ul>
+<li><a href="#_31">四种勘测方式</a></li>
+<li><a href="#_32">可量化验收指标（写进合同/交付文档）</a></li>
+<li><a href="#_33">上线后的监控基线</a></li>
+</ul>
+</li>
+<li><a href="#_34">实战案例</a><ul>
+<li><a href="#wi-fi-6-ap">🔥 案例一：千人发布会，"Wi-Fi 6 AP 装够了，但所有人都在转圈"</a></li>
+<li><a href="#wi-fi-2">🔥 案例二：Wi-Fi 语音"走到楼梯口就断 2 秒"</a></li>
+<li><a href="#wan-4-wi-fi">🔥 案例三：分支 WAN 断链 4 小时，第二天全员连不上 Wi-Fi</a></li>
+<li><a href="#40-ap-join">🔥 案例四：新楼 40 台 AP 全部 join 不上控制器</a></li>
+<li><a href="#wpa3-ssid">🔥 案例五：升级 WPA3 后，一半老终端从"信号满格"变成"看不到 SSID"</a></li>
+<li><a href="#wi-fi">🔥 案例六：一家工厂的组播把整个车间的 Wi-Fi 打瘫</a></li>
+<li><a href="#24-ghz_1">🔥 案例七：客户端"粘"在 2.4 GHz 不走</a></li>
+</ul>
+</li>
+<li><a href="#design-trade-offs">无线设计的取舍 (Design Trade-offs)</a></li>
+<li><a href="#_35">设计陷阱</a></li>
 <li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_36">实战经验总结</a></li>
+<li><a href="#_37">本章小结</a></li>
 </ul>
 </div>
 </div></aside>

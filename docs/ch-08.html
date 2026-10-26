@@ -33,85 +33,640 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精读">精读</span><span class="ch-words">约 5286 字</span></div><h1 id="8-layer-3-technologies">第 8 章：三层技术 (Layer 3 Technologies)<a class="anchor" href="#8-layer-3-technologies" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 17795 字</span></div><h1 id="8-layer-3-technologies">第 8 章：三层技术 (Layer 3 Technologies)<a class="anchor" href="#8-layer-3-technologies" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 322-433 页</p>
 </blockquote>
 <hr />
 <h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
 <ul>
-<li><strong>企业三层路由</strong>：链路状态路由协议、EIGRP、路由汇总、流量工程和路径选择</li>
-<li><strong>BGP 路由</strong>：BGP 基础、BGP 作为核心路由协议、BGP 可扩展性选项、路由重分发</li>
+<li><strong>企业三层路由</strong>：链路状态路由（OSPF/IS-IS）、EIGRP、路由汇总、流量工程与路径选择</li>
+<li><strong>BGP 路由</strong>：BGP 基础、BGP 作为核心路由协议、可扩展性选项、路由重分发</li>
 <li><strong>企业路由设计建议</strong>：如何选择正确的路由协议</li>
 </ul>
 <hr />
+<h2 id="_2">本章导读：三层设计的五条反直觉认知<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<h3 id="bgp-igp">反直觉一：你精心设计的 BGP 策略，会被 IGP 度量悄悄推翻<a class="anchor" href="#bgp-igp" title="Permanent link"></a></h3>
+<p>BGP 选路有 13 条判据，前 6 条看起来已经足够精细——Weight、Local Preference、本地起源、AS_PATH、Origin、MED。工程师通常在这六条上做完整设计，然后在验收时发现"<strong>改了什么都没用</strong>"。</p>
+<p>原因往往在第 8 条：</p>
+<pre><code>第 8 条：到 NEXT_HOP 的 IGP metric 最小
+</code></pre>
+<p>它<strong>排在 MED 之后</strong>，意味着前面七条全平局时，<strong>决定权交给 IGP 拓扑</strong>。而 IGP 度量往往是谁也没特意设计过的东西——一堆默认按带宽算出来的数字。</p>
+<table>
+<thead>
+<tr>
+<th>你以为的控制链</th>
+<th>实际的决策链</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LP/MED 决定出口</td>
+<td>LP 平局 → MED 可能跨 AS 不可比 → <strong>IGP 说到哪就去哪</strong></td>
+</tr>
+<tr>
+<td>"同一个 AS 内路径一定一致"</td>
+<td>不同边界路由器上的 IGP 开销不同 → <strong>同一个 AS 内走出不同的口</strong></td>
+</tr>
+<tr>
+<td>"改了 BGP 属性就生效"</td>
+<td><code>show ip bgp</code> 显示 best 变了，但 FIB 没变（递归/多路径）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>本章第一条工作原则</strong>：<strong>做三层路径设计时，必须同时看 BGP 属性和 IGP 度量。</strong> 只看其中一个，你永远解释不了"为什么改不动"。</p>
+</blockquote>
+<h3 id="_3">反直觉二：路由协议的选择不是技术问题，是"运维模型"问题<a class="anchor" href="#_3" title="Permanent link"></a></h3>
+<p>CCDE 最爱问"这个场景该选 OSPF 还是 IS-IS 还是 EIGRP"。新手按"哪个更快/更好"回答。真实项目的答案取决于<strong>你能维护什么</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>决策因素</th>
+<th>真实权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>团队熟悉哪个协议</td>
+<td><strong>最高</strong>（能排障比理论最优更重要）</td>
+</tr>
+<tr>
+<td>是否有多厂商</td>
+<td>高（EIGRP 已开放但仍以 Cisco 为主）</td>
+</tr>
+<tr>
+<td>需要什么样的路径控制</td>
+<td>中（要精细控制 → BGP）</td>
+</tr>
+<tr>
+<td>收敛速度</td>
+<td>中（都能做到亚秒，差异不大）</td>
+</tr>
+<tr>
+<td>协议的理论可扩展性</td>
+<td><strong>低</strong>（企业网很少真的撞到协议上限）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一个残酷但真实的判断</strong>：一个团队能把 OSPF 排障搞透、但 EIGRP 只会配不会查的网络，比一个"选了理论上更优协议但没人懂"的网络可用性高得多。</p>
+<blockquote>
+<p>⚠️ <strong>设计文档里必须写明"为什么选这个协议"，且理由要包含运维能力</strong>。只写"因为 OSPF 是标准协议"，等于没写。</p>
+</blockquote>
+<h3 id="_4">反直觉三：汇总的本质是"信息隐藏"，代价是"失去可见性"<a class="anchor" href="#_4" title="Permanent link"></a></h3>
+<p>汇总被列为"最佳实践"，被讲成五个好处：省内存、少泛洪、隔离不稳定、加快收敛、提高安全性。但所有这些好处来自<strong>同一个动作</strong>：<strong>把细节丢掉</strong>。</p>
+<pre><code>不汇总：核心知道每个区域的每一条 /24 → 某条断了，核心立刻知道，流量绕行
+汇总：  核心只知道 10.1.0.0/16 → 某条 /24 断了，核心完全不知道
+        → 只要还有一条 /24 可达，汇总路由就还在
+        → 流量继续送往那个区域 → 在区域内被丢弃（黑洞）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>你获得了</th>
+<th>你失去了</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路由表小</td>
+<td>明细故障的可见性</td>
+</tr>
+<tr>
+<td>泛洪范围小</td>
+<td>故障定位能力（"到底哪个子网有问题"）</td>
+</tr>
+<tr>
+<td>不稳定性被隔离</td>
+<td>端到端验证的意义（ping 汇总地址通≠业务通）</td>
+</tr>
+<tr>
+<td>收敛快</td>
+<td><strong>故障期间的路径正确性</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>汇总的黄金搭配是 null0</strong>：汇总路由器上同时生成一条指向 null0 的汇总路由，这样"明细全部消失"时汇总路由也随之消失，不留下黑洞。<strong>没有 null0 的汇总，是设计缺陷。</strong></p>
+</blockquote>
+<h3 id="_5">反直觉四：收敛不是"越快越好"<a class="anchor" href="#_5" title="Permanent link"></a></h3>
+<p>把 BFD 调到 50ms、Hello 调到 1s、SPF 节流全关掉，会得到一个<strong>收敛极快但极不稳定</strong>的网络：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>链路抖动 200ms 就触发全网 SPF</td>
+<td>频繁重算 → CPU 飙升 → 更慢</td>
+</tr>
+<tr>
+<td>路由 flapping 导致流量反复切换</td>
+<td>每次切换都是丢包 + 会话中断</td>
+</tr>
+<tr>
+<td>多路径哈希重新分配</td>
+<td>同一 TCP 流出口变了 → <strong>乱序、重传、吞吐崩塌</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>正确做法是"分级响应"</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>时间尺度</th>
+<th>手段</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>毫秒级</td>
+<td>链路检测（BFD、物理层告警）</td>
+<td>快检测，但<strong>不立即全网重算</strong></td>
+</tr>
+<tr>
+<td>百毫秒级</td>
+<td>本地修复（FRR、TI-LFA、备份路径）</td>
+<td>就近切换，不惊动全网</td>
+</tr>
+<tr>
+<td>秒级</td>
+<td>IGP 收敛（SPF 重算）</td>
+<td>只在前两级失败时发生</td>
+</tr>
+<tr>
+<td>十秒级</td>
+<td>BGP 收敛、路由策略重算</td>
+<td>宏观路径调整</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>设计原则</strong>：收敛优化的目标不是"最短时间"，而是"<strong>最短时间内恢复，同时不让一次抖动引发全网震荡</strong>"。所以节流（throttling）不是保守，是必需。</p>
+</blockquote>
+<h3 id="_6">反直觉五：协议每增加一个，复杂度不是加一，是乘二<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<p>单协议网络：1 条路径，1 套策略，1 种排障思路。双协议网络：<strong>2 个方向的重分发 + 环路风险 + 度量不可比 + 次优路径</strong>。三协议网络：<strong>6 个方向的重分发</strong>。</p>
+<pre><code>1 个协议：  A
+2 个协议：  A↔B                    （2 个方向）
+3 个协议：  A↔B, A↔C, B↔C          （6 个方向，且 B↔C 往往是被动产生的）
+</code></pre>
+<p><strong>度量不可比</strong>是核心难题：</p>
+<table>
+<thead>
+<tr>
+<th>从</th>
+<th>到</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSPF（cost 1–65535）</td>
+<td>EIGRP（复合度量，百万级）</td>
+<td>无法换算，只能拍一个种子度量</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>BGP（AS_PATH + 属性）</td>
+<td>同一前缀在两个协议里 AD 不同，选谁？</td>
+</tr>
+<tr>
+<td>BGP</td>
+<td>OSPF</td>
+<td>BGP 学来的路由再进 OSPF，会让 IGP 承担互联网规模路由</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>本章最重要的一条设计建议</strong>：<strong>协议数量要少</strong>。双点双向重分发带来的复杂度，几乎永远超过它解决的问题。能用 BGP 统一核心，就不要叠一层协议转换。</p>
+</blockquote>
+<hr />
+<h2 id="_7">三层设计方法论：六步定序<a class="anchor" href="#_7" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>要定的事</th>
+<th>定错的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 地址规划与可汇总性</strong></td>
+<td>每个区域/站点分配连续地址块吗？</td>
+<td>不可汇总 → 路由表爆炸，后面所有设计都在补救</td>
+</tr>
+<tr>
+<td><strong>② 域与层级划分</strong></td>
+<td>几个 IGP 域/区域？边界在哪？</td>
+<td>区域过大 → 泛洪域大；过小 → 汇总与路径复杂</td>
+</tr>
+<tr>
+<td><strong>③ 协议选择</strong></td>
+<td>IGP 选什么？要不要 BGP？</td>
+<td>选错 → 运维跟不上（反直觉二）</td>
+</tr>
+<tr>
+<td><strong>④ 路径设计</strong></td>
+<td>主备/负载分担/流量工程怎么做？</td>
+<td>靠默认判据抽签 → 行为不可预测</td>
+</tr>
+<tr>
+<td><strong>⑤ 收敛与稳定性</strong></td>
+<td>各段时间预算、抖动抑制策略</td>
+<td>收敛慢或持续震荡</td>
+</tr>
+<tr>
+<td><strong>⑥ 边界与重分发</strong></td>
+<td>域之间怎么交互？单向还是双向？</td>
+<td>环路、次优、度量污染</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么地址规划排第一</strong>：<strong>汇总能力是地址规划的产物，不是协议的产物</strong>。地址分配连续，任何协议都能汇总；地址分配混乱，任何协议都救不了。</p>
+<p><strong>地址规划的四条硬规则</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>按层次分配</strong>（核心→区域→楼栋→楼层）</td>
+<td>保证每一层都能用一条前缀概括下一层</td>
+</tr>
+<tr>
+<td><strong>预留增长空间</strong>（每区域按 2–3 倍规划）</td>
+<td>避免"新加一栋楼但地址不连续，只能新增路由"</td>
+</tr>
+<tr>
+<td><strong>Loopback/管理地址单独成块</strong></td>
+<td>便于 ACL、iACL、路由策略统一引用（第 10 章）</td>
+</tr>
+<tr>
+<td><strong>Internet 出口与 DMZ 单独规划</strong></td>
+<td>便于 NAT、安全策略、BGP 通告</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <h3 id="ip">IP 路由和转发概念回顾<a class="anchor" href="#ip" title="Permanent link"></a></h3>
-<p>路由协议的主要目标是作为交付机制，将数据包路由到目的地。端到端路由过程基于分布式数据库的概念：</p>
+<p>路由协议的主要目标是作为交付机制，将数据包路由到目的地。端到端路由过程基于<strong>分布式数据库</strong>的概念：每台三层节点各自维护一份数据库，通过协议交互使其收敛到一致（或足够一致）的状态。</p>
 <table>
 <thead>
 <tr>
 <th>概念</th>
 <th>定义</th>
+<th>设计含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>RIB（路由信息库）</strong></td>
 <td>每个三层节点上维护的 IP 地址数据库，包含目的 IP 和下一跳 IP</td>
+<td>所有协议的"候选池"；<strong>选路就是从多个协议的结果里挑一个装表</strong></td>
 </tr>
 <tr>
 <td><strong>FIB（转发信息库）</strong></td>
 <td>转发表，包含目的地址和到达该目的所需的接口</td>
+<td>实际转发用的表；<strong>RIB 变了 FIB 不一定马上变</strong>（递归/多路径）</td>
 </tr>
 </tbody>
 </table>
-<p>路由协议分为三类：
-- <strong>链路状态协议</strong>（OSPF、IS-IS）
-- <strong>路径矢量协议</strong>（BGP）
-- <strong>距离矢量协议</strong>（RIP、EIGRP — 混合型）</p>
+<h4 id="rib-fib">从 RIB 到 FIB：必须理解的四个机制<a class="anchor" href="#rib-fib" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>含义</th>
+<th>设计影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>最长匹配</strong></td>
+<td>有多条匹配时选掩码最长的</td>
+<td>汇总路由永远让位于明细路由；默认路由永远最后</td>
+</tr>
+<tr>
+<td><strong>管理距离 (AD)</strong></td>
+<td>不同来源的同一前缀，AD 小的胜</td>
+<td>决定"静态 vs OSPF vs BGP"的优先级顺序</td>
+</tr>
+<tr>
+<td><strong>度量（metric）</strong></td>
+<td><strong>同一协议内</strong>比较路径优劣</td>
+<td><strong>跨协议度量不可比</strong>（重分发的根本难题）</td>
+</tr>
+<tr>
+<td><strong>递归查找</strong></td>
+<td>下一跳是"另一个下一跳"，逐层解析到直连</td>
+<td>BGP 下一跳必须能递归到 IGP/直连才装表（案例二）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>默认管理距离速查（Cisco）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>AD</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直连</td>
+<td>0</td>
+<td>最高</td>
+</tr>
+<tr>
+<td>静态（指向接口）</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>eBGP</td>
+<td>20</td>
+<td>比多数 IGP <strong>更优</strong>（重要！）</td>
+</tr>
+<tr>
+<td>EIGRP（内部）</td>
+<td>90</td>
+<td></td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>110</td>
+<td></td>
+</tr>
+<tr>
+<td>IS-IS</td>
+<td>115</td>
+<td></td>
+</tr>
+<tr>
+<td>RIP</td>
+<td>120</td>
+<td></td>
+</tr>
+<tr>
+<td>EIGRP（外部/重分发）</td>
+<td>170</td>
+<td></td>
+</tr>
+<tr>
+<td>iBGP</td>
+<td>200</td>
+<td><strong>最劣</strong>（比 RIP 还差）</td>
+</tr>
+<tr>
+<td>未知</td>
+<td>255</td>
+<td>不装表</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>AD 表的两个陷阱</strong>：
+1. <strong>eBGP（20）优于 OSPF（110）</strong>：从 eBGP 学到的路由会<strong>压掉</strong> OSPF 学到的同前缀。如果 BGP 邻居不小心通告了你的内部前缀，内部路由会被覆盖。<strong>这就是 eBGP 必须做前缀过滤的原因</strong>（不只防别人，也防自己）。
+2. <strong>iBGP（200）最劣</strong>：iBGP 学到的路由优先级最低。如果同时从 IGP 学到同前缀，IGP 会赢。设计"BGP 承载核心"时要注意——<strong>不要让 IGP 和 BGP 通告同一批前缀</strong>，否则实际生效的可能是 IGP。</p>
+</blockquote>
+<h4 id="_8">路由协议的分类<a class="anchor" href="#_8" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>协议</th>
+<th>机制</th>
+<th>可扩展性来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>链路状态</strong></td>
+<td>OSPF、IS-IS</td>
+<td>泛洪拓扑 → 各自算 SPF</td>
+<td>分层（区域/层级 + 汇总）</td>
+</tr>
+<tr>
+<td><strong>路径矢量</strong></td>
+<td>BGP</td>
+<td>只传路径（AS_PATH），不传拓扑</td>
+<td>策略控制 + 只信邻居</td>
+</tr>
+<tr>
+<td><strong>距离矢量</strong>（混合）</td>
+<td>RIP、EIGRP</td>
+<td>传"我到 X 的距离"</td>
+<td>汇总 + Query 范围控制</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>一句话区分</strong>：链路状态协议里，<strong>每台路由器都知道全网拓扑</strong>，自己算路；距离矢量协议里，<strong>每台路由器只知道邻居告诉它的距离</strong>，不问为什么。所以链路状态的故障定位能力强（能看到拓扑），距离矢量的收敛逻辑简单（DUAL 保证无环）。</p>
+</blockquote>
 <hr />
 <h2 id="link-state-routing">链路状态路由 (Link-State Routing)<a class="anchor" href="#link-state-routing" title="Permanent link"></a></h2>
-<p>链路状态路由协议使用 Dijkstra 最短路径算法计算最佳路径。OSPF 和 IS-IS 是链路状态协议。</p>
+<p>链路状态路由协议使用 Dijkstra 最短路径优先 (SPF) 算法计算最佳路径。OSPF 和 IS-IS 是典型的链路状态协议。</p>
 <h3 id="lsdb">链路状态数据库 (LSDB) 构建过程<a class="anchor" href="#lsdb" title="Permanent link"></a></h3>
-<ol>
-<li>路由器发现邻居并建立邻接关系</li>
-<li>交换链路状态通告 (LSA/LSP)</li>
-<li>每个 LSA 包含路由器链路、接口、链路状态和成本信息</li>
-<li>构建 LSDB</li>
-<li>运行 Dijkstra 算法计算最短路径树 (SPT)</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>动作</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>路由器发现邻居并建立邻接关系</td>
+<td>参数必须匹配（Hello/Dead、区域、认证、MTU）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>交换链路状态通告 (LSA / LSP)</td>
+<td>每台路由器描述"我连着谁、开销多少"</td>
+</tr>
+<tr>
+<td>3</td>
+<td>每个 LSA 包含路由器链路、接口、链路状态和成本信息</td>
+<td><strong>成本是分发出去的</strong>，度量语义必须全网一致</td>
+</tr>
+<tr>
+<td>4</td>
+<td>构建 LSDB</td>
+<td>区域内所有路由器的 LSDB 必须<strong>完全一致</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>运行 Dijkstra 算法计算最短路径树 (SPT)</td>
+<td>以自己为根，算出到每个节点/前缀的最短路径</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三个设计推论</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>推论</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LSDB 一致性是刚性要求</strong></td>
+<td>不一致意味着各路由器看到的拓扑不同 → 路径可能回环</td>
+</tr>
+<tr>
+<td><strong>泛洪域规模决定收敛和内存</strong></td>
+<td>每次拓扑变化要泛洪到整个区域，所有路由器重算</td>
+</tr>
+<tr>
+<td><strong>成本（cost/metric）是核心设计旋钮</strong></td>
+<td>链路状态协议里你能控制路径的手段只有：度量、区域、汇总</td>
+</tr>
+</tbody>
+</table>
 <h3 id="hub-and-spoke">Hub-and-Spoke 拓扑中的链路状态设计<a class="anchor" href="#hub-and-spoke" title="Permanent link"></a></h3>
-<p>在 Hub-and-Spoke 拓扑中使用链路状态协议时，需要考虑：</p>
+<p>Hub-and-Spoke（星型）在零售、分支网络中极为常见。用链路状态协议时会遇到三个结构性问题：</p>
 <table>
 <thead>
 <tr>
 <th>问题</th>
-<th>说明</th>
+<th>机制</th>
 <th>解决方案</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>可扩展性</strong></td>
-<td>每个 Spoke 接收所有其他 Spoke 的链路状态信息</td>
-<td>使用多区域/多泛洪域设计</td>
+<td>每个 Spoke 接收所有其他 Spoke 的链路状态信息（LSA/LSP 泛洪到全区域）</td>
+<td>使用<strong>多区域/多泛洪域</strong>设计；Spoke 划入独立区域</td>
 </tr>
 <tr>
 <td><strong>次优路由</strong></td>
-<td>流量可能使用远程站点作为中转路径</td>
-<td>ABR 之间需要非汇总链路交换特定路由信息</td>
+<td>汇总后，流量可能使用远程站点作为中转路径</td>
+<td>ABR 之间需要<strong>非汇总链路</strong>交换特定路由信息</td>
 </tr>
 <tr>
 <td><strong>中转流量</strong></td>
-<td>Spoke 可能被用作 Spoke-to-Spoke 的中转</td>
-<td>在 Spoke 路由器上设置 stub 区域</td>
+<td>Spoke 可能被用作 Spoke-to-Spoke 的中转（SPF 只看 cost）</td>
+<td>在 Spoke 路由器上设置 <strong>stub 区域</strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
 <p>⚠️ <strong>关键设计要点</strong>：在多区域设计中，ABR 之间需要一条非汇总链路来交换特定路由信息，避免使用 Spoke 站点作为中转路径。</p>
 </blockquote>
+<p><strong>为什么"汇总"会导致"用分支做中转"</strong>——这段机制值得展开，因为它解释了书里那句拗口的话：</p>
+<pre><code>【无汇总】
+  Spoke-A ── Hub-1 ═══ Hub-2 ── Spoke-B
+  Hub-1 到 Spoke-B：经 Hub-2，cost = 20 → 只有这一条路，正常
+
+【Hub-1 把 Spoke 路由汇总后通告给 Spoke-A 区域】
+  Spoke-A 收到 &quot;Spoke 网段/16 via Hub-1&quot;
+  访问 Spoke-B 时：走 Hub-1 → Hub-1 再转发 → ✅ 正确
+
+【但若 Spoke-A 与 Spoke-B 之间存在备用链路（备份专线/Internet）】
+  Spoke-A 只有汇总路由 → 全部送 Hub-1
+  而 Hub-1 算路时可能认为&quot;经 Spoke-A 到 Spoke-B 更近&quot;（拓扑里存在那条备份链路）
+  → Hub-1 把流量送回 Spoke-A → Spoke-A 只有汇总路由 → 又送回 Hub-1 → 回环
+
+【修复】
+  方案一：Spoke 用 stub/Totally Stub（只有默认路由，不参与详细选路）
+  方案二：保证 ABR 之间的非汇总链路提供正确的明细
+  方案三：在 Spoke 上用分发列表过滤掉不该收到的汇总
+</code></pre>
+<blockquote>
+<p>💡 <strong>实践口诀</strong>：<strong>Hub-and-Spoke 用链路状态协议时，"Spoke 必须是纯终端"</strong> —— 它只应有一条出口路由（默认或汇总），不做任何中转决策。任何让 Spoke 参与"选择路径"的设计都会引入次优或回环。</p>
+</blockquote>
+<h3 id="_9">泛洪域的规模：一个被低估的量化约束<a class="anchor" href="#_9" title="Permanent link"></a></h3>
+<p>链路状态协议的可扩展性，本质上是<strong>泛洪域内的路由器数量</strong>决定的：</p>
+<table>
+<thead>
+<tr>
+<th>泛洪域规模</th>
+<th>每次拓扑变化的开销</th>
+<th>设计建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 50 台</td>
+<td>很小，可忽略</td>
+<td>单区域也完全可行</td>
+</tr>
+<tr>
+<td>50–200 台</td>
+<td>明显（CPU 峰值、LSA 泛洪带宽）</td>
+<td>开始分区；核心单独成区</td>
+</tr>
+<tr>
+<td>200–500 台</td>
+<td>大（SPF 时间长、收敛慢）</td>
+<td>必须分区 + 汇总 + 严格控制 LSA 产生</td>
+</tr>
+<tr>
+<td>&gt; 500 台</td>
+<td>很可能撞上 SPF 时间与内存瓶颈</td>
+<td>改用 IS-IS（TLV 扩展性更好）或 BGP 承载核心</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LSA 产生的频率比数量更重要</strong>：一个 100 台路由器的区域，如果每台接口都在抖动，LSA 泛洪会持续吃满带宽。所以：</p>
+<table>
+<thead>
+<tr>
+<th>抑制手段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SPF 节流（throttle）</strong></td>
+<td>限制 SPF 重算频率（初始等待 + 递增间隔 + 最大间隔）</td>
+</tr>
+<tr>
+<td><strong>LSA 节流与到达抑制</strong></td>
+<td>限制 LSA 生成频率、丢弃重复到达</td>
+</tr>
+<tr>
+<td><strong>合理设置 Hello/Dead</strong></td>
+<td>Hello 太短 → 光模块抖动就断邻居</td>
+</tr>
+<tr>
+<td><strong>BFD + 接口抑制（carrier-delay）</strong></td>
+<td>快检测但不上报短暂抖动</td>
+</tr>
+<tr>
+<td><strong>不把接入侧接口放进核心区域</strong></td>
+<td>用户端口抖动不应影响核心 SPF</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! OSPF 节流与稳定性生产基线
+router ospf 1
+ router-id 10.255.0.1
+ timers throttle spf 50 200 5000      ! 初次50ms，递增200ms，上限5s
+ timers throttle lsa 50 200 5000
+ timers lsa arrival 100               ! 同一LSA 100ms 内重复到达则丢弃
+ auto-cost reference-bandwidth 100000 ! 100G 参考带宽（见后文）
+ log-adjacency-changes detail
+!
+! 接入侧接口：抑制短暂抖动
+interface GigabitEthernet1/0/1
+ carrier-delay msec 2000
+ ip ospf cost 100
+</code></pre>
 <hr />
 <h2 id="ospf">OSPF 设计考量<a class="anchor" href="#ospf" title="Permanent link"></a></h2>
 <h3 id="ospf-lsa">OSPF LSA 类型<a class="anchor" href="#ospf-lsa" title="Permanent link"></a></h3>
@@ -122,6 +677,7 @@
 <th>名称</th>
 <th>生成者</th>
 <th>传播范围</th>
+<th>设计含义</th>
 </tr>
 </thead>
 <tbody>
@@ -130,39 +686,53 @@
 <td>Router LSA</td>
 <td>每台路由器</td>
 <td>区域内</td>
+<td>描述"我连着谁、cost 多少"；<strong>接口抖动会产生新 LSA</strong></td>
 </tr>
 <tr>
 <td>Type 2</td>
 <td>Network LSA</td>
 <td>DR</td>
 <td>区域内</td>
+<td>描述广播网段上的路由器集合</td>
 </tr>
 <tr>
 <td>Type 3</td>
 <td>Summary LSA</td>
 <td>ABR</td>
-<td>跨区域</td>
+<td>跨区域（除完全末节外）</td>
+<td><strong>区域间的"路由"</strong>；汇总就在这一层做</td>
 </tr>
 <tr>
 <td>Type 4</td>
 <td>Summary ASBR LSA</td>
 <td>ABR</td>
 <td>跨区域</td>
+<td>告诉其他区域"ASBR 在哪"，用于递归 Type 5</td>
 </tr>
 <tr>
 <td>Type 5</td>
 <td>AS External LSA</td>
 <td>ASBR</td>
-<td>整个 AS</td>
+<td>整个 AS（stub 区除外）</td>
+<td>外部路由；<strong>重分发产生的就是这个</strong></td>
 </tr>
 <tr>
 <td>Type 7</td>
 <td>NSSA External LSA</td>
-<td>ASBR (NSSA 内)</td>
-<td>NSSA 内（转 Type 5 传出）</td>
+<td>ASBR（NSSA 内）</td>
+<td>NSSA 内（ABR 转成 Type 5）</td>
+<td>让末节区域也能引入外部路由</td>
+</tr>
+<tr>
+<td>Type 9–11</td>
+<td>Opaque LSA</td>
+<td>—</td>
+<td>按类型</td>
+<td>承载扩展能力（MPLS-TE、GR、Segment Routing）</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Type 4 为什么存在</strong>（很多人不知道）：Type 5 里只写了 ASBR 的 Router ID，其他区域的路由器要算"到 ASBR 怎么走"，就需要知道 ASBR 的<strong>可达地址</strong>。Type 4 就是 ABR 替 ASBR 做的"位置说明书"。<strong>stub 区域不需要 Type 4/5，因为那里不允许外部路由。</strong></p>
 <h3 id="ospf_1">OSPF 区域类型<a class="anchor" href="#ospf_1" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -170,6 +740,7 @@
 <th>区域类型</th>
 <th>特点</th>
 <th>允许的 LSA</th>
+<th>用在哪</th>
 </tr>
 </thead>
 <tbody>
@@ -177,40 +748,85 @@
 <td><strong>Backbone (Area 0)</strong></td>
 <td>核心区域，所有其他区域必须连接</td>
 <td>所有类型</td>
+<td>承载区域间流量，<strong>必须连续</strong></td>
 </tr>
 <tr>
 <td><strong>Normal Area</strong></td>
 <td>标准区域</td>
 <td>所有类型</td>
+<td>一般办公/数据中心区域</td>
 </tr>
 <tr>
 <td><strong>Stub Area</strong></td>
 <td>不接收外部路由（Type 5），用默认路由替代</td>
 <td>Type 1, 2, 3</td>
+<td>分支/边缘站点（不需要外部明细）</td>
 </tr>
 <tr>
 <td><strong>Totally Stub</strong></td>
-<td>不接收外部和跨区域路由，用默认路由替代</td>
+<td>不接收外部和跨区域路由，只用默认路由</td>
 <td>Type 1, 2</td>
+<td><strong>Spoke 站点</strong>（最常用优化）</td>
 </tr>
 <tr>
 <td><strong>NSSA</strong></td>
 <td>不接收 Type 5，但允许 Type 7（自定义外部路由）</td>
 <td>Type 1, 2, 3, 7</td>
+<td>边缘站点<strong>需要</strong>引入本地路由</td>
 </tr>
 <tr>
 <td><strong>Totally NSSA</strong></td>
 <td>NSSA + 不接收 Type 3</td>
 <td>Type 1, 2, 7</td>
+<td>边缘站点 + 最小化路由表</td>
 </tr>
 </tbody>
 </table>
+<p><strong>区域类型的实际选择逻辑</strong>：</p>
+<pre><code>这个站点需要知道外部路由的明细吗？
+  ├─ 不需要，统一走总部出去 → Stub 或 Totally Stub
+  └─ 需要（有本地 Internet 出口 / 本地外部路由） → NSSA 或 Totally NSSA
+                 ↓
+           需要知道其他区域的明细吗？
+             ├─ 不需要 → 选 Totally 版本（路由表最小）
+             └─ 需要   → 普通 Stub / NSSA
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Stub 区域的三个硬约束</strong>（配错就起不来）：
+1. <strong>不能是 Area 0</strong>（骨干区域必须承载全部信息）
+2. <strong>区域内不能有 ASBR</strong>（不能重分发——否则需要 Type 5）
+3. <strong>区域内所有路由器必须都配成 stub</strong>（不匹配就不建邻居）</p>
+<p>如果站点有本地 Internet 出口需要重分发，就<strong>只能用 NSSA</strong>，不能用 Stub。</p>
+<p>🔥 <strong>案例：给分支配了 Stub，分支的本地 Internet 出口直接失效</strong></p>
+<p><strong>背景</strong>：某零售企业 800 家门店，每家门店一台路由器，与总部跑 OSPF。优化项目给全部门店配 <code>area 10 stub</code>，分支路由表从 3,000 条降到 20 条，收敛明显改善。</p>
+<p><strong>故障</strong>：30 家"旗舰店"（有本地 Internet 备份链路 + 本地防火墙）上线后，<strong>备份出口完全没起作用</strong>。主链路断时门店直接失联，而不是切到本地 Internet。</p>
+<p><strong>根因</strong>：旗舰店的本地 Internet 出口需要在门店路由器上重分发静态默认路由（<code>redistribute static subnets</code>），但 <strong>Stub 区域不允许 ASBR</strong>：
+- 配了 stub 后，<code>redistribute static</code> 被<strong>静默忽略</strong>（有的平台只给一条 warning）
+- 备份路径的默认路由从未进入 OSPF
+- 主链路断 → 门店只剩 OSPF 学到的总部默认路由 → 总部不可达 → <strong>全网失联</strong></p>
+<p><strong>为什么测试没发现</strong>：验收只测了"主链路正常时能不能通"和"路由表是否变小"。<strong>没有测"主链路断开时是否会切到备份"</strong>。</p>
+<p><strong>修复</strong>：
+<code>cfg
+! 门店（旗舰店）：改为 Totally NSSA，允许重分发本地默认路由
+router ospf 1
+ area 10 nssa no-summary          ! Totally NSSA
+ redistribute static subnets route-map LOCAL-EXIT
+!
+route-map LOCAL-EXIT permit 10
+ match ip address prefix-list PL-DEFAULT</code>
+非旗舰店保持 Totally Stub（不需要 ASBR）。</p>
+<p><strong>教训（三条）</strong>：
+1. <strong>区域类型要和站点的"出口数量"匹配</strong>：单出口 → Stub；多出口（含本地 Internet）→ NSSA。
+2. <strong>配置被静默忽略是最危险的</strong>：<code>redistribute</code> 在 stub 区域不生效且几乎无告警。验收必须查<strong>实际路由表</strong>，不能只看配置命令在不在。
+3. <strong>"备份路径"必须单独验收</strong>：只测主路径等于没测备份。<strong>每一个冗余设计，都要有对应的故障注入用例。</strong></p>
+</blockquote>
 <h3 id="ospf_2">OSPF 网络类型<a class="anchor" href="#ospf_2" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>网络类型</th>
 <th>DR/BDR 选举</th>
+<th>Hello/Dead</th>
 <th>适用场景</th>
 </tr>
 </thead>
@@ -218,66 +834,251 @@
 <tr>
 <td><strong>Broadcast</strong></td>
 <td>是</td>
-<td>以太网</td>
+<td>10 / 40 秒</td>
+<td>以太网（默认）</td>
 </tr>
 <tr>
 <td><strong>Point-to-Point</strong></td>
 <td>否</td>
-<td>串行链路、点对点</td>
+<td>10 / 40 秒</td>
+<td>串行链路、点对点以太网、<strong>GRE 隧道</strong></td>
 </tr>
 <tr>
 <td><strong>Point-to-Multipoint</strong></td>
 <td>否</td>
-<td>NBMA 网络（如帧中继）</td>
+<td>30 / 120 秒</td>
+<td>NBMA、<strong>Hub-and-Spoke 的 Hub 侧</strong></td>
 </tr>
 <tr>
 <td><strong>Nonbroadcast (NBMA)</strong></td>
 <td>是</td>
-<td>需要手动配置邻居</td>
+<td>30 / 120 秒</td>
+<td>需手动配邻居（帧中继，已淘汰）</td>
+</tr>
+<tr>
+<td><strong>P2MP Nonbroadcast</strong></td>
+<td>否</td>
+<td>30 / 120 秒</td>
+<td>不支持组播的 Hub-and-Spoke</td>
 </tr>
 </tbody>
 </table>
+<p><strong>网络类型是设计变量，不是"自动检测结果"</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>默认类型的问题</th>
+<th>正确配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hub-and-Spoke（Hub 是 mGRE 多点隧道）</strong></td>
+<td>Broadcast 下所有 Spoke 在同一网段，会<strong>选出一个 Spoke 做 DR</strong> → Spoke 间流量绕行</td>
+<td>Hub 侧配 <code>ip ospf network point-to-multipoint</code></td>
+</tr>
+<tr>
+<td>两台路由器直连的以太网</td>
+<td>Broadcast 下仍要选 DR（无实际意义，多一个 LSA）</td>
+<td>配 <code>point-to-point</code> → 收敛更快、少一个 LSA</td>
+</tr>
+<tr>
+<td>服务器/终端接入的 SVI</td>
+<td>需要 DR（有多台设备）</td>
+<td>保持 Broadcast</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! 三层互联口：点对点，少一个 Type 2 LSA，收敛更快
+interface TenGigabitEthernet1/1/1
+ no switchport
+ ip address 10.1.1.1 255.255.255.254
+ ip ospf network point-to-point
+ ip ospf hello-interval 3
+ ip ospf dead-interval 9
+ ip ospf bfd
+
+! Hub 侧（mGRE / DMVPN）：P2MP，避免选出 Spoke 做 DR
+interface Tunnel0
+ ip ospf network point-to-multipoint
+ ip ospf hello-interval 10
+ ip ospf dead-interval 40
+</code></pre>
+<blockquote>
+<p>💡 <strong><code>point-to-point</code> 的隐性收益</strong>：它省掉了 Type 2（Network LSA）和 DR/BDR 选举。在几百条三层互联的网络里，这能省掉几百个 LSA 和相应的 SPF 计算量。<strong>这是"零成本优化"。</strong></p>
+</blockquote>
 <h3 id="ospf_3">OSPF 快速收敛技术<a class="anchor" href="#ospf_3" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>技术</th>
 <th>说明</th>
+<th>设计建议</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>SPF 延迟和抑制</strong></td>
+<td><strong>SPF 延迟和抑制（throttle）</strong></td>
 <td>控制 SPF 计算频率，避免频繁计算</td>
+<td>必配，如 <code>50 200 5000</code></td>
 </tr>
 <tr>
 <td><strong>增量 SPF (iSPF)</strong></td>
-<td>只重新计算受影响的部分，而非整棵 SPT</td>
+<td>只重算受影响的部分（部分平台/区域类型）</td>
+<td>平台支持时启用</td>
 </tr>
 <tr>
 <td><strong>部分路由计算 (PRC)</strong></td>
-<td>只更新路由表，不重算 SPT</td>
+<td>只更新路由表，不重算 SPT（前缀变化不影响拓扑时）</td>
+<td>自动生效</td>
 </tr>
 <tr>
-<td><strong>LSA 延迟</strong></td>
-<td>控制重新生成 LSA 的速率</td>
+<td><strong>LSA 延迟与到达抑制</strong></td>
+<td>控制 LSA 生成速率</td>
+<td><code>timers throttle lsa</code> + <code>timers lsa arrival</code></td>
 </tr>
 <tr>
 <td><strong>BFD</strong></td>
 <td>提供亚秒级邻居故障检测</td>
+<td><strong>优先于调小 Hello</strong></td>
 </tr>
 <tr>
 <td><strong>路由器 LSA 节流</strong></td>
 <td>限制 Type 1 LSA 生成频率</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><strong>FRR / TI-LFA</strong></td>
+<td>预先计算备份路径，故障时本地切换</td>
+<td>大网核心（书未展开，属现代实践）</td>
 </tr>
 </tbody>
 </table>
-<h3 id="ospf_4">OSPF 路由汇总<a class="anchor" href="#ospf_4" title="Permanent link"></a></h3>
+<p><strong>"调 Hello" vs "上 BFD"的取舍</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>汇总方向</th>
-<th>位置</th>
+<th>维度</th>
+<th>调小 Hello/Dead</th>
+<th>上 BFD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>检测速度</td>
+<td>可到 1s/3s（再低风险大）</td>
+<td>50–300ms</td>
+</tr>
+<tr>
+<td>CPU 开销</td>
+<td><strong>每个邻居</strong>都要按更快频率处理 Hello</td>
+<td>BFD 报文极轻，独立快速通道</td>
+</tr>
+<tr>
+<td>误切换风险</td>
+<td>高（抖动、CPU 忙时漏 Hello）</td>
+<td>低（BFD 独立检测逻辑）</td>
+</tr>
+<tr>
+<td>配置复杂度</td>
+<td>低（一条命令）</td>
+<td>中（需两端支持并配对）</td>
+</tr>
+<tr>
+<td><strong>结论</strong></td>
+<td>只在极简环境用</td>
+<td><strong>生产推荐</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>一个常见错误组合</strong>：把 Hello 调到 1s、Dead 调到 3s，<strong>同时</strong>没配 SPF 节流。结果是：光模块抖动 → 邻居断 → SPF 重算 → 邻居恢复 → SPF 再重算 → 反复。CPU 被 SPF 吃满，反而更慢。<strong>快检测必须配抖动抑制，否则是把噪声放大。</strong></p>
+</blockquote>
+<h3 id="ospf-auto-cost">OSPF 度量设计：<code>auto-cost</code> 必须是全网一致的决策<a class="anchor" href="#ospf-auto-cost" title="Permanent link"></a></h3>
+<p>OSPF 的默认 cost 计算是 <code>参考带宽 / 接口带宽</code>，参考带宽默认 <strong>100 Mbps</strong>。这带来一个历史上的严重问题：</p>
+<table>
+<thead>
+<tr>
+<th>接口带宽</th>
+<th>默认 cost（参考 100M）</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100M</td>
+<td>1</td>
+<td>基准</td>
+</tr>
+<tr>
+<td>1G</td>
+<td>1</td>
+<td><strong>与 100M 相同！</strong></td>
+</tr>
+<tr>
+<td>10G</td>
+<td>1</td>
+<td><strong>仍然相同！</strong></td>
+</tr>
+<tr>
+<td>100G</td>
+<td>1</td>
+<td><strong>仍然相同！</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>这意味着在默认配置下，一条 100M 链路和一条 100G 链路的 cost 完全一样</strong>（都是 1），SPF 会把它们当作等价的等开销路径做负载分担 —— <strong>这几乎总是一个严重的设计错误</strong>。</p>
+<pre><code class="language-cfg">! 必须全网统一修改参考带宽（建议 100G 或至少 10G）
+router ospf 1
+ auto-cost reference-bandwidth 100000     ! 单位 Mbps，100000 = 100G
+!
+! 修改后 cost 变成：
+! 1G   → 100
+! 10G  → 10
+! 100G → 1
+! 1M   → 100000（注意：低速链路 cost 会很大，仍可接受）
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>参考带宽必须全网一致</strong>。如果一半设备用默认值、一半用 100G，<strong>同一对链路在两端算出不同 cost</strong> —— 结果是有方向性的次优路径（甚至短暂环路）。这是"看起来改了一个优化参数，实际制造了不对称网络"的典型。<strong>修改参考带宽属于全网变更，要走变更流程。</strong></p>
+</blockquote>
+<p><strong>cost 的手工设计</strong>（当自动计算不符合意图时）：</p>
+<table>
+<thead>
+<tr>
+<th>意图</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>明确主备路径</td>
+<td>主路径 cost 小，备路径 cost 大（如主 10 / 备 100）</td>
+</tr>
+<tr>
+<td>按业务重要性而非带宽</td>
+<td>手工指定，如核心互联 cost 1，边缘链路 cost 100</td>
+</tr>
+<tr>
+<td>排除某条链路转发</td>
+<td>把 cost 设到极大（65535）——但<strong>不要用这个代替 shutdown</strong></td>
+</tr>
+<tr>
+<td>让某条链路只做备份</td>
+<td>用 cost + 路由策略，或直接不把该接口放进 OSPF</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>一个实用的设计习惯</strong>：在文档里显式写出<strong>每条链路的 cost 表格</strong>（而不是"由 auto-cost 自动算"）。因为一旦有人改了接口带宽或参考带宽，路径会静默改变，而文档里有表格才能发现偏离。</p>
+</blockquote>
+<h3 id="ospf_4">OSPF 汇总<a class="anchor" href="#ospf_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>汇总类型</th>
+<th>配置位置</th>
+<th>命令</th>
 <th>说明</th>
 </tr>
 </thead>
@@ -285,136 +1086,781 @@
 <tr>
 <td><strong>区域间汇总</strong></td>
 <td>ABR</td>
-<td>将区域内的路由汇总后通告到其他区域</td>
+<td><code>area X range &lt;prefix&gt; &lt;mask&gt;</code></td>
+<td>把某区域的明细汇总后通告给其他区域</td>
 </tr>
 <tr>
 <td><strong>外部路由汇总</strong></td>
 <td>ASBR</td>
-<td>将外部路由汇总后通告到 OSPF 域</td>
+<td><code>summary-address &lt;prefix&gt; &lt;mask&gt;</code></td>
+<td>汇总重分发进来的外部路由</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! ABR 上汇总区域 10 的路由
+router ospf 1
+ area 10 range 10.10.0.0 255.255.0.0
+ ! 默认会生成指向 Null0 的汇总路由（Cisco 行为）
+ ! 显式确认：show ip route 10.10.0.0 能看到 Null0 条目
+
+! ASBR 上汇总外部路由
+router ospf 1
+ summary-address 172.16.0.0 255.255.0.0
+</code></pre>
+<p><strong>汇总的五条"正确做法"与对应的代价</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>收益</th>
+<th>代价 / 前提</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只汇总<strong>连续</strong>的地址块</td>
+<td>汇总路由准确</td>
+<td>需要地址规划支撑；不连续时汇总会包含未使用的地址 → 黑洞</td>
+</tr>
+<tr>
+<td>汇总后配 <strong>null0</strong></td>
+<td>明细全消失时汇总路由也消失</td>
+<td>平台行为差异，需显式确认</td>
+</tr>
+<tr>
+<td>汇总的<strong>粒度不要过粗</strong></td>
+<td>保留一定的故障可见性</td>
+<td>过度汇总 = 完全失去明细信息</td>
+</tr>
+<tr>
+<td>在 <strong>ABR</strong> 而非任意路由器上汇总</td>
+<td>位置正确、生效可预测</td>
+<td>需要清晰的区域边界</td>
+</tr>
+<tr>
+<td>汇总后<strong>重新检查故障收敛</strong></td>
+<td>明细故障时流量仍然送往该区域</td>
+<td>需要在区域内做"故障不外溢"的设计（stub + 区域内默认路由）</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>⚠️ <strong>多个 ABR 上做汇总的风险</strong>：可能导致链路故障时的次优路由。任何在多个 ABR 上做汇总的设计都存在此问题。</p>
+<p>⚠️ <strong>汇总的最隐蔽后果：故障期间的"正常"</strong>。汇总后，某条明细链路断了，核心完全感知不到——汇总路由还在，流量继续送往那个区域，然后在区域内部被丢弃。用户报"某几个网段不通"，而核心的 <code>show ip route</code> 一切正常，<code>ping 汇总地址</code> 也通。<strong>排障时必须在区域内部看，不能在核心看。</strong></p>
 </blockquote>
 <hr />
 <h2 id="is-is">IS-IS 设计考量<a class="anchor" href="#is-is" title="Permanent link"></a></h2>
-<h3 id="is-is-vs-ospf">IS-IS vs OSPF 对比<a class="anchor" href="#is-is-vs-ospf" title="Permanent link"></a></h3>
+<p>IS-IS 是另一个链路状态协议，与 OSPF 在概念上高度相似，但在<strong>扩展性、封装层级、厂商生态</strong>上有明显差异。</p>
+<h3 id="ospf-is-is">OSPF 与 IS-IS 的对比<a class="anchor" href="#ospf-is-is" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>对比项</th>
-<th>IS-IS</th>
+<th>维度</th>
 <th>OSPF</th>
+<th>IS-IS</th>
+<th>设计含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>层级</strong></td>
-<td>Level 1 (区域内)、Level 2 (区域间)</td>
-<td>Area 0 (骨干)、非骨干区域</td>
+<td><strong>封装层次</strong></td>
+<td>IP 之上（协议号 89）</td>
+<td><strong>直接跑在二层</strong>（CLNS）</td>
+<td>IS-IS 不依赖 IP 可达即可建邻居（<strong>IP 被攻击时 IS-IS 可能仍存活</strong>）；但也更难跨非透传网络</td>
 </tr>
 <tr>
-<td><strong>路由器类型</strong></td>
-<td>L1、L2、L1/L2</td>
-<td>内部路由器、ABR、ASBR</td>
+<td><strong>层级</strong></td>
+<td>区域（Area 0 必须连续）</td>
+<td><strong>Level 1 / Level 2</strong>（骨干是连续的 L2）</td>
+<td>IS-IS 的骨干由 L2 路由器自然形成，<strong>不需要"区域 0 连续"的特殊规则</strong></td>
 </tr>
 <tr>
 <td><strong>区域边界</strong></td>
-<td>链路上</td>
-<td>路由器上</td>
+<td>ABR 在<strong>区域内+区域间</strong>都有接口</td>
+<td>L1/L2 路由器<strong>可以只有一个接口</strong>（一台设备同时属于 L1 和 L2）</td>
+<td>IS-IS 的边界更灵活</td>
 </tr>
 <tr>
-<td><strong>LSA 等价物</strong></td>
-<td>LSP (链路状态 PDU)</td>
-<td>LSA</td>
+<td><strong>可扩展性</strong></td>
+<td>LSA 类型固定（Type 1–11）</td>
+<td><strong>TLV 结构</strong>，易扩展</td>
+<td>IS-IS 是大型 SP 骨干的首选（能承载 TE、SR、IPv6 而不改协议）</td>
 </tr>
 <tr>
-<td><strong>DR 等价物</strong></td>
-<td>DIS (指定中间系统)</td>
-<td>DR</td>
+<td><strong>度量</strong></td>
+<td>默认 16 位（可扩展 24 位）</td>
+<td>默认 6 位（<strong>必须开宽度量</strong>）</td>
+<td>IS-IS 一定要配 <code>metric-style wide</code></td>
 </tr>
 <tr>
-<td><strong>DIS 选举</strong></td>
-<td>优先级最高者（无备份）</td>
-<td>优先级最高者（有 BDR）</td>
+<td><strong>多拓扑（MT）</strong></td>
+<td>无原生支持（IPv6 与 IPv4 同拓扑）</td>
+<td><strong>支持多拓扑</strong>（IPv4/IPv6 可走不同路径）</td>
+<td>需要 IPv4/IPv6 分离路径时只能用 IS-IS</td>
 </tr>
 <tr>
-<td><strong>网络类型</strong></td>
-<td>仅 Broadcast 和 Point-to-Point</td>
-<td>多种网络类型</td>
-</tr>
-<tr>
-<td><strong>运行层</strong></td>
-<td>Layer 2 (数据链路层)</td>
-<td>Layer 3 (IP 层)</td>
-</tr>
-<tr>
-<td><strong>协议号/以太类型</strong></td>
-<td>以太类型 0xFEFE</td>
-<td>IP 协议号 89</td>
-</tr>
-<tr>
-<td><strong>MPLS-TE 支持</strong></td>
-<td>是</td>
-<td>是</td>
-</tr>
-<tr>
-<td><strong>扩展性</strong></td>
-<td>高（TLV 结构易于扩展）</td>
-<td>中（需要新 LSA 类型扩展）</td>
+<td><strong>DR 概念</strong></td>
+<td>DR/BDR（选举，有等待时间）</td>
+<td><strong>DIS</strong>（没有备份，抢占式，收敛更快）</td>
+<td>IS-IS 的 DIS 无 BDR，切换更快但会重新泛洪</td>
 </tr>
 </tbody>
 </table>
-<h3 id="is-is-dis-vs-ospf-dr">IS-IS DIS vs OSPF DR<a class="anchor" href="#is-is-dis-vs-ospf-dr" title="Permanent link"></a></h3>
+<h3 id="is-is_1">IS-IS 的关键设计细节<a class="anchor" href="#is-is_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>细节</th>
+<th>说明</th>
+<th>常见错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NET / System ID</strong></td>
+<td>每台路由器的唯一标识（类似 Router ID）</td>
+<td>全网重复 → 邻居起不来或 LSDB 异常</td>
+</tr>
+<tr>
+<td><strong>Level 1 / Level 2</strong></td>
+<td>L1 区域内，L2 骨干</td>
+<td>把接入设备全配成 L2 → 骨干泛洪域过大</td>
+</tr>
+<tr>
+<td><strong><code>metric-style wide</code></strong></td>
+<td>必须开启才能用大度量与 TE</td>
+<td>不开则度量上限 63，无法区分 10G/100G</td>
+</tr>
+<tr>
+<td><strong>过载位（Overload Bit）</strong></td>
+<td>标记"我暂时不转发中转流量"</td>
+<td>用于维护窗口（BGP 收敛完成前不吸引流量），<strong>很多项目没利用</strong></td>
+</tr>
+<tr>
+<td><strong>LSP 泛洪与刷新</strong></td>
+<td>类似 OSPF 的 LSA</td>
+<td>默认刷新周期 15 分钟，需注意带宽</td>
+</tr>
+<tr>
+<td><strong>认证</strong></td>
+<td>L1/L2/PDU 分别支持明文/MD5/HMAC-SHA</td>
+<td>只配了一部分（如只配 L2，L1 裸奔）</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! IS-IS 生产配置要点
+router isis CORE
+ net 49.0001.0100.2550.0001.00
+ metric-style wide                          ! 必须
+ is-type level-2-only                       ! 核心只做 L2
+ log-adjacency-changes
+ authentication mode hmac-sha-256 CORE-KEY  ! 至少 SHA
+!
+interface TenGigabitEthernet1/1/1
+ ip router isis CORE
+ isis metric 10 level-2
+ isis hello-interval 3
+ isis hello-multiplier 3
+ isis bfd
+ isis authentication mode hmac-sha-256 L2-KEY level-2
+</code></pre>
+<blockquote>
+<p>💡 <strong>IS-IS 的最大隐性优势</strong>：它跑在二层，<strong>没有 IP 头</strong>。这意味着：
+- 即使设备上还没有任何 IP 可达性，IS-IS 邻居也能建立（<strong>首次配置/灾后重建时非常有用</strong>）
+- 针对 IP 的 DoS 攻击（如 ICMP 洪泛、IP 分片攻击）<strong>不影响 IS-IS 的邻居关系</strong>
+- 但也意味着：<strong>跨三层网络（如跨运营商的 IP 网）无法直接建 IS-IS 邻居</strong>，必须靠隧道</p>
+</blockquote>
+<p><strong>选型建议</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>企业园区/分支（多厂商可能）</td>
+<td><strong>OSPF</strong>（生态广、工程师多、排障资料多）</td>
+</tr>
+<tr>
+<td>运营商骨干、超大规模核心</td>
+<td><strong>IS-IS</strong>（TLV 扩展性、多拓扑、无 IP 依赖）</td>
+</tr>
+<tr>
+<td>需要 IPv4/IPv6 分离路径（如 v6 走不同链路）</td>
+<td><strong>IS-IS 多拓扑</strong></td>
+</tr>
+<tr>
+<td>团队只熟悉 OSPF</td>
+<td><strong>OSPF</strong>（见导读反直觉二）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="eigrp">EIGRP 设计考量<a class="anchor" href="#eigrp" title="Permanent link"></a></h2>
+<p>EIGRP 是 Cisco 的高级距离矢量（混合型）协议，核心是 <strong>DUAL（扩散更新算法）</strong>。它与链路状态协议的根本差异在于：<strong>它不构建拓扑图，而是维护"到每个目的地的可行路径集合"，靠可行性条件保证无环。</strong></p>
+<h3 id="eigrp_1">EIGRP 的四张表与三个术语<a class="anchor" href="#eigrp_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>表</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>邻居表</strong></td>
+<td>谁是我的 EIGRP 邻居、状态、保持时间</td>
+</tr>
+<tr>
+<td><strong>拓扑表</strong></td>
+<td>每个目的地<strong>所有</strong>学到的路径及其度量、后继、可行后继</td>
+</tr>
+<tr>
+<td><strong>路由表</strong></td>
+<td>从拓扑表优选出来的最佳路径</td>
+</tr>
+<tr>
+<td>（隐含）<strong>发送/接收缓存</strong></td>
+<td>内部机制</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+<th>设计意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可行距离 (FD)</strong></td>
+<td>到目的地的最短度量（经最优邻居）</td>
+<td>出现在路由表里的那条</td>
+</tr>
+<tr>
+<td><strong>报告距离 / 通告距离 (RD/AD)</strong></td>
+<td>邻居声称"我到该目的地的度量"</td>
+<td>只用于可行性判断，不直接用于选路</td>
+</tr>
+<tr>
+<td><strong>可行后继 (FS)</strong></td>
+<td>满足<strong>可行性条件</strong>（RD &lt; 当前 FD）的备用邻居</td>
+<td><strong>有 FS 时本地修复，不惊动全网</strong>——这是 EIGRP 收敛快的根源</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可行性条件的含义</strong>（用一句话记住）：<strong>备用路径的下一跳邻居，必须比我自己离目的地更近</strong>。满足这个条件，就证明"走它不会绕回我这里"，因此无环。</p>
+<pre><code>        FD = 1000（经 A）
+   我 ──┤
+        └─ 经 B 的度量 = 2000，B 说它的 RD = 800
+             800 &lt; 1000 → 可行 → B 是可行后继（备份路径，随时可用）
+             若 B 的 RD = 1200（&gt; 我的 FD 1000）→ 不可行 → 不能做备份
+</code></pre>
+<h3 id="query-eigrp">Query 域：EIGRP 最需要设计的部分<a class="anchor" href="#query-eigrp" title="Permanent link"></a></h3>
+<p>当一条路径失效且<strong>没有可行后继</strong>时，路由器进入 <strong>Active</strong> 状态，向所有邻居发 <strong>Query</strong>："你有到 X 的路吗？" 邻居如果没有，继续向它们的邻居查 —— <strong>这就是 Query 扩散</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query 扩散到整个网络</td>
+<td>所有路由器参与计算，CPU 飙升，收敛变慢</td>
+</tr>
+<tr>
+<td>找不到答案</td>
+<td>进入 <strong>SIA（Stuck In Active）</strong>，邻居被重置，路由抖动</td>
+</tr>
+</tbody>
+</table>
+<p><strong>控制 Query 范围的四个手段</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>机制</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>汇总（Summary）</strong></td>
+<td>上游只看到汇总路由，明细故障的 Query 被汇总路由"吸收"</td>
+<td><strong>最有效</strong>——明细失效不会向上扩散</td>
+</tr>
+<tr>
+<td><strong>Stub 路由（EIGRP Stub）</strong></td>
+<td>告诉邻居"我是末端，不用问我"</td>
+<td>彻底截断 Query</td>
+</tr>
+<tr>
+<td><strong>分发列表 / 路由过滤</strong></td>
+<td>减少路由条目 → 减少 Query 触发点</td>
+<td>辅助</td>
+</tr>
+<tr>
+<td><strong>合理设计拓扑层级</strong></td>
+<td>明确的 Hub-Spoke，避免多路径冗余</td>
+<td>架构手段</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! EIGRP 命名模式生产配置
+router eigrp CAMPUS
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  network 10.0.0.0 0.255.255.255
+  eigrp router-id 10.255.0.1
+  !
+  ! 关键：截断 Query 范围
+  stub connected summary redistribute static
+  !
+  ! 接口级调优
+  af-interface default
+   passive-interface
+   bfd
+  exit-af-interface
+  !
+  af-interface TenGigabitEthernet1/1/1
+   no passive-interface
+   hello-interval 3
+   hold-time 9
+  exit-af-interface
+  !
+  ! 汇总（同时抑制明细，减少 Query 触发）
+  topology base
+   auto-summary
+  exit-af-topology
+ exit-address-family
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>EIGRP Stub 的四个选项要选对</strong>：
+| 选项 | 含义 | 用于 |
+|------|------|------|
+| <code>connected</code> | 只通告直连 | 末端站点（最常见） |
+| <code>summary</code> | 通告直连 + 汇总 | 有下级的站点 |
+| <code>static</code> | 也通告重分发的静态 | 需要本地出口默认路由 |
+| <code>redistributed</code> | 也通告重分发的路由 | 有本地外部路由 |
+| <code>receive-only</code> | 只收不发（不参与 Query） | 极末端（如管理网设备） |</p>
+<p>配 <code>stub connected</code> 却<strong>依赖本地静态默认路由</strong>的站点，主链路断后会失去默认路由 → 与 OSPF Stub 那个案例是同一类错误。</p>
+</blockquote>
+<h3 id="eigrp_2">EIGRP 度量与"为什么它不按带宽选路"<a class="anchor" href="#eigrp_2" title="Permanent link"></a></h3>
+<p>EIGRP 的经典复合度量：</p>
+<pre><code>metric = 256 × ( 10^7 / 最小带宽(kbps)  +  累计延迟(10μs) / 10 )
+                       ↑                      ↑
+                  只看路径上最小带宽        所有链路延迟之和
+</code></pre>
 <table>
 <thead>
 <tr>
 <th>特性</th>
-<th>IS-IS DIS</th>
-<th>OSPF DR</th>
+<th>设计含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>备份</strong></td>
-<td>无 BDR</td>
-<td>有 BDR</td>
+<td><strong>只看最小带宽</strong></td>
+<td>路径上有一条 10M，后面全是 100G，也按 10M 算 → <strong>"木桶效应"</strong></td>
 </tr>
 <tr>
-<td><strong>被替换</strong></td>
-<td>可被更高优先级路由器替换</td>
-<td>不会被替换（除非故障）</td>
+<td><strong>延迟累加</strong></td>
+<td>链路数量多会显著增加度量</td>
 </tr>
 <tr>
-<td><strong>伪节点</strong></td>
-<td>生成伪节点 LSP</td>
-<td>生成 Network LSA</td>
+<td><strong>默认不算负载/可靠性</strong></td>
+<td>K 值默认只启用带宽和延迟（K1=1, K3=1，其余 0）——<strong>改 K 值必须全网一致，否则邻居起不来</strong></td>
 </tr>
 </tbody>
 </table>
-<h3 id="is-is-overload-bit">IS-IS Overload Bit<a class="anchor" href="#is-is-overload-bit" title="Permanent link"></a></h3>
-<p>Overload Bit 的作用：
-- 设置后，其他路由器不会通过该路由器转发中转流量
-- <strong>黑洞避免</strong>：在路由器启动时设置，防止在 LSDB 同步前被用作中转
-- <strong>流量工程</strong>：有选择地将流量引导到其他路径</p>
-<h3 id="is-is_1">IS-IS 层级设计<a class="anchor" href="#is-is_1" title="Permanent link"></a></h3>
-<pre><code>    ┌─────────── L2 Backbone ───────────┐
-    │  L1/L2 ═══ L1/L2 ═══ L1/L2       │
-    └──┬──────────┬──────────┬──────────┘
-       │          │          │
-    L1 Area    L1 Area    L1 Area
-    (含 L1     (含 L1     (含 L1
-    路由器)     路由器)     路由器)
-</code></pre>
-<ul>
-<li>L1 路由器只知道区域内的路由</li>
-<li>L1/L2 路由器连接 L1 区域和 L2 骨干</li>
-<li>L2 骨干连接所有区域</li>
-</ul>
+<blockquote>
+<p>💡 <strong>EIGRP 的度量与 OSPF cost 相比</strong>：OSPF 是<strong>逐跳相加</strong>，EIGRP 是"最小带宽 + 延迟和"。这导致一个反直觉的现象：<strong>在带宽差异大的网络中，两者的选路结果可能完全相反</strong>。混合部署时这也是次优路径的来源之一。</p>
+</blockquote>
+<h3 id="eigrp-ospf">EIGRP 与 OSPF 的选择<a class="anchor" href="#eigrp-ospf" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>OSPF</th>
+<th>EIGRP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>厂商支持</td>
+<td>所有厂商</td>
+<td>以 Cisco 为主（已部分开放）</td>
+</tr>
+<tr>
+<td>故障定位</td>
+<td><strong>强</strong>（LSDB 能看到拓扑）</td>
+<td>中（只能看拓扑表的路径集合）</td>
+</tr>
+<tr>
+<td>收敛</td>
+<td>快（SPF + BFD）</td>
+<td><strong>快（有 FS 时本地修复，最快）</strong></td>
+</tr>
+<tr>
+<td>设计复杂度</td>
+<td>区域、LSA 类型、区域类型较多</td>
+<td>相对简单（无区域概念，靠 AS + 汇总 + Stub）</td>
+</tr>
+<tr>
+<td>大规模泛洪</td>
+<td>有（区域内全泛洪）</td>
+<td>无（只传距离）</td>
+</tr>
+<tr>
+<td><strong>典型适用</strong></td>
+<td>多厂商、需清晰拓扑视图</td>
+<td>纯 Cisco、星型分支、追求简单</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>EIGRP 的一个真实优势</strong>：它<strong>没有"区域 0 必须连续"这类硬约束</strong>，网络设计自由度更高；而且<strong>有可行后继时故障恢复是"毫秒级本地切换"</strong>，不需要任何协议交互。这是 OSPF（必须重算 SPF）做不到的。</p>
+</blockquote>
 <hr />
-<h2 id="eigrp">EIGRP 设计考量<a class="anchor" href="#eigrp" title="Permanent link"></a></h2>
-<h3 id="eigrp_1">EIGRP 核心概念<a class="anchor" href="#eigrp_1" title="Permanent link"></a></h3>
+<h2 id="_10">流量工程和路径选择<a class="anchor" href="#_10" title="Permanent link"></a></h2>
+<h3 id="_11">为什么要专门设计路径<a class="anchor" href="#_11" title="Permanent link"></a></h3>
+<p>IGP 的 SPF 只看<strong>拓扑和度量</strong>，不看带宽利用率、不看业务重要性。经典的 <strong>10:1 带宽不匹配</strong>：</p>
+<pre><code>        ┌──── 1G 链路（cost 相同）────┐
+   R1 ──┤                              ├── R2
+        └──── 10G 链路（cost 相同）───┘
+
+SPF 认为等价 → 负载分担 50/50
+→ 1G 链路瞬间拥塞，10G 链路只用 5%
+→ 用户感知：整体&quot;网络慢&quot;，但两条链路的告警都不明显
+</code></pre>
+<p><strong>读这本书的设计师必须记住</strong>：<strong>默认的 IGP 度量几乎从不等价于"真实可用带宽"</strong>。原因有三：</p>
+<ol>
+<li><code>auto-cost</code> 参考带宽默认 100M（见前文），G 以上全部 cost=1</li>
+<li>多路径负载分担是<strong>按流哈希</strong>，不是按流量的实际大小</li>
+<li>度量不反映"预留"与"策略"（如语音优先级、备份链路不应承载业务）</li>
+</ol>
+<h3 id="_12">路径控制的四个层次<a class="anchor" href="#_12" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>手段</th>
+<th>粒度</th>
+<th>可见性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 度量调整</strong></td>
+<td><code>ip ospf cost</code>、<code>bandwidth</code>、EIGRP metric</td>
+<td>链路</td>
+<td>好（<code>show ip route</code> 可见）</td>
+</tr>
+<tr>
+<td><strong>② 协议策略</strong></td>
+<td>分发列表、路由映射、偏移列表、AD 调整</td>
+<td>前缀</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>③ 汇总与区域设计</strong></td>
+<td>汇总、区域类型、stub</td>
+<td>前缀集合</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>④ 显式路径</strong></td>
+<td>MPLS-TE、SR-TE、PBR、SD-WAN 策略</td>
+<td>流/应用</td>
+<td>差（需要专门工具验证）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设计顺序建议</strong>：先做 ①（度量与拓扑），再做 ②（策略），只有在 ① ② 做不到时才上 ④。<strong>PBR 和隧道是"最后手段"</strong>，因为它们让转发路径偏离路由表，排障难度陡增（见第 10 章 uRPF 案例——PBR 与非对称路径直接导致 uRPF 误杀）。</p>
+<h3 id="_13">主备与负载分担的设计选择<a class="anchor" href="#_13" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>做法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>等开销负载分担</strong></td>
+<td>保持度量相同（默认行为）</td>
+<td>零配置、带宽利用率高</td>
+<td><strong>按流哈希</strong>，单流不加速；链路带宽不等时严重失衡</td>
+</tr>
+<tr>
+<td><strong>不等开销主备</strong></td>
+<td>显式设置 cost（主 10 / 备 100）</td>
+<td>路径确定、备份清晰</td>
+<td>备份链路长期闲置（浪费投资）</td>
+</tr>
+<tr>
+<td><strong>按 VLAN/网段分流</strong></td>
+<td>不同前缀走不同路径（策略或分区）</td>
+<td>双向利用、确定性强</td>
+<td>配置复杂，需地址规划支撑</td>
+</tr>
+<tr>
+<td><strong>按业务分流（PBR/SD-WAN）</strong></td>
+<td>语音走低延迟链路，备份走大带宽</td>
+<td>最贴近业务诉求</td>
+<td>复杂、需持续维护</td>
+</tr>
+<tr>
+<td><strong>MPLS-TE / SR-TE</strong></td>
+<td>显式路径 + 带宽预留</td>
+<td>精确控制</td>
+<td>状态量大、厂商差异（见第 9 章）</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>max-path</code>（ECMP 条数）的意义</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>默认 ECMP</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多数 Cisco 路由器</td>
+<td>4</td>
+<td>超过则不装表</td>
+</tr>
+<tr>
+<td>部分平台可调</td>
+<td>8 / 16 / 32</td>
+<td>需评估 FIB 容量与哈希质量</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>ECMP 条数不是越多越好</strong>：4 条以上时，如果哈希质量差（例如只用 src-dst MAC），实际分布会非常不均。<strong>先确认哈希因子，再增加路径数。</strong></p>
+</blockquote>
+<h3 id="_14">验证路径是否按设计走（设计验收的必做动作）<a class="anchor" href="#_14" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>要验证什么</th>
+<th>命令 / 方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路由是否按预期选优</td>
+<td><code>show ip route &lt;prefix&gt;</code>（看 AD/度量/下一跳）</td>
+</tr>
+<tr>
+<td>BGP 的最佳路径及原因</td>
+<td><code>show ip bgp &lt;prefix&gt;</code>（会显示选路理由）</td>
+</tr>
+<tr>
+<td>实际的 FIB 表项</td>
+<td><code>show ip cef &lt;prefix&gt; detail</code></td>
+</tr>
+<tr>
+<td>转发是否走了预期接口</td>
+<td><code>traceroute</code>（注意：可能被 ACL/防火墙拦 ICMP）</td>
+</tr>
+<tr>
+<td>逐跳的接口与队列</td>
+<td>各跳 <code>show interface</code> 计数器、<code>show policy-map interface</code></td>
+</tr>
+<tr>
+<td><strong>端到端流量矩阵</strong></td>
+<td>NetFlow/sFlow（这是唯一能证明"实际路径"的手段）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>一个反直觉的验收事实</strong>：<code>traceroute</code> 显示的路径<strong>不一定</strong>就是数据流的真实路径（它依赖 ICMP TTL 超时的回程，且很多设备对 TTL 超时的限速会导致缺跳）。<strong>要验证真实路径，必须看流数据（NetFlow）或逐跳抓包。</strong></p>
+</blockquote>
+<hr />
+<h2 id="bgp-bgp-routing">BGP 路由 (BGP Routing)<a class="anchor" href="#bgp-bgp-routing" title="Permanent link"></a></h2>
+<h3 id="bgp">BGP 基础概念<a class="anchor" href="#bgp" title="Permanent link"></a></h3>
+<p>BGP 是<strong>路径矢量</strong>协议，运行在 TCP 179 之上。它与 IGP 的根本差异：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>IGP（OSPF/IS-IS/EIGRP）</th>
+<th>BGP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>目标</strong></td>
+<td>找到<strong>最优</strong>路径</td>
+<td>执行<strong>策略</strong>，找到<strong>符合意图</strong>的路径</td>
+</tr>
+<tr>
+<td><strong>拓扑</strong></td>
+<td>每个节点都知道全网拓扑</td>
+<td>只知道"经过哪些 AS"</td>
+</tr>
+<tr>
+<td><strong>度量</strong></td>
+<td>单一的 cost</td>
+<td>十几种属性，按固定顺序比较</td>
+</tr>
+<tr>
+<td><strong>规模</strong></td>
+<td>数千条路由</td>
+<td><strong>百万级</strong>路由（互联网全表）</td>
+</tr>
+<tr>
+<td><strong>收敛</strong></td>
+<td>秒级</td>
+<td>秒到分钟级（取决于会话数与前缀量）</td>
+</tr>
+<tr>
+<td><strong>信任模型</strong></td>
+<td>内部、默认可信</td>
+<td><strong>默认不可信，只信邻居</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_15">关键术语<a class="anchor" href="#_15" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS（自治系统）</strong></td>
+<td>单一管理域下的网络集合</td>
+</tr>
+<tr>
+<td><strong>eBGP</strong></td>
+<td>AS 之间的会话（TTL 默认 1，直连）</td>
+</tr>
+<tr>
+<td><strong>iBGP</strong></td>
+<td>同一 AS 内的会话（<strong>必须全互连或经 RR/联盟</strong>）</td>
+</tr>
+<tr>
+<td><strong>同步（Synchronization）</strong></td>
+<td>历史要求：iBGP 路由需经 IGP 学到才可用。<strong>现代默认关闭</strong>（<code>no synchronization</code>）</td>
+</tr>
+<tr>
+<td><strong>下一跳</strong></td>
+<td>eBGP 学到的路由，下一跳通常<strong>不改变</strong>（除非 <code>next-hop-self</code>）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>iBGP 全互连规则</strong>（最容易被误解的一条）：iBGP 学的路由<strong>不会再传给另一个 iBGP 邻居</strong>（防环）。所以 N 台路由器需要 <strong>N(N−1)/2</strong> 条会话。这就是 RR 存在的理由。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>路由器数</th>
+<th>全互连会话数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>10</td>
+<td>可接受</td>
+</tr>
+<tr>
+<td>10</td>
+<td>45</td>
+<td>开始难维护</td>
+</tr>
+<tr>
+<td>50</td>
+<td>1,225</td>
+<td>不可接受</td>
+</tr>
+<tr>
+<td>200</td>
+<td>19,900</td>
+<td>必须用 RR</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bgp_1">BGP 作为核心路由协议：什么时候该用<a class="anchor" href="#bgp_1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>用 BGP 的理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>多宿主 Internet 出口</strong></td>
+<td>需要按 LP/MED/AS_PATH 做出口选择</td>
+</tr>
+<tr>
+<td><strong>大型企业核心</strong></td>
+<td>IGP 泛洪域无法承受规模，BGP 只传可达性</td>
+</tr>
+<tr>
+<td><strong>多个 IGP 域/多个厂商域互联</strong></td>
+<td>BGP 是唯一的"通用语言"</td>
+</tr>
+<tr>
+<td><strong>需要精细的策略控制</strong></td>
+<td>IGP 只有 cost 一个旋钮，BGP 有十几个属性</td>
+</tr>
+<tr>
+<td><strong>MPLS L3VPN / EVPN</strong></td>
+<td>用 BGP 承载 VPN 路由（第 9 章）</td>
+</tr>
+<tr>
+<td><strong>SD-WAN / 云互联</strong></td>
+<td>策略路由的通用载体</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>不该用 BGP 的场景</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单出口的单域企业网</td>
+<td>复杂度远超收益</td>
+</tr>
+<tr>
+<td>小型网络（&lt; 20 台）</td>
+<td>IGP 足矣，BGP 只会增加运维成本</td>
+</tr>
+<tr>
+<td>团队不熟悉 BGP 且无外部需求</td>
+<td>排障能力不足时 BGP 是风险</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>判断口诀</strong>：<strong>需要"策略"就用 BGP，只需要"可达性"就用 IGP。</strong> 换句话说——如果所有路径一样好，你不需要 BGP；如果"哪条路径更好"取决于业务而不是拓扑，你需要 BGP。</p>
+</blockquote>
+<h3 id="bgp_2">BGP 可扩展性选项<a class="anchor" href="#bgp_2" title="Permanent link"></a></h3>
+<h4 id="route-reflector-rr">路由反射器 (Route Reflector, RR)<a class="anchor" href="#route-reflector-rr" title="Permanent link"></a></h4>
 <table>
 <thead>
 <tr>
@@ -424,767 +1870,937 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>DUAL 算法</strong></td>
-<td>弥散更新算法，EIGRP 的核心算法</td>
+<td><strong>RR</strong></td>
+<td>允许把从 iBGP 学到的路由反射给其他 iBGP 邻居（打破全互连规则）</td>
 </tr>
 <tr>
-<td><strong>后继路由器 (Successor)</strong></td>
-<td>当前用于转发流量的下一跳路由器</td>
+<td><strong>Client</strong></td>
+<td>RR 的客户端（不需要全互连）</td>
 </tr>
 <tr>
-<td><strong>可行后继路由器 (Feasible Successor)</strong></td>
-<td>备份路由，满足可行性条件 (FC)</td>
+<td><strong>Non-client</strong></td>
+<td>与 RR 是普通 iBGP 关系</td>
 </tr>
 <tr>
-<td><strong>可行性条件 (FC)</strong></td>
-<td>报告距离 (RD) &lt; 可行距离 (FD)</td>
+<td><strong>Cluster ID</strong></td>
+<td>RR 集群标识，<strong>防环</strong>（路由带 Cluster List，收到自己 Cluster ID 的路由丢弃）</td>
 </tr>
 <tr>
-<td><strong>可行距离 (FD)</strong></td>
-<td>到目的地的最小计算距离</td>
-</tr>
-<tr>
-<td><strong>报告距离 (RD)</strong></td>
-<td>邻居报告的到目的地的距离</td>
+<td><strong>Originator ID</strong></td>
+<td>原始通告者的 Router ID，防环的第二道</td>
 </tr>
 </tbody>
 </table>
-<h3 id="eigrp_2">EIGRP 数据包类型<a class="anchor" href="#eigrp_2" title="Permanent link"></a></h3>
+<p><strong>RR 的关键设计约束</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>类型</th>
-<th>传输方式</th>
-<th>说明</th>
+<th>约束</th>
+<th>后果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Hello</strong></td>
-<td>组播</td>
-<td>发现和维护邻居关系</td>
+<td><strong>RR 必须在 IGP 的同一区域内（链路状态协议）</strong></td>
+<td>RR 与客户端跨区域 → 依赖区域间路由，可能出现次优或路由不可达</td>
 </tr>
 <tr>
-<td><strong>Update</strong></td>
-<td>组播/单播</td>
-<td>传递路由更新（使用 RTP）</td>
+<td><strong>Cluster ID 必须唯一</strong>（不同 RR 集群之间）</td>
+<td>相同 → 路由被误判为环而丢弃</td>
 </tr>
 <tr>
-<td><strong>Query</strong></td>
-<td>组播</td>
-<td>查询路由信息（使用 RTP）</td>
+<td><strong>RR 冗余要成对，且客户端要连两个 RR</strong></td>
+<td>单 RR 故障 → 该集群路由中断</td>
 </tr>
 <tr>
-<td><strong>Reply</strong></td>
-<td>单播</td>
-<td>响应 Query（使用 RTP）</td>
-</tr>
-<tr>
-<td><strong>ACK</strong></td>
-<td>单播</td>
-<td>确认可靠数据包</td>
+<td><strong>RR 不是"转发节点"</strong></td>
+<td>RR 只反射控制面，数据面仍按 IGP 走</td>
 </tr>
 </tbody>
 </table>
-<h3 id="eigrp-query">EIGRP Query 范围控制（关键设计！）<a class="anchor" href="#eigrp-query" title="Permanent link"></a></h3>
-<blockquote>
-<p>⚠️ <strong>EIGRP 最大的设计陷阱</strong>：如果不控制 Query 范围，任何拓扑变化都会导致大量 Query 泛洪，可能导致 SIA（Stuck-in-Active），延长收敛时间。</p>
-</blockquote>
-<p><strong>Query 范围控制方法</strong>：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>路由汇总</strong></td>
-<td>在边界汇总路由，阻止 Query 传播到不需要的区域</td>
-</tr>
-<tr>
-<td><strong>EIGRP Stub</strong></td>
-<td>将路由器配置为 Stub，不向 Stub 路由器发送 Query</td>
-</tr>
-<tr>
-<td><strong>Stub 路由器类型</strong></td>
-<td>Receive-only、Connected、Static、Summary、Redistributed</td>
-</tr>
-</tbody>
-</table>
-<h3 id="eigrp-stub">EIGRP Stub 路由器<a class="anchor" href="#eigrp-stub" title="Permanent link"></a></h3>
-<blockquote>
-<p>Stub 路由器不会作为中转路由器，Hub 路由器不会向 Stub 发送 Query。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Stub 类型</th>
-<th>通告的路由</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Receive-only</strong></td>
-<td>不通告任何路由，只接收</td>
-</tr>
-<tr>
-<td><strong>Connected</strong></td>
-<td>通告直连路由</td>
-</tr>
-<tr>
-<td><strong>Static</strong></td>
-<td>通告静态路由</td>
-</tr>
-<tr>
-<td><strong>Summary</strong></td>
-<td>通告汇总路由</td>
-</tr>
-<tr>
-<td><strong>Redistributed</strong></td>
-<td>通告重分发路由</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="route-summarization">路由汇总 (Route Summarization)<a class="anchor" href="#route-summarization" title="Permanent link"></a></h2>
-<h3 id="_2">汇总的好处<a class="anchor" href="#_2" title="Permanent link"></a></h3>
-<ol>
-<li><strong>减少路由表大小</strong> — 节省内存和 CPU</li>
-<li><strong>减少泛洪范围</strong> — 限制 LSA/LSP 传播</li>
-<li><strong>降低不稳定性传播</strong> — 网络某部分的路由翻动不会影响其他部分</li>
-<li><strong>加快收敛</strong> — 减少需要处理的信息量</li>
-<li><strong>信息隐藏</strong> — 隐藏拓扑细节，提高安全性</li>
-</ol>
-<h3 id="_3">汇总的风险<a class="anchor" href="#_3" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>风险</th>
-<th>说明</th>
-<th>缓解方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>次优路由</strong></td>
-<td>汇总后可能选择非最优路径</td>
-<td>在多个汇总点之间使用特定路由</td>
-</tr>
-<tr>
-<td><strong>黑洞</strong></td>
-<td>汇总路由指向的路由器可能无法到达某些子网</td>
-<td>仔细规划汇总范围</td>
-</tr>
-<tr>
-<td><strong>故障检测延迟</strong></td>
-<td>汇总隐藏了具体路由状态</td>
-<td>在需要快速检测的链路上不使用汇总</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="traffic-engineering-and-path-selection">流量工程和路径选择 (Traffic Engineering and Path Selection)<a class="anchor" href="#traffic-engineering-and-path-selection" title="Permanent link"></a></h2>
-<h3 id="_4">路径选择方法<a class="anchor" href="#_4" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>协议</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>基于度量的路径选择</strong></td>
-<td>IGP</td>
-<td>通过调整链路成本影响路径选择</td>
-</tr>
-<tr>
-<td><strong>基于策略的路径选择</strong></td>
-<td>BGP</td>
-<td>通过 BGP 属性控制流量路径</td>
-</tr>
-<tr>
-<td><strong>MPLS-TE</strong></td>
-<td>RSVP-TE</td>
-<td>显式路径，按需建立隧道</td>
-</tr>
-<tr>
-<td><strong>策略路由 (PBR)</strong></td>
-<td>静态</td>
-<td>基于源地址、端口等策略转发</td>
-</tr>
-</tbody>
-</table>
-<h3 id="igp">IGP 度量调整<a class="anchor" href="#igp" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>度量类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>OSPF Cost</strong></td>
-<td>基于带宽，可手动调整</td>
-</tr>
-<tr>
-<td><strong>IS-IS Metric</strong></td>
-<td>默认所有接口为 10，需要手动调整</td>
-</tr>
-<tr>
-<td><strong>EIGRP Metric</strong></td>
-<td>复合度量（带宽+延迟+可靠性+负载），默认仅带宽+延迟</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ospf-cost">OSPF Cost 计算<a class="anchor" href="#ospf-cost" title="Permanent link"></a></h3>
-<pre><code>OSPF Cost = 参考带宽 / 接口带宽
-
-默认参考带宽 = 100 Mbps
-- 10 Mbps 链路: Cost = 10
-- 100 Mbps 链路: Cost = 1
-- 1 Gbps 链路: Cost = 1 (需要调整参考带宽)
-- 10 Gbps 链路: Cost = 1 (需要调整参考带宽)
-
-建议: auto-cost reference-bandwidth 10000 (10G)
+<pre><code class="language-cfg">! RR 配置
+router bgp 65000
+ bgp cluster-id 1.1.1.1
+ bgp log-neighbor-changes
+ !
+ neighbor 10.0.0.1 remote-as 65000
+ neighbor 10.0.0.1 update-source Loopback0
+ neighbor 10.0.0.1 route-reflector-client
+ !
+ neighbor 10.0.0.2 remote-as 65000
+ neighbor 10.0.0.2 update-source Loopback0
+ neighbor 10.0.0.2 route-reflector-client
+ !
+ ! 建议：关闭客户端到客户端的反射（视需求）
+ no bgp client-to-client reflection    ! 若客户端之间已有直连 iBGP
 </code></pre>
-<hr />
-<h2 id="bgp-bgp-routing">BGP 路由 (BGP Routing)<a class="anchor" href="#bgp-bgp-routing" title="Permanent link"></a></h2>
-<h3 id="bgp">BGP 基础<a class="anchor" href="#bgp" title="Permanent link"></a></h3>
-<p>BGP 是路径矢量路由协议，是互联网的核心路由协议。</p>
-<table>
-<thead>
-<tr>
-<th>BGP 类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>eBGP</strong></td>
-<td>外部 BGP，不同 AS 之间的 BGP 会话</td>
-</tr>
-<tr>
-<td><strong>iBGP</strong></td>
-<td>内部 BGP，同一 AS 内的 BGP 会话</td>
-</tr>
-</tbody>
-</table>
-<h3 id="bgp-attributes">BGP 属性 (Attributes)<a class="anchor" href="#bgp-attributes" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>类型</th>
-<th>说明</th>
-<th>影响方向</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Weight</strong></td>
-<td>Cisco 专有</td>
-<td>本地路由器有效，最高优先选</td>
-<td>出口流量</td>
-</tr>
-<tr>
-<td><strong>Local Preference</strong></td>
-<td>非传递</td>
-<td>整个 AS 内有效，越高越优先</td>
-<td>出口流量</td>
-</tr>
-<tr>
-<td><strong>AS Path</strong></td>
-<td>公认必遵</td>
-<td>经过的 AS 列表，越短越优先</td>
-<td>入口流量</td>
-</tr>
-<tr>
-<td><strong>Origin</strong></td>
-<td>公认必遵</td>
-<td>路由来源 (IGP &lt; EGP &lt; Incomplete)</td>
-<td>-</td>
-</tr>
-<tr>
-<td><strong>MED</strong></td>
-<td>可选非传递</td>
-<td>多出口鉴别器，越低越优先</td>
-<td>入口流量</td>
-</tr>
-<tr>
-<td><strong>Community</strong></td>
-<td>可选传递</td>
-<td>标记路由，用于策略</td>
-<td>-</td>
-</tr>
-<tr>
-<td><strong>Next Hop</strong></td>
-<td>公认必遵</td>
-<td>下一跳地址</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<h3 id="bgp-13">BGP 路径选择顺序（完整 13 条）<a class="anchor" href="#bgp-13" title="Permanent link"></a></h3>
 <blockquote>
-<p>⚠️ BGP 选路是<strong>自上而下逐条比较</strong>：只有当前一条完全相等（tie），才会进入下一条。这是排查"我改了属性但流量不走"的核心逻辑——你改的属性可能排在第 6 条，而路由在第 2 条就已经分出胜负了。</p>
+<p>⚠️ <strong><code>no bgp client-to-client reflection</code> 的陷阱</strong>：关掉它（为了减少 RR 负担）后，如果客户端之间<strong>没有</strong>直连 iBGP，路由就断了。这是"优化"变成故障的典型案例 —— <strong>改之前必须确认客户端的连通性模型</strong>。</p>
 </blockquote>
+<h4 id="confederation">联盟 (Confederation)<a class="anchor" href="#confederation" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>把一个大 AS 拆成多个子 AS（sub-AS）</td>
+<td>内部子 AS 之间是 eBGP 会话（但保留 iBGP 属性）</td>
+</tr>
+<tr>
+<td>减少 iBGP 全互连需求</td>
+<td>每个子 AS 内部仍需全互连或再用 RR</td>
+</tr>
+<tr>
+<td><strong>对外表现为一个 AS</strong></td>
+<td>外部看不到子 AS</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td><strong>高</strong>（AS_PATH 处理特殊、排障困难）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>联盟 vs RR 的选择</strong>：<strong>几乎总是选 RR</strong>。联盟的复杂度（子 AS 编号、AS_PATH 中的 <code>( )</code> 表示、跨子 AS 的策略）远高于收益。联盟只在极少数超大型 SP 环境使用。书里把它列为选项，但实际设计建议是"知道它存在，尽量不用"。</p>
+</blockquote>
+<h4 id="peer-group">Peer Group / 邻居模板<a class="anchor" href="#peer-group" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>作用</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Peer Group</strong></td>
+<td>把相同策略的邻居分组，策略配在组上</td>
+<td>配置量从 N 条降到 1 条</td>
+</tr>
+<tr>
+<td><strong>Peer Template</strong></td>
+<td>更灵活（可继承 + 覆盖）</td>
+<td>支持继承层次</td>
+</tr>
+<tr>
+<td><strong>动态邻居（BGP Listen / Dynamic Neighbor）</strong></td>
+<td>只配一个网段范围，邻居自动建立</td>
+<td>适合大规模/云环境（但安全风险高）</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! Peer Group：所有 eBGP 上游共用策略
+router bgp 65000
+ neighbor UPSTREAM peer-group
+ neighbor UPSTREAM remote-as 65100
+ neighbor UPSTREAM description ISP-A
+ neighbor UPSTREAM password &lt;强密钥&gt;
+ neighbor UPSTREAM ttl-security hops 1
+ neighbor UPSTREAM route-map RM-UPSTREAM-IN in
+ neighbor UPSTREAM route-map RM-UPSTREAM-OUT out
+ neighbor UPSTREAM maximum-prefix 900000 90 warning-only
+ !
+ neighbor 203.0.113.1 peer-group UPSTREAM
+</code></pre>
+<p><strong>Peer Group 的三个注意点</strong>：</p>
+<ol>
+<li><strong><code>remote-as</code> 相同的才能进同一组</strong>（eBGP 每家上游的 AS 都不同，实际常按"策略"而不是"AS"分组，需要 <code>remote-as</code> 逐条覆盖）</li>
+<li><strong>组内策略是统一的</strong>——一条 <code>route-map</code> 影响全组，改动风险大</li>
+<li><strong>组内成员的 <code>update-source</code>、<code>ebgp-multihop</code> 一致性</strong>要检查，否则部分邻居起不来</li>
+</ol>
+<h3 id="bgp-13">BGP 选路过程（13 条判据详解）<a class="anchor" href="#bgp-13" title="Permanent link"></a></h3>
+<p>BGP 从多条路径中选择最佳路径，按以下顺序<strong>逐条比较，遇到不同即停止</strong>：</p>
 <table>
 <thead>
 <tr>
 <th>#</th>
 <th>判据</th>
 <th>方向</th>
-<th>谁控制</th>
+<th>作用域</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td><strong>Weight</strong>（高优先）</td>
-<td>本机出方向</td>
+<td><strong>1</strong></td>
+<td><strong>Weight（权重）</strong></td>
+<td><strong>大者优</strong></td>
+<td>本机有效</td>
+<td>Cisco 专有；不传递；默认本地起源 32768，其它 0</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Local Preference（本地优先）</strong></td>
+<td><strong>大者优</strong></td>
+<td>整个 AS</td>
+<td>默认 100；<strong>控制"从哪个出口出去"的主要工具</strong></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>本地起源</strong>（network / aggregate / redistribute）</td>
+<td>本地优先</td>
 <td>本机</td>
-<td>Cisco 私有，<strong>不传递</strong>，只在本路由器生效；本地有效值 0–65535</td>
+<td>本地产生的路由优于学来的</td>
 </tr>
 <tr>
-<td>2</td>
-<td><strong>Local Preference</strong>（高优先）</td>
-<td>AS 内出方向</td>
-<td>本 AS</td>
-<td>通过 iBGP 传遍全 AS，默认 100；控制"我出去走哪个出口"的主力工具</td>
+<td><strong>4</strong></td>
+<td><strong>AS_PATH 长度</strong></td>
+<td><strong>短者优</strong></td>
+<td>整个 AS</td>
+<td>注意：可被 <code>as-override</code>/<code>allowas-in</code> 影响；联盟子 AS 不计入</td>
 </tr>
 <tr>
-<td>3</td>
-<td><strong>本地起源</strong>（locally originated）</td>
-<td>—</td>
-<td>本机</td>
-<td><code>network</code> / <code>redistribute</code> / <code>aggregate-address</code> / <code>default-originate</code> 产生的路由优先于从邻居学到的同前缀</td>
+<td><strong>5</strong></td>
+<td><strong>Origin（起源）</strong></td>
+<td>IGP &lt; EGP &lt; Incomplete</td>
+<td>整个 AS</td>
+<td><code>network</code> 产生 IGP，<code>redistribute</code> 产生 Incomplete</td>
 </tr>
 <tr>
-<td>4</td>
-<td><strong>AS_PATH</strong>（短优先）</td>
-<td>入方向</td>
-<td>上游/自己 prepend</td>
-<td>经过 AS 数最少；可数 AS_SET 长度（不同厂商对 <code>{}</code> 计法不同）</td>
+<td><strong>6</strong></td>
+<td><strong>MED（多出口判别器）</strong></td>
+<td><strong>小者优</strong></td>
+<td>相邻 AS（默认）</td>
+<td>默认只在<strong>同一邻居 AS</strong> 内比较；控制"入口选择"的提示</td>
 </tr>
 <tr>
-<td>5</td>
-<td><strong>Origin</strong>（IGP &lt; EGP &lt; Incomplete）</td>
-<td>入方向</td>
-<td>上游</td>
-<td><code>i</code> 优于 <code>e</code> 优于 <code>?</code>；重分发来的路由是 <code>?</code>，比 <code>network</code> 声明的 <code>i</code> 劣</td>
-</tr>
-<tr>
-<td>6</td>
-<td><strong>MED</strong>（低优先）</td>
-<td>入方向</td>
-<td>自己设置、上游采纳</td>
-<td><strong>默认只在同一邻居 AS 之间比较</strong>；跨 AS 比较需 <code>bgp always-compare-med</code></td>
-</tr>
-<tr>
-<td>7</td>
+<td><strong>7</strong></td>
 <td><strong>eBGP 优于 iBGP</strong></td>
+<td>eBGP 优先</td>
 <td>—</td>
-<td>—</td>
-<td>同一前缀从 eBGP 和 iBGP 都学到时，选 eBGP（外部路径更"接近源"）</td>
+<td>因为 eBGP 更接近目的地</td>
 </tr>
 <tr>
-<td>8</td>
-<td><strong>到 NEXT_HOP 的 IGP metric 最小</strong></td>
+<td><strong>8</strong></td>
+<td><strong>到 NEXT_HOP 的 IGP metric</strong></td>
+<td>小者优</td>
+<td>本机</td>
+<td><strong>这就是导读反直觉一说的那条</strong></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>最老的 eBGP 路径</strong>（Cisco）</td>
+<td>先学到者优</td>
+<td>本机</td>
+<td>减少抖动；<code>bgp bestpath compare-routerid</code> 可改变</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td><strong>最低 Router ID / Originator ID</strong></td>
+<td>小者优</td>
+<td>—</td>
+<td>从 RR 学来的用 Originator ID 比较</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td><strong>最短 Cluster List</strong></td>
+<td>短者优</td>
+<td>—</td>
+<td>经过的 RR 少</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td><strong>最低邻居 IP 地址</strong></td>
+<td>小者优</td>
+<td>—</td>
+<td>最后的兜底</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>记忆口诀</strong>：<strong>"我"In（Weight）→ "我们"出（Local Pref）→ 谁生（本地起源）→ 路短（AS_PATH）→ 出身好（Origin）→ 客随主便（MED）→ 自己人不如外人（eBGP &gt; iBGP）→ 走近路（IGP）→ 老的稳（oldest）→ 名字小（Router ID）→ 少绕圈（Cluster List）→ 邻居小（neighbor IP）</strong>。</p>
+</blockquote>
+<h4 id="_16">前六条的实战用法<a class="anchor" href="#_16" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>想达到的目的</th>
+<th>用哪条</th>
+<th>配在哪</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>只用某个出口出去</strong>（强控制）</td>
+<td>Weight</td>
+<td>本机</td>
+<td>只影响本机，多台设备要逐台配</td>
+</tr>
+<tr>
+<td><strong>整个 AS 从某出口出去</strong></td>
+<td>Local Preference</td>
+<td>入方向（对 eBGP 邻居 inbound）</td>
+<td>AS 内全传；出方向配 LP 对 eBGP 无效</td>
+</tr>
+<tr>
+<td><strong>只影响自己的入口</strong>（邻居进来走哪）</td>
+<td>MED</td>
+<td>出方向（对自己通告的路由）</td>
+<td>只对<strong>同一邻居 AS</strong> 有效，跨 AS 不可比</td>
+</tr>
+<tr>
+<td><strong>本地产生的路由优先</strong></td>
+<td>本地起源</td>
+<td>自动</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>通过加长 AS_PATH 降级某条</strong></td>
+<td>AS_PATH prepend</td>
 <td>出方向</td>
-<td>IGP 设计</td>
-<td>常被称为 hot-potato routing；数据中心里这一条会<strong>悄悄改写</strong>你精心设计的 MED</td>
+<td>影响范围大，容易波及自己的下游</td>
 </tr>
 <tr>
-<td>9</td>
-<td><strong>最老的 eBGP 路由</strong></td>
-<td>—</td>
-<td>—</td>
-<td>两条都是 external 时，先收到的优先；用于抑制路由抖动（flapping 惩罚的软实现）</td>
-</tr>
-<tr>
-<td>10</td>
-<td><strong>Router ID 最小</strong></td>
-<td>—</td>
-<td>手工规划</td>
-<td>比较 BGP Router ID；RR 场景比较 <strong>Originator ID</strong></td>
-</tr>
-<tr>
-<td>11</td>
-<td><strong>Cluster List 最短</strong></td>
-<td>—</td>
-<td>RR 拓扑</td>
-<td>路由反射器环境专用，簇列表越短越优</td>
-</tr>
-<tr>
-<td>12</td>
-<td><strong>邻居 IP 地址最小</strong></td>
-<td>—</td>
-<td>物理编址</td>
-<td>最后的兜底判据；依赖接口地址规划，不要指望它可预测</td>
-</tr>
-<tr>
-<td>13</td>
-<td><strong>multipath（并列安装）</strong></td>
-<td>—</td>
-<td><code>maximum-paths</code></td>
-<td>前面 1–12 全等时，若开启 ECMP 则<strong>多条同时进 RIB 做负载分担</strong>，而不是只留一条</td>
+<td><strong>区分 IGP/EGP/Incomplete</strong></td>
+<td>Origin</td>
+<td>重分发时自动设置</td>
+<td><code>redistribute</code> 默认 Incomplete，可用 <code>route-map set origin igp</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="13">13 条的分层理解（比背顺序更重要）<a class="anchor" href="#13" title="Permanent link"></a></h4>
-<ul>
-<li><strong>第 1–2 条：本地意志。</strong> Weight 只在单机有效（适合"这台机器临时改道"），Local Preference 才是 AS 级出口策略的正规工具。<strong>设计上应尽量只用一个</strong>，混用会让排障逻辑无法收敛。</li>
-<li><strong>第 3–6 条：路径来源与长度。</strong> 这一段是策略生效的主战场，也是上游运营商能影响你的部分。AS_PATH prepend 和 MED 都在这段。</li>
-<li><strong>第 7–8 条：IGP 反噬。</strong> 很多人以为 1–6 条定了就定了，实际第 8 条会把 MED 的效果直接推翻——因为两条外部路径的 IGP 开销不同，MED 相等时按 IGP 选，MED 生效时也要先确认 IGP 度量是否一致。</li>
-<li><strong>第 9–12 条：平局兜底。</strong> 这些不应成为设计依据，只应作为"发现自己在靠第 10 条选路"的告警信号——那意味着前面的策略没写清楚。</li>
-</ul>
-<h4 id="_5">厂商差异（设计文档里必须写清，否则交接必出错）<a class="anchor" href="#_5" title="Permanent link"></a></h4>
+<p><strong>Local Preference 的配置位置（高频错误）</strong>：</p>
+<pre><code>对 eBGP 邻居：
+  inbound 方向配 LP → 有效（影响本 AS 的出口选择）✅
+  outbound 方向配 LP → 无效（LP 不跨 AS 传递）❌
+
+对 iBGP 邻居：
+  通常在 RR / 边界路由器上设置，由 iBGP 传给全 AS
+</code></pre>
+<p><strong>MED 的三条限制（务必记住）</strong>：</p>
+<ol>
+<li><strong>默认只在同一邻居 AS 的多条路径之间比较</strong>——来自不同 AS 的 MED 不可比</li>
+<li><strong>MED 是"提示"不是"命令"</strong>——邻居可以忽略（<code>always-compare-med</code> 是把双刃剑）</li>
+<li><strong>入方向设置 MED 对 eBGP 无效</strong>（MED 要发出去才有意义）</li>
+</ol>
+<pre><code class="language-cfg">! 出口选择：优先 ISP-A
+route-map RM-FROM-ISP-A permit 10
+ set local-preference 200
+
+route-map RM-FROM-ISP-B permit 10
+ set local-preference 150
+
+router bgp 65000
+ neighbor 203.0.113.1 remote-as 65100
+ neighbor 203.0.113.1 route-map RM-FROM-ISP-A in
+ neighbor 198.51.100.1 remote-as 65200
+ neighbor 198.51.100.1 route-map RM-FROM-ISP-B in
+</code></pre>
+<pre><code class="language-cfg">! 入口影响：告诉 ISP-A 从更近的链路进来（MED）
+route-map RM-TO-ISP-A permit 10
+ match ip address prefix-list PL-LOCAL
+ set metric 50
+
+route-map RM-TO-ISP-B permit 10
+ match ip address prefix-list PL-LOCAL
+ set metric 100
+
+! 注意：这是在&quot;希望别人优先进来的那条链路上&quot;发较小的 MED
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>MED 的最经典误解</strong>：很多人以为"给 ISP-A 发 MED 50、给 ISP-B 发 MED 100，ISP 就会优选 A 进来"。实际上 <strong>A 和 B 是两个不同的 AS，它们各自的 MED 不可比</strong>（除非对方配了 <code>always-compare-med</code> 且在同一决策上下文）。<strong>MED 只对"同一个邻居 AS 的多条链路"有效</strong>——也就是同一个 ISP 的两条链路。跨 ISP 的入口控制只能靠 AS_PATH prepend（而且对方也可能覆盖）。</p>
+</blockquote>
+<h3 id="bgp_3">BGP 的厂商差异（设计时必须确认）<a class="anchor" href="#bgp_3" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>概念</th>
-<th>Cisco</th>
-<th>华为 / H3C</th>
-<th>Juniper</th>
-<th>FRR / Arrcus</th>
+<th>行为</th>
+<th>Cisco 默认</th>
+<th>标准 / 其他厂商</th>
+<th>风险</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>本机优先级</td>
-<td>Weight（私有）</td>
-<td>Preferred Value</td>
-<td>无（用 LP 代替）</td>
-<td>无 Weight</td>
+<td><strong><code>default local-preference</code></strong></td>
+<td>100</td>
+<td>部分厂商 100，部分可配</td>
+<td>不一致导致出口选择混乱</td>
 </tr>
 <tr>
-<td>AS 内出口策略</td>
-<td>Local Preference</td>
-<td>Local Preference</td>
-<td>local-preference</td>
-<td>local-preference</td>
+<td><strong>MED 比较</strong></td>
+<td>只在同一邻居 AS 内比较（<code>deterministic-med</code> 行为）</td>
+<td>部分厂商默认全比较</td>
+<td>双方预期不同</td>
 </tr>
 <tr>
-<td>跨 AS 比较 MED</td>
-<td>需 <code>bgp always-compare-med</code></td>
-<td>默认就比较</td>
-<td>默认就比较</td>
-<td>需显式配置</td>
+<td><strong><code>always-compare-med</code></strong></td>
+<td>关闭</td>
+<td>可开</td>
+<td>开启后跨 AS 比 MED，结果可能与对方不同</td>
 </tr>
 <tr>
-<td>MED 缺失值处理</td>
-<td>默认视为 0</td>
-<td>默认视为 0</td>
-<td>默认视为 0</td>
-<td><code>missing-as-worst</code> 可选</td>
+<td><strong>AS_PATH 中的联盟子 AS</strong></td>
+<td>默认不计入长度</td>
+<td>部分厂商计入</td>
+<td>长度计算结果不同</td>
+</tr>
+<tr>
+<td><strong><code>bgp bestpath as-path ignore</code></strong></td>
+<td>关闭</td>
+<td>—</td>
+<td>开启会忽略 AS_PATH 长度 → 与全网不一致</td>
+</tr>
+<tr>
+<td><strong>Router ID 选举</strong></td>
+<td>最高 Loopback IP，其次最高物理接口 IP</td>
+<td>部分厂商不同</td>
+<td>影响第 10 条判据</td>
+</tr>
+<tr>
+<td><strong>默认 <code>bgp router-id</code> 缺失时</strong></td>
+<td>用最高接口 IP</td>
+<td>部分厂商必须显式配置</td>
+<td>邻居可能起不来</td>
+</tr>
+<tr>
+<td><strong><code>next-hop-self</code> 默认</strong></td>
+<td>关闭</td>
+<td>—</td>
+<td>iBGP 里下一跳不可达是高频故障</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>💡 设计取舍：<strong>在多厂商混合网络里，不要用 Weight / Preferred Value 承担跨设备策略</strong>，因为它们不传递、语义还不一致。跨设备统一用 Local Preference，跨 AS 统一用 AS_PATH + Community。</p>
+<p>💡 <strong>多厂商 BGP 互联的实操建议</strong>：在互联前，把上表逐项与对方核对并写进互联文档。<strong>BGP 的"标准"只在属性格式上标准，在"默认决策行为"上并不完全统一。</strong></p>
 </blockquote>
-<h3 id="_6">影响出口流量的方法（我出去走哪条）<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<h3 id="_17">出口和入口流量策略<a class="anchor" href="#_17" title="Permanent link"></a></h3>
+<p>BGP 的流量控制本质是<strong>两个方向分别设计</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>方法</th>
-<th>属性</th>
-<th>生效范围</th>
+<th>方向</th>
+<th>你要控制什么</th>
+<th>可用工具</th>
+<th>有效性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>出向（Egress，你去别人）</strong></td>
+<td>我的流量从哪个出口出去</td>
+<td>Weight、Local Preference、AS_PATH prepend</td>
+<td><strong>完全可控</strong>（自己的设备自己说了算）</td>
+</tr>
+<tr>
+<td><strong>入向（Ingress，别人来你）</strong></td>
+<td>别人进来走哪条路</td>
+<td>MED、AS_PATH prepend、更具体的通告（/24 vs /23）</td>
+<td><strong>部分可控</strong>（对方可能不理）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>入向控制的现实手段（按有效性排序）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>手段</th>
+<th>有效性</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>通告更具体的前缀</strong>（在希望的入链路上只通告 /24，另一条只通告 /23）</td>
+<td><strong>最高</strong>（最长匹配必胜）</td>
+<td>增加路由表条目；可能被前缀过滤器拦</td>
+</tr>
+<tr>
+<td><strong>AS_PATH prepend</strong>（不希望走的路径加长）</td>
+<td>中（对方可能配 <code>bgp bestpath as-path ignore</code>）</td>
+<td>污染 AS_PATH，影响下游</td>
+</tr>
+<tr>
+<td><strong>MED</strong>（同一 ISP 的多链路）</td>
+<td>中（对方可忽略）</td>
+<td>跨 AS 无效</td>
+</tr>
+<tr>
+<td><strong>与 ISP 签协议 / 提交社区（BGP Community）</strong></td>
+<td>取决于 ISP</td>
+<td>需商务配合</td>
+</tr>
+<tr>
+<td><strong>就选一条链路</strong>（不做入口分流）</td>
+<td>确定</td>
+<td>放弃另一条链路的入口利用</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>一条必须写进设计文档的事实</strong>：<strong>入向流量你只能"请求"，不能"命令"</strong>。任何"我们做了双出口负载分担"的说法，在不控制对端的前提下，实际效果是"出向分担了，入向没分担"——这在验收时经常引发争议。</p>
+</blockquote>
+<h3 id="bgp_4">BGP 收敛与稳定性<a class="anchor" href="#bgp_4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+<th>设计建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>bgp update-delay</code></strong></td>
+<td>启动后等待 N 秒再开始选路（等所有邻居建立）</td>
+<td>大网必配（如 300–600 秒），避免"用不完整的表转发"</td>
+</tr>
+<tr>
+<td><strong><code>bgp scan-time</code></strong></td>
+<td>下一跳有效性检查周期</td>
+<td>默认 60s，可降至 10–20s</td>
+</tr>
+<tr>
+<td><strong>下一跳跟踪（nexthop tracking）</strong></td>
+<td>下一跳不可达时主动撤销</td>
+<td>现代默认开启（<code>bgp nexthop trigger enable</code>）</td>
+</tr>
+<tr>
+<td><strong>Route Dampening</strong></td>
+<td>抑制反复 flapping 的前缀</td>
+<td><strong>慎用</strong>：现代互联网 prefix flap 很常见，过度抑制会造成长时间黑洞</td>
+</tr>
+<tr>
+<td><strong>最大前缀</strong></td>
+<td>防路由表爆炸</td>
+<td>见第 10 章</td>
+</tr>
+<tr>
+<td><strong><code>maximum-paths</code></strong></td>
+<td>ECMP 条数</td>
+<td>按平台能力</td>
+</tr>
+<tr>
+<td><strong>BGP 优雅重启（GR/NSF）</strong></td>
+<td>控制面重启时不中断转发</td>
+<td>需邻居支持</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>快速检测邻居失效</td>
+<td>优于调小 Keepalive</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-cfg">! BGP 稳定性生产基线
+router bgp 65000
+ bgp router-id 10.255.0.1
+ bgp log-neighbor-changes
+ bgp update-delay 300                  ! 等邻居与路由收敛
+ bgp graceful-restart
+ no bgp default ipv4-unicast           ! 显式启用，避免误通告
+ !
+ neighbor 10.0.0.1 remote-as 65000
+ neighbor 10.0.0.1 update-source Loopback0
+ neighbor 10.0.0.1 fall-over bfd       ! 快速检测
+ neighbor 10.0.0.1 maximum-prefix 2000 90 warning-only
+ !
+ address-family ipv4 unicast
+  neighbor 10.0.0.1 activate
+  neighbor 10.0.0.1 soft-reconfiguration inbound   ! 便于查看/调整策略（占内存）
+ exit-address-family
+</code></pre>
+<blockquote>
+<p>⚠️ <strong><code>soft-reconfiguration inbound</code> 是有代价的</strong>：它会把<strong>未经过滤的原始路由</strong>也存一份在内存里，百万级前缀时可能占用数 GB。大表场景应改用 <strong>Route Refresh</strong>（<code>clear ip bgp &lt;neighbor&gt; soft in</code> 在支持 RR 能力的邻居上不需要 <code>soft-reconfig</code>）。</p>
+</blockquote>
+<hr />
+<h2 id="route-redistribution">路由重分发 (Route Redistribution)<a class="anchor" href="#route-redistribution" title="Permanent link"></a></h2>
+<h3 id="_18">为什么重分发是"设计里最容易失控的部分"<a class="anchor" href="#_18" title="Permanent link"></a></h3>
+<p>重分发把一个协议的路由"翻译"给另一个协议。麻烦来自三件事：</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>度量不可比</strong></td>
+<td>OSPF cost ≠ EIGRP 复合度量 ≠ BGP AS_PATH</td>
+<td>只能拍一个"种子度量"，路径优劣失去意义</td>
+</tr>
+<tr>
+<td><strong>AD 差异</strong></td>
+<td>同一前缀从两个协议学到的优先级不同</td>
+<td>可能选到"技术最优但设计不对"的路径</td>
+</tr>
+<tr>
+<td><strong>双向反馈</strong></td>
+<td>A 重分发进 B，B 又重分发回 A</td>
+<td><strong>回馈（feedback）→ 环路或次优</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>度量翻译的实际结果</strong>：</p>
+<pre><code>OSPF 学到的 10.1.0.0/24（cost 20）→ 重分发进 EIGRP
+  → EIGRP 需要一个&quot;种子度量&quot;（如 bandwidth 10000 delay 100）
+  → 所有从 OSPF 来的路由在 EIGRP 里&quot;看起来一样好&quot;
+  → EIGRP 无法区分&quot;优质的&quot;和&quot;劣质的&quot; OSPF 路由 → 选路失去意义
+</code></pre>
+<h3 id="_19">单点重分发与双点重分发<a class="anchor" href="#_19" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>拓扑</th>
+<th>风险</th>
+<th>保护手段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单点重分发</strong></td>
+<td>只有一个边界路由器（ASBR）连接两个协议域</td>
+<td>低（无环路，单向翻译）</td>
+<td>基本不需要额外手段</td>
+</tr>
+<tr>
+<td><strong>双点重分发</strong></td>
+<td><strong>两台</strong>边界路由器同时重分发</td>
+<td><strong>高</strong>（路由回馈、次优、环路）</td>
+<td>route tag + distribute-list 过滤 + 前缀过滤</td>
+</tr>
+</tbody>
+</table>
+<p><strong>双点双向重分发为什么危险</strong>（用图说明）：</p>
+<pre><code>        [协议 A 域]                [协议 B 域]
+            │                          │
+        R1（ASBR）  ═══════════  R2（ASBR）
+            │                          │
+        A 的路由 X ──重分发──→ B
+                                B 再把 X ──重分发──→ A
+                                        ↓
+        R1 收到&quot;从 B 学来的 A 自己通告的 X&quot;
+        → AD 比较：B 的 AD（如 iBGP 200 / EIGRP 外部 170）vs A 的 AD（如 OSPF 110）
+        → 若 B 的 AD 更小 → **R1 用从 B 学来的路由替换本地 A 路由**
+        → 但那条路由的原始信息来自 A 自己 → **下一跳可能指向 R2**
+        → R1 把流量送给 R2，R2 又送回来 → 环路 / 次优
+</code></pre>
+<p><strong>唯一的正解是"打标签 + 按标签拒收"</strong>：</p>
+<pre><code class="language-cfg">! ── R1（把 OSPF 引入 BGP，并打 tag）──
+route-map RM-OSPF-TO-BGP permit 10
+ match ip address prefix-list PL-INTERNAL
+ set tag 100                      ! 给来自 OSPF 的路由打标
+!
+! ── R2（从 BGP 引入 OSPF 时，拒绝带 tag 100 的路由）──
+route-map RM-BGP-TO-OSPF deny 10
+ match tag 100                    ! 拒绝&quot;本来来自 OSPF 的路由&quot;
+!
+route-map RM-BGP-TO-OSPF permit 20
+ set metric 100                   ! 种子度量
+ set metric-type type-2
+ set tag 200
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>tag 的传播限制</strong>：<strong>tag 只在同一个协议内可靠传播，跨协议重分发时要显式设置/读取</strong>。用 <code>set tag</code> 在重分发时打标，用 <code>match tag</code> 在反方向拒收——这是双点重分发的<strong>唯一标准解法</strong>。</p>
+</blockquote>
+<p><strong>"前缀过滤"是第二道防线</strong>（更简单也更可靠）：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Weight</strong></td>
-<td>Cisco 专有</td>
-<td>仅本路由器</td>
-<td>单机临时改道用，不传递</td>
+<td><strong>ASBR 之间的直连链路上不放业务路由</strong></td>
+<td>只让 ASBR 之间通过一个"独立前缀"互通，路由在两个域之间的传递只能经重分发</td>
 </tr>
 <tr>
-<td><strong>Local Preference</strong></td>
-<td>标准、非传递</td>
-<td>整个 AS 内</td>
-<td><strong>出口策略的主力工具</strong>，排在选路第 2 条</td>
+<td><strong>明确"每个域自己拥有哪些前缀"</strong></td>
+<td>用 prefix-list 白名单重分发，而不是 <code>redistribute all</code></td>
 </tr>
 <tr>
-<td><strong>本地起源</strong></td>
-<td>—</td>
-<td>本机</td>
-<td>本机 <code>network</code> 声明的路由优先于学来的同级路由</td>
-</tr>
-<tr>
-<td><strong>IGP metric to NEXT_HOP</strong></td>
-<td>—</td>
-<td>本机</td>
-<td>选路第 8 条，常被忽略但真实生效</td>
+<td><strong>禁止 <code>redistribute connected</code> 无过滤</strong></td>
+<td>会把所有直连（包括 ISP 互联地址）灌进 IGP</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_7">影响入口流量的方法（别人进来走哪条）<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<pre><code class="language-cfg">! 白名单式重分发（推荐）
+ip prefix-list PL-OWNED-OSPF seq 10 permit 10.10.0.0/16 le 24
+ip prefix-list PL-OWNED-OSPF seq 20 permit 10.20.0.0/16 le 24
+!
+route-map RM-OSPF-INTO-BGP permit 10
+ match ip address prefix-list PL-OWNED-OSPF
+ set tag 100
+!
+router bgp 65000
+ redistribute ospf 1 route-map RM-OSPF-INTO-BGP
+</code></pre>
+<h3 id="_20">常见重分发场景的标准做法<a class="anchor" href="#_20" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>方法</th>
-<th>生效范围</th>
-<th>说明</th>
+<th>场景</th>
+<th>方向</th>
+<th>关键配置</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>AS Path Prepend</strong></td>
-<td>其他 AS</td>
-<td>在 AS Path 中重复自己的 AS 号，使路径变长；<strong>入口策略的主力工具</strong></td>
+<td><strong>OSPF → BGP</strong>（把内部路由通告给 Internet/MPLS）</td>
+<td>出</td>
+<td>prefix-list 白名单 + <code>set tag</code> + <code>summary-only</code>（汇总）</td>
 </tr>
 <tr>
-<td><strong>MED</strong></td>
-<td>邻居 AS</td>
-<td>设置较低 MED 让邻居优先选此路径；默认只在同一邻居 AS 内比较</td>
+<td><strong>BGP → OSPF</strong>（把外部/默认路由引入 IGP）</td>
+<td>入</td>
+<td><strong>只引入默认路由</strong>（<code>default-information originate</code>）或少量汇总，绝不引入全表</td>
 </tr>
 <tr>
-<td><strong>Community</strong></td>
-<td>邻居 / 上游</td>
-<td>打标记，由上游按其策略执行（需上游配合，最灵活但最不可控）</td>
+<td><strong>EIGRP → OSPF</strong></td>
+<td>双向</td>
+<td>种子度量 + tag + 汇总</td>
+</tr>
+<tr>
+<td><strong>静态 → OSPF</strong>（分支默认路由）</td>
+<td>入</td>
+<td><code>default-information originate</code> + <code>route-map</code> 控制条件</td>
+</tr>
+<tr>
+<td><strong>Connected → BGP</strong></td>
+<td>出</td>
+<td>只在需要通告 Loopback/服务器网段时；用 <code>network</code> 命令更精确</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>⚠️ 出口策略（Weight / LP）只在本 AS 内有效，改不了别人的回程路径；入口策略（AS_PATH / MED / Community）必须依赖对端采纳才生效。<strong>改了一半的流量工程最常见的结果是单向不对称。</strong></p>
+<p>⚠️ <strong>最危险的一条</strong>：<strong>把 BGP 全表重分发进 IGP</strong>。互联网 95 万条路由灌进 OSPF，会瞬间耗尽区域内所有路由器的内存和 SPF 计算能力，导致全网瘫痪。<strong>永远不要这样配。</strong> 如果需要"内网能访问互联网"，只引入<strong>默认路由</strong>或<strong>你自己的公网前缀</strong>。</p>
 </blockquote>
-<h3 id="bgp_1">BGP 作为企业核心路由协议<a class="anchor" href="#bgp_1" title="Permanent link"></a></h3>
-<blockquote>
-<p>💡 BGP 作为企业核心路由协议越来越受欢迎，原因包括：
-- 更好的可扩展性
-- 精细的路径控制能力
-- 与 IGP 解耦的灵活策略
-- 支持多租户（VPNv4/VPNv6 地址族）</p>
-</blockquote>
-<h4 id="bgp-vs-igp">BGP vs IGP 作为核心<a class="anchor" href="#bgp-vs-igp" title="Permanent link"></a></h4>
+<hr />
+<h2 id="_21">企业路由设计建议<a class="anchor" href="#_21" title="Permanent link"></a></h2>
+<h3 id="_22">协议选择矩阵<a class="anchor" href="#_22" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>对比项</th>
-<th>BGP</th>
-<th>IGP (OSPF/IS-IS)</th>
+<th>网络层次</th>
+<th>推荐协议</th>
+<th>理由</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>可扩展性</strong></td>
-<td>极高（互联网规模）</td>
-<td>中到高</td>
+<td><strong>园区接入/分布</strong></td>
+<td>OSPF 或 EIGRP（单区域/小区域）</td>
+<td>规模小，需要简单</td>
 </tr>
 <tr>
-<td><strong>收敛速度</strong></td>
-<td>较慢</td>
-<td>快</td>
+<td><strong>园区核心</strong></td>
+<td>OSPF 多区域 / IS-IS（大规模）</td>
+<td>需要层次化与汇总</td>
 </tr>
 <tr>
-<td><strong>路径控制</strong></td>
-<td>精细（属性）</td>
-<td>粗粒度（度量）</td>
+<td><strong>WAN（Hub-Spoke）</strong></td>
+<td>OSPF/EIGRP + 默认路由下发；分支用 Stub</td>
+<td>分支不需要知道全网明细</td>
 </tr>
 <tr>
-<td><strong>策略支持</strong></td>
-<td>丰富</td>
-<td>有限</td>
+<td><strong>WAN（多路径/多运营商）</strong></td>
+<td><strong>BGP</strong></td>
+<td>需要按策略选路</td>
 </tr>
 <tr>
-<td><strong>复杂度</strong></td>
-<td>高</td>
-<td>中</td>
+<td><strong>数据中心</strong></td>
+<td>BGP（EVPN/VXLAN 场景）/ OSPF（传统三层）</td>
+<td>需要大规模与策略</td>
 </tr>
 <tr>
-<td><strong>适合场景</strong></td>
-<td>大型企业、多数据中心</td>
-<td>中小企业、园区</td>
-</tr>
-</tbody>
-</table>
-<h3 id="bgp_2">BGP 可扩展性选项<a class="anchor" href="#bgp_2" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>技术</th>
-<th>说明</th>
-<th>使用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>路由反射器 (RR)</strong></td>
-<td>减少 iBGP 全互联会话数量</td>
-<td>大量 iBGP 对等体</td>
+<td><strong>Internet 边界</strong></td>
+<td><strong>BGP</strong></td>
+<td>唯一选择</td>
 </tr>
 <tr>
-<td><strong>BGP 联盟</strong></td>
-<td>将 AS 分为子 AS</td>
-<td>超大规模网络</td>
-</tr>
-<tr>
-<td><strong>对等体组</strong></td>
-<td>共享策略的一组邻居</td>
-<td>简化配置</td>
-</tr>
-<tr>
-<td><strong>对等体模板</strong></td>
-<td>继承式配置模板</td>
-<td>简化配置</td>
-</tr>
-<tr>
-<td><strong>BGP RTC</strong></td>
-<td>基于路由目标的约束</td>
-<td>VPN 路由过滤</td>
+<td><strong>管理网/OOB</strong></td>
+<td>静态路由</td>
+<td>极简、不依赖业务协议</td>
 </tr>
 </tbody>
 </table>
-<h3 id="route-redistribution">路由重分发 (Route Redistribution)<a class="anchor" href="#route-redistribution" title="Permanent link"></a></h3>
-<blockquote>
-<p>⚠️ 路由重分发是网络设计中最容易出问题的地方之一。</p>
-</blockquote>
-<h4 id="_8">重分发设计原则<a class="anchor" href="#_8" title="Permanent link"></a></h4>
+<h3 id="_23">六条设计原则<a class="anchor" href="#_23" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
+<th>#</th>
 <th>原则</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>单向重分发</strong></td>
-<td>只从一个协议向另一个协议重分发，避免路由环路</td>
+<td>1</td>
+<td><strong>协议数量最小化</strong></td>
+<td>每增加一个协议，重分发方向数按 n(n−1) 增长</td>
 </tr>
 <tr>
-<td><strong>双点双向重分发</strong></td>
-<td>需要额外机制防止路由环路（如 tag、前缀列表）</td>
+<td>2</td>
+<td><strong>域间单向重分发优先</strong></td>
+<td>单向 = 无回馈 = 无环路；双向只在必要时用，且必须打 tag</td>
 </tr>
 <tr>
-<td><strong>使用 Tag</strong></td>
-<td>为重分发路由添加标记，防止反向重分发</td>
+<td>3</td>
+<td><strong>分支用 Stub/默认路由</strong></td>
+<td>分支不需要全网路由，路由表小 = 收敛快 = 故障少</td>
 </tr>
 <tr>
-<td><strong>使用前缀列表</strong></td>
-<td>精确控制重分发的路由</td>
+<td>4</td>
+<td><strong>汇总必须有 null0</strong></td>
+<td>避免明细消失后的黑洞</td>
 </tr>
 <tr>
-<td><strong>度量设置</strong></td>
-<td>重分发时设置合理的初始度量值</td>
+<td>5</td>
+<td><strong>地址规划支撑汇总</strong></td>
+<td>这是唯一"做得越早越值钱"的事</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>路径控制优先用度量，其次策略，最后 PBR/隧道</strong></td>
+<td>越靠后越难排障</td>
 </tr>
 </tbody>
 </table>
-<h4 id="_9">路由环路防止方法<a class="anchor" href="#_9" title="Permanent link"></a></h4>
-<pre><code>OSPF → EIGRP:    加 Tag 100
-EIGRP → OSPF:    过滤 Tag 100（防止反向重分发）
-                  加 Tag 200
-OSPF ← EIGRP:    过滤 Tag 200
-</code></pre>
-<hr />
-<h2 id="_10">企业路由设计建议<a class="anchor" href="#_10" title="Permanent link"></a></h2>
-<h3 id="_11">如何选择正确的路由协议<a class="anchor" href="#_11" title="Permanent link"></a></h3>
+<h3 id="_24">路由设计的验收清单<a class="anchor" href="#_24" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
-<th>因素</th>
-<th>OSPF</th>
-<th>IS-IS</th>
-<th>EIGRP</th>
-<th>BGP</th>
+<th>#</th>
+<th>检查项</th>
+<th>验证方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>可扩展性</strong></td>
-<td>高</td>
-<td>高</td>
-<td>高（需正确设计）</td>
-<td>极高</td>
+<td>1</td>
+<td>每个区域/域的边界清晰且有明确理由</td>
+<td>拓扑图 + 设计文档</td>
 </tr>
 <tr>
-<td><strong>收敛速度</strong></td>
-<td>快（优化后）</td>
-<td>快（优化后）</td>
-<td>快（配合汇总）</td>
-<td>较慢</td>
+<td>2</td>
+<td>所有前缀都能被上层汇总</td>
+<td><code>show ip route</code> 里区域间路由是否只有汇总</td>
 </tr>
 <tr>
-<td><strong>路径控制</strong></td>
-<td>度量</td>
-<td>度量</td>
-<td>度量</td>
-<td>精细（属性）</td>
+<td>3</td>
+<td>汇总路由有 null0 兜底</td>
+<td><code>show ip route &lt;summary&gt;</code> 看是否为 Null0</td>
 </tr>
 <tr>
-<td><strong>复杂度</strong></td>
-<td>中</td>
-<td>中</td>
-<td>低到中</td>
-<td>高</td>
+<td>4</td>
+<td>每个 VRF/域的主备路径符合设计</td>
+<td>逐个 traceroute + NetFlow 交叉验证</td>
 </tr>
 <tr>
-<td><strong>厂商支持</strong></td>
-<td>标准</td>
-<td>标准</td>
-<td>Cisco（现已开放）</td>
-<td>标准</td>
+<td>5</td>
+<td>双向重分发有 tag 与 prefix-list</td>
+<td>检查 route-map 应用方向与顺序</td>
 </tr>
 <tr>
-<td><strong>MPLS-TE</strong></td>
-<td>是</td>
-<td>是</td>
-<td>否</td>
-<td>否</td>
+<td>6</td>
+<td>BGP 邻居有最大前缀、认证、TTL 安全</td>
+<td><code>show ip bgp summary</code> + 配置核对</td>
 </tr>
 <tr>
-<td><strong>适合场景</strong></td>
-<td>园区、数据中心</td>
-<td>大型服务提供商</td>
-<td>中小企业</td>
-<td>大型企业核心</td>
+<td>7</td>
+<td>存在"故障注入测试记录"</td>
+<td>拔链路/关设备后的丢包数与收敛时间</td>
+</tr>
+<tr>
+<td>8</td>
+<td>收敛时间分段达标</td>
+<td>见第 7 章的验收方法（长 ping 计丢包）</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_12">设计原则总结<a class="anchor" href="#_12" title="Permanent link"></a></h3>
-<ol>
-<li><strong>没有标准设计</strong> — 每个设计决策都由业务需求驱动</li>
-<li><strong>信息隐藏</strong> — 使用汇总和区域/层级设计减少信息传播</li>
-<li><strong>快速收敛</strong> — 使用 BFD、优化计时器、增量 SPF 等技术</li>
-<li><strong>故障隔离</strong> — 通过模块化和区域设计限制故障影响范围</li>
-<li><strong>避免中转流量</strong> — 使用 Stub 区域、路由策略防止不需要的中转</li>
-<li><strong>简单性</strong> — 在满足需求的前提下选择最简单的方案</li>
-</ol>
 <hr />
-<h2 id="_13">实战案例<a class="anchor" href="#_13" title="Permanent link"></a></h2>
-<h3 id="med">案例一：MED 设了却完全不生效<a class="anchor" href="#med" title="Permanent link"></a></h3>
-<p><strong>场景</strong>：总部双出口，ISP-A 为主链路、ISP-B 为备。工程师在边界路由器上给 ISP-A 的出向路由设了 MED 50（明显更低），期望全网立即切回 A。结果核心层流量纹丝不动，仍然走 B。</p>
-<p><strong>排查过程</strong>：</p>
-<ol>
-<li>核心交换机查 BGP 表，两条默认路由的 Local Preference 都是 100、AS_PATH 长度都是 1 —— 第 2、4 条平局。</li>
-<li>关键点：ISP-A 和 ISP-B 是<strong>两个不同的邻居 AS</strong>。MED 是"可选非传递"属性，<strong>默认只在同一邻居 AS 的多条路径之间比较</strong>。不同 ISP 的 MED 根本不进入比较，第 6 条被直接跳过。</li>
-<li>于是落到第 7 条（都是 eBGP，平局）→ 第 8 条（到 NEXT_HOP 的 IGP metric 最小），B 侧下一跳在 IGP 里更近，胜出。<strong>MED 白设了。</strong></li>
-</ol>
-<p><strong>修复</strong>：改用 Local Preference。LP 排在第 2 条，比 MED 早四位，且在 AS 内统一生效：</p>
-<pre><code>! 边界路由器，从 ISP-A 学到的路由提高 LP
-route-map FROM-ISP-A permit 10
- set local-preference 200
-! ISP-B 保持默认 100
+<h2 id="_25">实战案例<a class="anchor" href="#_25" title="Permanent link"></a></h2>
+<h3 id="1g-10g-spf">案例一：1G 与 10G 链路等价，SPF 各分一半<a class="anchor" href="#1g-10g-spf" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某集团总部到数据中心之间有两条链路：一条 1G（旧链路，走城域网），一条 10G（新建，直连光纤）。两条都是三层互联，跑 OSPF。上线后，数据中心方向的应用"白天正常，月末结算时极慢"。</p>
+<p><strong>排查</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show ip route</code></td>
+<td>两条链路作为 ECMP，<code>[110/2]</code> 与 <code>[110/2]</code> <strong>完全相同</strong></td>
+</tr>
+<tr>
+<td><code>auto-cost reference-bandwidth</code></td>
+<td><strong>未配置</strong>（默认 100 Mbps）</td>
+</tr>
+<tr>
+<td>接口带宽</td>
+<td>1G 与 10G 的 cost 都是 <strong>1</strong>（100/1000 与 100/10000 取整都是 1）</td>
+</tr>
+<tr>
+<td>链路利用率</td>
+<td>1G 链路 <strong>100%</strong>（拥塞丢包），10G 链路 <strong>8%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>根因</strong>：默认参考带宽 100 Mbps 下，<strong>所有 ≥100M 的接口 cost 都是 1</strong>。SPF 认为两条链路等价，做等开销负载分担 → 一半流量被送到 1G 链路 → 拥塞。</p>
+<p><strong>为什么"月末才慢"</strong>：哈希是按流的。日常流量流数多，分布虽不均但 1G 尚能承载；月末结算只有少数几条大流（备份、报表导出），哈希把某条大流分到 1G 链路 → 那条链路直接打满 → 该流的所有用户感知"极慢"。</p>
+<p><strong>修复</strong>：</p>
+<pre><code class="language-cfg">! 全网（不止这两台）统一修改参考带宽
+router ospf 1
+ auto-cost reference-bandwidth 100000    ! 100G
 </code></pre>
-<p><strong>教训</strong>：调属性前先确认这条属性<strong>排在选路顺序的第几位</strong>，以及它是否<strong>参与比较</strong>。MED 的两个常见失效原因是"跨邻居 AS 不可比"和"路径在第 4 条就已经分出胜负，根本轮不到第 6 条"。</p>
-<hr />
-<h3 id="ibgp">案例二：iBGP 里有路由，路由表里没有<a class="anchor" href="#ibgp" title="Permanent link"></a></h3>
-<p><strong>场景</strong>：数据中心两台 spine 与 WAN 边缘建立 eBGP，spine 之间跑 iBGP。边缘学到互联网路由后通过 iBGP 传给两台 spine，配置看起来完全正常，<code>show ip bgp</code> 能看到全部路由 —— 但 <code>show ip route</code> 里没有，业务不通。</p>
-<p><strong>排查过程</strong>：</p>
+<p>修改后：1G → cost 100，10G → cost 10。SPF 只走 10G，1G 成为备份（当 10G 故障时才启用）。</p>
+<p><strong>教训（三条，价值依次递增）</strong>：</p>
 <ol>
-<li><code>show ip bgp 8.8.8.0</code> 显示路由是 <code>valid</code> 但<strong>不是 best</strong>，或者 best 却未装表。</li>
-<li>看下一跳：iBGP 默认<strong>不修改 NEXT_HOP</strong>，边缘把自己的地址作为下一跳传过来。spine 上查这个地址的 IGP 路由 —— 不存在。BGP 要求下一跳必须可达（能递归到直连/IGP 路由）才认为路径有效。</li>
-<li>这就是 iBGP 著名的"下一跳不可达"陷阱：BGP 表有、路由表没有，中间那层是 IGP 没覆盖。</li>
+<li><strong><code>auto-cost reference-bandwidth</code> 是一项必须显式设计并全网一致配置的参数</strong>，不是"默认就行的东西"。</li>
+<li><strong>"等开销负载分担"只在链路速率相等时才是优化</strong>。速率不等时的等开销分担，是把快链路的一半容量浪费掉、同时把慢链路打爆。</li>
+<li><strong>排查"慢"必须先看路由表和接口利用率</strong>，而不是先看应用。<strong>这个案例里应用侧完全无辜——问题在 cost 的默认值上。</strong></li>
 </ol>
-<p><strong>修复（两种，选一种）</strong>：</p>
+<hr />
+<h3 id="ibgp">案例二：iBGP 路由"学得到但不装表"<a class="anchor" href="#ibgp" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某企业用 BGP 作为核心路由协议。两台边界路由器（BR1、BR2）与 Internet 建立 eBGP，同时与核心路由器（CR1、CR2）建立 iBGP 全互连。割接后，<code>show ip bgp</code> 在 CR1 上能看到全部 90 万条路由且状态为 <code>*&gt;i</code>（有效、iBGP 学来），但 <strong><code>show ip route</code> 里一条都没有</strong> —— 用户完全上不了网。</p>
+<p><strong>排查</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show ip bgp summary</code></td>
+<td>邻居全部 Established</td>
+</tr>
+<tr>
+<td><code>show ip bgp</code></td>
+<td>路由存在，best 路径标记正确</td>
+</tr>
+<tr>
+<td><code>show ip bgp 8.8.8.8</code></td>
+<td>下一跳为 <strong>BR1 的公网接口地址</strong>（如 203.0.113.2）</td>
+</tr>
+<tr>
+<td><code>show ip route 203.0.113.2</code></td>
+<td><strong>不存在！</strong></td>
+</tr>
+<tr>
+<td><code>show ip cef 8.8.8.8</code></td>
+<td>无条目</td>
+</tr>
+</tbody>
+</table>
+<p><strong>根因</strong>：iBGP 的规则是 —— <strong>从 eBGP 学到的路由，传给 iBGP 邻居时下一跳不变</strong>。所以 CR1 收到的路由下一跳是 BR1 的公网接口地址 <code>203.0.113.2</code>，而 <code>203.0.113.2</code> 是<strong>两台边界路由器与 ISP 互联的 /30 网段</strong>，这个网段<strong>没有在 IGP 里通告</strong>（合理：互联地址不该进 IGP）。</p>
+<p>结果：<strong>下一跳不可达 → 递归查找失败 → BGP 路由不装 FIB</strong>（虽然 BGP 表里是 <code>*&gt;</code>）。</p>
+<p><strong>为什么不装表却"看起来路由是好的"</strong>：<code>show ip bgp</code> 显示 <code>*&gt;</code>（best + valid）是因为 BGP 自己认为路径有效，但<strong>"有效"的最终判据是下一跳可解析（next-hop reachable）</strong>。很多平台的 <code>show ip bgp</code> 仍显示为 best，只是 RIB 里没有它 —— 这就是"BGP 有路由但 ping 不通"的经典成因。</p>
+<p><strong>三种修复方案</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -1195,117 +2811,540 @@ route-map FROM-ISP-A permit 10
 </thead>
 <tbody>
 <tr>
-<td><strong>next-hop-self</strong></td>
-<td>边缘对 iBGP 邻居 <code>neighbor x.x.x.x next-hop-self</code></td>
-<td>边缘必须承载全部回程流量，成为单点带宽瓶颈</td>
+<td><strong>① <code>next-hop-self</code></strong>（最常用）</td>
+<td>BR1/BR2 对 iBGP 邻居设置 <code>neighbor CR1 next-hop-self</code></td>
+<td>边界路由器成为下一跳 → 所有流量经边界路由器转发（<strong>它们变成流量路径的一部分</strong>，可能是瓶颈）</td>
 </tr>
 <tr>
-<td><strong>IGP 覆盖下一跳</strong></td>
-<td>确保所有 BGP 下一跳网段都进 IGP（通常用 loopback 建会话 + 全网 IGP 可达）</td>
-<td>要求 IGP 设计完整，但转发路径更优</td>
+<td><strong>② 在 IGP 里通告互联地址</strong></td>
+<td>把 <code>203.0.113.0/30</code> 放进 OSPF</td>
+<td>违反"互联地址不进 IGP"的原则；且每增加一条上行就要加一条 IGP 路由</td>
+</tr>
+<tr>
+<td><strong>③ 静态路由指向边界路由器</strong></td>
+<td><code>ip route 203.0.113.2 255.255.255.255 BR1</code></td>
+<td>简单可靠，但需逐条维护</td>
 </tr>
 </tbody>
 </table>
-<p>大型 DC 多用第二种（下一跳不变 + IGP 承载可达性），因为可以让流量走最短路径；小型网络用 <code>next-hop-self</code> 更简单。</p>
-<hr />
-<h3 id="_14">案例三：双点双向重分发，出口翻转后再没切回来<a class="anchor" href="#_14" title="Permanent link"></a></h3>
-<p><strong>场景</strong>：并购整合后两张网共存，OSPF 域和 EIGRP 域在两个点做了<strong>双向</strong>重分发。某天 A 点链路抖动一次，业务流量全部改从 B 点出去，之后 A 点恢复也再没切回来，部分区域还出现 TTL 耗尽的环路。</p>
-<p><strong>根因</strong>：从 EIGRP 学到的路由被重分发进 OSPF 后，在 OSPF 域内以"外部路由"（Type 5）形式传播，其度量被换算成一个很有竞争力的值；B 点又把这条路由回注 EIGRP，形成<strong>路由回流</strong>。结果是 OSPF 域内的选路依据被另一张网的路由污染，A 点恢复后本地路径反而不优。</p>
-<p><strong>修复（标准三件套）</strong>：</p>
-<pre><code>! 1. 重分发时打 tag
-route-map EIGRP-TO-OSPF permit 10
- set tag 100
-! 2. 反向重分发时按 tag 过滤，杜绝回流
-route-map OSPF-TO-EIGRP deny 10
- match tag 100
-route-map OSPF-TO-EIGRP permit 20
-! 3. 加前缀列表，只允许必须互通的网段
+<p>实际采用 <strong>①</strong>：</p>
+<pre><code class="language-cfg">router bgp 65000
+ address-family ipv4 unicast
+  ! BR1 / BR2 对核心的 iBGP 邻居设置下一跳自指
+  neighbor 10.255.0.11 next-hop-self
+  neighbor 10.255.0.12 next-hop-self
+ exit-address-family
 </code></pre>
-<p><strong>验证方法</strong>：<code>show ip route</code> 逐条看 AD 与 next-hop，<code>traceroute</code> 确认不再绕行；恢复 A 点后观察路径是否回到预期出口。</p>
-<p><strong>设计取舍</strong>：双点双向重分发<strong>几乎没有必要</strong>。除非是并购过渡期，否则应做<strong>单向重分发</strong>（一张网作为核心、另一张网作为边缘），把复杂度和风险一次降下来。</p>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong>iBGP 的下一跳规则是最容易踩的坑</strong>：eBGP 学来的路由传给 iBGP 时下一跳不变。要么 <code>next-hop-self</code>，要么保证下一跳可达。</li>
+<li><strong><code>show ip bgp</code> 有 <code>*&gt;</code> 不等于能转发</strong>。必须查 <code>show ip route</code> / <code>show ip cef</code>。</li>
+<li><strong>验收 BGP"通了"的标准是 <code>show ip cef &lt;公网地址&gt;</code> 有条目</strong>，而不是 <code>show ip bgp</code> 有前缀。这是"控制面看起来对、数据面不通"的通用检查法。</li>
+</ol>
 <hr />
-<h2 id="_15">设计陷阱<a class="anchor" href="#_15" title="Permanent link"></a></h2>
+<h3 id="0">案例三：区域 0 不连续，用虚链路"糊"了三年<a class="anchor" href="#0" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某企业多区域 OSPF，初始设计时 Area 0 在总部。三年前新建了一个研发中心（Area 5），它的 ABR 同时连 Area 5 和 Area 3（老分支区域），<strong>但没有任何一条路径连到 Area 0</strong> —— 因为当时研发中心和总部之间走的是"三层防火墙 NAT"，OSPF 不能穿过 NAT。</p>
+<p>当时的解决方案：<strong>在 ABR1（Area 0/3 边界）和 ABR2（Area 3/5 边界）之间配置 OSPF virtual-link</strong>，让 Area 5 "逻辑上"连到 Area 0。</p>
+<p><strong>三年后的故障</strong>：研发中心的用户逐渐反馈"访问总部某些系统需要重试一次才能连上"、"VoIP 通话偶尔断"。网络"不报警"，只是"不稳"。</p>
+<p><strong>排查与根因</strong>：</p>
 <table>
 <thead>
 <tr>
-<th>陷阱</th>
-<th>典型现象</th>
+<th>现象</th>
 <th>根因</th>
-<th>规避方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>用 MED 做跨 ISP 出口选择</strong></td>
-<td>改 MED 完全无效</td>
-<td>MED 默认只在同一邻居 AS 之间比较</td>
-<td>出口策略用 Local Preference</td>
+<td>偶发重试</td>
+<td><strong>virtual-link 的路径绕经 Area 3</strong> → 流量要两次穿过 Area 3 → 路径长、跳数多、MTU 可能不一致</td>
 </tr>
 <tr>
-<td><strong>靠第 10–12 条决定路径</strong></td>
-<td>重启或加邻居后流量漂移</td>
-<td>前面所有判据都平局，靠 Router ID 抽签</td>
-<td>显式用 LP / AS_PATH 拉开差距</td>
+<td>丢包</td>
+<td>virtual-link 经过的 Area 3 链路上有个 MTU 1400 的运营商链路 → 大包被丢</td>
 </tr>
 <tr>
-<td><strong>iBGP 忘记处理下一跳</strong></td>
-<td>BGP 表有、路由表没有</td>
-<td>NEXT_HOP 在 IGP 内不可达</td>
-<td><code>next-hop-self</code> 或 IGP 覆盖全部下一跳网段</td>
+<td>收慢</td>
+<td>ABR2 同时是 Area 3 和 Area 5 的边界，<strong>承担了双重 ABR 职责</strong>，CPU 在高峰期达到 70%</td>
 </tr>
 <tr>
-<td><strong>双点双向重分发</strong></td>
-<td>次优路径、偶发环路</td>
-<td>路由回流，度量被另一域污染</td>
-<td>单向重分发 + tag + 前缀过滤</td>
+<td>无法汇总</td>
+<td>经 virtual-link 的路由<strong>不能像正常 ABR 那样汇总</strong>（虚链路本质是把 ABR 的接口"延伸"到 Area 0，LSA 传播受限）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么当初没被制止</strong>：virtual-link <strong>能用</strong>，配置完 <code>show ip ospf virtual-links</code> 显示 UP，业务通。所有验收指标（能 ping、能访问）都通过。</p>
+<p><strong>真正的修复（一年后做了）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>措施</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>打破 NAT 障碍</strong></td>
+<td>研发中心与总部之间改走 MPLS L3VPN 或专线，让 OSPF 能直接建立邻接</td>
 </tr>
 <tr>
-<td><strong>汇总后没有 null0 兜底</strong></td>
-<td>汇总黑洞、环路</td>
-<td>明细路由全部消失时无匹配</td>
-<td>汇总同时生成指向 null0 的汇总路由</td>
+<td><strong>Area 5 直连 Area 0</strong></td>
+<td>让 ABR2 成为真正的 ABR（一个接口在 Area 0，一个在 Area 5）</td>
 </tr>
 <tr>
-<td><strong>AS_PATH prepend 只在一台出口设备做</strong></td>
-<td>入向流量仍从坏链路来</td>
-<td>出口不对称，另一台仍在发短 AS_PATH</td>
-<td>全部出口设备一致 prepend，长度要足够抵消差异</td>
+<td><strong>研发中心划为 Totally Stub</strong></td>
+<td>只需要默认路由</td>
 </tr>
 <tr>
-<td><strong>OSPF 参考带宽未调整</strong></td>
-<td>千兆接口比万兆接口还优</td>
-<td>默认参考带宽仍是 100 Mbps</td>
-<td><code>auto-cost reference-bandwidth 100000</code></td>
+<td><strong>删除 virtual-link</strong></td>
+<td>连带删除所有依赖它的路由策略</td>
+</tr>
+</tbody>
+</table>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong>virtual-link 是"应急补救"，不是"设计选项"</strong>。它违反了 OSPF 的层次化前提（Area 0 必须连续），带来越长路径、无法正常汇总、MTU 穿透问题。</li>
+<li><strong>"能通"是极低的标准</strong>。virtual-link 的验收必须额外检查：路径跳数、MTU、汇总是否生效、ABR 的 CPU。</li>
+<li><strong>凡是"绕过架构约束"的方案，都要在文档里标注为技术债</strong>，并写明"何时消除"（对应第 7 章"临时方案必须有到期机制"）。</li>
+</ol>
+<hr />
+<h3 id="40">案例四：双点双向重分发，环路持续 40 分钟<a class="anchor" href="#40" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某企业收购了一家公司，两边的网络分别跑 OSPF（总部，AS 内部）和被收购方用的 EIGRP（历史遗留）。为了融合，在<strong>两台</strong>边界路由器上做了<strong>双向重分发</strong>。</p>
+<p><strong>事故</strong>：某天一台边界路由器（BR1）的上联链路抖动，触发路由重算。随后 <strong>OSPF 与 EIGRP 两个域同时出现环路</strong>，流量在 BR1/BR2 之间来回，两台设备的 CPU 冲到 99%，部分业务中断 40 分钟，最后靠<strong>手工 shutdown BR1 的一个接口</strong>才恢复。</p>
+<p><strong>根因分析（逐步还原）</strong>：</p>
+<pre><code>① BR1 的上联抖动 → OSPF 侧某前缀 P 的明细短暂消失
+② BR1 把&quot;EIGRP 学来的 P&quot;（原本是从 OSPF 重分发过去的）重新重分发回 OSPF
+   —— 因为 BR1 的 EIGRP 表里确实&quot;还有 P&quot;（从 BR2 学来的）
+③ BR1 把这个 P 通告进 OSPF，下一跳指向 BR2 方向
+④ BR2 从 OSPF 学到 P，又重分发回 EIGRP，下一跳指向 BR1
+⑤ 流量在 BR1 ↔ BR2 之间打转，两条链路同时打满
+⑥ 因为是&quot;重分发产生的路由&quot;，AD 值与原始路由不同 → 无法被原有路由覆盖 → 环路持续
+</code></pre>
+<p><strong>关键缺失（四个都没做）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>缺失</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>没有 route tag</strong></td>
+<td>无法区分"本地产生的"和"从对端重分发进来的"</td>
 </tr>
 <tr>
-<td><strong>EIGRP query 扩散过广</strong></td>
-<td>收敛慢、频繁 SIA</td>
-<td>边缘设备未做 stub、未汇总</td>
-<td>边缘配 <code>eigrp stub</code>，接口级汇总</td>
+<td><strong>没有 prefix-list 白名单</strong></td>
+<td><code>redistribute</code> 范围过宽，把回馈路由也带进来了</td>
 </tr>
 <tr>
-<td><strong>用 Weight 承担跨设备策略</strong></td>
-<td>换设备或重启后策略失效</td>
-<td>Weight 不传递、仅本机有效</td>
-<td>跨设备统一用 Local Preference</td>
+<td><strong>没有 AD 规划</strong></td>
+<td>回馈路由的 AD 恰好比原始路由更优</td>
 </tr>
 <tr>
-<td><strong>默认路由注入核心 IGP</strong></td>
-<td>全网次优、故障时无法收敛</td>
-<td>默认路由掩盖了明细</td>
-<td>默认只在边缘注入，核心用 BGP 承载</td>
+<td><strong>两条边界路由器之间的链路没有"隔离"</strong></td>
+<td>两者之间可以自由交换路由 → 提供了环路通道</td>
+</tr>
+</tbody>
+</table>
+<p><strong>正确的设计（事后重构）</strong>：</p>
+<pre><code class="language-cfg">! ── BR1：OSPF → EIGRP 打 tag 300 ──
+route-map RM-OSPF-TO-EIGRP permit 10
+ match ip address prefix-list PL-OSPF-OWNED
+ set tag 300
+ set metric 10000 100 255 1 1500
+!
+! ── BR1：从 EIGRP 学来带 tag 300 的路由，不准回灌 OSPF ──
+route-map RM-EIGRP-TO-OSPF deny 10
+ match tag 300
+!
+route-map RM-EIGRP-TO-OSPF permit 20
+ match ip address prefix-list PL-EIGRP-OWNED
+ set tag 400
+ set metric 100
+!
+router eigrp 100
+ redistribute ospf 1 route-map RM-OSPF-TO-EIGRP
+!
+router ospf 1
+ redistribute eigrp 100 subnets route-map RM-EIGRP-TO-OSPF
+</code></pre>
+<p><strong>更强的一条防线：</strong> 让 BR1 与 BR2 之间的链路<strong>不参与任何业务路由交换</strong>，只承载"两台设备互相可达"的 /30 前缀。这样两条重分发路径在拓扑上被隔开，环路的物理通道就消失了。</p>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong>双点双向重分发必须同时具备三件事</strong>：tag 标记、prefix-list 白名单、明确的 AD 规划。缺一个就有环路风险。</li>
+<li><strong>"平时正常"是双点双向重分发最危险的特性</strong>。它只在特定故障序列下爆（链路抖动 + 明细消失 + 回馈），一旦爆了现场几乎无法快速定位。</li>
+<li><strong>架构上消灭重分发比技术上管好重分发更值钱</strong>：这个案例最终的解决方案是把被收购方的 EIGRP 整体迁移到 OSPF，<strong>消灭了重分发</strong>。迁移成本是 3 个月，但比保留一个随时可能环路的双点双向结构更省。</li>
+</ol>
+<hr />
+<h3 id="redistribute-bgp-25">案例五：一条 <code>redistribute bgp</code> 让全网瘫痪 25 分钟<a class="anchor" href="#redistribute-bgp-25" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某企业核心是新上的 BGP 域，边缘有一小块遗留的 OSPF 区域（几个老分支）。为了让老分支能访问互联网，运维在 OSPF 的 ASBR 上执行了一条"看起来合理"的命令：</p>
+<pre><code>router ospf 1
+ redistribute bgp 65000 subnets
+</code></pre>
+<p><strong>执行后的 3 分钟内</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有 OSPF 路由器 CPU</td>
+<td>从 20% 冲到 <strong>98%</strong></td>
+</tr>
+<tr>
+<td>OSPF 邻居</td>
+<td>大量 <strong>DOWN</strong>（Hello 来不及处理导致 Dead 超时）</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>几台接入路由器内存 <strong>耗尽</strong>，出现 <code>%SYS-2-MALLOCFAIL</code></td>
+</tr>
+<tr>
+<td>收敛</td>
+<td>完全停止，SPF 反复重算</td>
+</tr>
+</tbody>
+</table>
+<p><strong>根因</strong>：BGP 表里有 <strong>约 92 万条</strong> Internet 路由。<code>redistribute bgp ... subnets</code> 把这 92 万条<strong>全部</strong>作为 Type 5 LSA 灌进 OSPF：</p>
+<pre><code>92 万条 Type 5 LSA → 泛洪到整个 OSPF 区域
+  → 每台路由器的 LSDB 膨胀到数百 MB
+  → 每次 SPF 重算要处理 92 万个外部前缀
+  → CPU 100%、内存耗尽、邻居超时 → 邻居重建 → 再次全量泛洪 → 雪崩
+</code></pre>
+<p><strong>恢复过程</strong>：现场先 <code>shutdown</code> 该 ASBR 的 OSPF 接口止血，然后删除重分发命令，再逐台 <code>clear ip ospf process</code>。总计 25 分钟。</p>
+<p><strong>正确做法</strong>：</p>
+<pre><code class="language-cfg">! 只引入默认路由（绝大多数场景唯一正确的做法）
+router ospf 1
+ default-information originate route-map RM-HAS-DEFAULT
+
+! 或只引入自己的公网前缀（需要内网访问特定公网服务时）
+route-map RM-BGP-TO-OSPF permit 10
+ match ip address prefix-list PL-MY-PUBLIC
+ set metric 100
+ set tag 500
+!
+router ospf 1
+ redistribute bgp 65000 subnets route-map RM-BGP-TO-OSPF
+</code></pre>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong>IGP 承载"可达性"，BGP 承载"策略与规模"</strong>。把 BGP 表灌进 IGP 违反了协议分工，后果是灾难性的。</li>
+<li><strong><code>redistribute</code> 是一条"无边界"的命令</strong>。它默认重分发该协议里的<strong>全部</strong>路由。任何 <code>redistribute</code> 都必须配 <code>route-map</code> 或 <code>prefix-list</code>。</li>
+<li><strong>这类命令必须走变更评审</strong>。它看起来只有一行，实际是"改变全网路由表规模"的核弹级操作。<strong>变更单上应明确写"影响多少条路由"</strong>。</li>
+</ol>
+<hr />
+<h3 id="as_path-prepend-5">案例六：AS_PATH prepend 加了 5 次，流量一点没变<a class="anchor" href="#as_path-prepend-5" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某企业双出口，希望"去程全部走 ISP-A，ISP-B 只做备份"。运维在 ISP-B 的出方向对本地前缀做了 <strong>5 次 AS_PATH preppend</strong>（<code>set as-path prepend 65000 65000 65000 65000 65000</code>），结果 <strong>ISP-A 的入向流量一点没减少</strong>。</p>
+<p><strong>排查</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show ip bgp &lt;prefix&gt;</code></td>
+<td>选中的最佳路径 <strong>不是</strong> ISP-A 那条</td>
+</tr>
+<tr>
+<td>比较属性</td>
+<td>ISP-A 路径：<strong>MED 100</strong>；ISP-B 路径（prepend 5 次）：<strong>MED 1000</strong></td>
+</tr>
+<tr>
+<td>但为什么还选 ISP-B？</td>
+<td>因为这两条路径来自<strong>不同的邻居 AS</strong>（ISP-A AS 65100，ISP-B AS 65200）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>根因（两个叠加）</strong>：</p>
+<ol>
+<li><strong>MED 只在同一邻居 AS 内比较</strong> —— 来自 AS 65100 和 AS 65200 的 MED 根本没被比较。所以 MED 那一步是"平局"。</li>
+<li><strong>AS_PATH prepend 打在了错误的方向</strong>。运维在 <strong>ISP-B 的出方向</strong>做了 prepend，这影响的是"<strong>别人经 ISP-B 来访问你</strong>"的路径长度 —— 理论上应该有效。但实际无效，因为：
+   - 该企业还配置了 <strong><code>bgp bestpath as-path ignore</code></strong>（某次"优化"留下的），<strong>AS_PATH 长度比较被整体跳过</strong>
+   - 于是判据直接跳到 MED 之后 → eBGP/iBGP → IGP metric → Router ID
+   - 最终由 <strong>Router ID/邻居地址</strong>决定了路径</li>
+</ol>
+<p><strong>为什么"改了属性没效果"最难查</strong>：<code>show ip bgp</code> 只显示属性，不显示"为什么跳过某条判据"。必须逐条对照选路顺序，并检查 <code>bgp bestpath</code> 系列配置。</p>
+<p><strong>最终修复</strong>：</p>
+<pre><code class="language-cfg">! 1) 撤销危险的 bestpath 开关
+no bgp bestpath as-path ignore
+no bgp bestpath compare-routerid
+
+! 2) 用 Local Preference 控制出向（这是&quot;自己能完全决定&quot;的那一条）
+route-map RM-FROM-ISP-A permit 10
+ set local-preference 200
+route-map RM-FROM-ISP-B permit 10
+ set local-preference 100
+
+! 3) 入向用 prepend，但只在&quot;不希望被使用&quot;的链路上做，且次数要合理（2-3 次）
+route-map RM-TO-ISP-B permit 10
+ match ip address prefix-list PL-LOCAL
+ set as-path prepend 65000 65000
+
+! 4) 验证：必须确认 best 路径和 FIB 都变了
+!    show ip bgp &lt;prefix&gt; | show ip cef &lt;prefix&gt;
+</code></pre>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong>先确认"流量方向"再选工具</strong>：出向用 LP/Weight（完全可控），入向用 MED/prepend（部分可控）。<strong>用错工具，怎么调都没用。</strong></li>
+<li><strong><code>no bgp bestpath ...</code> 这类"优化开关"是定时炸弹</strong>。它们让选路行为偏离标准，且<strong>不产生任何告警</strong>。这类配置必须纳入基线审查，禁止无评审开启。</li>
+<li><strong>验证闭环是"FIB 变了"而不是"配置生效了"</strong>。<code>show ip bgp</code> 看属性、<code>show ip bgp &lt;prefix&gt;</code> 看 best、<code>show ip cef</code> 看实际转发 —— 三者必须一致才算改成功。</li>
+</ol>
+<hr />
+<h3 id="rr-cluster-id">案例七：RR 的 cluster-id 重复，四分之一路由消失<a class="anchor" href="#rr-cluster-id" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某数据中心两台 RR（RR1、RR2）冗余部署，各带 40 台边界路由器作为 client。部署时用了配置模板，模板里 <code>bgp cluster-id 1.1.1.1</code> 被原样复制到两台 RR 上。</p>
+<p><strong>现象</strong>：上线后<strong>约 25% 的前缀不完整</strong>。某些目的地址从部分边界路由器上不可达，但从另一些可达；<code>show ip bgp</code> 在部分设备上完全没有某些前缀。</p>
+<p><strong>排查</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RR1、RR2 的 <code>bgp cluster-id</code></td>
+<td><strong>都是 1.1.1.1</strong>（相同的 cluster-id）</td>
+</tr>
+<tr>
+<td><code>show ip bgp &lt;某缺失前缀&gt;</code></td>
+<td>在 RR 上可见，但 client 上收不到</td>
+</tr>
+<tr>
+<td>BGP 更新日志</td>
+<td>RR 收到自带 Cluster List 中包含 <code>1.1.1.1</code> 的路由时，判定为环路 → <strong>丢弃</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>根因</strong>：BGP 的<strong>防环机制（Cluster List）</strong> 起作用了，但起的是"误伤"：</p>
+<pre><code>① Client-A 把路由发给 RR1
+② RR1 反射给 RR2（RR 之间也是 iBGP 关系）→ 路由的 Cluster List 里加上 &quot;1.1.1.1&quot;
+③ RR2 反射给它的 client → 路由带 Cluster List &quot;1.1.1.1&quot;
+④ 而 RR2 自己发给 RR1 时，RR1 看到 Cluster List 里有 &quot;1.1.1.1&quot;（自己的 ID）
+   → 判定&quot;这条路由绕回我自己了&quot;→ 丢弃
+⑤ 结果是：RR1 的 client 只能学到&quot;直接从 RR1 来的&quot;路由，
+   RR2 学到的那些前缀（来自 RR2 的 client）无法通过 RR1 传下去
+</code></pre>
+<p><strong>为什么是"约 25%"</strong>：取决于 client 的归属分布与路由来源分布。有一半 client 挂在 RR1、一半挂 RR2，加上 RR 之间互相反射的路径，呈现约 25% 的缺失。</p>
+<p><strong>修复</strong>：</p>
+<pre><code class="language-cfg">! 每台 RR 使用唯一 cluster-id
+! RR1
+router bgp 65000
+ bgp cluster-id 1.1.1.1
+! RR2
+router bgp 65000
+ bgp cluster-id 2.2.2.2
+</code></pre>
+<p>改完后所有前缀恢复完整。</p>
+<p><strong>教训</strong>：</p>
+<ol>
+<li><strong><code>cluster-id</code> 必须唯一</strong>（通常用 RR 的 Router ID 即可，但<strong>必须显式指定为各自的值</strong>）。模板里写死一个数字是事故根源。</li>
+<li><strong>BGP 的四种防环机制要分清</strong>：AS_PATH（跨 AS）、Cluster List（RR 集群内）、Originator ID（RR 场景）、下一跳可达性。它们"生效"时表现为"路由消失"，<strong>这是设计行为而不是 Bug</strong> —— 排障时要能识别。</li>
+<li><strong>模板化配置必须有"变量检查"</strong>：凡是"每台设备应不同"的参数（Router ID、cluster-id、NET、接口地址），模板化时必须做成变量，且部署后自动校验唯一性。</li>
+</ol>
+<hr />
+<h2 id="design-trade-offs">三层设计的常见取舍（Design Trade-offs）<a class="anchor" href="#design-trade-offs" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>取舍</th>
+<th>选项 A</th>
+<th>选项 B</th>
+<th>判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IGP vs BGP 承载核心</strong></td>
+<td>IGP（简单，收敛快）</td>
+<td>BGP（策略强，规模大）</td>
+<td>需要策略吗？规模会超过 500 台吗？团队懂 BGP 吗？</td>
+</tr>
+<tr>
+<td><strong>单区域 vs 多区域</strong></td>
+<td>单区域（简单）</td>
+<td>多区域（可汇总、故障域小）</td>
+<td>泛洪域是否超过 100–200 台？需要汇总吗？</td>
+</tr>
+<tr>
+<td><strong>Stub vs NSSA</strong></td>
+<td>Stub（路由表最小）</td>
+<td>NSSA（允许本地重分发）</td>
+<td>站点有本地出口吗？</td>
+</tr>
+<tr>
+<td><strong>汇总粒度</strong></td>
+<td>粗（表小，可见性差）</td>
+<td>细（可见性好，表大）</td>
+<td>需要明细故障的可见性吗？</td>
+</tr>
+<tr>
+<td><strong>等开销 vs 主备</strong></td>
+<td>ECMP（利用率高）</td>
+<td>主备（确定性好）</td>
+<td>链路速率是否相等？业务是否要求确定性？</td>
+</tr>
+<tr>
+<td><strong>快收敛 vs 稳定性</strong></td>
+<td>BFD + 快计时器</td>
+<td>默认 + 节流</td>
+<td>业务真的感知 1 秒吗？抖动误切换的代价多大？</td>
+</tr>
+<tr>
+<td><strong>重分发 vs 迁移</strong></td>
+<td>双点双向重分发（保留异构）</td>
+<td>统一到一个协议（迁移成本高）</td>
+<td><strong>长期看几乎总是统一更省</strong>（案例四）</td>
+</tr>
+<tr>
+<td><strong>RR vs 联盟</strong></td>
+<td>RR（简单、成熟）</td>
+<td>联盟（分层但复杂）</td>
+<td>几乎总选 RR</td>
+</tr>
+<tr>
+<td><strong>静态 vs 动态</strong></td>
+<td>静态默认路由（简单可控）</td>
+<td>动态（自适应）</td>
+<td>分支能否接受"默认路由 + 汇总"</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="_16">实战经验总结<a class="anchor" href="#_16" title="Permanent link"></a></h2>
-<ol>
-<li><strong>属性调不动，先数顺序。</strong> BGP 排障第一步永远是"路由在第几条分出胜负"，而不是继续加策略。<code>show ip bgp &lt;prefix&gt;</code> 看 LP、AS_PATH、Origin、MED 四项就能定位 90% 的问题。</li>
-<li><strong>MED 和 LP 二选一。</strong> 同一张网里两者混用，等于给排障埋两颗雷。出路策略只留 LP，入口策略只留 AS_PATH + Community。</li>
-<li><strong>路由协议的数量要少。</strong> 双点双向重分发的复杂度远超它带来的收益；能用 BGP 统一核心就不要叠加 IGP 转换层。</li>
-<li><strong>IGP 的度量会偷偷改写 BGP 决策。</strong> 第 8 条（IGP metric to next-hop）是真实世界最常"打脸"的一条，做流量工程时必须把 IGP 度量一起纳入设计。</li>
-<li><strong>汇总必须配兜底。</strong> 汇总带来的可扩展性是真的，汇总带来的黑洞和环路也是真的；null0 汇总路由是必须项，不是可选项。</li>
-</ol>
+<h2 id="_26">设计陷阱<a class="anchor" href="#_26" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>表现</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>auto-cost reference-bandwidth</code> 用默认值</strong></td>
+<td>所有 ≥100M 接口 cost=1</td>
+<td>1G 与 10G 等价，ECMP 各分一半（案例一）</td>
+<td>全网统一改为 10G/100G，写进基线</td>
+</tr>
+<tr>
+<td><strong>参考带宽只改一半设备</strong></td>
+<td>同一链路两端 cost 不同</td>
+<td>不对称路径、潜在环路</td>
+<td>全网变更，纳入一致性校验</td>
+</tr>
+<tr>
+<td><strong>iBGP 未配 <code>next-hop-self</code></strong></td>
+<td><code>show ip bgp</code> 有 best，RIB 无条目（案例二）</td>
+<td>完全不通，"控制面正常数据面不通"</td>
+<td>边界路由器配 next-hop-self，或保证下一跳可达</td>
+</tr>
+<tr>
+<td><strong>靠 virtual-link 解决 Area 0 不连续</strong></td>
+<td>能通但路径绕、MTU 穿透、无法汇总（案例三）</td>
+<td>长期隐性劣化，排障极难</td>
+<td>改架构（专线/VPN/直连 Area 0），virtual-link 只作应急</td>
+</tr>
+<tr>
+<td><strong>双点双向重分发无 tag</strong></td>
+<td>平时正常，故障时环路（案例四）</td>
+<td>全网环路，CPU 打满，恢复困难</td>
+<td>tag + prefix-list 白名单 + AD 规划，三者齐备</td>
+</tr>
+<tr>
+<td><strong>把 BGP 表重分发进 IGP</strong></td>
+<td>CPU 100%、内存耗尽、邻居全断（案例五）</td>
+<td>全网瘫痪</td>
+<td>只引入默认路由或自有公网前缀</td>
+</tr>
+<tr>
+<td><strong><code>redistribute</code> 不配 route-map</strong></td>
+<td>范围无边界</td>
+<td>把不该传的路由传出去</td>
+<td>所有 redistribute 必须配 route-map/prefix-list</td>
+</tr>
+<tr>
+<td><strong>用错方向的控制工具</strong></td>
+<td>出向用 MED / 入向用 LP</td>
+<td>怎么调都没效果（案例六）</td>
+<td>出向 LP/Weight，入向 MED/prepend</td>
+</tr>
+<tr>
+<td><strong>开启 <code>no bgp bestpath as-path ignore</code> 等开关</strong></td>
+<td>选路行为偏离标准且无告警</td>
+<td>"改属性没效果"，无人能解释</td>
+<td>禁止无评审开启，纳入基线审查</td>
+</tr>
+<tr>
+<td><strong>多台 RR 用相同 cluster-id</strong></td>
+<td>部分前缀静默缺失（案例七）</td>
+<td>路由不完整，故障随机出现</td>
+<td>cluster-id 唯一 + 部署后自动校验</td>
+</tr>
+<tr>
+<td><strong>RR 单点 / 客户端只连一个 RR</strong></td>
+<td>RR 故障即路由中断</td>
+<td>该集群路由大面积丢失</td>
+<td>成对 RR，客户端连两个</td>
+</tr>
+<tr>
+<td><strong>汇总不配 null0</strong></td>
+<td>明细消失时汇总路由仍在</td>
+<td>故障期间黑洞（"汇总地址通，业务不通"）</td>
+<td>显式确认 Null0 条目</td>
+</tr>
+<tr>
+<td><strong>汇总地址不连续</strong></td>
+<td>汇总包含了未使用的地址</td>
+<td>汇总本身产生黑洞</td>
+<td>汇总前验证地址连续性</td>
+</tr>
+<tr>
+<td><strong>Stub 区域配了重分发</strong></td>
+<td><code>redistribute</code> 被静默忽略</td>
+<td>备份出口失效（前方案例）</td>
+<td>用 NSSA；验收查实际路由表</td>
+</tr>
+<tr>
+<td><strong>Hello 调小但不配 SPF 节流</strong></td>
+<td>抖动 → 重算 → 抖动</td>
+<td>CPU 被 SPF 吃满</td>
+<td>BFD + 节流（throttle + arrival）</td>
+</tr>
+<tr>
+<td><strong>EIGRP 不开 Stub / 不汇总</strong></td>
+<td>Query 扩散全网</td>
+<td>SIA、收敛慢、CPU 高</td>
+<td><code>eigrp stub</code> + 汇总</td>
+</tr>
+<tr>
+<td><strong>EIGRP 改 K 值</strong></td>
+<td>邻居起不来</td>
+<td>全网邻居中断</td>
+<td>不改 K 值；用策略控制路径</td>
+</tr>
+<tr>
+<td><strong>BGP <code>soft-reconfig inbound</code> 全网开</strong></td>
+<td>内存翻倍</td>
+<td>大表场景内存耗尽</td>
+<td>用 Route Refresh 替代</td>
+</tr>
+<tr>
+<td><strong><code>update-delay</code> 不配</strong></td>
+<td>启动时用不完整的表转发</td>
+<td>启动后短暂大规模黑洞</td>
+<td>大网配 300–600 秒</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
 <table>
@@ -1313,119 +3352,305 @@ route-map OSPF-TO-EIGRP permit 20
 <tr>
 <th>术语</th>
 <th>中文含义</th>
+<th>一句话记忆</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>RIB</td>
+<td><strong>RIB</strong></td>
 <td>路由信息库</td>
+<td>所有协议的候选池</td>
 </tr>
 <tr>
-<td>FIB</td>
+<td><strong>FIB</strong></td>
 <td>转发信息库</td>
+<td>真正用来转发的表</td>
 </tr>
 <tr>
-<td>LSDB</td>
+<td><strong>AD（管理距离）</strong></td>
+<td>不同来源的优先级</td>
+<td>跨协议比较用 AD；eBGP(20) 优于 OSPF(110)，iBGP(200) 最劣</td>
+</tr>
+<tr>
+<td><strong>Metric（度量）</strong></td>
+<td>同协议内的路径优劣</td>
+<td><strong>跨协议不可比</strong>——重分发的根本难题</td>
+</tr>
+<tr>
+<td><strong>最长匹配</strong></td>
+<td>掩码最长者胜</td>
+<td>明细永远压过汇总</td>
+</tr>
+<tr>
+<td><strong>递归查找</strong></td>
+<td>下一跳逐层解析</td>
+<td>BGP 下一跳不可达则不装表</td>
+</tr>
+<tr>
+<td><strong>LSDB</strong></td>
 <td>链路状态数据库</td>
+<td>区域内必须完全一致</td>
 </tr>
 <tr>
-<td>LSA</td>
-<td>链路状态通告</td>
+<td><strong>SPF / Dijkstra</strong></td>
+<td>最短路径优先算法</td>
+<td>以自己为根建树</td>
 </tr>
 <tr>
-<td>ABR</td>
+<td><strong>Area 0 / Backbone</strong></td>
+<td>骨干区域</td>
+<td>必须连续；不连续要靠 virtual-link（应急）</td>
+</tr>
+<tr>
+<td><strong>ABR</strong></td>
 <td>区域边界路由器</td>
+<td>汇总与 Type 3 的产生者</td>
 </tr>
 <tr>
-<td>ASBR</td>
-<td>自治系统边界路由器</td>
+<td><strong>ASBR</strong></td>
+<td>AS 边界路由器</td>
+<td>重分发与 Type 5 的产生者</td>
 </tr>
 <tr>
-<td>OSPF Area Types</td>
-<td>OSPF 区域类型</td>
+<td><strong>Type 1–7 LSA</strong></td>
+<td>OSPF 的链路状态通告</td>
+<td>1/2 拓扑，3/4 区域间，5/7 外部</td>
 </tr>
 <tr>
-<td>Stub Area</td>
+<td><strong>Stub / Totally Stub</strong></td>
 <td>末节区域</td>
+<td>不允许 ASBR；路由表最小</td>
 </tr>
 <tr>
-<td>NSSA</td>
-<td>非纯末节区域</td>
+<td><strong>NSSA</strong></td>
+<td>非完全末节</td>
+<td>允许本地重分发（有本地出口时用）</td>
 </tr>
 <tr>
-<td>DIS</td>
+<td><strong>Virtual Link</strong></td>
+<td>虚链路</td>
+<td>应急手段，不是设计选项</td>
+</tr>
+<tr>
+<td><strong>P2P / P2MP / Broadcast</strong></td>
+<td>OSPF 网络类型</td>
+<td>网络类型是设计变量，不是自动检测</td>
+</tr>
+<tr>
+<td><strong>SPF Throttle</strong></td>
+<td>SPF 节流</td>
+<td>快检测必须配抑制</td>
+</tr>
+<tr>
+<td><strong><code>auto-cost reference-bandwidth</code></strong></td>
+<td>参考带宽</td>
+<td>默认 100M → 所有 G 以上接口 cost=1</td>
+</tr>
+<tr>
+<td><strong>Area Range / Summary-address</strong></td>
+<td>OSPF 汇总</td>
+<td>ABR 汇总区域内；ASBR 汇总外部</td>
+</tr>
+<tr>
+<td><strong>Null0</strong></td>
+<td>丢弃路由</td>
+<td><strong>汇总必须配 null0</strong></td>
+</tr>
+<tr>
+<td><strong>IS-IS</strong></td>
+<td>中间系统到中间系统</td>
+<td>跑在二层，TLV 扩展性最好</td>
+</tr>
+<tr>
+<td><strong>Level 1 / Level 2</strong></td>
+<td>IS-IS 层级</td>
+<td>L2 = 骨干，天然连续</td>
+</tr>
+<tr>
+<td><strong>NET / System ID</strong></td>
+<td>IS-IS 路由器标识</td>
+<td>全网唯一</td>
+</tr>
+<tr>
+<td><strong>DIS</strong></td>
 <td>指定中间系统</td>
+<td>无备份，抢占式（对比 DR 有 BDR）</td>
 </tr>
 <tr>
-<td>Overload Bit</td>
-<td>过载位</td>
+<td><strong><code>metric-style wide</code></strong></td>
+<td>IS-IS 宽度量</td>
+<td>必须开，否则无法区分高速链路</td>
 </tr>
 <tr>
-<td>DUAL</td>
-<td>弥散更新算法</td>
+<td><strong>Overload Bit</strong></td>
+<td>IS-IS 过载位</td>
+<td>维护窗口用，避免提前吸引流量</td>
 </tr>
 <tr>
-<td>Feasible Successor</td>
-<td>可行后继路由器</td>
+<td><strong>Multi-Topology (MT)</strong></td>
+<td>IS-IS 多拓扑</td>
+<td>IPv4/IPv6 可走不同路径</td>
 </tr>
 <tr>
-<td>Feasibility Condition</td>
-<td>可行性条件</td>
+<td><strong>EIGRP / DUAL</strong></td>
+<td>扩散更新算法</td>
+<td>距离矢量中的"混合型"</td>
 </tr>
 <tr>
-<td>Reported Distance</td>
-<td>报告距离</td>
+<td><strong>FD / RD (AD)</strong></td>
+<td>可行距离 / 报告距离</td>
+<td>RD &lt; FD 才能成为可行后继</td>
 </tr>
 <tr>
-<td>Feasible Distance</td>
-<td>可行距离</td>
+<td><strong>Successor / Feasible Successor</strong></td>
+<td>后继 / 可行后继</td>
+<td>有 FS 时本地修复，最快收敛</td>
 </tr>
 <tr>
-<td>EIGRP Stub</td>
-<td>EIGRP 末节路由器</td>
+<td><strong>Query / SIA</strong></td>
+<td>查询 / 卡在活跃状态</td>
+<td>Query 扩散是 EIGRP 的主要规模风险</td>
 </tr>
 <tr>
-<td>Route Summarization</td>
-<td>路由汇总</td>
+<td><strong>EIGRP Stub</strong></td>
+<td>末端路由</td>
+<td>截断 Query 范围</td>
 </tr>
 <tr>
-<td>BGP Attributes</td>
-<td>BGP 属性</td>
+<td><strong>BGP</strong></td>
+<td>边界网关协议</td>
+<td>路径矢量，跑在 TCP 179</td>
 </tr>
 <tr>
-<td>Weight</td>
+<td><strong>eBGP / iBGP</strong></td>
+<td>外部 / 内部 BGP</td>
+<td>eBGP 直连；iBGP 需全互连或 RR</td>
+</tr>
+<tr>
+<td><strong>iBGP 全互连规则</strong></td>
+<td>iBGP 路由不再传给 iBGP</td>
+<td>N(N−1)/2 条会话</td>
+</tr>
+<tr>
+<td><strong>Next-hop-self</strong></td>
+<td>下一跳自指</td>
+<td>iBGP 必配（或保证下一跳可达）</td>
+</tr>
+<tr>
+<td><strong>Weight</strong></td>
 <td>权重</td>
+<td>Cisco 专有，本机有效，大者优</td>
 </tr>
 <tr>
-<td>Local Preference</td>
-<td>本地优先级</td>
+<td><strong>Local Preference</strong></td>
+<td>本地优先</td>
+<td>整个 AS 有效，<strong>控制出向</strong></td>
 </tr>
 <tr>
-<td>AS Path</td>
+<td><strong>AS_PATH</strong></td>
 <td>AS 路径</td>
+<td>短者优；prepend 可加长</td>
 </tr>
 <tr>
-<td>MED</td>
-<td>多出口鉴别器</td>
+<td><strong>Origin</strong></td>
+<td>起源类型</td>
+<td>IGP &lt; EGP &lt; Incomplete</td>
 </tr>
 <tr>
-<td>Community</td>
-<td>团体属性</td>
+<td><strong>MED</strong></td>
+<td>多出口判别器</td>
+<td>小者优；<strong>只在同一邻居 AS 内比较</strong></td>
 </tr>
 <tr>
-<td>Route Reflector</td>
+<td><strong>Route Reflector (RR)</strong></td>
 <td>路由反射器</td>
+<td>打破全互连需求</td>
 </tr>
 <tr>
-<td>BGP Confederation</td>
-<td>BGP 联盟</td>
+<td><strong>Cluster ID / Cluster List</strong></td>
+<td>集群 ID / 列表</td>
+<td>防环；<strong>多 RR 必须唯一</strong></td>
 </tr>
 <tr>
-<td>Route Redistribution</td>
-<td>路由重分发</td>
+<td><strong>Originator ID</strong></td>
+<td>起源者 ID</td>
+<td>RR 场景的第二道防环</td>
+</tr>
+<tr>
+<td><strong>Confederation</strong></td>
+<td>联盟</td>
+<td>把大 AS 拆子 AS；复杂度高，一般不选</td>
+</tr>
+<tr>
+<td><strong>Peer Group / Template</strong></td>
+<td>邻居组 / 模板</td>
+<td>配置量从 N 条降到 1 条</td>
+</tr>
+<tr>
+<td><strong><code>update-delay</code></strong></td>
+<td>更新延迟</td>
+<td>启动时等邻居收敛，避免不完整表转发</td>
+</tr>
+<tr>
+<td><strong>Route Dampening</strong></td>
+<td>路由抑制</td>
+<td><strong>慎用</strong>，容易造成长时间黑洞</td>
+</tr>
+<tr>
+<td><strong>Redistribution</strong></td>
+<td>重分发</td>
+<td>跨协议翻译；度量不可比是根本难题</td>
+</tr>
+<tr>
+<td><strong>Seed Metric</strong></td>
+<td>种子度量</td>
+<td>重分发时"拍"的度量</td>
+</tr>
+<tr>
+<td><strong>Route Tag</strong></td>
+<td>路由标记</td>
+<td><strong>双点双向重分发防环的唯一标准解法</strong></td>
+</tr>
+<tr>
+<td><strong>Route Feedback</strong></td>
+<td>路由回馈</td>
+<td>双点双向重分发的环路来源</td>
+</tr>
+<tr>
+<td><strong>Egress / Ingress Traffic</strong></td>
+<td>出向 / 入向流量</td>
+<td>出向完全可控，入向只能请求</td>
+</tr>
+<tr>
+<td><strong>PBR</strong></td>
+<td>策略路由</td>
+<td>最后手段，破坏路由表一致性</td>
+</tr>
+<tr>
+<td><strong>ECMP</strong></td>
+<td>等开销多路径</td>
+<td>按流哈希，不等速链路慎用</td>
 </tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_27">本章小结<a class="anchor" href="#_27" title="Permanent link"></a></h2>
+<p>第 8 章的主线是<strong>"控制"的层次</strong>：</p>
+<pre><code>① 拓扑层：区域/层级/泛洪域          → 决定规模上限
+② 度量层：cost / metric / auto-cost → 决定默认路径（最容易失控）
+③ 汇总层：range / summary-address   → 决定规模与可见性的交换
+④ 属性层：LP / MED / AS_PATH / Weight → 决定策略路径
+⑤ 翻译层：重分发 / tag / seed metric → 决定异构域的边界
+</code></pre>
+<p><strong>五条可以带走的结论</strong>：</p>
+<ol>
+<li><strong>默认值就是设计</strong>。<code>auto-cost reference-bandwidth 100</code>、<code>default local-preference 100</code>、MED 只在同 AS 内比较——这些默认值决定了网络的真实行为。不显式设计，就等于接受了一个"没人设计过的网络"。</li>
+<li><strong>出向可控，入向只能请求</strong>。任何"双向负载分担"的承诺，在不控制对端的前提下都是空的。</li>
+<li><strong>协议数量要与运维能力匹配</strong>。双点双向重分发的复杂度，几乎永远超过它解决的问题；能统一就统一。</li>
+<li><strong>汇总 = 用可见性换规模</strong>。用了汇总，就必须接受"故障期间汇总地址仍然通"这件事，并把排障方法（进区域内看）写进运维手册。</li>
+<li><strong>验证要看 FIB 和流量，不看配置和 BGP 表</strong>。<code>show ip bgp</code> 有 <code>*&gt;</code> 不代表能转发；<code>traceroute</code> 通不代表路径符合设计。<strong>NetFlow + <code>show ip cef</code> 才是证据。</strong></li>
+</ol>
+<p>下一章（第 9 章 网络虚拟化）会把这些三层能力放进虚拟化语境：当"一台物理设备"变成"多台逻辑设备"、"一个网络"变成"多个隔离的 VRF"时，BGP 与 IGP 的角色会如何变化。</p></article>
     <nav class="pager"><a class="pager-link prev" href="ch-07.html"><span class="pager-label">上一章</span><span class="pager-title">07 · 二层技术</span></a><a class="pager-link next" href="ch-09.html"><span class="pager-label">下一章</span><span class="pager-title">09 · 网络虚拟化</span></a></nav>
     
     <section class="board" id="board" data-page="第 08 章 · 三层技术" data-key="ch-08">
@@ -1479,6 +3704,15 @@ route-map OSPF-TO-EIGRP permit 20
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#_2">本章导读：三层设计的五条反直觉认知</a><ul>
+<li><a href="#bgp-igp">反直觉一：你精心设计的 BGP 策略，会被 IGP 度量悄悄推翻</a></li>
+<li><a href="#_3">反直觉二：路由协议的选择不是技术问题，是"运维模型"问题</a></li>
+<li><a href="#_4">反直觉三：汇总的本质是"信息隐藏"，代价是"失去可见性"</a></li>
+<li><a href="#_5">反直觉四：收敛不是"越快越好"</a></li>
+<li><a href="#_6">反直觉五：协议每增加一个，复杂度不是加一，是乘二</a></li>
+</ul>
+</li>
+<li><a href="#_7">三层设计方法论：六步定序</a></li>
 <li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
 <li><a href="#ip">IP 路由和转发概念回顾</a></li>
 </ul>
@@ -1486,6 +3720,7 @@ route-map OSPF-TO-EIGRP permit 20
 <li><a href="#link-state-routing">链路状态路由 (Link-State Routing)</a><ul>
 <li><a href="#lsdb">链路状态数据库 (LSDB) 构建过程</a></li>
 <li><a href="#hub-and-spoke">Hub-and-Spoke 拓扑中的链路状态设计</a></li>
+<li><a href="#_9">泛洪域的规模：一个被低估的量化约束</a></li>
 </ul>
 </li>
 <li><a href="#ospf">OSPF 设计考量</a><ul>
@@ -1493,59 +3728,65 @@ route-map OSPF-TO-EIGRP permit 20
 <li><a href="#ospf_1">OSPF 区域类型</a></li>
 <li><a href="#ospf_2">OSPF 网络类型</a></li>
 <li><a href="#ospf_3">OSPF 快速收敛技术</a></li>
-<li><a href="#ospf_4">OSPF 路由汇总</a></li>
+<li><a href="#ospf-auto-cost">OSPF 度量设计：auto-cost 必须是全网一致的决策</a></li>
+<li><a href="#ospf_4">OSPF 汇总</a></li>
 </ul>
 </li>
 <li><a href="#is-is">IS-IS 设计考量</a><ul>
-<li><a href="#is-is-vs-ospf">IS-IS vs OSPF 对比</a></li>
-<li><a href="#is-is-dis-vs-ospf-dr">IS-IS DIS vs OSPF DR</a></li>
-<li><a href="#is-is-overload-bit">IS-IS Overload Bit</a></li>
-<li><a href="#is-is_1">IS-IS 层级设计</a></li>
+<li><a href="#ospf-is-is">OSPF 与 IS-IS 的对比</a></li>
+<li><a href="#is-is_1">IS-IS 的关键设计细节</a></li>
 </ul>
 </li>
 <li><a href="#eigrp">EIGRP 设计考量</a><ul>
-<li><a href="#eigrp_1">EIGRP 核心概念</a></li>
-<li><a href="#eigrp_2">EIGRP 数据包类型</a></li>
-<li><a href="#eigrp-query">EIGRP Query 范围控制（关键设计！）</a></li>
-<li><a href="#eigrp-stub">EIGRP Stub 路由器</a></li>
+<li><a href="#eigrp_1">EIGRP 的四张表与三个术语</a></li>
+<li><a href="#query-eigrp">Query 域：EIGRP 最需要设计的部分</a></li>
+<li><a href="#eigrp_2">EIGRP 度量与"为什么它不按带宽选路"</a></li>
+<li><a href="#eigrp-ospf">EIGRP 与 OSPF 的选择</a></li>
 </ul>
 </li>
-<li><a href="#route-summarization">路由汇总 (Route Summarization)</a><ul>
-<li><a href="#_2">汇总的好处</a></li>
-<li><a href="#_3">汇总的风险</a></li>
-</ul>
-</li>
-<li><a href="#traffic-engineering-and-path-selection">流量工程和路径选择 (Traffic Engineering and Path Selection)</a><ul>
-<li><a href="#_4">路径选择方法</a></li>
-<li><a href="#igp">IGP 度量调整</a></li>
-<li><a href="#ospf-cost">OSPF Cost 计算</a></li>
+<li><a href="#_10">流量工程和路径选择</a><ul>
+<li><a href="#_11">为什么要专门设计路径</a></li>
+<li><a href="#_12">路径控制的四个层次</a></li>
+<li><a href="#_13">主备与负载分担的设计选择</a></li>
+<li><a href="#_14">验证路径是否按设计走（设计验收的必做动作）</a></li>
 </ul>
 </li>
 <li><a href="#bgp-bgp-routing">BGP 路由 (BGP Routing)</a><ul>
-<li><a href="#bgp">BGP 基础</a></li>
-<li><a href="#bgp-attributes">BGP 属性 (Attributes)</a></li>
-<li><a href="#bgp-13">BGP 路径选择顺序（完整 13 条）</a></li>
-<li><a href="#_6">影响出口流量的方法（我出去走哪条）</a></li>
-<li><a href="#_7">影响入口流量的方法（别人进来走哪条）</a></li>
-<li><a href="#bgp_1">BGP 作为企业核心路由协议</a></li>
+<li><a href="#bgp">BGP 基础概念</a></li>
+<li><a href="#bgp_1">BGP 作为核心路由协议：什么时候该用</a></li>
 <li><a href="#bgp_2">BGP 可扩展性选项</a></li>
-<li><a href="#route-redistribution">路由重分发 (Route Redistribution)</a></li>
+<li><a href="#bgp-13">BGP 选路过程（13 条判据详解）</a></li>
+<li><a href="#bgp_3">BGP 的厂商差异（设计时必须确认）</a></li>
+<li><a href="#_17">出口和入口流量策略</a></li>
+<li><a href="#bgp_4">BGP 收敛与稳定性</a></li>
 </ul>
 </li>
-<li><a href="#_10">企业路由设计建议</a><ul>
-<li><a href="#_11">如何选择正确的路由协议</a></li>
-<li><a href="#_12">设计原则总结</a></li>
+<li><a href="#route-redistribution">路由重分发 (Route Redistribution)</a><ul>
+<li><a href="#_18">为什么重分发是"设计里最容易失控的部分"</a></li>
+<li><a href="#_19">单点重分发与双点重分发</a></li>
+<li><a href="#_20">常见重分发场景的标准做法</a></li>
 </ul>
 </li>
-<li><a href="#_13">实战案例</a><ul>
-<li><a href="#med">案例一：MED 设了却完全不生效</a></li>
-<li><a href="#ibgp">案例二：iBGP 里有路由，路由表里没有</a></li>
-<li><a href="#_14">案例三：双点双向重分发，出口翻转后再没切回来</a></li>
+<li><a href="#_21">企业路由设计建议</a><ul>
+<li><a href="#_22">协议选择矩阵</a></li>
+<li><a href="#_23">六条设计原则</a></li>
+<li><a href="#_24">路由设计的验收清单</a></li>
 </ul>
 </li>
-<li><a href="#_15">设计陷阱</a></li>
-<li><a href="#_16">实战经验总结</a></li>
+<li><a href="#_25">实战案例</a><ul>
+<li><a href="#1g-10g-spf">案例一：1G 与 10G 链路等价，SPF 各分一半</a></li>
+<li><a href="#ibgp">案例二：iBGP 路由"学得到但不装表"</a></li>
+<li><a href="#0">案例三：区域 0 不连续，用虚链路"糊"了三年</a></li>
+<li><a href="#40">案例四：双点双向重分发，环路持续 40 分钟</a></li>
+<li><a href="#redistribute-bgp-25">案例五：一条 redistribute bgp 让全网瘫痪 25 分钟</a></li>
+<li><a href="#as_path-prepend-5">案例六：AS_PATH prepend 加了 5 次，流量一点没变</a></li>
+<li><a href="#rr-cluster-id">案例七：RR 的 cluster-id 重复，四分之一路由消失</a></li>
+</ul>
+</li>
+<li><a href="#design-trade-offs">三层设计的常见取舍（Design Trade-offs）</a></li>
+<li><a href="#_26">设计陷阱</a></li>
 <li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_27">本章小结</a></li>
 </ul>
 </div>
 </div></aside>
