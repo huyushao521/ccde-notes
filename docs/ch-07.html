@@ -32,7 +32,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精读">精读</span><span class="ch-words">约 1864 字</span></div><!-- status: 精读 -->
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 8389 字</span></div><!-- status: 精讲 -->
 <h1 id="7-layer-2-technologies">第 7 章：二层技术 (Layer 2 Technologies)<a class="anchor" href="#7-layer-2-technologies" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 300-321 页</p>
@@ -43,6 +43,28 @@
 <li><strong>二层核心技术</strong>：STP、VLAN、Trunk、链路聚合、mLAG、FHRP</li>
 <li><strong>二层 LAN 常见设计模型</strong>：传统 STP 模型和交换机集群模型</li>
 </ul>
+<hr />
+<h2 id="stp">本章导读：二层设计是一场"消灭 STP"的努力<a class="anchor" href="#stp" title="Permanent link"></a></h2>
+<p>如果把第 6 章比作"买运营商的路"，第 7 章就是"自己家院子里的路"。这一章的技术看起来全是二十年前的旧东西——STP、VLAN、Trunk、HSRP，但它们至今仍是最容易出事故的地方。</p>
+<p>原因很简单：<strong>二层网络没有"目的地"这个概念</strong>。三层网络里，包走哪个方向由路由表决定，链路坏了路由重算，路径天然可预测；而二层网络里，帧的转发靠<strong>泛洪 + MAC 学习</strong>，一旦有环，帧会永远转下去。STP 的全部作用就是<strong>人为地把一部分链路砍掉</strong>，用牺牲带宽和收敛时间来换取无环。</p>
+<p>所以本章真正的设计逻辑只有一条：</p>
+<blockquote>
+<p><strong>二层设计的目标不是"把 STP 配好"，而是"让 STP 尽量不参与转发决策"。</strong></p>
+</blockquote>
+<p>按这条逻辑，二层技术可以排成一个演进序列——每一代都在解决上一代的痛点：</p>
+<pre><code>STP（砍链路防环，秒级收敛）
+  ↓ 痛点：带宽浪费一半，收敛慢
+RSTP / MST（加快收敛，减少实例数）
+  ↓ 痛点：仍然有端口被阻塞
+链路聚合（多条物理链路变一条，STP 把它当一条）
+  ↓ 痛点：只能在同一台交换机上聚合
+mLAG / VSS / vPC（跨两台交换机聚合，消除 STP 与 FHRP 依赖）
+  ↓ 痛点：脑裂，控制面仍是一对设备
+EVPN Multihoming（第 6 章，控制面 + All-Active）
+</code></pre>
+<blockquote>
+<p>💡 <strong>一句话记住本章</strong>：每引入一项二层技术，先问它<strong>消灭了哪一个阻塞端口或收敛依赖</strong>。凡是不能回答这个问题的配置，都是运维负担而不是设计。</p>
+</blockquote>
 <hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <h3 id="layer-2-core-technologies">二层核心技术 (Layer 2 Core Technologies)<a class="anchor" href="#layer-2-core-technologies" title="Permanent link"></a></h3>
@@ -55,16 +77,62 @@
 <li>多机箱链路聚合 (mLAG)</li>
 <li>首跳冗余协议 (FHRP)</li>
 </ol>
+<p>这六项不是并列关系，而是<strong>互相牵制</strong>的：</p>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>解决的问题</th>
+<th>与其它技术的耦合点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>STP</strong></td>
+<td>防环</td>
+<td>决定哪个端口阻塞 → 决定 FHRP 流量走哪条路</td>
+</tr>
+<tr>
+<td><strong>VLAN</strong></td>
+<td>分割广播域与故障域</td>
+<td>决定 STP 实例数量、子网范围、安全边界</td>
+</tr>
+<tr>
+<td><strong>Trunk</strong></td>
+<td>一条链路承载多 VLAN</td>
+<td>决定 VLAN 能跨多远、native VLAN 安全风险</td>
+</tr>
+<tr>
+<td><strong>链路聚合</strong></td>
+<td>带宽与链路冗余</td>
+<td>STP 把聚合口当一条逻辑链路，收敛更快</td>
+</tr>
+<tr>
+<td><strong>mLAG</strong></td>
+<td>跨设备聚合，消除 STP 依赖</td>
+<td>取代 STP 四拓扑，引入脑裂风险</td>
+</tr>
+<tr>
+<td><strong>FHRP</strong></td>
+<td>网关冗余</td>
+<td>必须与 STP 根桥对齐，否则次优路径</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>设计顺序很重要</strong>：先定 <strong>VLAN 的范围</strong>（哪些子网要跨交换机），再定 <strong>STP 还是集群</strong>，最后定 <strong>FHRP 与根桥的位置</strong>。反过来做——先配 HSRP 再想 STP——就会出现后面案例一那个经典事故。</p>
+</blockquote>
 <hr />
 <h3 id="spanning-tree-protocol-stp">生成树协议 (Spanning Tree Protocol, STP)<a class="anchor" href="#spanning-tree-protocol-stp" title="Permanent link"></a></h3>
 <p>STP 是经典二层交换网络环境中最成熟和最常用的控制协议，用于防止二层桥接环路。它通过阻塞冗余 L2 接口来提供无环拓扑。</p>
-<h4 id="stp">STP 版本<a class="anchor" href="#stp" title="Permanent link"></a></h4>
+<h4 id="stp_1">STP 版本<a class="anchor" href="#stp_1" title="Permanent link"></a></h4>
 <table>
 <thead>
 <tr>
 <th>版本</th>
 <th>标准</th>
 <th>特点</th>
+<th>实际设计含义</th>
 </tr>
 </thead>
 <tbody>
@@ -72,26 +140,48 @@
 <td><strong>802.1D</strong></td>
 <td>传统 STP</td>
 <td>基础版本，收敛较慢</td>
+<td>收敛 30–50 秒，现代网络基本不用</td>
 </tr>
 <tr>
 <td><strong>802.1W</strong></td>
 <td>快速 STP (RSTP)</td>
 <td>增强收敛时间，支持大规模部署</td>
+<td>收敛 1–3 秒，<strong>现代默认基线</strong></td>
 </tr>
 <tr>
 <td><strong>802.1S</strong></td>
 <td>多生成树 (MST)</td>
 <td>将多个 VLAN 聚合到同一 STP 实例，减少 CPU 负载，支持超大规模部署</td>
+<td>VLAN 数量大时的必需品</td>
 </tr>
 </tbody>
 </table>
-<h4 id="stp_1">STP 增强特性<a class="anchor" href="#stp_1" title="Permanent link"></a></h4>
+<h4 id="rstp">收敛机制：为什么 RSTP 是"质变"而不是"量变"<a class="anchor" href="#rstp" title="Permanent link"></a></h4>
+<p>这是本章少数值得真正理解协议细节的地方，因为<strong>收敛时间直接等于业务中断时长</strong>。</p>
+<pre><code>802.1D 的收敛（计时器驱动）：
+  链路断 → 阻塞端口等 Max Age（20s）超时
+        → Listening（15s，不转发不学 MAC）
+        → Learning（15s，不转发但学 MAC）
+        → Forwarding
+  合计 ≈ 30–50 秒
+
+RSTP 的收敛（协商驱动）：
+  链路断 → 相邻交换机通过 Proposal/Agreement 握手
+        → 逐跳把指定端口推到 Forwarding
+        → 边缘端口（PortFast）完全跳过参与
+  合计 ≈ 1–3 秒（直连故障可达毫秒级，靠链路检测）
+</code></pre>
+<blockquote>
+<p>💡 <strong>关键区别</strong>：802.1D 是"<strong>等计时器</strong>"，RSTP 是"<strong>问邻居</strong>"。等是死等，问是协商——所以 RSTP 的收敛<strong>不随拓扑规模线性变差</strong>。这才是它"支持大规模部署"的真实原因。</p>
+</blockquote>
+<h4 id="stp_2">STP 增强特性<a class="anchor" href="#stp_2" title="Permanent link"></a></h4>
 <table>
 <thead>
 <tr>
 <th>特性</th>
 <th>功能</th>
 <th>部署位置</th>
+<th>防的是什么故障</th>
 </tr>
 </thead>
 <tbody>
@@ -99,26 +189,32 @@
 <td><strong>Loop Guard</strong></td>
 <td>防止备用端口或根端口在没有 BPDU 的情况下被选举</td>
 <td>分布层下行端口</td>
+<td><strong>单向链路</strong>：BPDU 收不到但数据能通，端口误升为转发 → 成环</td>
 </tr>
 <tr>
 <td><strong>Root Guard</strong></td>
 <td>防止外部或下游交换机成为根桥</td>
 <td>分布层下行端口</td>
+<td>下游接了一台优先级更低的交换机抢走根桥 → 全网路径重算</td>
 </tr>
 <tr>
 <td><strong>BPDU Guard</strong></td>
 <td>在启用了 PortFast 的端口收到 BPDU 时禁用该端口</td>
 <td>接入层端口</td>
+<td>用户私接交换机/路由器形成环路</td>
 </tr>
 <tr>
 <td><strong>BPDU Filter</strong></td>
 <td>阻止在 PortFast 端口上发送或接收 BPDU</td>
 <td>接入层端口</td>
+<td>抑制边缘端口向外发 BPDU（<strong>有风险，见下</strong>）</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。</p>
+<p>⚠️ <strong>BPDU Filter 的双面性</strong>：它在边缘端口上等同于"放弃 STP 保护"。一旦用户在该端口下接了交换机形成环路，BPDU 既发不出去也收不到，STP 完全不知情 → 直接广播风暴。<strong>边缘端口请用 BPDU Guard（发现 BPDU 就关端口），而不是 BPDU Filter（假装没看见）。</strong></p>
+<p>💡 <strong>Loop Guard 的搭档是 UDLD</strong>：两者都防单向链路，但机制不同——Loop Guard 看 BPDU 是否超时（STP 层），UDLD 看邻居是否回应（链路层）。<strong>UDLD aggressive 在光纤单通场景下检测更快</strong>，两者可同时部署、互为补充。</p>
+<p>💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。优点是每个 VLAN 可设自己的根桥做流量分担，缺点是<strong>实例数 = VLAN 数</strong>——1000 个 VLAN 就是 1000 份 BPDU 与 1000 份状态机，CPU 和收敛开销线性上升。这就是 MST 存在的理由。</p>
 </blockquote>
 <hr />
 <h3 id="vlan-trunking">VLAN 和 Trunking<a class="anchor" href="#vlan-trunking" title="Permanent link"></a></h3>
@@ -126,6 +222,70 @@
 <p><strong>Trunking</strong> 是允许在单条物理链路上承载多个 VLAN 的协议，使 VLAN 可以跨交换机扩展。</p>
 <blockquote>
 <p>⚠️ <strong>设计最佳实践</strong>：VLAN 不应跨多台接入交换机。但这只是一般建议——某些设计需要 VLAN 跨交换机扩展（如多数据中心虚拟机迁移场景）。</p>
+</blockquote>
+<h4 id="vlan-vs-vlan">设计核心取舍：端到端 VLAN vs 本地 VLAN<a class="anchor" href="#vlan-vs-vlan" title="Permanent link"></a></h4>
+<p>这是本章<strong>最重要的一个设计决策</strong>，书里只是一笔带过，但它决定了整个园区的行为。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>做法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>端到端 VLAN（E2V）</strong></td>
+<td>同一 VLAN 从接入一直延伸到核心，跨所有交换机</td>
+<td>用户走到哪都属于同一子网，策略集中，管理"感觉"简单</td>
+<td><strong>STP 域横跨全网</strong>；广播泛洪到每个角落；任何一处环路影响全网；故障定位极难</td>
+</tr>
+<tr>
+<td><strong>本地 VLAN（Local VLAN）</strong></td>
+<td>每个接入交换机（或每层楼）一个 VLAN，到分布层就三层终结</td>
+<td>广播域被物理限制；STP 域小、收敛快；故障影响面可控</td>
+<td>VLAN 与子网数量多；IP 规划与路由配置工作量上升</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>今天的答案几乎是唯一的：本地 VLAN + 三层到接入。</strong> 端到端 VLAN 是"扁平网络"时代的遗产，它的代价（故障域）在第 6 章零售连锁的案例里已经充分体现——一个门店的环路让全公司瘫痪 40 分钟。</p>
+<p>⚠️ <strong>但有一条例外</strong>：需要<strong>跨交换机二层扩展</strong>的场景（虚拟机跨宿主迁移、集群心跳、遗留的私有二层协议设备）必须用端到端 VLAN。这时正确的做法不是"忍受 STP"，而是<strong>换工具</strong>——用 mLAG / 交换机集群 / EVPN 把这部分二层的故障域限制住。</p>
+</blockquote>
+<h4 id="trunk">Trunk 设计要点<a class="anchor" href="#trunk" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>显式配置 native VLAN，且不用 VLAN 1</strong></td>
+<td>native VLAN 不打标签，两端不一致会<strong>把两个 VLAN 桥接在一起</strong>（VLAN hopping 风险）</td>
+</tr>
+<tr>
+<td><strong>裁剪允许的 VLAN 列表</strong></td>
+<td>默认允许全部 VLAN → 泛洪与 BPDU 跟着所有 VLAN 走，收窄后故障面下降</td>
+</tr>
+<tr>
+<td><strong>统一使用 802.1Q</strong></td>
+<td>ISL 已淘汰，多厂商互通只认 802.1Q</td>
+</tr>
+<tr>
+<td><strong>关闭不必要的 VTP 自动同步</strong></td>
+<td>VTP 域内一台设备误删 VLAN，全网同步删除，是历史重大事故来源</td>
+</tr>
+<tr>
+<td><strong>Trunk 只跑在交换机互联链路上</strong></td>
+<td>用户端口绝不做 trunk；配合 BPDU Guard 与端口安全</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>VLAN 1 为什么危险</strong>：它是所有端口的默认 VLAN、承载 STP/CDP/VTP 等控制协议、且常被两端默认放行。把管理流量放在 VLAN 1，等于让控制平面和数据平面共用一个"人人可达"的通道。</p>
 </blockquote>
 <hr />
 <h3 id="link-aggregation">链路聚合 (Link Aggregation)<a class="anchor" href="#link-aggregation" title="Permanent link"></a></h3>
@@ -155,8 +315,150 @@
 </table>
 <blockquote>
 <p>⚠️ 每个单独的流量受限于该流量使用的成员链路速度（基于负载均衡哈希算法）。</p>
-<p>💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。</p>
 </blockquote>
+<h4 id="_2">负载分担的真实限制（最容易被误解的一点）<a class="anchor" href="#_2" title="Permanent link"></a></h4>
+<p>上面那句话的工程含义是：</p>
+<pre><code>8 条 10G 组成 port-channel，总容量 80G —— 这是&quot;多条流量加总&quot;的上限
+单个 TCP 流（同一对 src/dst IP + 同一对端口）→ 哈希结果固定 → 永远走同一条 10G
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>能否获得聚合带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大量终端并发访问（多对 IP）</td>
+<td>✅ 可以，接近总容量</td>
+</tr>
+<tr>
+<td>两台服务器之间的单条备份/迁移流</td>
+<td>❌ 不能，上限 = 单成员链路速率</td>
+</tr>
+<tr>
+<td>存储复制、数据库主备同步</td>
+<td>❌ 不能（单流，或同 IP 对的多流）</td>
+</tr>
+<tr>
+<td>虚拟机集群多宿主并发</td>
+<td>✅ 可以（多对 IP + 多端口）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>改善哈希分布的三个手段</strong>：</p>
+<ol>
+<li>把哈希因子从 <strong>L2（MAC）改为 L3+L4（IP + 端口）</strong>——端口组合多，分布更均匀</li>
+<li>增加<strong>并发流数量</strong>（应用侧多线程/多连接）</li>
+<li>用 <strong>mLAG 跨设备聚合</strong>，让流量有多个出口路径可选</li>
+</ol>
+<h4 id="lacp">LACP 与设计约束<a class="anchor" href="#lacp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>成员链路必须同速、同双工、同 MTU</strong></td>
+<td>不一致的成员会被挂起，链路容量<strong>静默减半</strong></td>
+</tr>
+<tr>
+<td><strong>LACP 模式</strong></td>
+<td><code>active</code>（主动发 LACPDU）/ <code>passive</code>（等对方发），<strong>至少一端 active</strong>；静态 channel-group 无法检测错配</td>
+</tr>
+<tr>
+<td><strong>成员数上限</strong></td>
+<td>常见 8 或 16（其中 8 条转发），跨板卡分布避免单板故障</td>
+</tr>
+<tr>
+<td><strong>不要跨不同代际设备做聚合</strong></td>
+<td>硬件哈希算法不同，可能导致<strong>去程/回程走不同成员</strong>，出现乱序</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。类似的还有 StackWise（堆叠）、vPC（Nexus）与各厂商的标准 M-LAG——它们解决的是<strong>同一个问题</strong>，只是实现层级不同（见下方横向对比）。</p>
+</blockquote>
+<hr />
+<h3 id="mlag">mLAG / 交换机集群（二层多机箱技术）<a class="anchor" href="#mlag" title="Permanent link"></a></h3>
+<p>严格说 mLAG 是<strong>机制</strong>，"交换机集群"是<strong>效果</strong>。它们的目标只有一个：</p>
+<blockquote>
+<p><strong>让接入交换机认为上联的是一台交换机</strong>，于是它可以对两台设备做 port-channel，所有链路都能转发，STP 无事可做。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>实现</th>
+<th>厂商 / 形态</th>
+<th>控制面</th>
+<th>特点与限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VSS</strong></td>
+<td>Cisco Catalyst</td>
+<td>双主控合一（真·单控制面）</td>
+<td>需专用 VSL 链路；升级时整体重启（后续版本支持 ISSU）</td>
+</tr>
+<tr>
+<td><strong>StackWise</strong></td>
+<td>Cisco 接入/小型核心</td>
+<td>单一主交换机</td>
+<td>环状堆叠线缆；<strong>链路过长时收敛慢，一般不超过 4–8 台</strong></td>
+</tr>
+<tr>
+<td><strong>vPC</strong></td>
+<td>Cisco Nexus</td>
+<td>双控制面 + peer-link 同步</td>
+<td>数据面独立、控制面配合；需 peer-keepalive 防脑裂</td>
+</tr>
+<tr>
+<td><strong>标准 M-LAG</strong></td>
+<td>多厂商（802.1AX + 厂商扩展）</td>
+<td>双控制面</td>
+<td>互通性好；一致性检查与双主检测细节各家不同</td>
+</tr>
+<tr>
+<td><strong>EVPN Multihoming</strong></td>
+<td>标准化（第 6 章）</td>
+<td>BGP 控制面</td>
+<td>无 peer-link 概念，扩展性最好；需要 EVPN 底座</td>
+</tr>
+</tbody>
+</table>
+<p><strong>共同的能力</strong>（也正是交换机集群取代 STP 的原因）：</p>
+<ul>
+<li><strong>消除对 STP 和 FHRP 的依赖</strong>，消除相关收敛延迟</li>
+<li>所有上行链路处于转发状态</li>
+<li>一个虚拟 IP 网关，两台交换机都转发流量（Active-Active）</li>
+<li><strong>最大化带宽容量</strong>，利用所有上行链路</li>
+<li>支持跨接入交换机安全扩展二层 VLAN，无需担心二层环路</li>
+<li>比传统 STP 设计更简单、可靠、易管理、可扩展</li>
+</ul>
+<p><strong>必须知道的两个细节</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>细节</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orphan Port（孤口）</strong></td>
+<td>只单归到一台成员设备的端口。该成员故障时此端口流量中断（无对端备份），设计时尽量双归</td>
+</tr>
+<tr>
+<td><strong>一致性检查</strong></td>
+<td>VLAN 列表、STP 参数、MTU、聚合配置两侧必须完全一致，不一致会导致部分 VLAN <strong>静默不通</strong></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h3 id="fhrp-stp">首跳冗余协议 (FHRP) 和 STP<a class="anchor" href="#fhrp-stp" title="Permanent link"></a></h3>
 <p>FHRP 提供首跳三层网关的透明故障转移能力。两台或多台三层设备作为一个组，代表一个虚拟三层网关。</p>
@@ -215,7 +517,13 @@
 </tr>
 </tbody>
 </table>
-<h4 id="fhrp-stp_1">FHRP 和 STP 对齐设计（关键！）<a class="anchor" href="#fhrp-stp_1" title="Permanent link"></a></h4>
+<p><strong>选型的实际考量</strong>：</p>
+<ul>
+<li><strong>多厂商环境只能选 VRRP</strong>（HSRP / GLBP 是专有协议）</li>
+<li><strong>HSRP/VRRP 的"负载分担"是伪负载分担</strong>：需要按 VLAN 配置多个组，每组一个 Active 一个 Standby，配置量 = 2 × VLAN 数</li>
+<li><strong>GLBP 原生负载分担，但确定性差</strong>：ARP 响应分配是随机的，排障时"为什么这台主机走了备用网关"很难解释</li>
+</ul>
+<h4 id="fhrp-stp_1">FHRP 和 STP 对齐设计（本章最关键的一条）<a class="anchor" href="#fhrp-stp_1" title="Permanent link"></a></h4>
 <blockquote>
 <p>⚠️ <strong>最常见的网络设计错误之一</strong>：STP 根桥未与 FHRP 活动实例对齐。</p>
 </blockquote>
@@ -224,16 +532,71 @@
 2. VLAN <strong>不跨交换机扩展</strong>
 3. <strong>STP 根桥与每个 VLAN 的活动 FHRP 实例对齐</strong>
 4. 接入层到分布层的上行链路从 STP 角度都是<strong>转发状态</strong></p>
+<p><strong>为什么必须对齐</strong>——用一张流量图说明：</p>
+<pre><code>【未对齐 · 错】
+      DSW1 (STP 根桥)  ═══════  DSW2 (HSRP Active)
+        │ 转发                      │ 转发
+        └───────── ASW ─────────────┘
+
+  主机 → ASW：上行流量因根桥在 DSW1 而全部走 DSW1
+       → 但网关 MAC 在 DSW2，DSW1 必须把流量送过核心间链路到 DSW2
+       → 再经 DSW2 出网
+  结果：核心间链路承载了本该由 ASW 直接上行的流量
+        +1 跳延迟，核心间链路成为瓶颈，一侧故障时行为难以预测
+
+【对齐 · 对】
+      DSW1 (VLAN 10/30 的根桥 + HSRP Active)  ═══════  DSW2 (VLAN 20/40 的根桥 + HSRP Active)
+  结果：ASW 上行流量直达本地网关，核心间链路只承载跨 VLAN 与 WAN 流量
+</code></pre>
 <p><strong>未对齐的后果</strong>：
 - 流量经过额外跳到达活动 FHRP 网关
 - 次优路由
 - 在大多数情况下被视为糟糕的设计</p>
 <blockquote>
+<p>💡 <strong>对齐的三个可操作规则</strong>：
+1. <strong>同一 VLAN 的 HSRP Active 与 STP 根桥必须是同一台设备</strong>——<code>spanning-tree vlan X root primary</code> 和 <code>standby X priority</code> 要成对配置
+2. <strong>用多组 HSRP 做分流</strong>：VLAN 10/30/50 的 Active 在 DSW1（同时是这些 VLAN 的根桥），VLAN 20/40/60 在 DSW2
+3. <strong>上行用 port-channel 或 mLAG</strong>，STP 无阻塞端口，对齐问题从根上消失</p>
 <p>💡 当使用 GLBP 作为 FHRP 时，由于 ARP 响应分配是随机的，不如 HSRP 或 VRRP 确定性强。</p>
+</blockquote>
+<h4 id="bfd">计时器、BFD 与链路跟踪<a class="anchor" href="#bfd" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+<th>设计建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hello / Hold 计时器</strong></td>
+<td>决定故障检测时间</td>
+<td>默认 3s / 10s 已足够；调到 250ms 增加 CPU 与误切换风险</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>毫秒级故障检测，独立于 FHRP 计时器</td>
+<td><strong>推荐用 BFD 而不是猛调计时器</strong>：更快且不增加协议开销</td>
+</tr>
+<tr>
+<td><strong>Object Tracking</strong></td>
+<td>跟踪上行接口、路由或 IP SLA，上行断则主动降优先级</td>
+<td><strong>必配</strong>：否则上行断了 FHRP 仍 Active，形成黑洞</td>
+</tr>
+<tr>
+<td><strong>Preempt（抢占）</strong></td>
+<td>主设备恢复后抢回 Active</td>
+<td>开启（否则长期次优），但配合<strong>延迟抢占</strong>避免抖动</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>"上行断了网关还活着"是最隐蔽的黑洞</strong>：两台分布交换机都正常，但 DSW1 到 WAN 的上行断了。没配跟踪时 DSW1 仍是 HSRP Active，它接收主机流量却转发不出去。用户侧的表现是「<strong>网关能 ping 通，但上不了网</strong>」。解法就是 object tracking + 抢占。</p>
 </blockquote>
 <hr />
 <h2 id="lan">二层 LAN 常见设计模型<a class="anchor" href="#lan" title="Permanent link"></a></h2>
-<h3 id="stp_2">基于 STP 的模型<a class="anchor" href="#stp_2" title="Permanent link"></a></h3>
+<h3 id="stp_3">基于 STP 的模型<a class="anchor" href="#stp_3" title="Permanent link"></a></h3>
 <p>四种经典 STP 拓扑：</p>
 <h4 id="1-looped-triangle">1. 环路三角形拓扑 (Looped Triangle)<a class="anchor" href="#1-looped-triangle" title="Permanent link"></a></h4>
 <pre><code>    DSW1 ═══════ DSW2
@@ -279,7 +642,7 @@
 <blockquote>
 <p>⚠️ <strong>共同限制</strong>：所有 STP 模型都依赖 STP 避免环路，依赖 FHRP 计时器收敛。这些依赖导致节点或链路故障时收敛时间增加。调优和对齐 STP 和 FHRP 计时器是推荐做法。</p>
 </blockquote>
-<h4 id="_2">四种拓扑综合对比<a class="anchor" href="#_2" title="Permanent link"></a></h4>
+<h4 id="_3">四种拓扑综合对比<a class="anchor" href="#_3" title="Permanent link"></a></h4>
 <table>
 <thead>
 <tr>
@@ -311,6 +674,52 @@
 </tr>
 </tbody>
 </table>
+<h4 id="u">为什么"无环 U 型"成了现代主流<a class="anchor" href="#u" title="Permanent link"></a></h4>
+<p>书里没有展开，但这是二层设计史上一个真正的转折点：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>环路三角形</th>
+<th>无环 U 型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接入上行链路</td>
+<td>2 条中 1 条被 STP 阻塞（浪费 50%）</td>
+<td>2 条都转发（利用率 100%）</td>
+</tr>
+<tr>
+<td>单台分布交换机故障</td>
+<td>仍有一条路径（要等 STP 收敛）</td>
+<td><strong>失去一半路径</strong>（另一半仍在，路由秒级收敛）</td>
+</tr>
+<tr>
+<td>收敛依赖</td>
+<td>STP 重新收敛（1–3 秒）</td>
+<td><strong>链路检测 + 路由</strong>（毫秒~亚秒级）</td>
+</tr>
+<tr>
+<td>跨交换机 VLAN</td>
+<td>可以（靠 STP 防环）</td>
+<td><strong>不能</strong>（这是它唯一的代价）</td>
+</tr>
+<tr>
+<td>FHRP 对齐</td>
+<td>必须小心对齐，否则次优</td>
+<td>不依赖 STP，天然对齐</td>
+</tr>
+</tbody>
+</table>
+<p><strong>它成立的前提是"VLAN 不跨交换机"</strong>——也就是本地 VLAN 模型。于是形成一个漂亮的闭环：</p>
+<pre><code>VLAN 不跨交换机 → 二层无环 → STP 无事可做 → 所有链路转发 → 收敛只靠链路检测
+      ↑                                                        ↓
+      └──── 代价：需要三层路由到接入，IP 规划要更细 ←────────────┘
+</code></pre>
+<blockquote>
+<p>💡 <strong>这是本章最值得带走的设计范式</strong>：用<strong>"限制二层范围"</strong>换<strong>"消除二层协议的不确定性"</strong>。同一思路在第 9 章（虚拟化）和第 16 章（园区）会反复出现——<strong>现代网络设计的通用手法，是把问题从二层移到三层，因为在三层你能用可见、可预测的路由控制它。</strong></p>
+</blockquote>
 <hr />
 <h3 id="switch-clustering-based-virtual-switch">交换机集群模型 (Switch Clustering Based / Virtual Switch)<a class="anchor" href="#switch-clustering-based-virtual-switch" title="Permanent link"></a></h3>
 <p>交换机集群显著改变了接入层和分布层之间的二层设计模型。</p>
@@ -326,12 +735,18 @@
 - 两台或更多集群设备同时充当主设备
 - 通常由集群链路故障引起
 - 使用<strong>双活检测 (Dual Active Detection)</strong> 机制来缓解</p>
+<blockquote>
+<p>⚠️ <strong>脑裂是这类技术唯一的"致命伤"，而且它是配置问题、不是技术问题</strong>：双活检测链路必须与 peer-link <strong>物理路径分离</strong>（不同光缆、不同路由、不同机房入口）。如果两者走同一根光缆，施工挖断时你会同时失去 peer-link 和检测能力——两台设备都认为对方死了，都成为主设备，全网 ARP 冲突、MAC 抖动。下面的案例二就是这个事故的完整复盘。</p>
+</blockquote>
 <h4 id="stacking">交换机堆叠 (Stacking)<a class="anchor" href="#stacking" title="Permanent link"></a></h4>
 <p>交换机堆叠是集群的另一种形式：
 - 多台物理交换机通过 StackWise 互联电缆连接
 - 选举主交换机
 - 作为单一对象管理，使用单一 IP 管理地址和单一配置文件
 - 可创建 EtherChannel 连接和 MEC（多机箱 EtherChannel）</p>
+<blockquote>
+<p>💡 <strong>堆叠与 vPC 的取舍</strong>：堆叠是"真单控制面"，配置简单、无脑裂（环状堆叠线缆断裂会分裂成两个 stack，但检测机制成熟）；代价是<strong>控制面共命运</strong>——主交换机重启可能导致整个 stack 重启，逻辑上是一台设备也就没有"分布层分离"的可维护性。vPC 保持双控制面，可独立升级维护，代价是配置一致性要求高、需要防脑裂。<strong>核心层选 vPC/M-LAG，接入层可以选堆叠。</strong></p>
+</blockquote>
 <hr />
 <h3 id="daisy-chained-access-switches">菊花链接入交换机 (Daisy-Chained Access Switches)<a class="anchor" href="#daisy-chained-access-switches" title="Permanent link"></a></h3>
 <blockquote>
@@ -340,6 +755,363 @@
 - 使用分布交换机 1 作为活动 FHRP 网关的设备可能丢失 50% 的返回流量</p>
 <p>💡 当建议替代方案时，必须确保新设计不会在故障场景中引入新的问题。否则新引入的问题将超过方案的好处。</p>
 </blockquote>
+<p><strong>为什么"临时方案"往往永久留下来</strong>：菊花链节省了上行端口和光纤（N 台交换机只需要 1 组上联而不是 N 组），在预算紧张时非常有吸引力。它的真实代价要到故障时才暴露：</p>
+<table>
+<thead>
+<tr>
+<th>故障</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>链中间某台交换机断电</td>
+<td><strong>下游全部失联</strong>（链式无环，没有备用路径）</td>
+</tr>
+<tr>
+<td>环状菊花链（首尾相接）</td>
+<td>STP 收敛要跨越多台设备，收敛时间线性增加</td>
+</tr>
+<tr>
+<td>中间设备被误配 HSRP</td>
+<td>出现第二个网关，部分主机网关指向错误设备</td>
+</tr>
+<tr>
+<td>广播/组播泛洪</td>
+<td>泛洪必须逐跳穿越整条链，链路带宽被无谓消耗</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>如果必须用菊花链</strong>：仅限非关键区域，设备数控制在 3–4 台以内，并明确"下游整体作为单一故障域"的可用性预期——写进设计文档，而不是默认它不会出问题。</p>
+</blockquote>
+<hr />
+<h2 id="_4">扩展：二层设计决策树<a class="anchor" href="#_4" title="Permanent link"></a></h2>
+<p>把本章内容压缩成一棵可以在设计评审时直接走一遍的树：</p>
+<pre><code>① 这个二层域需要跨两台以上的接入交换机吗？
+   ├─ 不需要 → 本地 VLAN + 三层到接入
+   │           → 二层无环，STP 只做保护，收敛不依赖 STP
+   └─ 需要 → ② 有跨设备二层扩展的硬需求吗？（虚拟机迁移/集群心跳/私有协议）
+              ├─ 没有 → 说明这是&quot;习惯&quot;而不是需求 → 回到本地 VLAN
+              └─ 有 → ③ 上游设备支持集群吗？
+                       ├─ 支持 → mLAG / vPC / VSS / EVPN-MH
+                       │          → 上行全转发，STP 与 FHRP 都不参与决策
+                       │          → 必须做：双活检测路径与 peer-link 物理分离
+                       └─ 不支持 → 只能用 STP 四拓扑
+                                  → 优先&quot;无环 U 型&quot;（VLAN 不跨交换机）
+                                  → 必须做：根桥 = FHRP Active，且两侧成对配置
+</code></pre>
+<blockquote>
+<p>💡 <strong>决策树的价值</strong>：它把"要不要上 mLAG"这类争论变成两个可验证的问题——<strong>二层域多大、硬需求有没有</strong>。技术选型之争，八成是因为没先问清这两个问题。</p>
+</blockquote>
+<hr />
+<h2 id="_5">扩展：收敛时间的真实构成<a class="anchor" href="#_5" title="Permanent link"></a></h2>
+<p>配置里写的"STP 收敛 3 秒"只是故事的一小部分。用户感知到的中断，是多个定时器叠加的结果：</p>
+<pre><code>链路/节点故障
+  ↓
+① 物理检测：光纤断 = 毫秒；铜缆/对端断电 = 依赖链路 keepalive
+  ↓
+② STP/RSTP 收敛：1–3 秒（若规则是&quot;三层到接入&quot;，这一步不存在）
+  ↓
+③ FHRP 切换：Hello 3s + Hold 10s，或 BFD 数百毫秒
+  ↓
+④ 上游路由收敛：OSPF/EIGRP/BGP，秒级到数十秒
+  ↓
+⑤ ARP/MAC 表重建：主机重新 ARP，网关重新学习 MAC，几十毫秒到秒级
+  ↓
+业务恢复
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>设计手段</th>
+<th>主要压缩哪一段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>三层到接入（VLAN 不跨交换机）</td>
+<td>②③ 直接消除</td>
+</tr>
+<tr>
+<td>mLAG / 交换机集群</td>
+<td>②③ 直接消除</td>
+</tr>
+<tr>
+<td>BFD（替代调小计时器）</td>
+<td>③ 从 10 秒到亚秒</td>
+</tr>
+<tr>
+<td>上行 port-channel 跨板卡</td>
+<td>① 避免单板故障导致整链路 down</td>
+</tr>
+<tr>
+<td>网关 ARP 抑制 / 提前下发</td>
+<td>⑤ 减少主机重新 ARP 的等待</td>
+</tr>
+<tr>
+<td>路由协议快速收敛（LSA 洪泛优化、BFD）</td>
+<td>④ 秒级到亚秒</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>常见误判</strong>：以为"把 STP 计时器调快"就能改善体验。实际上如果 ③④⑤ 占了 20 秒，②从 3 秒降到 1 秒几乎无感。<strong>先测出时间花在哪一段，再优化那一段。</strong></p>
+</blockquote>
+<hr />
+<h2 id="_6">实战案例<a class="anchor" href="#_6" title="Permanent link"></a></h2>
+<h3 id="_7">案例一：网关上在了一台设备，根桥在另一台<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某高校新建教学楼，分布层两台核心 DSW1、DSW2，接入交换机 ASW 双上行。HSRP 配好了，STP 也"没报错"，割接顺利完成。上线一周后投诉集中在：<strong>跨网段访问慢、下载只有 30MB/s（千兆链路），视频会议卡</strong>。</p>
+<p><strong>排查过程</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>发现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接入交换机上行链路利用率</td>
+<td>上行 1 号口 75%，上行 2 号口 <strong>0%</strong>（被 STP 阻塞）</td>
+</tr>
+<tr>
+<td>两台核心之间的互联链路</td>
+<td><strong>利用率 70%</strong>，几乎没有空闲</td>
+</tr>
+<tr>
+<td>STP 根桥</td>
+<td>全部 VLAN 都在 DSW1</td>
+</tr>
+<tr>
+<td>HSRP Active</td>
+<td>全部 VLAN 都在 DSW2（配置时按"DSW2 是新设备所以做主机"的直觉配的）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>问题链条</strong>：</p>
+<pre><code>所有主机的网关 MAC 都在 DSW2
+  → 但 ASW 的上行流量因根桥在 DSW1 而有 50% 被阻塞，活的那条只能到 DSW1
+  → DSW1 收到目的 MAC 为网关的帧，自己不是网关，只能从核心间链路送到 DSW2
+  → 所有跨网段流量的往返都要绕行 DSW2
+  → 核心间链路带宽被吃满 → 高峰期丢包 → 表现为&quot;时快时慢&quot;
+</code></pre>
+<p><strong>修正（三步，无需采购）</strong>：
+1. 把 DSW1 设为 VLAN 10/30/50 的根桥，HSRP Active 同步改到 DSW1；DSW2 反过来做 VLAN 20/40/60
+2. 两条上行做 port-channel（或启用 vPC），<strong>两条都转发</strong>
+3. 核心间链路改为三层互联</p>
+<p><strong>效果</strong>：核心间链路利用率从 70% 降到 12%；接入上行两条都跑起来；投诉消失。</p>
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>"STP 没报警"不等于"设计对了"。</strong> STP 只保证无环，从不保证最优。<strong>根桥位置和 FHRP Active 必须成对配置</strong>——它们描述的是同一件事：流量该往哪走。</p>
+</blockquote>
+<hr />
+<h3 id="vpc">案例二：vPC 脑裂，两小时全厂停机<a class="anchor" href="#vpc" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某汽车零部件工厂，两台 Nexus 做 vPC 作为核心，下接十余台接入交换机。peer-link 是一根跨楼层的单模光纤，peer-keepalive 走管理网——但管理网的光纤<strong>和 peer-link 走在同一个桥架、同一根管道里</strong>。</p>
+<p><strong>事故过程</strong>：</p>
+<pre><code>14:05  厂区施工，一处桥架被叉车撞断
+       → peer-link 断 + peer-keepalive 同时断（同一条物理路径）
+14:05  两台核心都检测不到对端：
+       - peer-link down → 无法判断对端是死是活
+       - keepalive 也不通 → 判定对端已死
+       → 两台设备都认为自己是 primary，都激活全部 vPC 端口
+14:06  脑裂开始：两台设备同时作为所有 VLAN 的网关
+       - 同一 IP 出现在两处 → ARP 冲突
+       - MAC 表在两台设备之间反复翻转 → 大量流量被送到错误的设备
+       - 部分主机 ARP 缓存被污染，网关不可达
+14:10  运维重启一台核心 → 短暂恢复 → 但配置不一致导致部分 VLAN 不通
+16:20  全部恢复
+</code></pre>
+<p><strong>根因（不是技术限制，是设计缺陷）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keepalive 与 peer-link 同一物理路径</td>
+<td>keepalive 必须走<strong>独立路由</strong>（不同光缆、不同楼层入口，最好不同运营商）</td>
+</tr>
+<tr>
+<td>未配置双活检测（如 vPC 的 dual-active / 管理面脚本）</td>
+<td>检测机制要先于业务上线就位</td>
+</tr>
+<tr>
+<td>两台设备配置未做定期一致性比对</td>
+<td>建立配置基线比对（第 12 章自动化）</td>
+</tr>
+<tr>
+<td>无"脑裂后手工恢复"预案</td>
+<td>预案必须演练过，且明确"先停一侧全部 vPC 端口"</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>所有冗余设计都有一个前提——冗余的两条路径不能同时失效。</strong> peer-link 和检测链路本质上是同一份"心跳"，把它们放在一根管道里，等于用两个副本做了同一个单点。设计评审时对每一对"主备/双活"都要问一句：<strong>它们的失效域是独立的吗？</strong></p>
+</blockquote>
+<hr />
+<h3 id="8-12g">案例三：8 条万兆聚合，实测只有 12G<a class="anchor" href="#8-12g" title="Permanent link"></a></h3>
+<p><strong>背景</strong>：某设计把备份服务器双归到核心，用 8×10G port-channel，设计文档写"80G 备份带宽"。上线后夜间备份窗口仍然跑不完，实测峰值只有 12G 左右。</p>
+<p><strong>分析</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>发现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port-channel 状态</td>
+<td>8 条成员全部 up、全部转发，无问题</td>
+</tr>
+<tr>
+<td>哈希因子</td>
+<td>默认 <strong>仅 L2（src/dst MAC）</strong></td>
+</tr>
+<tr>
+<td>流量构成</td>
+<td>备份服务器 → 磁带库，<strong>单一 TCP 会话</strong>，一组 IP pair</td>
+</tr>
+<tr>
+<td>单成员链路速率</td>
+<td>10G；实测 12G 说明只有约 1–2 条成员被用到</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：哈希是<strong>按流</strong>分配的，单流永远跑不满聚合带宽。这是物理规律，不是配置错误——<strong>port-channel 增加的是"多条流的加总容量"，不是"单流的速率"</strong>。</p>
+<p><strong>修正（组合拳）</strong>：
+1. 哈希因子改为 <strong>L3+L4</strong>（src/dst IP + 端口）
+2. 备份软件配置<strong>多流并发</strong>（16–32 个会话），并做源端口随机化
+3. 服务器侧改双网卡多 IP，制造更多哈希维度
+4. 结果：峰值提升到约 45G，备份窗口缩短 60%</p>
+<p><strong>另一个教训</strong>：设计文档里"80G"这个数字误导了业务方，<strong>容量承诺要写清楚是"聚合容量"还是"单流速率"</strong>，否则验收时无法解释。</p>
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>链路聚合是"多车道公路"，不是"让一辆车开得更快"。</strong> 需要单流高速率（迁移、复制、超算），只有两条路可走——提升单链路速率（25G/100G），或者让应用把数据拆成多流。</p>
+</blockquote>
+<hr />
+<h2 id="_8">设计陷阱<a class="anchor" href="#_8" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>表现</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>根桥与 FHRP 不对齐</strong></td>
+<td>STP 根桥在 A，网关 Active 在 B</td>
+<td>流量绕行核心间链路，吞吐减半、延迟 +1 跳</td>
+<td>两者成对配置；用多组 HSRP 分流（案例一）</td>
+</tr>
+<tr>
+<td><strong>没有根桥规划</strong></td>
+<td>谁先上线谁是根桥</td>
+<td>某天加了一台设备，全网路径静默改变</td>
+<td>显式配置 <code>root primary/secondary</code> + 优先级</td>
+</tr>
+<tr>
+<td><strong>脑裂检测与 peer-link 同路径</strong></td>
+<td>两者走同一根光缆/管道</td>
+<td>挖断时同时失去链路与检测，全网双主（案例二）</td>
+<td>检测链路物理分离，并提前演练恢复预案</td>
+</tr>
+<tr>
+<td><strong>端到端 VLAN 铺满园区</strong></td>
+<td>一个 VLAN 跨几十台交换机</td>
+<td>STP 域巨大，任何一处环路影响全网</td>
+<td>本地 VLAN + 三层到接入</td>
+</tr>
+<tr>
+<td><strong>边缘端口不做保护</strong></td>
+<td>只开 PortFast，没配 BPDU Guard</td>
+<td>用户私接设备形成环路 → 广播风暴</td>
+<td>PortFast + BPDU Guard + Loop Guard/UDLD</td>
+</tr>
+<tr>
+<td><strong>以为 port-channel 能加速单流</strong></td>
+<td>8×10G 承诺 80G，实测 12G（案例三）</td>
+<td>容量承诺无法兑现，验收争议</td>
+<td>明白"按流哈希"原理，改哈希因子 + 多流</td>
+</tr>
+<tr>
+<td><strong>乱调 STP/FHRP 计时器</strong></td>
+<td>把 Hello 调到 250ms 求"快"</td>
+<td>CPU 升高、链路抖动就误切换</td>
+<td>用 BFD；只在必要时微调</td>
+</tr>
+<tr>
+<td><strong>FHRP 无上行跟踪</strong></td>
+<td>上行断了网关仍 Active</td>
+<td>"网关能 ping 通但上不了网"的黑洞</td>
+<td>object tracking + 合理抢占</td>
+</tr>
+<tr>
+<td><strong>堆叠/菊花链过长</strong></td>
+<td>一条链串 6–8 台接入</td>
+<td>中间设备故障导致下游全断，收敛线性变慢</td>
+<td>控制台数与深度，明确故障域</td>
+</tr>
+<tr>
+<td><strong>VTP 默认开启</strong></td>
+<td>域内误删 VLAN 全网同步</td>
+<td>大范围 VLAN 消失，业务中断</td>
+<td>关闭 VTP 或改用 transparent</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>这十条里有六条源于同一个思维惯性</strong>：把二层当成"能通的线"，而没把它当成"有状态、有收敛、有故障域的网络"。二层不会报错，它只会<strong>安静地变慢或安静地环路</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="_9">实战经验总结<a class="anchor" href="#_9" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>经验</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先问"二层域要多大"</strong></td>
+<td>二层域的范围就是故障域的范围。跨交换机二层是最后手段</td>
+</tr>
+<tr>
+<td><strong>让 STP 无事可做</strong></td>
+<td>三层到接入、mLAG 集群、无环 U 型——三个手段都指向同一目标：无阻塞端口</td>
+</tr>
+<tr>
+<td><strong>根桥与网关成对设计</strong></td>
+<td>它们描述同一件事，分开配迟早会错位</td>
+</tr>
+<tr>
+<td><strong>冗余要检查失效域独立性</strong></td>
+<td>同管道、同桥架、同运营商的两个"副本"仍然是一个单点</td>
+</tr>
+<tr>
+<td><strong>聚合带宽 ≠ 单流速率</strong></td>
+<td>按流哈希是物理规律；需要单流快就提速率，不是加条数</td>
+</tr>
+<tr>
+<td><strong>边缘安全 = 端口安全</strong></td>
+<td>绝大多数生产事故的起点是一个未经保护的接入端口</td>
+</tr>
+<tr>
+<td><strong>收敛时间要分段测量</strong></td>
+<td>STP、FHRP、路由、ARP 各占一段，优化占比最大的那段</td>
+</tr>
+<tr>
+<td><strong>别只测通断，要测行为</strong></td>
+<td>拔一条线、关一台设备，看流量是否按设计改道——演练比配置更有价值</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="key-terms">本章关键术语 (Key Terms)<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
 <table>
@@ -454,8 +1226,76 @@
 <td>MEC</td>
 <td>多机箱 EtherChannel</td>
 </tr>
+<tr>
+<td>vPC</td>
+<td>虚拟端口通道（Nexus）</td>
+</tr>
+<tr>
+<td>M-LAG</td>
+<td>标准多机箱链路聚合</td>
+</tr>
+<tr>
+<td>Orphan Port</td>
+<td>孤口（单归端口）</td>
+</tr>
+<tr>
+<td>Peer-Link</td>
+<td>对等链路</td>
+</tr>
+<tr>
+<td>Peer-Keepalive</td>
+<td>对等保活（防脑裂）</td>
+</tr>
+<tr>
+<td>Object Tracking</td>
+<td>对象跟踪（上行探测）</td>
+</tr>
+<tr>
+<td>BFD</td>
+<td>双向转发检测</td>
+</tr>
+<tr>
+<td>UDLD</td>
+<td>单向链路检测</td>
+</tr>
+<tr>
+<td>Native VLAN</td>
+<td>本征 VLAN（不打标签）</td>
+</tr>
+<tr>
+<td>E2V (End-to-End VLAN)</td>
+<td>端到端 VLAN 模型</td>
+</tr>
+<tr>
+<td>Local VLAN</td>
+<td>本地 VLAN 模型</td>
+</tr>
+<tr>
+<td>MSTP</td>
+<td>多生成树协议</td>
+</tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_10">本章小结<a class="anchor" href="#_10" title="Permanent link"></a></h2>
+<p>第 7 章的主线是一条<strong>"减少依赖"的演进史</strong>：</p>
+<pre><code>802.1D：靠计时器收敛（30–50 秒）——依赖时间
+    ↓ 换成协商
+RSTP/MST：靠邻居握手收敛（1–3 秒）——依赖邻居，不依赖规模
+    ↓ 但仍有端口被阻塞
+链路聚合 + 无环 U 型：没有阻塞端口了，但仍依赖 STP 兜底
+    ↓ 把聚合跨到两台设备
+mLAG / VSS / vPC / EVPN-MH：STP 与 FHRP 退出决策路径
+    ↓ 代价转移到&quot;防脑裂&quot;
+（第 6 章）EVPN Multihoming：用控制面替代 peer-link
+</code></pre>
+<p>三句话概括本章的设计判断：</p>
+<ol>
+<li><strong>二层域的范围 = 故障域的范围</strong>，能三层就三层</li>
+<li><strong>根桥与网关是同一件事的两个配置面</strong>，必须成对</li>
+<li><strong>每项冗余都要验证失效域是否独立</strong>——否则冗余只是心理安慰</li>
+</ol>
+<p>下一章（第 8 章 三层技术）会接着回答本章留下的问题：当二层被压缩到最小之后，三层如何承担起路径控制、故障收敛和可预测性的全部责任。</p></article>
     <nav class="pager"><a class="pager-link prev" href="ch-06.html"><span class="pager-label">上一章</span><span class="pager-title">06 · 传输技术</span></a><a class="pager-link next" href="ch-08.html"><span class="pager-label">下一章</span><span class="pager-title">08 · 三层技术</span></a></nav>
     <footer class="foot">
       <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
@@ -465,21 +1305,34 @@
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#stp">本章导读：二层设计是一场"消灭 STP"的努力</a></li>
 <li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
 <li><a href="#layer-2-core-technologies">二层核心技术 (Layer 2 Core Technologies)</a></li>
 <li><a href="#spanning-tree-protocol-stp">生成树协议 (Spanning Tree Protocol, STP)</a></li>
 <li><a href="#vlan-trunking">VLAN 和 Trunking</a></li>
 <li><a href="#link-aggregation">链路聚合 (Link Aggregation)</a></li>
+<li><a href="#mlag">mLAG / 交换机集群（二层多机箱技术）</a></li>
 <li><a href="#fhrp-stp">首跳冗余协议 (FHRP) 和 STP</a></li>
 </ul>
 </li>
 <li><a href="#lan">二层 LAN 常见设计模型</a><ul>
-<li><a href="#stp_2">基于 STP 的模型</a></li>
+<li><a href="#stp_3">基于 STP 的模型</a></li>
 <li><a href="#switch-clustering-based-virtual-switch">交换机集群模型 (Switch Clustering Based / Virtual Switch)</a></li>
 <li><a href="#daisy-chained-access-switches">菊花链接入交换机 (Daisy-Chained Access Switches)</a></li>
 </ul>
 </li>
+<li><a href="#_4">扩展：二层设计决策树</a></li>
+<li><a href="#_5">扩展：收敛时间的真实构成</a></li>
+<li><a href="#_6">实战案例</a><ul>
+<li><a href="#_7">案例一：网关上在了一台设备，根桥在另一台</a></li>
+<li><a href="#vpc">案例二：vPC 脑裂，两小时全厂停机</a></li>
+<li><a href="#8-12g">案例三：8 条万兆聚合，实测只有 12G</a></li>
+</ul>
+</li>
+<li><a href="#_8">设计陷阱</a></li>
+<li><a href="#_9">实战经验总结</a></li>
 <li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_10">本章小结</a></li>
 </ul>
 </div>
 </div></aside>
