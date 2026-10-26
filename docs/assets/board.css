@@ -39,6 +39,59 @@
   color: var(--text-mute);
 }
 
+/* ---------- 跨设备留言（giscus） ---------- */
+
+.giscus-shell {
+  margin: 4px 0 8px;
+  min-height: 60px;
+}
+
+.giscus-pending {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-mute);
+}
+
+/* ---------- 本机速记（折叠） ---------- */
+
+.board-local {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+}
+
+.board-local > summary {
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-soft);
+  cursor: pointer;
+  list-style: none;
+}
+
+.board-local > summary::-webkit-details-marker { display: none; }
+
+.board-local > summary::before {
+  content: "▸";
+  display: inline-block;
+  width: 14px;
+  color: var(--text-mute);
+  transition: transform .15s;
+}
+
+.board-local[open] > summary::before { content: "▾"; }
+
+.board-local-body {
+  padding: 0 14px 16px;
+  border-top: 1px solid var(--line);
+}
+
 /* ---------- 输入区 ---------- */
 
 .board-form {
