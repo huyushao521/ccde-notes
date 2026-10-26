@@ -40,15 +40,87 @@
 <h2 id="_1">本章涵盖主题<a class="anchor" href="#_1" title="Permanent link"></a></h2>
 <ul>
 <li><strong>二层介质接入</strong>：二层传输和连接模型</li>
-<li><strong>虚拟专线服务设计考量</strong>：VPLS 模型、概念和对应的网络设计要素</li>
+<li><strong>虚拟专线服务设计考量</strong>：VPWS 模型、概念和对应的网络设计要素</li>
 <li><strong>EVPN 设计模型</strong>：EVPN 概念、协议和对应的网络设计要素</li>
 </ul>
+<hr />
+<h2 id="_2">本章导读：传输层是"别人家的网"<a class="anchor" href="#_2" title="Permanent link"></a></h2>
+<p>第 6 章和第 7 章（二层技术）容易混淆，先划清界限：</p>
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>视角</th>
+<th>关注点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>第 6 章 传输技术</strong></td>
+<td><strong>向外看</strong>——运营商提供的服务</td>
+<td>我从运营商手里买到的到底是什么？</td>
+</tr>
+<tr>
+<td><strong>第 7 章 二层技术</strong></td>
+<td><strong>向内看</strong>——自己建的二层网络</td>
+<td>我自己的 STP、VLAN、Trunk 怎么设计</td>
+</tr>
+</tbody>
+</table>
+<p>换句话说，本章讨论的是<strong>服务采购与选型</strong>，而不是设备配置。这对 CCDE 尤其重要，因为大量真实设计的第一步就是：<strong>这个站点应该接 MPLS L2VPN、L3VPN、还是直接走 Internet + SD-WAN？</strong></p>
+<blockquote>
+<p>⚠️ <strong>本章的设计张力</strong>：二层服务能提供最大的灵活性和"无感迁移"，但代价是<strong>故障域扩大、控制平面不可见、可扩展性受限</strong>。几乎所有本章的设计题，本质都在权衡这一对矛盾。</p>
+</blockquote>
 <hr />
 <h2 id="foundation-topics">基础内容 (Foundation Topics)<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <h3 id="layer-2-media-access">二层介质接入 (Layer 2 Media Access)<a class="anchor" href="#layer-2-media-access" title="Permanent link"></a></h3>
 <p>运营商理解提供灵活和响应迅速的网络架构的重要性，该架构支持当前和未来需求而无需大规模变更。因此，几乎所有服务提供商都已部分或完全将核心基础设施迁移到 MPLS。这使他们能够利用 MPLS 基础设施，通过一个统一的 MPLS 核心为客户提供 L2 和 L3 服务。</p>
+<p><strong>关键理解</strong>：现代运营商的核心是 <strong>MPLS</strong>，二层服务只是"跑在 MPLS 上的仿真"。所以：</p>
+<pre><code>订户看到的：一条透明的以太网线（或一个透明 LAN）
+实际承载的：CE → PE（接入电路 AC）→ MPLS 标签交换 → PE → CE（伪线 PW）
+</code></pre>
+<blockquote>
+<p>💡 <strong>为什么运营商要把所有东西都变成"标签"</strong>：因为 MPLS 可复用同一套核心承载不同服务（L2VPN、L3VPN、组播 VPN），<strong>规模经济</strong>是运营商的核心驱动力。这也解释了后面 EVPN 为什么用 BGP——它沿用了 L3VPN 成熟的 BGP 控制平面思路。</p>
+</blockquote>
 <h4 id="carrier-ethernet">Carrier Ethernet（载波以太网）<a class="anchor" href="#carrier-ethernet" title="Permanent link"></a></h4>
 <p>现代提供二层以太网服务（如城域以太网）的服务商被称为 Carrier Ethernet 提供商。</p>
+<p><strong>MEF 定义的 Carrier Ethernet 五大属性</strong>（用来判断"这是不是真正的 Carrier Ethernet 服务"）：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+<th>对设计的实际影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标准化服务</strong></td>
+<td>E-Line / E-LAN / E-Tree 三种标准服务</td>
+<td>服务名称统一，可跨运营商比价与对接</td>
+</tr>
+<tr>
+<td><strong>可扩展性</strong></td>
+<td>带宽从 1M 级到 10G+，站点数可大规模扩展</td>
+<td>支持业务增长，不用重新架构</td>
+</tr>
+<tr>
+<td><strong>可靠性</strong></td>
+<td>服务级 SLA，含保护倒换</td>
+<td>决定能否承载语音/交易类关键业务</td>
+</tr>
+<tr>
+<td><strong>服务质量 (QoS)</strong></td>
+<td>多等级 CoS，可按帧标记</td>
+<td>语音与批量传输可共用一条电路</td>
+</tr>
+<tr>
+<td><strong>服务管理</strong></td>
+<td>有 OAM 与 SLA 度量（延迟、抖动、丢包）</td>
+<td><strong>这是与"裸光纤/裸互联网"最大的差别</strong></td>
+</tr>
+</tbody>
+</table>
 <p><strong>服务商采用现代 L2 服务的业务驱动力</strong>：</p>
 <table>
 <thead>
@@ -87,6 +159,7 @@
 <th>服务类型</th>
 <th>拓扑</th>
 <th>说明</th>
+<th>典型替代对象</th>
 </tr>
 </thead>
 <tbody>
@@ -94,19 +167,25 @@
 <td><strong>E-Line</strong></td>
 <td>点对点 (P2P)</td>
 <td>两个 UNI 之间的以太网电路，如 VPWS</td>
+<td>租用线路、FR/ATM PVC</td>
 </tr>
 <tr>
 <td><strong>E-LAN</strong></td>
 <td>多点到多点 (MP2MP)</td>
 <td>两个或多个 UNI 之间的以太网电路，如 VPLS</td>
+<td>自建二层园区互联、ATM LANE</td>
 </tr>
 <tr>
 <td><strong>E-Tree</strong></td>
 <td>点对多点</td>
 <td>树状结构，叶子只能与根通信，不能互相通信。类似 Private VLAN</td>
+<td>组播分发、视频源到多接收点</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>💡 <strong>E-Tree 是最容易被忽略但很实用的服务</strong>：它天然实现了"叶子之间隔离"，非常适合<strong>视频分发、内容推送、基站回传</strong>这类"一个源、多个接收者"的场景。若用 E-LAN 实现同类需求，必须在客户侧自己做隔离策略。</p>
+</blockquote>
 <h3 id="metro-ethernet_1">Metro Ethernet 传输模型<a class="anchor" href="#metro-ethernet_1" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -129,6 +208,50 @@
 </tr>
 </tbody>
 </table>
+<p><strong>核心区别只有一个：整条端口被独占，还是多个 EVC 共享一个端口？</strong></p>
+<pre><code>EPL（端口型）                         EVPL（VLAN 型）
+─────────────                        ─────────────
+CE ──[整口]── PE                     CE ──[VLAN 10]──┐
+     所有帧走同一条 EVC                        [VLAN 20]──┼─ PE
+     不能用其他服务                             [VLAN 30]──┘
+                                        不同 VLAN 映射到不同 EVC（或不同远端）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>EPL（基于端口）</th>
+<th>EVPL（基于 VLAN）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口利用</td>
+<td>独占，浪费</td>
+<td>复用，节省</td>
+</tr>
+<tr>
+<td>透传能力</td>
+<td><strong>完全透明</strong>，客户的 VLAN/帧全部原样传输</td>
+<td>需要匹配 VLAN，运营商可能改写 VLAN 标签</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>需要严格透明传输（带标签的 Trunk 互联、DCI）</td>
+<td>多站点、多服务的成本敏感场景</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高（端口独占）</td>
+<td>低（按 EVC 计费）</td>
+</tr>
+<tr>
+<td>典型陷阱</td>
+<td>端口闲置也付费</td>
+<td>VLAN 规划必须与运营商协调，<strong>改 VLAN 要联系运营商</strong></td>
+</tr>
+</tbody>
+</table>
 <h3 id="metro-ethernet_2">Metro Ethernet 组件<a class="anchor" href="#metro-ethernet_2" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -146,12 +269,62 @@
 <td><strong>EVC (以太网虚拟连接)</strong></td>
 <td>两个或多个 UNI 的关联，限制服务帧在 EVC 内交换。多个 EVC 共享一个 UNI 时使用 802.1Q VLAN 标识，即基于 VLAN (EVPL)</td>
 </tr>
+<tr>
+<td><strong>NNI (网络节点接口)</strong></td>
+<td>运营商网络之间的接口（常用于跨运营商对接）</td>
+</tr>
+<tr>
+<td><strong>CoS / 带宽配置文件</strong></td>
+<td>每个 EVC 上可定义带宽档位与优先级队列</td>
+</tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>UNI 是责任分界线</strong>：故障发生时，"问题在 UNI 之内（客户责任）还是之外（运营商责任）"决定谁来处理。设计中必须明确 UNI 位置，并确认运营商是否提供 UNI 侧环回测试能力。</p>
+</blockquote>
 <hr />
 <h2 id="virtual-private-wire-service-vpws">虚拟专线服务设计考量 (Virtual Private Wire Service, VPWS)<a class="anchor" href="#virtual-private-wire-service-vpws" title="Permanent link"></a></h2>
 <p>VPWS 基于伪线 (Pseudowire, PW) 概念（RFC 3916），是两个边缘节点之间的连接，将两条接入电路 (AC) 连接起来，模拟直接 AC 连接。</p>
-<h3 id="pw">PW 传输连接模型<a class="anchor" href="#pw" title="Permanent link"></a></h3>
+<p><strong>一句话理解</strong>：VPWS = <strong>把一条"看不见的网线"从 A 点拉到 B 点</strong>。它不做 MAC 学习，不做交换，只逐帧搬运。</p>
+<h3 id="pw">PW 的关键机制<a class="anchor" href="#pw" title="Permanent link"></a></h3>
+<pre><code>      AC1                PW（伪线）                 AC2
+CE1 ──[接入电路]── PE1 ═══════════════════ PE2 ──[接入电路]── CE2
+                      │  封装：控制字 + 标签栈  │
+                      └────────────────────────┘
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AC (Attachment Circuit)</strong></td>
+<td>客户侧接入电路，可以是物理端口或 VLAN</td>
+</tr>
+<tr>
+<td><strong>PW (Pseudowire)</strong></td>
+<td>承载在 MPLS 上的逻辑连接，把 AC 帧封装后透传</td>
+</tr>
+<tr>
+<td><strong>控制字 (Control Word)</strong></td>
+<td>保证帧顺序、填充短帧，处理分片与乱序</td>
+</tr>
+<tr>
+<td><strong>信令方式</strong></td>
+<td>LDP（Martini 方式）/ BGP（Kompella 方式）/ 静态配置</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>两个信令流派</strong>（扩展知识点）：
+- <strong>Martini（LDP）</strong>：逐条 PW 信令，简单直观，PE 间需 LDP 会话。<strong>主流部署方式</strong>
+- <strong>Kompella（BGP）</strong>：BGP 承载 PW 信息，可自动发现，扩展性更好，配置模型复杂</p>
+<p>这个区别在 EVPN 部分会再次出现——EVPN 本质上就是把 Kompella 的"BGP 自动发现"思路发扬光大。</p>
+</blockquote>
+<h3 id="pw_1">PW 传输连接模型<a class="anchor" href="#pw_1" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
@@ -173,6 +346,30 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>⚠️ <strong>这是 VPWS 最重要的设计决策</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>选择</th>
+<th>好处</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基于 VLAN</td>
+<td>单端口可接多站点，成本低</td>
+<td>两端 VLAN 规划须一致，运营商改 VLAN 影响客户</td>
+</tr>
+<tr>
+<td>基于端口</td>
+<td>完全透明，客户可自由用 VLAN/Trunk</td>
+<td>端口独占成本高，且 <strong>STP BPDU 也会被透传</strong> → 两地 STP 域合并</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <h3 id="l2-pw">L2 介质接入的 PW 传输模式<a class="anchor" href="#l2-pw" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -196,9 +393,53 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>这一段是"历史包袱"知识点：早期企业用 FR/ATM 组网，迁移到 MPLS 时用 PW 把老协议原样搬运，<strong>避免改 IP 地址和路由</strong>——正是第 1 章"假设"陷阱的反面教材：不要假设"换新技术必须重编地址"。</p>
+</blockquote>
+<h3 id="vpws">VPWS 设计要点清单<a class="anchor" href="#vpws" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>考量</th>
+<th>问题</th>
+<th>设计动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MTU</strong></td>
+<td>MPLS 标签栈让有效 MTU 变小</td>
+<td>两端 CE/PE MTU 必须核对，否则大包被丢</td>
+</tr>
+<tr>
+<td><strong>故障检测</strong></td>
+<td>PW 断了，CE 可能不知道</td>
+<td>依靠 OAM（CFM/LFM）、BFD 或路由协议失效感知</td>
+</tr>
+<tr>
+<td><strong>冗余</strong></td>
+<td>单 PW 是单点</td>
+<td>双 PE + 双 PW，或依赖运营商保护倒换</td>
+</tr>
+<tr>
+<td><strong>组播</strong></td>
+<td>VPWS 对组播是透传的</td>
+<td>若客户用 PIM，组播会跨 PW 泛洪，需确认带宽</td>
+</tr>
+<tr>
+<td><strong>STP</strong></td>
+<td>端口型会透传 BPDU</td>
+<td>要么接受两站点 STP 域合并，要么在 CE 侧过滤 BPDU</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>"两个站点 STP 域合并"是二层互联最经典的故障源</strong>：合并后一个站点的拓扑变化会震荡另一个站点，且<strong>根桥选举跨站点</strong>，流量路径不可预期。设计时必须显式决定：<strong>是否让 STP 跨越 WAN</strong>。</p>
+</blockquote>
 <hr />
 <h2 id="lan-vpls">虚拟专用 LAN 服务设计考量 (VPLS)<a class="anchor" href="#lan-vpls" title="Permanent link"></a></h2>
 <p>VPLS 满足通过一个通用二层网络互联多个站点的需求，支持现代数据中心的二层扩展和虚拟机移动性。</p>
+<p><strong>一句话理解</strong>：VPLS = <strong>运营商帮你建了一个"跨地域的大交换机"</strong>，所有站点像接在同一台交换机上。</p>
 <h3 id="vpls">VPLS 架构组件<a class="anchor" href="#vpls" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -224,10 +465,22 @@
 <td><strong>VSI (虚拟交换实例)</strong></td>
 <td>执行标准 LAN 桥接功能，包括基于 MAC 地址和 VLAN 标签的学习和转发</td>
 </tr>
+<tr>
+<td><strong>MTU (多租户单元)</strong></td>
+<td>分层模型中的汇聚设备，充当 U-PE 角色</td>
+</tr>
 </tbody>
 </table>
 <h3 id="vpls_1">VPLS 控制平面<a class="anchor" href="#vpls_1" title="Permanent link"></a></h3>
 <p>VPLS 与 VPWS 的主要区别：VPLS 需要所有参与的 PE 之间建立<strong>全互联 PW</strong>。因此 PE 自动发现和 PW 自动建立是重要因素。</p>
+<p><strong>为什么必须全互联？</strong> 因为 VPLS 本质是一台"虚拟交换机"：</p>
+<pre><code>如果 PE1–PE2、PE2–PE3 有 PW，但 PE1–PE3 没有：
+  CE1 发往 CE3 的帧 → PE1 从 PE2 的 PW 收到 → 若再转发给 PE3 就形成环路
+因此要么全互联（每个 PE 都能直达），要么必须加环路防护
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>VPLS 的"水平分割"（Split Horizon）规则</strong>：PE <strong>不会</strong>把从一个 PW 收到的帧转发到另一个 PW。这是防止全互联环路的<strong>唯一屏障</strong>。理解这点，就能理解为什么 <strong>H-VPLS 需要额外的层次设计</strong>——一旦引入中间层，单靠水平分割就不够了。</p>
+</blockquote>
 <h3 id="vpls_2">VPLS 设计模型<a class="anchor" href="#vpls_2" title="Permanent link"></a></h3>
 <h4 id="1">1. 基本模型<a class="anchor" href="#1" title="Permanent link"></a></h4>
 <pre><code>    CE1          CE2          CE3
@@ -246,6 +499,7 @@
 <li>每个 PE 维护一个 VSI</li>
 <li>MAC 地址学习和泛洪</li>
 </ul>
+<p><strong>PW 数量计算</strong>：n 个 PE 全互联 → <strong>n(n-1)/2</strong> 条 PW。10 个 PE = 45 条，50 个 PE = 1225 条。这就是 VPLS 扩展性的硬伤。</p>
 <h4 id="2-vpls-h-vpls">2. 分层 VPLS (H-VPLS)<a class="anchor" href="#2-vpls-h-vpls" title="Permanent link"></a></h4>
 <pre><code>    CE1     CE2          CE3     CE4
      │       │             │       │
@@ -260,32 +514,87 @@
 <li>减少 PW 数量（无需全互联）</li>
 <li>MTU 只需连接到 N-PE，N-PE 之间全互联</li>
 </ul>
+<p><strong>扩展效果</strong>：m 个 MTU + n 个 N-PE，PW 数从 (m+n)² 降到 n² + m。站点增加时，增长从<strong>平方级降为线性级</strong>。</p>
+<blockquote>
+<p>⚠️ <strong>H-VPLS 的代价</strong>：
+1. <strong>MTU 成为单点</strong>——MTU 挂了，其下所有站点失联（除非双归属）
+2. <strong>故障域扩大</strong>——一个 MTU 的 STP/环路可能影响整个 VPLS 域
+3. <strong>多一层配置</strong>——运维复杂度上升（Day 2 成本）</p>
+<p>这正是第 5 章"可管理性"原则的具体体现。</p>
+</blockquote>
 <h3 id="vpls_3">VPLS 可扩展性限制<a class="anchor" href="#vpls_3" title="Permanent link"></a></h3>
 <table>
 <thead>
 <tr>
 <th>限制</th>
 <th>说明</th>
+<th>缓解手段</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>MAC 学习</td>
+<td><strong>MAC 学习</strong></td>
 <td>PE 需要学习所有客户的 MAC 地址，大规模部署时内存受限</td>
+<td>限制每 VPLS 的 MAC 数、老化优化、<strong>PBB（MAC-in-MAC）</strong></td>
 </tr>
 <tr>
-<td>PW 全互联</td>
+<td><strong>PW 全互联</strong></td>
 <td>大量 PE 时 PW 数量呈 O(n²) 增长</td>
+<td><strong>H-VPLS 分层</strong>、EVPN</td>
 </tr>
 <tr>
-<td>泛洪</td>
+<td><strong>泛洪</strong></td>
 <td>未知单播、组播和广播泛洪消耗带宽</td>
+<td>ARP 代理、组播优化、<strong>EVPN</strong></td>
+</tr>
+<tr>
+<td><strong>无控制平面</strong></td>
+<td>MAC 只能靠数据面学习，收敛慢</td>
+<td><strong>EVPN 的 BGP MAC 通告</strong></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>💡 <strong>CCDE 的关键判断</strong>：VPLS 的问题<strong>不是性能，而是"缺乏控制平面"</strong>。MAC 学习靠泛洪、多归属靠 MC-LAG、故障恢复靠重新泛洪——都是"数据面打补丁"。EVPN 出现就是为了把这套东西搬到控制平面。</p>
+</blockquote>
 <hr />
 <h2 id="evpn">EVPN 设计模型<a class="anchor" href="#evpn" title="Permanent link"></a></h2>
 <p>EVPN（Ethernet VPN）是下一代 L2VPN 技术，基于 BGP（MP-BGP）作为控制平面，解决了 VPLS 的可扩展性限制。</p>
+<h3 id="mac">核心思想：把 MAC 变成路由<a class="anchor" href="#mac" title="Permanent link"></a></h3>
+<pre><code>VPLS 世界：MAC 地址 = 数据面学到的东西（靠泛洪、靠老化）
+EVPN 世界：MAC 地址 = 一条 BGP 路由（有下一跳、有属性、可策略控制）
+</code></pre>
+<p>这个视角一旦建立，EVPN 的所有优势都是自然推论：</p>
+<table>
+<thead>
+<tr>
+<th>推论</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC 是路由</td>
+<td><strong>MAC 迁移 = 路由更新</strong>，VM 迁移后收敛快，不会出现"双份 MAC"</td>
+</tr>
+<tr>
+<td>路由有下一跳</td>
+<td><strong>不再需要泛洪学习</strong>，收敛从"重新泛洪"变为"BGP 更新"</td>
+</tr>
+<tr>
+<td>路由有属性</td>
+<td>可做<strong>流量工程、aliasing（多路径负载分担）</strong></td>
+</tr>
+<tr>
+<td>BGP 有多归属机制</td>
+<td><strong>All-Active 多归属原生支持</strong>，无需 MC-LAG</td>
+</tr>
+<tr>
+<td>控制平面已知 MAC</td>
+<td><strong>ARP 代理</strong>成为可能，BUM 大幅减少</td>
+</tr>
+</tbody>
+</table>
 <h3 id="evpn-vs-vpls">EVPN vs VPLS 对比<a class="anchor" href="#evpn-vs-vpls" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -298,8 +607,8 @@
 <tbody>
 <tr>
 <td><strong>控制平面</strong></td>
-<td>LDP/RSVP</td>
-<td>MP-BGP</td>
+<td>LDP/RSVP（仅建立 PW，不承载 MAC）</td>
+<td>MP-BGP（承载 MAC/IP）</td>
 </tr>
 <tr>
 <td><strong>MAC 学习</strong></td>
@@ -313,18 +622,23 @@
 </tr>
 <tr>
 <td><strong>多归属</strong></td>
-<td>有限（需 MC-LAG）</td>
-<td>原生支持 All-Active</td>
+<td>有限（需 MC-LAG，跨设备协同）</td>
+<td>原生支持 All-Active（ESI + DF 选举）</td>
 </tr>
 <tr>
 <td><strong>可扩展性</strong></td>
-<td>中</td>
-<td>高</td>
+<td>中（O(n²) PW + MAC 表压力）</td>
+<td>高（BGP 路由，无全互联要求）</td>
 </tr>
 <tr>
 <td><strong>MAC 移动性</strong></td>
 <td>有限</td>
-<td>优化</td>
+<td>优化（MAC Mobility 扩展团体 + 序列号）</td>
+</tr>
+<tr>
+<td><strong>故障收敛</strong></td>
+<td>慢（重新泛洪/重新学习）</td>
+<td>快（BGP 撤消 + A-D 路由）</td>
 </tr>
 </tbody>
 </table>
@@ -353,13 +667,99 @@
 <td><strong>MAC 移动性</strong></td>
 <td>虚拟机迁移时，EVPN 在控制平面快速更新 MAC 位置</td>
 </tr>
+<tr>
+<td><strong>ESI (以太网段标识)</strong></td>
+<td>标识"同一 CE 接到多台 PE 的这组链路"，是判断多归属的基础</td>
+</tr>
+<tr>
+<td><strong>DF (指定转发者)</strong></td>
+<td>多归属场景中由谁向 CE 转发 BUM 流量，避免重复泛洪</td>
+</tr>
 </tbody>
 </table>
+<h3 id="evpn_2">EVPN 路由类型（扩展重点，必背）<a class="anchor" href="#evpn_2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type 1</strong></td>
+<td>Ethernet Auto-Discovery (A-D)</td>
+<td>宣告"我拥有哪个 ESI"；用于<strong>快速收敛、aliasing 负载分担、批量撤消</strong></td>
+</tr>
+<tr>
+<td><strong>Type 2</strong></td>
+<td>MAC/IP Advertisement</td>
+<td><strong>最核心</strong>：通告 MAC（可含 IP）与下一跳；支持 ARP 代理与 MAC 移动性</td>
+</tr>
+<tr>
+<td><strong>Type 3</strong></td>
+<td>Inclusive Multicast Ethernet Tag (IMET)</td>
+<td>建立 <strong>BUM 流量</strong>的分发树（谁需要收泛洪流量）</td>
+</tr>
+<tr>
+<td><strong>Type 4</strong></td>
+<td>Ethernet Segment</td>
+<td><strong>DF 选举</strong>，决定谁负责向多归属 CE 转发 BUM</td>
+</tr>
+<tr>
+<td><strong>Type 5</strong></td>
+<td>IP Prefix</td>
+<td>通告 IP 前缀，使 EVPN 可承载 L3VPN 功能（统一 L2/L3 控制平面）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>记忆法</strong>：<strong>1 发现、2 MAC、3 泛洪、4 选举、5 前缀</strong>。</p>
+<p>Type 5 很重要——它意味着 <strong>EVPN 可以同时做二层和三层</strong>，这是现代数据中心与园区"一张控制平面搞定一切"的基础（对应第 9 章网络虚拟化的 Overlay 设计）。</p>
+</blockquote>
 <h3 id="pbb-evpn">PBB-EVPN<a class="anchor" href="#pbb-evpn" title="Permanent link"></a></h3>
-<p>PBB-EVPN 结合了 PBB (Provider Backbone Bridging) 和 EVPN：
-- 隐藏客户 MAC 地址，只在核心传输运营商 MAC
-- 进一步提高可扩展性
-- 适合 MAC 地址数量极大的场景</p>
+<p>PBB-EVPN 结合了 PBB (Provider Backbone Bridging) 和 EVPN：</p>
+<ul>
+<li>隐藏客户 MAC 地址，只在核心传输运营商 MAC</li>
+<li>进一步提高可扩展性</li>
+<li>适合 MAC 地址数量极大的场景</li>
+</ul>
+<p><strong>原理一句话</strong>：<strong>MAC-in-MAC 封装</strong>——客户 MAC 被包在运营商 MAC 里面，核心 PE 只看外层（运营商）MAC。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>普通 EVPN</th>
+<th>PBB-EVPN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心 PE 需学习的 MAC</td>
+<td>所有客户 MAC</td>
+<td><strong>只有运营商 B-MAC</strong></td>
+</tr>
+<tr>
+<td>客户 MAC 数量影响</td>
+<td>直接影响核心表项</td>
+<td>被隔离在边缘 BEB</td>
+</tr>
+<tr>
+<td>客户 MAC 变化传播</td>
+<td>全网通告</td>
+<td>不跨核心传播</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>中等规模、需要精细策略</td>
+<td><strong>超大规模、MAC 数量爆炸</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>代价</strong>：封装层级增加（MTU 再减小）、运维更复杂、排障更困难。<strong>只有 MAC 规模真的到瓶颈时才值得用</strong>——否则就是第 1 章的"过度设计"。</p>
+</blockquote>
 <h3 id="dci">DCI（数据中心互联）选型<a class="anchor" href="#dci" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -389,6 +789,219 @@
 <td>MAC 地址数量极大</td>
 <td>PBB-EVPN</td>
 <td>MAC 隐藏</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">扩展：传输服务的横向对比<a class="anchor" href="#_3" title="Permanent link"></a></h2>
+<p>书里聚焦运营商 L2 服务，但真实设计题往往要求在<strong>更广的传输选项</strong>中做选择。这张表是本章的实用补充：</p>
+<table>
+<thead>
+<tr>
+<th>传输方式</th>
+<th>提供的层次</th>
+<th>控制权</th>
+<th>典型时延</th>
+<th>成本</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>裸光纤 / 暗光纤</strong></td>
+<td>L1</td>
+<td>最高（自己点灯）</td>
+<td>最低（光速）</td>
+<td>高（按距离）</td>
+<td>同城数据中心、超低时延交易</td>
+</tr>
+<tr>
+<td><strong>DWDM 波长</strong></td>
+<td>L1（波长）</td>
+<td>高</td>
+<td>很低</td>
+<td>很高</td>
+<td>大带宽长距、数据中心互联</td>
+</tr>
+<tr>
+<td><strong>MPLS L2VPN (VPWS/VPLS)</strong></td>
+<td>L2</td>
+<td>低（运营商的网）</td>
+<td>中（取决于路径）</td>
+<td>中高</td>
+<td>需要二层透明、多站点同子网</td>
+</tr>
+<tr>
+<td><strong>MPLS L3VPN</strong></td>
+<td>L3</td>
+<td>低</td>
+<td>中</td>
+<td>中</td>
+<td>传统企业 WAN 主力，路由由运营商参与</td>
+</tr>
+<tr>
+<td><strong>Internet + SD-WAN</strong></td>
+<td>L3（Overlay）</td>
+<td>高（自己加密与选路）</td>
+<td>变化大</td>
+<td>低</td>
+<td>分支大量、成本敏感、可容忍抖动</td>
+</tr>
+<tr>
+<td><strong>5G / LTE 无线</strong></td>
+<td>L2/L3</td>
+<td>低</td>
+<td>较高</td>
+<td>按流量</td>
+<td>备份链路、临时站点、IoT</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>CCDE 的选型逻辑</strong>：不是比"谁更好"，而是按<strong>业务需求排序</strong>打分——
+- 要<strong>二层透明</strong>（同子网、非 IP 协议、遗留系统）→ 只能 L2VPN 或暗光纤
+- 要<strong>确定性时延</strong>（金融交易、工业控制）→ 暗光纤/DWDM
+- 要<strong>成本与弹性</strong>（几百个分支）→ Internet + SD-WAN
+- 要<strong>多站点任意互访且简单</strong> → MPLS L3VPN</p>
+</blockquote>
+<hr />
+<h2 id="_4">扩展：二层传输的五大设计陷阱<a class="anchor" href="#_4" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>表现</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>STP 域跨 WAN 合并</strong></td>
+<td>两站点用端口型 VPWS 互联但未过滤 BPDU</td>
+<td>一侧拓扑变化震荡全网；根桥在远端导致流量绕行</td>
+<td>站点间优先三层互联；或显式过滤 BPDU 形成独立 STP 域</td>
+</tr>
+<tr>
+<td><strong>MTU 不匹配</strong></td>
+<td>MPLS 标签栈吃掉字节，未调 MTU</td>
+<td>大包被丢，"ping 通但文件传不了"</td>
+<td>端到端核对 MTU，必要时分片/调 MSS</td>
+</tr>
+<tr>
+<td><strong>广播/未知单播泛洪失控</strong></td>
+<td>VPLS 中大量未知单播与 ARP</td>
+<td>带宽被泛洪打满，影响所有站点</td>
+<td>ARP 代理、控制平面学习（EVPN）、广播抑制</td>
+</tr>
+<tr>
+<td><strong>黑洞故障</strong></td>
+<td>单向故障时 PW 仍显示 up</td>
+<td>数据静默丢失，路由协议可能不感知</td>
+<td>部署 OAM/BFD，做端到端连通性检测</td>
+</tr>
+<tr>
+<td><strong>多归属单活浪费</strong></td>
+<td>用 MC-LAG 做多归属但只有一条链路转发</td>
+<td>带宽浪费一半，切换有中断</td>
+<td>EVPN All-Active（ESI），所有链路同时转发</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ 其中 <strong>"黑洞故障"</strong> 是 CCDE 场景题高频考点：物理层/逻辑层显示正常，但流量消失。判断关键——<strong>是否有独立于数据面的检测机制</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="evpn_3">扩展：EVPN 收敛为什么更快<a class="anchor" href="#evpn_3" title="Permanent link"></a></h2>
+<p>这是理解 EVPN 价值的关键，也常被追问：</p>
+<pre><code>VPLS 故障恢复：
+  链路断 → PW 断 → MAC 表需老化 → 未知单播泛洪 → 重新学习
+  耗时 = 检测 + 老化定时器（数十秒）+ 泛洪收敛
+
+EVPN 故障恢复：
+  链路断 → BGP 撤消 Type 1/2 路由 → 上游立即删除该下一跳
+  耗时 = BFD 检测（毫秒~秒级）+ BGP 更新传播
+  多归属场景：Type 1 的 A-D 路由支持&quot;批量撤消&quot;，一条更新撤掉整个 ESI 的 MAC
+</code></pre>
+<blockquote>
+<p>💡 <strong>设计含义</strong>：EVPN 把"数据面的不确定性"转成"控制面的确定性"。这也是第 9 章（虚拟化）与第 12 章（自动化）里 EVPN 反复出现的原因——<strong>可编程、可预测</strong>是现代网络的基础。</p>
+</blockquote>
+<hr />
+<h2 id="_5">本章考试要点<a class="anchor" href="#_5" title="Permanent link"></a></h2>
+<h3 id="_6">必背清单<a class="anchor" href="#_6" title="Permanent link"></a></h3>
+<ol>
+<li><strong>三个服务的拓扑</strong>：E-Line（P2P）/ E-LAN（MP2MP）/ E-Tree（P2MP，叶间隔离）</li>
+<li><strong>端口型 vs VLAN 型</strong>：EPL/EPLAN 独占与透明，EVPL/EVPLAN 复用与成本</li>
+<li><strong>UNI 是责任分界线</strong>，EVC 是服务实例</li>
+<li><strong>VPWS</strong>：两条 AC + 一条 PW，不学习 MAC，基于端口 vs 基于 VLAN 的取舍</li>
+<li><strong>VPLS</strong>：全互联 PW，n(n-1)/2，靠<strong>水平分割</strong>防环，H-VPLS 分层降低 O(n²)</li>
+<li><strong>EVPN 五大路由类型</strong>：1 发现、2 MAC、3 泛洪、4 选举、5 前缀</li>
+<li><strong>EVPN 三大收益</strong>：控制面 MAC 学习、原生 All-Active 多归属、ARP 代理</li>
+<li><strong>PBB-EVPN 用 MAC-in-MAC 隐藏客户 MAC</strong>，适合超大 MAC 规模</li>
+</ol>
+<h3 id="_7">典型考题思路<a class="anchor" href="#_7" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>场景线索</th>
+<th>应该想到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"两个站点必须在同一子网"</td>
+<td>二层互联 → VPWS/E-LAN，同时警惕 STP 域合并</td>
+</tr>
+<tr>
+<td>"多地互访且要节省端口"</td>
+<td>EVPLAN（VLAN 型 E-LAN）</td>
+</tr>
+<tr>
+<td>"视频源分发给多个接收点，接收点之间不互通"</td>
+<td>E-Tree</td>
+</tr>
+<tr>
+<td>"虚拟机要跨数据中心迁移，中断时间极短"</td>
+<td>EVPN（MAC 移动性 + 控制面收敛）</td>
+</tr>
+<tr>
+<td>"数千个 MAC、多租户、核心表项压力大"</td>
+<td>PBB-EVPN</td>
+</tr>
+<tr>
+<td>"需要二层互联但没有二层运维能力"</td>
+<td>优先考虑三层互联，把 L2 需求压到最小</td>
+</tr>
+<tr>
+<td>"链路 up 但业务不通"</td>
+<td>黑洞故障 → 检查 OAM/BFD 与 MTU</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">三大陷阱<a class="anchor" href="#_8" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>表现</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>为"灵活"滥用二层扩展</strong></td>
+<td>把整个园区做成一个大二层</td>
+<td>二层只做必要范围，跨站点优先三层（第 7 章展开）</td>
+</tr>
+<tr>
+<td><strong>低估运维成本</strong></td>
+<td>只看 CAPEX，忽略 PW/VLAN 协调的 OPEX</td>
+<td>用 TCO 评估（第 2 章），考虑 Day 2</td>
+</tr>
+<tr>
+<td><strong>技术追新</strong></td>
+<td>小规模场景强上 EVPN/PBB-EVPN</td>
+<td>场景匹配优先，VPLS 在少量站点依然合理</td>
 </tr>
 </tbody>
 </table>
@@ -424,27 +1037,35 @@
 </tr>
 <tr>
 <td>EPL</td>
-<td>以太网专线</td>
+<td>以太网专线（端口型 E-Line）</td>
 </tr>
 <tr>
 <td>EVPL</td>
-<td>以太网虚拟专线</td>
+<td>以太网虚拟专线（VLAN 型 E-Line）</td>
 </tr>
 <tr>
 <td>EPLAN</td>
-<td>以太网专用 LAN</td>
+<td>以太网专用 LAN（端口型 E-LAN）</td>
 </tr>
 <tr>
 <td>EVPLAN</td>
-<td>以太网虚拟专用 LAN</td>
+<td>以太网虚拟专用 LAN（VLAN 型 E-LAN）</td>
 </tr>
 <tr>
 <td>UNI</td>
 <td>用户网络接口</td>
 </tr>
 <tr>
+<td>NNI</td>
+<td>网络节点接口</td>
+</tr>
+<tr>
 <td>EVC</td>
 <td>以太网虚拟连接</td>
+</tr>
+<tr>
+<td>AC</td>
+<td>接入电路</td>
 </tr>
 <tr>
 <td>VPWS</td>
@@ -457,6 +1078,10 @@
 <tr>
 <td>H-VPLS</td>
 <td>分层 VPLS</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td>多租户单元</td>
 </tr>
 <tr>
 <td>EVPN</td>
@@ -494,8 +1119,53 @@
 <td>MAC Mobility</td>
 <td>MAC 移动性</td>
 </tr>
+<tr>
+<td>ESI</td>
+<td>以太网段标识</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>指定转发者</td>
+</tr>
+<tr>
+<td>A-D Route</td>
+<td>以太网自动发现路由（Type 1）</td>
+</tr>
+<tr>
+<td>IMET Route</td>
+<td>包含式组播以太网标签路由（Type 3）</td>
+</tr>
+<tr>
+<td>Split Horizon</td>
+<td>水平分割</td>
+</tr>
+<tr>
+<td>BUM Traffic</td>
+<td>广播/未知单播/组播流量</td>
+</tr>
+<tr>
+<td>Martini / Kompella</td>
+<td>两种 PW 信令方式（LDP / BGP）</td>
+</tr>
 </tbody>
-</table></article>
+</table>
+<hr />
+<h2 id="_9">本章小结<a class="anchor" href="#_9" title="Permanent link"></a></h2>
+<p>第 6 章的核心是<strong>一条技术演进的主线</strong>：</p>
+<pre><code>租用线路（物理独占，无复用）
+    ↓ 用伪线在 MPLS 上仿真
+VPWS（点到点透传，不学 MAC）
+    ↓ 扩展到多点
+VPLS（全互联 PW + 数据面 MAC 学习 → O(n²)、泛洪、无控制平面）
+    ↓ 把 MAC 搬到 BGP
+EVPN（控制面学习 + 原生多归属 + ARP 代理）
+    ↓ 应对 MAC 规模爆炸
+PBB-EVPN（MAC-in-MAC 隐藏客户 MAC）
+</code></pre>
+<blockquote>
+<p><strong>一句话记忆</strong>：<strong>VPWS 是网线，VPLS 是交换机，EVPN 是"用路由协议管理的交换机"，PBB-EVPN 是"给交换机戴上两层 MAC 面具"。</strong></p>
+<p>每一次演进解决的都是<strong>可扩展性</strong>，而每次演进都增加了<strong>运维复杂度</strong>——这就是 CCDE 要求你在"能力"与"可管理性"之间做取舍的原因。</p>
+</blockquote></article>
     <nav class="pager"><a class="pager-link prev" href="ch-05.html"><span class="pager-label">上一章</span><span class="pager-title">05 · 参考架构模型与框架</span></a><a class="pager-link next" href="ch-07.html"><span class="pager-label">下一章</span><span class="pager-title">07 · 二层技术</span></a></nav>
     <footer class="foot">
       <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
@@ -505,6 +1175,7 @@
   <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
 <ul>
 <li><a href="#_1">本章涵盖主题</a></li>
+<li><a href="#_2">本章导读：传输层是"别人家的网"</a></li>
 <li><a href="#foundation-topics">基础内容 (Foundation Topics)</a><ul>
 <li><a href="#layer-2-media-access">二层介质接入 (Layer 2 Media Access)</a></li>
 <li><a href="#metro-ethernet">Metro Ethernet 服务类型</a></li>
@@ -513,8 +1184,10 @@
 </ul>
 </li>
 <li><a href="#virtual-private-wire-service-vpws">虚拟专线服务设计考量 (Virtual Private Wire Service, VPWS)</a><ul>
-<li><a href="#pw">PW 传输连接模型</a></li>
+<li><a href="#pw">PW 的关键机制</a></li>
+<li><a href="#pw_1">PW 传输连接模型</a></li>
 <li><a href="#l2-pw">L2 介质接入的 PW 传输模式</a></li>
+<li><a href="#vpws">VPWS 设计要点清单</a></li>
 </ul>
 </li>
 <li><a href="#lan-vpls">虚拟专用 LAN 服务设计考量 (VPLS)</a><ul>
@@ -525,13 +1198,25 @@
 </ul>
 </li>
 <li><a href="#evpn">EVPN 设计模型</a><ul>
+<li><a href="#mac">核心思想：把 MAC 变成路由</a></li>
 <li><a href="#evpn-vs-vpls">EVPN vs VPLS 对比</a></li>
 <li><a href="#evpn_1">EVPN 核心概念</a></li>
+<li><a href="#evpn_2">EVPN 路由类型（扩展重点，必背）</a></li>
 <li><a href="#pbb-evpn">PBB-EVPN</a></li>
 <li><a href="#dci">DCI（数据中心互联）选型</a></li>
 </ul>
 </li>
+<li><a href="#_3">扩展：传输服务的横向对比</a></li>
+<li><a href="#_4">扩展：二层传输的五大设计陷阱</a></li>
+<li><a href="#evpn_3">扩展：EVPN 收敛为什么更快</a></li>
+<li><a href="#_5">本章考试要点</a><ul>
+<li><a href="#_6">必背清单</a></li>
+<li><a href="#_7">典型考题思路</a></li>
+<li><a href="#_8">三大陷阱</a></li>
+</ul>
+</li>
 <li><a href="#key-terms">本章关键术语 (Key Terms)</a></li>
+<li><a href="#_9">本章小结</a></li>
 </ul>
 </div>
 </div></aside>
