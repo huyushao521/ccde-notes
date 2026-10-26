@@ -8,10 +8,10 @@
   'use strict';
 
   var CFG = {
-    repo: 'huyushao521/ccde-notes',
+    repo: 'huyushao521/ccde2023-notes',
     repoId: 'R_kgDOVXWldQ',
-    category: 'Announcements',
-    categoryId: '',            /* 例：DIC_kwDOVXWldc4C... 未填时页面只显示待配置提示 */
+    category: 'Announcements', /* 必须与 categoryId 对应的分类名一致；改名/换分类时两者一起改 */
+    categoryId: 'DIC_kwDOVXWldc4DJoTI',
     mapping: 'pathname',       /* 每页一个独立讨论帖 */
     strict: '1',
     reactionsEnabled: '1',

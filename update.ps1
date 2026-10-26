@@ -103,4 +103,4 @@ if ($pushCode -ne 0) {
     exit 1
 }
 
-Write-Host "完成。约 1 分钟后生效： https://huyushao521.github.io/ccde-notes/" -ForegroundColor Green
+Write-Host "完成。约 1 分钟后生效： https://huyushao521.github.io/ccde2023-notes/" -ForegroundColor Green

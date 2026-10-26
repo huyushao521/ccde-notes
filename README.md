@@ -7,7 +7,7 @@ Cisco Certified Design Expert (CCDE 400-007) Official Cert Guide 中文精读笔
 
 ## 在线阅读
 
-https://huyushao521.github.io/ccde-notes/
+https://huyushao521.github.io/ccde2023-notes/
 
 ## 章节结构与进度
 
