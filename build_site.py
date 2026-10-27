@@ -25,6 +25,8 @@ PART_DEFS = [
 ]
 
 FILENAME_RE = re.compile(r"^第(\d{2})章[_-](.+)\.md$")
+# 英文版章节：EN_ChapterNN_Title_With_Underscores.md
+EN_FILENAME_RE = re.compile(r"^EN_Chapter(\d{2})_(.+)\.md$")
 
 # (文件名, slug, 编号字母, 标题, 副标题)
 APPENDIX_DEFS = [
@@ -106,6 +108,36 @@ def collect_chapters():
     return chapters
 
 
+def collect_en_chapters():
+    """收集英文版章节（EN_ChapterNN_xxx.md），slug 为 en-NN"""
+    items = []
+    for path in sorted(ROOT.glob("EN_Chapter*_*.md")):
+        m = EN_FILENAME_RE.match(path.name)
+        if not m:
+            continue
+        num = int(m.group(1))
+        title = m.group(2).replace("_", " ").strip()
+        raw = path.read_text(encoding="utf-8")
+        h1 = ""
+        for line in raw.splitlines():
+            if line.startswith("# "):
+                h1 = line[2:].strip()
+                break
+        items.append(
+            {
+                "num": num,
+                "title": title,
+                "h1": h1,
+                "path": path,
+                "raw": raw,
+                "slug": f"en-{num:02d}",
+                "words": len(re.findall(r"[A-Za-z][A-Za-z'-]*", raw)),
+            }
+        )
+    items.sort(key=lambda c: c["num"])
+    return items
+
+
 def collect_appendices():
     items = []
     for idx, (fname, slug_str, letter, title, sub) in enumerate(APPENDIX_DEFS):
@@ -162,7 +194,7 @@ def strip_html(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def sidebar_html(chapters, current_slug=None, appendices=()):
+def sidebar_html(chapters, current_slug=None, appendices=(), en_chapters=()):
     blocks = []
     for key, name, sub, start, end in PART_DEFS:
         items = [c for c in chapters if start <= c["num"] <= end]
@@ -195,6 +227,21 @@ def sidebar_html(chapters, current_slug=None, appendices=()):
             f'<div class="nav-group">'
             f'<div class="nav-head"><span class="nav-part">附录 · 速查工具</span>'
             f'<span class="nav-sub">术语 · 对比 · 自测</span></div>'
+            f'<div class="nav-items">{"".join(links)}</div></div>'
+        )
+    if en_chapters:
+        links = []
+        for c in en_chapters:
+            cls = "nav-link active" if c["slug"] == current_slug else "nav-link"
+            links.append(
+                f'<a class="{cls}" href="{c["slug"]}.html">'
+                f'<span class="nav-num">EN</span>'
+                f'<span class="nav-title">Chapter {c["num"]} · {c["title"]}</span></a>'
+            )
+        blocks.append(
+            f'<div class="nav-group">'
+            f'<div class="nav-head"><span class="nav-part">English Edition</span>'
+            f'<span class="nav-sub">英文版 · Chapter 1–{len(en_chapters)}</span></div>'
             f'<div class="nav-items">{"".join(links)}</div></div>'
         )
     return "".join(blocks)
@@ -321,9 +368,16 @@ def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
 def pager_link(ch, direction):
     if not ch:
         return ""
-    label = "上一章" if direction == "prev" else "下一章"
+    is_en = str(ch.get("slug", "")).startswith("en-")
+    if is_en:
+        label = "Previous" if direction == "prev" else "Next"
+    else:
+        label = "上一章" if direction == "prev" else "下一章"
     num = ch["num"]
-    num_txt = f"{num:02d}" if isinstance(num, int) else str(num)
+    if is_en:
+        num_txt = f"Chapter {num}"
+    else:
+        num_txt = f"{num:02d}" if isinstance(num, int) else str(num)
     return (
         f'<a class="pager-link {direction}" href="{ch["slug"]}.html">'
         f'<span class="pager-label">{label}</span>'
@@ -342,6 +396,7 @@ def main():
         return 1
 
     appendices = collect_appendices()
+    en_chapters = collect_en_chapters()
     nav_chain = chapters + appendices
 
     search_index = []
@@ -360,7 +415,7 @@ def main():
         html = page_shell(
             f'{ch["title"]} · 第 {ch["num"]} 章 · {SITE_TITLE}',
             meta + body,
-            sidebar_html(chapters, ch["slug"], appendices),
+            sidebar_html(chapters, ch["slug"], appendices, en_chapters),
             toc=toc,
             prev_link=pager_link(prev_ch, "prev"),
             next_link=pager_link(next_ch, "next"),
@@ -396,7 +451,7 @@ def main():
         html = page_shell(
             f'{ap["title"]} · {SITE_TITLE}',
             meta + body,
-            sidebar_html(chapters, ap["slug"], appendices),
+            sidebar_html(chapters, ap["slug"], appendices, en_chapters),
             toc=toc,
             prev_link=pager_link(prev_item, "prev"),
             next_link=pager_link(next_item, "next"),
@@ -420,6 +475,44 @@ def main():
                 }
             )
         print(f'[OK] {ap["slug"]}.html  <- {ap["path"].name}')
+
+    # 英文版章节页
+    for i, ec in enumerate(en_chapters):
+        body, toc = render(ec["raw"])
+        meta = (
+            f'<div class="ch-meta">'
+            f'<span class="badge" data-s="English">English Edition</span>'
+            f'<span class="ch-words">Chapter {ec["num"]} · about {ec["words"]} words</span></div>'
+        )
+        prev_ec = en_chapters[i - 1] if i > 0 else None
+        next_ec = en_chapters[i + 1] if i + 1 < len(en_chapters) else None
+        html = page_shell(
+            f'Chapter {ec["num"]}: {ec["title"]} · English Edition · {SITE_TITLE}',
+            meta + body,
+            sidebar_html(chapters, ec["slug"], appendices, en_chapters),
+            toc=toc,
+            prev_link=pager_link(prev_ec, "prev"),
+            next_link=pager_link(next_ec, "next"),
+            root="",
+            board=board_html(f'EN · Chapter {ec["num"]} · {ec["title"]}', ec["slug"]),
+        )
+        (OUT / f'{ec["slug"]}.html').write_text(html, encoding="utf-8")
+        label = f'Chapter {ec["num"]} · {ec["title"]} (English)'
+        for shard in shard_sections(body):
+            target = f'{ec["slug"]}.html'
+            if shard["anchor"]:
+                target += f'#{shard["anchor"]}'
+            search_index.append(
+                {
+                    "u": target,
+                    "n": 100 + ec["num"],
+                    "lb": label,
+                    "t": ec["title"],
+                    "s": shard["section"],
+                    "x": shard["text"],
+                }
+            )
+        print(f'[OK] {ec["slug"]}.html  <- {ec["path"].name}')
 
     # 首页
     guide = ROOT / "CCDE_Study_Guide.md"
@@ -463,6 +556,22 @@ def main():
             f'<div class="card-grid">{links}</div></section>'
         )
 
+    if en_chapters:
+        links = "".join(
+            f'<a class="card" href="{c["slug"]}.html">'
+            f'<span class="card-num">EN</span>'
+            f'<span class="card-body"><strong>Chapter {c["num"]} · {c["title"]}</strong>'
+            f'<em>Full chapter in English · about {c["words"]} words</em>'
+            f'<span class="badge" data-s="English">English</span>'
+            f'</span></a>'
+            for c in en_chapters
+        )
+        cards.append(
+            f'<section class="card-group"><h2 class="group-title">English Edition · 英文版章节</h2>'
+            f'<p class="group-sub">已出 {len(en_chapters)} 章 · 与中文章节一一对应的完整英文版</p>'
+            f'<div class="card-grid">{links}</div></section>'
+        )
+
     done = sum(1 for c in chapters if c["status"] == "精讲")
     pct = round(done / len(chapters) * 100)
     hero = (
@@ -485,7 +594,7 @@ def main():
         page_shell(
             SITE_TITLE,
             home_content,
-            sidebar_html(chapters, None, appendices),
+            sidebar_html(chapters, None, appendices, en_chapters),
             is_home=True,
             root="",
             board=board_html("首页 · 引言与目录", "index"),

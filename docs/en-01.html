@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 1: Network Design · English Edition · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与串讲</span><span class="nav-sub">全书串讲 · 设计决策流程</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">English Edition</span><span class="nav-sub">英文版 · Chapter 1–1</span></div><div class="nav-items"><a class="nav-link active" href="en-01.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 1 · Network Design</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English Edition</span><span class="ch-words">Chapter 1 · about 5103 words</span></div><h1 id="chapter-1-network-design">Chapter 1: Network Design<a class="anchor" href="#chapter-1-network-design" title="Permanent link"></a></h1>
+<blockquote>
+<p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapters 1–2 (pp. 81–140)</p>
+<p>Terminology follows the English edition. Sections mirror the Chinese chapter one-to-one, so the two can be read side by side.</p>
+</blockquote>
+<hr />
+<h2 id="topics-covered">Topics Covered<a class="anchor" href="#topics-covered" title="Permanent link"></a></h2>
+<ul>
+<li><strong>Network design fundamentals</strong>: mindset, requirements, design use cases, the business, constraints</li>
+<li><strong>Network design principles</strong>: pervasive security, scalability, availability, cost, manageability</li>
+<li><strong>Network design techniques</strong>: fault isolation, information hiding, modularity, hierarchy</li>
+<li><strong>Network design pitfalls</strong>: assumptions, over-engineering, the best-practice fallacy</li>
+</ul>
+<hr />
+<h2 id="chapter-overview-ten-counterintuitive-lessons">Chapter Overview: Ten Counterintuitive Lessons<a class="anchor" href="#chapter-overview-ten-counterintuitive-lessons" title="Permanent link"></a></h2>
+<p>There is no protocol, no command line and no topology in this chapter, yet it is the only one where a misreading poisons the following seventeen. The reason is simple: <strong>once the methodology drifts, the more fluent you are with technology, the faster and the more expensively you go wrong.</strong></p>
+<p><strong>1. Knowing how to configure is not knowing how to design.</strong> Configuration answers "how does this device do it"; design answers "why does this device exist, and what happens when it fails."</p>
+<p><strong>2. A requirement is not the sentence the customer said; it is the phenomenon you have verified.</strong> "We don't have enough bandwidth" is often packet loss; "we need dual cores" is often a single-homed uplink. <strong>An unmeasured requirement is merely an opinion.</strong></p>
+<p><strong>3. Bottom-up almost always fails, yet abandoning it also fails.</strong> Starting from technology ("SD-WAN first", "vendor A first") is usually overturned by the business within six months; ignoring the current state means the design never lands. The correct posture is <strong>push requirements top-down, validate feasibility bottom-up</strong>.</p>
+<p><strong>4. Redundancy is not availability.</strong> Two links in one conduit, two switches on one PDU, two carriers sharing one municipal duct — all "dual" on the diagram, all "single" in front of a failure. <strong>Redundancy is measured in failure domains, not in device counts.</strong></p>
+<p><strong>5. A "best practice" is somebody else's conclusion drawn under somebody else's constraints.</strong> It deserves a hearing, but not a copy. Ask whether its constraint set (scale, budget, team, business model) matches yours; if not, it is an assumption awaiting validation.</p>
+<p><strong>6. Security is not a module; it is a property of every design decision.</strong> One decision that treats security as "we'll add a firewall later" already caps the security of the whole architecture.</p>
+<p><strong>7. Every additional nine costs more than the previous one.</strong> From 99% to 99.9% may only need redundant power supplies; from 99.99% to 99.999% it touches process, drills, change management and supply chain.</p>
+<p><strong>8. Cost is not the purchase price.</strong> Real cost is TCO: acquisition + licenses + power + rack space + people + training + migration risk + exit cost five years out. Many "cheaper" options are expensive on Day 2.</p>
+<p><strong>9. Defining what is out of scope matters more than defining what is in scope.</strong> Scope creep is the most common way design projects die.</p>
+<p><strong>10. Recording why you did not choose X is worth more than recording why you chose Y.</strong> In a year someone will ask "why didn't we go with SD-WAN", and by then the people who remember have moved on.</p>
+<blockquote>
+<p><strong>The chapter in one sentence</strong>: <strong>Design is the act of making traceable, reversible decisions with incomplete information.</strong> Technology is the material of those decisions, not the decision itself.</p>
+</blockquote>
+<hr />
+<h2 id="foundation-topics">Foundation Topics<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<p>Designing a large-scale network to meet today's dynamic business and IT requirements is a complex task. This is especially true when the network was built years ago around older technologies and requirements, and the business now wants to adopt new IT technologies and architectures that the existing network may not support. The network designer therefore has to apply a structured approach to design.</p>
+<h3 id="two-common-approaches-to-network-analysis-and-design">Two Common Approaches to Network Analysis and Design<a class="anchor" href="#two-common-approaches-to-network-analysis-and-design" title="Permanent link"></a></h3>
+<p><strong>Top-Down Approach</strong>: decomposes the design task to simplify it, keeps the effort focused on the scope of the design, and executes it in a more controlled manner. It ultimately helps the designer view the solution from the business perspective.</p>
+<p><strong>Bottom-Up Approach</strong>: starts with the selection of network technologies and design models. This carries a high risk of design failure, because the resulting network may not meet business or application requirements.</p>
+<p>For a successful strategic design, more emphasis must be placed on the business: business priorities, drivers, outcomes, technical objectives, and the current and future services and applications. In today's networks, business requirements drive IT and network initiatives.</p>
+<hr />
+<h2 id="network-design-fundamentals">Network Design Fundamentals<a class="anchor" href="#network-design-fundamentals" title="Permanent link"></a></h2>
+<p>The design fundamentals are the building blocks every network designer must understand and know how to use:</p>
+<ol>
+<li><strong>Mindset</strong></li>
+<li><strong>Requirements</strong></li>
+<li><strong>Design Use Cases</strong></li>
+<li><strong>The Business</strong></li>
+<li><strong>Constraints</strong></li>
+<li><strong>"Why"</strong></li>
+</ol>
+<h3 id="mindset">Mindset<a class="anchor" href="#mindset" title="Permanent link"></a></h3>
+<blockquote>
+<p>Above all else, your mindset is the single most critical factor in doing network design well. Knowing the technology is necessary, but it is the comparatively easy part of the journey. Many people who do network design do not have the right design mindset.</p>
+</blockquote>
+<p>An implementation mindset does not work for network design; you need a network design mindset to succeed in real design scenarios.</p>
+<h3 id="functional-requirements">Functional Requirements<a class="anchor" href="#functional-requirements" title="Permanent link"></a></h3>
+<p>Functional requirements form the basis of any system design because they define system and technology functions. Specifically, they identify, from a technical standpoint, what the technology or system will deliver to the business.</p>
+<p>For example, an MPLS-enabled service provider might state a functional requirement such as: "the provider edge routers must send VoIP traffic over 10G fiber links and data traffic over OC-48 links." This implies the network needs a mechanism to send different traffic types over different paths, such as MPLS Traffic Engineering (MPLS-TE).</p>
+<p>Functional requirements are sometimes called <strong>behavioral requirements</strong>, because they describe <strong>what</strong> the system does.</p>
+<blockquote>
+<p>⚠️ A design that does not meet the business functional requirements is a bad design. In reality, however, not all functional requirements are handed to the designer; some are derived indirectly. Most of the time, discovering and documenting them is the designer's job.</p>
+</blockquote>
+<h3 id="technical-requirements">Technical Requirements<a class="anchor" href="#technical-requirements" title="Permanent link"></a></h3>
+<p>Technical requirements are the technical aspects the infrastructure must provide in terms of security, availability and integration. They are commonly referred to as <strong>nonfunctional requirements</strong>. Examples include:</p>
+<ul>
+<li>Higher levels of network availability (for example, First Hop Redundancy Protocols [FHRP])</li>
+<li>Support for integration with network tools and services (for example, a NetFlow collector or a RADIUS authentication server)</li>
+<li>Network infrastructure security mechanisms (for example, control plane protection or infrastructure ACLs)</li>
+</ul>
+<blockquote>
+<p>Technical requirements help the designer specify the required technical specifications (features and protocols) and the software releases that support them, and sometimes influence the hardware platform selection.</p>
+</blockquote>
+<h3 id="application-requirements">Application Requirements<a class="anchor" href="#application-requirements" title="Permanent link"></a></h3>
+<p>Application requirements are the deciding factor and, in most cases, constrain the design. If an application requires Layer 2 connectivity, the design is limited to Layer 2 protocols across data centers (for example, extended VLANs).</p>
+<p>From a business perspective, user experience is one of the top priorities any IT or network design must satisfy. End-user categories include:</p>
+<table>
+<thead>
+<tr>
+<th>User Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer</strong></td>
+<td>An individual (for example, a bank customer) or a collective (for example, the customers of an MPLS service provider). Satisfaction directly affects reputation and revenue</td>
+</tr>
+<tr>
+<td><strong>Internal User</strong></td>
+<td>Employees. Their productivity translates into business efficiency and is tied to business success and revenue</td>
+</tr>
+<tr>
+<td><strong>Business Partner</strong></td>
+<td>An entity or organization with which goals are achieved jointly. Efficient partner interaction strengthens business success</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>A network that cannot deliver the experience users expect means the primary business objective cannot be achieved, and IT will be seen by the business as a <strong>cost center</strong> rather than a <strong>business enabler</strong>.</p>
+</blockquote>
+<p><strong>Example</strong>: a financial services company wants to differentiate itself with video communication to contact-center agents. If the network team does not account for the network requirements of video, the application will likely fail to deliver the expected experience.</p>
+<h4 id="application-requirements-drive-functional-requirements">Application Requirements Drive Functional Requirements<a class="anchor" href="#application-requirements-drive-functional-requirements" title="Permanent link"></a></h4>
+<p>If a service provider has an SLA requiring one-way delay below 150 ms and packet loss below 1% for VoIP, that application requirement drives the functional requirement on the PE devices: use a technology that can deliver the SLA, such as CBTS MPLS-TE with Fast Reroute (FRR).</p>
+<p>The designer should also consider:</p>
+<ol>
+<li>How much network traffic does the application require?</li>
+<li>How business-critical is the application, and what service levels does it need?</li>
+<li>Does the application have separation requirements driven by regulation or corporate security policy?</li>
+<li>What are the characteristics of the application?</li>
+<li>How long does the application need to reset its state or session after losing connectivity?</li>
+</ol>
+<h3 id="building-the-design-requirements">Building the Design Requirements<a class="anchor" href="#building-the-design-requirements" title="Permanent link"></a></h3>
+<blockquote>
+<p><strong>Example scenario</strong>: a national retail company plans to expand internationally over the next 12 months by adding several sites. With its current IT infrastructure it faces high costs to manage and maintain two separate data and voice networks. The business also wants to invest in technologies that improve efficiency and employee productivity.</p>
+</blockquote>
+<h3 id="design-scope">Design Scope<a class="anchor" href="#design-scope" title="Permanent link"></a></h3>
+<p>The designer must carefully analyze and evaluate the design scope before gathering information and planning the design. It is essential to determine whether the task is a <strong>Greenfield</strong> network or an existing production network, and whether the design spans a single network module or multiple modules.</p>
+<table>
+<thead>
+<tr>
+<th>Design Scope</th>
+<th>Example of Detailed Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enterprise campus</strong></td>
+<td>Rolling out IP Telephony enterprise-wide may require redesigning VLANs, QoS and so on across LAN, WAN, DC and remote-access edge</td>
+</tr>
+<tr>
+<td><strong>Campus only</strong></td>
+<td>Adding multi-tenancy to the campus only requires designing VLAN, IP and path isolation across campus LANs</td>
+</tr>
+<tr>
+<td><strong>Optimizing the enterprise edge</strong></td>
+<td>Adding redundant links for remote access may require redesigning the WAN module, remote-site design and overlay tunnels</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Design point</strong>: identifying the scope is critical. You may face a very large network while the actual design effort is only about adding and integrating one new data center — yet the design must still start from the whole network ("holistic approach").</p>
+</blockquote>
+<p>It is equally important to identify <strong>what is out of scope</strong>, which prevents scope creep from blocking the project.</p>
+<h3 id="design-use-cases">Design Use Cases<a class="anchor" href="#design-use-cases" title="Permanent link"></a></h3>
+<p>A successful design requires correctly identifying the specific use case.</p>
+<h4 id="1-greenfield">1. Greenfield<a class="anchor" href="#1-greenfield" title="Permanent link"></a></h4>
+<p>The best situation a designer can face: a blank sheet, designing and building the environment from scratch. Make sure that what you propose is genuinely what the business needs.</p>
+<h4 id="2-brownfield">2. Brownfield<a class="anchor" href="#2-brownfield" title="Permanent link"></a></h4>
+<p>Most design scenarios involve some form of brownfield work — an existing environment carrying production traffic. Spend time discovering the current state and assessing it properly; this is not only technical discovery of protocols and diagrams, but also discovery of the business and its direction.</p>
+<p>Once a design decision is made, prepare for migration: limit potential failure and rely on design fundamentals, principles and techniques.</p>
+<h4 id="3-adding-a-technology-or-application">3. Adding a Technology or Application<a class="anchor" href="#3-adding-a-technology-or-application" title="Permanent link"></a></h4>
+<p>Adding a technology or application can be very complex. The scope covers the impact of the addition on the existing network. Will the addition break anything? Application requirements in terms of traffic patterns, convergence time and latency must be considered.</p>
+<h4 id="4-replacing-a-technology">4. Replacing a Technology<a class="anchor" href="#4-replacing-a-technology" title="Permanent link"></a></h4>
+<p>Replacing a technology covers the many options for replacing an existing technology to meet a specific requirement — WAN technology, routing protocol, security mechanism, underlying core technology, and so on. The impact of the new technology on the current design (improved scalability, or a potential conflict with existing application requirements) forces the designer to adjust the design.</p>
+<blockquote>
+<p>⚠️ Make sure you are replacing or adding technology for the right reasons. Deploying SD-WAN to replace a WAN architecture without a solid justification is wrong. Ensure there is a direct business reason and a properly tested migration plan. Migrating from OSPF to EIGRP should come with a plan listing every step, each with verification tasks and a rollback plan.</p>
+</blockquote>
+<h4 id="5-merge-or-divest">5. Merge or Divest<a class="anchor" href="#5-merge-or-divest" title="Permanent link"></a></h4>
+<p><strong>Merger</strong>: two independent enterprises combine into one with an end-to-end architecture. Watch for overlapping technologies — for example, overlapping subnets. Most companies use RFC 1918 space (10.0.0.0/8, 172.16.0.0/12 or 192.168.0.0/16). Where overlap occurs, define a short-term and a long-term plan. Short term may involve NAT; long term may involve renumbering during a network refresh. Consolidate where possible — if the two companies have four data centers, merge to two (while remembering you may still need four).</p>
+<p><strong>Divestment</strong>: the most difficult use case. Forced to split an architecture, you are left with two or more incomplete systems. Ensure every remaining business can still operate along its own direction; each one has to keep running and, in most cases, keep earning.</p>
+<h4 id="6-scaling-a-network">6. Scaling a Network<a class="anchor" href="#6-scaling-a-network" title="Permanent link"></a></h4>
+<p>The scaling use case covers different levels of scalability, including physical topology and Layer 2 and Layer 3 scalability considerations. Is the growth planned or organic? Is the growth causing problems? Should the designer stop and redesign the network to accommodate growth? Which design model scales best?</p>
+<h4 id="7-design-failure">7. Design Failure<a class="anchor" href="#7-design-failure" title="Permanent link"></a></h4>
+<p>Nine times out of ten, the design failure use case is why you were called in. Something is broken and must be fixed. A simple technical example is misalignment between Spanning Tree Protocol (STP) and First Hop Redundancy Protocol (FHRP) root roles: if the STP root bridge and the FHRP default gateway are not aligned on the right devices, suboptimal routing follows and eventually the design fails.</p>
+<h3 id="the-business">The Business<a class="anchor" href="#the-business" title="Permanent link"></a></h3>
+<blockquote>
+<p>Why do we make network design decisions? As designers, everything we do is for the businesses, companies and organizations we support. Specifically, we make decisions so that those businesses can make money.</p>
+</blockquote>
+<p>Not every organization exists to make a profit. Non-profits focus on covering expenses and reducing day-to-day cost; in the public sector many organizations focus on delivering a specific service or outcome rather than on earning.</p>
+<blockquote>
+<p>💡 Documenting design decisions and their rationale is becoming standard practice. It lets every team member — past, present and future — understand why a feature, design option or capability was implemented. Remembering why a decision was made six months ago is far easier than remembering why a routing tweak was added two years ago at 2 a.m. during a maintenance window.</p>
+</blockquote>
+<h3 id="constraints">Constraints<a class="anchor" href="#constraints" title="Permanent link"></a></h3>
+<p>When we start designing for a customer, the slate is clean — no requirements, no rules. As we interview the customer we learn the requirements and, more importantly, the specific constraints that limit us. Constraints fall into three categories:</p>
+<table>
+<thead>
+<tr>
+<th>Constraint Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Business</strong></td>
+<td>Budget limits, staffing, contractual constraints</td>
+<td>Insufficient budget, lack of staff with the required skills, contractual scope or timeline limits</td>
+</tr>
+<tr>
+<td><strong>Application</strong></td>
+<td>Limits imposed by how the application was written</td>
+<td>Requires Layer 2 connectivity, hard-coded IP addresses, clustering that requires multicast</td>
+</tr>
+<tr>
+<td><strong>Technical</strong></td>
+<td>Limits of a specific vendor's hardware or solution</td>
+<td>Locked to a vendor, prohibited from proprietary features, dependent on a proprietary solution that cannot be migrated</td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-most-common-design-constraints">The Most Common Design Constraints<a class="anchor" href="#the-most-common-design-constraints" title="Permanent link"></a></h4>
+<ol>
+<li><strong>Cost</strong>: the most common limiting factor. Treat cost as a design constraint only when the requirements explicitly call it out, or when it is the tiebreaker between two comparable options. Do not assume technology A is more expensive than B — MPLS circuits are not automatically more expensive than Internet circuits.</li>
+<li><strong>Time</strong>: if the project has a completion deadline, time may be the key constraint on technology or architecture choices.</li>
+<li><strong>Location</strong>: location introduces indirect limits. A remote site may be in an area without fiber, leaving wireless as the only option.</li>
+<li><strong>Infrastructure</strong>: legacy equipment with no refresh plan may be incompatible with new features or protocols.</li>
+<li><strong>Staff Expertise</strong>: if the staff lack experience with the new technology there are two choices: (a) train them — risky, because inexperience lengthens problem resolution; or (b) hire experienced staff — usually expensive.</li>
+</ol>
+<h3 id="why">"Why"<a class="anchor" href="#why" title="Permanent link"></a></h3>
+<blockquote>
+<p>You often hear a customer say "that is a requirement", but when you ask "why?", they cannot give a valid reason. Use the "five whys" concept — keep asking "why" like a five-year-old until you reach an answer you can understand and appreciate.</p>
+</blockquote>
+<p>Toyota used the "five whys" system to investigate production problems, asking "why" five times to reveal the root cause.</p>
+<p>As a designer you need to determine why the business truly needs the solution. The questions below contain no "why" but serve the same purpose:</p>
+<ul>
+<li>What problem are you solving with this technology?</li>
+<li>What are your staff's/customers' workflows today?</li>
+<li>How will this technology change those workflows?</li>
+<li>How will your business (governance, policy, process and culture) evolve because of this technology?</li>
+</ul>
+<hr />
+<h2 id="network-design-principles">Network Design Principles<a class="anchor" href="#network-design-principles" title="Permanent link"></a></h2>
+<p>The design principles are:</p>
+<ol>
+<li><strong>Security</strong></li>
+<li><strong>Scalability</strong></li>
+<li><strong>Availability</strong></li>
+<li><strong>Cost</strong></li>
+<li><strong>Manageability</strong></li>
+</ol>
+<h3 id="unstated-requirements">Unstated Requirements<a class="anchor" href="#unstated-requirements" title="Permanent link"></a></h3>
+<blockquote>
+<p>Customers increasingly do not state their specific requirements. They assume them, and as a designer you must work out which requirements matter for the design. You must not only identify them but also determine the level of each — does the network need to survive a single failure or a double failure?</p>
+</blockquote>
+<p>Every design principle has effectively become an unstated requirement.</p>
+<h3 id="pervasive-security">Pervasive Security<a class="anchor" href="#pervasive-security" title="Permanent link"></a></h3>
+<p>Historically security was not treated as a design principle. Because of its impact on the business overall, it is now included as one.</p>
+<p><strong>What if the network is compromised? What if data integrity is violated?</strong></p>
+<ul>
+<li>Business reputation is damaged</li>
+<li>Customers lose trust</li>
+<li>The business loses money and revenue</li>
+<li>The business no longer meets compliance standards and may be fined or shut down</li>
+<li>In extreme cases, the business fails</li>
+</ul>
+<h4 id="three-security-models">Three Security Models<a class="anchor" href="#three-security-models" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perimeter Security</strong></td>
+<td>Also called the "turtle shell" model. Firewalls at the perimeter, nothing inside. East-west traffic is wide open and insider threats flourish</td>
+</tr>
+<tr>
+<td><strong>Session and Transaction Security</strong></td>
+<td>Evolved from perimeter security. Users and devices are pinned down; east-west traffic is protected dynamically based on device, user, location and need. 100% authentication plus 100% authorization of every session and transaction</td>
+</tr>
+<tr>
+<td><strong>Zero Trust Architecture</strong></td>
+<td>Adds real-time capture and analytics so that AI/ML decisions can be made in real time. Every device, user, application, server, service and resource — even the data itself — is assigned a trust score derived from what the analytics engine observes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="availability">Availability<a class="anchor" href="#availability" title="Permanent link"></a></h3>
+<p>Availability encompasses redundancy, resilience and reliability:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Redundancy</strong></td>
+<td>Multiple resources performing the same function/role, so one takes over when another fails</td>
+</tr>
+<tr>
+<td><strong>Resilience</strong></td>
+<td>The ability of the network to switch over automatically when a failure occurs</td>
+</tr>
+<tr>
+<td><strong>Reliability</strong></td>
+<td>The degree to which data travels from source to destination correctly and within the expected time</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>As the required level of availability rises, so do complexity and cost. Eliminating single points of failure versus double points of failure: the latter grows cost and complexity exponentially.</p>
+</blockquote>
+<p><strong>How much redundancy is too much?</strong> When the added complexity and cost are not worth the corresponding gain in availability. Eight parallel Layer 2 or Layer 3 links between two points make no sense — two is the standard, four needs justification, five or more adds far more complexity than benefit.</p>
+<h3 id="scalability">Scalability<a class="anchor" href="#scalability" title="Permanent link"></a></h3>
+<p>Scalability ensures the design can accommodate business growth:</p>
+<ul>
+<li>Does the network support scaling up (more capability per device)?</li>
+<li>Does it support scaling out (more devices)?</li>
+<li>Is growth planned or organic?</li>
+<li>Does the current design need to be redesigned before growth happens?</li>
+</ul>
+<h3 id="cost">Cost<a class="anchor" href="#cost" title="Permanent link"></a></h3>
+<p>Cost is one of the design constraints. The designer needs to understand the following financial concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CAPEX</strong></td>
+<td>Capital expenditure — one-off investment in equipment, facilities and so on</td>
+</tr>
+<tr>
+<td><strong>OPEX</strong></td>
+<td>Operating expenditure — day-to-day operating and maintenance cost</td>
+</tr>
+<tr>
+<td><strong>TCO</strong></td>
+<td>Total cost of ownership — CAPEX plus OPEX</td>
+</tr>
+<tr>
+<td><strong>ROI</strong></td>
+<td>Return on investment — the ratio of benefit to cost for an investment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manageability">Manageability<a class="anchor" href="#manageability" title="Permanent link"></a></h3>
+<p>Manageability covers how well a design can be operated day to day. A technically perfect design that cannot be managed is not a good design. It includes:</p>
+<ul>
+<li>Ease of monitoring and troubleshooting</li>
+<li>Degree to which configuration management is simplified</li>
+<li>Fit with the operations team's skills</li>
+</ul>
+<hr />
+<h2 id="network-design-techniques">Network Design Techniques<a class="anchor" href="#network-design-techniques" title="Permanent link"></a></h2>
+<h3 id="fault-isolation">Fault Isolation<a class="anchor" href="#fault-isolation" title="Permanent link"></a></h3>
+<p>Through modular and hierarchical design, ensure that a failure in one module or layer does not spread to the others.</p>
+<h3 id="information-hiding">Information Hiding<a class="anchor" href="#information-hiding" title="Permanent link"></a></h3>
+<p>Through route summarization, area design and similar mechanisms, reduce the amount of routing information propagated, improving scalability and convergence.</p>
+<h3 id="modularity">Modularity<a class="anchor" href="#modularity" title="Permanent link"></a></h3>
+<p>Divide the network into functional modules, each designed and managed independently. Benefits include fault isolation, scalability, manageability and flexibility.</p>
+<h3 id="hierarchy">Hierarchy<a class="anchor" href="#hierarchy" title="Permanent link"></a></h3>
+<p>Hierarchical design splits the network into core, distribution and access layers, each with clear responsibilities.</p>
+<hr />
+<h2 id="network-design-pitfalls">Network Design Pitfalls<a class="anchor" href="#network-design-pitfalls" title="Permanent link"></a></h2>
+<h3 id="1-assumptions">1. Assumptions<a class="anchor" href="#1-assumptions" title="Permanent link"></a></h3>
+<blockquote>
+<p>As designers we tend to make assumptions based on our own experience — for example, that MPLS is more expensive than Internet, or that one technology is better than another. Do not make assumptions without factual support.</p>
+</blockquote>
+<h3 id="2-over-engineering-gold-plating">2. Over-Engineering (Gold Plating)<a class="anchor" href="#2-over-engineering-gold-plating" title="Permanent link"></a></h3>
+<blockquote>
+<p>Over-engineering means adding unnecessary features, redundancy or complexity. A design should solve the current problem, no more and no less, unless the requirements say otherwise.</p>
+</blockquote>
+<h3 id="3-the-best-practice-fallacy">3. The Best-Practice Fallacy<a class="anchor" href="#3-the-best-practice-fallacy" title="Permanent link"></a></h3>
+<blockquote>
+<p>A "best practice" may not apply to every scenario. The designer must understand the reasoning and the applicable conditions behind each best practice instead of applying it blindly.</p>
+</blockquote>
+<hr />
+<h2 id="case-studies">Case Studies<a class="anchor" href="#case-studies" title="Permanent link"></a></h2>
+<h3 id="case-1-the-network-is-slow-is-usually-not-a-bandwidth-problem">Case 1: "The network is slow" is usually not a bandwidth problem<a class="anchor" href="#case-1-the-network-is-slow-is-usually-not-a-bandwidth-problem" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: at a new university campus, staff and students complain that the teaching system is slow. Operations produce a monitoring chart: peak utilization of the core egress is only 40% — "bandwidth is clearly sufficient".</p>
+<p><strong>Disagreement</strong>: one side wants a bigger leased line (CNY 400k per year), the other wants to investigate the application first.</p>
+<p><strong>What the investigation found</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Egress utilization</td>
+<td>40% average, but a <strong>3–5 second 100% burst every minute</strong> — invisible to 5-minute averaging</td>
+</tr>
+<tr>
+<td>Switch queues</td>
+<td>Output drops on the uplink at peak</td>
+</tr>
+<tr>
+<td>Application behavior</td>
+<td>Each page load issues 60+ concurrent small requests, extremely sensitive to loss</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Root cause</strong>: bandwidth was not the bottleneck; <strong>bursty traffic plus insufficient queue buffering</strong> caused loss and repeated TCP retransmission. The real requirement was queueing/shaping and better concurrency behavior, not more bandwidth.</p>
+<p><strong>Outcome</strong>: QoS queue tuning plus an uplink port upgrade — CNY 30k — solved it.</p>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>a requirement is not what the user says, it is what measurement confirms.</strong> 40% average utilization was an <strong>assumption</strong>, not evidence.</p>
+</blockquote>
+<hr />
+<h3 id="case-2-does-a-200-person-branch-need-dual-cores">Case 2: Does a 200-person branch need "dual cores"?<a class="anchor" href="#case-2-does-a-200-person-branch-need-dual-cores" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a new 200-person branch, mostly office work plus video conferencing. The branch manager demands "dual cores, dual uplinks, dual carriers — the same standard as headquarters".</p>
+<p><strong>Checking each demand against requirements</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Demand</th>
+<th>Requirement basis</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dual core switches</td>
+<td>A single core failure means 4 hours of downtime (spare-parts lead time)</td>
+<td>Valid — but achievable at low cost with stacking or a redundant pair</td>
+</tr>
+<tr>
+<td>Dual carrier circuits</td>
+<td>No carrier fiber cut ever recorded at this campus</td>
+<td><strong>Not valid</strong> — single circuit plus 4G/5G backup instead</td>
+</tr>
+<tr>
+<td>Dual-link load sharing</td>
+<td>Peak traffic 180 Mbps; one 1G link is enough</td>
+<td><strong>Not valid</strong> — becomes backup rather than load sharing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Outcome</strong>: cost dropped from CNY 2.1M to CNY 850k with the same availability target (under 4 hours of downtime per year).</p>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>"the same as headquarters" is not a requirement, it is a habit.</strong> The best-practice trap and over-engineering both show up in real life under the name of standardization.</p>
+</blockquote>
+<hr />
+<h2 id="lessons-learned">Lessons Learned<a class="anchor" href="#lessons-learned" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quantify requirements and match metrics to the symptom</strong></td>
+<td>5-minute averages hide 3-second bursts (Case 1). Monitoring granularity must match the time scale of the user's complaint</td>
+</tr>
+<tr>
+<td><strong>Redundancy is decided by failure domain and business impact</strong></td>
+<td>Do not ask "what is the HQ standard"; ask "if this device fails, how much business stops for how long" (Case 2)</td>
+</tr>
+<tr>
+<td><strong>Every requirement must be traceable</strong></td>
+<td>A requirement that cannot be traced to a business objective usually comes from habit or a vendor deck and should be challenged</td>
+</tr>
+<tr>
+<td><strong>Push top-down, validate bottom-up</strong></td>
+<td>Requirements come down from the business, the solution is verified upward against current capability</td>
+</tr>
+<tr>
+<td><strong>Complexity must justify itself</strong></td>
+<td>For every added protocol layer or feature, ask "does the failure it prevents outweigh the risk it introduces?"</td>
+</tr>
+<tr>
+<td><strong>Ask who maintains it on Day 2</strong></td>
+<td>A design the team cannot operate becomes technical debt the day it goes live</td>
+</tr>
+<tr>
+<td><strong>Record rejected options and why</strong></td>
+<td>"Why not X" is often more valuable than "why Y", and it is the basis for future change</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="design-scenarios-3">Design Scenarios (3)<a class="anchor" href="#design-scenarios-3" title="Permanent link"></a></h2>
+<blockquote>
+<p>How to use: read only the <strong>Scenario</strong>, write your own answers to the three questions, then read the <strong>Suggested approach</strong>. It is not an answer key but the <strong>skeleton of a decision</strong>.</p>
+</blockquote>
+<h3 id="scenario-1-one-standard-for-the-whole-company">Scenario 1: "One standard for the whole company"<a class="anchor" href="#scenario-1-one-standard-for-the-whole-company" title="Permanent link"></a></h3>
+<p><strong>Scenario</strong>: a group has one headquarters (1,200 people), one R&amp;D center (800) and 37 sales offices (8–40 people). The new CIO proposes "the same reference architecture, the same core model and the same dual-carrier circuit at every site, for ease of management". Operations supports it: "when something breaks, knowing one place is enough".</p>
+<p><strong>What you know</strong>: the 37 offices cost CNY 42k per year each in network spend; over the past three years link failures caused 6 outages at offices, the longest 3 hours (sales can fall back to phone hotspots); the cost of one hour of downtime at HQ and at the R&amp;D center is CNY 1.8M and CNY 400k respectively.</p>
+<p><strong>Questions</strong>:</p>
+<ol>
+<li>What is the real requirement behind "one standard"?</li>
+<li>Which parts can be standardized, and which must be tiered?</li>
+<li>What are the cost and the risk of the CIO's proposal?</li>
+</ol>
+<p><strong>Suggested approach</strong>:</p>
+<ul>
+<li><strong>The real requirement is "reduce management complexity", not "identical architecture".</strong> Complexity can be reduced with configuration templates, centralized monitoring and automated audits without buying the same box everywhere.</li>
+<li><strong>Availability must be tiered by business impact.</strong> CNY 1.8M per hour at HQ versus an office outage that a phone hotspot can carry for 3 hours — the targets differ by two or three orders of magnitude; a single redundancy model necessarily wastes at one end and under-delivers at the other.</li>
+<li><strong>What can be standardized is a standardized option set</strong>: three tiers of templates (micro/small/medium), a common addressing plan, a common management plane and configuration baseline. <strong>What must not be standardized is capacity and redundancy level.</strong></li>
+<li><strong>37 dual circuits cost roughly CNY 600–700k more per year</strong>, while the risk it removes is far below the benefit of one extra link at HQ — over-engineering in its classic form.</li>
+<li><strong>How to land it</strong>: give the CIO a tiered proposal plus a three-year TCO comparison plus a table of "what an outage at each site class costs" — not an objection.</li>
+</ul>
+<hr />
+<h3 id="scenario-2-network-integration-after-an-acquisition">Scenario 2: Network integration after an acquisition<a class="anchor" href="#scenario-2-network-integration-after-an-acquisition" title="Permanent link"></a></h3>
+<p><strong>Scenario</strong>: Company A acquires Company B. A uses 10.0.0.0/8; so does B. A's core is multi-area OSPF with two vendors; B's core is single-area EIGRP, pure Cisco. B must keep two data centers for 18 months (customer contracts require local data retention) before consolidation.</p>
+<p><strong>What you know</strong>: all-office mutual access must work within 6 months of close; B's 5-person IT team knows only EIGRP; A requires "convergence onto A's architecture within 18 months".</p>
+<p><strong>Questions</strong>:</p>
+<ol>
+<li>Which design use case is this, and what is its biggest risk?</li>
+<li>How do you handle the address overlap — short term and long term?</li>
+<li>How do you transition routing protocols?</li>
+</ol>
+<p><strong>Suggested approach</strong>:</p>
+<ul>
+<li><strong>This is a Merge use case; the biggest risks are address overlap and a capability gap in the team.</strong> It also overlays "replace technology" and "prepare to divest" (the data centers split in 18 months), so the complexity multiplies.</li>
+<li><strong>Stop the bleeding on overlap first, fix the root cause second.</strong> Short term, NAT at the inter-company boundary for only the segments that must talk (never network-wide NAT, or troubleshooting becomes a nightmare). Long term, renumber progressively, starting with low-change systems and leaving the high-change office network for last.</li>
+<li><strong>Do not convert routing in one step.</strong> B's five engineers cannot absorb multi-area OSPF plus two vendors, so during transition attach B as a separate domain via boundary redistribution plus summarization. Then migrate B site by site, keeping a rollback window for every batch.</li>
+<li><strong>"Converge in 18 months" is a business goal, not a technical one.</strong> The technical objective should be "remove the dual-domain operations burden within 18 months", so training and documentation handover must run in parallel.</li>
+<li><strong>What must be written down</strong>: the addressing plan, the verification cases and rollback steps for each batch, and the data-flow diagram after the data centers split at month 18.</li>
+</ul>
+<hr />
+<h3 id="scenario-3-operations-proposes-replace-ospf-with-sd-wan">Scenario 3: Operations proposes "replace OSPF with SD-WAN"<a class="anchor" href="#scenario-3-operations-proposes-replace-ospf-with-sd-wan" title="Permanent link"></a></h3>
+<p><strong>Scenario</strong>: a manufacturer with 60 plants runs MPLS plus OSPF, stable for 7 years. The new operations manager proposes replacing MPLS entirely with SD-WAN over Internet, citing that peers are doing it, CNY 3M of annual savings, and fast deployment.</p>
+<p><strong>What you know</strong>: critical plants carry MES real-time control traffic (one-way delay under 20 ms, jitter under 5 ms); some plants are in regions with poor network infrastructure; the group has just moved to SAP S/4HANA and expects WAN traffic to triple over two years; the operations team has 12 people with no SD-WAN experience.</p>
+<p><strong>Questions</strong>:</p>
+<ol>
+<li>Which design use case is this, and what must be confirmed first?</li>
+<li>Which sites and traffic flows suit migration, and which do not?</li>
+<li>If migration proceeds, how are the plan and the rollback designed?</li>
+</ol>
+<p><strong>Suggested approach</strong>:</p>
+<ul>
+<li><strong>Ask "why" first, and keep asking until the answer is verifiable.</strong> "Save CNY 3M" must be decomposed: circuit fees only, or including operations headcount? Do bigger Internet circuits, encryption gateways and a controller add CAPEX and OPEX? <strong>A cost comparison that is not decomposed is usually wrong.</strong></li>
+<li><strong>Do not replace wholesale; migrate in tiers.</strong> Office-type traffic suits SD-WAN over Internet; MES control traffic stays on an SLA-bearing link until delay and jitter targets are met — a hybrid WAN.</li>
+<li><strong>Technical feasibility is not organizational feasibility.</strong> Twelve people with no experience switching everything at once bets production continuity on a learning curve. Pilot five non-critical plants, build a monitoring baseline and a failure playbook, then proceed in batches.</li>
+<li><strong>Minimum contents of the migration plan</strong>: the site list per batch, the cutover window, business verification cases (MES transaction success rate, not "can we ping"), and <strong>rollback trigger conditions and duration</strong>.</li>
+<li><strong>The right deliverable is not yes/no but a migration roadmap split by year and by site class, with its risk exposure stated.</strong></li>
+</ul>
+<hr />
+<h2 id="key-terms">Key Terms<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in design practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Top-Down Approach</strong></td>
+<td>Start from business drivers and derive requirements before choosing technology</td>
+</tr>
+<tr>
+<td><strong>Bottom-Up Approach</strong></td>
+<td>Start from technology selection; useful for feasibility checks, risky as the primary method</td>
+</tr>
+<tr>
+<td><strong>Functional Requirements</strong></td>
+<td>What the system must do — also called behavioral requirements</td>
+</tr>
+<tr>
+<td><strong>Technical Requirements</strong></td>
+<td>Nonfunctional attributes: availability, security, integration, scale</td>
+</tr>
+<tr>
+<td><strong>Application Requirements</strong></td>
+<td>Constraints derived from how applications behave; usually decisive</td>
+</tr>
+<tr>
+<td><strong>Greenfield</strong></td>
+<td>A brand-new design on a blank sheet</td>
+</tr>
+<tr>
+<td><strong>Brownfield</strong></td>
+<td>A design inside an existing production environment</td>
+</tr>
+<tr>
+<td><strong>Design Scope</strong></td>
+<td>What the design covers — and, more importantly, what it does not</td>
+</tr>
+<tr>
+<td><strong>Constraints</strong></td>
+<td>Business, application and technical limits on the solution space</td>
+</tr>
+<tr>
+<td><strong>Unstated Requirements</strong></td>
+<td>Requirements the customer assumes rather than states</td>
+</tr>
+<tr>
+<td><strong>Pervasive Security</strong></td>
+<td>Security as a property of every decision, not a perimeter product</td>
+</tr>
+<tr>
+<td><strong>Zero Trust Architecture</strong></td>
+<td>Trust scored continuously per identity, device, application and data</td>
+</tr>
+<tr>
+<td><strong>Fault Isolation</strong></td>
+<td>Containing a failure inside its module or layer</td>
+</tr>
+<tr>
+<td><strong>Information Hiding</strong></td>
+<td>Limiting propagated state (for example via summarization) to improve scale</td>
+</tr>
+<tr>
+<td><strong>Modularity</strong></td>
+<td>Functional modules designed and operated independently</td>
+</tr>
+<tr>
+<td><strong>Hierarchy</strong></td>
+<td>Core, distribution and access layers with explicit responsibilities</td>
+</tr>
+<tr>
+<td><strong>Gold Plating</strong></td>
+<td>Over-engineering: adding capability nobody asked for</td>
+</tr>
+<tr>
+<td><strong>CAPEX / OPEX / TCO / ROI</strong></td>
+<td>The financial vocabulary required to defend a design</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="chapter-summary">Chapter Summary<a class="anchor" href="#chapter-summary" title="Permanent link"></a></h2>
+<p>Chapter 1 delivers <strong>a method, not a set of conclusions</strong>. The whole chapter compresses into one sequence of actions:</p>
+<pre><code>Ask &quot;why&quot; first (business objective)
+    ↓
+Translate the objective into three requirement types: functional / technical / application
+    ↓
+Force out the unstated constraints (budget, compliance, legacy, people, time)
+    ↓
+Validate the solution against six principles
+(pervasive security, availability, scalability, cost, manageability, unstated requirements)
+    ↓
+Implement it with four techniques (fault isolation, information hiding, modularity, hierarchy)
+    ↓
+Self-check against three pitfalls (assumptions, over-engineering, best-practice fallacy)
+</code></pre>
+<blockquote>
+<p><strong>One-line memory</strong>: <strong>design is the path from "why the business cares" to "how the devices connect"; any hop skipped along the way comes back later as rework.</strong></p>
+</blockquote>
+<p>Two points that are most often confused:</p>
+<table>
+<thead>
+<tr>
+<th>Easily confused</th>
+<th>Correct understanding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top-down vs. bottom-up</td>
+<td>Not rival camps but <strong>two directions of the same design</strong>: requirements pushed top-down, feasibility verified bottom-up</td>
+</tr>
+<tr>
+<td>Requirement vs. constraint</td>
+<td>A requirement is "what must be achieved"; a constraint is "how it may not be done". Constraints often shape the architecture more than requirements</td>
+</tr>
+</tbody>
+</table>
+<p>Two of these principles echo through the remaining chapters: <strong>security is pervasive</strong>, and <strong>without requirements there are no trade-offs</strong>.</p></article>
+    
+    
+    <section class="board" id="board" data-page="EN · Chapter 1 · Network Design" data-key="en-01">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">EN · Chapter 1 · Network Design</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#topics-covered">Topics Covered</a></li>
+<li><a href="#chapter-overview-ten-counterintuitive-lessons">Chapter Overview: Ten Counterintuitive Lessons</a></li>
+<li><a href="#foundation-topics">Foundation Topics</a><ul>
+<li><a href="#two-common-approaches-to-network-analysis-and-design">Two Common Approaches to Network Analysis and Design</a></li>
+</ul>
+</li>
+<li><a href="#network-design-fundamentals">Network Design Fundamentals</a><ul>
+<li><a href="#mindset">Mindset</a></li>
+<li><a href="#functional-requirements">Functional Requirements</a></li>
+<li><a href="#technical-requirements">Technical Requirements</a></li>
+<li><a href="#application-requirements">Application Requirements</a></li>
+<li><a href="#building-the-design-requirements">Building the Design Requirements</a></li>
+<li><a href="#design-scope">Design Scope</a></li>
+<li><a href="#design-use-cases">Design Use Cases</a></li>
+<li><a href="#the-business">The Business</a></li>
+<li><a href="#constraints">Constraints</a></li>
+<li><a href="#why">"Why"</a></li>
+</ul>
+</li>
+<li><a href="#network-design-principles">Network Design Principles</a><ul>
+<li><a href="#unstated-requirements">Unstated Requirements</a></li>
+<li><a href="#pervasive-security">Pervasive Security</a></li>
+<li><a href="#availability">Availability</a></li>
+<li><a href="#scalability">Scalability</a></li>
+<li><a href="#cost">Cost</a></li>
+<li><a href="#manageability">Manageability</a></li>
+</ul>
+</li>
+<li><a href="#network-design-techniques">Network Design Techniques</a><ul>
+<li><a href="#fault-isolation">Fault Isolation</a></li>
+<li><a href="#information-hiding">Information Hiding</a></li>
+<li><a href="#modularity">Modularity</a></li>
+<li><a href="#hierarchy">Hierarchy</a></li>
+</ul>
+</li>
+<li><a href="#network-design-pitfalls">Network Design Pitfalls</a><ul>
+<li><a href="#1-assumptions">1. Assumptions</a></li>
+<li><a href="#2-over-engineering-gold-plating">2. Over-Engineering (Gold Plating)</a></li>
+<li><a href="#3-the-best-practice-fallacy">3. The Best-Practice Fallacy</a></li>
+</ul>
+</li>
+<li><a href="#case-studies">Case Studies</a><ul>
+<li><a href="#case-1-the-network-is-slow-is-usually-not-a-bandwidth-problem">Case 1: "The network is slow" is usually not a bandwidth problem</a></li>
+<li><a href="#case-2-does-a-200-person-branch-need-dual-cores">Case 2: Does a 200-person branch need "dual cores"?</a></li>
+</ul>
+</li>
+<li><a href="#lessons-learned">Lessons Learned</a></li>
+<li><a href="#design-scenarios-3">Design Scenarios (3)</a><ul>
+<li><a href="#scenario-1-one-standard-for-the-whole-company">Scenario 1: "One standard for the whole company"</a></li>
+<li><a href="#scenario-2-network-integration-after-an-acquisition">Scenario 2: Network integration after an acquisition</a></li>
+<li><a href="#scenario-3-operations-proposes-replace-ospf-with-sd-wan">Scenario 3: Operations proposes "replace OSPF with SD-WAN"</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">Key Terms</a></li>
+<li><a href="#chapter-summary">Chapter Summary</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>
