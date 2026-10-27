@@ -298,8 +298,9 @@ def board_html(page_label: str, page_key: str) -> str:
 
 def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
                prev_link: str = "", next_link: str = "", is_home: bool = False,
-               root: str = "", board: str = ""):
+               root: str = "", board: str = "", article_class: str = ""):
     body_class = "layout-home" if is_home else "layout-doc"
+    article_cls = "article markdown-body" + (f" {article_class}" if article_class else "")
     toc_panel = (
         f'<aside class="toc-rail"><div class="toc-inner">'
         f'<div class="toc-title">本页目录</div>{toc}</div></aside>'
@@ -345,7 +346,7 @@ def page_shell(title: str, content: str, sidebar: str, *, toc: str = "",
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body">{content}</article>
+    <article class="{article_cls}">{content}</article>
     {pager}
     {board}
     <footer class="foot">
@@ -495,6 +496,7 @@ def main():
             next_link=pager_link(next_ec, "next"),
             root="",
             board=board_html(f'EN · Chapter {ec["num"]} · {ec["title"]}', ec["slug"]),
+            article_class="is-en",
         )
         (OUT / f'{ec["slug"]}.html').write_text(html, encoding="utf-8")
         label = f'Chapter {ec["num"]} · {ec["title"]} (English)'
