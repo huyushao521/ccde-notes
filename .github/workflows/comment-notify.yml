@@ -1,0 +1,69 @@
+name: 留言邮件提醒
+
+# 站点评论区走 giscus，后端是 GitHub Discussions。
+# 这里监听 Discussions 的两类事件，把新留言转发到 QQ 邮箱。
+#
+# 需要两个仓库 Secrets（Settings → Secrets and variables → Actions → New repository secret）：
+#   MAIL_USERNAME  收件与发件的 QQ 邮箱完整地址（secret 里填，不写进本文件，避免公开泄露）
+#   MAIL_PASSWORD  QQ 邮箱「授权码」，不是登录密码
+#                  获取：QQ 邮箱网页版 → 设置 → 账户 → POP3/IMAP/SMTP 服务 → 开启并生成授权码
+#
+# 换其他邮箱时改 server_address / server_port / secure 三处：
+#   QQ / 163 用 465 + secure: true；Gmail 用 smtp.gmail.com + 587 + secure: false
+
+on:
+  discussion:
+    types: [created]
+  discussion_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    # 自己发的留言不提醒自己
+    if: github.event.sender.login != github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - name: 转发讨论区评论
+        if: github.event_name == 'discussion_comment'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: "CCDE 笔记留言 <${{ secrets.MAIL_USERNAME }}>"
+          to: ${{ secrets.MAIL_USERNAME }}
+          subject: "[笔记留言] ${{ github.event.discussion.title }}"
+          body: |
+            页面标题：${{ github.event.discussion.title }}
+            页面链接：${{ github.event.discussion.html_url }}
+            留言者：${{ github.event.sender.login }}
+            时间：${{ github.event.comment.created_at }}
+
+            ------------ 留言正文 ------------
+            ${{ github.event.comment.body }}
+
+      - name: 转发新开的讨论帖
+        if: github.event_name == 'discussion'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: "CCDE 笔记留言 <${{ secrets.MAIL_USERNAME }}>"
+          to: ${{ secrets.MAIL_USERNAME }}
+          subject: "[笔记留言·新帖] ${{ github.event.discussion.title }}"
+          body: |
+            页面标题：${{ github.event.discussion.title }}
+            页面链接：${{ github.event.discussion.html_url }}
+            发起者：${{ github.event.sender.login }}
+            时间：${{ github.event.discussion.created_at }}
+
+            ------------ 首帖正文 ------------
+            ${{ github.event.discussion.body }}
