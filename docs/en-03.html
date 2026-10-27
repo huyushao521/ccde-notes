@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 3: What Is the Purpose of the Network · English Edition · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与串讲</span><span class="nav-sub">全书串讲 · 设计决策流程</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">English Edition</span><span class="nav-sub">中英对照 · Chapter 1–5</span></div><div class="nav-items"><a class="nav-link" href="en-01.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 1 · Network Design</span></a><a class="nav-link" href="en-02.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 2 · Designing for Business Success</span></a><a class="nav-link active" href="en-03.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 3 · What Is the Purpose of the Network</span></a><a class="nav-link" href="en-04.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 4 · Security Is Pervasive</span></a><a class="nav-link" href="en-05.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 5 · Reference Architecture Models and Frameworks</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 3 · about 5739 words</span></div><h1 id="chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network">Chapter 3: What's the Purpose of the Network? · 第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
+<blockquote>
+<p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 3 (pp. 181–208)</p>
+<p>Terminology follows the English edition. Every English passage is followed by its Chinese counterpart in the grey block below it, so the two can be checked sentence by sentence.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 181-208 页</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="topics-covered">Topics Covered · 本章涵盖主题<a class="anchor" href="#topics-covered" title="Permanent link"></a></h2>
+<ul>
+<li><strong>Business applications</strong>: business applications and the network design elements they imply</li>
+<li><strong>Service models</strong>: the service models and their network design characteristics</li>
+<li><strong>The cloud</strong>: the various forms of cloud and the related network design elements</li>
+<li><strong>Data management</strong>: data management methodologies</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>业务应用</strong>：业务应用及相关的网络设计要素</li>
+<li><strong>服务模型</strong>：不同服务模型及其网络设计特征</li>
+<li><strong>云</strong>：各种形式的云及相关网络设计要素</li>
+<li><strong>数据管理</strong>：数据管理方法论</li>
+</ul>
+</div>
+<hr />
+<h2 id="chapter-overview-applications-set-the-ceiling-of-the-network">Chapter Overview: Applications Set the Ceiling of the Network · 本章导读：网络的上限由应用决定<a class="anchor" href="#chapter-overview-applications-set-the-ceiling-of-the-network" title="Permanent link"></a></h2>
+<p>Chapter 1 said "derive the network from the business". This chapter turns "business" into something analyzable: <strong>applications and data</strong>. Applications are what actually runs on the network, and every network metric — latency, loss, bandwidth, availability — is meaningful only <strong>for a particular application</strong>.</p>
+<div class="zh">
+<p>第 1 章说"从业务推导网络"，这一章把"业务"具体化成一个可分析的对象：<strong>应用和数据</strong>。因为最终跑在网络上的是应用，网络的所有指标（时延、丢包、带宽、可用性）只有在<strong>某个应用身上</strong>才有意义。</p>
+</div>
+<p>Eight lessons that are easy to miss:</p>
+<div class="zh">
+<p>八个容易踩空的认知：</p>
+</div>
+<p><strong>1. Application architecture is an input to network design, not an output.</strong> Monolithic, two-tier, three-tier, N-tier, microservices — the architecture decides whether traffic is mostly north-south or mostly east-west, how many hops one user action takes, and how much latency can be tolerated. <strong>Changing the network to fit the application is always cheaper than the reverse.</strong></p>
+<div class="zh">
+<p><strong>1. 应用架构是网络设计的输入，不是输出。</strong> 单体应用、两层、三层、N 层、微服务——它们决定流量是"南北向为主"还是"东西向为主"，决定一次用户操作要经过几跳、能容忍多少时延。<strong>先改网络去适配应用，从来比反过来便宜。</strong></p>
+</div>
+<p><strong>2. The latency budget is measured per business transaction, not per hop.</strong> One click on submit may traverse 30 service calls; 5 ms extra per call means 150 ms of extra waiting. In a three-tier model, every cross-tier call consumes the budget.</p>
+<div class="zh">
+<p><strong>2. 时延预算要按"一次业务事务"算，不是按"一跳"算。</strong> 用户点一次提交，可能经过 30 次服务调用；每次多 5ms，用户就多等 150ms。三层模型里每个跨层调用都是预算的消耗点。</p>
+</div>
+<p><strong>3. The more "modern" the application model, the harder the network work.</strong> A monolith only needs reachability; microservices need service discovery, east-west policy, distributed tracing and finer fault isolation. <strong>Architecture evolution is not free — cost moves from servers into the network and into observability.</strong></p>
+<div class="zh">
+<p><strong>3. 应用模型越"现代"，网络越难做。</strong> 单体应用只需要"通"；微服务需要服务发现、东西向策略、分布式追踪、更细的故障隔离。<strong>架构演进不是免费的，成本会从服务器转移到网络和可观测性上。</strong></p>
+</div>
+<p><strong>4. The service model (IaaS/PaaS/SaaS) decides how much control you have left.</strong> Choosing SaaS means handing part of availability, performance and security responsibility to the provider, and your design focus shifts from "build" to "select + integrate + backstop". <strong>Do not design SaaS assurance with an IaaS mindset.</strong></p>
+<div class="zh">
+<p><strong>4. 服务模型（IaaS/PaaS/SaaS）决定你还剩下多少控制权。</strong> 选 SaaS 等于把可用性、性能、安全的一部分责任交给供应商，你的设计重点从"建"变成"选 + 集成 + 兜底"。<strong>别用 IaaS 的思路去设计 SaaS 的保障。</strong></p>
+</div>
+<p><strong>5. Moving to cloud is not "moving servers elsewhere", it is "changing the shape of the failure domain".</strong> There is no longer a "my data center" boundary; instead there are regions, availability zones and the shared responsibility model. <strong>The old single point disappears, but new shared failures appear (region-level failure, single sign-on, DNS).</strong></p>
+<div class="zh">
+<p><strong>5. 上云不是"把服务器搬到别处"，是"改变故障域的形状"。</strong> 云上不再有"我的机房"这个边界，取而代之的是区域、可用区、云服务共享责任模型。<strong>原来的单点消失了，但新的共享故障（云区域级故障、单点登录、DNS）出现了。</strong></p>
+</div>
+<p><strong>6. The core of choosing a cloud connection model is determinism, not bandwidth.</strong> The difference between Internet, VPN, dedicated circuits and cloud exchange lies mainly in whether latency and loss are predictable and who carries the SLA. <strong>Business that demands determinism cannot be satisfied by "plenty of bandwidth".</strong></p>
+<div class="zh">
+<p><strong>6. 云连接模型的选择核心是"确定性"，不是"带宽"。</strong> Internet、VPN、专线、云交换的差别，主要在于时延与丢包是否可预期、SLA 由谁承担。<strong>要求确定性的业务，不能靠"带宽够大"来满足。</strong></p>
+</div>
+<p><strong>7. Cloud-agnostic has a price.</strong> Avoiding vendor lock-in means giving up that cloud's managed services, native networking and native security, and implementing your own abstraction layer instead. <strong>You gain portability and pay in operational complexity and performance loss.</strong> It is a deliberate trade-off, not a more advanced practice.</p>
+<div class="zh">
+<p><strong>7. Cloud-agnostic 是有代价的。</strong> 不绑定云厂商，意味着放弃该云的托管服务、原生网络与安全能力，转而自己实现一层抽象——<strong>换来的是可迁移性，付出的是运维复杂度和性能折损</strong>。这是一个明确的取舍，不是"更高级的做法"。</p>
+</div>
+<p><strong>8. Data management drives compliance and backup design, yet it is often outside the network team's field of view.</strong> Classification, residency, retention, encryption, backup and destruction — at least half of the eleven pillars turn directly into network requirements (which path, may it leave the country, who may access it).</p>
+<div class="zh">
+<p><strong>8. 数据管理决定合规与备份设计，而它常常不在网络团队的视野里。</strong> 数据分级、驻留、留存、加密、备份、销毁——这 11 个支柱里至少有一半会直接变成网络要求（走哪条路径、能不能出境、谁能访问）。</p>
+</div>
+<blockquote>
+<p><strong>One-sentence summary</strong>: <strong>first understand which applications run, where the data sits and who provides the service; only then discuss how the network connects. Reverse the order and design becomes guesswork.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>一句话概括这一章</strong>：<strong>先看清"跑的是什么应用、数据放在哪、服务由谁提供"，再谈网络怎么连——顺序反了，设计就只能靠猜。</strong></p>
+</blockquote>
+</div>
+<hr />
+<h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<blockquote>
+<p>What is the purpose of the network? Why do we need a network? A network designer should keep these questions in mind at all times, because understanding the purpose and goals of the network is essential to designing it correctly.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>网络的目的是什么？为什么需要网络？这些问题应始终在网络设计师脑海中，因为理解网络的目的和目标对正确设计至关重要。</p>
+</blockquote>
+</div>
+<p>From a purely technical angle, the purpose of the network is to move data from point A to point B at the right time. From a design angle we must go further: <strong>the fundamental purpose of moving that data is to achieve business outcomes and goals — to make the business successful.</strong></p>
+<div class="zh">
+<p>从技术角度回答：网络的目的是在正确的时间内将数据从 A 点传输到 B 点。但从网络设计角度，我们需要更进一步——<strong>网络传输数据的根本目的是实现业务成果和目标，让业务成功！</strong></p>
+</div>
+<p>Enterprises now depend on the network so heavily that its availability, and that of the services attached to it, must be designed to a very high level. The traditional telephone network (POTS) is the precedent: people relied on it so completely that overall availability had to be engineered to an extreme level.</p>
+<div class="zh">
+<p>企业对网络的依赖已经到了必须将网络及其相关服务的可用性设计到极高水平的地步。就像传统电话网络 (POTS) 一样——人们如此依赖它，以至于整体可用性必须设计到极高水平。</p>
+</div>
+<hr />
+<h2 id="business-applications">Business Applications · 业务应用<a class="anchor" href="#business-applications" title="Permanent link"></a></h2>
+<p>The network is the information highway of today's business applications. For the business to succeed, those applications must communicate correctly and on demand between users, devices, data, databases and other application components.</p>
+<div class="zh">
+<p>网络是当今业务应用的"信息高速公路"。为了让业务成功，这些应用必须能在用户、设备、数据、数据库和其他应用组件之间按需正确通信。</p>
+</div>
+<h3 id="application-models">Application Models · 应用模型<a class="anchor" href="#application-models" title="Permanent link"></a></h3>
+<p>A network designer needs to understand how applications are built in order to design a network that supports them properly.</p>
+<div class="zh">
+<p>网络设计师需要了解应用的构建方式，以便正确设计支持该应用的网络。</p>
+</div>
+<h4 id="1-single-server-model">1. Single-Server Model · 单服务器模型<a class="anchor" href="#1-single-server-model" title="Permanent link"></a></h4>
+<p>The simplest application model, equivalent to running an application on a personal computer. Every component the application needs runs on a single application server.</p>
+<div class="zh">
+<p>最简单的应用模型，相当于在个人计算机上运行应用。应用运行所需的所有组件都在单个应用或服务器上。</p>
+</div>
+<h4 id="2-2-tier-model">2. 2-Tier Model · 二层模型<a class="anchor" href="#2-2-tier-model" title="Permanent link"></a></h4>
+<p>Similar to client/server architecture. The presentation layer (user interface) runs on the client, while the data set layer executes and stores on the server. There is no intermediate application layer between client and server.</p>
+<div class="zh">
+<p>类似客户端/服务器架构。表示层（用户界面层）运行在客户端，数据集层在服务器端执行和存储。客户端和服务器之间没有中间层（应用层）。</p>
+</div>
+<h4 id="3-3-tier-model">3. 3-Tier Model · 三层模型<a class="anchor" href="#3-3-tier-model" title="Permanent link"></a></h4>
+<p>The most common application model today, made up of three tiers:</p>
+<div class="zh">
+<p>目前最常见的应用模型，包含三层：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Name</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Presentation</strong></td>
+<td>Web tier / GUI tier</td>
+<td>The front end where end users access and interact. Translates tasks and results into something the user understands</td>
+</tr>
+<tr>
+<td><strong>Intermediate</strong></td>
+<td>Application tier / logic tier</td>
+<td>Processes tasks, functions and commands; makes decisions and evaluations; performs computation; moves data between the presentation and database tiers</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>Data tier</td>
+<td>Stores and retrieves information and returns it to the intermediate tier, and eventually to the end user</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>表示层 (Presentation)</strong></td>
+<td>Web 层 / GUI 层</td>
+<td>前端，最终用户访问和交互的界面。将任务和结果翻译为用户可理解的形式</td>
+</tr>
+<tr>
+<td><strong>中间层 (Intermediate)</strong></td>
+<td>应用层 / 逻辑层</td>
+<td>应用的功能和逻辑处理层。处理任务、函数和命令，做出决策和评估，执行计算。在表示层和数据库层之间移动数据</td>
+</tr>
+<tr>
+<td><strong>数据库层 (Database)</strong></td>
+<td>数据层</td>
+<td>存储和检索信息，传回中间层，最终返回给最终用户</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 Splitting an application into tiers (n-tier architecture) lets a network designer <strong>design the network for each tier separately</strong>. Each tier may need its own load balancing, source NAT, DNS, source routing and traffic engineering.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 将应用拆分为不同层级（n 层架构）使网络设计师可以<strong>为每层单独设计网络</strong>。每层可能需要自己的负载均衡、源 NAT、DNS、源路由和流量工程设计。</p>
+</blockquote>
+</div>
+<h3 id="network-design-elements-of-the-3-tier-model">Network Design Elements of the 3-Tier Model · 三层模型的网络设计要素<a class="anchor" href="#network-design-elements-of-the-3-tier-model" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Traffic pattern</th>
+<th>Network design elements</th>
+<th>Questions to consider</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web tier</strong></td>
+<td>End users ↔ web tier</td>
+<td>No database-tier access. Usually placed in a DMZ</td>
+<td>How do end users reach the web tier globally? How is the web tier's specific network or IP routed? What HA design does the web tier use (active/active, active/standby, anycast)?</td>
+</tr>
+<tr>
+<td><strong>Application tier</strong></td>
+<td>Web tier ↔ application tier</td>
+<td>Internal access only, no external addresses or routing. Load balancing applied. Usually behind multiple layers of internal security</td>
+<td>How does the web tier talk to the application tier? How does the database tier talk to the application tier (SNAT, NAT, stickiness)?</td>
+</tr>
+<tr>
+<td><strong>Database tier</strong></td>
+<td>Application tier ↔ database tier</td>
+<td>Internal access only. Usually behind multiple layers of internal security</td>
+<td>How do database member servers replicate? How are database changes synchronized (especially across data centers)?</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>流量模式</th>
+<th>网络设计要素</th>
+<th>需要考虑的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web 层</strong></td>
+<td>最终用户 ↔ Web 层</td>
+<td>无数据库层访问。通常位于 DMZ</td>
+<td>最终用户如何全球访问 Web 层？Web 层特定网络/IP 如何路由？Web 层高可用架构如何？(Active/Active, Active/Standby, Anycast 等)</td>
+</tr>
+<tr>
+<td><strong>应用层</strong></td>
+<td>Web 层 ↔ 应用层</td>
+<td>仅内部访问，无外部地址或路由。实施负载均衡。通常位于内部多层安全之后</td>
+<td>Web 层如何与应用层通信？数据库层如何与应用层通信？(SNAT, NAT, Sticky 等)</td>
+</tr>
+<tr>
+<td><strong>数据库层</strong></td>
+<td>应用层 ↔ 数据库层</td>
+<td>仅内部访问。通常位于内部多层安全之后</td>
+<td>不同数据库成员服务器之间如何复制？数据库变更如何同步？(多数据中心场景尤为重要)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="application-constraints-and-requirements">Application Constraints and Requirements · 应用约束和需求<a class="anchor" href="#application-constraints-and-requirements" title="Permanent link"></a></h3>
+<p>Common application constraints and requirements a network designer should know:</p>
+<div class="zh">
+<p>网络设计师需要了解的常见应用约束和需求：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Constraint / requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multicast</strong></td>
+<td>Often used to keep server clusters synchronized (for example back-end database replication) or as the transport for streaming applications (IPTV, real-time stock updates). An application breaks if multicast is not supported</td>
+</tr>
+<tr>
+<td><strong>Layer 2 extension</strong></td>
+<td>One of the most common network design requirements. Application servers do not communicate outside their Layer 2 segment. The designer has to provide Layer 2 extension options — which leads to poor designs with large Layer 2 failure domains, but it does solve the application's problem</td>
+</tr>
+<tr>
+<td><strong>Hardcoded items</strong></td>
+<td>IP addresses, host names and similar values embedded in code. They must be mitigated with NAT, traffic engineering and source routing</td>
+</tr>
+<tr>
+<td><strong>High availability</strong></td>
+<td>How the application is designed for HA directly shapes the network. Multiple sites? How is data synchronized? Active/standby or active/active? What load-balancing method? Is SNAT required?</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>约束/需求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>组播 (Multicast)</strong></td>
+<td>通常用于服务器集群间保持数据同步（如后端数据库复制），或作为数据流应用的传输机制（如 IPTV 和实时股市更新）。不支持组播会破坏应用</td>
+</tr>
+<tr>
+<td><strong>二层扩展 (Layer 2 Extension)</strong></td>
+<td>最常见的网络设计需求之一。应用服务器不在其二层段外通信。网络设计师需要提供二层扩展选项——这导致大型二层故障域的糟糕网络设计，但确实解决了应用需求</td>
+</tr>
+<tr>
+<td><strong>硬编码项 (Hardcoded Items)</strong></td>
+<td>代码中硬编码的 IP 地址、主机名等。需要通过 NAT、流量工程和源路由来缓解</td>
+</tr>
+<tr>
+<td><strong>高可用性 (High Availability)</strong></td>
+<td>应用如何设计高可用直接影响网络。多地点？数据如何同步？Active/Standby 还是 Active/Active？负载均衡方式？是否需要 SNAT？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>Note for network designers</strong>: many network design problems originate in poor application development. Being forced to provide Layer 2 extension as a band-aid is the classic example — a short-term fix that becomes permanent. Network designers and security specialists should take part in the application build and review process.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>网络设计师应注意</strong>：很多网络设计问题源于应用开发不当。例如被迫提供二层扩展作为"创可贴"方案——本应是短期方案却变成了永久方案。网络设计师和安全专家应参与应用构建和审查过程。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="service-models">Service Models · 服务模型<a class="anchor" href="#service-models" title="Permanent link"></a></h2>
+<p>The service model determines where the application lives and which elements of it the enterprise owns and manages.</p>
+<div class="zh">
+<p>服务模型决定了应用的位置以及应用的哪些元素由企业拥有和管理。</p>
+</div>
+<h3 id="the-four-main-service-models">The Four Main Service Models · 四种主要服务模型<a class="anchor" href="#the-four-main-service-models" title="Permanent link"></a></h3>
+<h4 id="1-on-premises">1. On-Premises · 本地部署<a class="anchor" href="#1-on-premises" title="Permanent link"></a></h4>
+<p>The enterprise owns and manages the application. It buys all the infrastructure needed to run the service and then manages, maintains and operates it completely.</p>
+<div class="zh">
+<p>企业拥有和管理应用。企业采购运行服务所需的所有基础设施，然后完全管理、维护和运营。</p>
+</div>
+<p><strong>Characteristics</strong>:
+- Full control over every component
+- Available locally
+- Hosted in the enterprise server environment</p>
+<div class="zh">
+<p><strong>特点</strong>：
+- 完全控制所有组件
+- 本地可用
+- 托管在企业服务器环境中</p>
+</div>
+<p><strong>When to use</strong>: when full control of all application components is required, commonly driven by security, compliance and data classification requirements.</p>
+<div class="zh">
+<p><strong>适用场景</strong>：需要完全控制应用所有组件时，常见于安全合规和数据分类要求</p>
+</div>
+<h4 id="2-software-as-a-service-saas">2. Software as a Service (SaaS) · 软件即服务<a class="anchor" href="#2-software-as-a-service-saas" title="Permanent link"></a></h4>
+<p>The provider delivers software to users over the Internet, usually on a monthly or annual subscription.</p>
+<div class="zh">
+<p>供应商通过 Internet 向用户提供软件，通常按月或年订阅。</p>
+</div>
+<p><strong>Characteristics</strong>:
+- Nothing to install or run on any computer
+- Everything is accessed over the Internet
+- Accessible from any device, at any time, anywhere with an Internet connection
+- Scalable, delivered on demand</p>
+<div class="zh">
+<p><strong>特点</strong>：
+- 无需在任何计算机上安装和运行软件
+- 一切通过 Internet 访问
+- 可从任何设备、任何时间、有 Internet 连接的地方访问
+- 可扩展，按需提供服务</p>
+</div>
+<p><strong>When to use</strong>: when you want the application to assure availability but do not want to maintain the application.</p>
+<div class="zh">
+<p><strong>适用场景</strong>：希望应用确保可用性但不想维护应用时</p>
+</div>
+<h4 id="3-platform-as-a-service-paas">3. Platform as a Service (PaaS) · 平台即服务<a class="anchor" href="#3-platform-as-a-service-paas" title="Permanent link"></a></h4>
+<p>The provider supplies the hardware and software tools, and the customer uses those tools to develop applications. PaaS users are typically application developers.</p>
+<div class="zh">
+<p>供应商提供硬件和软件工具，用户使用这些工具开发应用。PaaS 用户通常是应用开发者。</p>
+</div>
+<p><strong>Characteristics</strong>:
+- Primarily for developers creating software and applications
+- Scalable
+- Built on virtualization technology
+- Applications can be created without starting from scratch
+- Easy to run without deep IT knowledge</p>
+<div class="zh">
+<p><strong>特点</strong>：
+- 主要供开发者创建软件和应用
+- 可扩展
+- 基于虚拟化技术构建
+- 无需从头开始即可创建应用
+- 易于运行，无需深入 IT 知识</p>
+</div>
+<p><strong>When to use</strong>: when you want to build a distinctive application without large capital outlay or full responsibility.</p>
+<div class="zh">
+<p><strong>适用场景</strong>：希望创建独特应用但不想花费大量资金或承担全部责任时</p>
+</div>
+<h4 id="4-infrastructure-as-a-service-iaas">4. Infrastructure as a Service (IaaS) · 基础设施即服务<a class="anchor" href="#4-infrastructure-as-a-service-iaas" title="Permanent link"></a></h4>
+<p>An on-demand, pay-as-you-go model for storage, networking and virtualization services — covering the enterprise's infrastructure needs.</p>
+<div class="zh">
+<p>按需付费的存储、网络和虚拟化服务模型——满足企业所有基础设施需求。</p>
+</div>
+<p><strong>Characteristics</strong>:
+- Highly flexible
+- Highly scalable
+- Accessible by multiple tenants
+- Cost-effective
+- The enterprise keeps control of the infrastructure</p>
+<div class="zh">
+<p><strong>特点</strong>：
+- 高度灵活
+- 高度可扩展
+- 多用户可访问
+- 成本效益高
+- 企业保持对基础设施的控制</p>
+</div>
+<p><strong>When to use</strong>: when you need full control of the virtual infrastructure but want to pay as you go.</p>
+<div class="zh">
+<p><strong>适用场景</strong>：需要完全控制虚拟基础设施但希望按需付费时</p>
+</div>
+<h3 id="service-model-comparison">Service Model Comparison · 服务模型对比<a class="anchor" href="#service-model-comparison" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Characteristic</th>
+<th>Advantage</th>
+<th>When it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>On-premises</strong></td>
+<td>Owned and managed by the enterprise</td>
+<td>Full control of all components</td>
+<td>When full control is required (security, compliance, data classification)</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>Available over the Internet</td>
+<td>Nothing to install, available everywhere</td>
+<td>When you want assurance without maintenance</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td>Multi-tenant access</td>
+<td>Developers do not start from zero</td>
+<td>When you want a distinctive application without full responsibility</td>
+</tr>
+<tr>
+<td><strong>IaaS</strong></td>
+<td>Highly flexible and scalable</td>
+<td>Pay as you go while keeping control</td>
+<td>When you need infrastructure control with on-demand cost</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>特点</th>
+<th>优势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本地部署</strong></td>
+<td>企业拥有和管理</td>
+<td>完全控制所有组件</td>
+<td>需要完全控制（安全合规、数据分类）</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>通过 Internet 可用</td>
+<td>无需安装，一切可用</td>
+<td>希望应用确保可用但不想维护</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td>多用户可访问</td>
+<td>开发者无需从零开始</td>
+<td>想创建独特应用但不想承担全部责任</td>
+</tr>
+<tr>
+<td><strong>IaaS</strong></td>
+<td>高度灵活可扩展</td>
+<td>按需付费，保持控制</td>
+<td>需要完全控制基础设施但希望按需付费</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="the-cloud">The Cloud · 云<a class="anchor" href="#the-cloud" title="Permanent link"></a></h2>
+<p>When an enterprise starts using any form of cloud, a network designer should consider three use cases:</p>
+<div class="zh">
+<p>当企业开始利用任何形式的云时，网络设计师应考虑三个用例：</p>
+</div>
+<ol>
+<li><strong>Securely extend the private network into one or more public cloud environments</strong>: multi-cloud, multi-region and multi-VPC connectivity; VPN; extending the data center into the cloud; branch-to-cloud direct connectivity</li>
+<li><strong>Optimize connectivity performance from the data center and branches to cloud IaaS and SaaS</strong>: best-path selection, cloud segmentation, monitoring, shaping and QoS</li>
+<li><strong>Secure access from branches to the Internet and SaaS</strong>: use direct Internet access (DIA) to connect branch users securely to multi-cloud environments</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>安全地将私有网络扩展到单个或多个公有云环境</strong>：包括多云、多区域、多 VPC 连接；VPN；扩展数据中心到云；启用分支到云的直接连接</li>
+<li><strong>优化数据中心和分支到云 IaaS 和 SaaS 的连接性能</strong>：包括最佳路径选择、云分段、监控、流量整形/QoS</li>
+<li><strong>保护从分支到 Internet 和 SaaS 的访问</strong>：使用直接互联网接入 (DIA) 安全地连接分支用户到多云环境</li>
+</ol>
+</div>
+<h3 id="cloud-connection-models">Cloud Connection Models · 云连接模型<a class="anchor" href="#cloud-connection-models" title="Permanent link"></a></h3>
+<h4 id="1-direct-cloud-access-dca">1. Direct Cloud Access (DCA) · 直接云接入<a class="anchor" href="#1-direct-cloud-access-dca" title="Permanent link"></a></h4>
+<p>Lets remote sites reach SaaS applications directly over the Internet through a dedicated private connection.</p>
+<div class="zh">
+<p>允许远程站点直接从 Internet 访问 SaaS 应用，通过专用私有连接。</p>
+</div>
+<ul>
+<li>The cloud allows only specified application traffic onto the directly connected Internet transport</li>
+<li>Other Internet traffic follows the usual path (through a regional hub, data center or CNF)</li>
+<li>The edge router selects the best Internet path to the SaaS application</li>
+<li>Different applications can take different paths (per-application path selection)</li>
+<li>A path is removed from the candidate set if it is unreachable or underperforms</li>
+<li>Commonly called <strong>direct Internet access (DIA)</strong></li>
+</ul>
+<div class="zh">
+<ul>
+<li>云仅允许指定应用流量使用直接连接的 Internet 传输</li>
+<li>其他 Internet 流量走通常路径（通过区域中心、数据中心或 CNF）</li>
+<li>边缘路由器选择最优 Internet 路径访问 SaaS 应用</li>
+<li>不同应用可以走不同路径（按应用选择路径）</li>
+<li>如果路径不可达或性能不达标，移除该路径候选</li>
+<li>通常称为<strong>直接互联网接入 (DIA)</strong></li>
+</ul>
+</div>
+<h4 id="2-cloud-access-through-a-gateway">2. Cloud Access Through a Gateway · 通过网关的云接入<a class="anchor" href="#2-cloud-access-through-a-gateway" title="Permanent link"></a></h4>
+<p>Many enterprises do not use DIA at the branch, either because they connect only through a private provider or because centralized policy and security requirements forbid it.</p>
+<div class="zh">
+<p>许多企业不在分支使用 DIA（因为仅通过私有提供商连接，或集中策略/安全要求不允许）。</p>
+</div>
+<ul>
+<li>SaaS traffic is tunneled to the gateway site with the best performance</li>
+<li>At the gateway site it is routed to the Internet to reach the SaaS application</li>
+<li>Remote sites that use a gateway site are called <strong>client sites</strong></li>
+<li>Different remote sites and applications can use different gateway sites and paths</li>
+</ul>
+<div class="zh">
+<ul>
+<li>SaaS 流量通过隧道发送到最佳性能的网关站点</li>
+<li>在网关站点路由到 Internet 访问 SaaS 应用</li>
+<li>使用网关站点的远程站点称为<strong>客户端站点 (Client Sites)</strong></li>
+<li>不同远程站点和应用可使用不同网关站点和路径</li>
+</ul>
+</div>
+<h4 id="3-hybrid-approach">3. Hybrid Approach · 混合方法<a class="anchor" href="#3-hybrid-approach" title="Permanent link"></a></h4>
+<p>A combination of DIA and client/gateway sites. SaaS applications can egress via DIA or via a gateway site, depending on which path delivers the best performance.</p>
+<div class="zh">
+<p>DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或网关站点，取决于哪条路径提供最佳性能。</p>
+</div>
+<h3 id="cloud-types">Cloud Types · 云类型<a class="anchor" href="#cloud-types" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Cloud type</th>
+<th>Definition</th>
+<th>Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Private cloud</strong></td>
+<td>Cloud resources dedicated to a single enterprise. May live inside the enterprise data center or be hosted by a CSP</td>
+<td>Resources are kept on a private network and all equipment is dedicated to that enterprise</td>
+</tr>
+<tr>
+<td><strong>Public cloud</strong></td>
+<td>The most common form of cloud computing. Resources are owned and operated by a CSP</td>
+<td>Hardware, storage, virtualization and network devices are shared with other enterprises</td>
+</tr>
+<tr>
+<td><strong>Hybrid cloud</strong></td>
+<td>Uses private and public cloud at the same time</td>
+<td>Gets the benefits of both environments while limiting their downsides</td>
+</tr>
+<tr>
+<td><strong>Multi-cloud</strong></td>
+<td>Uses two or more CSPs</td>
+<td>Workloads can be moved between cloud environments in real time</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>云类型</th>
+<th>定义</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>私有云 (Private Cloud)</strong></td>
+<td>云计算资源由一个企业专用。可在企业数据中心内或由 CSP 托管</td>
+<td>资源在私有网络上维护，所有设备专用于该企业</td>
+</tr>
+<tr>
+<td><strong>公有云 (Public Cloud)</strong></td>
+<td>最常见的云计算类型。资源由 CSP 拥有和运营</td>
+<td>与其他企业共享硬件、存储、虚拟化和网络设备</td>
+</tr>
+<tr>
+<td><strong>混合云 (Hybrid Cloud)</strong></td>
+<td>同时使用私有云和公有云</td>
+<td>获得两种云环境的优势同时限制其负面影响</td>
+</tr>
+<tr>
+<td><strong>多云 (Multi-cloud)</strong></td>
+<td>使用两个或更多 CSP</td>
+<td>可在不同云环境间实时移动工作负载</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="cloud-type-comparison-in-detail">Cloud Type Comparison in Detail · 云类型详细对比<a class="anchor" href="#cloud-type-comparison-in-detail" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Cloud type</th>
+<th>Control</th>
+<th>Maintenance</th>
+<th>Flexibility</th>
+<th>Scalability</th>
+<th>Migration</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Private cloud</strong></td>
+<td>Most control</td>
+<td>High</td>
+<td>Lowest flexibility</td>
+<td>Highly scalable</td>
+<td>Hard to migrate</td>
+<td>High cost</td>
+</tr>
+<tr>
+<td><strong>Public cloud</strong></td>
+<td>Least control</td>
+<td>None</td>
+<td>Flexible</td>
+<td>Highly scalable</td>
+<td>Hard to migrate</td>
+<td>Lowest cost</td>
+</tr>
+<tr>
+<td><strong>Hybrid cloud</strong></td>
+<td>Mixed</td>
+<td>Medium</td>
+<td>Flexible</td>
+<td>Lowest scalability</td>
+<td>Easy to migrate</td>
+<td>High cost</td>
+</tr>
+<tr>
+<td><strong>Multi-cloud</strong></td>
+<td>Least control</td>
+<td>High, per CSP</td>
+<td>Highest flexibility across CSPs</td>
+<td>Highest scalability</td>
+<td>Hardest to migrate</td>
+<td>Highest cost</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>云类型</th>
+<th>控制权</th>
+<th>维护</th>
+<th>灵活性</th>
+<th>可扩展性</th>
+<th>迁移</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>私有云</strong></td>
+<td>最多控制</td>
+<td>高</td>
+<td>最低灵活性</td>
+<td>高可扩展性</td>
+<td>难迁移</td>
+<td>高成本</td>
+</tr>
+<tr>
+<td><strong>公有云</strong></td>
+<td>最少控制</td>
+<td>无</td>
+<td>灵活</td>
+<td>高可扩展性</td>
+<td>难迁移</td>
+<td>最低成本</td>
+</tr>
+<tr>
+<td><strong>混合云</strong></td>
+<td>两者混合</td>
+<td>中等</td>
+<td>灵活</td>
+<td>最低可扩展性</td>
+<td>易迁移</td>
+<td>高成本</td>
+</tr>
+<tr>
+<td><strong>多云</strong></td>
+<td>最少控制</td>
+<td>每个 CSP 维护高</td>
+<td>跨 CSP 最高灵活性</td>
+<td>最高可扩展性</td>
+<td>最难迁移</td>
+<td>最高成本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="cloud-agnostic-architecture">Cloud-Agnostic Architecture · 云无关架构<a class="anchor" href="#cloud-agnostic-architecture" title="Permanent link"></a></h3>
+<p>A cloud-agnostic architecture avoids vendor-specific proprietary features and focuses on using the same cloud capabilities across different cloud providers.</p>
+<div class="zh">
+<p>云无关架构不使用厂商特定的专有功能。专注于在不同云提供商之间利用相同的云能力。</p>
+</div>
+<h4 id="the-three-core-concerns">The Three Core Concerns · 三大核心关注点<a class="anchor" href="#the-three-core-concerns" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Definition</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Portability</strong></td>
+<td>The ability to move applications and services between CSPs</td>
+<td>Movement across CSPs through an appropriate abstraction layer</td>
+</tr>
+<tr>
+<td><strong>Abstraction</strong></td>
+<td>Decoupling from underlying cloud-specific platform features using an abstraction layer</td>
+<td>Directly lowers cost and increases flexibility</td>
+</tr>
+<tr>
+<td><strong>Interoperability</strong></td>
+<td>Building applications and services that are not bound to a specific cloud feature set</td>
+<td>Allows use of different cloud platforms without major rework</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>关注点</th>
+<th>定义</th>
+<th>价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可移植性 (Portability)</strong></td>
+<td>在不同 CSP 之间移动应用和服务的能力</td>
+<td>通过适当的抽象层实现跨 CSP 移动</td>
+</tr>
+<tr>
+<td><strong>抽象 (Abstraction)</strong></td>
+<td>使用抽象层与底层云特定平台功能解耦</td>
+<td>直接降低成本，增加灵活性</td>
+</tr>
+<tr>
+<td><strong>互操作性 (Interoperability)</strong></td>
+<td>开发不被绑定到特定云功能集的应用和服务</td>
+<td>允许利用不同云平台而无需重大重新开发</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="practices-that-deliver-cloud-agnosticism">Practices That Deliver Cloud Agnosticism · 实现云无关的实践<a class="anchor" href="#practices-that-deliver-cloud-agnosticism" title="Permanent link"></a></h4>
+<ol>
+<li><strong>Decoupling</strong>:
+   - Decouple the application from the underlying cloud platform (through service-oriented architecture, SOA)
+   - Decouple the cloud components from the applications that consume them</li>
+<li><strong>Containerization</strong>:
+   - All applications should follow a containerized architecture
+   - Containers help decouple applications from a cloud-specific environment
+   - They make it relatively easy to move applications between cloud providers</li>
+<li><strong>Cloud-agnostic vs. proprietary cloud services</strong>:
+   - Distinguish how cloud-agnostic services and cloud-proprietary services interact with the application
+   - Plan how the application will be migrated to a CSP</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>解耦 (Decoupling)</strong>：
+   - 应用与底层云平台解耦（通过面向服务架构 SOA）
+   - 云组件与使用它们的应用解耦</li>
+<li><strong>容器化 (Containerization)</strong>：
+   - 所有应用应遵循容器化架构
+   - 容器帮助将应用与云特定环境解耦
+   - 确保在不同云厂商之间迁移应用相对容易</li>
+<li><strong>云无关 vs 专有云服务</strong>：
+   - 需要区分云无关服务和云专有服务如何与应用交互
+   - 规划应用迁移到 CSP 的方式</li>
+</ol>
+</div>
+<h3 id="service-oriented-architecture-soa">Service-Oriented Architecture (SOA) · 面向服务架构<a class="anchor" href="#service-oriented-architecture-soa" title="Permanent link"></a></h3>
+<p>SOA is the key software design style that makes a cloud-agnostic architecture succeed.</p>
+<div class="zh">
+<p>SOA 是确保云无关架构成功的关键软件设计风格。</p>
+</div>
+<p><strong>The core of SOA</strong>: services are offered to other parts of the application through network communication protocols. The underlying principles are vendor- and technology-neutral.</p>
+<div class="zh">
+<p><strong>SOA 的核心</strong>：服务通过网络通信协议提供给应用组件的其他部分。底层原则是厂商和技术无关的。</p>
+</div>
+<p><strong>Ways services communicate</strong>:
+1. Passing data between different services
+2. Coordinating events between two or more services</p>
+<div class="zh">
+<p><strong>服务间通信方式</strong>：
+1. 在不同服务之间传递数据
+2. 在两个或多个服务之间协调活动事件</p>
+</div>
+<p><strong>Benefits of SOA</strong>:
+- Reusable code, which shortens development time
+- Support for multiple coding languages through a central interface
+- A standard communication flow
+- Better scalability by limiting client-server interactions</p>
+<div class="zh">
+<p><strong>SOA 的好处</strong>：
+- 代码可复用，减少开发时间
+- 支持多种编码语言（使用中央接口）
+- 创建标准通信流程
+- 更高的可扩展性，限制客户端-服务器交互</p>
+</div>
+<h3 id="cloud-containerized-architecture">Cloud Containerized Architecture · 云容器化架构<a class="anchor" href="#cloud-containerized-architecture" title="Permanent link"></a></h3>
+<p>The evolution from traditional deployment to containerized cloud deployment:</p>
+<div class="zh">
+<p>从传统部署到容器化云部署的演进：</p>
+</div>
+<pre><code>Traditional            Virtualized            Containerized
+┌──────────┐         ┌──────────────┐      ┌──────────────┐
+│ Physical  │         │  Physical     │      │  Physical     │
+│ server    │         │  server       │      │  server       │
+│ App A     │         │ ┌──────────┐ │      │ ┌──────────┐ │
+│ App B     │         │ │ VM1      │ │      │ │Container1│ │
+│ (resource │         │ │ App A OS │ │      │ │ App A    │ │
+│  contention)│       │ └──────────┘ │      │ ├──────────┤ │
+│           │         │ ┌──────────┐ │      │ │Container2│ │
+│           │         │ │ VM2      │ │      │ │ App B    │ │
+│           │         │ │ App B OS │ │      │ ├──────────┤ │
+│           │         │ └──────────┘ │      │ │ Shared OS│ │
+│           │         │  Hypervisor   │      │ └──────────┘ │
+└──────────┘         └──────────────┘      └──────────────┘
+</code></pre>
+<div class="zh">
+<pre><code>传统部署               虚拟化部署              容器部署
+┌──────────┐         ┌──────────────┐      ┌──────────────┐
+│ 物理服务器 │         │  物理服务器    │      │  物理服务器    │
+│          │         │ ┌──────────┐ │      │ ┌──────────┐ │
+│ 应用A     │         │ │ VM1      │ │      │ │ 容器1    │ │
+│          │         │ │ 应用A OS │ │      │ │ 应用A    │ │
+│ 应用B     │         │ └──────────┘ │      │ ├──────────┤ │
+│          │         │ ┌──────────┐ │      │ │ 容器2    │ │
+│ (资源竞争) │         │ │ VM2      │ │      │ │ 应用B    │ │
+│          │         │ │ 应用B OS │ │      │ ├──────────┤ │
+│          │         │ └──────────┘ │      │ │ 共享 OS   │ │
+│          │         │  Hypervisor  │      │ └──────────┘ │
+└──────────┘         └──────────────┘      └──────────────┘
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Deployment style</th>
+<th>Characteristic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Traditional</strong></td>
+<td>Applications run on physical servers. Resources cannot be limited or controlled properly. Each server is usually dedicated to a single application</td>
+</tr>
+<tr>
+<td><strong>Virtualized</strong></td>
+<td>Multiple VMs on one physical server. Each VM is isolated with its own resources and security controls, and each runs every component (application plus operating system)</td>
+</tr>
+<tr>
+<td><strong>Containerized</strong></td>
+<td>Similar to VMs but with looser isolation, allowing a shared operating system. Lightweight, with its own file system and shared CPU time, memory and process space. Portable across infrastructure</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>部署方式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传统部署</strong></td>
+<td>应用在物理服务器上运行。无法正确限制资源或设置控制。通常每台服务器专用于单个应用</td>
+</tr>
+<tr>
+<td><strong>虚拟化部署</strong></td>
+<td>多个 VM 在单台物理服务器上。每个 VM 独立隔离，有自己的资源和安全控制。每个 VM 运行所有组件（应用 + 操作系统）</td>
+</tr>
+<tr>
+<td><strong>容器部署</strong></td>
+<td>类似 VM 但隔离控制不那么严格，允许共享操作系统。轻量级。有自己的文件系统、共享 CPU 时间、内存、进程空间。可在不同基础设施间移动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Benefits of containers</strong>:
+- Agile application creation and deployment (CI/CD)
+- Separation of development and operations duties
+- Real-time application-level health analytics
+- Consistency across all environments
+- Real-time distribution to other operating systems and locations
+- Better predictability of application performance
+- Better resource efficiency</p>
+<div class="zh">
+<p><strong>容器的好处</strong>：
+- 敏捷的应用创建和部署 (CI/CD)
+- 开发和运维任务职责分离
+- 实时应用级健康分析
+- 跨所有环境的一致性
+- 实时分发到其他操作系统和位置
+- 提高应用性能的可预测性
+- 提高资源效率</p>
+</div>
+<h3 id="cloud-application-strategy">Cloud Application Strategy · 云应用策略<a class="anchor" href="#cloud-application-strategy" title="Permanent link"></a></h3>
+<p>When an enterprise prepares to migrate applications to the cloud, an <strong>application assessment process</strong> should be built in. Form an application assessment team:</p>
+<div class="zh">
+<p>企业准备将应用迁移到云时，建议纳入<strong>应用评估流程</strong>。创建应用评估团队：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Business line owner</strong></td>
+<td>The business stakeholder for the application, who understands its business role and impact</td>
+</tr>
+<tr>
+<td><strong>Security specialist / compliance auditor</strong></td>
+<td>Owns security controls, regulatory compliance and code audit</td>
+</tr>
+<tr>
+<td><strong>Application owner / developer</strong></td>
+<td>The software engineering member who creates and changes the code</td>
+</tr>
+<tr>
+<td><strong>Network engineer / designer / architect</strong></td>
+<td>Provides the network resources that serve the application correctly</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务线负责人</strong></td>
+<td>应用的业务利益相关者。理解应用的业务角色和影响</td>
+</tr>
+<tr>
+<td><strong>安全专家/合规审计员</strong></td>
+<td>负责安全控制、合规法规和代码审计</td>
+</tr>
+<tr>
+<td><strong>应用负责人/开发者</strong></td>
+<td>软件工程成员，负责创建和修改代码</td>
+</tr>
+<tr>
+<td><strong>网络工程师/设计师/架构师</strong></td>
+<td>提供网络资源以正确服务应用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="data-management">Data Management · 数据管理<a class="anchor" href="#data-management" title="Permanent link"></a></h2>
+<blockquote>
+<p>Data is the most critical resource that all other resources will consume. All data must be managed effectively, accurately and securely so that other resources can use it correctly, preserving integrity, availability and confidentiality.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>数据是所有其他资源将利用的最关键资源。必须有效、准确、安全地管理所有数据，使其他资源能够正确利用数据，确保完整性、可用性和机密性。</p>
+</blockquote>
+</div>
+<p>Data management lays the foundation for data analytics. Without good data management there is no data analytics.</p>
+<div class="zh">
+<p>数据管理为数据分析奠定基础。没有良好的数据管理，就没有数据分析。</p>
+</div>
+<h3 id="the-eleven-pillars-of-data-management-11">The Eleven Pillars of Data Management · 数据管理的 11 大支柱<a class="anchor" href="#the-eleven-pillars-of-data-management-11" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. <strong>Data governance</strong></td>
+<td>Planning every aspect of data management, including availability, usability, consistency, integrity and security</td>
+</tr>
+<tr>
+<td>2. <strong>Data architecture</strong></td>
+<td>The overall structure of enterprise data and how it fits into enterprise architecture</td>
+</tr>
+<tr>
+<td>3. <strong>Data modeling and design</strong></td>
+<td>Data analysis and the corresponding analytical systems, including design, build, test and ongoing maintenance</td>
+</tr>
+<tr>
+<td>4. <strong>Data storage and operations</strong></td>
+<td>The physical hardware used to store and manage data</td>
+</tr>
+<tr>
+<td>5. <strong>Data security</strong></td>
+<td>All security requirements, controls and components that keep data protected and accessible only to authorized users</td>
+</tr>
+<tr>
+<td>6. <strong>Data integration and interoperability</strong></td>
+<td>Transforming data into structured form so other systems and resources can use it</td>
+</tr>
+<tr>
+<td>7. <strong>Documents and content</strong></td>
+<td>All forms of unstructured data and the work needed to make it accessible</td>
+</tr>
+<tr>
+<td>8. <strong>Reference and master data</strong></td>
+<td>Managing data in a way that allows redundancy, with errors normalized through standard values</td>
+</tr>
+<tr>
+<td>9. <strong>Data warehousing and business intelligence</strong></td>
+<td>Managing and applying data for analytics and business decisions</td>
+</tr>
+<tr>
+<td>10. <strong>Metadata</strong></td>
+<td>Creating, collecting, organizing and managing metadata (data that references other data)</td>
+</tr>
+<tr>
+<td>11. <strong>Data quality</strong></td>
+<td>Data monitoring practices that keep the integrity of delivered data intact</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>支柱</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. <strong>数据治理 (Data Governance)</strong></td>
+<td>规划数据管理的所有方面，包括可用性、可用性、一致性、完整性和安全性</td>
+</tr>
+<tr>
+<td>2. <strong>数据架构 (Data Architecture)</strong></td>
+<td>企业数据的整体结构及其如何融入企业架构</td>
+</tr>
+<tr>
+<td>3. <strong>数据建模和设计 (Data Modeling and Design)</strong></td>
+<td>数据分析及相应的分析系统，包括设计、构建、测试和持续维护</td>
+</tr>
+<tr>
+<td>4. <strong>数据存储和运营 (Data Storage and Operations)</strong></td>
+<td>用于存储和管理数据的物理硬件</td>
+</tr>
+<tr>
+<td>5. <strong>数据安全 (Data Security)</strong></td>
+<td>确保数据受保护且仅被授权用户访问的所有安全要求、控制 and 组件</td>
+</tr>
+<tr>
+<td>6. <strong>数据集成和互操作性 (Data Integration and Interoperability)</strong></td>
+<td>将数据转换为结构化形式以供其他系统和资源利用</td>
+</tr>
+<tr>
+<td>7. <strong>文档和内容 (Documents and Content)</strong></td>
+<td>所有形式的非结构化数据及其可访问性工作</td>
+</tr>
+<tr>
+<td>8. <strong>参考和主数据 (Reference and Master Data)</strong></td>
+<td>以允许冗余的方式管理数据，错误可通过标准值归一化</td>
+</tr>
+<tr>
+<td>9. <strong>数据仓库和商业智能 (Data Warehousing and Business Intelligence)</strong></td>
+<td>管理和应用数据用于分析和业务决策</td>
+</tr>
+<tr>
+<td>10. <strong>元数据 (Metadata)</strong></td>
+<td>创建、收集、组织和管理元数据（引用其他数据的数据）</td>
+</tr>
+<tr>
+<td>11. <strong>数据质量 (Data Quality)</strong></td>
+<td>数据监控实践，确保交付的数据完整性得到维护</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ A real data management model must contain all eleven pillars. Miss one and part of the data management domain is uncovered. Without metadata management, for example, the enterprise loses the ability to classify data easily; without data quality assurance, all data is at risk and analytics become useless.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ 真正的数据管理模型需要包含所有 11 个支柱。缺少任何一个，就有数据管理领域未被覆盖。例如，没有元数据管理，企业失去轻松分类数据的能力；没有数据质量保证，所有数据都处于风险中，分析变得无用。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="case-studies">Case Studies · 实战案例<a class="anchor" href="#case-studies" title="Permanent link"></a></h2>
+<h3 id="case-1-bandwidth-doubled-video-conferencing-still-stutters">Case 1: Bandwidth Doubled, Video Conferencing Still Stutters · 案例一：带宽翻倍，视频会议还是卡<a class="anchor" href="#case-1-bandwidth-doubled-video-conferencing-still-stutters" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a company suffered frequent video conference stutter. IT raised bandwidth from 100M to 300M and the problem remained.</p>
+<div class="zh">
+<p><strong>背景</strong>：某公司视频会议频繁卡顿，IT 把带宽从 100M 升到 300M，问题依旧。</p>
+</div>
+<p><strong>Breaking it down by application characteristics</strong>:</p>
+<div class="zh">
+<p><strong>按应用特征拆开看</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Video conferencing</th>
+<th>File sharing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Protocol</td>
+<td>UDP/RTP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Sensitivity to loss</td>
+<td><strong>Extremely sensitive</strong> (1% loss shows as artifacts)</td>
+<td>Insensitive (retransmission handles it)</td>
+</tr>
+<tr>
+<td>Sensitivity to jitter</td>
+<td><strong>Extremely sensitive</strong></td>
+<td>Insensitive</td>
+</tr>
+<tr>
+<td>Bandwidth demand</td>
+<td>Moderate (2–4M per stream)</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>应用特征</th>
+<th>视频会议</th>
+<th>文件共享</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协议</td>
+<td>UDP/RTP</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>对丢包</td>
+<td><strong>极敏感</strong>（1% 丢包画面即花屏）</td>
+<td>不敏感（重传即可）</td>
+</tr>
+<tr>
+<td>对抖动</td>
+<td><strong>极敏感</strong></td>
+<td>不敏感</td>
+</tr>
+<tr>
+<td>对带宽</td>
+<td>中等（每路 2–4M）</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The three real causes</strong>:</p>
+<div class="zh">
+<p><strong>真正的三个原因</strong>：</p>
+</div>
+<ol>
+<li>Video traffic and backup jobs <strong>shared the same queue</strong>, and backup filled it</li>
+<li>Branch to head office had <strong>45 ms single-hop latency and 30 ms jitter</strong>, beyond what the endpoints could adapt to</li>
+<li>Some branch uplinks had <strong>asymmetric bandwidth</strong> (300M down, 20M up), while conferencing is symmetric bidirectional traffic</li>
+</ol>
+<div class="zh">
+<ol>
+<li>视频流量与备份任务<strong>共用同一条队列</strong>，备份把队列打满</li>
+<li>分支到总部<strong>单跳延迟 45ms，抖动 30ms</strong>，超出终端自适应范围</li>
+<li>部分分支出口是<strong>非对称带宽</strong>（下行 300M、上行 20M），而会议是双向对称流量</li>
+</ol>
+</div>
+<p><strong>Fix</strong>: a dedicated queue for real-time traffic + branch uplink upgrade + jitter buffering. <strong>Total bandwidth did not increase, yet the experience improved.</strong></p>
+<div class="zh">
+<p><strong>修正</strong>：为实时流量单独队列 + 分支上行扩容 + 开启抖动缓冲。<strong>总带宽没增，体验反而好了。</strong></p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>ask first what this application cares about, then ask whether the network can deliver it.</strong> Bandwidth is only one dimension; loss, jitter, latency and symmetry matter just as much.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>先问"这个应用在意什么"，再问"网络给不给得起"。</strong> 带宽只是其中一个维度，丢包、抖动、时延、对称性同样关键。</p>
+</blockquote>
+</div>
+<h3 id="case-2-slower-after-moving-to-the-cloud">Case 2: Slower After Moving to the Cloud · 案例二：上云之后，系统反而更慢了<a class="anchor" href="#case-2-slower-after-moving-to-the-cloud" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: an enterprise migrated its ERP to a public cloud with more generous resources, yet users complained that "opening a document list takes 8 seconds" (it took 2 seconds in the original on-premises data center).</p>
+<div class="zh">
+<p><strong>背景</strong>：某企业把 ERP 迁移到公有云，云上资源更充足，但用户投诉"打开单据列表要 8 秒"（原来自建机房 2 秒）。</p>
+</div>
+<p><strong>Troubleshooting</strong>:</p>
+<div class="zh">
+<p><strong>排查过程</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud host performance</td>
+<td>CPU, memory and disk all had headroom — not a resource problem</td>
+</tr>
+<tr>
+<td>Network latency</td>
+<td>Office to cloud: RTT went from 1 ms to 35 ms</td>
+</tr>
+<tr>
+<td>Application behavior</td>
+<td>The list page <strong>issued 40 serial database queries</strong> (N+1 queries), one round trip each</td>
+</tr>
+<tr>
+<td>Arithmetic</td>
+<td>40 × 35 ms × 2 ≈ <strong>2.8 seconds of pure round-trip overhead</strong>, which on top of the original logic gives 8 seconds</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层面</th>
+<th>现象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>云主机性能</td>
+<td>CPU/内存/磁盘均有余量，不是资源问题</td>
+</tr>
+<tr>
+<td>网络时延</td>
+<td>办公区到云：RTT 从 1ms 变成 35ms</td>
+</tr>
+<tr>
+<td>应用行为</td>
+<td>单据列表页<strong>串行发起 40 次数据库查询</strong>（N+1 查询），每次一个往返</td>
+</tr>
+<tr>
+<td>计算</td>
+<td>40 × 35ms × 2 ≈ <strong>2.8 秒只是往返开销</strong>，叠加原有逻辑即 8 秒</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Root cause</strong>: the application architecture is <strong>chatty</strong> (many small round trips). It was invisible at LAN latency, and the move to WAN multiplied the latency by 40.</p>
+<div class="zh">
+<p><strong>根因</strong>：应用架构是<strong>chatty</strong>（大量小往返）型，在局域网低时延下看不出来，跨广域网后时延被放大 40 倍。</p>
+</div>
+<p><strong>Fix direction</strong>: on the application side, batch the queries and add caching; on the network side, use a dedicated cloud circuit to bring RTT under 10 ms; separate database reads from writes to cut cross-region access.</p>
+<div class="zh">
+<p><strong>修正方向</strong>：应用侧改为批量查询/缓存；网络侧用云专线把 RTT 压到 10ms 以内；数据库读写分离减少跨区域访问。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>moving to the cloud is not moving machines, it is moving distance.</strong> The application architecture traits this chapter highlights (chatty vs. bulk, whether state is externalized) directly determine post-migration performance; the network can mitigate architecture problems but cannot fix them.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>上云不是搬机器，是搬"距离"。</strong> 第 3 章强调的应用架构特征（chatty vs bulk、状态是否外置）直接决定云化后的性能表现，网络只能缓解、不能修复架构问题。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="design-pitfalls">Design Pitfalls · 设计缺陷<a class="anchor" href="#design-pitfalls" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Symptom</th>
+<th>Consequence</th>
+<th>Correct practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Designing from the application name instead of its behavior</strong></td>
+<td>"Video conferencing needs bandwidth" → only bandwidth is added</td>
+<td>Artifacts persist after the upgrade, because loss, jitter and asymmetry are the real causes</td>
+<td>Describe applications with a trait matrix: protocol, loss sensitivity, jitter sensitivity, latency ceiling, traffic symmetry, statefulness</td>
+</tr>
+<tr>
+<td><strong>Treating cloud migration as a move</strong></td>
+<td>The cloud has more resources, but RTT went from 1 ms to 35 ms</td>
+<td>Chatty applications collapse (Case 2)</td>
+<td>Assess the application architecture first (chatty vs. bulk, externalized state, caching), then choose the cloud connection</td>
+</tr>
+<tr>
+<td><strong>Chasing cloud agnosticism too far</strong></td>
+<td>Everything is rebuilt on IaaS so it "can move at any time", giving up native PaaS</td>
+<td>Portability gained, operational burden and cost doubled</td>
+<td>Apply cloud agnosticism only to <strong>the layer that truly needs cross-cloud portability</strong> (data and identity); choose the best option per scenario for compute and network</td>
+</tr>
+<tr>
+<td><strong>Choosing the service model at the wrong layer</strong></td>
+<td>Building on IaaS what should be SaaS, buying SaaS where IaaS fits</td>
+<td>You carry operations you should not, or you get locked in</td>
+<td>Choose by "who is best at this": outsource non-differentiating capability, build what differentiates</td>
+</tr>
+<tr>
+<td><strong>Calling storage and backup "data management"</strong></td>
+<td>Only one or two of the eleven pillars are covered</td>
+<td>Data is available but untrustworthy, unsearchable and non-compliant</td>
+<td>Work through all eleven pillars, fill the gaps, prioritizing metadata and data quality</td>
+</tr>
+<tr>
+<td><strong>Containerizing only the deployment format</strong></td>
+<td>A monolith is stuffed into a container but still shares one database</td>
+<td>None of the elasticity or fault-isolation benefit materializes</td>
+<td>Containerization presupposes <strong>statelessness + externalized configuration + layered data</strong>; otherwise it is only a new package format</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>表现</th>
+<th>后果</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>按应用名字而不是应用行为做设计</strong></td>
+<td>"视频会议需要带宽"→ 只扩带宽</td>
+<td>扩了带宽依然花屏（丢包/抖动/非对称才是主因）</td>
+<td>用特征矩阵描述应用：协议、丢包敏感度、抖动敏感度、时延上限、流量对称性、是否有状态</td>
+</tr>
+<tr>
+<td><strong>把上云当搬家</strong></td>
+<td>云上资源更足，却忽略了 RTT 从 1ms 变 35ms</td>
+<td>chatty 应用性能崩塌（案例二）</td>
+<td>先评估应用架构（chatty vs bulk、状态外置、缓存策略），再决定云连接方式</td>
+</tr>
+<tr>
+<td><strong>过度追求云无关</strong></td>
+<td>为了"能随时迁走"，放弃云原生 PaaS 能力，全部自建在 IaaS 上</td>
+<td>可移植性拿到了，运维负担与成本翻倍</td>
+<td>云无关只应用于<strong>真正需要跨云的那一层</strong>（数据与身份），计算/网络层按场景选最优</td>
+</tr>
+<tr>
+<td><strong>服务模型选错层次</strong></td>
+<td>该用 SaaS 的用了 IaaS 自建，该用 IaaS 的买了 SaaS</td>
+<td>承担了不该承担的运维责任，或被供应商锁定</td>
+<td>按"谁最擅长这件事"选模型：非差异化能力外购，差异化能力自建</td>
+</tr>
+<tr>
+<td><strong>只做存储与备份就称数据管理</strong></td>
+<td>11 个支柱只覆盖 1–2 个</td>
+<td>数据可用但不可信、不可查、不可合规</td>
+<td>11 支柱逐条对照，缺哪条补哪条，优先补元数据与数据质量</td>
+</tr>
+<tr>
+<td><strong>容器化只改部署方式</strong></td>
+<td>单体应用直接塞进容器，仍共享同一数据库</td>
+<td>弹性与故障隔离的收益全部拿不到</td>
+<td>容器化的前提是<strong>无状态化 + 配置外置 + 数据分层</strong>，否则只是换了包格式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="lessons-learned">Lessons Learned · 实战经验总结<a class="anchor" href="#lessons-learned" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Build a "trait profile" for every application</strong></td>
+<td>One row per application class: latency ceiling, loss tolerance, jitter tolerance, bandwidth shape, direction (north-south or east-west), statefulness. That table is the shared input for QoS, cloud connectivity and WAN selection</td>
+</tr>
+<tr>
+<td><strong>The network mitigates; only architecture fixes</strong></td>
+<td>A chatty application across a WAN will not be fixed by more bandwidth; batch queries, caching or read-write separation are required</td>
+</tr>
+<tr>
+<td><strong>Traffic direction drives architecture</strong></td>
+<td>North-south (user to server) is about egress and the edge; east-west (server to server) is about the data center fabric and segmentation. The two designs are entirely different</td>
+</tr>
+<tr>
+<td><strong>Latency is set by geography</strong></td>
+<td>The speed of light sets the RTT floor; any "optimization" only moves RTT from 200 ms to 60 ms. Cross-continent active-active must be split by business function rather than by forcing low latency everywhere</td>
+</tr>
+<tr>
+<td><strong>Do the "distance arithmetic" before moving to cloud</strong></td>
+<td>The physical location of the cloud region, the distance between availability zones and cross-zone traffic charges all belong in the TCO at proposal stage</td>
+</tr>
+<tr>
+<td><strong>Portability has a price</strong></td>
+<td>Every added abstraction layer costs some native cloud capability; buy it only where it is warranted</td>
+</tr>
+<tr>
+<td><strong>Use the eleven pillars as a checklist</strong></td>
+<td>You do not need to memorize them, but in review ask "who owns this one" for each — that surfaces the neglected areas</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>经验</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先给应用建"特征档案"</strong></td>
+<td>每类应用一行：时延上限、丢包容忍、抖动容忍、带宽形态、流向（南北/东西）、是否有状态。这张表是后面 QoS、云连接、WAN 选型的共同输入</td>
+</tr>
+<tr>
+<td><strong>网络只能缓解，架构才能修复</strong></td>
+<td>chatty 应用跨广域网的性能问题，靠加带宽解决不了，必须改批量查询、缓存或读写分离</td>
+</tr>
+<tr>
+<td><strong>流向决定架构</strong></td>
+<td>南北向（用户到服务器）看出口与边缘，东西向（服务器之间）看数据中心 fabric 与分段，两者设计完全不同</td>
+</tr>
+<tr>
+<td><strong>时延是地理决定的</strong></td>
+<td>光速决定了 RTT 下限，任何"优化"都只是把 RTT 从 200ms 压到 60ms。跨洲双活必须按业务切分，不能强求全网低延迟</td>
+</tr>
+<tr>
+<td><strong>上云前先算"距离账"</strong></td>
+<td>云区域的物理位置、可用区之间的距离、跨区流量费用，三项在方案阶段就要算进 TCO</td>
+</tr>
+<tr>
+<td><strong>可移植性是有成本的</strong></td>
+<td>每增加一个抽象层都会损失一部分云原生能力，只在该买的地方买</td>
+</tr>
+<tr>
+<td><strong>数据管理 11 支柱当检查表用</strong></td>
+<td>不用背全，但评审时逐条问"这条谁负责"，能问出被忽略的领域</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="design-scenarios-2-2">Design Scenarios (2) · 设计情景演练（2 个）<a class="anchor" href="#design-scenarios-2-2" title="Permanent link"></a></h2>
+<h3 id="scenario-1-moving-a-twelve-year-old-erp-to-the-cloud-12-erp">Scenario 1: Moving a Twelve-Year-Old ERP to the Cloud · 情景一：把 12 年前的 ERP 搬上云<a class="anchor" href="#scenario-1-moving-a-twelve-year-old-erp-to-the-cloud-12-erp" title="Permanent link"></a></h3>
+<p><strong>Situation</strong>: a manufacturer's core ERP went live in 2012 as a three-tier architecture: 4 web servers, 8 application servers, 2 database servers (active/standby), all in its own data center. The database uses shared storage and a private protocol heartbeat, and the application tier makes a very large number of small transactions against the database (24 million per day, average 3 ms per round trip, 0.2 ms RTT inside the data center). The group requires migration to the cloud within 18 months, and the budget covers IaaS hosting only.</p>
+<div class="zh">
+<p><strong>场景</strong>：某制造企业的核心 ERP 是 2012 年上线的三层架构：Web 层 4 台、应用层 8 台、数据库 2 台（主备），全部在自建机房。数据库用了共享存储和私有协议心跳，应用层与数据库之间有大量小事务（日均 2400 万次，单次往返平均 3ms，机房内 RTT 0.2ms）。集团要求 18 个月内完成上云，预算只覆盖 IaaS 托管。</p>
+</div>
+<p><strong>Questions to answer</strong>:
+1. Can this application be lifted and shifted to public cloud IaaS? Where is the bottleneck?
+2. Which connection model should be chosen?
+3. If the application cannot change, how far can the network compensate, and where can it not?</p>
+<div class="zh">
+<p><strong>要回答的问题</strong>：
+1. 这个应用适合直接"平移"到公有云 IaaS 吗？瓶颈会在哪？
+2. 连接模型怎么选？
+3. 如果不改应用，网络能补到什么程度、补不到什么程度？</p>
+</div>
+<p><strong>Reference approach</strong>:
+- <strong>Compute the latency budget before discussing the move.</strong> 24 million per day ≈ 278 per second at 0.2 ms per round trip; if RTT rises to 2 ms, each transaction adds about 1.8 ms, and under concurrency limits that directly depresses throughput. <strong>This combination of high-frequency small transactions and tightly coupled application/database tiers is the hardest case in cloud migration.</strong>
+- <strong>The usual conclusion is "migrate by tier", not a wholesale lift and shift</strong>: the web tier (stateless, sensitive to user-side latency but not to back-end RTT) moves first; the application and database tiers must stay inside one low-latency domain (same campus, same availability zone, or a dedicated circuit with measured RTT that meets target).
+- <strong>Choose the connection model on determinism</strong>: if the application tier and database span cloud and data center, Internet VPN jitter is unacceptable, so use a <strong>dedicated circuit or cloud exchange</strong> and demand latency and loss figures in the SLA rather than bandwidth alone (10 Gbps with 3% loss can be far worse for small transactions than 1 Gbps with 0.05% loss).
+- <strong>What the network can deliver</strong>: path optimization, QoS guarantees, TCP parameter tuning, connection reuse on the application side, and local points of presence.
+- <strong>What the network cannot deliver</strong>: N+1 queries per call between tiers, repeated round trips caused by missing caches, and poorly split transactions. <strong>Those can only be fixed in the application.</strong>
+- <strong>The right deliverable</strong>: a per-tier cloud feasibility table (latency sensitivity, statefulness, migration risk, target location for each tier) plus an explicit list of what the application side must do. <strong>Never promise that the network will solve an application problem.</strong></p>
+<div class="zh">
+<p><strong>参考思路</strong>：
+- <strong>先算时延预算，再谈搬家。</strong> 2400 万次/天 ≈ 278 次/秒，单次往返 0.2ms → 若 RTT 升到 2ms，单事务耗时增加约 1.8ms；在并发受限的场景下，这会直接压低吞吐。<strong>这类"高频小事务 + 紧耦合应用层/数据库"的组合，是上云最典型的硬骨头。</strong>
+- <strong>结论通常是"分层上云"而不是整体平移</strong>：Web 层（无状态、用户侧时延敏感但对后端 RTT 不敏感）优先上云；应用层与数据库必须在同一低时延域内（同园区、同可用区、或专线直连且实测 RTT 达标）。
+- <strong>连接模型选择看确定性</strong>：若应用层与数据库跨"云—机房"，Internet VPN 的抖动不可接受，应选<strong>专线/云交换</strong>，并要求 SLA 中的时延与丢包指标，而不是只看带宽（10Gbps + 3% 丢包的小事务性能，可能远不如 1Gbps + 0.05% 丢包）。
+- <strong>网络补得到的</strong>：路径优化、QoS 保障、TCP 参数调优、连接复用（应用侧）、就近接入。
+- <strong>网络补不到的</strong>：应用层与数据库之间每次调用的 N+1 查询问题、缺少缓存导致的重复往返、事务拆分不合理。<strong>这些只能改应用。</strong>
+- <strong>正确产出</strong>：一张"按层拆解的上云可行性表"（每层标注时延敏感度、状态性、迁移风险、目标位置）+ 明确的"需要应用侧配合的清单"。<strong>不要承诺网络能解决应用的问题。</strong></p>
+</div>
+<h3 id="scenario-2-the-network-got-slower-after-microservices">Scenario 2: "The Network Got Slower" After Microservices · 情景二：微服务化之后"网络变慢了"<a class="anchor" href="#scenario-2-the-network-got-slower-after-microservices" title="Permanent link"></a></h3>
+<p><strong>Situation</strong>: an internet company split its monolith into 120 microservices running across two clouds (A active, B for disaster recovery) plus its own data center. After go-live three problems appeared: cross-cloud P99 latency rose from 40 ms to 260 ms; mean time to localize a fault went from 20 minutes to 3 hours; and the security team could not state whether service A may access service B.</p>
+<div class="zh">
+<p><strong>场景</strong>：某互联网公司把单体拆成 120 个微服务，跑在双云（A 云为主、B 云做灾备）+ 自建机房混合环境。上线后出现三类问题：跨云调用 P99 时延从 40ms 涨到 260ms；故障定位平均耗时从 20 分钟涨到 3 小时；安全团队无法说清"服务 A 能否访问服务 B"。</p>
+</div>
+<p><strong>Questions to answer</strong>:
+1. What common root cause underlies all three symptoms?
+2. Which capabilities must the network design add?
+3. Should the "two clouds plus data center" architecture be adjusted?</p>
+<div class="zh">
+<p><strong>要回答的问题</strong>：
+1. 这三个现象的共同根因是什么？
+2. 网络设计要补哪些能力？
+3. "双云 + 机房"的架构是否应该调整？</p>
+</div>
+<p><strong>Reference approach</strong>:
+- <strong>The common root cause is loss of control over east-west traffic.</strong> In the monolith era traffic was mostly north-south with fixed paths; in the microservices era it is mostly east-west with dynamic call relationships. The old design assumptions — edge-centric, IP-identified, static ACL policy — all fail in the new shape.
+- <strong>Latency</strong>: a large part of the 260 ms is not the link but <strong>serial calls plus missing locality routing plus no connection pooling</strong>. The first step is not more bandwidth but <strong>flattening the call chain</strong> (same-domain first, locality routing, caching), then re-evaluating whether the cross-cloud call is needed at all.
+- <strong>Observability</strong>: correlate distributed tracing, service-level metrics and network flow logs. <strong>Network device logs alone will never tell you which service is slow.</strong>
+- <strong>Security policy</strong>: move from "IP + port" to "identity + service" (service mesh mTLS, workload-identity policy); otherwise an access matrix for 120 services cannot be maintained by hand.
+- <strong>The two-cloud trade-off</strong>: fully active cross-cloud brings cross-cloud consistency and latency problems. The usual design is <strong>"close the loop inside each domain, synchronize only what is necessary across domains"</strong> — each cloud region is self-contained for calls, and the cross-cloud path carries asynchronous replication and a small number of critical queries.
+- <strong>In one sentence</strong>: <strong>microservices redefine the network problem as a joint problem of topology, identity and observability</strong> — adding bandwidth alone or firewalls alone solves nothing.</p>
+<div class="zh">
+<p><strong>参考思路</strong>：
+- <strong>共同根因：东西向流量失控。</strong> 单体时代是"南北向为主、路径固定"；微服务时代是"东西向为主、调用关系动态"。原来的网络设计（以边界为中心、以 IP 为标识、以静态 ACL 为策略）在新形态下全部失效。
+- <strong>时延</strong>：跨云调用 260ms 中有很大一部分不是链路，而是<strong>多次串行调用 + 缺少就近路由 + 无连接池</strong>。第一步不是扩带宽，而是把<strong>调用链压平</strong>（同域优先、就近路由、缓存），再评估跨云调用是否必要。
+- <strong>可观测性</strong>：需要分布式追踪、服务级指标、网络流日志三者的关联。<strong>只有网络设备日志，永远定位不到"哪个服务慢"。</strong>
+- <strong>安全策略</strong>：从"IP + 端口"转向"身份 + 服务"（服务网格 mTLS、基于工作负载身份的策略），否则 120 个服务的访问矩阵无法人工维护。
+- <strong>双云架构的取舍</strong>：双云"同时活跃"会带来跨云数据一致性与时延问题，通常应设计为<strong>"同域内闭环、跨域只做必要同步"</strong>，即每个云区域内自成调用闭环，跨云只承载异步复制与少量关键查询。
+- <strong>一句话</strong>：<strong>微服务化把"网络问题"重新定义为"拓扑 + 身份 + 可观测性"的联合问题</strong>，只加带宽或只加防火墙都无解。</p>
+</div>
+<hr />
+<h2 id="key-terms">Key Terms · 本章关键术语<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-Server Model</td>
+<td>Application where every component runs on one server</td>
+</tr>
+<tr>
+<td>2-Tier Model</td>
+<td>Client/server model with presentation on the client and data on the server</td>
+</tr>
+<tr>
+<td>3-Tier Model</td>
+<td>Presentation, application and database tiers</td>
+</tr>
+<tr>
+<td>Web Tier</td>
+<td>The presentation tier that end users interact with</td>
+</tr>
+<tr>
+<td>Application Tier</td>
+<td>The logic tier that processes tasks and decisions</td>
+</tr>
+<tr>
+<td>Database Tier</td>
+<td>The data tier that stores and retrieves information</td>
+</tr>
+<tr>
+<td>On-Premises</td>
+<td>The enterprise owns and operates the application</td>
+</tr>
+<tr>
+<td>SaaS (Software as a Service)</td>
+<td>Provider-delivered software over the Internet</td>
+</tr>
+<tr>
+<td>PaaS (Platform as a Service)</td>
+<td>Provider-supplied tools on which customers build applications</td>
+</tr>
+<tr>
+<td>IaaS (Infrastructure as a Service)</td>
+<td>On-demand storage, networking and virtualization</td>
+</tr>
+<tr>
+<td>DCA (Direct Cloud Access)</td>
+<td>Direct SaaS access from a site over the Internet</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>Direct Internet egress from the branch</td>
+</tr>
+<tr>
+<td>Private Cloud</td>
+<td>Cloud resources dedicated to a single enterprise</td>
+</tr>
+<tr>
+<td>Public Cloud</td>
+<td>Shared cloud resources owned by a CSP</td>
+</tr>
+<tr>
+<td>Hybrid Cloud</td>
+<td>Combined private and public cloud use</td>
+</tr>
+<tr>
+<td>Multi-Cloud</td>
+<td>Use of two or more CSPs</td>
+</tr>
+<tr>
+<td>Cloud-Agnostic</td>
+<td>Architecture free of vendor-specific features</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>Ability to move workloads between CSPs</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>Decoupling from cloud-specific platform features</td>
+</tr>
+<tr>
+<td>Interoperability</td>
+<td>Building services not bound to one cloud feature set</td>
+</tr>
+<tr>
+<td>Decoupling</td>
+<td>Separating application from platform and cloud components from consumers</td>
+</tr>
+<tr>
+<td>Containerization</td>
+<td>Packaging applications with a shared operating system</td>
+</tr>
+<tr>
+<td>SOA (Service-Oriented Architecture)</td>
+<td>Services offered to other components over the network</td>
+</tr>
+<tr>
+<td>Data Governance</td>
+<td>Planning every aspect of data management</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>The overall structure of enterprise data</td>
+</tr>
+<tr>
+<td>Data Security</td>
+<td>Controls keeping data protected and access authorized</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>Data that references other data</td>
+</tr>
+<tr>
+<td>Data Quality</td>
+<td>Monitoring that keeps delivered data trustworthy</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-server Model</td>
+<td>单服务器模型</td>
+</tr>
+<tr>
+<td>2-Tier Model</td>
+<td>二层模型</td>
+</tr>
+<tr>
+<td>3-Tier Model</td>
+<td>三层模型</td>
+</tr>
+<tr>
+<td>Web Tier</td>
+<td>Web 层（表示层）</td>
+</tr>
+<tr>
+<td>Application Tier</td>
+<td>应用层（逻辑层）</td>
+</tr>
+<tr>
+<td>Database Tier</td>
+<td>数据库层</td>
+</tr>
+<tr>
+<td>On-premises</td>
+<td>本地部署</td>
+</tr>
+<tr>
+<td>SaaS (Software as a Service)</td>
+<td>软件即服务</td>
+</tr>
+<tr>
+<td>PaaS (Platform as a Service)</td>
+<td>平台即服务</td>
+</tr>
+<tr>
+<td>IaaS (Infrastructure as a Service)</td>
+<td>基础设施即服务</td>
+</tr>
+<tr>
+<td>DCA (Direct Cloud Access)</td>
+<td>直接云接入</td>
+</tr>
+<tr>
+<td>DIA (Direct Internet Access)</td>
+<td>直接互联网接入</td>
+</tr>
+<tr>
+<td>Private Cloud</td>
+<td>私有云</td>
+</tr>
+<tr>
+<td>Public Cloud</td>
+<td>公有云</td>
+</tr>
+<tr>
+<td>Hybrid Cloud</td>
+<td>混合云</td>
+</tr>
+<tr>
+<td>Multi-cloud</td>
+<td>多云</td>
+</tr>
+<tr>
+<td>Cloud-Agnostic</td>
+<td>云无关</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>可移植性</td>
+</tr>
+<tr>
+<td>Abstraction</td>
+<td>抽象</td>
+</tr>
+<tr>
+<td>Interoperability</td>
+<td>互操作性</td>
+</tr>
+<tr>
+<td>Decoupling</td>
+<td>解耦</td>
+</tr>
+<tr>
+<td>Containerization</td>
+<td>容器化</td>
+</tr>
+<tr>
+<td>SOA (Service-Oriented Architecture)</td>
+<td>面向服务架构</td>
+</tr>
+<tr>
+<td>Data Governance</td>
+<td>数据治理</td>
+</tr>
+<tr>
+<td>Data Architecture</td>
+<td>数据架构</td>
+</tr>
+<tr>
+<td>Data Security</td>
+<td>数据安全</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>元数据</td>
+</tr>
+<tr>
+<td>Data Quality</td>
+<td>数据质量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="chapter-summary">Chapter Summary · 本章小结<a class="anchor" href="#chapter-summary" title="Permanent link"></a></h2>
+<p>Chapter 3 answers what the network is actually serving, and the whole chapter condenses into one chain of judgment:</p>
+<div class="zh">
+<p>第 3 章解决的是"网络到底在为什么服务"这个问题，全章可以整理成一张判断链：</p>
+</div>
+<pre><code>Application (model + traits) → decides what the network must provide
+    ↓
+Service model (SaaS / PaaS / IaaS / on-premises) → decides who operates what
+    ↓
+Cloud type and connectivity (public/private/hybrid/multi-cloud, DCA/DIA/dedicated) → decides where traffic flows
+    ↓
+Data (eleven pillars) → decides what the network must guarantee (compliance, quality, availability)
+</code></pre>
+<div class="zh">
+<pre><code>应用（模型 + 特征）→ 决定网络需要什么
+    ↓
+服务模型（SaaS / PaaS / IaaS / 本地）→ 决定谁运维什么
+    ↓
+云类型与连接（公有/私有/混合/多云，DCA/DIA/专线）→ 决定流量从哪里走
+    ↓
+数据（11 支柱）→ 决定网络必须保证什么（合规、质量、可用）
+</code></pre>
+</div>
+<p>Three conclusions to remember:</p>
+<div class="zh">
+<p>三句必须记住的结论：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Conclusion</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application traits determine network metrics</strong></td>
+<td>The question is not "is there enough bandwidth" but whether loss, jitter, latency, symmetry and session patterns match. Video conferencing and backup are different species</td>
+</tr>
+<tr>
+<td><strong>Deployment location sets the latency floor</strong></td>
+<td>The speed of light cannot be optimized. Cross-region and cross-cloud architecture must be split by business function, keeping what must be low-latency close</td>
+</tr>
+<tr>
+<td><strong>Cloud agnosticism is a trade-off with a price</strong></td>
+<td>The more abstraction layers, the more portable and the less you use native cloud capability. Buy it only where it is warranted</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>结论</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>应用特征决定网络指标</strong></td>
+<td>不是"带宽够不够"，而是"丢包、抖动、时延、对称性、会话模式"是否匹配。视频会议和备份是两个物种</td>
+</tr>
+<tr>
+<td><strong>部署位置决定时延下限</strong></td>
+<td>光速不可优化。跨区域/跨云的架构必须按业务切分，把"必须低延迟"的部分留在近端</td>
+</tr>
+<tr>
+<td><strong>云无关是有成本的取舍</strong></td>
+<td>抽象层越多，越可移植，也越用不到云的原生能力。只在该买的地方买</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>One-line memory hook</strong>: <strong>Chapter 1 asks "why do it", Chapter 2 asks "is it worth it", Chapter 3 asks "who is it for".</strong> Once those three are answered, the technology choices in Chapters 6–14 have criteria to test against.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>一句话记忆</strong>：<strong>第 1 章问"为什么做"，第 2 章问"值不值"，第 3 章问"为谁而做"。</strong> 这三问答完，第 6–14 章的技术选型才有判据。</p>
+</blockquote>
+</div>
+<p>The application trait table from this chapter is reused directly in Chapter 14 (QoS classification and queues) and Chapter 17 (WAN selection) — <strong>one table, three uses</strong>, which is rare in this book.</p>
+<div class="zh">
+<p>本章的应用特征表会在第 14 章（QoS 分类与队列）、第 17 章（WAN 选型）被直接复用——<strong>同一张表，三个用途</strong>，这是本书少见的"一鱼三吃"。</p>
+</div></article>
+    <nav class="pager"><a class="pager-link prev" href="en-02.html"><span class="pager-label">Previous</span><span class="pager-title">Chapter 2 · Designing for Business Success</span></a><a class="pager-link next" href="en-04.html"><span class="pager-label">Next</span><span class="pager-title">Chapter 4 · Security Is Pervasive</span></a></nav>
+    
+    <section class="board" id="board" data-page="EN · Chapter 3 · What Is the Purpose of the Network" data-key="en-03">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">EN · Chapter 3 · What Is the Purpose of the Network</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#topics-covered">Topics Covered · 本章涵盖主题</a></li>
+<li><a href="#chapter-overview-applications-set-the-ceiling-of-the-network">Chapter Overview: Applications Set the Ceiling of the Network · 本章导读：网络的上限由应用决定</a></li>
+<li><a href="#foundation-topics">Foundation Topics · 基础内容</a></li>
+<li><a href="#business-applications">Business Applications · 业务应用</a><ul>
+<li><a href="#application-models">Application Models · 应用模型</a></li>
+<li><a href="#network-design-elements-of-the-3-tier-model">Network Design Elements of the 3-Tier Model · 三层模型的网络设计要素</a></li>
+<li><a href="#application-constraints-and-requirements">Application Constraints and Requirements · 应用约束和需求</a></li>
+</ul>
+</li>
+<li><a href="#service-models">Service Models · 服务模型</a><ul>
+<li><a href="#the-four-main-service-models">The Four Main Service Models · 四种主要服务模型</a></li>
+<li><a href="#service-model-comparison">Service Model Comparison · 服务模型对比</a></li>
+</ul>
+</li>
+<li><a href="#the-cloud">The Cloud · 云</a><ul>
+<li><a href="#cloud-connection-models">Cloud Connection Models · 云连接模型</a></li>
+<li><a href="#cloud-types">Cloud Types · 云类型</a></li>
+<li><a href="#cloud-type-comparison-in-detail">Cloud Type Comparison in Detail · 云类型详细对比</a></li>
+<li><a href="#cloud-agnostic-architecture">Cloud-Agnostic Architecture · 云无关架构</a></li>
+<li><a href="#service-oriented-architecture-soa">Service-Oriented Architecture (SOA) · 面向服务架构</a></li>
+<li><a href="#cloud-containerized-architecture">Cloud Containerized Architecture · 云容器化架构</a></li>
+<li><a href="#cloud-application-strategy">Cloud Application Strategy · 云应用策略</a></li>
+</ul>
+</li>
+<li><a href="#data-management">Data Management · 数据管理</a><ul>
+<li><a href="#the-eleven-pillars-of-data-management-11">The Eleven Pillars of Data Management · 数据管理的 11 大支柱</a></li>
+</ul>
+</li>
+<li><a href="#case-studies">Case Studies · 实战案例</a><ul>
+<li><a href="#case-1-bandwidth-doubled-video-conferencing-still-stutters">Case 1: Bandwidth Doubled, Video Conferencing Still Stutters · 案例一：带宽翻倍，视频会议还是卡</a></li>
+<li><a href="#case-2-slower-after-moving-to-the-cloud">Case 2: Slower After Moving to the Cloud · 案例二：上云之后，系统反而更慢了</a></li>
+</ul>
+</li>
+<li><a href="#design-pitfalls">Design Pitfalls · 设计缺陷</a></li>
+<li><a href="#lessons-learned">Lessons Learned · 实战经验总结</a></li>
+<li><a href="#design-scenarios-2-2">Design Scenarios (2) · 设计情景演练（2 个）</a><ul>
+<li><a href="#scenario-1-moving-a-twelve-year-old-erp-to-the-cloud-12-erp">Scenario 1: Moving a Twelve-Year-Old ERP to the Cloud · 情景一：把 12 年前的 ERP 搬上云</a></li>
+<li><a href="#scenario-2-the-network-got-slower-after-microservices">Scenario 2: "The Network Got Slower" After Microservices · 情景二：微服务化之后"网络变慢了"</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">Key Terms · 本章关键术语</a></li>
+<li><a href="#chapter-summary">Chapter Summary · 本章小结</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>

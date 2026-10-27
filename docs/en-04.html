@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 4: Security Is Pervasive · English Edition · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与串讲</span><span class="nav-sub">全书串讲 · 设计决策流程</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">English Edition</span><span class="nav-sub">中英对照 · Chapter 1–5</span></div><div class="nav-items"><a class="nav-link" href="en-01.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 1 · Network Design</span></a><a class="nav-link" href="en-02.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 2 · Designing for Business Success</span></a><a class="nav-link" href="en-03.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 3 · What Is the Purpose of the Network</span></a><a class="nav-link active" href="en-04.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 4 · Security Is Pervasive</span></a><a class="nav-link" href="en-05.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 5 · Reference Architecture Models and Frameworks</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 4 · about 5938 words</span></div><h1 id="chapter-4-security-is-pervasive-4">Chapter 4: Security Is Pervasive · 第 4 章：安全是普适的<a class="anchor" href="#chapter-4-security-is-pervasive-4" title="Permanent link"></a></h1>
+<blockquote>
+<p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 4 (pp. 209–233)</p>
+<p>Terminology follows the English edition. Every English passage is followed by its Chinese counterpart in the grey block below it, so the two can be checked sentence by sentence.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 209-233 页</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="topics-covered">Topics Covered · 本章涵盖主题<a class="anchor" href="#topics-covered" title="Permanent link"></a></h2>
+<ul>
+<li><strong>Zero Trust Architecture (ZTA)</strong>: the pillars, capabilities and components of zero trust</li>
+<li><strong>The security CIA triad</strong>: confidentiality, integrity and availability, and their design elements</li>
+<li><strong>Regulatory compliance</strong>: how to design solutions against compliance standards</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>零信任架构 (Zero Trust Architecture)</strong>：零信任架构的支柱、能力和组件</li>
+<li><strong>安全 CIA 三要素</strong>：机密性、完整性和可用性及其设计要素</li>
+<li><strong>法规合规</strong>：如何根据合规标准设计解决方案</li>
+</ul>
+</div>
+<hr />
+<h2 id="chapter-overview-security-is-a-property-of-every-decision-not-a-module">Chapter Overview: Security Is a Property of Every Decision, Not a Module · 本章导读：安全是每个决策的属性，不是一个模块<a class="anchor" href="#chapter-overview-security-is-a-property-of-every-decision-not-a-module" title="Permanent link"></a></h2>
+<p>Chapter 1 listed pervasive security as a design principle; this chapter breaks it into something executable: policy sources, trust models, CIA and compliance. The position is one sentence: <strong>as soon as a single design decision treats security as "we will add it later", the security ceiling of the architecture is already fixed.</strong></p>
+<div class="zh">
+<p>第 1 章把"普适安全"列为设计原则，这一章把它拆成可执行的东西：策略来源、信任模型、CIA、合规。核心立场只有一句：<strong>只要有一个设计决策把安全当成"后面再补"，这个架构的安全上限就已经定了。</strong></p>
+</div>
+<p>Eight lessons that are easy to miss:</p>
+<div class="zh">
+<p>八个容易踩空的认知：</p>
+</div>
+<p><strong>1. Security is fundamentally about changing the defaults.</strong> Default allow plus restrictions added afterwards, versus default deny plus explicit permission, are two entirely different architectures. <strong>What sets the security level is not the device list, it is the default.</strong></p>
+<div class="zh">
+<p><strong>1. 安全的本质是"改变默认值"。</strong> 默认允许 + 事后加限制，与默认拒绝 + 按需放行，是两种完全不同的架构。<strong>决定安全水平的不是设备清单，而是默认值。</strong></p>
+</div>
+<p><strong>2. Security policy has four sources, and their cost of change differs enormously.</strong> Laws and standards (almost non-negotiable), contracts and SLAs (negotiable commercially, but technically binding), internal policy (negotiable but needs time), architecture principles (debatable, but exceptions must be recorded). <strong>Treating internal policy as law wastes budget; treating law as a suggestion gets people fired.</strong></p>
+<div class="zh">
+<p><strong>2. 安全策略有四个来源，变更成本差别极大。</strong> 法规与标准（几乎不可协商）、合同与 SLA（商务可谈、技术必须兑现）、内部制度（可协商但要时间）、架构原则（可讨论，但例外要留痕）。<strong>把"内部制度"当成"法规"会浪费预算，把"法规"当成"建议"会出事。</strong></p>
+</div>
+<p><strong>3. The perimeter model is not dead, but it is no longer sufficient.</strong> Users are at home, applications are in the cloud and data sits in third-party SaaS — the premise "inside equals trusted" has disappeared. Zero trust does not remove the firewall; it <strong>stops using location as the only basis for trust</strong>.</p>
+<div class="zh">
+<p><strong>3. 边界模型并没有"死"，但已经不够用。</strong> 用户在家里、应用在云上、数据在第三方 SaaS 里——"内网 = 可信"这个前提消失了。零信任不是把防火墙拆掉，而是<strong>不再用"位置"作为信任的唯一依据</strong>。</p>
+</div>
+<p><strong>4. Zero trust is not a product you buy, it is a set of architecture decisions.</strong> It requires at minimum trusted identity, device posture assessment, fine-grained policy (per application, per request) and continuous telemetry with dynamic decisions. <strong>Deploying one "zero trust gateway" without identity governance and log analytics is just a more expensive perimeter.</strong></p>
+<div class="zh">
+<p><strong>4. 零信任不是能买到的产品，是一组架构决策。</strong> 它至少要同时具备：可信身份、设备状态评估、细粒度策略（按应用/按请求）、持续遥测与动态判定。<strong>只上了一个"零信任网关"而没有身份治理和日志分析，等于换了个更贵的边界。</strong></p>
+</div>
+<p><strong>5. The three CIA goals pull against each other, so the design must trade off explicitly.</strong> Encrypting everything everywhere weakens detection (content becomes invisible); strong isolation reduces availability and operational efficiency; keeping too much log data creates a new exposure surface. <strong>No design maximizes all three at once.</strong></p>
+<div class="zh">
+<p><strong>5. CIA 三者会互相拉扯，设计必须显式取舍。</strong> 全链路加密会削弱检测能力（看不见内容）；强隔离会降低可用性与运维效率；过度留存日志又制造新的泄露面。<strong>没有一个方案能同时把三者拉满。</strong></p>
+</div>
+<p><strong>6. Compliance is not security.</strong> An organization that passes a PCI DSS audit can still fall to a phishing email. Compliance is <strong>a floor and a body of evidence</strong>; security is <strong>continuous risk management</strong>. Keep them separate in the design: compliance items are evidence you must have, security items are exposure you must reduce.</p>
+<div class="zh">
+<p><strong>6. 合规 ≠ 安全。</strong> 通过 PCI DSS 审计的组织依然可能被钓鱼攻破。合规是<strong>下限与证据</strong>，安全是<strong>持续的风险管理</strong>。设计时要把两者分开：合规项是"必须有的证据"，安全项是"必须降低的敞口"。</p>
+</div>
+<p><strong>7. Data sovereignty is one of the hardest technical constraints.</strong> The sentence "data may not leave the country" directly determines application placement, backup strategy, whether cross-border links may exist, and even the access path used by operations staff. <strong>It is an architecture-changing input, not a footnote in the proposal.</strong></p>
+<div class="zh">
+<p><strong>7. 数据主权是最硬的技术约束之一。</strong> "数据不得出境"这一句，会直接决定应用部署位置、备份策略、跨境链路是否存在、甚至运维人员的访问路径。<strong>它属于"改架构"级别的输入，不是一条可以在方案里备注的条款。</strong></p>
+</div>
+<p><strong>8. Rank security spend by exposure × likelihood × impact, not by vendor recommendation.</strong> Ninety percent of budget goes to the schemes that look advanced, while what actually gets exploited is unpatched edge devices, expired accounts and over-privileged operational access.</p>
+<div class="zh">
+<p><strong>8. 安全投入应按"敞口 × 概率 × 影响"排序，而不是按厂商推荐排序。</strong> 90% 的预算花在"看起来高级"的方案上，而真正被利用的往往是未打补丁的边界设备、过期的账号和高权限的运维通道。</p>
+</div>
+<blockquote>
+<p><strong>One-sentence summary</strong>: <strong>the output of security design is not "what we bought", but "which risks we explicitly accepted, and why".</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>一句话概括这一章</strong>：<strong>安全设计的产出不是"我们买了什么"，而是"我们明确接受了哪些风险、以及为什么"。</strong></p>
+</blockquote>
+</div>
+<hr />
+<h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<p>Today's converged networks carry a great deal of critical business information — voice, video and data — which makes protecting and assuring that information essential, for two reasons:
+1. <strong>Information security and privacy</strong>
+2. <strong>Maintaining business continuity</strong> (for example preventing DDoS attacks)</p>
+<div class="zh">
+<p>当今的融合网络承载着大量关键业务信息（语音、视频或数据），使保护和保障这些信息变得极为重要，原因有两个：
+1. <strong>信息安全和隐私</strong>
+2. <strong>维持业务连续性</strong>（如防止 DDoS 攻击）</p>
+</div>
+<p>Network infrastructure and network security <strong>cannot be designed in isolation</strong>. A holistic approach is essential, and <strong>security cannot be an afterthought; it must be at the front of every design decision.</strong></p>
+<div class="zh">
+<p>网络基础设施和网络安全的设计<strong>不能孤立进行</strong>。整体方法对于网络安全设计至关重要。<strong>安全不能是事后补充，必须处于每个设计决策的前沿。</strong></p>
+</div>
+<h3 id="security-policy">Security Policy · 安全策略<a class="anchor" href="#security-policy" title="Permanent link"></a></h3>
+<p>A security policy is a formal statement of the rules that anyone granted access to the organization's technical and information assets must follow. Before starting any network design, understanding the organization's security policy and its standards is a key prerequisite.</p>
+<div class="zh">
+<p>安全策略是关于获得组织技术和信息资产访问权限的人员必须遵守的规则的正式声明。在开始任何网络设计之前，理解组织的安全策略及其标准是关键前提。</p>
+</div>
+<blockquote>
+<p><strong>Example</strong>: you may propose reusing existing 1G dark fiber as a virtual leased line (VLL) solution. The security policy may state that any traffic crossing networks not owned by the organization must be encrypted, so IPsec or MACsec must be added to deliver an encrypted VLL.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>示例</strong>：你可能建议将现有的 1G 暗光纤重新设计为虚拟租用线 (VLL) 解决方案。但安全策略可能规定：任何穿越非组织拥有网络的流量必须加密。因此需要添加 IPsec 或 MACsec 来提供加密 VLL。</p>
+</blockquote>
+</div>
+<h4 id="the-four-sources-of-security-policy">The Four Sources of Security Policy · 安全策略的四类来源<a class="anchor" href="#the-four-sources-of-security-policy" title="Permanent link"></a></h4>
+<p>Policy is not one document; it is <strong>the union of four kinds of input</strong>. A designer must be able to say which category every requirement comes from, because their <strong>cost of change is completely different</strong>:</p>
+<div class="zh">
+<p>策略不是一份文档，而是<strong>四类输入的合集</strong>。设计者必须能说清每条要求来自哪一类，因为它们的<strong>变更成本完全不同</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Typical content</th>
+<th>How it is expressed</th>
+<th>Negotiability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Laws and standards</strong></td>
+<td>GDPR, PCI DSS, HIPAA, sector regulators</td>
+<td>"Must / must not" clauses</td>
+<td>Not negotiable; only the implementation can change</td>
+</tr>
+<tr>
+<td><strong>Contracts and SLAs</strong></td>
+<td>Customer-mandated data residency, audit rights, isolation commitments</td>
+<td>Contract clauses and penalties</td>
+<td>Negotiable commercially, binding technically</td>
+</tr>
+<tr>
+<td><strong>Internal policy</strong></td>
+<td>Password and account policy, offboarding, privileged access management, endpoint compliance</td>
+<td>Management procedures, checklists</td>
+<td>Negotiable, but internal change takes time and mandate</td>
+</tr>
+<tr>
+<td><strong>Architecture principles</strong></td>
+<td>Zero trust, least privilege, default deny, defense in depth</td>
+<td>Principle plus exception process</td>
+<td>The principle is debatable; exceptions must be recorded</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>典型内容</th>
+<th>表达形式</th>
+<th>可协商性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>法规与标准</strong></td>
+<td>GDPR、PCI DSS、HIPAA、行业监管要求</td>
+<td>"必须/禁止"式条款</td>
+<td>不可协商，只能改变实现方式</td>
+</tr>
+<tr>
+<td><strong>合同与 SLA</strong></td>
+<td>客户要求的数据驻留、审计权、隔离承诺</td>
+<td>合同条款、罚则</td>
+<td>商务层面可谈，技术层面必须兑现</td>
+</tr>
+<tr>
+<td><strong>内部制度</strong></td>
+<td>密码与账号策略、离职流程、特权账号管理、终端合规</td>
+<td>管理办法、检查表</td>
+<td>可协商，但推动内部变更需要时间与授权</td>
+</tr>
+<tr>
+<td><strong>架构原则</strong></td>
+<td>零信任、最小权限、默认拒绝、纵深防御</td>
+<td>原则 + 例外流程</td>
+<td>原则本身可讨论，例外必须留痕</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>The most common gap in practice is not "no policy" but "no exception process"</strong>. The policy says "all traffic crossing non-owned networks must be encrypted" but nobody defines who decides whether a new service is an exception and how often it is reviewed. Exceptions then get approved verbally, and three months later nobody remembers why the rule was opened.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>实践中最常见的缺口不是"没有策略"，而是"没有例外流程"</strong>。策略写了"任何跨非自有网络的流量必须加密"，但没人规定"新业务上线时由谁判断是否属于例外、多久复核"。结果是例外靠口头批准，三个月后没人记得为什么放通。</p>
+</blockquote>
+</div>
+<h4 id="three-steps-from-policy-to-technology">Three Steps from Policy to Technology · 从策略推导到技术的三步<a class="anchor" href="#three-steps-from-policy-to-technology" title="Permanent link"></a></h4>
+<pre><code>① Policy clause (natural language)
+      ↓ translate
+② Control objective (a verifiable statement: who may access what, under which conditions, logged to what extent)
+      ↓ select
+③ Technical means (encryption / authentication / segmentation / inspection / logging)
+</code></pre>
+<div class="zh">
+<pre><code>① 策略条款（自然语言）
+      ↓ 翻译
+② 控制目标（可验证的陈述：谁能访问什么、在什么条件下、被记录到什么程度）
+      ↓ 选型
+③ 技术手段（加密 / 认证 / 分段 / 检查 / 日志）
+</code></pre>
+</div>
+<p>Using the policy "data may not leave the country" as an example:</p>
+<div class="zh">
+<p>以"数据不出境"这条策略为例：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Policy clause</td>
+<td>Customer personal data must not leave the country</td>
+</tr>
+<tr>
+<td>Control objective</td>
+<td>Data storage location constrained; only de-identified aggregates may cross the border; access paths auditable</td>
+</tr>
+<tr>
+<td>Technical means</td>
+<td>In-country isolated zone (VRF/overlay isolation, Chapter 9) + one-way de-identified egress + centralized policy plane (configuration only, no data) + local log retention</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>策略条款</td>
+<td>客户个人数据不得离开本国境内</td>
+</tr>
+<tr>
+<td>控制目标</td>
+<td>数据存储位置受限；跨境只允许脱敏汇总；访问路径可审计</td>
+</tr>
+<tr>
+<td>技术手段</td>
+<td>境内独立区域（第 9 章 VRF/Overlay 隔离）+ 单向脱敏出站 + 集中策略管理面（只下发配置不携带数据）+ 本地日志留存</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The value of this step</strong>: the same policy clause can have several technical implementations (encrypted VLL vs. application-layer encryption vs. no encryption but physically dedicated), <strong>and the cost differs by an order of magnitude</strong>. The designer's job is to lay out the options, not to jump straight to the most expensive one.</p>
+<div class="zh">
+<p><strong>这一步的价值在于</strong>：同一个策略条款，可以有多种技术实现（加密 VLL vs 应用层加密 vs 不加密但物理独占），<strong>成本差一个数量级</strong>。设计者的工作是把选项摆出来，而不是直接跳到最贵的那一个。</p>
+</div>
+<h3 id="security-domains-and-zones">Security Domains and Zones · 安全域和区域<a class="anchor" href="#security-domains-and-zones" title="Permanent link"></a></h3>
+<p>Using a structured, modular approach, divide the network into <strong>security domains</strong> and introduce <strong>chokepoints</strong> between them:</p>
+<div class="zh">
+<p>使用结构化模块化方法，将网络分成多个<strong>安全域</strong>，在域之间引入<strong>检查点 (Chokepoints)</strong>：</p>
+</div>
+<pre><code>┌─────────────────────────────────────────────┐
+│              Enterprise core                 │
+├──────┬──────────────┬──────────┬───────────┤
+│Internet│  Data center  │ Network  │  WAN      │
+│ edge   │  security     │ mgmt     │  security │
+│ domain │  domain       │ zone     │  domain   │
+│        │ ┌──┐┌──┐┌──┐│          │          │
+│Firewall│ │Web││DB││App││ Firewall │ Firewall │
+│IPS    │ │zone││zone││zone││        │          │
+│        │ └──┘└──┘└──┘│          │          │
+└──────┴──────────────┴──────────┴───────────┘
+</code></pre>
+<div class="zh">
+<pre><code>┌─────────────────────────────────────────────┐
+│              企业核心层                       │
+├──────┬──────────────┬──────────┬───────────┤
+│ 互联网│   数据中心     │  网络管理  │  WAN      │
+│ 边缘域│   安全域      │  区域     │  安全域    │
+│      │ ┌──┐┌──┐┌──┐│          │          │
+│ 防火墙│ │Web││DB││App││ 防火墙    │ 防火墙    │
+│ IPS  │ │区 ││区││区 ││          │          │
+│      │ └──┘└──┘└──┘│          │          │
+└──────┴──────────────┴──────────┴───────────┘
+</code></pre>
+</div>
+<p>Each domain is assigned a trust level, and inter-domain traffic is controlled with iACLs, firewalls, IPS and similar mechanisms.</p>
+<div class="zh">
+<p>每个域被赋予信任级别，使用 iACL、防火墙、IPS 等机制控制域间流量。</p>
+</div>
+<h4 id="three-criteria-for-drawing-domain-boundaries">Three Criteria for Drawing Domain Boundaries · 域怎么划：三条依据<a class="anchor" href="#three-criteria-for-drawing-domain-boundaries" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Question</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Trust level</strong></td>
+<td>If assets here are compromised, what can the attacker do?</td>
+<td>User endpoint domain (low trust) vs. server domain (high value) vs. management domain (highest)</td>
+</tr>
+<tr>
+<td><strong>Compliance boundary</strong></td>
+<td>Do the rules differ on either side of this boundary?</td>
+<td>PCI cardholder data environment, domestic/foreign, production/test</td>
+</tr>
+<tr>
+<td><strong>Fault and blast radius</strong></td>
+<td>How far can a compromise or failure spread?</td>
+<td>Production and test domains must be separate; factory OT domain and office domain must be separate</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>依据</th>
+<th>问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>信任等级</strong></td>
+<td>这里的资产被攻破后，攻击者能做什么？</td>
+<td>用户终端域（低信任）vs 服务器域（高价值）vs 管理域（最高）</td>
+</tr>
+<tr>
+<td><strong>合规边界</strong></td>
+<td>数据在这条边界内外，规则是否不同？</td>
+<td>PCI 持卡人数据环境、境内/境外、生产/测试</td>
+</tr>
+<tr>
+<td><strong>故障与爆炸半径</strong></td>
+<td>一个域被攻破或出故障，能扩散多远？</td>
+<td>生产域与测试域必须分开；工厂产线域与办公域必须分开</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The counterintuitive point about domains</strong>: <strong>more granular is not better</strong>. Every additional domain adds a set of inter-domain policies, a failure point and a troubleshooting path. A typical enterprise lands at <strong>5–12 domains</strong>; beyond that, policy maintenance cost exceeds the benefit — which is exactly why Chapter 10 replaces "domains inside domains" with SGTs and a policy center for microsegmentation.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>划分域时的反直觉点</strong>：<strong>域不是越细越好</strong>。每增加一个域，就增加一组域间策略、一个故障点、一条排障路径。典型企业的合理域数量是 <strong>5–12 个</strong>，超过这个数量后，策略维护成本会超过收益——这也是第 10 章微分段用 SGT/策略中心替代"域套域"的原因。</p>
+</blockquote>
+</div>
+<h4 id="choosing-chokepoints">Choosing Chokepoints · 检查点的选型<a class="anchor" href="#choosing-chokepoints" title="Permanent link"></a></h4>
+<p>Not all inter-domain traffic should cross the same class of device:</p>
+<div class="zh">
+<p>不是所有跨域流量都该过同一类设备：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Chokepoint type</th>
+<th>Capability</th>
+<th>Where it fits</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stateless ACL / iACL</strong></td>
+<td>Five-tuple filtering at line rate</td>
+<td>Coarse filtering inside a domain, infrastructure protection</td>
+<td>Stateless: no session tracking, no application awareness</td>
+</tr>
+<tr>
+<td><strong>Stateful firewall</strong></td>
+<td>Session tracking, NAT, application identification</td>
+<td>Every main inter-domain path</td>
+<td>State synchronization is complex (HA pairs must sync sessions)</td>
+</tr>
+<tr>
+<td><strong>IPS</strong></td>
+<td>Signature detection and blocking of known attacks</td>
+<td>Main north-south paths, data center ingress</td>
+<td>Blind to encrypted traffic (unless decrypted); false positives need tuning</td>
+</tr>
+<tr>
+<td><strong>WAF</strong></td>
+<td>HTTP-layer attacks</td>
+<td>Application front ends that are publicly published</td>
+<td>Covers web only, does not understand non-HTTP protocols</td>
+</tr>
+<tr>
+<td><strong>Proxy / CASB</strong></td>
+<td>Outbound access control and audit</td>
+<td>Internet egress</td>
+<td>Requires endpoint cooperation (proxy settings or PAC)</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>检查点类型</th>
+<th>能力</th>
+<th>适用位置</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>无状态 ACL / iACL</strong></td>
+<td>五元组过滤，线速</td>
+<td>域内粗筛、基础设施保护</td>
+<td>无状态：不跟踪会话，不识别应用</td>
+</tr>
+<tr>
+<td><strong>有状态防火墙</strong></td>
+<td>会话跟踪、NAT、应用识别</td>
+<td>所有域间主通道</td>
+<td>状态同步复杂（双机热备必须同步会话）</td>
+</tr>
+<tr>
+<td><strong>IPS</strong></td>
+<td>已知攻击特征检测与阻断</td>
+<td>南北向主通道、数据中心入口</td>
+<td>加密流量看不见（除非解密），误报需要调优</td>
+</tr>
+<tr>
+<td><strong>WAF</strong></td>
+<td>HTTP 层攻击</td>
+<td>对外发布的应用前端</td>
+<td>只覆盖 Web，不理解非 HTTP 协议</td>
+</tr>
+<tr>
+<td><strong>代理 / CASB</strong></td>
+<td>出向访问控制与审计</td>
+<td>互联网出口</td>
+<td>需要终端配合（代理设置或 PAC）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>Three hard constraints in chokepoint design</strong>:
+1. <strong>Chokepoints must be few and explicit</strong> — inter-domain traffic has to converge on a small number of points, otherwise policy consistency and capacity planning become impossible;
+2. <strong>Encryption and inspection are inherently in conflict</strong> — anything inside IPsec/TLS is invisible to IPS and DLP. Either terminate encryption at the chokepoint or accept that the segment is unobservable, <strong>and that trade-off must be written into the design document</strong>;
+3. <strong>Stateful device pairs must synchronize state</strong> — otherwise every long-lived connection (database, SSH, ERP) breaks at the moment of failover, which presents as "the switchover succeeded but the business is down".</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>检查点设计的三条硬约束</strong>：
+1. <strong>检查点要"少而明确"</strong>——跨域流量必须收敛到少数几个点，否则无法保证策略一致性，也无法对它做容量规划；
+2. <strong>加密与检查天然冲突</strong>——凡是过 IPsec/TLS 的流量，IPS 与 DLP 都失效。要么在检查点终结加密，要么接受"这段不可见"，<strong>这个取舍必须写进设计文档</strong>；
+3. <strong>有状态设备的双机必须同步状态</strong>——否则切换瞬间所有长连接（数据库、SSH、ERP）全部中断，表现为"切换成功但业务断了"。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="zero-trust-architecture-zta">Zero Trust Architecture (ZTA) · 零信任架构<a class="anchor" href="#zero-trust-architecture-zta" title="Permanent link"></a></h2>
+<p>Traditional security assumes everything inside the perimeter is trusted and only the outside is hostile. Once users, applications and data are spread across the Internet, home networks, public clouds and SaaS, that assumption collapses. Zero trust <strong>treats every access as untrusted by default</strong> and decides every time based on identity, device and context.</p>
+<div class="zh">
+<p>零信任架构是对安全的范式转变——不再是边界防火墙模型，而是<strong>无边界架构，拒绝所有访问直到明确允许</strong>。</p>
+</div>
+<h3 id="the-pillars-of-zero-trust">The Pillars of Zero Trust · 零信任架构的支柱<a class="anchor" href="#the-pillars-of-zero-trust" title="Permanent link"></a></h3>
+<ol>
+<li><strong>Verify identity, every time</strong>: identity is the new security perimeter, and authentication applies to users and devices alike</li>
+<li><strong>Assess device posture</strong>: are patches current, is disk encryption on, is EDR running, is the device managed</li>
+<li><strong>Least privilege</strong>: grant only the access needed for the task, never permanent broad access</li>
+<li><strong>Microsegmentation</strong>: enforce policy between workloads and applications, not just at the perimeter</li>
+<li><strong>Continuous monitoring and response</strong>: log, detect, analyze and respond; trust is dynamically adjusted</li>
+<li><strong>Assume breach</strong>: design as if the attacker is already inside — limit lateral movement and shorten dwell time</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>网络始终被假定为敌对的</strong></li>
+<li><strong>外部和内部威胁随时随地在</strong></li>
+<li><strong>每个设备、应用、用户和网络流都被认证和授权</strong></li>
+<li><strong>自动化系统是构建和运营零信任网络的基础</strong></li>
+<li><strong>策略必须是动态的，从尽可能多的数据源计算</strong></li>
+<li><strong>所有活动都被记录</strong></li>
+</ol>
+</div>
+<h3 id="key-concepts">Key Concepts · 零信任架构概念<a class="anchor" href="#key-concepts" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Static factors</strong></td>
+<td>Relatively stable attributes: user identity, role, department, device type</td>
+</tr>
+<tr>
+<td><strong>Dynamic factors</strong></td>
+<td>Attributes that change at runtime: location, time, patch state, behavior baseline</td>
+</tr>
+<tr>
+<td><strong>Entitled to access</strong></td>
+<td>The resource set a subject is allowed to reach under policy</td>
+</tr>
+<tr>
+<td><strong>Trust score</strong></td>
+<td>A continuous measure of how trustworthy the subject is right now</td>
+</tr>
+<tr>
+<td><strong>Risk score</strong></td>
+<td>The potential impact if this access goes wrong</td>
+</tr>
+<tr>
+<td><strong>Authorization for access</strong></td>
+<td>The final decision: allow, deny, or allow with constraints</td>
+</tr>
+<tr>
+<td><strong>Inventory</strong></td>
+<td>The inventory of identities, assets and applications — the prerequisite for policy</td>
+</tr>
+<tr>
+<td><strong>Policy Engine</strong></td>
+<td>Evaluates policy and produces the decision</td>
+</tr>
+<tr>
+<td><strong>Trust Engine</strong></td>
+<td>Aggregates static and dynamic factors into a trust score</td>
+</tr>
+<tr>
+<td><strong>Endpoint device</strong></td>
+<td>The device from which access originates</td>
+</tr>
+<tr>
+<td><strong>PEP (Policy Enforcement Point)</strong></td>
+<td>The point that actually enforces the decision</td>
+</tr>
+<tr>
+<td><strong>Feedback loop</strong></td>
+<td>Telemetry flows back to update trust and policy continuously</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>静态因素 (Static Factors)</strong></td>
+<td>我们已知的项目，可预先基于此设定访问和授权。包括凭证、设备信任、网络、物理位置、生物特征、设备方向</td>
+</tr>
+<tr>
+<td><strong>动态因素 (Dynamic Factors)</strong></td>
+<td>可在访问时分析以改变授权级别的数据源。包括威胁情报、地理速度（当前位置与上次登录位置的差异）、GPS 坐标、实时数据分析</td>
+</tr>
+<tr>
+<td><strong>有权访问 (Entitled to Access)</strong></td>
+<td>用户基于角色的访问权限。不同角色（如财务用户 vs 人力资源用户）应有不同访问权限。也适用于设备（打印机 vs IoT 设备）</td>
+</tr>
+<tr>
+<td><strong>信任分数 (Trust Score)</strong></td>
+<td>静态和动态因素的组合，持续提供身份保证。确定与资源风险值匹配的访问级别</td>
+</tr>
+<tr>
+<td><strong>风险分数 (Risk Score)</strong></td>
+<td>资产、应用和网络的风险级别阈值，必须被超过才允许访问</td>
+</tr>
+<tr>
+<td><strong>访问授权 (Authorization for Access)</strong></td>
+<td>信任分数和授权级别的组合。即使信任分数足够高，如果没有正确的授权级别，也不会被授予访问</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="core-capabilities">Core Capabilities · 零信任架构能力<a class="anchor" href="#core-capabilities" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity governance</strong></td>
+<td>Joiner/mover/leaver automation, MFA, privileged account management</td>
+</tr>
+<tr>
+<td><strong>Device posture assessment</strong></td>
+<td>Continuous checks on patching, encryption, EDR and management enrolment</td>
+</tr>
+<tr>
+<td><strong>Application-level access</strong></td>
+<td>Access granted per application rather than per network segment</td>
+</tr>
+<tr>
+<td><strong>Dynamic authorization</strong></td>
+<td>Trust scores recomputed from context, with automatic downgrade or revocation</td>
+</tr>
+<tr>
+<td><strong>Visibility and analytics</strong></td>
+<td>Flow, log and behavior intelligence that detects anomalies</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>定义</th>
+<th>也称为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>清单 (Inventory)</strong></td>
+<td>所有资源（用户、设备、工作负载、应用）的单一真相来源</td>
+<td>策略信息点 (PIP)</td>
+</tr>
+<tr>
+<td><strong>策略引擎 (Policy Engine)</strong></td>
+<td>实施策略、匹配规则、推送访问授权的位置</td>
+<td>策略管理点 (PAP) + 策略决策点 (PDP)</td>
+</tr>
+<tr>
+<td><strong>信任引擎 (Trust Engine)</strong></td>
+<td>通过持续分析资源状态动态评估整体信任。利用由静态和动态因素构建的信任分数</td>
+<td>策略信息点 (PIP)</td>
+</tr>
+<tr>
+<td><strong>终端设备 (Endpoint Device)</strong></td>
+<td>最终用户用来访问企业网络的任何设备</td>
+<td>策略执行点 (PEP)</td>
+</tr>
+<tr>
+<td><strong>基础设施设备 (Infrastructure Devices)</strong></td>
+<td>企业内的网络设备（交换机、路由器、防火墙）</td>
+<td>策略执行点 (PEP)</td>
+</tr>
+<tr>
+<td><strong>策略执行点 (PEP)</strong></td>
+<td>执行信任和策略的位置</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>反馈循环 (Feedback Loop)</strong></td>
+<td>持续信息共享，通过 AI/ML、大数据和数据湖动态更改策略</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="migration-steps">Migration Steps · 零信任迁移步骤<a class="anchor" href="#migration-steps" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Content</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Inventory</strong></td>
+<td>Build three inventories: identity, asset, application</td>
+<td>Who, with what device, uses which application</td>
+</tr>
+<tr>
+<td><strong>2. Identity governance</strong></td>
+<td>MFA coverage, automatic leaver revocation, privileged access management</td>
+<td>No orphan accounts</td>
+</tr>
+<tr>
+<td><strong>3. Segmentation</strong></td>
+<td>Move from "the whole intranet is reachable" to "each application is reachable"</td>
+<td>High-risk applications isolated first</td>
+</tr>
+<tr>
+<td><strong>4. Policy and enforcement</strong></td>
+<td>Application-level policy, device posture conditions</td>
+<td>Enforceable rules, not just intent</td>
+</tr>
+<tr>
+<td><strong>5. Continuous telemetry</strong></td>
+<td>Log correlation, behavior baselines, dynamic adjustment</td>
+<td>Trust recalculated in real time</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. 建立信任</strong></td>
+<td>用户身份多因素、设备上下文和身份、设备状态和健康、位置、相关属性和上下文、开发部署</td>
+</tr>
+<tr>
+<td><strong>2. 提供基于信任的访问</strong></td>
+<td>网络、应用、资源、用户和物</td>
+</tr>
+<tr>
+<td><strong>3. 持续验证信任</strong></td>
+<td>用于建立信任的原始条件仍然成立、流量不是威胁流量、任何风险/异常/恶意行为的行为检查、如果被攻破则信任被打破</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="three-prerequisites">Three Prerequisites · 零信任落地的三个前提（缺一不可）<a class="anchor" href="#three-prerequisites" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Prerequisite</th>
+<th>Why it is required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A complete inventory</strong></td>
+<td>Without knowing identities, assets and applications there is no way to write fine-grained policy</td>
+</tr>
+<tr>
+<td><strong>Strong identity foundation</strong></td>
+<td>MFA and lifecycle management come first; a ZTNA gateway without identity governance just moves the problem</td>
+</tr>
+<tr>
+<td><strong>Operations capability</strong></td>
+<td>Policy has to be tuned continuously; a policy that nobody maintains reverts to "allow everything"</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>前提</th>
+<th>具体是什么</th>
+<th>没有它会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>身份目录是权威的</strong></td>
+<td>人员、角色、在职状态来自唯一权威源（HR/AD），离职即时失效</td>
+<td>策略按"角色"下发，但角色数据过期 → 权限只增不减</td>
+</tr>
+<tr>
+<td><strong>有资产与应用清单</strong></td>
+<td>知道"有哪些应用、在哪个地址、属于哪个业务"</td>
+<td>无法写策略，只能全通；"最小权限"无从谈起</td>
+</tr>
+<tr>
+<td><strong>设备可被评估</strong></td>
+<td>终端有代理或证书，可上报补丁、加密、EDR 状态</td>
+<td>只能验证"人"，不能验证"设备"，被入侵的合规设备仍畅通</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>The most common way zero trust projects fail</strong>: buying a product first and discovering afterwards that the inventory does not exist, the identity data is a mess and the logs cannot be correlated. <strong>Product is the carrier of the last step, not the first.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>这三个前提都是"非网络"工作，且都在网络团队之外</strong>。这是零信任项目最常见的失败原因：技术方案完备，但主数据、资产清单、终端合规没人负责，项目停在 PoC 阶段。</p>
+</blockquote>
+</div>
+<h4 id="ztna-vs-traditional-vpn-ztna-vpn">ZTNA vs. Traditional VPN · 零信任网络访问 (ZTNA) 与传统 VPN 的区别<a class="anchor" href="#ztna-vs-traditional-vpn-ztna-vpn" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Traditional VPN</th>
+<th>ZTNA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access granularity</td>
+<td>Network-level (once connected, broadly reachable)</td>
+<td>Application-level (only what is granted)</td>
+</tr>
+<tr>
+<td>Trust basis</td>
+<td>"Inside the VPN is trusted"</td>
+<td>Continuous verification of identity, device and context</td>
+</tr>
+<tr>
+<td>Exposure surface</td>
+<td>The VPN gateway and possibly the whole intranet</td>
+<td>Only the specific applications being accessed</td>
+</tr>
+<tr>
+<td>Lateral movement</td>
+<td>Easy after compromise</td>
+<td>Constrained by segmentation and policy</td>
+</tr>
+<tr>
+<td>Experience</td>
+<td>Client plus route pushing</td>
+<td>Clientless or lightweight client, per-application access</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统远程访问 VPN</th>
+<th>ZTNA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>授权粒度</td>
+<td><strong>网络级</strong>：拨进来就能访问网段</td>
+<td><strong>应用级</strong>：只发布应用，不给网段</td>
+</tr>
+<tr>
+<td>攻击面</td>
+<td>VPN 网关是公网暴露的高价值入口</td>
+<td>应用连接器无需公网暴露，网关被攻破也拿不到网段</td>
+</tr>
+<tr>
+<td>横向移动</td>
+<td>进入后可在网内横向扫描</td>
+<td>看不到网内其他资源，横向移动被切断</td>
+</tr>
+<tr>
+<td>用户体验</td>
+<td>全隧道时所有流量绕回总部（含上网流量）</td>
+<td>分应用接入，上网流量本地直出</td>
+</tr>
+<tr>
+<td>前提</td>
+<td>账号 + 密码（+ MFA）</td>
+<td>身份 + 设备状态 + 上下文持续评估</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Key point</strong>: <strong>ZTNA is not "a better VPN", it turns access from network-centric into identity-centric.</strong> Therefore the migration must be organized by application (the unit of access) rather than by site (the unit of the VPN era).</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>别把零信任理解成"取消分段"</strong>。零信任改变的是<strong>授权依据</strong>（从"你在哪个网段"变成"你是谁、用什么设备、在什么上下文"），它仍然需要分段与检查点来落地。网络侧的分段（第 10 章）与身份侧的授权是<strong>两条并行防线</strong>，不能互相替代。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="the-cia-triad-cia">The CIA Triad · 安全 CIA 三要素<a class="anchor" href="#the-cia-triad-cia" title="Permanent link"></a></h2>
+<p>The CIA triad is the classic model of information security:</p>
+<div class="zh">
+<p>机密性、完整性和可用性是信息安全的基础。这些元素帮助构建保护信息和资源免受未授权访问、修改、检查或破坏的安全系统。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Definition</th>
+<th>Typical threats</th>
+<th>Design means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confidentiality</strong></td>
+<td>Data is seen only by authorized parties</td>
+<td>Eavesdropping, data theft, over-privileged access</td>
+<td>Encryption (in transit and at rest), access control, segmentation</td>
+</tr>
+<tr>
+<td><strong>Integrity</strong></td>
+<td>Data is modified only by authorized parties and is complete and accurate</td>
+<td>Tampering, replay, code injection</td>
+<td>Hashing and signatures, change control, immutable logs</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Authorized parties can use resources when needed</td>
+<td>DDoS, device failure, misconfiguration</td>
+<td>Redundancy, capacity margin, DDoS mitigation, backup and recovery</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>特征</th>
+<th>实现机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>机密性 (Confidentiality)</strong></td>
+<td>防止未授权访问信息，维持传输信息的保密性</td>
+<td>加密、用户 ID 和密码（双因素认证更常见）、安全令牌</td>
+</tr>
+<tr>
+<td><strong>完整性 (Integrity)</strong></td>
+<td>端到端维持准确信息，确保未被未授权实体篡改</td>
+<td>加密、数据校验和、哈希</td>
+</tr>
+<tr>
+<td><strong>可用性 (Availability)</strong></td>
+<td>确保服务和系统始终可用，授权用户可在需要时访问。现代网络中可用性不仅用上线/下线时间衡量，还用质量衡量（如恶意流量增加延迟导致 VoIP 质量下降）</td>
+<td>高可用性系统设计（网络、存储、计算、应用层），防止 DoS 等攻击</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="design-means-for-each-element-and-their-conflicts">Design Means for Each Element and Their Conflicts · 三要素对应的设计手段与代价<a class="anchor" href="#design-means-for-each-element-and-their-conflicts" title="Permanent link"></a></h4>
+<p>The three CIA goals constantly pull against each other in design: encryption hides traffic from inspection, isolation raises availability risk, and log retention widens the exposure surface. The table below maps each goal to its primary means and to the conflict the means creates.</p>
+<div class="zh">
+<p>三要素不是并列的口号，而是一组<strong>会互相打架的目标</strong>。设计者的工作是在具体场景里排出优先级：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Primary means</th>
+<th>Side effect of the means</th>
+<th>How to handle the conflict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidentiality</td>
+<td>Encryption, segmentation</td>
+<td>Encrypted traffic cannot be inspected, so detection weakens</td>
+<td>Terminate encryption at inspection points; compensate unobservable segments with endpoint EDR and behavior baselines</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>Signatures, change control, immutable logs</td>
+<td>Strict change control slows response to failures</td>
+<td>Pre-approve emergency change paths and audit them afterwards</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>Redundancy, capacity margin</td>
+<td>Attack surface and cost rise</td>
+<td>Rank availability targets by business function (RTO/RPO) rather than applying the same standard everywhere</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>设计手段</th>
+<th>代价 / 副作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>机密性</strong></td>
+<td>链路加密（IPsec/MACsec）、存储加密、访问控制、数据分级</td>
+<td>加密后 IPS/DLP 看不见内容；加解密消耗性能；密钥管理成为新的单点</td>
+</tr>
+<tr>
+<td><strong>完整性</strong></td>
+<td>数字签名、哈希校验、配置基线与变更审计、防篡改日志</td>
+<td>需要额外的签名/校验环节；日志本身必须防篡改（否则审计无效）</td>
+</tr>
+<tr>
+<td><strong>可用性</strong></td>
+<td>冗余（设备/链路/运营商）、容量与 DDoS 清洗、限速与队列、快速收敛</td>
+<td>冗余带来复杂度与成本；清洗中心会改变路径与源地址；限速可能误伤正常突发</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>CIA is a triangle of trade-offs, not three checkboxes</strong>. Every encryption and every segmentation choice <strong>takes something away</strong> from the other two goals. The design document should say which goal was traded for which, or the security design cannot be reviewed or defended.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>最常见的三对冲突</strong>（评审时必须问）：
+1. <strong>加密 vs 检测</strong>：全链路加密后，IPS 与数据防泄漏形同虚设。解法通常是"在检查点终结加密"，或接受这段不可见并靠终端侧 EDR 补偿。
+2. <strong>可用性 vs 机密性</strong>：为了抗 DDoS 把所有流量牵引到清洗中心，等于把流量交给第三方可见。
+3. <strong>完整性 vs 可用性</strong>：严格的配置基线校验会阻止"故障中的应急修改"，而应急修改往往是恢复业务最快的手段。解法是<strong>允许应急但强制事后反哺</strong>（第 12 章漂移检测的做法）。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="regulatory-compliance">Regulatory Compliance · 法规合规<a class="anchor" href="#regulatory-compliance" title="Permanent link"></a></h2>
+<p>Enterprises today must satisfy a large number of regulatory requirements, and many of them carry <strong>legal liability</strong>. For the network designer, the key is not to memorize every clause but to know how each regulation becomes a design constraint.</p>
+<div class="zh">
+<p>网络设计师应能够获取任何合规标准，并设计符合其特定约束的解决方案。</p>
+</div>
+<h3 id="hipaa-hipaa">HIPAA · HIPAA（美国健康保险流通与责任法案）<a class="anchor" href="#hipaa-hipaa" title="Permanent link"></a></h3>
+<p>The Health Insurance Portability and Accountability Act protects the privacy and security of <strong>protected health information (PHI)</strong> in the United States.</p>
+<div class="zh">
+<p>1996 年颁布，由民权办公室执行。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Privacy Rule</strong></td>
+<td>Limits who may access PHI and under what circumstances</td>
+</tr>
+<tr>
+<td><strong>Security Rule</strong></td>
+<td>Administrative, physical and technical safeguards for electronic PHI</td>
+</tr>
+<tr>
+<td><strong>Breach notification</strong></td>
+<td>Mandatory notification when PHI is breached</td>
+</tr>
+<tr>
+<td><strong>Technical safeguards</strong></td>
+<td>Access control, audit logs, transmission security, integrity controls</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>隐私规则</strong></td>
+<td>保护个人可识别健康信息 (PHI) 的隐私</td>
+</tr>
+<tr>
+<td><strong>安全规则</strong></td>
+<td>设定电子健康信息的国家安全标准</td>
+</tr>
+<tr>
+<td><strong>患者安全规则</strong></td>
+<td>保护用于分析患者安全事件和改善安全的可识别信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For network design this translates into: <strong>encrypted transmission, strict access control, complete audit trails, and isolation of systems that handle PHI.</strong></p>
+<div class="zh">
+<p><strong>适用场景</strong>：医院、诊所、保险机构、与覆盖实体密切合作的服务提供商。</p>
+</div>
+<h3 id="pci-dss-pci-dss">PCI DSS · PCI DSS（支付卡行业数据安全标准）<a class="anchor" href="#pci-dss-pci-dss" title="Permanent link"></a></h3>
+<p>The Payment Card Industry Data Security Standard applies to any organization that stores, processes or transmits cardholder data.</p>
+<div class="zh">
+<p>由信用卡公司强制要求，确保信用卡交易安全。由 PCI 安全标准委员会开发和管理。</p>
+</div>
+<p><strong>The twelve requirements</strong>:</p>
+<div class="zh">
+<p><strong>12 项要求</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Build and maintain a secure network</strong></td>
+<td>1. Install and maintain firewall configuration; 2. Do not use vendor defaults for system passwords</td>
+</tr>
+<tr>
+<td><strong>Protect cardholder data</strong></td>
+<td>3. Protect stored cardholder data; 4. Encrypt transmission of cardholder data across open networks</td>
+</tr>
+<tr>
+<td><strong>Vulnerability management</strong></td>
+<td>5. Protect against malware; 6. Develop and maintain secure systems and applications</td>
+</tr>
+<tr>
+<td><strong>Access control</strong></td>
+<td>7. Restrict access by business need to know; 8. Identify and authenticate access to system components; 9. Restrict physical access</td>
+</tr>
+<tr>
+<td><strong>Monitoring and testing</strong></td>
+<td>10. Track and monitor all access; 11. Test security systems and processes regularly</td>
+</tr>
+<tr>
+<td><strong>Information security policy</strong></td>
+<td>12. Maintain a policy addressing information security</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>安装和维护防火墙配置以保护持卡人数据</td>
+</tr>
+<tr>
+<td>2</td>
+<td>不使用供应商提供的默认系统密码和安全参数</td>
+</tr>
+<tr>
+<td>3</td>
+<td>保护存储的持卡人数据</td>
+</tr>
+<tr>
+<td>4</td>
+<td>加密在开放公共网络上传输的持卡人数据</td>
+</tr>
+<tr>
+<td>5</td>
+<td>保护所有系统免受恶意软件攻击，定期更新防病毒软件</td>
+</tr>
+<tr>
+<td>6</td>
+<td>开发和维护安全的系统及应用</td>
+</tr>
+<tr>
+<td>7</td>
+<td>按业务需要限制对持卡人数据的访问</td>
+</tr>
+<tr>
+<td>8</td>
+<td>识别和认证对系统组件的访问</td>
+</tr>
+<tr>
+<td>9</td>
+<td>限制对持卡人数据的物理访问</td>
+</tr>
+<tr>
+<td>10</td>
+<td>跟踪和监控对网络资源和持卡人数据的所有访问</td>
+</tr>
+<tr>
+<td>11</td>
+<td>定期测试安全系统和流程</td>
+</tr>
+<tr>
+<td>12</td>
+<td>维护针对所有人员的信息安全策略</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Network design impact</strong>: separate the cardholder data environment into its own segment, encrypt all traffic crossing public networks, centralize and protect logs, and <strong>limit the scope of the audit</strong> — the smaller the cardholder data environment, the lower the compliance cost.</p>
+<div class="zh">
+<p><strong>适用场景</strong>：有销售点系统或在线订购系统的企业——快餐店、零售店、在线商店等所有存储、处理和传输持卡人数据的实体。</p>
+</div>
+<h3 id="gdpr-gdpr">GDPR · GDPR（通用数据保护条例）<a class="anchor" href="#gdpr-gdpr" title="Permanent link"></a></h3>
+<p>The General Data Protection Regulation protects the personal data of individuals in the EU and applies to any organization handling that data, wherever it is located.
+<strong>Core principles</strong>: lawfulness, fairness and transparency; purpose limitation; data minimization; accuracy; storage limitation; integrity and confidentiality; accountability.</p>
+<div class="zh">
+<p>欧盟数据保护法规，为从个人收集和处理个人信息设定指导原则。</p>
+</div>
+<p><strong>Key point</strong>: GDPR gives the data subject the rights of access, rectification, erasure (the right to be forgotten) and portability. <strong>Design implication</strong>: the designer must be able to answer "where is this piece of personal data stored, who can see it, how long is it kept" — which in practice forces data classification and a distributed inventory.</p>
+<div class="zh">
+<p><strong>重要</strong>：GDPR 不仅适用于欧盟公司，还适用于向欧盟居民提供产品或服务的任何组织。</p>
+</div>
+<p><strong>Special categories of personal data</strong> (higher protection requirements):
+- Health and genetic data
+- Biometric data
+- Racial or ethnic data
+- Political opinions
+- Sexual orientation</p>
+<div class="zh">
+<p><strong>GDPR 保护的个人数据类型</strong>：
+- 基本身份信息（姓名、地址、身份证号）
+- Web 数据（位置、IP 地址、Cookie 数据、RFID 标签）
+- 健康和基因数据
+- 生物特征数据
+- 种族或民族数据
+- 政治观点
+- 性取向</p>
+</div>
+<h3 id="data-sovereignty">Data Sovereignty · 数据主权<a class="anchor" href="#data-sovereignty" title="Permanent link"></a></h3>
+<p>Information is governed by the regulations of the country where it is collected and processed. Information collected and processed in a country must remain within that country's borders and be protected under its law.</p>
+<div class="zh">
+<p>信息受其收集和处理所在地的法规约束。信息在某个国家收集和处理后，必须留在该国边界内，并按该国法律保护。</p>
+</div>
+<blockquote>
+<p>This is commonly encountered when an enterprise sends data to another country (where its servers or data centers are) or migrates to a cloud provider. The data may not leave the country and must be stored under that country's regulations.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>常见于企业将数据发送到其他国家（服务器/数据中心所在地）或迁移到云提供商时。相关数据不能离开该国，必须按该国法规存储。</p>
+</blockquote>
+</div>
+<h3 id="translating-compliance-into-design-input">Translating Compliance into Design Input · 把合规翻译成设计输入<a class="anchor" href="#translating-compliance-into-design-input" title="Permanent link"></a></h3>
+<p>Compliance clauses read as "requirements", while design needs "constraints". The translation method is <strong>three questions</strong>:</p>
+<div class="zh">
+<p>合规条款读起来都是"要求"，但设计需要的是"约束"。翻译的方法是<strong>三问</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Output</th>
+<th>Example (GDPR + China business)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What is the data and where is it</strong></td>
+<td>Data classification and distribution map</td>
+<td>Customer identity data (sensitive) / order summaries (can be de-identified) / logs (contain IPs, hence personal data)</td>
+</tr>
+<tr>
+<td><strong>Where is the boundary</strong></td>
+<td>Logical and physical boundaries</td>
+<td>Domestic/foreign boundary, production/test boundary, supplier access scope</td>
+</tr>
+<tr>
+<td><strong>How is it proven</strong></td>
+<td>Evidence chain (audit trail)</td>
+<td>Access logs, encryption status, approval records, change records — and <strong>retention must meet the requirement</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>三问</th>
+<th>输出</th>
+<th>例子（GDPR + 中国区业务）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数据是什么、在哪</strong></td>
+<td>数据分类与分布图</td>
+<td>客户实名信息（敏感）/ 订单汇总（可脱敏）/ 日志（含 IP，属个人数据）</td>
+</tr>
+<tr>
+<td><strong>边界在哪</strong></td>
+<td>逻辑与物理边界</td>
+<td>境内/境外边界、生产/测试边界、供应商可访问范围</td>
+</tr>
+<tr>
+<td><strong>怎么证明</strong></td>
+<td>证据链（audit trail）</td>
+<td>访问日志、加密状态、审批记录、变更记录，且<strong>留存期符合要求</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Typical mapping from compliance clause to network design</strong>:</p>
+<div class="zh">
+<p><strong>合规条款 → 网络设计的典型映射</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Compliance requirement</th>
+<th>Network design impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encryption in transit (PCI DSS requirement 4)</td>
+<td>Public links must use IPsec/TLS; internal links are decided by data classification (for example whether MACsec is required)</td>
+</tr>
+<tr>
+<td>Least-privilege access (PCI DSS requirement 7)</td>
+<td>The cardholder data environment is separately segmented (VLAN/VRF); all cross-domain traffic passes a stateful device</td>
+</tr>
+<tr>
+<td>Log retention and immutability (PCI DSS 10, GDPR)</td>
+<td>Dedicated log segment + one-way export + a unified NTP time source (logs with the wrong time have no evidentiary value)</td>
+</tr>
+<tr>
+<td>Data residency (data sovereignty)</td>
+<td>In-country instances + one-way de-identified data flow + local storage, including the monitoring collection points</td>
+</tr>
+<tr>
+<td>Auditable third-party access (HIPAA, GDPR)</td>
+<td>Suppliers connect through a dedicated channel, access is opened temporarily per ticket, sessions are recorded with command auditing</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>合规要求</th>
+<th>网络设计影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传输加密（PCI DSS 第 4 项）</td>
+<td>跨公网链路必须 IPsec/TLS；内部链路由数据分级决定是否需要 MACsec</td>
+</tr>
+<tr>
+<td>访问最小化（PCI DSS 第 7 项）</td>
+<td>持卡人数据环境独立分段（VLAN/VRF），跨域一律过有状态设备</td>
+</tr>
+<tr>
+<td>日志留存与不可篡改（PCI DSS 第 10 项、GDPR）</td>
+<td>日志服务器独立网段 + 单向外送 + NTP 统一时间源（时间不准的日志没有证据价值）</td>
+</tr>
+<tr>
+<td>数据驻留（数据主权）</td>
+<td>境内实例 + 脱敏单向数据流 + 本地存储，连监控采集点也要在境内</td>
+</tr>
+<tr>
+<td>可审计的第三方访问（HIPAA、GDPR）</td>
+<td>供应商接入走独立通道、按工单临时开通、全程录屏/命令审计</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The key action in a compliance project is "evidence chain design", not "control design".</strong> Auditors do not look at what you configured; they look at whether you can prove "it really was that way at any point in time". So <strong>logs, time synchronization, change records and periodic reviews</strong> are part of the design deliverable and must be handed over together with the network design.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>合规项目的关键动作是"证据链设计"</strong>，而不是"控制措施设计"。审计员不看你配了什么，而是看你能否证明"在任意时刻它确实是那样"。因此<strong>日志、时间同步、变更记录、定期复核</strong>要作为设计交付物的一部分，与网络方案一起交付。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="case-studies">Case Studies · 实战案例<a class="anchor" href="#case-studies" title="Permanent link"></a></h2>
+<h3 id="case-1-all-the-appliances-were-bought-and-a-phishing-email-still-got-in">Case 1: All the Appliances Were Bought, and a Phishing Email Still Got In · 案例一：设备买齐了，还是被一封钓鱼邮件攻破<a class="anchor" href="#case-1-all-the-appliances-were-bought-and-a-phishing-email-still-got-in" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: an enterprise spent about 12M over three years and owned perimeter firewalls, IPS, WAF and sandboxing — yet suffered a ransomware incident that cost three days of production stoppage.</p>
+<div class="zh">
+<p><strong>背景</strong>：某企业三年投入约 1200 万，边界防火墙、IPS、WAF、沙箱一应俱全，仍发生一次勒索事件，损失 3 天停产。</p>
+</div>
+<p><strong>Reconstructing the attack chain</strong>:</p>
+<div class="zh">
+<p><strong>攻击链复盘</strong>：</p>
+</div>
+<pre><code>Phishing email → employee opened it on a personal laptop → laptop plugged into the office network (unmanaged)
+        → lateral scanning found an unpatched file server
+        → domain administrator account (password unchanged for 5 years, shared by many)
+          encrypted files in bulk
+</code></pre>
+<div class="zh">
+<pre><code>钓鱼邮件 → 员工在个人笔记本打开 → 该笔记本接在办公网（未被管理）
+        → 横向扫描找到一台未打补丁的文件服务器
+        → 用域管理员账号（密码 5 年未换、多人共用）批量加密文件
+</code></pre>
+</div>
+<p><strong>Why the security devices did not stop it</strong>:</p>
+<div class="zh">
+<p><strong>安全设备为什么没拦住</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Why it failed</th>
+<th>Relevant principle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phishing email</td>
+<td>The sandbox inspected attachments only, not links to <strong>newly registered domains</strong></td>
+<td>Mail path must integrate with threat intelligence</td>
+</tr>
+<tr>
+<td>Personal laptop connection</td>
+<td>Only <strong>port authentication</strong> was enforced, no <strong>device compliance check</strong></td>
+<td>Zero trust: verify the device before granting access</td>
+</tr>
+<tr>
+<td>Lateral movement</td>
+<td>Office network was <strong>fully open</strong> to the server segment</td>
+<td>Missing microsegmentation / least privilege</td>
+</tr>
+<tr>
+<td>Shared domain administrator account</td>
+<td>No privileged account management, no MFA</td>
+<td>Identity is the new perimeter</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>为什么失效</th>
+<th>对应原则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>钓鱼邮件</td>
+<td>沙箱只查附件，不查<strong>首次出现的域名</strong>链接</td>
+<td>需要邮件链路与威胁情报联动</td>
+</tr>
+<tr>
+<td>个人笔记本接入</td>
+<td>只做了<strong>端口认证</strong>，没做<strong>设备合规检查</strong></td>
+<td>零信任：先验证设备再给权限</td>
+</tr>
+<tr>
+<td>横向移动</td>
+<td>办公网到服务器区<strong>全通</strong></td>
+<td>微分段/最小权限缺失</td>
+</tr>
+<tr>
+<td>域管理员共用账号</td>
+<td>无特权账号管理、无 MFA</td>
+<td>身份是新的边界</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>What actually had to be added was "the non-appliance part"</strong>: device compliance admission, microsegmentation, privileged account management, MFA, and <strong>detection capability</strong> (until then the only alarm was antivirus software).</p>
+<div class="zh">
+<p><strong>补齐的其实是"非设备"部分</strong>：设备合规准入、微分段、特权账号管理、MFA、以及<strong>检测能力</strong>（原来只能靠杀毒软件报警）。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>that security is "pervasive" means it cannot rest on perimeter appliances alone.</strong> The identity, device, least-privilege and visibility topics this chapter stresses are exactly the parts most easily replaced by "buying appliances".</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>安全是"普适的"，意味着它不能只靠边界设备。</strong> 本章强调的身份、设备、最小权限、可见性，恰恰是最容易被"买设备"替代掉的部分。</p>
+</blockquote>
+</div>
+<h3 id="case-2-one-data-may-not-leave-the-country-requirement-redesigned-the-whole-architecture">Case 2: One "Data May Not Leave the Country" Requirement Redesigned the Whole Architecture · 案例二：一条"数据不出境"的合规要求，改了整个架构<a class="anchor" href="#case-2-one-data-may-not-leave-the-country-requirement-redesigned-the-whole-architecture" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: the China region of a multinational needed access to the global ERP. Group required a unified architecture, while China compliance required that <strong>customer data may not leave the country</strong>.</p>
+<div class="zh">
+<p><strong>背景</strong>：某跨国企业中国区需要访问全球 ERP。集团要求统一架构，中国区合规要求<strong>客户数据不得出境</strong>。</p>
+</div>
+<p><strong>Design decisions forced by the constraint</strong>:</p>
+<div class="zh">
+<p><strong>约束带来的连锁设计决定</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Architectural impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data may not leave the country</td>
+<td>China must run a <strong>local instance</strong>; remote access alone is not acceptable</td>
+</tr>
+<tr>
+<td>Consistent global user experience</td>
+<td><strong>Data synchronization</strong> is needed, but only de-identified summary data may be synchronized</td>
+</tr>
+<tr>
+<td>Unified identity</td>
+<td>The identity directory can be global (without personal data), but <strong>logs must be retained locally</strong></td>
+</tr>
+<tr>
+<td>Unified operations</td>
+<td>Monitoring can be centralized, but <strong>collection points and storage must be domestic</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>架构影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据不出境</td>
+<td>中国区必须部署<strong>本地实例</strong>，不能只做远程访问</td>
+</tr>
+<tr>
+<td>全球统一用户体验</td>
+<td>需要<strong>数据同步</strong>，但只能同步脱敏后的汇总数据</td>
+</tr>
+<tr>
+<td>统一身份</td>
+<td>身份目录可全球统一（不含个人数据），但<strong>日志必须本地留存</strong></td>
+</tr>
+<tr>
+<td>统一运维</td>
+<td>监控可集中，但<strong>采集点与存储必须在境内</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Final shape</strong>: an independent in-country zone + one-way de-identified data egress + a global policy management plane (distributing configuration only, carrying no data).</p>
+<div class="zh">
+<p><strong>最终形态</strong>：境内独立区域 + 单向脱敏数据出站 + 全球统一策略管理面（只下发配置、不携带数据）。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>compliance is the hardest constraint, and a single requirement can derive a whole architecture.</strong> Treat it as <strong>design input</strong> (the constraints from Chapter 1), not something to confirm with legal before go-live.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>合规是最硬的约束，它会从一条要求推导出一整套架构。</strong> 处理方式是把它当作<strong>设计输入</strong>（第 1 章的约束），而不是上线前再找法务确认。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="design-pitfalls">Design Pitfalls · 设计缺陷<a class="anchor" href="#design-pitfalls" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Symptom</th>
+<th>Consequence</th>
+<th>Correct practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Treating security as "one more appliance at the end"</strong></td>
+<td>The security team is asked to "review it" after the design is final</td>
+<td>Only perimeter patches are possible; identity and segmentation can no longer be changed</td>
+<td>Policy and domain design join at the requirements stage (pervasive security, Chapter 1)</td>
+</tr>
+<tr>
+<td><strong>Policy without an exception process</strong></td>
+<td>The policy says "must encrypt / must approve" but never who judges exceptions or how often they are reviewed</td>
+<td>Exceptions get approved verbally, and six months later nobody can explain why access was opened</td>
+<td>Every control objective gets an exception path: who approves, validity period, review cycle, where it is recorded</td>
+</tr>
+<tr>
+<td><strong>Domains too fine or too coarse</strong></td>
+<td>Thirty domains, or a single domain for everything</td>
+<td>The first loses control of policy maintenance, the second fails all at once</td>
+<td>Draw on trust level + compliance boundary + blast radius; typically 5–12 domains</td>
+</tr>
+<tr>
+<td><strong>Endless chokepoints</strong></td>
+<td>A firewall in series on every link</td>
+<td>More failure points, longer troubleshooting paths, complex state synchronization</td>
+<td>Converge cross-domain traffic to a few explicit chokepoints, designed separately for capacity and HA</td>
+</tr>
+<tr>
+<td><strong>Encrypted, therefore assumed "protected"</strong></td>
+<td>IPS policy disabled after end-to-end IPsec</td>
+<td>Attacks travel freely inside the tunnel and leave no logs at all</td>
+<td>State clearly "which segments are inspectable and which are not"; compensate invisible segments on the endpoint side</td>
+</tr>
+<tr>
+<td><strong>Zero trust that authenticates but never inventories</strong></td>
+<td>MFA and NAC are deployed, but no application or asset inventory exists</td>
+<td>Policy can only be written as "allow all", so least privilege stays unimplemented</td>
+<td>Build the three inventories (identity, asset, application) first, then discuss dynamic authorization</td>
+</tr>
+<tr>
+<td><strong>Reading zero trust as "no more segmentation"</strong></td>
+<td>"We have identity now, so we do not need isolation"</td>
+<td>A compromised compliant device can still move laterally</td>
+<td>Identity authorization and network segmentation run as two parallel lines of defense</td>
+</tr>
+<tr>
+<td><strong>RTO/RPO conflicts with security controls left unidentified</strong></td>
+<td>Encryption and chokepoints lengthen recovery, but the RTO target is unchanged</td>
+<td>The gap only shows up in an exercise</td>
+<td>Recalculate RTO after adding security controls, and write a "degraded mode" into the design</td>
+</tr>
+<tr>
+<td><strong>Compliance engaged only at the end</strong></td>
+<td>Legal and compliance see the design two weeks before go-live</td>
+<td>Architecture-level rework (cross-border data, log retention location)</td>
+<td>Compliance enters the Chapter 1 constraint list as design input, as early as possible</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>表现</th>
+<th>后果</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>把安全当"最后加一层设备"</strong></td>
+<td>方案定稿后才请安全团队"评审一下"</td>
+<td>只能靠边界设备补丁式补救，身份与分段层无法回头改</td>
+<td>策略与域划分在需求阶段就进场（第 1 章的"普适安全"）</td>
+</tr>
+<tr>
+<td><strong>有策略无例外流程</strong></td>
+<td>策略写"必须加密/必须审批"，没写谁来判例外、多久复核</td>
+<td>例外靠口头批准，半年后无人能解释为什么放通</td>
+<td>每个控制目标配一条例外流程：谁批准、有效期、复核周期、留痕位置</td>
+</tr>
+<tr>
+<td><strong>域划得过细或过粗</strong></td>
+<td>划出 30 个域，或全网一个域</td>
+<td>前者策略维护失控，后者一破全破</td>
+<td>以信任等级 + 合规边界 + 爆炸半径为据，通常 5–12 个域</td>
+</tr>
+<tr>
+<td><strong>检查点无限增加</strong></td>
+<td>每条链路都串防火墙</td>
+<td>故障点多、排障路径长、状态同步复杂</td>
+<td>跨域流量收敛到少数明确检查点，容量与高可用单独设计</td>
+</tr>
+<tr>
+<td><strong>加密了却以为"被保护"</strong></td>
+<td>全链路 IPsec 后关闭了 IPS 策略</td>
+<td>攻击在加密隧道内畅通，且完全无日志</td>
+<td>明确"哪段可检查、哪段不可见"，不可见段用终端侧手段补偿</td>
+</tr>
+<tr>
+<td><strong>零信任只做认证不做清单</strong></td>
+<td>上了 MFA 与 NAC，但没有应用/资产清单</td>
+<td>策略只能写成"全通"，最小权限无法落地</td>
+<td>先建三类清单（身份、资产、应用），再谈动态授权</td>
+</tr>
+<tr>
+<td><strong>把零信任当"取消分段"</strong></td>
+<td>认为"有身份了就不需要网络隔离"</td>
+<td>被入侵的合规设备仍可横向移动</td>
+<td>身份授权与网络分段两条防线并行</td>
+</tr>
+<tr>
+<td><strong>RTO/RPO 与安全控制冲突未识别</strong></td>
+<td>加密/检查点使恢复时间变长，但 RTO 目标没调整</td>
+<td>演练时发现做不到</td>
+<td>加入安全控制后重新计算 RTO，并把"降级模式"写进方案</td>
+</tr>
+<tr>
+<td><strong>合规只在项目末期介入</strong></td>
+<td>法务/合规在上线前两周才看到方案</td>
+<td>架构级返工（数据出境、日志留存位置）</td>
+<td>合规作为设计输入进入第 1 章的约束清单，越早越好</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="lessons-learned">Lessons Learned · 实战经验总结<a class="anchor" href="#lessons-learned" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Write the control objective before choosing the technology</strong></td>
+<td>"Cross-domain access must be auditable" is a control objective; firewall, WAF and proxy are means. Objectives are stable, means are replaceable</td>
+</tr>
+<tr>
+<td><strong>The same policy has several implementations differing by an order of magnitude in cost</strong></td>
+<td>Encrypted VLL, application-layer encryption and physically dedicated circuits all satisfy "must be encrypted"; lay out the options and their costs first</td>
+</tr>
+<tr>
+<td><strong>The number of domains is a trade-off, not an ideal</strong></td>
+<td>Finer domains mean stronger isolation and higher maintenance cost. Find the number the team can genuinely maintain</td>
+</tr>
+<tr>
+<td><strong>The segment you cannot see needs compensating controls</strong></td>
+<td>When encrypted traffic cannot be inspected by IPS, cover it with endpoint EDR, log correlation and behavior baselines</td>
+</tr>
+<tr>
+<td><strong>Compliance deliverables need an evidence chain</strong></td>
+<td>Logs + unified NTP time + change records + periodic review records; miss one and the audit fails</td>
+</tr>
+<tr>
+<td><strong>Identity is the new perimeter, but the identity system is not owned by the network team</strong></td>
+<td>Zero trust projects must include HR, IT desktop and the identity team, or they stall at the inventory step</td>
+</tr>
+<tr>
+<td><strong>The security design must be acceptable to the business</strong></td>
+<td>Express it in business language: downtime, onboarding time, audit pass rate — not "how many appliances were deployed"</td>
+</tr>
+<tr>
+<td><strong>Reject the "security equals buying appliances" path dependency</strong></td>
+<td>Case 1 shows that with every appliance in place the enterprise was still breached; what was missing was admission control, segmentation, privileged accounts and detection</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>经验</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先写控制目标，再选技术</strong></td>
+<td>"跨域访问必须可审计"是控制目标，防火墙/WAF/代理是手段。目标稳定，手段可换</td>
+</tr>
+<tr>
+<td><strong>同一策略有多种实现，成本差一个数量级</strong></td>
+<td>加密 VLL、应用层加密、物理独占都能满足"必须加密"，先把选项与代价摆出来</td>
+</tr>
+<tr>
+<td><strong>域的数量是取舍不是理想</strong></td>
+<td>域越细，隔离越强，维护成本越高。找"团队真的能维护"的那个数量</td>
+</tr>
+<tr>
+<td><strong>不可见的那一段必须有补偿手段</strong></td>
+<td>加密流量无法被 IPS 检查时，靠终端 EDR、日志关联、行为基线补上</td>
+</tr>
+<tr>
+<td><strong>合规交付物里要有证据链</strong></td>
+<td>日志 + NTP 统一时间 + 变更记录 + 定期复核记录，缺一项审计就通不过</td>
+</tr>
+<tr>
+<td><strong>身份是新的边界，但身份系统不在网络团队手里</strong></td>
+<td>零信任项目必须拉上 HR/IT 桌面/身份团队，否则卡在"清单"环节</td>
+</tr>
+<tr>
+<td><strong>安全方案要能被业务验收</strong></td>
+<td>用业务语言表达：停机时间、上线周期、审计通过率，而不是"部署了几台设备"</td>
+</tr>
+<tr>
+<td><strong>拒绝"安全 = 买盒子"的路径依赖</strong></td>
+<td>案例一说明：设备齐全仍被攻破，缺的是准入、分段、特权账号与检测</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="design-scenarios-2-2">Design Scenarios (2) · 设计情景演练（2 个）<a class="anchor" href="#design-scenarios-2-2" title="Permanent link"></a></h2>
+<h3 id="scenario-1-one-sentence-data-may-not-leave-the-country-redesigned-three-layers">Scenario 1: One Sentence, "Data May Not Leave the Country", Redesigned Three Layers · 情景一：一句"数据不得出境"，改了三层架构<a class="anchor" href="#scenario-1-one-sentence-data-may-not-leave-the-country-redesigned-three-layers" title="Permanent link"></a></h3>
+<p><strong>Situation</strong>: a multinational medical device company has an R&amp;D center in China (R&amp;D data in a local equipment room). The Asia-Pacific headquarters in Singapore uses the same global PLM system (deployed in Ireland). China employees need PLM access for design reviews; the global operations team needs access to the operations interfaces of the China equipment room for patching and backup. Legal is explicit: R&amp;D data generated in China and patient-related data may not leave the country.</p>
+<div class="zh">
+<p><strong>场景</strong>：某跨国医疗器械公司在华有研发中心（研发数据存本地机房），亚太区总部在新加坡使用同一套全球 PLM 系统（部署在爱尔兰）。中国区员工需要访问 PLM 做设计评审；全球运维团队需要访问中国机房的运维接口做补丁与备份。法务明确：中国境内产生的研发数据与患者相关数据不得出境。</p>
+</div>
+<p><strong>Questions to answer</strong>:
+1. Which traffic is "business essential" and which is simply "convenient"?
+2. How far must the network design change?
+3. How can the operations channel be preserved without violating data sovereignty?</p>
+<div class="zh">
+<p><strong>要回答的问题</strong>：
+1. 哪些流量是"业务必需"、哪些是"图省事"？
+2. 网络设计要改到什么程度？
+3. 运维通道怎么在"不违反数据主权"的前提下保留？</p>
+</div>
+<p><strong>Reference approach</strong>:
+- <strong>The first step is not design, it is data classification.</strong> Split data into "must stay in country", "may leave (after de-identification or aggregation)" and "irrelevant". <strong>Without classification, every architecture decision turns into a tug of war between legal and IT.</strong>
+- <strong>Data decides the architecture position</strong>: since the PLM data may not leave, <strong>move compute next to the data</strong> — deploy a local PLM instance or cache layer in China, or use the provider's in-country regional node — instead of having employees reach Ireland across the border.
+- <strong>Only essential traffic crosses the border</strong>: design review deliverables (3D models, drawings) can be synchronized after de-identification, with direction, frequency and approval written into the design. <strong>Do not mirror the whole database across the border</strong> — expensive and non-compliant.
+- <strong>Operations channel</strong>: the global team must pass through <strong>an in-country jump host + strong identity + full session recording</strong>, with technical limits on what they can see (system state only, not business data). <strong>"Operations needs it" is not an exemption from data sovereignty; it is a constraint the design must satisfy.</strong>
+- <strong>Outputs that must be documented</strong>: a data flow diagram (which data, from where to where, and why), the legal basis for every cross-border path, and how audit evidence is retained.</p>
+<div class="zh">
+<p><strong>参考思路</strong>：
+- <strong>第一步不是设计，而是数据分类。</strong> 把数据分成"必须留在境内""可以出境（脱敏/聚合后）""无所谓"三类。<strong>没有分类，任何架构决策都会变成法务与 IT 的拉锯。</strong>
+- <strong>架构位置由数据决定</strong>：既然 PLM 中的数据不能出境，就让<strong>计算靠近数据</strong>——在中国区部署 PLM 的本地实例/缓存层，或使用供应商的境内区域节点；而不是让员工跨境访问爱尔兰。
+- <strong>跨境只走必要流量</strong>：设计评审所需的"共享件"（三维模型、图纸）可以脱敏后同步，同步方向、频率、审批都写进设计；<strong>不做"全库跨境镜像"</strong>（既贵又违规）。
+- <strong>运维通道</strong>：全球团队访问境内机房必须经过<strong>境内跳板 + 强身份 + 全程录屏审计</strong>，并对"能看到什么"做技术限制（不看业务数据，只看系统状态）。<strong>"运维需要"不是豁免数据主权的理由，只是一个需要被设计满足的约束。</strong>
+- <strong>必须留痕的产出</strong>：数据流图（哪类数据、从哪到哪、为什么）、每条跨境路径的法律依据、审计证据的保存方式。</p>
+</div>
+<h3 id="scenario-2-from-perimeter-vpn-toward-zero-trust-vpn">Scenario 2: From "Perimeter + VPN" Toward Zero Trust · 情景二：从"边界 + VPN"走向零信任<a class="anchor" href="#scenario-2-from-perimeter-vpn-toward-zero-trust-vpn" title="Permanent link"></a></h3>
+<p><strong>Situation</strong>: a 3,000-person group runs dual firewalls at headquarters plus a VPN for all employees to reach the intranet (inside the VPN everything is trusted). Two incidents in the past two years: a contractor used a VPN account to scan the intranet laterally, and a departing employee's account was not revoked in time. The group wants "zero trust"; the vendor quote is 8M with a 12-month implementation.</p>
+<div class="zh">
+<p><strong>场景</strong>：某集团 3000 人，现状是总部双防火墙 + 全员工 VPN 接入内网（VPN 后即"内网可信"）。近两年发生两起事件：外包人员用 VPN 账号横向扫描内网；离职员工账号未及时回收。集团要求"上零信任"，安全厂商报价 800 万，实施周期 12 个月。</p>
+</div>
+<p><strong>Questions to answer</strong>:
+1. What is the real shortcoming today, and can buying a zero trust product fix it?
+2. Which group of people and which set of applications should the migration start with?
+3. In the 8M proposal, what is mandatory and what can be deferred?</p>
+<div class="zh">
+<p><strong>要回答的问题</strong>：
+1. 现状真正的短板是什么？买零信任产品能解决吗？
+2. 迁移应该从哪一批人和哪一批应用开始？
+3. 800 万的方案里，哪些是必须的、哪些是可后置的？</p>
+</div>
+<p><strong>Reference approach</strong>:
+- <strong>The shortcoming is not "no zero trust appliance" but "identity lifecycle" and "lateral reachability".</strong> Accounts that are never revoked and a VPN that opens the whole network — unless those two are fixed, any new product just moves the same risks somewhere else.
+- <strong>Start with a "minimum viable zero trust"</strong>: ① identity governance (automatic joiner/mover/leaver synchronization, full MFA coverage); ② change "the intranet is reachable" into "each application is reachable" (segment ten high-risk applications first, such as finance, HR and the code repository); ③ add device compliance checks (patching, encryption, EDR state); ④ connect logs and alerting.
+- <strong>Roll applications out in batches</strong>: start with "high value + low coupling + concentrated users" (OA, finance), prove out policy, user experience and operations, then move to engineering applications. <strong>Zero trust projects that switch everything at once fail at a very high rate.</strong>
+- <strong>Budget ordering</strong>: identity and MFA (mandatory), application segmentation and policy enforcement points (mandatory), device compliance assessment (should do), UEBA/behavior analytics (deferrable), full traffic decryption and inspection (high risk, high cost, proceed carefully).
+- <strong>Acceptance criteria must be measurable</strong>: not "deployment complete", but "a contractor account loses all access within 15 minutes of the offboarding process being triggered" and "the success rate of lateral probing from any endpoint to the finance system is zero".
+- <strong>One sentence</strong>: <strong>the order for implementing zero trust is "identity → segmentation → policy → telemetry"; products are only the carrier for those steps.</strong></p>
+<div class="zh">
+<p><strong>参考思路</strong>：
+- <strong>短板不是"没有零信任设备"，而是"身份生命周期"和"横向可达性"。</strong> 账号不回收、VPN 后能扫全网——这两个问题不解决，任何新产品都只是把同一批风险挪个位置。
+- <strong>先做"最小可行零信任"</strong>：① 身份治理（入职/离职/转岗自动同步、MFA 全覆盖）；② 把"内网可达"改成"按应用可达"（先做 10 个高风险应用的分域，例如财务、HR、代码库）；③ 加设备合规检查（补丁、加密、EDR 状态）；④ 打通日志与告警。
+- <strong>应用分批</strong>：从"高价值 + 低耦合 + 用户集中"的应用开始（如 OA、财务），跑通策略、体验、运维三件事，再推工程类应用。<strong>一次性全量切换的零信任项目，失败率极高。</strong>
+- <strong>预算排序</strong>：身份与 MFA（必须）、应用分域与策略执行点（必须）、设备合规评估（应做）、UEBA/行为分析（可后置）、全流量解密与检测（高风险高成本，谨慎）。
+- <strong>验收标准要可测</strong>：不是"部署完成"，而是"外包账号在离职流程触发后 15 分钟内失去全部访问权限""从任一终端到财务系统的横向探测成功率 = 0"。
+- <strong>一句话</strong>：<strong>零信任的落地顺序是"身份 → 分域 → 策略 → 遥测"，产品只是这几步的载体。</strong></p>
+</div>
+<hr />
+<h2 id="key-terms">Key Terms · 本章关键术语<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero Trust Architecture (ZTA)</td>
+<td>Architecture that trusts no access by default</td>
+</tr>
+<tr>
+<td>Static Factors</td>
+<td>Stable attributes such as identity, role and device type</td>
+</tr>
+<tr>
+<td>Dynamic Factors</td>
+<td>Runtime attributes such as location, time and posture</td>
+</tr>
+<tr>
+<td>Entitled to Access</td>
+<td>The resource set a subject may reach under policy</td>
+</tr>
+<tr>
+<td>Trust Score</td>
+<td>Continuous measure of current trustworthiness</td>
+</tr>
+<tr>
+<td>Risk Score</td>
+<td>Impact if the access goes wrong</td>
+</tr>
+<tr>
+<td>Authorization for Access</td>
+<td>The allow/deny/constrain decision</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>Inventory of identities, assets and applications</td>
+</tr>
+<tr>
+<td>Policy Engine</td>
+<td>Evaluates policy and produces decisions</td>
+</tr>
+<tr>
+<td>Trust Engine</td>
+<td>Aggregates factors into a trust score</td>
+</tr>
+<tr>
+<td>Endpoint Device</td>
+<td>The device from which access originates</td>
+</tr>
+<tr>
+<td>Policy Enforcement Point (PEP)</td>
+<td>Enforces the access decision</td>
+</tr>
+<tr>
+<td>Feedback Loop</td>
+<td>Telemetry that continuously updates trust and policy</td>
+</tr>
+<tr>
+<td>Confidentiality</td>
+<td>Data seen only by authorized parties</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>Data changed only by authorized parties</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>Authorized use possible when needed</td>
+</tr>
+<tr>
+<td>HIPAA</td>
+<td>US health information privacy and security act</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>Payment card industry data security standard</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>EU general data protection regulation</td>
+</tr>
+<tr>
+<td>Data Sovereignty</td>
+<td>Data governed by the law of the country where it is collected</td>
+</tr>
+<tr>
+<td>Security Domain</td>
+<td>A region of the network with a common trust level</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>A security subdivision inside a domain</td>
+</tr>
+<tr>
+<td>Chokepoint</td>
+<td>A controlled point through which inter-domain traffic passes</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero Trust Architecture (ZTA)</td>
+<td>零信任架构</td>
+</tr>
+<tr>
+<td>Static Factors</td>
+<td>静态因素</td>
+</tr>
+<tr>
+<td>Dynamic Factors</td>
+<td>动态因素</td>
+</tr>
+<tr>
+<td>Entitled to Access</td>
+<td>有权访问</td>
+</tr>
+<tr>
+<td>Trust Score</td>
+<td>信任分数</td>
+</tr>
+<tr>
+<td>Risk Score</td>
+<td>风险分数</td>
+</tr>
+<tr>
+<td>Authorization for Access</td>
+<td>访问授权</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>清单</td>
+</tr>
+<tr>
+<td>Policy Engine</td>
+<td>策略引擎</td>
+</tr>
+<tr>
+<td>Trust Engine</td>
+<td>信任引擎</td>
+</tr>
+<tr>
+<td>Endpoint Device</td>
+<td>终端设备</td>
+</tr>
+<tr>
+<td>Policy Enforcement Point (PEP)</td>
+<td>策略执行点</td>
+</tr>
+<tr>
+<td>Feedback Loop</td>
+<td>反馈循环</td>
+</tr>
+<tr>
+<td>Confidentiality</td>
+<td>机密性</td>
+</tr>
+<tr>
+<td>Integrity</td>
+<td>完整性</td>
+</tr>
+<tr>
+<td>Availability</td>
+<td>可用性</td>
+</tr>
+<tr>
+<td>HIPAA</td>
+<td>美国健康保险流通与责任法案</td>
+</tr>
+<tr>
+<td>PCI DSS</td>
+<td>支付卡行业数据安全标准</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>通用数据保护条例</td>
+</tr>
+<tr>
+<td>Data Sovereignty</td>
+<td>数据主权</td>
+</tr>
+<tr>
+<td>Security Domain</td>
+<td>安全域</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>区域</td>
+</tr>
+<tr>
+<td>Chokepoint</td>
+<td>检查点</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="chapter-summary">Chapter Summary · 本章小结<a class="anchor" href="#chapter-summary" title="Permanent link"></a></h2>
+<p>Chapter 4 is the <strong>constraints chapter</strong> of the book: it offers no technology, only the boundaries that the other 17 chapters must respect.</p>
+<div class="zh">
+<p>第 4 章是全书的<strong>约束章</strong>：它不给技术，给的是"其他 17 章都必须遵守的边界"。</p>
+</div>
+<pre><code>Security policy (four sources: law / contract / internal policy / architecture principle)
+    ↓ translated into control objectives
+Security domains + chokepoints (trust level defines domains; inter-domain traffic converges on a few points)
+    ↓ zero trust fills in &quot;the inside is not trustworthy either&quot;
+Identity + device + context → trust score → authorization (ZTNA replaces network-level access)
+    ↓ the three goals pull against each other
+CIA: encryption vs. inspection, availability vs. confidentiality, integrity vs. emergency response
+    ↓ everything must ultimately be provable
+Compliance evidence chain: logs + time synchronization + change records + periodic review
+</code></pre>
+<div class="zh">
+<pre><code>安全策略（四类来源：法规 / 合同 / 内部制度 / 架构原则）
+    ↓ 翻译成控制目标
+安全域 + 检查点（信任等级决定域，域间流量收敛到少数检查点）
+    ↓ 用零信任补齐&quot;内部也不可信&quot;
+身份 + 设备 + 上下文 → 信任分数 → 授权（ZTNA 取代网络级接入）
+    ↓ 三条目标互相拉扯
+CIA 三要素：加密 vs 检测、可用性 vs 机密性、完整性 vs 应急
+    ↓ 最终都要能被证明
+合规证据链：日志 + 时间同步 + 变更记录 + 定期复核
+</code></pre>
+</div>
+<p>Three sentences that must be taken away:</p>
+<div class="zh">
+<p>三句必须带走的话：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Conclusion</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security cannot be bolted on afterwards</strong></td>
+<td>It must be design input. Bolting it on only adds appliances; it cannot change identity, segmentation or process</td>
+</tr>
+<tr>
+<td><strong>Domains and chokepoints should be "few and explicit", not "many and vague"</strong></td>
+<td>5–12 domains and a handful of chokepoints are maintainable</td>
+</tr>
+<tr>
+<td><strong>Compliance looks at evidence, not configuration</strong></td>
+<td>Configured but unprovable is the same as not configured</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>结论</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>安全不能事后追加</strong></td>
+<td>它必须是设计输入。事后追加只能加设备，改不了身份、分段与流程</td>
+</tr>
+<tr>
+<td><strong>域与检查点是"少而明确"，不是"多而模糊"</strong></td>
+<td>5–12 个域、少数几个检查点，才维护得动</td>
+</tr>
+<tr>
+<td><strong>合规看的是证据，不是配置</strong></td>
+<td>配了但证明不了，等于没配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>One-line memory hook</strong>: <strong>the deliverable of security design is "boundaries + paths + evidence", not an appliance list.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>一句话记忆</strong>：<strong>安全设计的交付物是"边界 + 路径 + 证据"，而不是"设备清单"。</strong></p>
+</blockquote>
+</div>
+<p>This chapter expands into concrete technology in Chapter 10 (hardening, admission control, segmentation, encryption) and becomes a layer of constraint inside concrete architectures in Chapters 15–17 (campus segmentation, edge trust levels, WAN encryption boundaries).</p>
+<div class="zh">
+<p>本章会在第 10 章展开为具体技术（加固、准入、分段、加密），在第 15–17 章变成具体架构里的一层约束（园区分段、边缘信任等级、WAN 加密边界）。</p>
+</div></article>
+    <nav class="pager"><a class="pager-link prev" href="en-03.html"><span class="pager-label">Previous</span><span class="pager-title">Chapter 3 · What Is the Purpose of the Network</span></a><a class="pager-link next" href="en-05.html"><span class="pager-label">Next</span><span class="pager-title">Chapter 5 · Reference Architecture Models and Frameworks</span></a></nav>
+    
+    <section class="board" id="board" data-page="EN · Chapter 4 · Security Is Pervasive" data-key="en-04">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">EN · Chapter 4 · Security Is Pervasive</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#topics-covered">Topics Covered · 本章涵盖主题</a></li>
+<li><a href="#chapter-overview-security-is-a-property-of-every-decision-not-a-module">Chapter Overview: Security Is a Property of Every Decision, Not a Module · 本章导读：安全是每个决策的属性，不是一个模块</a></li>
+<li><a href="#foundation-topics">Foundation Topics · 基础内容</a><ul>
+<li><a href="#security-policy">Security Policy · 安全策略</a></li>
+<li><a href="#security-domains-and-zones">Security Domains and Zones · 安全域和区域</a></li>
+</ul>
+</li>
+<li><a href="#zero-trust-architecture-zta">Zero Trust Architecture (ZTA) · 零信任架构</a><ul>
+<li><a href="#the-pillars-of-zero-trust">The Pillars of Zero Trust · 零信任架构的支柱</a></li>
+<li><a href="#key-concepts">Key Concepts · 零信任架构概念</a></li>
+<li><a href="#core-capabilities">Core Capabilities · 零信任架构能力</a></li>
+<li><a href="#migration-steps">Migration Steps · 零信任迁移步骤</a></li>
+</ul>
+</li>
+<li><a href="#the-cia-triad-cia">The CIA Triad · 安全 CIA 三要素</a></li>
+<li><a href="#regulatory-compliance">Regulatory Compliance · 法规合规</a><ul>
+<li><a href="#hipaa-hipaa">HIPAA · HIPAA（美国健康保险流通与责任法案）</a></li>
+<li><a href="#pci-dss-pci-dss">PCI DSS · PCI DSS（支付卡行业数据安全标准）</a></li>
+<li><a href="#gdpr-gdpr">GDPR · GDPR（通用数据保护条例）</a></li>
+<li><a href="#data-sovereignty">Data Sovereignty · 数据主权</a></li>
+<li><a href="#translating-compliance-into-design-input">Translating Compliance into Design Input · 把合规翻译成设计输入</a></li>
+</ul>
+</li>
+<li><a href="#case-studies">Case Studies · 实战案例</a><ul>
+<li><a href="#case-1-all-the-appliances-were-bought-and-a-phishing-email-still-got-in">Case 1: All the Appliances Were Bought, and a Phishing Email Still Got In · 案例一：设备买齐了，还是被一封钓鱼邮件攻破</a></li>
+<li><a href="#case-2-one-data-may-not-leave-the-country-requirement-redesigned-the-whole-architecture">Case 2: One "Data May Not Leave the Country" Requirement Redesigned the Whole Architecture · 案例二：一条"数据不出境"的合规要求，改了整个架构</a></li>
+</ul>
+</li>
+<li><a href="#design-pitfalls">Design Pitfalls · 设计缺陷</a></li>
+<li><a href="#lessons-learned">Lessons Learned · 实战经验总结</a></li>
+<li><a href="#design-scenarios-2-2">Design Scenarios (2) · 设计情景演练（2 个）</a><ul>
+<li><a href="#scenario-1-one-sentence-data-may-not-leave-the-country-redesigned-three-layers">Scenario 1: One Sentence, "Data May Not Leave the Country", Redesigned Three Layers · 情景一：一句"数据不得出境"，改了三层架构</a></li>
+<li><a href="#scenario-2-from-perimeter-vpn-toward-zero-trust-vpn">Scenario 2: From "Perimeter + VPN" Toward Zero Trust · 情景二：从"边界 + VPN"走向零信任</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">Key Terms · 本章关键术语</a></li>
+<li><a href="#chapter-summary">Chapter Summary · 本章小结</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>
