@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 18: Final Preparation · English Edition · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与串讲</span><span class="nav-sub">全书串讲 · 设计决策流程</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">English Edition</span><span class="nav-sub">中英对照 · Chapter 1–8</span></div><div class="nav-items"><a class="nav-link" href="en-01.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 1 · Network Design</span></a><a class="nav-link" href="en-02.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 2 · Designing for Business Success</span></a><a class="nav-link" href="en-03.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 3 · What Is the Purpose of the Network</span></a><a class="nav-link" href="en-04.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 4 · Security Is Pervasive</span></a><a class="nav-link" href="en-05.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 5 · Reference Architecture Models and Frameworks</span></a><a class="nav-link" href="en-06.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 6 · Transport Technologies</span></a><a class="nav-link" href="en-07.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 7 · Layer 2 Technologies</span></a><a class="nav-link active" href="en-18.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 18 · Final Preparation</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 18 · about 3868 words</span></div><h1 id="chapter-18-the-whole-book-in-one-pass-a-complete-design-decision-workflow-18">Chapter 18: The Whole Book in One Pass: A Complete Design Decision Workflow · 第 18 章：全书串讲：一次完整的设计决策流程<a class="anchor" href="#chapter-18-the-whole-book-in-one-pass-a-complete-design-decision-workflow-18" title="Permanent link"></a></h1>
+<blockquote>
+<p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 18 (pp. 850–1077; the original "Final Preparation" rewritten as a practical end-to-end walkthrough)</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 850-1077 页（原章节为"最终准备"，已改写为面向实践的全书串讲）</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="topics-covered">Topics Covered · 本章涵盖主题<a class="anchor" href="#topics-covered" title="Permanent link"></a></h2>
+<ul>
+<li><strong>The knowledge map of the whole book</strong>: how the 18 chapters relate</li>
+<li><strong>Three threads</strong>: the business thread, the architecture thread, the technology thread</li>
+<li><strong>The overall design decision workflow</strong>: seven steps from kickoff to Day 2</li>
+<li><strong>Deliverables checklist</strong>: what a complete design should produce</li>
+<li><strong>Cross-chapter trade-off lookup and the high-frequency mistake list</strong></li>
+<li><strong>Further reading</strong>: RFCs and design documents</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>全书知识地图</strong>：18 章之间的关系</li>
+<li><strong>三条主线</strong>：业务线、架构线、技术线</li>
+<li><strong>设计决策总流程</strong>：从立项到 Day 2 的七个步骤</li>
+<li><strong>设计交付物清单</strong>：一次完整设计应该产出什么</li>
+<li><strong>跨章取舍速查与易错点清单</strong></li>
+<li><strong>延伸阅读</strong>：RFC 与设计文档</li>
+</ul>
+</div>
+<hr />
+<h2 id="the-knowledge-map-of-the-whole-book">The Knowledge Map of the Whole Book · 全书知识地图<a class="anchor" href="#the-knowledge-map-of-the-whole-book" title="Permanent link"></a></h2>
+<p>The 18 chapters form one continuous chain of reasoning: <strong>from "why do this" to "how to do it", and then to "how to do it in this particular scenario"</strong>.</p>
+<div class="zh">
+<p>本书 18 章其实是一条完整的推理链：<strong>从"为什么做"到"怎么做"，再到"在什么场景下怎么做"</strong>。</p>
+</div>
+<pre><code>Part I  The premises of design (Chapters 1–5)
+  1 Design thinking   → how you think decides what you design
+  2 Business success  → why, is it worth it, how it is accepted
+  3 Network purpose   → what the network must carry (apps/services/cloud/data)
+  4 Security          → a constraint across every layer, not one box
+  5 Architecture frameworks → wrap all of the above into a governable process
+        ↓
+Part II The technical toolbox (Chapters 6–14)
+  6 Transport      → what I buy from the carrier
+  7 Layer 2        → how the Layer 2 network I build is designed
+  8 Layer 3        → which routing protocol, how it converges
+  9 Virtualization → overlay and segmentation
+ 10 Security design→ putting Chapter 4's principles into practice
+ 11 Wireless       → mobility and capacity at the access side
+ 12 Automation     → repeatable and verifiable
+ 13 Multicast      → the efficiency of one-to-many
+ 14 Services and management → DNS/DHCP/NTP/QoS, invisible but fatal
+        ↓
+Part III Scenario architectures (Chapters 15–17)
+ 15 Campus   16 Internet edge   17 Enterprise WAN
+        ↑ everything from the first three parts is assembled here into a concrete solution
+</code></pre>
+<div class="zh">
+<pre><code>Part I  设计的前提（第 1–5 章）
+  1 设计思维  → 你怎么想，决定你设计出什么
+  2 商业成功  → 为什么做、值不值、怎么验收
+  3 网络目的  → 网络要承载什么（应用/服务/云/数据）
+  4 安全      → 贯穿所有层的约束，不是一层设备
+  5 架构框架  → 把上面全部纳入可治理的流程
+        ↓
+Part II 技术工具箱（第 6–14 章）
+  6 传输      → 我从运营商买什么
+  7 二层      → 我自己建的二层怎么设计
+  8 三层      → 路由协议怎么选、怎么收敛
+  9 虚拟化    → Overlay 与分段
+ 10 安全设计  → 落地第 4 章的原则
+ 11 无线      → 接入侧的移动性与容量
+ 12 自动化    → 可重复、可验证
+ 13 组播      → 一对多的效率问题
+ 14 服务管理  → DNS/DHCP/NTP/QoS 这些&quot;看不见但会致命&quot;的部分
+        ↓
+Part III 场景化架构（第 15–17 章）
+ 15 园区  16 互联网边缘  17 企业 WAN
+        ↑ 前三部分的全部知识在这里被组装成具体方案
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong>How to read the map</strong>: Part II is the "parts bin", Part III is the "whole machine". Someone who knows only parts cannot produce a good design, because they do not know how the parts constrain one another inside the machine.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>理解这张图的方式</strong>：Part II 是"零件"，Part III 是"整机"。只会零件的人做不出好设计，因为他不知道零件在整机里如何互相牵制。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="three-study-threads">Three Study Threads · 三条学习主线<a class="anchor" href="#three-study-threads" title="Permanent link"></a></h2>
+<p>The same book can be worked through along three different threads, and each pass yields something different.</p>
+<div class="zh">
+<p>同一本书，可以按三种线索反复过，每次都有不同收获。</p>
+</div>
+<h3 id="thread-1-the-business-thread-answering-why">Thread 1: The Business Thread (answering "why") · 主线一：业务线（回答"为什么"）<a class="anchor" href="#thread-1-the-business-thread-answering-why" title="Permanent link"></a></h3>
+<pre><code>Business drivers → business outcomes (SMART) → business capabilities → network requirements (functional/non-functional) → design → acceptance metrics (KPIs)
+</code></pre>
+<div class="zh">
+<pre><code>业务驱动力 → 业务成果(SMART) → 业务能力 → 网络需求(功能/非功能) → 设计 → 验收指标(KPI)
+</code></pre>
+</div>
+<p>The chapters that string together: drivers and KPIs in Chapter 2, alignment levels in Chapter 5, application characteristics in Chapter 3, scenario requirements in Chapters 15–17.</p>
+<div class="zh">
+<p>串起来的章节：第 2 章的驱动力与 KPI、第 5 章的对齐级别、第 3 章的应用特征、第 15–17 章的场景需求。</p>
+</div>
+<blockquote>
+<p>Self-check: <strong>can you say in one business sentence what problem this design solves?</strong> If not, the chapter is not yet understood.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>自检问题：<strong>你能用一句业务语言说清"这个设计解决什么问题"吗？</strong> 说不清，说明这章还没读懂。</p>
+</blockquote>
+</div>
+<h3 id="thread-2-the-architecture-thread-answering-at-which-layer">Thread 2: The Architecture Thread (answering "at which layer") · 主线二：架构线（回答"在哪一层解决"）<a class="anchor" href="#thread-2-the-architecture-thread-answering-at-which-layer" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Possible layers</th>
+<th>Typical choices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two sites must interconnect</td>
+<td>L1/L2/L3/overlay</td>
+<td>Dark fiber / L2VPN / MPLS L3VPN / SD-WAN</td>
+</tr>
+<tr>
+<td>Isolation</td>
+<td>VLAN / VRF / VXLAN segment / micro-segmentation</td>
+<td>Chosen by business and compliance needs</td>
+</tr>
+<tr>
+<td>High availability</td>
+<td>Physical redundancy / protocol convergence / active-active applications</td>
+<td>Chosen by RTO/RPO</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Hierarchy / modularity / overlay</td>
+<td>Chosen by growth expectations</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>可能的解决层次</th>
+<th>典型选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>两个站点要互通</td>
+<td>L1/L2/L3/Overlay</td>
+<td>暗光纤 / L2VPN / MPLS L3VPN / SD-WAN</td>
+</tr>
+<tr>
+<td>隔离</td>
+<td>VLAN / VRF / VXLAN 分段 / 微分段</td>
+<td>按业务与合规要求选</td>
+</tr>
+<tr>
+<td>高可用</td>
+<td>物理冗余 / 协议收敛 / 应用多活</td>
+<td>按 RTO/RPO 选</td>
+</tr>
+<tr>
+<td>可扩展</td>
+<td>分层 / 模块化 / Overlay</td>
+<td>按增长预期选</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The core question of the architecture thread never changes: <strong>at which layer can this requirement be solved with the least effort and the fewest opportunities for error?</strong></p>
+<div class="zh">
+<p>架构线的核心问题永远是：<strong>这个需求应该在哪一层解决最省事、最不容易出错？</strong></p>
+</div>
+<h3 id="thread-3-the-technology-thread-answering-how-exactly-to-configure-it">Thread 3: The Technology Thread (answering "how exactly to configure it") · 主线三：技术线（回答"具体怎么配"）<a class="anchor" href="#thread-3-the-technology-thread-answering-how-exactly-to-configure-it" title="Permanent link"></a></h3>
+<p>Protocol details, packet behaviour, convergence mechanisms, parameter values. This part needs hands-on verification (lab, packet capture) — reading alone will fool you.</p>
+<div class="zh">
+<p>协议细节、报文行为、收敛机制、参数取值。这部分需要动手验证（实验环境、抓包），光看会骗自己。</p>
+</div>
+<hr />
+<h2 id="the-overall-design-workflow-seven-steps">The Overall Design Workflow (Seven Steps) · 设计决策总流程（七步）<a class="anchor" href="#the-overall-design-workflow-seven-steps" title="Permanent link"></a></h2>
+<p>The first 17 chapters supply the "knowledge parts"; this section supplies the <strong>assembly order</strong>. Real projects rarely fail because "someone did not understand a technology"; they fail because <strong>steps were skipped or reordered</strong> — pick the technology before finding the requirement, draw the topology before defining the boundary, go live before thinking about acceptance.</p>
+<div class="zh">
+<p>前面 17 章给的是"知识零件"，这一节给的是<strong>装配顺序</strong>。真实项目的失败很少是因为"不懂某个技术"，而是因为<strong>步骤被跳过或顺序颠倒</strong>——先选技术再找需求、先搭拓扑再定边界、先上线再想验收。</p>
+</div>
+<p>Each step is given as: <strong>input → action → output → most common mistake</strong>.</p>
+<div class="zh">
+<p>每一步都给出：<strong>输入 → 动作 → 产出 → 最常见错误</strong>。</p>
+</div>
+<h3 id="step-0-kickoff-and-scope-definition-step-0">Step 0: Kickoff and Scope Definition · Step 0 立项与范围界定<a class="anchor" href="#step-0-kickoff-and-scope-definition-step-0" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>A request ("the network needs upgrading", "we are building a new plant", "we must integrate an acquisition")</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Classify the design case (the seven in Chapter 1: new build / redesign / add technology / replace / merge or divest / expand / fix a failure); write <strong>in-scope and out-of-scope</strong> lists; name the decision maker and the signatory</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>One-page project charter: goal, scope, stakeholders, milestones, what we will not do</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Scope states only "what we will do", never "what we will not do"; treating "the technical solution" as the project goal (the goal is a business outcome, the solution is a means)</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>一个诉求（"网络要升级""新厂要建""并购要整合"）</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>判断设计用例（第 1 章七种：全新/改造/加技术/替换/合并剥离/扩展/失败修复）；画出<strong>范围内/范围外</strong>两个清单；明确决策人与签字人</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>一页纸的项目章程：目标、范围、干系人、里程碑、不做什么</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>范围只写"做什么"不写"不做什么"；把"技术方案"当项目目标（目标是业务结果，方案是手段）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-1-clarify-business-goals-and-outcomes-step-1">Step 1: Clarify Business Goals and Outcomes · Step 1 澄清业务目标与成果<a class="anchor" href="#step-1-clarify-business-goals-and-outcomes-step-1" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Business requests, pain points, budget, time windows</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Use "five whys" until the statement is verifiable; rewrite goals as SMART outcomes plus KPIs (Chapter 2); identify business drivers and compliance constraints (Chapter 4)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Business outcome list + KPI baseline values + compliance requirements list</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Accepting unmeasurable goals such as "improve experience" or "match peers"; deferring compliance to "we will handle it during implementation"</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>业务方的诉求、痛点、预算、时间窗</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>用"五个为什么"追问到可验证的层面；把目标改写成 SMART 成果 + KPI（第 2 章）；识别业务驱动力与合规约束（第 4 章）</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>业务成果清单 + KPI 基线值 + 合规要求清单</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>接受"提升体验""对标同行"这类不可测目标；把合规要求当成"实施时再处理"</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-2-establish-the-current-state-baseline-step-2">Step 2: Establish the Current-State Baseline · Step 2 建立现状基线<a class="anchor" href="#step-2-establish-the-current-state-baseline-step-2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Existing documentation, monitoring data, interviews</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Collect three baseline categories: <strong>capacity</strong> (bandwidth/ports/CPU/sessions), <strong>behaviour</strong> (traffic matrix, route counts, convergence times), <strong>organisation</strong> (team skills, processes, contract terms)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Current-state baseline report + a "problem–evidence" mapping table</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Looking only at average utilisation (which hides bursts); trusting documents instead of measuring; ignoring remaining contract terms (which set the migration window)</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>现网文档、监控数据、访谈</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>采集三类基线：<strong>容量</strong>（带宽/端口/CPU/会话）、<strong>行为</strong>（流量矩阵、路由条目、收敛时间）、<strong>组织</strong>（团队技能、流程、合同期限）</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>现状基线报告 + "问题—证据"对应表</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>只看平均利用率（掩盖突发）；只信文档不测现网；忽略合同剩余期限（决定迁移窗口）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-3-define-requirements-and-constraints-step-3">Step 3: Define Requirements and Constraints · Step 3 定义需求与约束<a class="anchor" href="#step-3-define-requirements-and-constraints-step-3" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Business outcomes + current-state baseline</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Write requirements in three categories: functional (what it does), technical/non-functional (availability, security, manageability), application (latency/loss/connection model); write constraints in four categories: business, application, technical, time and budget (Chapter 1)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Requirements specification (each entry with source and verification method) + constraint list + <strong>list of unresolved requirements</strong></td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Requirements without a source (untraceable); mistaking a solution for a requirement ("we need SD-WAN" actually means "a new site must be online within 7 days")</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>业务成果 + 现状基线</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>分三类写需求：功能（做什么）、技术/非功能（可用性、安全、可管理性）、应用（时延/丢包/连接模型）；约束分四类：业务、应用、技术、时间与预算（第 1 章）</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>需求规格表（每条带来源与验证方式）+ 约束清单 + <strong>未明确需求清单</strong></td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>需求没有来源（无法追溯）；把方案当需求（"需要 SD-WAN"其实是"需要新站点 7 天上线"）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-4-draw-the-architecture-boundaries-step-4">Step 4: Draw the Architecture Boundaries · Step 4 划分架构边界<a class="anchor" href="#step-4-draw-the-architecture-boundaries-step-4" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Requirements + constraints</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Divide modules and domains by business / trust level / failure domain: campus, WAN, DC, Internet edge, cloud access (the models in Chapters 15–17); define the <strong>single convergence point</strong> between domains; choose the isolation layer (VLAN / VRF / segment / micro-segment)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Logical architecture diagram + inter-domain interface table (who connects to whom, over what, with which policy)</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Domains drawn too large (an enlarged failure domain); multiple interconnection points between domains (policy cannot stay consistent); choosing equipment before defining boundaries</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>需求 + 约束</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>按业务/信任等级/故障域划模块与域：园区、WAN、DC、互联网边缘、云接入（第 15–17 章模型）；确定域间互通的<strong>唯一收敛点</strong>；确定隔离技术层次（VLAN / VRF / 分段 / 微分段）</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>逻辑架构图 + 域间接口表（谁连谁、走什么、什么策略）</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>域划得太大（故障域放大）；域间有多个互通点（策略无法一致）；先选设备后定边界</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-5-layered-technical-decisions-step-5">Step 5: Layered Technical Decisions · Step 5 分层技术决策<a class="anchor" href="#step-5-layered-technical-decisions-step-5" title="Permanent link"></a></h3>
+<p>Decide layer by layer in a fixed order, and at every layer answer "why not the other option". The order itself is the design method:</p>
+<div class="zh">
+<p>按固定顺序逐层决策，每一层都必须回答"为什么不是另一个"。这个顺序本身就是设计方法：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Decision question</th>
+<th>Main chapters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transport/bearer</strong></td>
+<td>What do we buy between sites? Carrier L2/L3, Internet, leased line, SD-WAN?</td>
+<td>6, 17</td>
+</tr>
+<tr>
+<td><strong>Layer 2</strong></td>
+<td>Is Layer 2 extension needed? Where is the STP domain boundary?</td>
+<td>7</td>
+</tr>
+<tr>
+<td><strong>Layer 3</strong></td>
+<td>IGP/BGP boundaries, area planning, summarisation and convergence, dual stack</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Overlay/segmentation</strong></td>
+<td>Do we need VXLAN/VRF/micro-segmentation? Control-plane or data-plane isolation?</td>
+<td>9, 10</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Trust boundaries, encryption, access control, where visibility is implemented</td>
+<td>4, 10</td>
+</tr>
+<tr>
+<td><strong>Access</strong></td>
+<td>Wired/wireless/remote, capacity and density, authentication methods</td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>Services</strong></td>
+<td>Distribution and redundancy of DNS/DHCP/NTP/QoS/multicast</td>
+<td>13, 14</td>
+</tr>
+<tr>
+<td><strong>Automation and observability</strong></td>
+<td>How configuration is generated, how changes are validated, how faults are located</td>
+<td>12, 14</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>决策问题</th>
+<th>主要章节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传输/承载</strong></td>
+<td>站点之间买什么？运营商 L2/L3、Internet、专线、SD-WAN？</td>
+<td>6、17</td>
+</tr>
+<tr>
+<td><strong>二层</strong></td>
+<td>需要二层延伸吗？STP 域边界在哪？</td>
+<td>7</td>
+</tr>
+<tr>
+<td><strong>三层</strong></td>
+<td>IGP/BGP 边界、区域规划、汇总与收敛、双栈</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Overlay/分段</strong></td>
+<td>是否需要 VXLAN/VRF/微分段？控制面还是数据面隔离？</td>
+<td>9、10</td>
+</tr>
+<tr>
+<td><strong>安全</strong></td>
+<td>信任边界、加密、访问控制、可见性在哪落地</td>
+<td>4、10</td>
+</tr>
+<tr>
+<td><strong>接入</strong></td>
+<td>有线/无线/远程，容量与密度，认证方式</td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>服务</strong></td>
+<td>DNS/DHCP/NTP/QoS/组播等基础服务的分布与冗余</td>
+<td>13、14</td>
+</tr>
+<tr>
+<td><strong>自动化与可观测</strong></td>
+<td>配置如何生成、变更如何验证、故障如何定位</td>
+<td>12、14</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Output</strong>: one decision table per layer (options / trade-offs / conclusion / reasons rejected).</p>
+<div class="zh">
+<p><strong>产出</strong>：每层一张决策表（选项 / 取舍 / 结论 / 被否决理由）。</p>
+</div>
+<p><strong>Common mistake</strong>: skipping the transport layer and drawing the topology directly; solving at Layer 2 what belongs at Layer 3; treating "it can work" as "it should be used".</p>
+<div class="zh">
+<p><strong>常见错误</strong>：跳过传输层直接画拓扑；在二层解决本该在三层解决的问题；把"能用"当成"该用"。</p>
+</div>
+<h3 id="step-6-validation-and-quantitative-acceptance-step-6">Step 6: Validation and Quantitative Acceptance · Step 6 验证与量化验收<a class="anchor" href="#step-6-validation-and-quantitative-acceptance-step-6" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Layered decisions + business KPIs</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Three levels of validation: <strong>design validation</strong> (model walkthrough, failure-domain analysis, capacity calculation), <strong>lab validation</strong> (minimal experiments for key mechanisms), <strong>acceptance validation</strong> (measurable metrics and pass thresholds after go-live)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Acceptance test table (metric, collection method, pass threshold, owner) + risk register</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>Acceptance defined as "it pings"; no rollback criteria; treating "the load test passed" as "the business is available"</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>分层决策 + 业务 KPI</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>三层验证：<strong>设计验证</strong>（模型推演、故障域分析、容量测算）、<strong>实验验证</strong>（关键机制的最小实验）、<strong>验收验证</strong>（上线后的可测指标与判定阈值）</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>验收用例表（指标、采集方式、通过阈值、责任人）+ 风险登记册</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>验收标准是"能通"；没有回退判据；把"压测通过"当成"业务可用"</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="step-7-migration-and-day-2-step-7-day-2">Step 7: Migration and Day 2 · Step 7 迁移与 Day 2<a class="anchor" href="#step-7-migration-and-day-2-step-7-day-2" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Target architecture + current-state baseline</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Design a <strong>phased migration</strong> (non-critical sites or services first, each batch with its own acceptance); define <strong>rollback triggers and rollback duration</strong> for every batch; deliver the operational essentials: monitoring items, alert thresholds, change process, on-call handover, documentation and topology-maintenance ownership</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Migration roadmap (batches, windows, validation, rollback) + operations manual + training plan</td>
+</tr>
+<tr>
+<td><strong>Common mistake</strong></td>
+<td>A single big-bang cutover; handing over equipment without documentation; nobody owning the Day 2 complexity</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>目标架构 + 现状基线</td>
+</tr>
+<tr>
+<td><strong>动作</strong></td>
+<td>设计<strong>分批迁移</strong>（先非关键站点/业务，每批都有独立验收）；为每批定义<strong>回退触发条件与回退耗时</strong>；交付运维要件：监控项、告警阈值、变更流程、值班交接、文档与拓扑维护责任</td>
+</tr>
+<tr>
+<td><strong>产出</strong></td>
+<td>迁移路线图（批次、窗口、验证、回退）+ 运维手册 + 培训计划</td>
+</tr>
+<tr>
+<td><strong>常见错误</strong></td>
+<td>一次性全量切换；只交设备不交文档；没有人为 Day 2 的复杂度负责</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The order of the seven steps cannot be swapped.</strong> The most common failure is moving Step 5 in front of Step 1: solution first, then requirements used to justify it. <strong>In a review, one question exposes such a proposal: "which metric of which requirement does this technology solve?"</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>七步的次序不可交换</strong>。最常见的失败是把 Step 5 提到 Step 1 前面：方案先行，然后用需求去解释方案。<strong>评审时只要问一句"这个技术解决了哪条需求的哪个指标"，就能识别出这类方案。</strong></p>
+</blockquote>
+</div>
+<hr />
+<h2 id="design-deliverables-checklist">Design Deliverables Checklist · 设计交付物清单<a class="anchor" href="#design-deliverables-checklist" title="Permanent link"></a></h2>
+<p>A complete design is not just "a topology diagram". The following checklist can be used directly as a project template:</p>
+<div class="zh">
+<p>一次完整的设计，不只是"一张拓扑图"。以下清单可直接当作业模板使用：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Minimum content</th>
+<th>Who signs off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Business requirements and outcomes</strong></td>
+<td>Goals, KPIs, constraints, out-of-scope list</td>
+<td>Business owner</td>
+</tr>
+<tr>
+<td><strong>Current-state baseline</strong></td>
+<td>Capacity/behaviour/organisation, problem–evidence mapping</td>
+<td>Operations and engineering</td>
+</tr>
+<tr>
+<td><strong>Logical design</strong></td>
+<td>Domain boundaries, inter-domain interfaces, addressing and naming</td>
+<td>Architecture owner</td>
+</tr>
+<tr>
+<td><strong>Physical/topology design</strong></td>
+<td>Equipment placement, links, redundancy model, failure-domain analysis</td>
+<td>Architecture owner</td>
+</tr>
+<tr>
+<td><strong>Technical decisions</strong></td>
+<td>One decision table per layer (options / trade-offs / conclusion / reasons rejected)</td>
+<td>Technical authority</td>
+</tr>
+<tr>
+<td><strong>Security design</strong></td>
+<td>Trust boundaries, policy, encryption, access control, audit</td>
+<td>Security and compliance</td>
+</tr>
+<tr>
+<td><strong>Capacity and performance model</strong></td>
+<td>Traffic matrix, growth ratio, bottleneck analysis, scaling triggers</td>
+<td>Technical authority</td>
+</tr>
+<tr>
+<td><strong>Acceptance test plan</strong></td>
+<td>Metrics, methods, thresholds, owners, rollback criteria</td>
+<td>Business plus operations</td>
+</tr>
+<tr>
+<td><strong>Migration roadmap</strong></td>
+<td>Batches, windows, rollback plan, communication plan</td>
+<td>Project manager</td>
+</tr>
+<tr>
+<td><strong>Operations and Day 2</strong></td>
+<td>Monitoring items, alert thresholds, change process, documentation ownership</td>
+<td>Operations owner</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>交付物</th>
+<th>最小内容要求</th>
+<th>谁签字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>需求规格书</strong></td>
+<td>功能/技术/应用三类需求，每条带来源、验证方式、优先级</td>
+<td>业务方 + 设计负责人</td>
+</tr>
+<tr>
+<td><strong>现状基线报告</strong></td>
+<td>容量、行为、组织三类数据，附采集方法与时间</td>
+<td>运维负责人</td>
+</tr>
+<tr>
+<td><strong>逻辑架构图</strong></td>
+<td>域划分、域间接口、信任边界、故障域标注</td>
+<td>设计负责人</td>
+</tr>
+<tr>
+<td><strong>分层决策表</strong></td>
+<td>传输/二层/三层/Overlay/安全/接入/服务/自动化各一张，含被否决理由</td>
+<td>架构评审会</td>
+</tr>
+<tr>
+<td><strong>地址与命名规划</strong></td>
+<td>IPv4/IPv6 分配、VLAN/VRF 编号、设备命名、DNS 命名空间</td>
+<td>网络负责人</td>
+</tr>
+<tr>
+<td><strong>容量与规模测算</strong></td>
+<td>带宽、端口、表项、会话、AP/信道，含三年增长</td>
+<td>设计负责人</td>
+</tr>
+<tr>
+<td><strong>高可用与故障域分析</strong></td>
+<td>单点清单、故障场景矩阵（故障 → 影响 → 收敛时间）</td>
+<td>运维负责人</td>
+</tr>
+<tr>
+<td><strong>安全设计说明</strong></td>
+<td>信任边界、加密点、访问控制模型、审计留存</td>
+<td>安全负责人</td>
+</tr>
+<tr>
+<td><strong>验收用例表</strong></td>
+<td>指标、采集方式、阈值、责任人</td>
+<td>业务方 + 运维</td>
+</tr>
+<tr>
+<td><strong>迁移与回退方案</strong></td>
+<td>批次、窗口、验证、回退触发与耗时</td>
+<td>项目经理</td>
+</tr>
+<tr>
+<td><strong>运维要件</strong></td>
+<td>监控项、告警阈值、备份、变更流程、培训</td>
+<td>运维负责人</td>
+</tr>
+<tr>
+<td><strong>风险登记册与决策记录</strong></td>
+<td>每条决策的背景、选项、结论、被否决理由</td>
+<td>设计负责人</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>Why "reasons rejected" must be written down</strong>: a year later nobody remembers why an option was not used, so the same discussion starts over from scratch — and sometimes it lands on the rejected option. <strong>Recording the rejected options and why is what makes decisions repeatable.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>为什么"被否决理由"必须写</strong>：一年后没人记得为什么不用某个方案，于是同样的讨论会重来一遍。<strong>决策记录是设计团队最重要的长期资产。</strong></p>
+</blockquote>
+</div>
+<hr />
+<h2 id="design-judgement-checklist-usable-for-any-proposal">Design Judgement Checklist (Usable for Any Proposal) · 设计判断清单（任何方案都能用）<a class="anchor" href="#design-judgement-checklist-usable-for-any-proposal" title="Permanent link"></a></h2>
+<ol>
+<li><strong>Is the requirement real?</strong> Is it backed by measurement, or is it just someone's opinion?</li>
+<li><strong>Are all the constraints on the table?</strong> Including the uncomfortable ones: budget, contract terms, team capability, organisational boundaries.</li>
+<li><strong>Have the rejected options been documented?</strong> For each: one sentence on why it was rejected.</li>
+<li><strong>Where is the single point of failure?</strong> Including power, cooling, physical paths, carriers and vendors.</li>
+<li><strong>Has the convergence time been verified?</strong> Measured, not assumed.</li>
+<li><strong>What happens if the new technology fails?</strong> Can we fail over? How long is the rollback?</li>
+<li><strong>What would the strongest objection to this design be?</strong> Who would make it, and how would you answer?</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>需求是真的吗？</strong> 有测量数据支持，还是只是某人的说法？</li>
+<li><strong>约束都列全了吗？</strong> 预算、时间、合规、遗留系统、人力。</li>
+<li><strong>这个方案解决了当前问题，还是解决了想象的问题？</strong>（过度设计检查）</li>
+<li><strong>故障域有多大？</strong> 一处故障会影响多少业务？</li>
+<li><strong>谁在 Day 2 维护它？</strong> 现有团队接得住吗？</li>
+<li><strong>怎么验证它有效？</strong> 有可测指标吗？</li>
+<li><strong>否决它的理由是什么？</strong> 能不能自己说出三个反对意见？</li>
+</ol>
+</div>
+<blockquote>
+<p>💡 <strong>Item 7 is the most effective self-check</strong>: if your proposal cannot survive the objections you raise yourself, it will not survive a design review.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>第 7 条是最有效的自检</strong>：如果你的方案经不起自己提的反对意见，它经不起评审。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="integrated-case-a-real-transformation-that-strings-the-whole-book-together">Integrated Case: A Real Transformation That Strings the Whole Book Together · 综合案例：把全书串起来的一次真实改造<a class="anchor" href="#integrated-case-a-real-transformation-that-strings-the-whole-book-together" title="Permanent link"></a></h2>
+<p><strong>Background</strong>: a manufacturer with 8,000 employees — headquarters, 6 plants, 40 sales offices. Problems: MPLS leased lines cost 42M per year and grow 15% a year; a new plant takes 10 weeks from decision to connectivity; one broadcast storm at a plant has taken down the whole company twice; a security audit raised 37 findings; the operations team is 4 people and cannot keep up with configuration changes.</p>
+<div class="zh">
+<p><strong>背景</strong>：一家 8000 人的制造企业，总部 + 6 个工厂 + 40 个销售办事处。现状：总部双核心、工厂用 SDH 专线、办事处用 ADSL，全网一个 OSPF 域、一个 VLAN 大二层延伸到部分工厂。</p>
+</div>
+<p><strong>Reasoning in the book's order</strong>:</p>
+<div class="zh">
+<p><strong>按全书顺序推演</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Chapters used</th>
+<th>What was done</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Business outcomes</td>
+<td>2, 5</td>
+<td>Rewritten as: cost −30%, new site live in ≤4 weeks, plant isolation, zero audit findings</td>
+</tr>
+<tr>
+<td>2. Baseline</td>
+<td>2</td>
+<td>Measured: 82% of traffic is IP; only 3 legacy systems need Layer 2</td>
+</tr>
+<tr>
+<td>3. Requirements and constraints</td>
+<td>1, 3</td>
+<td>Constraint discovered: three MPLS contracts still have 18 months left, so a big-bang cutover is impossible</td>
+</tr>
+<tr>
+<td>4. Architecture boundaries</td>
+<td>5, 15–17</td>
+<td>Split into campus / WAN / Internet edge / cloud access, with one convergence point per domain</td>
+</tr>
+<tr>
+<td>5. Layered decisions</td>
+<td>6–14</td>
+<td>WAN: MPLS plus Internet SD-WAN hybrid; campus: Layer 3 to the access layer; security: segmentation plus cloud security service; automation: template-driven configuration</td>
+</tr>
+<tr>
+<td>6. Validation</td>
+<td>12, 14</td>
+<td>Before/after comparison on one plant pilot: convergence, cost, configuration time</td>
+</tr>
+<tr>
+<td>7. Migration and Day 2</td>
+<td>12</td>
+<td>Three batches over 18 months, one batch per MPLS contract expiry; monitoring and change process handed over</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>用到哪章</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 澄清需求</td>
+<td>1、2</td>
+<td>访谈发现真实痛点是"新产线上线要 10 周"，其中 4 周等网络</td>
+</tr>
+<tr>
+<td>2. 定义成果</td>
+<td>2、5</td>
+<td>目标改为"新产线上线 ≤ 5 周"，而不是"网络升级"</td>
+</tr>
+<tr>
+<td>3. 摸清应用</td>
+<td>3</td>
+<td>产线 MES 对丢包敏感（&lt;0.1%），办公以 HTTP/文件为主</td>
+</tr>
+<tr>
+<td>4. 安全定性</td>
+<td>4</td>
+<td>产线网与办公网必须隔离，且产线不允许跨厂二层互通</td>
+</tr>
+<tr>
+<td>5. 传输选型</td>
+<td>6、17</td>
+<td>工厂改 MPLS L3VPN（不再需要二层）；办事处改 Internet + SD-WAN</td>
+</tr>
+<tr>
+<td>6. 二层收敛</td>
+<td>7</td>
+<td>拆掉跨厂大二层，工厂内部按产线划分 VLAN，STP 只在厂内</td>
+</tr>
+<tr>
+<td>7. 三层设计</td>
+<td>8</td>
+<td>总部/工厂走 BGP（便于策略与多运营商），厂内 OSPF</td>
+</tr>
+<tr>
+<td>8. 分段</td>
+<td>9</td>
+<td>产线单独 VRF，办公与产线之间只在指定点互通</td>
+</tr>
+<tr>
+<td>9. 接入</td>
+<td>11</td>
+<td>车间 Wi-Fi 与 AGV 用独立 SSID 与频段规划</td>
+</tr>
+<tr>
+<td>10. 自动化</td>
+<td>12</td>
+<td>新产线网络用模板 + 自动化开通，把 4 周压到 2 天</td>
+</tr>
+<tr>
+<td>11. 管理与验证</td>
+<td>14</td>
+<td>QoS 分级、NTP 统一、DNS 分区、SLA 度量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Result</strong>: time to bring a site online fell from 10 weeks to 4; Layer 2 failures at plants no longer spread; leased-line cost down 35%.</p>
+<div class="zh">
+<p><strong>结果</strong>：上线周期 10 周 → 4 周；跨厂二层故障不再扩散；专线成本降 35%。</p>
+</div>
+<p><strong>What this case shows</strong>: <strong>no single chapter can solve this project.</strong> Real design capability shows up as "knowing which chapter's method to use at which moment" — and that is exactly what this chapter is for.</p>
+<div class="zh">
+<p><strong>这个案例说明了什么</strong>：<strong>没有任何一个单章能解决这个项目。</strong> 真正的设计能力体现在"知道该按什么顺序问问题"。</p>
+</div>
+<hr />
+<h2 id="core-thinking-modes">Core Thinking Modes · 核心思维模式<a class="anchor" href="#core-thinking-modes" title="Permanent link"></a></h2>
+<blockquote>
+<p>💡 <strong>The most important thing is not memorising technical details but forming an order of judgement</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>最重要的不是记住技术细节，而是形成判断顺序</strong></p>
+</blockquote>
+</div>
+<table>
+<thead>
+<tr>
+<th>Thinking mode</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Business driver first</strong></td>
+<td>Any technical decision must answer which business outcome it serves</td>
+</tr>
+<tr>
+<td><strong>Constraint-driven</strong></td>
+<td>Design is not "choosing the best", it is "finding the feasible best under constraints"</td>
+</tr>
+<tr>
+<td><strong>Failure domain thinking</strong></td>
+<td>Every design is evaluated by "what happens when it fails"</td>
+</tr>
+<tr>
+<td><strong>Reversibility</strong></td>
+<td>Prefer decisions that are easy to roll back</td>
+</tr>
+<tr>
+<td><strong>Quantified verification</strong></td>
+<td>Anything unmeasured is a guess</td>
+</tr>
+<tr>
+<td><strong>Manageability</strong></td>
+<td>The design that a 4-person team can operate beats the elegant one it cannot</td>
+</tr>
+<tr>
+<td><strong>Cost of ownership</strong></td>
+<td>TCO, not CAPEX</td>
+</tr>
+<tr>
+<td><strong>Explicit assumptions</strong></td>
+<td>Write assumptions down; they are the first thing to break</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>思维模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>业务驱动</strong></td>
+<td>每个设计决策都能追溯到业务需求</td>
+</tr>
+<tr>
+<td><strong>没有标准答案</strong></td>
+<td>每个场景有其独特需求、约束和优先级</td>
+</tr>
+<tr>
+<td><strong>避免过度设计</strong></td>
+<td>解决当前问题，不多不少</td>
+</tr>
+<tr>
+<td><strong>权衡取舍</strong></td>
+<td>在功能、成本、复杂度之间取得平衡</td>
+</tr>
+<tr>
+<td><strong>全局视角</strong></td>
+<td>考虑整个网络而非单一模块</td>
+</tr>
+<tr>
+<td><strong>简单性优先</strong></td>
+<td>在满足需求前提下选最简单方案</td>
+</tr>
+<tr>
+<td><strong>可运维性</strong></td>
+<td>能维护的方案才是好方案</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="cross-chapter-trade-off-lookup-one-question-many-answers">Cross-Chapter Trade-Off Lookup: One Question, Many Answers · 跨章取舍速查：同一个问题，各章给了什么答案<a class="anchor" href="#cross-chapter-trade-off-lookup-one-question-many-answers" title="Permanent link"></a></h2>
+<p>The same requirement has answers at different layers in different chapters. <strong>The most common error in design is answering at the wrong layer</strong> — for example, solving an isolation requirement with a firewall rule (Layer 4–7) when a VRF (Layer 3) would have been cheaper and cleaner.</p>
+<div class="zh">
+<p>同一个需求在不同章里有不同层次的解法。<strong>设计时最容易出错的地方，是在错误的层次回答</strong>。下面这张表用来快速定位"该在哪一层解决"：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answers by chapter</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Should the two sites be connected over Layer 2 or Layer 3?</td>
+<td>Ch7: Layer 2 extension enlarges the failure domain; Ch6: L2VPN offers transparency; Ch8: routing gives convergence</td>
+<td>Only extend Layer 2 when a non-IP protocol or fixed addressing genuinely requires it</td>
+</tr>
+<tr>
+<td>How is isolation achieved?</td>
+<td>Ch7 VLAN; Ch8 VRF; Ch9 VXLAN segment; Ch10 micro-segmentation/policy</td>
+<td>By business and compliance granularity</td>
+</tr>
+<tr>
+<td>Where does high availability come from?</td>
+<td>Ch7 STP/clustering; Ch8 BGP/IGP convergence; Ch2 RTO/RPO</td>
+<td>Depends on the acceptable outage time</td>
+</tr>
+<tr>
+<td>How is cost reduced?</td>
+<td>Ch6 service choice; Ch12 automation; Ch17 SD-WAN</td>
+<td>Automation reduces opex, transport choice reduces circuit cost</td>
+</tr>
+<tr>
+<td>How is security implemented?</td>
+<td>Ch4 principles; Ch9 segmentation; Ch10 controls; Ch15–17 placement</td>
+<td>Security is a constraint on every layer, not one device</td>
+</tr>
+<tr>
+<td>How is mobility supported?</td>
+<td>Ch11 wireless; Ch9 overlay; Ch14 services</td>
+<td>Roaming requirements decide the design</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>各章的答案</th>
+<th>分界点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>两个站点互通</strong></td>
+<td>第 6 章：传输服务（EPL/EVPL/EVPN）<br>第 9 章：L3VPN / Overlay<br>第 17 章：WAN 架构（MPLS / Internet + SD-WAN）</td>
+<td>是否真的需要二层？需要 → 传输层/二层服务；不需要 → 三层 VPN 或 Overlay</td>
+</tr>
+<tr>
+<td><strong>隔离</strong></td>
+<td>第 7 章：VLAN + Private VLAN<br>第 9 章：VRF、VXLAN 分段<br>第 10 章：SGT、微分段、802.1X<br>第 15 章：园区分段（业务/管理/访客）</td>
+<td>范围与精度：同一交换机内 → VLAN；跨站点 → VRF；东西向精细 → 微分段</td>
+</tr>
+<tr>
+<td><strong>高可用</strong></td>
+<td>第 7 章：STP/vPC/堆叠<br>第 8 章：路由收敛、BFD、ECMP<br>第 15 章：园区冗余模型<br>第 16 章：多宿主、状态同步<br>第 17 章：WAN 冗余形态</td>
+<td>先定 RTO/RPO（第 2 章），再选层：秒级 → 协议收敛；分钟级 → 设备冗余；小时级 → 备件与流程</td>
+</tr>
+<tr>
+<td><strong>加密</strong></td>
+<td>第 4 章：策略要求<br>第 9 章：MPLS VPN <strong>本身不加密</strong><br>第 10 章：IPsec / MACsec / GET VPN<br>第 16 章：边缘加密边界</td>
+<td>运营商 MPLS 是"隔离"不是"加密"；需要保密性就自己加 IPsec/MACsec</td>
+</tr>
+<tr>
+<td><strong>MTU</strong></td>
+<td>第 6 章：伪线封装开销<br>第 9 章：VXLAN/IPsec 开销<br>第 10 章：<code>ip mtu</code> + <code>adjust-mss</code></td>
+<td>任何封装都要算，表现为"ping 通但业务不通"</td>
+</tr>
+<tr>
+<td><strong>规模增长</strong></td>
+<td>第 7 章：二层域范围<br>第 8 章：区域划分、RR、汇总<br>第 13 章：组播 RP 与状态规模<br>第 15 章：园区层次与模块化</td>
+<td>先问"增长的是流量、路由还是终端"，三者对策完全不同</td>
+</tr>
+<tr>
+<td><strong>多运营商</strong></td>
+<td>第 16 章：入向不可控、AS 规划<br>第 17 章：SD-WAN 多链路策略<br>第 8 章：BGP 选路方向（出向 LP / 入向 MED）</td>
+<td>出向自己可控，入向只能通过宣告与对端协商</td>
+</tr>
+<tr>
+<td><strong>运维能力不足</strong></td>
+<td>第 1 章：可管理性原则<br>第 12 章：自动化与模板<br>第 5 章：运营模型与标准化</td>
+<td>团队接不住的方案不是好方案，复杂度必须与运维能力匹配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>How to use it</strong>: when a design requirement arrives, first decide <strong>which layer it is asking about</strong>, then go to that chapter. <strong>A cross-layer answer is usually the most expensive one.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>用法</strong>：拿到一个设计需求，先判断"它在问哪一层"，再看该层的章。<strong>跨层回答是最常见的错误</strong>——例如用"扩带宽"回答"应用 chatty 导致的高时延"。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="high-frequency-mistake-list-whole-book-quick-reference">High-Frequency Mistake List (Whole-Book Quick Reference) · 高频易错点清单（全书速查）<a class="anchor" href="#high-frequency-mistake-list-whole-book-quick-reference" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Mistaken belief</th>
+<th>Correct understanding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Requirements can be gathered completely at the start</td>
+<td>Requirements emerge and conflict; design must handle change</td>
+<td>Ch1, Ch5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Redundancy equals reliability</td>
+<td>Only independent failure domains count</td>
+<td>Ch7, Ch12</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Convergence time is a protocol parameter</td>
+<td>It is the sum of detection, notification, repair and application recovery</td>
+<td>Ch7, Ch8</td>
+</tr>
+<tr>
+<td>4</td>
+<td>"It pings" means the network is fine</td>
+<td>Path quality, MTU, asymmetry and flooding all hide</td>
+<td>Ch7, Ch14</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Security is a device or a zone</td>
+<td>It is a constraint across every layer</td>
+<td>Ch4, Ch10</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Automation is writing scripts</td>
+<td>It is templates, validation, pipelines and rollback</td>
+<td>Ch12</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Multicast is just "enable PIM"</td>
+<td>It is RP design, tree selection and policy</td>
+<td>Ch13</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Cloud connectivity is one link</td>
+<td>It is a model choice (DCI/VPN/gateway) plus routing and security</td>
+<td>Ch3, Ch6</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Migration can be done in one cut</td>
+<td>It is batching, rollback and acceptance</td>
+<td>Ch5, Ch18</td>
+</tr>
+<tr>
+<td>10</td>
+<td>A design is finished at go-live</td>
+<td>Day 2 operations decide whether the design succeeds</td>
+<td>Ch12, Ch14</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>易错认知</th>
+<th>正确理解</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>需求 = 用户说要什么</td>
+<td>需求 = 测量后确认的现象。平均利用率看不见 3 秒突发</td>
+<td>第 1 章</td>
+</tr>
+<tr>
+<td>2</td>
+<td>最佳实践可以直接套用</td>
+<td>最佳实践有前提条件，不问前提就是缺陷</td>
+<td>第 1、5 章</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RTO/RPO 写进方案就成立</td>
+<td>没演练过的 RTO 是假设，实测通常是它的 2–3 倍</td>
+<td>第 2、15 章</td>
+</tr>
+<tr>
+<td>4</td>
+<td>预算是 CAPEX</td>
+<td>TCO 含迁移过渡期、5 年运维、培训、退役</td>
+<td>第 2 章</td>
+</tr>
+<tr>
+<td>5</td>
+<td>视频会议"要带宽"</td>
+<td>要的是低丢包、低抖动、对称上行</td>
+<td>第 3、14 章</td>
+</tr>
+<tr>
+<td>6</td>
+<td>上云是搬机器</td>
+<td>上云是搬"距离"，chatty 应用会被 RTT 放大</td>
+<td>第 3 章</td>
+</tr>
+<tr>
+<td>7</td>
+<td>加密 = 访问控制</td>
+<td>加密只解决"看不见"，进不进得来靠认证授权</td>
+<td>第 4、10 章</td>
+</tr>
+<tr>
+<td>8</td>
+<td>有框架就有架构</td>
+<td>框架要裁剪到决策点，否则只是文档工程</td>
+<td>第 5 章</td>
+</tr>
+<tr>
+<td>9</td>
+<td>二层服务"就像一个大局域网"</td>
+<td>它会把 LAN 的问题（广播、STP、MTU）原封搬到 WAN</td>
+<td>第 6 章</td>
+</tr>
+<tr>
+<td>10</td>
+<td>上了 EVPN 就自动更好</td>
+<td>复杂度从数据面搬到控制面参数，参数不调反而更难预测</td>
+<td>第 6、9 章</td>
+</tr>
+<tr>
+<td>11</td>
+<td>STP 收敛是"秒级"</td>
+<td>取决于拓扑与调优；二层域范围 = 故障域范围</td>
+<td>第 7、15 章</td>
+</tr>
+<tr>
+<td>12</td>
+<td>接口 ≥100M 的 cost 都合理</td>
+<td>默认参考带宽下 cost 全是 1，1G 与 10G 被判等价</td>
+<td>第 8 章</td>
+</tr>
+<tr>
+<td>13</td>
+<td>重分发可以长期用</td>
+<td>必须 tag + route-map + AD 规划，长期应统一协议</td>
+<td>第 8 章</td>
+</tr>
+<tr>
+<td>14</td>
+<td>RT 配了就能通</td>
+<td>RT 决定导入/导出方向，还需 next-hop、SoO、汇总配合</td>
+<td>第 9 章</td>
+</tr>
+<tr>
+<td>15</td>
+<td>VXLAN ping 通就正常</td>
+<td>文件传输卡死几乎总是 MTU/MSS</td>
+<td>第 9、10 章</td>
+</tr>
+<tr>
+<td>16</td>
+<td>CoPP 套模板最省事</td>
+<td>速率过低会掐死路由协议，表现为"部分不通"</td>
+<td>第 10 章</td>
+</tr>
+<tr>
+<td>17</td>
+<td>802.1X 可以直接上 Closed</td>
+<td>必须 Monitor → Low-Impact → Closed 三阶段</td>
+<td>第 10 章</td>
+</tr>
+<tr>
+<td>18</td>
+<td>无线容量看 AP 数量</td>
+<td>看信道规划、空间流、客户端能力、上行带宽与密度设计</td>
+<td>第 11 章</td>
+</tr>
+<tr>
+<td>19</td>
+<td>自动化 = 选工具</td>
+<td>先定约束与爆炸半径，工具是实现细节</td>
+<td>第 12 章</td>
+</tr>
+<tr>
+<td>20</td>
+<td>组播三层配通就行</td>
+<td>二层 IGMP Snooping/Querier 是"最后一公里"</td>
+<td>第 13 章</td>
+</tr>
+<tr>
+<td>21</td>
+<td>QoS 配了就有效</td>
+<td>需要标记信任边界 + 端到端一致 + 队列与限速匹配</td>
+<td>第 14 章</td>
+</tr>
+<tr>
+<td>22</td>
+<td>双核心 = vPC/堆叠</td>
+<td>本质是故障域与运维模型问题，不是技术选型问题</td>
+<td>第 15 章</td>
+</tr>
+<tr>
+<td>23</td>
+<td>多宿主 = 高可用</td>
+<td>入向不可控、状态不可复制，两条硬约束先讲清</td>
+<td>第 16 章</td>
+</tr>
+<tr>
+<td>24</td>
+<td>选传输 = 设计 WAN</td>
+<td>流量矩阵、站点分级、运维能力、合同约束才是输入</td>
+<td>第 17 章</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="design-flaws-closing-edition-bad-habits-in-design-behaviour">Design Flaws (Closing Edition: Bad Habits in Design Behaviour) · 设计缺陷（收尾版：设计行为上的坏习惯）<a class="anchor" href="#design-flaws-closing-edition-bad-habits-in-design-behaviour" title="Permanent link"></a></h2>
+<p>The flaws in the previous 17 chapters are <strong>technical</strong>. Here we add the <strong>behavioural</strong> ones — they appear in no configuration file, yet they destroy more projects than any protocol flaw.</p>
+<div class="zh">
+<p>前面 17 章的缺陷都是<strong>技术层面</strong>的。这里补上<strong>行为层面</strong>的——它们不写在配置里，但决定了方案质量：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Flaw</th>
+<th>Symptom</th>
+<th>Consequence</th>
+<th>Avoidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solution first</strong></td>
+<td>A technology is chosen before requirements are clear</td>
+<td>The requirement gets bent to fit the solution</td>
+<td>Always answer "which requirement does it serve" first</td>
+</tr>
+<tr>
+<td><strong>Documenting only the chosen option</strong></td>
+<td>No record of rejected alternatives</td>
+<td>The same debate repeats, decisions are not auditable</td>
+<td>Record options, trade-offs and reasons for rejection</td>
+</tr>
+<tr>
+<td><strong>Unstated assumptions</strong></td>
+<td>"Everyone knows the carrier provides dual routes"</td>
+<td>The assumption breaks and the design collapses</td>
+<td>Write an explicit assumptions list</td>
+</tr>
+<tr>
+<td><strong>Over-design for the future</strong></td>
+<td>Rarely used capability at many times the complexity</td>
+<td>Operational burden, more failure modes</td>
+<td>Choose by growth evidence, not by imagination</td>
+</tr>
+<tr>
+<td><strong>Optimism about convergence</strong></td>
+<td>Never measured, only estimated</td>
+<td>Fails the SLA at the first real failure</td>
+<td>Long-ping acceptance tests</td>
+</tr>
+<tr>
+<td><strong>Ignoring operations capability</strong></td>
+<td>A design too complex for a 4-person team</td>
+<td>It degrades after go-live</td>
+<td>Manageability as a hard requirement</td>
+</tr>
+<tr>
+<td><strong>Big-bang migration</strong></td>
+<td>One change window, all sites at once</td>
+<td>One failure takes down everything</td>
+<td>Batch, with rollback per batch</td>
+</tr>
+<tr>
+<td><strong>Accepting requirements at face value</strong></td>
+<td>"We need Layer 2 between sites" taken literally</td>
+<td>Expensive, fragile design</td>
+<td>Ask what the real need behind the request is</td>
+</tr>
+<tr>
+<td><strong>No rollback plan</strong></td>
+<td>"It will work"</td>
+<td>Longer outages when it does not</td>
+<td>Define triggers and duration for every change</td>
+</tr>
+<tr>
+<td><strong>Documentation as an afterthought</strong></td>
+<td>Topology and configuration out of sync</td>
+<td>Troubleshooting by guesswork</td>
+<td>Tie documentation ownership to the change process</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>表现</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>只准备一个方案</strong></td>
+<td>评审时只有一套设计，"取舍"无从谈起</td>
+<td>无法证明这是最优解，也无法应对需求变化</td>
+<td>至少两个备选方案 + 明确的分界条件</td>
+</tr>
+<tr>
+<td><strong>从技术偏好倒推需求</strong></td>
+<td>先想用 SD-WAN，再找理由</td>
+<td>方案华丽但解决的不是真问题</td>
+<td>先写需求与约束，再选技术</td>
+</tr>
+<tr>
+<td><strong>把设计评审做成方案宣讲</strong></td>
+<td>只讲"我要做什么"，不讲"为什么不做别的"</td>
+<td>评审失去价值，风险留到实施阶段</td>
+<td>评审必须包含：备选方案、被否决理由、风险与降级路径</td>
+</tr>
+<tr>
+<td><strong>忽视 Day 2</strong></td>
+<td>方案里没有监控、备份、变更流程</td>
+<td>上线即失控，故障时长由"摸索时间"决定</td>
+<td>每个设计交付物配一份运维要点（谁、多久、怎么验证）</td>
+</tr>
+<tr>
+<td><strong>不做量化验收</strong></td>
+<td>验收标准是"能通"</td>
+<td>无法证明业务成果，也无法定位劣化</td>
+<td>验收指标在 Day 0 定义，与业务方共同签字</td>
+</tr>
+<tr>
+<td><strong>过度设计 / 欠设计</strong></td>
+<td>200 人分部上双核心，或核心只做单机</td>
+<td>前者浪费，后者一次故障就下线</td>
+<td>用 RTO/RPO 与流量数据定规模，而不是"和总部一样"</td>
+</tr>
+<tr>
+<td><strong>把"标准"当"正确"</strong></td>
+<td>"集团标准就是这样"</td>
+<td>标准适用于总部，不一定适用于分部</td>
+<td>标准是默认值，例外要有依据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The single most useful self-check</strong>: <strong>can you state three objections to your own design and answer each one?</strong> If not, you have not finished designing.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>最有效的一条自检</strong>：<strong>能不能自己说出三个反对这个方案的理由，并逐个回答？</strong> 说不出，说明方案还没想透。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="lessons-learned-design-and-review">Lessons Learned (Design and Review) · 实战经验总结（设计与评审）<a class="anchor" href="#lessons-learned-design-and-review" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Be able to "tell the story" before you can "draw the diagram"</strong></td>
+<td>If you cannot explain it in business language, the design is not yet clear</td>
+</tr>
+<tr>
+<td><strong>Every decision needs a "why not"</strong></td>
+<td>The reason for rejection is more valuable than the reason for selection</td>
+</tr>
+<tr>
+<td><strong>Quantify before arguing</strong></td>
+<td>Numbers end debates faster than seniority</td>
+</tr>
+<tr>
+<td><strong>Put manageability in the requirements</strong></td>
+<td>Otherwise it will be negotiated away at the end</td>
+</tr>
+<tr>
+<td><strong>Keep the rollback path</strong></td>
+<td>It is part of the design, not an emergency measure</td>
+</tr>
+<tr>
+<td><strong>Review with an adversary</strong></td>
+<td>Invite someone to break the design while it is still cheap</td>
+</tr>
+<tr>
+<td><strong>Write down assumptions</strong></td>
+<td>They are the most likely thing to change after go-live</td>
+</tr>
+<tr>
+<td><strong>Day 2 is the design</strong></td>
+<td>What matters is not go-live, but the three years after</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>经验</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先能"讲"再能"背"</strong></td>
+<td>能用 3 句话把一个技术讲给非本专业同事听，比背完整特性表有效得多</td>
+</tr>
+<tr>
+<td><strong>按"层次"记，不按"章"记</strong></td>
+<td>章是书的组织方式，层是问题的组织方式。记忆负担差一个数量级</td>
+</tr>
+<tr>
+<td><strong>把案例当"条件反射"训练</strong></td>
+<td>看到现象先列 3 个可能根因（配置/设计/容量），再逐个排除，比"想当年见过"稳定</td>
+</tr>
+<tr>
+<td><strong>复盘要追到"哪一层的取舍没想清"</strong></td>
+<td>只记结论是无效的；找出背后的取舍逻辑才能真正迁移到新场景</td>
+</tr>
+<tr>
+<td><strong>评审先给约束，再给方案</strong></td>
+<td>先说清"在什么条件下"，方案才有说服力</td>
+</tr>
+<tr>
+<td><strong>写方案时把"放弃的方案"写进来</strong></td>
+<td>被否决理由是最有说服力的部分，也是后续变更的依据</td>
+</tr>
+<tr>
+<td><strong>交付物随方案一起交付</strong></td>
+<td>拓扑、决策表、验收用例、运维要点缺一项，方案就只完成了一半</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="extended-reading">Extended Reading · 延伸阅读<a class="anchor" href="#extended-reading" title="Permanent link"></a></h2>
+<h3 id="foundations-and-architecture">Foundations and Architecture · 基础与架构<a class="anchor" href="#foundations-and-architecture" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>This book</strong></td>
+<td>CCDE 400-007 Official Cert Guide — the source for the whole set of notes</td>
+</tr>
+<tr>
+<td><strong>RFC 1925</strong></td>
+<td>The Twelve Networking Truths — worth rereading every year</td>
+</tr>
+<tr>
+<td><strong>Cisco CVD / SRND</strong></td>
+<td>Campus, WAN and security design guides — the source of many "best practices"</td>
+</tr>
+<tr>
+<td><strong>TM Forum / ITIL</strong></td>
+<td>The language of operations and service management</td>
+</tr>
+<tr>
+<td><strong>NIST SP 800 series</strong></td>
+<td>Security control frameworks (relevant to Chapter 4)</td>
+</tr>
+<tr>
+<td><strong>MEF specifications</strong></td>
+<td>The formal definitions behind Chapter 6's Carrier Ethernet attributes</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>本书</strong></td>
+<td>CCDE 400-007 Official Cert Guide</td>
+</tr>
+<tr>
+<td><strong>CCDE 学习指南</strong></td>
+<td>Marwan Al-Shawi 著，案例视角更贴近实战</td>
+</tr>
+<tr>
+<td><strong>Cisco CVD / 设计指南</strong></td>
+<td>经过验证的设计与规模边界</td>
+</tr>
+<tr>
+<td><strong>RFC</strong></td>
+<td>关键机制的权威定义</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="recommended-rfcs-rfc">Recommended RFCs · 推荐阅读的 RFC<a class="anchor" href="#recommended-rfcs-rfc" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>RFC</th>
+<th>Title</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RFC 1918</td>
+<td>Address Allocation for Private Internets</td>
+<td>Addressing</td>
+</tr>
+<tr>
+<td>RFC 4271</td>
+<td>A Border Gateway Protocol 4 (BGP-4)</td>
+<td>Inter-domain routing</td>
+</tr>
+<tr>
+<td>RFC 2328</td>
+<td>OSPF Version 2</td>
+<td>Intra-domain routing</td>
+</tr>
+<tr>
+<td>RFC 5301–5304</td>
+<td>IS-IS extensions</td>
+<td>IS-IS</td>
+</tr>
+<tr>
+<td>RFC 4760</td>
+<td>Multiprotocol Extensions for BGP-4</td>
+<td>MP-BGP</td>
+</tr>
+<tr>
+<td>RFC 7432</td>
+<td>BGP MPLS-Based Ethernet VPN</td>
+<td>EVPN</td>
+</tr>
+<tr>
+<td>RFC 7348</td>
+<td>Virtual eXtensible Local Area Network (VXLAN)</td>
+<td>Overlay</td>
+</tr>
+<tr>
+<td>RFC 4601/7761</td>
+<td>PIM-SM / PIM-SSM</td>
+<td>Multicast</td>
+</tr>
+<tr>
+<td>RFC 5880/5881</td>
+<td>BFD</td>
+<td>Fast failure detection</td>
+</tr>
+<tr>
+<td>RFC 5798</td>
+<td>VRRP v3</td>
+<td>First-hop redundancy</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>RFC</th>
+<th>标题</th>
+<th>主题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RFC 4364</td>
+<td>BGP/MPLS IP VPNs</td>
+<td>L3VPN</td>
+</tr>
+<tr>
+<td>RFC 4761/4762</td>
+<td>VPLS</td>
+<td>L2VPN</td>
+</tr>
+<tr>
+<td>RFC 7432</td>
+<td>BGP EVPN</td>
+<td>EVPN</td>
+</tr>
+<tr>
+<td>RFC 3916</td>
+<td>PWE3 Requirements</td>
+<td>伪线需求</td>
+</tr>
+<tr>
+<td>RFC 4577</td>
+<td>OSPF as PE-CE</td>
+<td>OSPF VPN</td>
+</tr>
+<tr>
+<td>RFC 2328</td>
+<td>OSPF v2</td>
+<td>OSPF</td>
+</tr>
+<tr>
+<td>RFC 5340</td>
+<td>OSPF v3</td>
+<td>IPv6 OSPF</td>
+</tr>
+<tr>
+<td>RFC 4271</td>
+<td>BGP-4</td>
+<td>BGP</td>
+</tr>
+<tr>
+<td>RFC 1195</td>
+<td>IS-IS</td>
+<td>IS-IS</td>
+</tr>
+<tr>
+<td>RFC 7761</td>
+<td>PIM-SM</td>
+<td>组播</td>
+</tr>
+<tr>
+<td>RFC 8200</td>
+<td>IPv6</td>
+<td>IPv6</td>
+</tr>
+<tr>
+<td>RFC 4594</td>
+<td>QoS 服务类</td>
+<td>QoS 设计</td>
+</tr>
+<tr>
+<td>RFC 7348</td>
+<td>VXLAN</td>
+<td>Overlay</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The right way to read an RFC</strong>: do not read it end to end, but be able to answer "what problem does this mechanism solve, at what cost, and under what conditions does it fail". That is the level of understanding design work requires.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>读 RFC 的正确姿势</strong>：不必通读，但要能回答"这个机制解决什么问题、代价是什么"。先读 Introduction 与 Design Considerations 两节，通常就够了。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="key-terms">Key Terms · 本章关键术语<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Chinese meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business Driver</td>
+<td>业务驱动力</td>
+</tr>
+<tr>
+<td>Business Outcome / KPI</td>
+<td>业务成果 / 关键绩效指标</td>
+</tr>
+<tr>
+<td>Current-State Baseline</td>
+<td>现状基线</td>
+</tr>
+<tr>
+<td>Functional / Non-functional Requirement</td>
+<td>功能 / 非功能需求</td>
+</tr>
+<tr>
+<td>Constraint</td>
+<td>约束</td>
+</tr>
+<tr>
+<td>Failure Domain</td>
+<td>故障域</td>
+</tr>
+<tr>
+<td>Convergence Time</td>
+<td>收敛时间</td>
+</tr>
+<tr>
+<td>Rollback</td>
+<td>回滚</td>
+</tr>
+<tr>
+<td>Migration Roadmap</td>
+<td>迁移路线图</td>
+</tr>
+<tr>
+<td>Acceptance Criteria</td>
+<td>验收标准</td>
+</tr>
+<tr>
+<td>Manageability</td>
+<td>可管理性</td>
+</tr>
+<tr>
+<td>Total Cost of Ownership (TCO)</td>
+<td>总拥有成本</td>
+</tr>
+<tr>
+<td>Design Decision Table</td>
+<td>设计决策表</td>
+</tr>
+<tr>
+<td>Assumption</td>
+<td>假设</td>
+</tr>
+<tr>
+<td>Day 2 Operations</td>
+<td>运维阶段（上线之后）</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business-driven Design</td>
+<td>业务驱动设计</td>
+</tr>
+<tr>
+<td>Design Trade-off</td>
+<td>设计权衡</td>
+</tr>
+<tr>
+<td>Requirement Traceability</td>
+<td>需求可追溯性</td>
+</tr>
+<tr>
+<td>Design Review</td>
+<td>设计评审</td>
+</tr>
+<tr>
+<td>Day 2 Operations</td>
+<td>运维阶段（上线之后）</td>
+</tr>
+<tr>
+<td>Failure Domain</td>
+<td>故障域</td>
+</tr>
+<tr>
+<td>Technical Debt</td>
+<td>技术债</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>基线（现状与性能基准）</td>
+</tr>
+<tr>
+<td>Migration Runbook</td>
+<td>迁移操作手册（含回退步骤）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="chapter-summary">Chapter Summary · 本章小结<a class="anchor" href="#chapter-summary" title="Permanent link"></a></h2>
+<p>Chapter 18 introduces no new knowledge; it supplies <strong>a way to retrieve and an order to assemble</strong>. The whole book compresses into three questions:</p>
+<div class="zh">
+<p>第 18 章不提供新知识，它提供<strong>检索方式与装配顺序</strong>。把全书压缩成三个问题：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Which part answers it</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why do it?</td>
+<td>Part I (Chapters 1–5)</td>
+<td>Can you state the business outcome and its KPI</td>
+</tr>
+<tr>
+<td>How?</td>
+<td>Part II (Chapters 6–14)</td>
+<td>Can you produce a decision table with reasons for rejection</td>
+</tr>
+<tr>
+<td>In this scenario?</td>
+<td>Part III (Chapters 15–17)</td>
+<td>Can you map requirements onto a reference architecture</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>用哪一部分回答</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>为什么做这件事？</strong></td>
+<td>Part I（第 1–5 章）</td>
+<td>有没有可测的业务成果与约束清单</td>
+</tr>
+<tr>
+<td><strong>用什么技术做？</strong></td>
+<td>Part II（第 6–14 章）</td>
+<td>能不能说清每个选择的代价与适用边界</td>
+</tr>
+<tr>
+<td><strong>在具体场景怎么组合？</strong></td>
+<td>Part III（第 15–17 章）</td>
+<td>能不能按"边界 → 层次 → 路由 → 隔离 → 容量 → 验证"的顺序推进</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Three closing recommendations:</p>
+<div class="zh">
+<p>三条收尾建议：</p>
+</div>
+<ol>
+<li><strong>Use the knowledge map for navigation, not memorisation.</strong> In a project or a review, ask only "which layer is this", then go to that chapter.</li>
+<li><strong>Use the seven steps as a checklist.</strong> Any time you are stuck, look at which step you skipped.</li>
+<li><strong>Use the mistake list to review yourself.</strong> Especially the behavioural flaws — they are harder to see than technical ones.</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>知识地图用来定位，不用来记忆</strong>。做项目或评审时，只问"这属于哪一层"，然后去那一层找答案，比自己硬想快得多。</li>
+<li><strong>缺陷清单用来防错，不用来背</strong>。200+ 条缺陷的价值不在于记住，而在于评审时逐条对照。</li>
+<li><strong>案例用来建立直觉</strong>。真正把水平拉开的是"看到现象就能列出 3 个可能根因"，这只能靠案例积累。</li>
+</ol>
+</div>
+<blockquote>
+<p><strong>One-line memory hook</strong>: <strong>design capability = making trade-offs under constraints, and being able to explain why.</strong> All 18 chapters of this book circle around that one sentence.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>一句话记忆</strong>：<strong>设计能力 = 在约束下做取舍，并能说清为什么。</strong> 全书 18 章都在训练这一件事。</p>
+</blockquote>
+</div>
+<p>This completes all 18 chapters of notes. Go back to the home page to search by keyword, or browse the sidebar in Part order.</p>
+<div class="zh">
+<p>到这里，18 章笔记全部完成。回到首页用搜索框按关键词检索，或从侧边栏按 Part 顺序重读。</p>
+</div></article>
+    <nav class="pager"><a class="pager-link prev" href="en-07.html"><span class="pager-label">Previous</span><span class="pager-title">Chapter 7 · Layer 2 Technologies</span></a></nav>
+    
+    <section class="board" id="board" data-page="EN · Chapter 18 · Final Preparation" data-key="en-18">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">EN · Chapter 18 · Final Preparation</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#topics-covered">Topics Covered · 本章涵盖主题</a></li>
+<li><a href="#the-knowledge-map-of-the-whole-book">The Knowledge Map of the Whole Book · 全书知识地图</a></li>
+<li><a href="#three-study-threads">Three Study Threads · 三条学习主线</a><ul>
+<li><a href="#thread-1-the-business-thread-answering-why">Thread 1: The Business Thread (answering "why") · 主线一：业务线（回答"为什么"）</a></li>
+<li><a href="#thread-2-the-architecture-thread-answering-at-which-layer">Thread 2: The Architecture Thread (answering "at which layer") · 主线二：架构线（回答"在哪一层解决"）</a></li>
+<li><a href="#thread-3-the-technology-thread-answering-how-exactly-to-configure-it">Thread 3: The Technology Thread (answering "how exactly to configure it") · 主线三：技术线（回答"具体怎么配"）</a></li>
+</ul>
+</li>
+<li><a href="#the-overall-design-workflow-seven-steps">The Overall Design Workflow (Seven Steps) · 设计决策总流程（七步）</a><ul>
+<li><a href="#step-0-kickoff-and-scope-definition-step-0">Step 0: Kickoff and Scope Definition · Step 0 立项与范围界定</a></li>
+<li><a href="#step-1-clarify-business-goals-and-outcomes-step-1">Step 1: Clarify Business Goals and Outcomes · Step 1 澄清业务目标与成果</a></li>
+<li><a href="#step-2-establish-the-current-state-baseline-step-2">Step 2: Establish the Current-State Baseline · Step 2 建立现状基线</a></li>
+<li><a href="#step-3-define-requirements-and-constraints-step-3">Step 3: Define Requirements and Constraints · Step 3 定义需求与约束</a></li>
+<li><a href="#step-4-draw-the-architecture-boundaries-step-4">Step 4: Draw the Architecture Boundaries · Step 4 划分架构边界</a></li>
+<li><a href="#step-5-layered-technical-decisions-step-5">Step 5: Layered Technical Decisions · Step 5 分层技术决策</a></li>
+<li><a href="#step-6-validation-and-quantitative-acceptance-step-6">Step 6: Validation and Quantitative Acceptance · Step 6 验证与量化验收</a></li>
+<li><a href="#step-7-migration-and-day-2-step-7-day-2">Step 7: Migration and Day 2 · Step 7 迁移与 Day 2</a></li>
+</ul>
+</li>
+<li><a href="#design-deliverables-checklist">Design Deliverables Checklist · 设计交付物清单</a></li>
+<li><a href="#design-judgement-checklist-usable-for-any-proposal">Design Judgement Checklist (Usable for Any Proposal) · 设计判断清单（任何方案都能用）</a></li>
+<li><a href="#integrated-case-a-real-transformation-that-strings-the-whole-book-together">Integrated Case: A Real Transformation That Strings the Whole Book Together · 综合案例：把全书串起来的一次真实改造</a></li>
+<li><a href="#core-thinking-modes">Core Thinking Modes · 核心思维模式</a></li>
+<li><a href="#cross-chapter-trade-off-lookup-one-question-many-answers">Cross-Chapter Trade-Off Lookup: One Question, Many Answers · 跨章取舍速查：同一个问题，各章给了什么答案</a></li>
+<li><a href="#high-frequency-mistake-list-whole-book-quick-reference">High-Frequency Mistake List (Whole-Book Quick Reference) · 高频易错点清单（全书速查）</a></li>
+<li><a href="#design-flaws-closing-edition-bad-habits-in-design-behaviour">Design Flaws (Closing Edition: Bad Habits in Design Behaviour) · 设计缺陷（收尾版：设计行为上的坏习惯）</a></li>
+<li><a href="#lessons-learned-design-and-review">Lessons Learned (Design and Review) · 实战经验总结（设计与评审）</a></li>
+<li><a href="#extended-reading">Extended Reading · 延伸阅读</a><ul>
+<li><a href="#foundations-and-architecture">Foundations and Architecture · 基础与架构</a></li>
+<li><a href="#recommended-rfcs-rfc">Recommended RFCs · 推荐阅读的 RFC</a></li>
+</ul>
+</li>
+<li><a href="#key-terms">Key Terms · 本章关键术语</a></li>
+<li><a href="#chapter-summary">Chapter Summary · 本章小结</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>
