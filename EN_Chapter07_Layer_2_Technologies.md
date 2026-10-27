@@ -1006,7 +1006,7 @@ vtp mode transparent                          ! 或 off（不参与 VTP）
 
 </div>
 
-#### Link Aggregation · 链路聚合
+### Link Aggregation · 链路聚合
 
 IEEE 802.3ad, combining multiple physical links into one logical link.
 
@@ -1279,7 +1279,7 @@ interface Port-channel10
 
 </div>
 
-#### mLAG / Switch Clustering (Layer 2 Multi-Chassis Technologies) · mLAG / 交换机集群（二层多机箱技术）
+### mLAG / Switch Clustering (Layer 2 Multi-Chassis Technologies) · mLAG / 交换机集群（二层多机箱技术）
 
 Strictly, mLAG is the **mechanism** and "switch clustering" is the **effect**. They share exactly one goal:
 
