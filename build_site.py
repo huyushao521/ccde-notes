@@ -241,7 +241,7 @@ def sidebar_html(chapters, current_slug=None, appendices=(), en_chapters=()):
         blocks.append(
             f'<div class="nav-group">'
             f'<div class="nav-head"><span class="nav-part">English Edition</span>'
-            f'<span class="nav-sub">英文版 · Chapter 1–{len(en_chapters)}</span></div>'
+            f'<span class="nav-sub">中英对照 · Chapter 1–{len(en_chapters)}</span></div>'
             f'<div class="nav-items">{"".join(links)}</div></div>'
         )
     return "".join(blocks)
@@ -481,7 +481,7 @@ def main():
         body, toc = render(ec["raw"])
         meta = (
             f'<div class="ch-meta">'
-            f'<span class="badge" data-s="English">English Edition</span>'
+            f'<span class="badge" data-s="English">English · 中文对照</span>'
             f'<span class="ch-words">Chapter {ec["num"]} · about {ec["words"]} words</span></div>'
         )
         prev_ec = en_chapters[i - 1] if i > 0 else None
@@ -561,14 +561,14 @@ def main():
             f'<a class="card" href="{c["slug"]}.html">'
             f'<span class="card-num">EN</span>'
             f'<span class="card-body"><strong>Chapter {c["num"]} · {c["title"]}</strong>'
-            f'<em>Full chapter in English · about {c["words"]} words</em>'
+            f'<em>一段英文一段中文 · 约 {c["words"]} 词英文原文</em>'
             f'<span class="badge" data-s="English">English</span>'
             f'</span></a>'
             for c in en_chapters
         )
         cards.append(
-            f'<section class="card-group"><h2 class="group-title">English Edition · 英文版章节</h2>'
-            f'<p class="group-sub">已出 {len(en_chapters)} 章 · 与中文章节一一对应的完整英文版</p>'
+            f'<section class="card-group"><h2 class="group-title">English Edition · 中英对照章节</h2>'
+            f'<p class="group-sub">已出 {len(en_chapters)} 章 · 一段英文一段中文，与中文章节一一对应</p>'
             f'<div class="card-grid">{links}</div></section>'
         )
 
