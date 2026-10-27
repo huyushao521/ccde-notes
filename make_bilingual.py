@@ -110,7 +110,8 @@ def zh_div(text: str) -> str:
     return f'<div class="zh" markdown="1">\n\n{text}\n\n</div>'
 
 
-def build(en_raw: str, zh_raw: str, check: bool = False) -> str:
+def build(en_raw: str, zh_raw: str, check: bool = False, chapter: str = "01") -> str:
+    overrides = PAIR_OVERRIDES if chapter == "01" else {}
     en, zh = parse(en_raw), parse(zh_raw)
     if len(en) != len(zh):
         print(f"[WARN] 节数不一致：英文 {len(en)} / 中文 {len(zh)}")
@@ -122,8 +123,8 @@ def build(en_raw: str, zh_raw: str, check: bool = False) -> str:
         eb, zb = merge_blocks(e["blocks"]), merge_blocks(z["blocks"])
         heading = "#" * e["level"] + " " + combine_title(e["title"], z["title"])
 
-        if idx in PAIR_OVERRIDES:
-            pairs = PAIR_OVERRIDES[idx]
+        if idx in overrides:
+            pairs = overrides[idx]
         elif len(eb) == len(zb):
             pairs = [([i], [i]) for i in range(len(eb))]
         else:
@@ -179,7 +180,7 @@ def main(argv=None):
         print(f"[ERR] {en_path.name} 已经是双语格式，拒绝重复处理（可从 git 取回纯英文版本）")
         return 1
 
-    result = build(en_raw, zh_raw=zh_path.read_text(encoding="utf-8"), check=args.check)
+    result = build(en_raw, zh_raw=zh_path.read_text(encoding="utf-8"), check=args.check, chapter=args.num)
     if args.check:
         print(result[:1500])
         print("...")

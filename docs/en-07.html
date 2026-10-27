@@ -1,0 +1,6001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 7: Layer 2 Technologies · English Edition · CCDE 400-007 学习笔记</title>
+<meta name="description" content="Cisco Certified Design Expert · Official Cert Guide 中文精读">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/board.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e5fd0'/><text y='72' x='50' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>C</text></svg>">
+</head>
+<body class="layout-doc">
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="菜单"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">C</span>
+    <span class="brand-text"><strong>CCDE 400-007 学习笔记</strong><small>Cisco Certified Design Expert · Official Cert Guide 中文精读</small></span>
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="搜索章节 / 关键词…" autocomplete="off" aria-label="搜索">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="切换主题">◐</button>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-inner"><div class="nav-group"><div class="nav-head"><span class="nav-part">Part I · 什么是网络设计</span><span class="nav-sub">设计思维 · 需求 · 业务 · 安全 · 架构框架</span></div><div class="nav-items"><a class="nav-link" href="ch-01.html"><span class="nav-num">01</span><span class="nav-title">网络设计</span></a><a class="nav-link" href="ch-02.html"><span class="nav-num">02</span><span class="nav-title">为商业成功而设计</span></a><a class="nav-link" href="ch-03.html"><span class="nav-num">03</span><span class="nav-title">网络的目的是什么</span></a><a class="nav-link" href="ch-04.html"><span class="nav-num">04</span><span class="nav-title">安全是普适的</span></a><a class="nav-link" href="ch-05.html"><span class="nav-num">05</span><span class="nav-title">参考架构模型与框架</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part II · 核心技术设计</span><span class="nav-sub">传输 · 二层 · 三层 · 虚拟化 · 安全 · 无线 · 自动化 · 组播 · 服务管理</span></div><div class="nav-items"><a class="nav-link" href="ch-06.html"><span class="nav-num">06</span><span class="nav-title">传输技术</span></a><a class="nav-link" href="ch-07.html"><span class="nav-num">07</span><span class="nav-title">二层技术</span></a><a class="nav-link" href="ch-08.html"><span class="nav-num">08</span><span class="nav-title">三层技术</span></a><a class="nav-link" href="ch-09.html"><span class="nav-num">09</span><span class="nav-title">网络虚拟化</span></a><a class="nav-link" href="ch-10.html"><span class="nav-num">10</span><span class="nav-title">安全</span></a><a class="nav-link" href="ch-11.html"><span class="nav-num">11</span><span class="nav-title">无线</span></a><a class="nav-link" href="ch-12.html"><span class="nav-num">12</span><span class="nav-title">自动化</span></a><a class="nav-link" href="ch-13.html"><span class="nav-num">13</span><span class="nav-title">组播设计</span></a><a class="nav-link" href="ch-14.html"><span class="nav-num">14</span><span class="nav-title">网络服务与管理</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">Part III · 企业网络架构</span><span class="nav-sub">园区 · 互联网边缘 · WAN 架构设计</span></div><div class="nav-items"><a class="nav-link" href="ch-15.html"><span class="nav-num">15</span><span class="nav-title">可扩展企业园区架构设计</span></a><a class="nav-link" href="ch-16.html"><span class="nav-num">16</span><span class="nav-title">企业互联网边缘架构设计</span></a><a class="nav-link" href="ch-17.html"><span class="nav-num">17</span><span class="nav-title">企业WAN架构设计</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">收尾与串讲</span><span class="nav-sub">全书串讲 · 设计决策流程</span></div><div class="nav-items"><a class="nav-link" href="ch-18.html"><span class="nav-num">18</span><span class="nav-title">最终准备</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">附录 · 速查工具</span><span class="nav-sub">术语 · 对比 · 自测</span></div><div class="nav-items"><a class="nav-link" href="apx-a.html"><span class="nav-num">A</span><span class="nav-title">术语总表</span></a><a class="nav-link" href="apx-b.html"><span class="nav-num">B</span><span class="nav-title">跨章对比速查</span></a><a class="nav-link" href="apx-c.html"><span class="nav-num">C</span><span class="nav-title">自测题库</span></a></div></div><div class="nav-group"><div class="nav-head"><span class="nav-part">English Edition</span><span class="nav-sub">中英对照 · Chapter 1–7</span></div><div class="nav-items"><a class="nav-link" href="en-01.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 1 · Network Design</span></a><a class="nav-link" href="en-02.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 2 · Designing for Business Success</span></a><a class="nav-link" href="en-03.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 3 · What Is the Purpose of the Network</span></a><a class="nav-link" href="en-04.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 4 · Security Is Pervasive</span></a><a class="nav-link" href="en-05.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 5 · Reference Architecture Models and Frameworks</span></a><a class="nav-link" href="en-06.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 6 · Transport Technologies</span></a><a class="nav-link active" href="en-07.html"><span class="nav-num">EN</span><span class="nav-title">Chapter 7 · Layer 2 Technologies</span></a></div></div></div>
+    <div class="sidebar-foot">CCDE 400-007 · 学习笔记</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main">
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 7 · about 11637 words</span></div><h1 id="chapter-7-layer-2-technologies-7">Chapter 7: Layer 2 Technologies · 第 7 章：二层技术<a class="anchor" href="#chapter-7-layer-2-technologies-7" title="Permanent link"></a></h1>
+<blockquote>
+<p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 7 (pp. 300–389)</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 300-321 页</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="topics-covered">Topics Covered · 本章涵盖主题<a class="anchor" href="#topics-covered" title="Permanent link"></a></h2>
+<ul>
+<li><strong>Core Layer 2 technologies</strong>: STP (including MST/RSTP details), VLANs, trunking, link aggregation, mLAG/switch clustering, FHRP</li>
+<li><strong>Layer 2 design models</strong>: STP-based models, switch clustering models, daisy chains</li>
+<li><strong>Design decisions and pitfalls</strong>: end-to-end VLAN versus local VLAN, root bridge and gateway alignment, failure domains</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>二层核心技术</strong>：STP（含 MST/RSTP 细节）、VLAN、Trunk、链路聚合、mLAG、FHRP</li>
+<li><strong>二层 LAN 设计模型</strong>：STP 四种拓扑、交换机集群模型、菊花链</li>
+<li><strong>收敛与故障域</strong>：收敛时间的分段构成、脑裂、单向链路、根桥规划</li>
+</ul>
+</div>
+<hr />
+<h2 id="chapter-overview-four-counter-intuitive-truths-about-layer-2-design">Chapter Overview: Four Counter-Intuitive Truths About Layer 2 Design · 本章导读：二层设计的四条反直觉认知<a class="anchor" href="#chapter-overview-four-counter-intuitive-truths-about-layer-2-design" title="Permanent link"></a></h2>
+<h3 id="counter-intuitive-truth-1-layer-2-has-no-concept-of-destination">Counter-Intuitive Truth 1: Layer 2 Has No Concept of "Destination" · 反直觉一：二层网络没有"目的地"这个概念<a class="anchor" href="#counter-intuitive-truth-1-layer-2-has-no-concept-of-destination" title="Permanent link"></a></h3>
+<p>In a Layer 3 network, which way a packet goes is decided by the <strong>routing table</strong> — a converged, predictable structure with an explicit state for "destination unreachable".</p>
+<div class="zh">
+<p>三层网络里，包走哪个方向由<strong>路由表</strong>决定。路由表是一个<strong>收敛的、可预测的、有明确状态</strong>的东西：链路坏了，路由重算，路径变了，你在任何一台上都能查出来。</p>
+</div>
+<p>Layer 2 is not like that. Layer 2 forwarding relies on <strong>two actions</strong>:</p>
+<div class="zh">
+<p>二层不是这样。二层的转发靠<strong>两个动作</strong>：</p>
+</div>
+<pre><code>① Known unicast: look up the MAC table → outbound interface (forward if present, flood if absent)
+② Unknown unicast / broadcast / multicast: flood out every port in the VLAN except the ingress one
+</code></pre>
+<div class="zh">
+<pre><code>① 已知单播：查 MAC 表 → 出接口（有就转发，没有就泛洪）
+② 未知单播 / 广播 / 组播：泛洪到同一 VLAN 的所有端口
+</code></pre>
+</div>
+<p><strong>Flooding is the native behaviour of Layer 2, not an error condition.</strong> So the moment a loop exists, frames circle forever — and unlike Layer 3, no TTL decrements to kill them.</p>
+<div class="zh">
+<p><strong>泛洪是二层的原生行为，不是异常行为。</strong> 于是只要有环，帧就会永远转下去 —— 而且<strong>二层帧没有 TTL</strong>（三层的 IP 有 TTL，转 255 次就丢；以太网帧没有这个字段），所以环路不会"自己停下"，只会越积越多，直到链路和 CPU 全部瘫掉。</p>
+</div>
+<p>All of STP's work is <strong>deliberately cutting some links out of service</strong>, trading bandwidth and convergence time for loop-freedom.</p>
+<div class="zh">
+<p>STP 的全部工作，就是<strong>人为地把一部分链路砍掉</strong>，用牺牲带宽和收敛时间来换取无环。这是本章所有设计逻辑的起点。</p>
+</div>
+<h3 id="counter-intuitive-truth-2-however-well-stp-is-configured-it-is-a-patch-the-goal-is-to-leave-it-nothing-to-do-stp">Counter-Intuitive Truth 2: However Well STP Is Configured It Is a Patch — the Goal Is to Leave It Nothing to Do · 反直觉二：STP 配得再好也是"补救"，目标是让它无事可做<a class="anchor" href="#counter-intuitive-truth-2-however-well-stp-is-configured-it-is-a-patch-the-goal-is-to-leave-it-nothing-to-do-stp" title="Permanent link"></a></h3>
+<p>Beginners who finish STP's three versions and four guards assume "this chapter is about configuring STP well". That is the direction of travel, not the goal.</p>
+<div class="zh">
+<p>初学者学完 STP 的三种版本、四种 Guard，会以为"这一章是学怎么把 STP 配好"。实际上现代二层设计的成就是<strong>让 STP 从转发决策里退出去</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Technology</th>
+<th>Role of STP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>802.1D</td>
+<td>Traditional STP</td>
+<td>Half the links blocked, convergence 30–50 s</td>
+</tr>
+<tr>
+<td>802.1w/s</td>
+<td>RSTP / MST</td>
+<td>Faster, but blocking still exists</td>
+</tr>
+<tr>
+<td>mLAG / stacking</td>
+<td>Switch clustering</td>
+<td><strong>STP no longer needs to block anything</strong></td>
+</tr>
+<tr>
+<td>Layer 3 to the access layer</td>
+<td>Routed access</td>
+<td><strong>No Layer 2 loop exists at all</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>世代</th>
+<th>技术</th>
+<th>STP 的角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一代</td>
+<td>802.1D</td>
+<td><strong>唯一的防环机制</strong>，收敛 30–50 秒</td>
+</tr>
+<tr>
+<td>第二代</td>
+<td>RSTP / MST</td>
+<td>收敛快，但仍然<strong>必须阻塞端口</strong></td>
+</tr>
+<tr>
+<td>第三代</td>
+<td>链路聚合 + 无环 U 型</td>
+<td>没有阻塞端口，STP 只做<strong>兜底保护</strong></td>
+</tr>
+<tr>
+<td>第四代</td>
+<td>mLAG / VSS / vPC / EVPN-MH</td>
+<td>STP <strong>完全不参与</strong>，所有链路转发</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The test is simple</strong>: if ports in your network still sit in <code>BLK</code>/<code>ALTN</code> state wasting links, the design still has room to improve.</p>
+<div class="zh">
+<p><strong>判断标准很简单</strong>：如果你的网络里还有端口处于 <code>BLK</code>/<code>ALTN</code> 状态在被浪费，那么你的设计还在第三代以前。</p>
+</div>
+<blockquote>
+<p>💡 <strong>The one sentence to remember</strong>: for every Layer 2 technology you introduce, first ask <strong>which blocked port or which convergence delay it eliminates</strong>. If it eliminates neither, it is complexity for its own sake.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>一句话记住本章</strong>：每引入一项二层技术，先问它<strong>消灭了哪一个阻塞端口或收敛依赖</strong>。凡是不能回答这个问题的配置，都是运维负担而不是设计。</p>
+</blockquote>
+</div>
+<h3 id="counter-intuitive-truth-3-layer-2-failures-are-almost-always-silent">Counter-Intuitive Truth 3: Layer 2 Failures Are Almost Always Silent · 反直觉三：二层的故障几乎都是"静默"的<a class="anchor" href="#counter-intuitive-truth-3-layer-2-failures-are-almost-always-silent" title="Permanent link"></a></h3>
+<p>This is the cruellest part of Layer 2. Layer 3 problems give you signals: routes vanish, pings fail, neighbours drop, logs fill.</p>
+<div class="zh">
+<p>这是二层最要命的地方。三层出问题会给你信号：路由没了、ping 不通、邻居 down、日志报错。</p>
+</div>
+<p>Typical signs of a Layer 2 problem:</p>
+<div class="zh">
+<p>二层出问题的典型表现是：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>How users describe it</th>
+<th>Real cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Everything got slow at 10 a.m."</td>
+<td>The network is slow</td>
+<td>A loop or a broadcast storm</td>
+</tr>
+<tr>
+<td>"Some machines cannot reach some others"</td>
+<td>Intermittent, not reproducible</td>
+<td>Asymmetric path, MAC flapping</td>
+</tr>
+<tr>
+<td>"It was fine, then it was not"</td>
+<td>Nobody changed anything</td>
+<td>A one-way fiber failure creating a loop</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>用户描述</th>
+<th>真实原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>变慢</td>
+<td>"网有点卡"</td>
+<td>流量绕行了一条几乎没带宽的路径</td>
+</tr>
+<tr>
+<td>部分不通</td>
+<td>"这层楼有的电脑上不了网"</td>
+<td>ARP 或 MAC 表被污染</td>
+</tr>
+<tr>
+<td>时通时不通</td>
+<td>"刷新几次就好了"</td>
+<td>环路导致 MAC 表翻转（MAC flapping）</td>
+</tr>
+<tr>
+<td>大面积断</td>
+<td>"整栋楼上不了网"</td>
+<td>广播风暴 / 脑裂</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Layer 2 does not raise errors; it quietly gets slower, or quietly loops.</strong> Acceptance criteria therefore cannot be "it pings" — they have to measure convergence time and prove loop protection.</p>
+<div class="zh">
+<p><strong>二层不会报错，它只会安静地变慢，或者安静地环路。</strong> 所以二层设计的验收标准不能是"能通"，必须是"<strong>在故障场景下行为符合预期</strong>"。</p>
+</div>
+<h3 id="counter-intuitive-truth-4-redundancy-is-not-reliability-unless-the-two-copies-have-independent-failure-domains">Counter-Intuitive Truth 4: Redundancy Is Not Reliability Unless the Two Copies Have Independent Failure Domains · 反直觉四：冗余 ≠ 可靠，除非两个副本的失效域是独立的<a class="anchor" href="#counter-intuitive-truth-4-redundancy-is-not-reliability-unless-the-two-copies-have-independent-failure-domains" title="Permanent link"></a></h3>
+<p>Two real incidents in this chapter make the point:</p>
+<div class="zh">
+<p>本章有两个真实事故能说明这一点：</p>
+</div>
+<ul>
+<li>Case 2: peer-link and peer-keepalive share <strong>the same conduit</strong> → the conduit is damaged and both die at once</li>
+<li>Case 5: dual uplinks land on <strong>two devices in the same cabinet</strong> → one PDU failure and both "redundant" paths disappear together</li>
+</ul>
+<div class="zh">
+<ul>
+<li>案例二：peer-link 和 peer-keepalive 走在<strong>同一根管道</strong>里，施工挖断后同时失效 → 脑裂 → 全厂停机两小时</li>
+<li>案例五：双上行分别接到两台交换机，但<strong>两台交换机在同一机柜、同一路市电</strong> → 断电时两条路径一起没了</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>Looks redundant</th>
+<th>Actually still a single point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two devices, same cabinet, same feed</td>
+<td>Power and cooling</td>
+</tr>
+<tr>
+<td>Two links, same conduit, same route</td>
+<td>Physical path</td>
+</tr>
+<tr>
+<td>Two uplinks, same line card</td>
+<td>Hardware</td>
+</tr>
+<tr>
+<td>Two circuits, same carrier POP</td>
+<td>Carrier infrastructure</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>看起来是冗余</th>
+<th>实际上仍是单点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>两根光纤走同一桥架</td>
+<td>一处施工</td>
+</tr>
+<tr>
+<td>两条链路上联同一台交换机</td>
+<td>那台交换机</td>
+</tr>
+<tr>
+<td>双电源接同一路市电</td>
+<td>那路市电</td>
+</tr>
+<tr>
+<td>双上行接到同一机柜的两台设备</td>
+<td>那个机柜（断电/漏水/消防）</td>
+</tr>
+<tr>
+<td>双运营商但接入同一个城域网节点</td>
+<td>那个节点</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>The question every design review must ask</strong>: <strong>"Are the failure domains of these two paths independent?"</strong> If the answer is not a definite yes, the availability figure you promise is fiction.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>设计评审必问的那句话</strong>：<strong>"这两条路径的失效域是独立的吗？"</strong> 如果答不上来，就不要在文档里写"高可用"。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="layer-2-design-methodology-five-steps-in-order">Layer 2 Design Methodology: Five Steps in Order · 二层设计方法论：五步定序<a class="anchor" href="#layer-2-design-methodology-five-steps-in-order" title="Permanent link"></a></h2>
+<p>Nine out of ten Layer 2 design failures come from <strong>getting the order wrong</strong>. The correct order is a top-down sequence:</p>
+<div class="zh">
+<p>二层设计的失败，九成源于<strong>顺序错了</strong>。正确的顺序是自顶向下的五步：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What gets decided</th>
+<th>Consequence of getting it wrong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Define the Layer 2 domain boundary</td>
+<td>Which VLANs span which switches; can Layer 3 reach the access layer</td>
+<td>Too large = one loop takes down everything</td>
+</tr>
+<tr>
+<td>2. Choose the topology</td>
+<td>Looped triangle, loop-free U, switch clustering</td>
+<td>Redundancy is wasted or fragile</td>
+</tr>
+<tr>
+<td>3. Decide the STP root</td>
+<td>Which switch is root and which gateway it aligns with</td>
+<td>Path detours, saturated inter-switch links</td>
+</tr>
+<tr>
+<td>4. Design FHRP</td>
+<td>Instances, priorities, tracking</td>
+<td>Black holes, slow failover</td>
+</tr>
+<tr>
+<td>5. Choose aggregation and failover mechanisms</td>
+<td>LACP mode, min-links, BFD</td>
+<td>Asymmetric forwarding, slow convergence</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>要定的事</th>
+<th>定错了的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 二层域范围</strong></td>
+<td>这个二层域要跨几台接入交换机？必须跨吗？</td>
+<td>定大了 → STP 域巨大，一处环路影响全网</td>
+</tr>
+<tr>
+<td><strong>② VLAN / 子网划分</strong></td>
+<td>每个 VLAN 对应什么业务/人群？每个子网多大？</td>
+<td>定错了 → VIP 改不了、网关无法优化、地址不够</td>
+</tr>
+<tr>
+<td><strong>③ 二层机制选择</strong></td>
+<td>纯 STP / 无环 U 型 / mLAG / 集群？</td>
+<td>定错了 → 后面所有收敛与冗余设计都在补救</td>
+</tr>
+<tr>
+<td><strong>④ 根桥与网关位置</strong></td>
+<td>每个 VLAN 的根桥 = 哪台？谁做 FHRP Active？</td>
+<td>定错了 → 流量绕行（案例一）</td>
+</tr>
+<tr>
+<td><strong>⑤ 收敛与验证</strong></td>
+<td>各段收敛时间预算是多少？怎么测？</td>
+<td>没定 → 验收只能是"能通"，故障时行为不可预测</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Why the order cannot be reversed</strong>: configure HSRP before deciding the STP root and you get "gateway on DSW2, root bridge on DSW1" — exactly the classic mistake in Case 1.</p>
+<div class="zh">
+<p><strong>为什么顺序不能反</strong>：先配 HSRP 再想 STP，就会出现"网关在 DSW2、根桥在 DSW1"的经典事故。因为 <strong>HSRP Active 和 STP 根桥描述的是同一件事 —— 流量该往哪走</strong>。分开决策，必然错位。</p>
+</div>
+<hr />
+<h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
+<h3 id="core-layer-2-technologies-at-a-glance">Core Layer 2 Technologies at a Glance · 二层核心技术总览<a class="anchor" href="#core-layer-2-technologies-at-a-glance" title="Permanent link"></a></h3>
+<p>The Layer 2 technologies a network designer must know, understand and be able to decide on are:</p>
+<div class="zh">
+<p>网络设计师需要了解、理解并能够正确做出设计决策的二层核心技术包括：</p>
+</div>
+<ol>
+<li>Spanning Tree Protocol (STP)</li>
+<li>Virtual LANs (VLANs)</li>
+<li>Trunking</li>
+<li>Link aggregation</li>
+<li>Switch clustering (mLAG/vPC)</li>
+<li>First Hop Redundancy Protocols (FHRP)</li>
+</ol>
+<div class="zh">
+<ol>
+<li>生成树协议 (STP)</li>
+<li>虚拟局域网 (VLAN)</li>
+<li>Trunking（中继）</li>
+<li>链路聚合</li>
+<li>多机箱链路聚合 (mLAG)</li>
+<li>首跳冗余协议 (FHRP)</li>
+</ol>
+</div>
+<p>These six are not independent; they are <strong>interlocking</strong>:</p>
+<div class="zh">
+<p>这六项不是并列关系，而是<strong>互相牵制</strong>的：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Problem it solves</th>
+<th>Where it couples to the others</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STP</td>
+<td>Layer 2 loops</td>
+<td>Decides which links forward; must align with FHRP</td>
+</tr>
+<tr>
+<td>VLAN</td>
+<td>Broadcast domain separation</td>
+<td>Sets the scope of STP; couples to trunk and VTP</td>
+</tr>
+<tr>
+<td>Trunk</td>
+<td>Multiple VLANs on one link</td>
+<td>Native VLAN mismatch creates a loop or a leak</td>
+</tr>
+<tr>
+<td>Link aggregation</td>
+<td>Bandwidth and link redundancy</td>
+<td>Mismatched member counts break forwarding</td>
+</tr>
+<tr>
+<td>Switch clustering</td>
+<td>Removes STP blocking</td>
+<td>The peer-link becomes the new single point</td>
+</tr>
+<tr>
+<td>FHRP</td>
+<td>Gateway redundancy</td>
+<td>Must align with the STP root</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>解决的问题</th>
+<th>与其它技术的耦合点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>STP</strong></td>
+<td>防环</td>
+<td>决定哪个端口阻塞 → 决定 FHRP 流量走哪条路</td>
+</tr>
+<tr>
+<td><strong>VLAN</strong></td>
+<td>分割广播域与故障域</td>
+<td>决定 STP 实例数量、子网范围、安全边界</td>
+</tr>
+<tr>
+<td><strong>Trunk</strong></td>
+<td>一条链路承载多 VLAN</td>
+<td>决定 VLAN 能跨多远、native VLAN 安全风险</td>
+</tr>
+<tr>
+<td><strong>链路聚合</strong></td>
+<td>带宽与链路冗余</td>
+<td>STP 把聚合口当一条逻辑链路，收敛更快</td>
+</tr>
+<tr>
+<td><strong>mLAG</strong></td>
+<td>跨设备聚合，消除 STP 依赖</td>
+<td>取代 STP 四拓扑，引入脑裂风险</td>
+</tr>
+<tr>
+<td><strong>FHRP</strong></td>
+<td>网关冗余</td>
+<td>必须与 STP 根桥对齐，否则次优路径</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="spanning-tree-protocol-stp">Spanning Tree Protocol (STP) · 生成树协议<a class="anchor" href="#spanning-tree-protocol-stp" title="Permanent link"></a></h3>
+<p>STP is the most mature and most widely used control protocol in classic Layer 2 switched environments, preventing Layer 2 bridging loops by blocking redundant ports so that a single active path remains between any two points.</p>
+<div class="zh">
+<p>STP 是经典二层交换网络环境中最成熟和最常用的控制协议，用于防止二层桥接环路。它通过阻塞冗余 L2 接口来提供无环拓扑。</p>
+</div>
+<h4 id="stp-versions-stp">STP Versions · STP 版本<a class="anchor" href="#stp-versions-stp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Standard</th>
+<th>Characteristics</th>
+<th>Practical design meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>STP</strong></td>
+<td>802.1D</td>
+<td>One instance, 30–50 s convergence</td>
+<td>Legacy, avoid</td>
+</tr>
+<tr>
+<td><strong>RSTP</strong></td>
+<td>802.1w</td>
+<td>Fast convergence, new port roles</td>
+<td>The baseline for modern networks</td>
+</tr>
+<tr>
+<td><strong>MSTP</strong></td>
+<td>802.1s</td>
+<td>Multiple instances, one tree each, better load sharing</td>
+<td>Standard in multi-VLAN environments</td>
+</tr>
+<tr>
+<td><strong>PVST+ / Rapid-PVST+</strong></td>
+<td>Cisco proprietary</td>
+<td>One instance per VLAN, simple but heavy</td>
+<td>Fine when small, heavy when large</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>标准</th>
+<th>特点</th>
+<th>实际设计含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.1D</strong></td>
+<td>传统 STP</td>
+<td>基础版本，收敛较慢</td>
+<td>收敛 30–50 秒，现代网络基本不用</td>
+</tr>
+<tr>
+<td><strong>802.1W</strong></td>
+<td>快速 STP (RSTP)</td>
+<td>增强收敛时间，支持大规模部署</td>
+<td>收敛 1–3 秒，<strong>现代默认基线</strong></td>
+</tr>
+<tr>
+<td><strong>802.1S</strong></td>
+<td>多生成树 (MST)</td>
+<td>将多个 VLAN 聚合到同一 STP 实例，减少 CPU 负载，支持超大规模部署</td>
+<td>VLAN 数量大时的必需品</td>
+</tr>
+<tr>
+<td><strong>PVST+ / Rapid PVST+</strong></td>
+<td>Cisco 专有</td>
+<td>每 VLAN 一个实例</td>
+<td>灵活但实例数 = VLAN 数，规模上限低</td>
+</tr>
+<tr>
+<td><strong>802.1aq (SPB)</strong></td>
+<td>最短路径桥接</td>
+<td>用 IS-IS 做二层路由，无阻塞端口</td>
+<td>已被 EVPN 取代，几乎无新部署</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Quick selection guide</strong>:</p>
+<div class="zh">
+<p><strong>选择速查</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Choose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All Cisco, fewer than about 50 VLANs</td>
+<td>Rapid-PVST+ (easy to troubleshoot)</td>
+</tr>
+<tr>
+<td>Multi-vendor</td>
+<td>MSTP (the only standard choice)</td>
+</tr>
+<tr>
+<td>Hundreds of VLANs</td>
+<td>MSTP with careful instance planning</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全 Cisco，VLAN &lt; 100</td>
+<td>Rapid PVST+（运维熟悉，配置简单）</td>
+</tr>
+<tr>
+<td>多厂商混合，或 VLAN &gt; 200</td>
+<td><strong>MST</strong>（标准，实例数可控）</td>
+</tr>
+<tr>
+<td>新建园区，设备支持</td>
+<td>直接用 mLAG/EVPN，让 STP 只做兜底</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="convergence-mechanisms-why-rstp-is-a-change-of-kind-not-of-degree-rstp">Convergence Mechanisms: Why RSTP Is a Change of Kind, Not of Degree · 收敛机制：为什么 RSTP 是"质变"而不是"量变"<a class="anchor" href="#convergence-mechanisms-why-rstp-is-a-change-of-kind-not-of-degree-rstp" title="Permanent link"></a></h4>
+<p>This is one of the few places where protocol detail is genuinely worth understanding, because <strong>convergence time equals business outage time</strong>.</p>
+<div class="zh">
+<p>这是本章少数值得真正理解协议细节的地方，因为<strong>收敛时间直接等于业务中断时长</strong>。</p>
+</div>
+<pre><code>802.1D convergence (timer-driven):
+  link down → blocked port waits Max Age (20 s) → listening (15 s) → learning (15 s) → forwarding
+  total ≈ 30–50 s
+
+RSTP convergence (proposal/agreement driven):
+  link down → detected immediately → proposal sent → neighbour agrees → forwarding
+  total ≈ sub-second to a few seconds, proportional to link count rather than timers
+</code></pre>
+<div class="zh">
+<pre><code>802.1D 的收敛（计时器驱动）：
+  链路断 → 阻塞端口等 Max Age（20s）超时
+        → Listening（15s，不转发不学 MAC）
+        → Learning（15s，不转发但学 MAC）
+        → Forwarding
+  合计 ≈ 30–50 秒
+
+RSTP 的收敛（协商驱动）：
+  链路断 → 相邻交换机通过 Proposal/Agreement 握手
+        → 逐跳把指定端口推到 Forwarding
+        → 边缘端口（PortFast）完全跳过参与
+  合计 ≈ 1–3 秒（直连故障可达毫秒级，靠链路检测）
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong>The key difference</strong>: 802.1D "<strong>waits for timers</strong>", RSTP "<strong>asks the neighbour</strong>". The former has a floor set by configuration, the latter a floor set by physical propagation — which is why RSTP is not a faster STP but a different mechanism.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>关键区别</strong>：802.1D 是"<strong>等计时器</strong>"，RSTP 是"<strong>问邻居</strong>"。等是死等，问是协商——所以 RSTP 的收敛<strong>不随拓扑规模线性变差</strong>。这才是它"支持大规模部署"的真实原因。</p>
+</blockquote>
+</div>
+<h4 id="rstp-port-roles-and-states-useful-in-design-rstp">RSTP Port Roles and States (Useful in Design) · RSTP 的端口角色与状态（设计时用得到）<a class="anchor" href="#rstp-port-roles-and-states-useful-in-design-rstp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Port role</th>
+<th>Meaning</th>
+<th>Appears when a blocked port exists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Root Port</strong></td>
+<td>The port closest to the root, one per non-root switch</td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Designated Port</strong></td>
+<td>The forwarding port on a segment</td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Alternate Port</strong></td>
+<td>A backup path to the root</td>
+<td><strong>Yes — this is what redundancy costs</strong></td>
+</tr>
+<tr>
+<td><strong>Backup Port</strong></td>
+<td>A backup to the same segment</td>
+<td>Rarely</td>
+</tr>
+<tr>
+<td><strong>Disabled</strong></td>
+<td>Administratively down</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>端口角色</th>
+<th>含义</th>
+<th>有阻塞端口时是否出现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Root Port</strong></td>
+<td>去往根桥的最优端口（每台非根桥一个）</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>Designated Port</strong></td>
+<td>某网段上负责向根桥方向转发的端口</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>Alternate Port</strong></td>
+<td>到根桥的<strong>备份</strong>路径（收别人发的 BPDU）</td>
+<td><strong>是 —— 这就是被浪费的带宽</strong></td>
+</tr>
+<tr>
+<td><strong>Backup Port</strong></td>
+<td>同一网段内的备份（HUB 场景，几乎不见）</td>
+<td>罕有</td>
+</tr>
+<tr>
+<td><strong>Edge Port</strong></td>
+<td>接终端（PortFast），立即转发，不参与拓扑</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+</div>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Forwards data</th>
+<th>Learns MACs</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discarding</td>
+<td>No</td>
+<td>No</td>
+<td>Merges the old blocking, listening and disabled</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>No</td>
+<td>Yes</td>
+<td>Prepares the MAC table</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Normal forwarding</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>转发数据</th>
+<th>学 MAC</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discarding</td>
+<td>❌</td>
+<td>❌</td>
+<td>合并了 802.1D 的 Disabled/Blocking/Listening</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>❌</td>
+<td>✅</td>
+<td>学 MAC 但不转发，防临时环路</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>✅</td>
+<td>✅</td>
+<td>正常转发</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Design insight</strong>: the number of <code>Alternate Port</code>s is <strong>the number of links you are wasting</strong> — links you paid for that carry nothing. That is the baseline every mLAG proposal should be measured against.</p>
+<div class="zh">
+<p><strong>设计洞察</strong>：<code>Alternate Port</code> 的数量，就是<strong>你被浪费掉的链路数</strong>。一个双上行的接入交换机，如果两条上行都转发，就应该没有 Alternate Port。</p>
+</div>
+<h4 id="why-topology-change-notifications-tcn-cause-network-wide-churn-tcn">Why Topology Change Notifications (TCN) Cause "Network-Wide Churn" · 拓扑变更（TCN）为什么会导致"全网抖动"<a class="anchor" href="#why-topology-change-notifications-tcn-cause-network-wide-churn-tcn" title="Permanent link"></a></h4>
+<p>This is the most frequently misjudged link in Layer 2 incidents:</p>
+<div class="zh">
+<p>这是二层事故里最容易误判的一环：</p>
+</div>
+<pre><code>An access port goes up/down (user plugs a cable, laptop sleeps and wakes)
+  ↓ TCN propagates to the root bridge
+  ↓ the root sets the TC flag, which floods the whole spanning tree
+  ↓ every switch drops MAC aging from 300 s to 15 s
+  ↓ MAC tables flush → unknown unicast floods network-wide → CPU spike, transient flooding
+</code></pre>
+<div class="zh">
+<pre><code>某接入端口 up/down（用户插拔网线、笔记本休眠唤醒）
+  ↓
+该交换机发 TCN BPDU 向根桥方向
+  ↓
+根桥收到后，把 Configuration BPDU 里的 TC 标志置位
+  ↓
+所有交换机收到 TC → MAC 表老化时间从 300 秒骤降到 15 秒
+  ↓
+全网 MAC 表被反复清空 → 大量未知单播 → 泛洪
+  ↓
+CPU 升高、带宽被泛洪吃掉
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Mitigation</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PortFast / edge ports</strong></td>
+<td>Access ports never generate a TCN</td>
+</tr>
+<tr>
+<td><strong>BPDU Guard</strong></td>
+<td>Stops a rogue switch injecting BPDUs on an edge port</td>
+</tr>
+<tr>
+<td><strong>Root Guard</strong></td>
+<td>Stops an access device becoming root</td>
+</tr>
+<tr>
+<td><strong>TCN suppression</strong></td>
+<td>Limits how often TCs propagate</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缓解手段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PortFast（边缘端口）</strong></td>
+<td>边缘端口 up/down <strong>不产生 TCN</strong> —— 这是 PortFast 最被低估的价值</td>
+</tr>
+<tr>
+<td><strong><code>spanning-tree portfast default</code></strong></td>
+<td>全局给所有 access 口开 PortFast（配合 BPDU Guard）</td>
+</tr>
+<tr>
+<td><strong>限制 TC 传播</strong>（部分厂商）</td>
+<td>抑制高频 TCN</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>🔥 <strong>Case: one laptop waking from sleep slows an entire building</strong></p>
+<p><strong>Symptom</strong>: every afternoon "the network is slow for a few minutes", no alarms anywhere.
+<strong>Cause</strong>: a PC policy of "wake-on-LAN plus network re-detection" woke dozens of laptops at once; each port flap generated a TCN, and every TCN flushed MAC tables building-wide.
+<strong>Fix</strong>: PortFast on access ports plus TCN suppression (1 per 10 s) at the distribution layer.
+<strong>Lesson</strong>: <strong>the damage comes not from the TCN itself but from the "flush everything" reaction it triggers.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>🔥 <strong>案例：一台笔记本的休眠唤醒让整栋楼变慢</strong></p>
+<p><strong>现象</strong>：某写字楼每天早上 9:00–9:30，整栋楼的网络"发虚"——网页打开慢，但 ping 正常、带宽测试正常。10 点后自动好转。</p>
+<p><strong>排查</strong>：核心交换机 CPU 从 15% 升到 60%，<code>show spanning-tree detail</code> 显示 <strong>TC（topology change）计数每分钟数百次</strong>。</p>
+<p><strong>根因</strong>：接入层 <strong>没有全局开 PortFast</strong>，只有零星几个"按需配置"的端口开了。每天早上员工陆续到岗，接通扩展坞 → 端口 up → <strong>每个 up 都触发 TCN</strong> → 全网 MAC 表 15 秒老化一次 → 核心到汇聚的链路全是未知单播泛洪 → 但带宽测试（单流）不受影响，因为带宽本身没被占满，是<strong>MAC 表频繁失效导致的转发效率下降</strong>。</p>
+<p><strong>修复</strong>：
+<code>cfg
+spanning-tree portfast default
+spanning-tree portfast bpduguard default</code>
+核心 CPU 回落到 18%，TC 计数降到个位数/天。</p>
+<p><strong>教训</strong>：<strong>PortFast 不是"快 30 秒"的优化，而是"隔离拓扑变更域"的架构手段。</strong> 一个没开 PortFast 的接入端口，就是一颗随时引爆全网的 TCN 炸弹。而没有 BPDU Guard 兜底的 PortFast，是环路风险。<strong>两者必须成对。</strong></p>
+</blockquote>
+</div>
+<h4 id="stp-enhancement-features-stp">STP Enhancement Features · STP 增强特性<a class="anchor" href="#stp-enhancement-features-stp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Function</th>
+<th>Where to deploy</th>
+<th>Failure it prevents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PortFast</strong></td>
+<td>Edge port skips listening/learning</td>
+<td>Access ports facing hosts</td>
+<td>Slow host connectivity, TC storms</td>
+</tr>
+<tr>
+<td><strong>BPDU Guard</strong></td>
+<td>Shuts the port if a BPDU arrives</td>
+<td>Access ports facing hosts</td>
+<td>Rogue switches, loops</td>
+</tr>
+<tr>
+<td><strong>Root Guard</strong></td>
+<td>Blocks superior BPDUs, pins the root</td>
+<td>Ports facing the access layer</td>
+<td>Root hijacking, path detours</td>
+</tr>
+<tr>
+<td><strong>Loop Guard</strong></td>
+<td>Blocks a port that stops receiving BPDUs</td>
+<td>Root/alternate ports, fiber uplinks</td>
+<td><strong>One-way failures creating loops</strong></td>
+</tr>
+<tr>
+<td><strong>UDLD</strong></td>
+<td>Detects one-way links at Layer 1</td>
+<td>Fiber interconnects</td>
+<td>Unidirectional fiber causing loops</td>
+</tr>
+<tr>
+<td><strong>BPDU Filter</strong></td>
+<td>Stops sending/receiving BPDUs</td>
+<td>Edge ports only (with care)</td>
+<td>Loop-free access segments</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>功能</th>
+<th>部署位置</th>
+<th>防的是什么故障</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loop Guard</strong></td>
+<td>防止备用端口或根端口在没有 BPDU 的情况下被选举</td>
+<td>分布层下行端口</td>
+<td><strong>单向链路</strong>：BPDU 收不到但数据能通，端口误升为转发 → 成环</td>
+</tr>
+<tr>
+<td><strong>Root Guard</strong></td>
+<td>防止外部或下游交换机成为根桥</td>
+<td>分布层下行端口</td>
+<td>下游接了一台优先级更低的交换机抢走根桥 → 全网路径重算</td>
+</tr>
+<tr>
+<td><strong>BPDU Guard</strong></td>
+<td>在启用了 PortFast 的端口收到 BPDU 时禁用该端口</td>
+<td>接入层端口</td>
+<td>用户私接交换机/路由器形成环路</td>
+</tr>
+<tr>
+<td><strong>BPDU Filter</strong></td>
+<td>阻止在 PortFast 端口上发送或接收 BPDU</td>
+<td>接入层端口</td>
+<td>抑制边缘端口向外发 BPDU（<strong>有风险，见下</strong>）</td>
+</tr>
+<tr>
+<td><strong>UDLD</strong></td>
+<td>用邻居探测发现单向链路（链路层）</td>
+<td>光纤互联端口</td>
+<td>光纤单通（一发一收故障）</td>
+</tr>
+<tr>
+<td><strong>MST</strong></td>
+<td>多 VLAN 映射到少数实例</td>
+<td>全局</td>
+<td>实例爆炸导致的 CPU 与收敛开销</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>BPDU Filter has two faces</strong>: on an edge port it amounts to giving up STP protection — a user plugging in a switch creates an undetected loop. Use it <strong>only</strong> together with PortFast and only where no switch will ever appear.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>BPDU Filter 的双面性</strong>：它在边缘端口上等同于"放弃 STP 保护"。一旦用户在该端口下接了交换机形成环路，BPDU 既发不出去也收不到，STP 完全不知情 → 直接广播风暴。<strong>边缘端口请用 BPDU Guard（发现 BPDU 就关端口），而不是 BPDU Filter（假装没看见）。</strong>
+💡 <strong>Loop Guard 的搭档是 UDLD</strong>：两者都防单向链路，但机制不同——Loop Guard 看 BPDU 是否超时（STP 层），UDLD 看邻居是否回应（链路层）。<strong>UDLD aggressive 在光纤单通场景下检测更快</strong>，两者可同时部署、互为补充。
+💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。优点是每个 VLAN 可设自己的根桥做流量分担，缺点是<strong>实例数 = VLAN 数</strong>——1000 个 VLAN 就是 1000 份 BPDU 与 1000 份状态机，CPU 和收敛开销线性上升。这就是 MST 存在的理由。</p>
+</blockquote>
+</div>
+<h4 id="production-grade-stp-baseline-stp">Production-Grade STP Baseline · 生产级 STP 配置基线<a class="anchor" href="#production-grade-stp-baseline-stp" title="Permanent link"></a></h4>
+<pre><code class="language-cfg">! ── Global: default edge ports + edge protection ──
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree loopguard default
+spanning-tree mode rapid-pvst
+
+! ── Root bridge: pin primary and secondary explicitly ──
+spanning-tree vlan 10,30,50 root primary
+spanning-tree vlan 20,40,60 root secondary
+
+! ── Uplinks: Loop Guard plus UDLD (essential on fiber) ──
+interface range Gi1/0/49-52
+ spanning-tree guard loop
+ udld port aggressive
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! ── 全局：默认边缘端口 + 边缘保护 ──
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree loopguard default
+spanning-tree uplinkfast                     ! 仅 802.1D 有意义；RSTP 下无效，可保留兼容
+no spanning-tree vlan 1                      ! 若 VLAN 1 完全不用，直接禁掉（谨慎）
+
+! ── MST 配置（多厂商/VLAN 多时）──
+spanning-tree mode mst
+spanning-tree mst configuration
+ name CAMPUS
+ revision 1
+ instance 1 vlan 10,20,30
+ instance 2 vlan 40,50,60
+ instance 0 vlan 1-9,11-19,21-29,31-39,41-49,51-59,61-4094
+spanning-tree mst 0-2 priority 4096          ! 根桥：4096 级
+! 备份根桥：spanning-tree mst 0-2 priority 8192
+
+! ── 分布层：每个 VLAN 的根桥成对配置 ──
+! DSW1
+spanning-tree vlan 10,30,50 root primary
+spanning-tree vlan 20,40,60 root secondary
+
+! ── 分布层下行口：防下游抢根 ──
+interface range GigabitEthernet1/0/1-24
+ spanning-tree guard root
+
+! ── 接入层上行口：防单向链路 ──
+interface range GigabitEthernet1/0/49-50
+ spanning-tree guard loop
+ udld port aggressive
+
+! ── 接入层端口：边缘保护 ──
+interface range GigabitEthernet1/0/1-48
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+</code></pre>
+</div>
+<p><strong>Three fatal MST details (get them wrong and nothing works)</strong>:</p>
+<div class="zh">
+<p><strong>MST 的三个致命细节（配错就是全网不通）</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Detail</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name / revision must match</strong></td>
+<td>Any difference splits the region, and each side computes its own tree</td>
+</tr>
+<tr>
+<td><strong>Instance-to-VLAN mapping must match</strong></td>
+<td>The same VLAN in different instances means inconsistent trees</td>
+</tr>
+<tr>
+<td><strong>The region boundary must be visible</strong></td>
+<td><code>show spanning-tree mst configuration digest</code> must be identical everywhere</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>细节</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name / revision / instance 映射三者必须全网完全一致</strong></td>
+<td>任一不同 → 被视为<strong>不同的 MST 区域</strong> → 边界上按 CIST（实例 0）互通，各实例的负载分担全部失效</td>
+</tr>
+<tr>
+<td><strong>实例 0（CIST）必须包含所有未显式分配的 VLAN</strong></td>
+<td>漏了某些 VLAN → 它们在区域外走实例 0，路径与预期不同</td>
+</tr>
+<tr>
+<td><strong>区域边界要显式控制</strong></td>
+<td>与外部设备互联的端口，考虑 <code>spanning-tree mst ...</code> 或直接改用三层互联，避免 MST 区域被外部影响</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Troubleshooting command cheat sheet</strong>:</p>
+<div class="zh">
+<p><strong>排障命令速查</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>What you want to know</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who is root, on which port</td>
+<td><code>show spanning-tree root</code></td>
+</tr>
+<tr>
+<td>Port states and roles</td>
+<td><code>show spanning-tree interface gi1/0/1</code></td>
+</tr>
+<tr>
+<td>Topology change counts</td>
+<td><code>show spanning-tree detail \| include changes</code></td>
+</tr>
+<tr>
+<td>Fast transitions after failover</td>
+<td><code>show spanning-tree summary totals</code></td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>想看什么</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>谁是根桥、为什么</td>
+<td><code>show spanning-tree vlan 10</code> / <code>show spanning-tree root</code></td>
+</tr>
+<tr>
+<td>每个端口的角色与状态</td>
+<td><code>show spanning-tree interface Gi1/0/1 detail</code></td>
+</tr>
+<tr>
+<td><strong>拓扑变更历史</strong></td>
+<td><code>show spanning-tree detail \| include change</code></td>
+</tr>
+<tr>
+<td>BPDU 收发计数</td>
+<td><code>show spanning-tree interface Gi1/0/1 counters</code></td>
+</tr>
+<tr>
+<td>MST 区域是否一致</td>
+<td><code>show spanning-tree mst configuration digest</code>（<strong>digest 不同 = 区域不同</strong>）</td>
+</tr>
+<tr>
+<td>端口被 Guard 拦住的原因</td>
+<td><code>show spanning-tree inconsistentports</code></td>
+</tr>
+<tr>
+<td>err-disable 原因</td>
+<td><code>show interfaces status err-disabled</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>🔥 <strong>Case: inconsistent MST regions send half the VLANs the long way</strong></p>
+<p><strong>Symptom</strong>: after a data center migration, half the VLANs had twice the latency of the rest.
+<strong>Cause</strong>: a <strong>trailing space</strong> in the region name on two distribution switches → digest mismatch → region split → each side elected its own root.
+<strong>Fix</strong>: standardise the name through a template and verify the digest in every change window.
+<strong>Lesson</strong>: <strong>"consistent configuration" in MST is not advice, it is a precondition.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>🔥 <strong>案例：MST 区域不一致，一半 VLAN 走了远路</strong></p>
+<p><strong>背景</strong>：某园区 60 台交换机配置 MST，两个实例：实例 1 走 VLAN 10–99，实例 2 走 VLAN 100–199。DSW1 是实例 1 的根，DSW2 是实例 2 的根。</p>
+<p><strong>现象</strong>：VLAN 10–99 的流量正常；<strong>VLAN 100–199 的流量全部绕行 DSW1</strong>，DSW1 与 DSW2 之间链路利用率 80%，用户感觉"财务系统（VLAN 120）特别慢"。</p>
+<p><strong>排查</strong>：
+- <code>show spanning-tree mst 2</code> 在 DSW2 上显示<strong>自己不是根桥</strong>，根桥是 DSW1
+- 但配置上 DSW2 明明是 <code>spanning-tree mst 2 priority 4096</code>
+- <code>show spanning-tree mst configuration</code> 对比两端 <strong>digest 不一致</strong></p>
+<p><strong>根因</strong>：半年前新增 3 台接入交换机，实施人员用旧模板配置，模板里 <code>instance 2 vlan 40,50,60</code>（旧规划），而现网是 <code>instance 2 vlan 100-199</code>。这三台设备自成一个 MST 区域，边界处所有流量退化到 CIST（实例 0）—— 结果是 VLAN 100–199 在这些边界上跟随实例 0 的根桥（DSW1）。</p>
+<p><strong>为什么"只是一部分慢"而不是"完全不通"</strong>：MST 区域边界是<strong>互通的</strong>（通过 CIST），所以业务正常，只是路径错了。这类问题永远不会触发告警。</p>
+<p><strong>修复与防复发</strong>：
+1. 修正三台设备的 MST 配置
+2. <strong>把 digest 纳入每日巡检</strong>：<code>show spanning-tree mst configuration digest</code> 全网比对，不一致即告警
+3. 配置模板纳入版本控制，禁止"复制粘贴旧模板"</p>
+<p><strong>教训</strong>：<strong>MST 的一致性是"隐式契约"，没有任何告警会告诉你它被破坏了。</strong> 只有主动比对 digest 才能发现。凡是"全网必须完全一致"的配置（MST region、VTP domain、聚合参数），都必须有自动化一致性校验。</p>
+</blockquote>
+</div>
+<h3 id="vlans-and-trunking-vlan-trunking">VLANs and Trunking · VLAN 和 Trunking<a class="anchor" href="#vlans-and-trunking-vlan-trunking" title="Permanent link"></a></h3>
+<p><strong>VLAN</strong> is a network virtualization technology that provides logical separation of broadcast domains and policy control. VLANs also bound Layer 2 failure domains: one VLAN's loop or storm does not automatically affect another.</p>
+<div class="zh">
+<p><strong>VLAN</strong> 是一种网络虚拟化技术，提供广播域的逻辑分离和策略控制。VLAN 还在二层提供一定程度的故障隔离。</p>
+</div>
+<p><strong>Trunking</strong> is the protocol that lets one physical link carry multiple VLANs, so VLANs can span switches (802.1Q tagging; ISL is deprecated).</p>
+<div class="zh">
+<p><strong>Trunking</strong> 是允许在单条物理链路上承载多个 VLAN 的协议，使 VLAN 可以跨交换机扩展。</p>
+</div>
+<blockquote>
+<p>⚠️ <strong>Design best practice</strong>: a VLAN should not span multiple access switches. That said, it is a general recommendation — some scenarios genuinely need it (VM migration, a legacy system insisting on one subnet), and then you must state the failure domain explicitly.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>设计最佳实践</strong>：VLAN 不应跨多台接入交换机。但这只是一般建议——某些设计需要 VLAN 跨交换机扩展（如多数据中心虚拟机迁移场景）。</p>
+</blockquote>
+</div>
+<h4 id="the-core-design-trade-off-end-to-end-vlan-versus-local-vlan-vlan-vs-vlan">The Core Design Trade-Off: End-to-End VLAN versus Local VLAN · 设计核心取舍：端到端 VLAN vs 本地 VLAN<a class="anchor" href="#the-core-design-trade-off-end-to-end-vlan-versus-local-vlan-vlan-vs-vlan" title="Permanent link"></a></h4>
+<p>This is <strong>the most important decision in this chapter</strong>; the book passes over it quickly, yet it determines how the whole campus behaves.</p>
+<div class="zh">
+<p>这是本章<strong>最重要的一个设计决策</strong>，书里只是一笔带过，但它决定了整个园区的行为。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Approach</th>
+<th>Advantages</th>
+<th>Drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>End-to-end VLAN</strong></td>
+<td>One VLAN spans the campus, users grouped by function, address follows them</td>
+<td>Address follows the user; simple policy</td>
+<td>Huge failure domain, STP complexity, broadcast everywhere</td>
+</tr>
+<tr>
+<td><strong>Local VLAN</strong></td>
+<td>A VLAN lives in one access switch, Layer 3 runs at the distribution layer</td>
+<td>Small failure domain, predictable, all links usable</td>
+<td>Users change address when they move; needs good DHCP/DNS</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>做法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>端到端 VLAN（E2V）</strong></td>
+<td>同一 VLAN 从接入一直延伸到核心，跨所有交换机</td>
+<td>用户走到哪都属于同一子网，策略集中，管理"感觉"简单</td>
+<td><strong>STP 域横跨全网</strong>；广播泛洪到每个角落；任何一处环路影响全网；故障定位极难</td>
+</tr>
+<tr>
+<td><strong>本地 VLAN（Local VLAN）</strong></td>
+<td>每个接入交换机（或每层楼）一个 VLAN，到分布层就三层终结</td>
+<td>广播域被物理限制；STP 域小、收敛快；故障影响面可控</td>
+<td>VLAN 与子网数量多；IP 规划与路由配置工作量上升</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Quantitative comparison</strong> (campus with 40 access switches):</p>
+<div class="zh">
+<p><strong>量化对比</strong>（一个 40 台接入交换机的园区）：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>End-to-end VLAN</th>
+<th>Local VLAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Broadcast domain size</td>
+<td>Up to 40 switches</td>
+<td>1 switch</td>
+</tr>
+<tr>
+<td>Blocked links</td>
+<td>About 40%</td>
+<td>About 0%</td>
+</tr>
+<tr>
+<td>Convergence after failure</td>
+<td>Tens of seconds</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>Change impact</td>
+<td>Campus-wide</td>
+<td>One switch</td>
+</tr>
+<tr>
+<td>Address management</td>
+<td>Simple</td>
+<td>Needs DHCP plus DNS</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>端到端 VLAN</th>
+<th>本地 VLAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VLAN 数量</td>
+<td>8 个（按部门）</td>
+<td>80 个（按楼层）</td>
+</tr>
+<tr>
+<td>STP 域规模</td>
+<td>40 台交换机 + 2 台核心</td>
+<td>1 台接入 + 2 台核心</td>
+</tr>
+<tr>
+<td>广播泛洪范围</td>
+<td>全网 42 台</td>
+<td>单台接入的 48 口</td>
+</tr>
+<tr>
+<td>环路影响面</td>
+<td>全园区</td>
+<td>单层楼</td>
+</tr>
+<tr>
+<td><strong>某处环路的恢复时间</strong></td>
+<td>STP 收敛 + 排查 30 分钟~数小时</td>
+<td>影响 1 层楼，且可快速定位到端口</td>
+</tr>
+<tr>
+<td>子网数量</td>
+<td>8</td>
+<td>80（需好的 IP 规划与路由汇总）</td>
+</tr>
+<tr>
+<td>用户移动（跨楼层）</td>
+<td>同 VLAN，无需改地址</td>
+<td>需 DHCP 重新获取（<strong>二层漫游能力丧失</strong>）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Today the answer is almost always the same: local VLANs plus Layer 3 to the access layer.</strong> End-to-end VLANs were a compromise of the flat Layer 2 era; without an explicit requirement, do not go back.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>今天的答案几乎是唯一的：本地 VLAN + 三层到接入。</strong> 端到端 VLAN 是"扁平网络"时代的遗产，它的代价（故障域）在第 6 章零售连锁的案例里已经充分体现——一个门店的环路让全公司瘫痪 40 分钟。
+⚠️ <strong>但有一条例外</strong>：需要<strong>跨交换机二层扩展</strong>的场景（虚拟机跨宿主迁移、集群心跳、遗留的私有二层协议设备）必须用端到端 VLAN。这时正确的做法不是"忍受 STP"，而是<strong>换工具</strong>——用 mLAG / 交换机集群 / EVPN 把这部分二层的故障域限制住。</p>
+</blockquote>
+</div>
+<p><strong>The three preconditions of local VLANs (fail them and do not choose this model)</strong>:</p>
+<div class="zh">
+<p><strong>本地 VLAN 的三个前置条件（做不好就别选它）</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Precondition</th>
+<th>Consequence if missing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reliable, redundant DHCP</td>
+<td>Users cannot get an address</td>
+</tr>
+<tr>
+<td>DNS/WINS for internal resources</td>
+<td>Users cannot reach servers</td>
+</tr>
+<tr>
+<td>Layer 3 switching at the distribution layer with capacity</td>
+<td>The inter-switch link becomes the bottleneck</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>前置条件</th>
+<th>做不到的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>有 IP 地址规划与汇总能力</strong></td>
+<td>80 个子网无法汇总 → 路由表膨胀 → 核心路由收敛变慢</td>
+</tr>
+<tr>
+<td><strong>有 DHCP 与 DNS 的可靠服务</strong></td>
+<td>用户换楼层要重新拿地址，DHCP 挂了就全军覆没</td>
+</tr>
+<tr>
+<td><strong>有无线优先的策略</strong>（移动性诉求走 Wi-Fi）</td>
+<td>用户抱怨"换个会议室就要重新连网"</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="vlan-numbering-and-subnet-planning-details-vlan">VLAN Numbering and Subnet Planning Details · VLAN 编号与子网规划的工程细节<a class="anchor" href="#vlan-numbering-and-subnet-planning-details-vlan" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Recommendation</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reserve a numbering scheme</td>
+<td>By building/floor/function, leave gaps</td>
+<td>Room to grow, less confusion</td>
+</tr>
+<tr>
+<td>Third octet = VLAN ID</td>
+<td>e.g. VLAN 10 → 10.10.<strong>10</strong>.0/24</td>
+<td>Troubleshooting becomes intuitive</td>
+</tr>
+<tr>
+<td>Never use VLAN 1</td>
+<td>Move everything else</td>
+<td>It is the default, the most attacked, and uncontrollable</td>
+</tr>
+<tr>
+<td>Avoid 1002–1005</td>
+<td>Legacy reserved range</td>
+<td>Conflicts with old defaults</td>
+</tr>
+<tr>
+<td>Management VLAN separated</td>
+<td>Dedicated, unreachable from user VLANs</td>
+<td>Smaller attack surface</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>事项</th>
+<th>建议</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VLAN 1</strong></td>
+<td><strong>不使用</strong>（至少不承载业务与管理）</td>
+<td>默认 VLAN，所有端口都在，控制协议也走它</td>
+</tr>
+<tr>
+<td><strong>VLAN 编号分段</strong></td>
+<td>按用途分段（如 10–99 数据、100–199 语音、200–299 管理、900–999 隔离/黑洞）</td>
+<td>一眼看出用途，减少误配</td>
+</tr>
+<tr>
+<td><strong>VLAN 与子网一一对应</strong></td>
+<td>严格 1:1，不做"一个 VLAN 多子网"或"多 VLAN 同子网"</td>
+<td>避免网关与 STP 根桥无法对齐</td>
+</tr>
+<tr>
+<td><strong>子网大小</strong></td>
+<td>不超过 /24（无线访客可 /23），有明确增长余量</td>
+<td>过大 → 广播域过大；过小 → 频繁改规划</td>
+</tr>
+<tr>
+<td><strong>黑洞 VLAN</strong></td>
+<td>预留一个"无 SVI、无业务"的 VLAN（如 999）作为 native VLAN 与未用端口归属</td>
+<td>未用端口指到黑洞 VLAN，插上也没用</td>
+</tr>
+<tr>
+<td><strong>管理 VLAN</strong></td>
+<td>单独 VLAN + 独立 VRF/OOB（见第 10 章）</td>
+<td>管理面必须与业务面隔离</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="trunk-design-points-trunk">Trunk Design Points · Trunk 设计要点<a class="anchor" href="#trunk-design-points-trunk" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Configure the native VLAN explicitly</strong></td>
+<td>Both ends must match and must not be VLAN 1</td>
+</tr>
+<tr>
+<td><strong>Restrict allowed VLANs</strong></td>
+<td>Only what is needed; prune the rest</td>
+</tr>
+<tr>
+<td><strong>Disable DTP</strong></td>
+<td><code>switchport nonegotiate</code> stops rogue trunk negotiation</td>
+</tr>
+<tr>
+<td><strong>Match speed and duplex</strong></td>
+<td>Mismatches cause errors and drops</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>显式配置 native VLAN，且不用 VLAN 1</strong></td>
+<td>native VLAN 不打标签，两端不一致会<strong>把两个 VLAN 桥接在一起</strong>（VLAN hopping 风险）</td>
+</tr>
+<tr>
+<td><strong>裁剪允许的 VLAN 列表</strong></td>
+<td>默认允许全部 VLAN → 泛洪与 BPDU 跟着所有 VLAN 走，收窄后故障面下降</td>
+</tr>
+<tr>
+<td><strong>统一使用 802.1Q</strong></td>
+<td>ISL 已淘汰，多厂商互通只认 802.1Q</td>
+</tr>
+<tr>
+<td><strong>关闭不必要的 VTP 自动同步</strong></td>
+<td>VTP 域内一台设备误删 VLAN，全网同步删除，是历史重大事故来源</td>
+</tr>
+<tr>
+<td><strong>Trunk 只跑在交换机互联链路上</strong></td>
+<td>用户端口绝不做 trunk；配合 BPDU Guard 与端口安全</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Why VLAN 1 is dangerous</strong>: it is the default on every port, carries STP/CDP/VTP control traffic, and cannot be pruned from a trunk. An attacker on VLAN 1 reaches every management interface. <strong>Move management traffic off VLAN 1 in every design.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>VLAN 1 为什么危险</strong>：它是所有端口的默认 VLAN、承载 STP/CDP/VTP 等控制协议、且常被两端默认放行。把管理流量放在 VLAN 1，等于让控制平面和数据平面共用一个"人人可达"的通道。</p>
+</blockquote>
+</div>
+<pre><code class="language-cfg">! ── Production-grade trunk ──
+interface range Gi1/0/49-52
+ switchport mode trunk
+ switchport nonegotiate
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,50
+ spanning-tree guard loop
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! ── 生产级 trunk 配置 ──
+interface range TenGigabitEthernet1/1/1-2
+ description UPLINK-TO-DSW
+ switchport
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999            ! 独立黑洞 VLAN
+ switchport trunk allowed vlan 10-99,200-299 ! 显式列表，不用 all
+ switchport nonegotiate                      ! 关闭 DTP
+ spanning-tree guard loop
+ udld port aggressive
+
+! ── 接入口（含 IP 电话）──
+interface GigabitEthernet1/0/10
+ switchport mode access
+ switchport access vlan 20
+ switchport voice vlan 120                   ! 语音用 CDP/LLDP 协商，不打 trunk
+ switchport nonegotiate
+ switchport port-security maximum 3
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+! ── 未使用端口统一处理 ──
+interface range GigabitEthernet1/0/20-48
+ switchport mode access
+ switchport access vlan 999                  ! 黑洞 VLAN
+ shutdown
+
+! ── VTP ──
+vtp mode transparent                          ! 或 off（不参与 VTP）
+</code></pre>
+</div>
+<blockquote>
+<p>⚠️ <strong>Two traps in <code>switchport trunk allowed vlan</code></strong>:
+1. <strong>It replaces rather than appends</strong> — using it without <code>add</code> wipes the list (a classic outage)
+2. <strong>Both ends must match</strong> — a VLAN allowed on one side only silently drops traffic</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong><code>switchport trunk allowed vlan</code> 的两个陷阱</strong>：
+1. <strong>默认是 <code>all</code>（1–4094）</strong>。不裁剪的话，VLAN 一旦全网扩展，trunk 上会自动多跑几十个 VLAN 的广播。
+2. <strong>增删时是"覆盖"而不是"追加"</strong>。要加一个 VLAN 必须用 <code>add</code>：
+   - 错：<code>switchport trunk allowed vlan 10,20,30</code>（把原来的都覆盖了 → <strong>断网</strong>）
+   - 对：<code>switchport trunk allowed vlan add 30</code></p>
+<p>这是真实事故的高发点。运维在数百台设备上批量执行"覆盖式"命令，会把原本允许的语音 VLAN 删掉 —— 结果<strong>电话全部掉线，但数据正常</strong>（因为数据 VLAN 恰好在列表里）。
+🔥 <strong>案例：一条覆盖式命令让 300 部 IP 电话掉线</strong></p>
+<p><strong>背景</strong>：某企业新增一个业务 VLAN 80，运维通过脚本在 200 台接入交换机的上行 trunk 上执行：
+<code>switchport trunk allowed vlan 10,20,80</code>
+脚本注释写的是"新增 VLAN 80"。</p>
+<p><strong>后果</strong>：原列表是 <code>10,20,120</code>（120 是语音 VLAN）。执行后语音 VLAN 120 被移除 → 300 部 IP 电话在 2 分钟内<strong>逐台重新注册失败</strong>。数据业务完全正常，所以监控没告警；半小时后话务中心接到大量"打不出去"的投诉。</p>
+<p><strong>为什么监控没发现</strong>：监控只 ping 交换机和服务器，不监控话机的注册状态。而 PC 的 VLAN 10 在列表里，所以"网络正常"。</p>
+<p><strong>修复与防复发</strong>：
+1. 全量改为 <code>add</code> 形式（幂等）
+2. <strong>变更前先采集现状</strong>：脚本先 <code>show running-config interface</code> 保存，再做 diff
+3. <strong>把"话机注册数"纳入监控</strong>（这是业务指标，不是网络指标）
+4. 骨干端口用 <strong>trunk 允许列表模板 + 配置合规检查</strong>，防止手工输入</p>
+</blockquote>
+</div>
+<h4 id="vtp-why-it-is-best-turned-off-vtp">VTP: Why It Is Best Turned Off · VTP：为什么建议关掉<a class="anchor" href="#vtp-why-it-is-best-turned-off-vtp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behaviour</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>Creates/modifies/deletes VLANs, propagates them</td>
+<td>One mistake wipes VLANs network-wide</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Receives and applies VLAN information</td>
+<td>Silently follows a rogue server</td>
+</tr>
+<tr>
+<td>Transparent</td>
+<td>Forwards but does not apply</td>
+<td>Local control</td>
+</tr>
+<tr>
+<td>Off</td>
+<td>No VTP at all</td>
+<td>Safest</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>行为</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Server</strong></td>
+<td>可增删 VLAN，向域内广播</td>
+<td><strong>一台误操作全网同步</strong></td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>同步 server 的 VLAN 数据库</td>
+<td>同上，被动受影响</td>
+</tr>
+<tr>
+<td><strong>Transparent</strong></td>
+<td>只本地生效，转发 VTP 报文</td>
+<td>安全，但需要逐台配置 VLAN</td>
+</tr>
+<tr>
+<td><strong>Off</strong></td>
+<td>完全不参与</td>
+<td>最安全（新平台支持）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The classic VTP disaster</strong>: a switch <strong>picked up from the server room and still carrying an old VTP domain configuration</strong> (with a higher revision) is powered on and connected → it propagates its stale VLAN database → <strong>every switch's VLANs are wiped within seconds</strong> → the campus goes dark.</p>
+<div class="zh">
+<p><strong>VTP 的经典事故</strong>：一台<strong>从机房捡来、还带着旧 VTP 域配置</strong>的交换机（revision number 更高）接入网络 → 它的 VLAN 数据库被判定为"更新" → <strong>全网 VLAN 数据库被覆盖为它的旧版本</strong> → 所有不在旧库里的 VLAN 被删除 → SVI 全部 down → 大面积断网。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Conclusion</strong>: VTP's only benefit is "less VLAN typing", and its price is "configuration errors are contagious". Turn it off and keep VLAN configurations consistent with templates plus automation.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>结论</strong>：VTP 的唯一好处是"少配 VLAN"，代价是"配置错误可以传染"。在现代网络里（VLAN 由自动化下发），它的好处消失了，风险还在。<strong>统一用 transparent 或 off。</strong></p>
+</blockquote>
+</div>
+<h4 id="link-aggregation">Link Aggregation · 链路聚合<a class="anchor" href="#link-aggregation" title="Permanent link"></a></h4>
+<p>IEEE 802.3ad, combining multiple physical links into one logical link.</p>
+<div class="zh">
+<p>IEEE 802.3ad 标准，将多条物理链路组合为一条逻辑链路。</p>
+</div>
+<p><strong>Advantages</strong>:
+- A cost-effective bandwidth increase (no hardware upgrade)
+- Removes single points of failure and improves availability
+- Adds bandwidth between two devices and adds link redundancy</p>
+<div class="zh">
+<p><strong>优势</strong>：
+- 成本效益高的带宽增加方案（无需硬件升级）
+- 消除单点故障，增强链路级可靠性
+- 行业标准，支持多厂商互操作</p>
+</div>
+<p><strong>Two connection models</strong>:</p>
+<div class="zh">
+<p><strong>两种连接模型</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Single-chassis aggregation</strong></td>
+<td>All members terminate on one device (a standard port-channel)</td>
+</tr>
+<tr>
+<td><strong>Multi-chassis aggregation</strong></td>
+<td>Members terminate on two devices (vPC/MC-LAG) — see the clustering section</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单机箱链路聚合</strong></td>
+<td>两个网络节点之间的点对点连接</td>
+</tr>
+<tr>
+<td><strong>多机箱链路聚合 (mLAG)</strong></td>
+<td>上游交换机以"交换机集群"模式部署，提供更高级别的链路和路径弹性</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ Each individual flow is limited to the speed of the member link it hashes onto. <strong>Aggregate bandwidth is shared capacity, not the ceiling of any single flow.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ 每个单独的流量受限于该流量使用的成员链路速度（基于负载均衡哈希算法）。</p>
+</blockquote>
+</div>
+<h4 id="the-real-limit-of-load-sharing-most-misunderstood-point">The Real Limit of Load Sharing (Most Misunderstood Point) · 负载分担的真实限制（最容易被误解的一点）<a class="anchor" href="#the-real-limit-of-load-sharing-most-misunderstood-point" title="Permanent link"></a></h4>
+<p>The engineering meaning of that sentence:</p>
+<div class="zh">
+<p>上面那句话的工程含义是：</p>
+</div>
+<pre><code>8 × 10G forming a port-channel, 80G total — that is capacity, not the ceiling for one flow
+One TCP flow (fixed src/dst) always hashes to one member → its ceiling is 10G
+80G is reachable only when there are enough independent flows
+</code></pre>
+<div class="zh">
+<pre><code>8 条 10G 组成 port-channel，总容量 80G —— 这是&quot;多条流量加总&quot;的上限
+单个 TCP 流（同一对 src/dst IP + 同一对端口）→ 哈希结果固定 → 永远走同一条 10G
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Can the aggregate be achieved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One server, one TCP session, large file</td>
+<td><strong>No</strong> — one flow, one member link</td>
+</tr>
+<tr>
+<td>One server, many parallel sessions</td>
+<td>Yes — different 5-tuples hash differently</td>
+</tr>
+<tr>
+<td>Backup traffic (single stream)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Many users to many servers</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>能否获得聚合带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大量终端并发访问（多对 IP）</td>
+<td>✅ 可以，接近总容量</td>
+</tr>
+<tr>
+<td>两台服务器之间的单条备份/迁移流</td>
+<td>❌ 不能，上限 = 单成员链路速率</td>
+</tr>
+<tr>
+<td>存储复制、数据库主备同步</td>
+<td>❌ 不能（单流，或同 IP 对的多流）</td>
+</tr>
+<tr>
+<td>虚拟机集群多宿主并发</td>
+<td>✅ 可以（多对 IP + 多端口）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Choice of hash algorithm</strong>:</p>
+<div class="zh">
+<p><strong>哈希算法的选择</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Hash factor</th>
+<th>Distribution quality</th>
+<th>Where it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L2 (src/dst MAC)</td>
+<td>Poor</td>
+<td>Only pure Layer 2 with few flows</td>
+</tr>
+<tr>
+<td>L3 (src/dst IP)</td>
+<td>Medium</td>
+<td>Typical routed environments</td>
+</tr>
+<tr>
+<td>L3+L4 (IP plus ports)</td>
+<td><strong>Best</strong></td>
+<td>The default recommendation</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>哈希因子</th>
+<th>分布质量</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src-mac</code> / <code>dst-mac</code>（默认）</td>
+<td>差（尤其在只有 1–2 台服务器的场景）</td>
+<td>不推荐</td>
+</tr>
+<tr>
+<td><code>src-dst-mac</code></td>
+<td>中</td>
+<td>传统</td>
+</tr>
+<tr>
+<td><strong><code>src-dst-ip</code></strong></td>
+<td>好</td>
+<td>三层转发为主</td>
+</tr>
+<tr>
+<td><strong><code>src-dst-ip src-dst-l4-port</code></strong></td>
+<td>最好</td>
+<td>服务器接入（多连接）</td>
+</tr>
+<tr>
+<td><code>flexible</code> / <code>adaptive</code>（厂商扩展）</td>
+<td>更好（可含 VLAN、流量方向）</td>
+<td>平台支持时</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Three ways to improve hash distribution</strong>:</p>
+<div class="zh">
+<p><strong>改善哈希分布的三个手段</strong>：</p>
+</div>
+<ol>
+<li>Change the hash factor from <strong>L2 (MAC) to L3+L4 (IP plus ports)</strong> — port combinations give far more entropy</li>
+<li>Use <strong>multiple parallel sessions</strong> at the application layer</li>
+<li>Consider <strong>flowlets</strong> or per-packet load sharing (poorly supported and can reorder packets, so with caution)</li>
+</ol>
+<div class="zh">
+<ol>
+<li>把哈希因子从 <strong>L2（MAC）改为 L3+L4（IP + 端口）</strong>——端口组合多，分布更均匀</li>
+<li>增加<strong>并发流数量</strong>（应用侧多线程/多连接）</li>
+<li>用 <strong>mLAG 跨设备聚合</strong>，让流量有多个出口路径可选</li>
+</ol>
+</div>
+<h4 id="lacp-and-design-constraints-lacp">LACP and Design Constraints · LACP 与设计约束<a class="anchor" href="#lacp-and-design-constraints-lacp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Constraint</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Members must match speed and duplex</strong></td>
+<td>Otherwise the bundle will not form, or the faster link is forced down</td>
+</tr>
+<tr>
+<td><strong>Identical VLAN configuration</strong></td>
+<td>Trunk settings must match exactly</td>
+</tr>
+<tr>
+<td><strong>Identical MTU</strong></td>
+<td>Mismatches cause partial drops</td>
+</tr>
+<tr>
+<td><strong>Member count limits</strong></td>
+<td>Platform dependent, typically 8 or 16</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>成员链路必须同速、同双工、同 MTU</strong></td>
+<td>不一致的成员会被挂起，链路容量<strong>静默减半</strong></td>
+</tr>
+<tr>
+<td><strong>LACP 模式</strong></td>
+<td><code>active</code>（主动发 LACPDU）/ <code>passive</code>（等对方发），<strong>至少一端 active</strong>；静态 channel-group 无法检测错配</td>
+</tr>
+<tr>
+<td><strong>成员数上限</strong></td>
+<td>常见 8 或 16（其中 8 条转发），跨板卡分布避免单板故障</td>
+</tr>
+<tr>
+<td><strong>不要跨不同代际设备做聚合</strong></td>
+<td>硬件哈希算法不同，可能导致<strong>去程/回程走不同成员</strong>，出现乱序</td>
+</tr>
+<tr>
+<td><strong>两端 <code>lacp rate</code> 要匹配</strong></td>
+<td><code>fast</code>（1s）与 <code>normal</code>（30s）混用不会断，但故障检测时间不一致</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-cfg">! ── Recommended: LACP active, members spread across line cards ──
+interface range Gi1/0/49-52
+ channel-group 10 mode active
+ channel-protocol lacp
+ lacp rate fast
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! ── 推荐：LACP active + 跨板卡成员 ──
+interface range TenGigabitEthernet1/1/1, TenGigabitEthernet2/1/1
+ description TO-DSW-LACP
+ switchport
+ switchport mode trunk
+ channel-group 10 mode active
+ channel-protocol lacp
+ lacp rate fast
+
+interface Port-channel10
+ description DSW-UPLINK-20G
+ switchport
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-99,200-299
+ load-interval 30
+</code></pre>
+</div>
+<p><strong>Three aggregation modes compared (choose wrong and you get an outage)</strong>:</p>
+<div class="zh">
+<p><strong>聚合的三种模式对比（选错就会出事故）</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Negotiation</th>
+<th>Mismatch detection</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode on</code> (static)</td>
+<td>None</td>
+<td>None</td>
+<td><strong>A misconfiguration becomes a loop or a black hole</strong></td>
+</tr>
+<tr>
+<td><code>mode active</code> (LACP)</td>
+<td>Active</td>
+<td>Yes</td>
+<td>Low (recommended)</td>
+</tr>
+<tr>
+<td><code>mode passive</code> (LACP)</td>
+<td>Passive</td>
+<td>Yes</td>
+<td>Unknown if the peer does not initiate</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>协商</th>
+<th>错配检测</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>on</code>（静态）</strong></td>
+<td>无协商</td>
+<td>❌ 检测不到</td>
+<td>一端汇聚、另一端独立 → <strong>STP 视为环路 + 单播乱序</strong></td>
+</tr>
+<tr>
+<td><strong>LACP <code>active</code></strong></td>
+<td>主动协商</td>
+<td>✅</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td><strong>PAgP（Cisco 专有）</strong></td>
+<td>主动协商</td>
+<td>✅</td>
+<td>仅 Cisco 环境</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong><code>mode on</code> is a common cause of Layer 2 incidents</strong>: if one end uses <code>channel-group ... mode on</code> while the far side is not yet configured, the link joins the bundle immediately — and if the far side is actually a different service, <strong>a loop</strong>. LACP's handshake would have refused it outright.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong><code>mode on</code> 是二层事故的常见来源</strong>：一端配 <code>channel-group 1 mode on</code>，另一端因为漏配而保持两条独立链路。汇聚端把两条当一条转发，非汇聚端的两条链路各自成环 → STP 阻塞一条，但<strong>因为汇聚端的哈希会把同一流送到两条物理口</strong>，可能出现<strong>非汇聚端收到重复帧</strong>（乱序、重传、性能骤降）。<strong>永远用 LACP。</strong></p>
+</blockquote>
+</div>
+<h4 id="link-aggregation-availability-details">Link Aggregation Availability Details · 链路聚合的可用性设计细节<a class="anchor" href="#link-aggregation-availability-details" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Design point</th>
+<th>Approach</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>min-links</code></strong></td>
+<td>Set a minimum member count</td>
+<td>Below it, bring the bundle down deliberately and let routing fail over</td>
+</tr>
+<tr>
+<td><strong>Members across line cards</strong></td>
+<td>Spread members over different line cards</td>
+<td>One card failure does not kill the bundle</td>
+</tr>
+<tr>
+<td><strong>LACP fast timer</strong></td>
+<td>1 s</td>
+<td>Faster failure detection</td>
+</tr>
+<tr>
+<td><strong>BFD over the bundle</strong></td>
+<td>Where routing protocols matter</td>
+<td>End-to-end detection</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>设计点</th>
+<th>做法</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>成员跨板卡/跨模块</strong></td>
+<td>至少一条在板卡 A、一条在板卡 B</td>
+<td>单板故障时链路整体 down</td>
+</tr>
+<tr>
+<td><strong>成员跨光模块批次</strong></td>
+<td>不同批次光模块混用</td>
+<td>避免批次性缺陷同时失效</td>
+</tr>
+<tr>
+<td><strong><code>min-links</code></strong></td>
+<td>设最小成员数（如 2/4）</td>
+<td>带宽不足时主动 down，让路由切换而不是"假存活"</td>
+</tr>
+<tr>
+<td><strong><code>lacp fast</code></strong></td>
+<td>快速检测</td>
+<td>收敛从 30 秒降到 1 秒</td>
+</tr>
+<tr>
+<td><strong>MTU 一致</strong></td>
+<td>全链路统一</td>
+<td>不一致导致大包不通（第 10 章 MTU 问题）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-cfg">! Minimum members: take the bundle down if too few remain, triggering route failover
+interface Port-channel10
+ port-channel min-links 4
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! 最小成员数：不足时主动 down，触发路由切换
+interface Port-channel10
+ port-channel min-links 2
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong><code>min-links</code> is rarely used and extremely valuable</strong>: with 8×10G, if half the members fail the remaining 40G can silently become a bottleneck, and latency-sensitive traffic degrades before anyone notices. Setting <code>min-links 6</code> turns "degraded" into a controlled failover.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong><code>min-links</code> 是很少人用但极有价值的设计</strong>：8×10G 的聚合，坏了 6 条只剩 2 条（20G），带宽远不够但链路还是"up"——路由不会切换，业务被挤在 20G 上慢慢烂。配了 <code>min-links 4</code>，掉到 3 条时 port-channel 直接 down，路由切到备用路径，<strong>用一次明确的切换代替长期的性能劣化</strong>。
+💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。类似的还有 StackWise（堆叠）、vPC（Nexus）与各厂商的标准 M-LAG——它们解决的是<strong>同一个问题</strong>，只是实现层级不同（见下方横向对比）。</p>
+</blockquote>
+</div>
+<h4 id="mlag-switch-clustering-layer-2-multi-chassis-technologies-mlag">mLAG / Switch Clustering (Layer 2 Multi-Chassis Technologies) · mLAG / 交换机集群（二层多机箱技术）<a class="anchor" href="#mlag-switch-clustering-layer-2-multi-chassis-technologies-mlag" title="Permanent link"></a></h4>
+<p>Strictly, mLAG is the <strong>mechanism</strong> and "switch clustering" is the <strong>effect</strong>. They share exactly one goal:</p>
+<div class="zh">
+<p>严格说 mLAG 是<strong>机制</strong>，"交换机集群"是<strong>效果</strong>。它们的目标只有一个：</p>
+</div>
+<blockquote>
+<p><strong>Make the access switch believe it is uplinked to a single switch</strong>, so it can form a port-channel to two devices at once — double the bandwidth plus device redundancy.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p><strong>让接入交换机认为上联的是一台交换机</strong>，于是它可以对两台设备做 port-channel，所有链路都能转发，STP 无事可做。</p>
+</blockquote>
+</div>
+<table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Vendor / form</th>
+<th>Control plane</th>
+<th>Characteristics and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vPC</strong></td>
+<td>Cisco Nexus</td>
+<td>Two control planes plus a peer-link</td>
+<td>Mature, widely deployed, needs brain-split protection</td>
+</tr>
+<tr>
+<td><strong>VSS</strong></td>
+<td>Cisco Catalyst</td>
+<td>Two chassis forming one control plane</td>
+<td>Simple management, single upgrade window</td>
+</tr>
+<tr>
+<td><strong>StackWise</strong></td>
+<td>Cisco Catalyst</td>
+<td>One control plane over a stacking cable</td>
+<td>Simplest, but the stack cable is a single point</td>
+</tr>
+<tr>
+<td><strong>MC-LAG</strong></td>
+<td>Multi-vendor</td>
+<td>Two control planes</td>
+<td>Standards-based, vendor differences</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>实现</th>
+<th>厂商 / 形态</th>
+<th>控制面</th>
+<th>特点与限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VSS</strong></td>
+<td>Cisco Catalyst</td>
+<td>双主控合一（真·单控制面）</td>
+<td>需专用 VSL 链路；升级时整体重启（后续版本支持 ISSU）</td>
+</tr>
+<tr>
+<td><strong>StackWise</strong></td>
+<td>Cisco 接入/小型核心</td>
+<td>单一主交换机</td>
+<td>环状堆叠线缆；<strong>链路过长时收敛慢，一般不超过 4–8 台</strong></td>
+</tr>
+<tr>
+<td><strong>vPC</strong></td>
+<td>Cisco Nexus</td>
+<td>双控制面 + peer-link 同步</td>
+<td>数据面独立、控制面配合；需 peer-keepalive 防脑裂</td>
+</tr>
+<tr>
+<td><strong>标准 M-LAG</strong></td>
+<td>多厂商（802.1AX + 厂商扩展）</td>
+<td>双控制面</td>
+<td>互通性好；一致性检查与双主检测细节各家不同</td>
+</tr>
+<tr>
+<td><strong>EVPN Multihoming</strong></td>
+<td>标准化（第 9 章）</td>
+<td>BGP 控制面</td>
+<td>无 peer-link 概念，扩展性最好；需要 EVPN 底座</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Shared capabilities</strong> (why clustering replaced STP):</p>
+<div class="zh">
+<p><strong>共同的能力</strong>（也正是交换机集群取代 STP 的原因）：</p>
+</div>
+<ul>
+<li><strong>Removes dependence on STP and FHRP</strong> and the associated convergence delays</li>
+<li>All uplinks forward at once, with <strong>no blocked ports</strong></li>
+<li>One access switch can use a port-channel towards two distribution switches</li>
+<li>Failover becomes a link-state change rather than STP reconvergence</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>消除对 STP 和 FHRP 的依赖</strong>，消除相关收敛延迟</li>
+<li>所有上行链路处于转发状态</li>
+<li>一个虚拟 IP 网关，两台交换机都转发流量（Active-Active）</li>
+<li><strong>最大化带宽容量</strong>，利用所有上行链路</li>
+<li>支持跨接入交换机安全扩展二层 VLAN，无需担心二层环路</li>
+<li>比传统 STP 设计更简单、可靠、易管理、可扩展</li>
+</ul>
+</div>
+<p><strong>Three details you must know</strong>:</p>
+<div class="zh">
+<p><strong>必须知道的三个细节</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Detail</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orphan port</strong></td>
+<td>A device attached to only one cluster member gets no protection — the hidden single point</td>
+</tr>
+<tr>
+<td><strong>Peer-link</strong></td>
+<td>Carries control and part of the data between the two; its failure changes behaviour</td>
+</tr>
+<tr>
+<td><strong>Brain split</strong></td>
+<td>If peer-link and keepalive both fail, both sides become primary — the fatal flaw</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>细节</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orphan Port（孤口）</strong></td>
+<td>只单归到一台成员设备的端口。该成员故障时此端口流量中断（无对端备份），设计时尽量双归</td>
+</tr>
+<tr>
+<td><strong>一致性检查</strong></td>
+<td>VLAN 列表、STP 参数、MTU、聚合配置两侧必须完全一致，不一致会导致部分 VLAN <strong>静默不通</strong></td>
+</tr>
+<tr>
+<td><strong>类型 1 与类型 2 的不对称</strong></td>
+<td>部分实现里，<strong>单播</strong>可跨 peer-link 走最优路径，但<strong>广播/组播/未知单播</strong>只能在 primary 侧转发 → 若流量以 BUM 为主（如 ARP 密集、组播视频），会集中在单侧</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="vpc-data-plane-and-control-plane-understand-it-to-understand-failures-vpc">vPC Data Plane and Control Plane (Understand It to Understand Failures) · vPC 的数据面与控制面（理解它才能理解故障）<a class="anchor" href="#vpc-data-plane-and-control-plane-understand-it-to-understand-failures-vpc" title="Permanent link"></a></h4>
+<pre><code>        ┌──────── vPC domain (one logical switch) ────────┐
+        │  SW1 ══════ peer-link (control + data) ══════ SW2 │
+        │   │ ╲                                ╱ │        │
+        └───┼──╲───── peer-keepalive (heartbeat) ─╱──┘      │
+            │   ╲                              ╱             │
+          uplink  ╲                          ╱  uplink       │
+                   └──── ASW (port-channel to both) ────┘
+</code></pre>
+<div class="zh">
+<pre><code>        ┌──────── vPC Domain（逻辑一台）────────┐
+        │                                      │
+   [SW1 primary] ══════ peer-link ══════ [SW2 secondary]
+        │  │                                  │  │
+        │  └──── peer-keepalive（独立路径）────┘  │
+        │                                        │
+        └──── vPC port-channel ──┬── vPC port-channel ──┘
+                                 │
+                            [接入交换机]
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function</th>
+<th>Consequence of failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>peer-link</strong></td>
+<td>Carries control and some data, synchronises state</td>
+<td>vPC suspends and the secondary shuts its member ports</td>
+</tr>
+<tr>
+<td><strong>peer-keepalive</strong></td>
+<td>Heartbeat over an out-of-band path</td>
+<td>If it also fails → brain split (both active)</td>
+</tr>
+<tr>
+<td><strong>Member ports</strong></td>
+<td>Ports facing the access switch</td>
+<td>Data path breaks; LACP leaves the bundle half alive</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+<th>故障后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>peer-link</strong></td>
+<td>同步 MAC 表、转发 BUM 流量、承载对端设备流量</td>
+<td>断 → vPC 端口全部挂起（<strong>保护性行为</strong>），业务中断但不成环</td>
+</tr>
+<tr>
+<td><strong>peer-keepalive</strong></td>
+<td>独立心跳，判断对端是否活着</td>
+<td>断 → 若 peer-link 也断 → <strong>双主（脑裂）</strong></td>
+</tr>
+<tr>
+<td><strong>角色选举</strong></td>
+<td>primary / secondary（按 priority + MAC）</td>
+<td>影响 BUM 从哪侧发</td>
+</tr>
+<tr>
+<td><strong>一致性参数</strong></td>
+<td>VLAN、MTU、STP、聚合</td>
+<td>不一致 → 部分 vPC 挂起或静默不通</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Correct behaviour in three failure scenarios</strong>:</p>
+<div class="zh">
+<p><strong>三种故障场景的正确行为</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Expected behaviour</th>
+<th>If behaviour is wrong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>peer-link down, keepalive up</td>
+<td><strong>vPC suspends</strong>: the secondary shuts member ports — protection, not a fault</td>
+<td>If it keeps forwarding, loops appear</td>
+</tr>
+<tr>
+<td>keepalive down, peer-link up</td>
+<td>Keeps forwarding, raises an alarm</td>
+<td>Brain-split risk</td>
+</tr>
+<tr>
+<td>Both down</td>
+<td><strong>Brain split</strong> — both sides active</td>
+<td>Duplicate gateways, loops, broadcast storm</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>故障</th>
+<th>期望行为</th>
+<th>如果行为不对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>peer-link 断，keepalive 正常</td>
+<td><strong>vPC 端口全部挂起（suspend）</strong>，流量改走单归路径</td>
+<td>若继续转发 → 需检查 <code>auto-recovery</code> 配置</td>
+</tr>
+<tr>
+<td>peer-link 断，keepalive 断</td>
+<td><strong>双主</strong> → 必须靠双活检测介入</td>
+<td>无检测 → 脑裂（案例二）</td>
+</tr>
+<tr>
+<td>一台整机故障</td>
+<td>另一台接管全部流量（所有 vPC 口仍 up）</td>
+<td>若流量中断 → 检查孤儿口与 STP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>"vPC suspends after the peer-link breaks" looks like a fault but is protection</strong>: the two sides can no longer synchronise state, so forwarding would be inconsistent and could loop. <strong>Suspending is the correct deterministic choice.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>"peer-link 断后 vPC 挂起"看起来像故障，实际是保护</strong>：因为此时两台设备无法同步 MAC 表，如果继续转发会出现<strong>同一 MAC 同时学在两台设备的不同端口</strong>（MAC 抖动）。挂起是牺牲可用性换一致性。<strong>运维必须理解这一点</strong>，否则会在现场反复重启设备试图"恢复"，反而扩大故障。</p>
+</blockquote>
+</div>
+<h4 id="switch-stacking">Switch Stacking · 交换机堆叠<a class="anchor" href="#switch-stacking" title="Permanent link"></a></h4>
+<p>Switch stacking is another form of clustering:
+- Multiple physical switches connected by StackWise cables form one logical switch
+- One control plane, one configuration file, one management address
+- Members can be added or replaced without reconfiguring the network</p>
+<div class="zh">
+<p>交换机堆叠是集群的另一种形式：
+- 多台物理交换机通过 StackWise 互联电缆连接
+- 选举主交换机
+- 作为单一对象管理，使用单一 IP 管理地址和单一配置文件
+- 可创建 EtherChannel 连接和 MEC（多机箱 EtherChannel）</p>
+</div>
+<blockquote>
+<p>💡 <strong>Stacking versus vPC</strong>: stacking is a "true single control plane" — simple to configure and free of brain split (in a ring stack, the stacking cable itself is the risk). vPC keeps two independent control planes, which raises operational complexity but avoids "one reboot takes down half the building". <strong>Small networks tolerate stacking; core layers usually choose vPC.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>堆叠与 vPC 的取舍</strong>：堆叠是"真单控制面"，配置简单、无脑裂（环状堆叠线缆断裂会分裂成两个 stack，但检测机制成熟）；代价是<strong>控制面共命运</strong>——主交换机重启可能导致整个 stack 重启，逻辑上是一台设备也就没有"分布层分离"的可维护性。vPC 保持双控制面，可独立升级维护，代价是配置一致性要求高、需要防脑裂。<strong>核心层选 vPC/M-LAG，接入层可以选堆叠。</strong></p>
+</blockquote>
+</div>
+<p><strong>Additional stacking risks</strong>:</p>
+<div class="zh">
+<p><strong>堆叠的额外风险</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Explanation</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stacking cable failure</td>
+<td>The stack splits into two</td>
+<td>Use a ring topology, deploy dual-active detection</td>
+</tr>
+<tr>
+<td>A single member reboots</td>
+<td>The whole stack restarts (in some platforms)</td>
+<td>Choose platforms with hitless upgrade</td>
+</tr>
+<tr>
+<td>Version upgrades</td>
+<td>Every member upgrades together</td>
+<td>Schedule a window</td>
+</tr>
+<tr>
+<td>Configuration error</td>
+<td>One mistake applies to every member</td>
+<td>Configuration review plus templates</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>说明</th>
+<th>缓解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>整机重启</strong></td>
+<td>主设备故障或升级 → 全部成员重启</td>
+<td>选支持 ISSU/NSF 的平台；避开业务高峰</td>
+</tr>
+<tr>
+<td><strong>堆叠线缆单点</strong></td>
+<td>环状堆叠断一处变链状，断两处分裂</td>
+<td>环状连接（不要链状）；分裂检测配好</td>
+</tr>
+<tr>
+<td><strong>分裂后双主</strong></td>
+<td>两个 stack 各有 IP、各有配置</td>
+<td>配双主检测（如 PAgP/MAD），分裂时一侧 err-disable</td>
+</tr>
+<tr>
+<td><strong>升级时长</strong></td>
+<td>8 台堆叠升级可能 1 小时以上</td>
+<td>分批/分区域堆叠，不要把整个园区堆成一个</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="first-hop-redundancy-protocols-fhrp-and-stp-fhrp-stp">First Hop Redundancy Protocols (FHRP) and STP · 首跳冗余协议 (FHRP) 和 STP<a class="anchor" href="#first-hop-redundancy-protocols-fhrp-and-stp-fhrp-stp" title="Permanent link"></a></h3>
+<p>FHRP provides transparent failover of the first-hop Layer 3 gateway. Two or more Layer 3 devices form a group representing one virtual gateway address, so hosts need only one default gateway and survive the failure of one device.</p>
+<div class="zh">
+<p>FHRP 提供首跳三层网关的透明故障转移能力。两台或多台三层设备作为一个组，代表一个虚拟三层网关。</p>
+</div>
+<h4 id="fhrp-options-compared-fhrp">FHRP Options Compared · FHRP 选项对比<a class="anchor" href="#fhrp-options-compared-fhrp" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>HSRP</th>
+<th>VRRP</th>
+<th>GLBP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td>Cisco proprietary</td>
+<td>RFC 5798</td>
+<td>Cisco proprietary</td>
+</tr>
+<tr>
+<td>Roles</td>
+<td>Active / Standby</td>
+<td>Master / Backup</td>
+<td>AVG plus AVFs</td>
+</tr>
+<tr>
+<td>Load sharing</td>
+<td>No (single active)</td>
+<td>No (single master)</td>
+<td><strong>Yes</strong> (multiple forwarders)</td>
+</tr>
+<tr>
+<td>Preemption</td>
+<td>Default off (v1), on (v2)</td>
+<td>Default on</td>
+<td>Configurable</td>
+</tr>
+<tr>
+<td>IPv6 support</td>
+<td>HSRPv2</td>
+<td>VRRPv3</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Very mature</td>
+<td>Standard, multi-vendor</td>
+<td>Cisco only</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>HSRP</th>
+<th>VRRP</th>
+<th>GLBP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标准</strong></td>
+<td>Cisco 专有</td>
+<td>IEEE 标准</td>
+<td>Cisco 专有</td>
+</tr>
+<tr>
+<td><strong>IPv6 支持</strong></td>
+<td>是 (v2)</td>
+<td>是 (v3)</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>认证</strong></td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>负载分担</strong></td>
+<td>多个 HSRP 组</td>
+<td>多个 VRRP 组</td>
+<td>原生支持</td>
+</tr>
+<tr>
+<td><strong>默认 Hello 计时器</strong></td>
+<td>3 秒</td>
+<td>1 秒</td>
+<td>3 秒</td>
+</tr>
+<tr>
+<td><strong>虚拟 IP</strong></td>
+<td>可与接口 IP 不同</td>
+<td>可与接口 IP 不同</td>
+<td>与接口 IP 不同</td>
+</tr>
+<tr>
+<td><strong>BFD 支持</strong></td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><strong>虚拟 MAC</strong></td>
+<td><code>0000.0c07.acXX</code></td>
+<td><code>0000.5e00.01XX</code></td>
+<td><code>0007.b400.XXYY</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Practical selection considerations</strong>:</p>
+<div class="zh">
+<p><strong>选型的实际考量</strong>：</p>
+</div>
+<ul>
+<li><strong>In multi-vendor environments only VRRP works</strong> (HSRP and GLBP are proprietary)</li>
+<li><strong>GLBP load sharing</strong> looks attractive, but its traffic distribution is unpredictable and troubleshooting is harder — most large networks choose "aligned STP root plus HSRP active", which achieves load sharing structurally</li>
+<li>HSRPv2's millisecond timers plus BFD give failover in the sub-second range</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>多厂商环境只能选 VRRP</strong>（HSRP / GLBP 是专有协议）</li>
+<li><strong>HSRP/VRRP 的"负载分担"是伪负载分担</strong>：需要按 VLAN 配置多个组，每组一个 Active 一个 Standby，配置量 = 2 × VLAN 数</li>
+<li><strong>GLBP 原生负载分担，但确定性差</strong>：ARP 响应分配是随机的，排障时"为什么这台主机走了备用网关"很难解释</li>
+</ul>
+</div>
+<blockquote>
+<p>💡 <strong>Modern trend</strong>: in <strong>mLAG / clustering</strong> environments the role of FHRP has shifted — both switches can be active gateways at once (<code>vPC peer-gateway</code> or distributed anycast gateways), so "one active, one standby" is no longer required. But without clustering, FHRP alignment with STP remains the crucial rule.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>现代趋势</strong>：在 <strong>mLAG / 集群</strong>环境里，FHRP 的意义已经变化——两台设备都是 Active（都转发），FHRP 只提供<strong>一个共享的虚拟 MAC/IP</strong>，不再是"主备切换"。这时可以：
+- 用 <strong>HSRP/VRRP 的"两个组各做一半 VLAN 的 Active"</strong>，实现按 VLAN 的分流
+- 或直接用 <strong>vPC 的 "peer-gateway" + 同一个 SVI 地址</strong>（部分实现支持，无需 FHRP）
+- <strong>注意</strong>：无论哪种，<code>object tracking</code> 仍然必须配 —— 上行断了，虚拟网关还在收包，黑洞依旧。</p>
+</blockquote>
+</div>
+<h4 id="fhrp-and-stp-alignment-the-single-most-important-rule-in-this-chapter-fhrp-stp">FHRP and STP Alignment (the Single Most Important Rule in This Chapter) · FHRP 和 STP 对齐设计（本章最关键的一条）<a class="anchor" href="#fhrp-and-stp-alignment-the-single-most-important-rule-in-this-chapter-fhrp-stp" title="Permanent link"></a></h4>
+<blockquote>
+<p>⚠️ <strong>One of the most common network design errors</strong>: the STP root bridge is not aligned with the active FHRP instance. Traffic from every host then crosses the inter-switch link to reach the gateway, that link saturates, and latency doubles.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>最常见的网络设计错误之一</strong>：STP 根桥未与 FHRP 活动实例对齐。</p>
+</blockquote>
+</div>
+<p><strong>The correct aligned design</strong> (Figure 7-3):
+1. The link between distribution switches is a <strong>Layer 3 link</strong> (or at least not a Layer 2 transit path)
+2. DSW1 is the <strong>STP root for VLAN 10/30</strong> and simultaneously the <strong>HSRP active for those VLANs</strong>
+3. DSW2 is the <strong>STP root for VLAN 20/40</strong> and simultaneously the <strong>HSRP active for those VLANs</strong>
+4. Spanning tree and the gateway thus share the same position, so traffic never detours</p>
+<div class="zh">
+<p><strong>正确的对齐设计</strong>（图 7-3）：
+1. 分布交换机之间的链路配置为<strong>三层链路</strong>
+2. VLAN <strong>不跨交换机扩展</strong>
+3. <strong>STP 根桥与每个 VLAN 的活动 FHRP 实例对齐</strong>
+4. 接入层到分布层的上行链路从 STP 角度都是<strong>转发状态</strong></p>
+</div>
+<p><strong>Why alignment is mandatory</strong> — one traffic diagram explains it:</p>
+<div class="zh">
+<p><strong>为什么必须对齐</strong>——用一张流量图说明：</p>
+</div>
+<pre><code>【Misaligned · wrong】                 【Aligned · correct】
+   DSW1 (STP root) ════ DSW2 (HSRP act)    DSW1 (root + HSRP act) ════ DSW2 (root + HSRP act)
+        │                    │                    │                      │
+       ASW ════════════════ ASW                  ASW ══════════════════ ASW
+   host → ASW → DSW1 (root) → DSW2 (gateway)   host → ASW → DSW1 (root and gateway)
+   one extra hop over the inter-switch link     local forwarding, one hop
+</code></pre>
+<div class="zh">
+<pre><code>【未对齐 · 错】
+      DSW1 (STP 根桥)  ═══════  DSW2 (HSRP Active)
+        │ 转发                      │ 转发
+        └───────── ASW ─────────────┘
+
+  主机 → ASW：上行流量因根桥在 DSW1 而全部走 DSW1
+       → 但网关 MAC 在 DSW2，DSW1 必须把流量送过核心间链路到 DSW2
+       → 再经 DSW2 出网
+  结果：核心间链路承载了本该由 ASW 直接上行的流量
+        +1 跳延迟，核心间链路成为瓶颈，一侧故障时行为难以预测
+
+【对齐 · 对】
+      DSW1 (VLAN 10/30 的根桥 + HSRP Active)  ═══════  DSW2 (VLAN 20/40 的根桥 + HSRP Active)
+  结果：ASW 上行流量直达本地网关，核心间链路只承载跨 VLAN 与 WAN 流量
+</code></pre>
+</div>
+<p><strong>Consequences of misalignment</strong>:
+- Traffic takes an extra hop to reach the active FHRP gateway
+- The inter-switch link becomes the bottleneck (often above 70% utilization)
+- The other uplink is idle, wasting half the capacity
+- Latency and jitter increase, which hurts voice and video</p>
+<div class="zh">
+<p><strong>未对齐的后果</strong>：
+- 流量经过额外跳到达活动 FHRP 网关
+- 次优路由
+- 在大多数情况下被视为糟糕的设计</p>
+</div>
+<blockquote>
+<p>💡 <strong>Three actionable alignment rules</strong>:
+1. <strong>For the same VLAN, the HSRP/VRRP active device must be the STP root for that VLAN</strong>
+2. <strong>Split VLANs between the two distribution switches</strong> so both are active for some VLANs (structural load sharing)
+3. <strong>The inter-switch link carries only control and failure traffic</strong>, not normal data</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>对齐的三个可操作规则</strong>：
+1. <strong>同一 VLAN 的 HSRP Active 与 STP 根桥必须是同一台设备</strong>——<code>spanning-tree vlan X root primary</code> 和 <code>standby X priority</code> 要成对配置
+2. <strong>用多组 HSRP 做分流</strong>：VLAN 10/30/50 的 Active 在 DSW1（同时是这些 VLAN 的根桥），VLAN 20/40/60 在 DSW2
+3. <strong>上行用 port-channel 或 mLAG</strong>，STP 无阻塞端口，对齐问题从根上消失
+💡 当使用 GLBP 作为 FHRP 时，由于 ARP 响应分配是随机的，不如 HSRP 或 VRRP 确定性强。</p>
+</blockquote>
+</div>
+<pre><code class="language-cfg">! ── DSW1: root plus HSRP active for VLAN 10/30 ──
+spanning-tree vlan 10,30 root primary
+interface Vlan10
+ standby 10 ip 10.10.10.1
+ standby 10 priority 110
+ standby 10 preempt delay minimum 180
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! ── DSW1：VLAN 10/30 的根桥 + HSRP Active ──
+spanning-tree vlan 10,30 root primary
+interface Vlan10
+ ip address 10.10.10.2 255.255.255.0
+ standby version 2
+ standby 10 ip 10.10.10.1
+ standby 10 priority 110
+ standby 10 preempt delay minimum 180      ! 延迟抢占，避免抖动
+ standby 10 track 1 decrement 30           ! 上行对象跟踪
+ standby 10 timers msec 250 msec 750       ! 或不用，改用 BFD
+!
+track 1 interface TenGigabitEthernet1/0/1 line-protocol
+
+! ── DSW2：VLAN 20/40 的根桥 + HSRP Active ──
+spanning-tree vlan 20,40 root primary
+spanning-tree vlan 10,30 root secondary
+interface Vlan20
+ ip address 10.10.20.3 255.255.255.0
+ standby version 2
+ standby 20 ip 10.10.20.1
+ standby 20 priority 110
+ standby 20 preempt delay minimum 180
+ standby 20 track 1 decrement 30
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong><code>preempt delay</code> is mandatory</strong>: after a reboot the routing protocol has not yet converged (which can take 30–120 s), and if HSRP preempts immediately the device becomes gateway before it has routes → <strong>black hole</strong>. A delay of at least 180 s, or tracking of a route's presence, avoids it.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong><code>preempt delay</code> 是必须的</strong>：设备重启后路由协议还没收敛（可能 30–60 秒），如果立刻抢占 FHRP Active，会在"路由还没通"的瞬间接收流量 → <strong>黑洞</strong>。延迟 180 秒让路由先稳定。</p>
+</blockquote>
+</div>
+<h4 id="timers-bfd-and-link-tracking-bfd">Timers, BFD and Link Tracking · 计时器、BFD 与链路跟踪<a class="anchor" href="#timers-bfd-and-link-tracking-bfd" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Function</th>
+<th>Design advice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HSRP timers</strong></td>
+<td>Hello 3 s / hold 10 s by default</td>
+<td>Use milliseconds or BFD instead</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>Millisecond failure detection</td>
+<td>Enable wherever supported</td>
+</tr>
+<tr>
+<td><strong>Object tracking</strong></td>
+<td>Ties HSRP priority to interface or route state</td>
+<td><strong>Essential</strong></td>
+</tr>
+<tr>
+<td><strong>Preempt delay</strong></td>
+<td>Avoids preemption during convergence</td>
+<td>At least 180 s</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>作用</th>
+<th>设计建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hello / Hold 计时器</strong></td>
+<td>决定故障检测时间</td>
+<td>默认 3s / 10s 已足够；调到 250ms 增加 CPU 与误切换风险</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>毫秒级故障检测，独立于 FHRP 计时器</td>
+<td><strong>推荐用 BFD 而不是猛调计时器</strong>：更快且不增加协议开销</td>
+</tr>
+<tr>
+<td><strong>Object Tracking</strong></td>
+<td>跟踪上行接口、路由或 IP SLA，上行断则主动降优先级</td>
+<td><strong>必配</strong>：否则上行断了 FHRP 仍 Active，形成黑洞</td>
+</tr>
+<tr>
+<td><strong>Preempt（抢占）</strong></td>
+<td>主设备恢复后抢回 Active</td>
+<td>开启（否则长期次优），但配合<strong>延迟抢占</strong>避免抖动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>"The uplink is down but the gateway is still alive" is the most insidious black hole</strong>: both distribution switches are healthy, but DSW1's uplink to the WAN has failed and it is still HSRP active, so every host sends traffic to it and it can only drop it.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>"上行断了网关还活着"是最隐蔽的黑洞</strong>：两台分布交换机都正常，但 DSW1 到 WAN 的上行断了。没配跟踪时 DSW1 仍是 HSRP Active，它接收主机流量却转发不出去。用户侧的表现是「<strong>网关能 ping 通，但上不了网</strong>」。解法就是 object tracking + 抢占。</p>
+</blockquote>
+</div>
+<p><strong>The three tracking objects for object tracking</strong>:</p>
+<div class="zh">
+<p><strong>Object Tracking 的三种跟踪对象</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Tracked object</th>
+<th>Syntax</th>
+<th>Where it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Interface state</strong></td>
+<td><code>track 1 interface Gi1/0/1 line-protocol</code></td>
+<td>Direct physical link</td>
+</tr>
+<tr>
+<td><strong>IP SLA (reachability)</strong></td>
+<td><code>track 10 ip sla 1 reachability</code></td>
+<td><strong>Closer to real availability than interface state</strong></td>
+</tr>
+<tr>
+<td><strong>Route presence</strong></td>
+<td><code>track 20 ip route 0.0.0.0/0 reachability</code></td>
+<td>Confirms the routing table really has a default route</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>跟踪对象</th>
+<th>语法</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>接口线路状态</strong></td>
+<td><code>track 1 interface Gi1/0/1 line-protocol</code></td>
+<td>直连上行（最常见）</td>
+</tr>
+<tr>
+<td><strong>IP 路由可达性</strong></td>
+<td><code>track 2 ip route 0.0.0.0 0.0.0.0 reachability</code></td>
+<td>依赖默认路由是否存在</td>
+</tr>
+<tr>
+<td><strong>IP SLA（主动探测）</strong></td>
+<td><code>track 3 ip sla 1 reachability</code></td>
+<td>需要探测远端（如运营商网关、核心服务器）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-cfg">! IP SLA tracking reachability to the WAN gateway (closer to reality than interface state)
+ip sla 1
+ icmp-echo 203.0.113.1 source-interface Gi1/0/1
+ frequency 5
+ip sla schedule 1 life forever start-time now
+track 10 ip sla 1 reachability
+
+interface Vlan10
+ standby 10 track 10 decrement 30
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! IP SLA 跟踪&quot;到 WAN 网关的可达性&quot;（比接口状态更贴近真实可用性）
+ip sla 1
+ icmp-echo 203.0.113.1 source-interface TenGigabitEthernet1/0/1
+ frequency 5
+ip sla schedule 1 life forever start-time now
+track 3 ip sla 1 reachability
+!
+interface Vlan10
+ standby 10 track 3 decrement 30
+</code></pre>
+</div>
+<blockquote>
+<p>⚠️ <strong>The classic track trap: <code>decrement</code> is not enough.</strong> With an active priority of 110 and a standby of 100, if the decrement only takes the active to 105 it <strong>stays active</strong> — the tracking is useless. The decrement must push the priority <strong>below the standby's</strong>. Formula: <code>decrement &gt; active priority − standby priority</code>, plus margin.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>对象跟踪的经典坑：<code>decrement</code> 不够</strong>。Active 优先级 110、Standby 100；<code>decrement 30</code> → 降为 80 &lt; 100，能切换。但如果 Active 是 105、Standby 100、<code>decrement 5</code> → 降为 100，<strong>优先级相同不切换</strong>（或按 IP 比较，行为难以预测）。<strong>规则：<code>decrement</code> 必须保证 <code>Active_priority - decrement &lt; Standby_priority</code>。</strong> 常用做法是 Active 110、Standby 100、decrement 20（留足余量）。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="common-layer-2-lan-design-models-lan">Common Layer 2 LAN Design Models · 二层 LAN 常见设计模型<a class="anchor" href="#common-layer-2-lan-design-models-lan" title="Permanent link"></a></h2>
+<h3 id="stp-based-models-stp">STP-Based Models · 基于 STP 的模型<a class="anchor" href="#stp-based-models-stp" title="Permanent link"></a></h3>
+<p>Four classic STP topologies:</p>
+<div class="zh">
+<p>四种经典 STP 拓扑：</p>
+</div>
+<h4 id="1-looped-triangle">1. Looped Triangle · 环路三角形拓扑<a class="anchor" href="#1-looped-triangle" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │  ╲        ╱  │
+     │   ╲      ╱   │
+     │    ╲    ╱    │
+    ASW1  ╲  ╱  ASW2
+            ╳
+</code></pre>
+<div class="zh">
+<pre><code>    DSW1 ═══════ DSW2
+     │  ╲        ╱  │
+     │   ╲      ╱   │
+     │    ╲    ╱    │
+     └───── ASW ────┘
+</code></pre>
+</div>
+<ul>
+<li><strong>Design concern</strong>: STP limits utilization of the available uplinks, so efficiency is low</li>
+<li><strong>Where it fits</strong>: small networks with few VLANs, where simplicity matters more than bandwidth</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>设计顾虑</strong>：STP 限制了所有可用上行链路的利用，效率不高</li>
+<li><strong>适用场景</strong>：单归属端点，无高带宽和快速收敛需求</li>
+<li><strong>代价量化</strong>：双上行 2×10G，实际只能用 10G（<strong>浪费 50%</strong>）；且核心间链路与 ASW 上行形成三角形，任一处故障都要 STP 收敛</li>
+</ul>
+</div>
+<h4 id="2-loop-free-inverted-u-u">2. Loop-Free Inverted U · 无环路倒 U 型拓扑<a class="anchor" href="#2-loop-free-inverted-u-u" title="Permanent link"></a></h4>
+<pre><code>    DSW1          DSW2
+     │             │
+    ASW1 ── ASW2 ──┘
+     (access switches chained, uplinks cross)
+</code></pre>
+<div class="zh">
+<pre><code>    DSW1          DSW2
+     │            │
+     │            │
+     └──── ASW ────┘
+</code></pre>
+</div>
+<ul>
+<li><strong>Design concern</strong>: a distribution switch or uplink failure introduces a single point for the chained segment</li>
+<li><strong>Where it fits</strong>: legacy designs, now largely superseded</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>设计顾虑</strong>：如果一台分布交换机或上行链路故障，会引入单点故障</li>
+<li><strong>适用场景</strong>：双归属端点（NIC 绑定）或不需要低 MTTR 的端点</li>
+<li><strong>关键区别</strong>：<strong>ASW 只有一条上行</strong>（或两条上行但都连同一台 DSW），所以没有环 → STP 全转发</li>
+<li><strong>实际含义</strong>：这是"没有冗余"的拓扑，只在成本极度敏感或端点本身双归服务器时使用</li>
+</ul>
+</div>
+<h4 id="3-looped-square">3. Looped Square · 环路方形拓扑<a class="anchor" href="#3-looped-square" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │             │
+    ASW1 ═══════ ASW2
+</code></pre>
+<div class="zh">
+<pre><code>    DSW1 ═══════ DSW2
+     │            │
+     │            │
+     └──── ASW ────┘
+</code></pre>
+</div>
+<ul>
+<li><strong>Design concern</strong>: a lot of access-layer traffic may cross the inter-switch link to reach the active FHRP gateway</li>
+<li><strong>Where it fits</strong>: environments needing VLANs to span access switches, with careful root placement</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>设计顾虑</strong>：大量接入层流量可能穿越交换机间链路到达活动 FHRP</li>
+<li><strong>适用场景</strong>：非关键单/双归属端点，无高带宽需求</li>
+<li><strong>本质</strong>：这是"未对齐"的典型形态 —— 只要根桥和 FHRP Active 不在同一侧，就必然绕行</li>
+</ul>
+</div>
+<h4 id="4-loop-free-u-u">4. Loop-Free U · 无环路 U 型拓扑<a class="anchor" href="#4-loop-free-u-u" title="Permanent link"></a></h4>
+<pre><code>    DSW1 ═══════ DSW2
+     │             │
+    ASW1          ASW2
+   (each access switch single-uplinked, no access-to-access links)
+</code></pre>
+<div class="zh">
+<pre><code>    DSW1 ═══════ DSW2
+     │            
+     │            
+     ASW ────────┘
+</code></pre>
+</div>
+<ul>
+<li><strong>Design concern</strong>: the same VLAN cannot extend across more than one pair of access switches</li>
+<li><strong>Where it fits</strong>: <strong>the mainstream modern design</strong> — combined with local VLANs, this is the foundation of loop-free Layer 2</li>
+</ul>
+<div class="zh">
+<ul>
+<li><strong>设计顾虑</strong>：无法在超过一对接入交换机上扩展相同 VLAN</li>
+<li><strong>适用场景</strong>：单/双归属端点，高转发容量和较快收敛需求，不需要跨交换机扩展 VLAN</li>
+<li><strong>现代变体</strong>：如果 ASW 对两台 DSW 做 <strong>port-channel（配合 vPC/mLAG）</strong>，就变成"逻辑单上行 + 全转发"，是当前主流</li>
+</ul>
+</div>
+<blockquote>
+<p>⚠️ <strong>The common limitation</strong>: every STP model depends on STP to avoid loops and on FHRP for gateway redundancy, so <strong>convergence is bounded by STP plus FHRP timers</strong>. Clustering models exist precisely to remove that bound.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>共同限制</strong>：所有 STP 模型都依赖 STP 避免环路，依赖 FHRP 计时器收敛。这些依赖导致节点或链路故障时收敛时间增加。调优和对齐 STP 和 FHRP 计时器是推荐做法。</p>
+</blockquote>
+</div>
+<h4 id="side-by-side-comparison-of-the-four-topologies">Side-by-Side Comparison of the Four Topologies · 四种拓扑综合对比<a class="anchor" href="#side-by-side-comparison-of-the-four-topologies" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Topology</th>
+<th>Design concern</th>
+<th>Where it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Looped triangle</td>
+<td>Wasted links, slow convergence</td>
+<td>Legacy, small networks</td>
+</tr>
+<tr>
+<td>Loop-free inverted U</td>
+<td>Chained segment is a single point</td>
+<td>Legacy</td>
+</tr>
+<tr>
+<td>Looped square</td>
+<td>Traffic crosses the inter-switch link</td>
+<td>VLANs must span access switches</td>
+</tr>
+<tr>
+<td>Loop-free U</td>
+<td>VLAN cannot span access switches</td>
+<td><strong>Modern standard</strong> with local VLANs</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>拓扑</th>
+<th>设计顾虑</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>环路三角形</td>
+<td>STP 限制上行链路利用</td>
+<td>单归属端点，无高带宽需求</td>
+</tr>
+<tr>
+<td>无环路倒 U</td>
+<td>分布交换机故障引入单点故障</td>
+<td>双归属端点，不需要低 MTTR</td>
+</tr>
+<tr>
+<td>环路方形</td>
+<td>流量穿越交换机间链路到达 FHRP</td>
+<td>非关键端点，无高带宽需求</td>
+</tr>
+<tr>
+<td>无环路 U</td>
+<td>无法扩展 VLAN 超过一对交换机</td>
+<td>需要高转发容量和快速收敛的场景</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Quantitative comparison</strong> (assuming 2×10G uplinks and a 2×10G inter-switch link):</p>
+<div class="zh">
+<p><strong>四个拓扑的量化对比</strong>（假设双上行 2×10G、核心间 2×10G）：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Looped triangle</th>
+<th>Loop-free inverted U</th>
+<th>Looped square</th>
+<th>Loop-free U</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Link utilization</td>
+<td>About 50%</td>
+<td>About 50%</td>
+<td>About 50%</td>
+<td><strong>100%</strong></td>
+</tr>
+<tr>
+<td>Redundancy</td>
+<td>Yes</td>
+<td>Partial</td>
+<td>Yes</td>
+<td>Yes (with mLAG)</td>
+</tr>
+<tr>
+<td>Convergence</td>
+<td>30 s+ (STP)</td>
+<td>30 s+</td>
+<td>30 s+</td>
+<td>Seconds (with mLAG/routing)</td>
+</tr>
+<tr>
+<td>VLAN span</td>
+<td>Whole campus</td>
+<td>Limited</td>
+<td>Whole campus</td>
+<td>One access switch</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>环路三角形</th>
+<th>无环倒 U</th>
+<th>环路方形</th>
+<th>无环 U 型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上行可用带宽</td>
+<td>10G（50%）</td>
+<td>10G（50%，但无环）</td>
+<td>10G（50%）</td>
+<td><strong>20G（100%）</strong></td>
+</tr>
+<tr>
+<td>单台 DSW 故障</td>
+<td>有路径，需 STP 收敛</td>
+<td><strong>无路径</strong>（单点）</td>
+<td>有路径，需收敛</td>
+<td>有路径（另一半）</td>
+</tr>
+<tr>
+<td>上行链路故障</td>
+<td>有路径，需 STP 收敛</td>
+<td>无路径</td>
+<td>有路径，需收敛</td>
+<td>有路径（port-channel 剩一条）</td>
+</tr>
+<tr>
+<td>收敛机制</td>
+<td>STP + FHRP</td>
+<td>路由（若 ASW 是三层）</td>
+<td>STP + FHRP</td>
+<td><strong>链路检测 + 路由</strong></td>
+</tr>
+<tr>
+<td>跨交换机 VLAN</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>跨交换机 VLAN 的故障域</td>
+<td>全园区</td>
+<td>—</td>
+<td>全园区</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>推荐度</strong></td>
+<td>⚠️ 遗留</td>
+<td>❌ 仅特例</td>
+<td>❌ 避免</td>
+<td>⭐ 推荐</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="why-loop-free-u-became-the-modern-mainstream-u">Why "Loop-Free U" Became the Modern Mainstream · 为什么"无环 U 型"成了现代主流<a class="anchor" href="#why-loop-free-u-became-the-modern-mainstream-u" title="Permanent link"></a></h4>
+<p>The book does not expand on this, but it is a genuine turning point in Layer 2 design history:</p>
+<div class="zh">
+<p>书里没有展开，但这是二层设计史上一个真正的转折点：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Looped triangle</th>
+<th>Loop-free U</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer 2 loops</td>
+<td>Exist, STP must block</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Wasted links</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Dependence on STP</td>
+<td>High</td>
+<td>None (with clustering)</td>
+</tr>
+<tr>
+<td>Failure domain</td>
+<td>Large</td>
+<td>Small</td>
+</tr>
+<tr>
+<td>Convergence</td>
+<td>Timer driven</td>
+<td>Link state</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>环路三角形</th>
+<th>无环 U 型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接入上行链路</td>
+<td>2 条中 1 条被 STP 阻塞（浪费 50%）</td>
+<td>2 条都转发（利用率 100%）</td>
+</tr>
+<tr>
+<td>单台分布交换机故障</td>
+<td>仍有一条路径（要等 STP 收敛）</td>
+<td><strong>失去一半路径</strong>（另一半仍在，路由秒级收敛）</td>
+</tr>
+<tr>
+<td>收敛依赖</td>
+<td>STP 重新收敛（1–3 秒）</td>
+<td><strong>链路检测 + 路由</strong>（毫秒~亚秒级）</td>
+</tr>
+<tr>
+<td>跨交换机 VLAN</td>
+<td>可以（靠 STP 防环）</td>
+<td><strong>不能</strong>（这是它唯一的代价）</td>
+</tr>
+<tr>
+<td>FHRP 对齐</td>
+<td>必须小心对齐，否则次优</td>
+<td>不依赖 STP，天然对齐</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Its precondition is that "VLANs do not span switches"</strong> — that is, the local VLAN model. Which leads to a chain of reasoning:</p>
+<div class="zh">
+<p><strong>它成立的前提是"VLAN 不跨交换机"</strong>——也就是本地 VLAN 模型。于是形成一个漂亮的闭环：</p>
+</div>
+<pre><code>VLANs do not span switches → no Layer 2 loop → STP has nothing to do → every link forwards
+→ bandwidth doubles + convergence becomes link state rather than timers
+</code></pre>
+<div class="zh">
+<pre><code>VLAN 不跨交换机 → 二层无环 → STP 无事可做 → 所有链路转发 → 收敛只靠链路检测
+      ↑                                                        ↓
+      └──── 代价：需要三层路由到接入，IP 规划要更细 ←────────────┘
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong>This is the design paradigm most worth taking away from this chapter</strong>: trade <strong>"limiting the Layer 2 scope"</strong> for <strong>"removing Layer 2 complexity"</strong>. Reduce the problem instead of optimizing the solution to a bad problem.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>这是本章最值得带走的设计范式</strong>：用<strong>"限制二层范围"</strong>换<strong>"消除二层协议的不确定性"</strong>。同一思路在第 9 章（虚拟化）和第 15 章（园区）会反复出现——<strong>现代网络设计的通用手法，是把问题从二层移到三层，因为在三层你能用可见、可预测的路由控制它。</strong></p>
+</blockquote>
+</div>
+<h4 id="a-common-misunderstanding-loop-free-u-has-no-redundancy-u">A Common Misunderstanding: Loop-Free U "Has No Redundancy" · 一个常见误解：无环 U 型"没有冗余"<a class="anchor" href="#a-common-misunderstanding-loop-free-u-has-no-redundancy-u" title="Permanent link"></a></h4>
+<p>Many assume that "U-shape has only one logical uplink path, so it is unreliable". That confuses <strong>topology connectivity</strong> with <strong>forwarding availability</strong>.</p>
+<div class="zh">
+<p>很多人以为"U 型只有一条上行链路的逻辑路径，所以不可靠"。这是混淆了<strong>拓扑连通性</strong>与<strong>STP 视角</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Physical links</th>
+<th>From STP's view</th>
+<th>Real availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bare U, single uplink</td>
+<td>1</td>
+<td>No blocking</td>
+<td>Single point — truly unreliable</td>
+</tr>
+<tr>
+<td>U with mLAG</td>
+<td>2 (port-channel)</td>
+<td>No STP at all</td>
+<td>Redundant, both forwarding</td>
+</tr>
+<tr>
+<td>U with routed access</td>
+<td>2 (ECMP)</td>
+<td>No STP at all</td>
+<td>Redundant, load shared</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>物理链路</th>
+<th>STP 视角</th>
+<th>实际可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯 STP 无环 U 型（单上行）</td>
+<td>1 条</td>
+<td>转发</td>
+<td>❌ 单点</td>
+</tr>
+<tr>
+<td>STP 无环 U 型（双上行到同一 DSW）</td>
+<td>2 条</td>
+<td>全部转发（若对同一台设备做 port-channel）</td>
+<td>✅ 链路冗余，但 <strong>DSW 是单点</strong></td>
+</tr>
+<tr>
+<td><strong>mLAG 无环 U 型（双上行到两台 DSW）</strong></td>
+<td>2 条</td>
+<td>全部转发（逻辑一条）</td>
+<td>✅ 链路 + 设备冗余，<strong>最优</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Conclusion</strong>: the modern U-shape is only meaningful <strong>together with mLAG/vPC</strong>. A bare U (single link, no clustering) really is unreliable — the redundancy comes from clustering, not from the U itself.</p>
+<div class="zh">
+<p><strong>结论</strong>：现代"U 型"必然配合 <strong>mLAG/vPC</strong> 才有意义。裸的 U 型（单上行）只是省钱的妥协。</p>
+</div>
+<h3 id="switch-clustering-model-vss-vpc-stackwise">Switch Clustering Model (VSS / vPC / StackWise) · 交换机集群模型<a class="anchor" href="#switch-clustering-model-vss-vpc-stackwise" title="Permanent link"></a></h3>
+<p>Switch clustering significantly changes the Layer 2 design model between the access and distribution layers.</p>
+<div class="zh">
+<p>交换机集群显著改变了接入层和分布层之间的二层设计模型。</p>
+</div>
+<p><strong>Core idea</strong>: a pair of upstream distribution switches appears to the access switch as <strong>one logical (virtual) switch</strong>.</p>
+<div class="zh">
+<p><strong>核心思想</strong>：一对上游分布交换机从接入交换机角度看是一台逻辑（虚拟）交换机。</p>
+</div>
+<p><strong>Advantages</strong>:
+- <strong>No dependence on STP or FHRP</strong>, and therefore no associated convergence delay
+- Every uplink forwards, so there are no blocked ports
+- The access switch uses a port-channel to two devices at once, getting link and device redundancy together
+- Failover is a link-state change measured in seconds or less</p>
+<div class="zh">
+<p><strong>优势</strong>：
+- <strong>消除对 STP 和 FHRP 的依赖</strong>，消除相关收敛延迟
+- 所有上行链路处于转发状态
+- 一个虚拟 IP 网关，两台交换机都转发流量（Active-Active）
+- <strong>最大化带宽容量</strong>，利用所有上行链路
+- 支持跨接入交换机安全扩展二层 VLAN，无需担心二层环路
+- 比传统 STP 设计更简单、可靠、易管理、可扩展</p>
+</div>
+<p><strong>Limitations — brain split</strong>:
+- Two or more cluster members both believe they are active (because the peer-link has failed)
+- Both keep forwarding, addresses duplicate, and the result is a loop or inconsistent forwarding
+- Detection and suppression mechanisms are mandatory</p>
+<div class="zh">
+<p><strong>局限性 — 脑裂 (Split-Brain)</strong>：
+- 两台或更多集群设备同时充当主设备
+- 通常由集群链路故障引起
+- 使用<strong>双活检测 (Dual Active Detection)</strong> 机制来缓解</p>
+</div>
+<blockquote>
+<p>⚠️ <strong>Brain split is the only fatal weakness of this family of technologies, and it is a configuration problem rather than a technology problem</strong>: dual-active detection must be configured explicitly (ePAgP, fast-hello, BFD, PAgP), and the peer-link and keepalive must <strong>never share a physical path</strong>.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>脑裂是这类技术唯一的"致命伤"，而且它是配置问题、不是技术问题</strong>：双活检测链路必须与 peer-link <strong>物理路径分离</strong>（不同光缆、不同路由、不同机房入口）。如果两者走同一根光缆，施工挖断时你会同时失去 peer-link 和检测能力——两台设备都认为对方死了，都成为主设备，全网 ARP 冲突、MAC 抖动。下面的案例二就是这个事故的完整复盘。</p>
+</blockquote>
+</div>
+<h4 id="the-four-layer-defence-of-dual-active-detection-ordered-by-detection-speed">The Four-Layer Defence of Dual-Active Detection (Ordered by Detection Speed) · 双活检测的四层防线（按检测速度排序）<a class="anchor" href="#the-four-layer-defence-of-dual-active-detection-ordered-by-detection-speed" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Mechanism</th>
+<th>Detection speed</th>
+<th>Dependency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>①</td>
+<td><strong>Fast-hello over a direct link</strong></td>
+<td>Milliseconds</td>
+<td>A dedicated link between the two chassis</td>
+</tr>
+<tr>
+<td>②</td>
+<td><strong>ePAgP / PAgP dual-active detection</strong></td>
+<td>Sub-second</td>
+<td>Requires PAgP-capable downstream devices</td>
+</tr>
+<tr>
+<td>③</td>
+<td><strong>BFD over an out-of-band path</strong></td>
+<td>Sub-second</td>
+<td>A separate management or routed path</td>
+</tr>
+<tr>
+<td>④</td>
+<td><strong>Automation: SNMP/syslog triggers a script</strong></td>
+<td>Minutes</td>
+<td>Out-of-band management and automation</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>机制</th>
+<th>检测速度</th>
+<th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 链路层</strong></td>
+<td>peer-link + peer-keepalive 独立路径</td>
+<td>秒级</td>
+<td>物理路径独立</td>
+</tr>
+<tr>
+<td><strong>② 数据面</strong></td>
+<td>双主检测（MAD）—— 通过数据面探测对端是否还活着</td>
+<td>秒级~十秒级</td>
+<td>独立探测路径</td>
+</tr>
+<tr>
+<td><strong>③ 控制面</strong></td>
+<td>BFD / 心跳报文携带设备 ID</td>
+<td>亚秒~秒级</td>
+<td>需要第三方设备或独立链路</td>
+</tr>
+<tr>
+<td><strong>④ 管理面</strong></td>
+<td>自动化脚本：检测到双主 → 自动隔离一侧</td>
+<td>分钟级</td>
+<td>需自动化平台</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>The most practical layer is ④</strong>: even if ①②③ all fail, an automated script that detects "both sides active" and shuts one of them down bounds the outage to minutes instead of hours. <strong>Automation is the last line of defence for availability.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>最实用的一条是 ④</strong>：即使前三条全失效，只要有一个自动化脚本在检测到"两台设备同时是 primary"时<strong>强制隔离一侧的 vPC 端口</strong>，就能把脑裂的爆炸半径从"全网"缩小到"部分"。这是很多生产网络的实际兜底。</p>
+</blockquote>
+</div>
+<h4 id="switch-stacking_1">Switch Stacking · 交换机堆叠<a class="anchor" href="#switch-stacking_1" title="Permanent link"></a></h4>
+<p>Switch stacking is another form of clustering:
+- Multiple physical switches connected by StackWise cables form one logical switch
+- One control plane, one configuration, one management address
+- Members can be added or replaced without redesigning the network</p>
+<div class="zh">
+<p>交换机堆叠是集群的另一种形式：
+- 多台物理交换机通过 StackWise 互联电缆连接
+- 选举主交换机
+- 作为单一对象管理，使用单一 IP 管理地址和单一配置文件
+- 可创建 EtherChannel 连接和 MEC（多机箱 EtherChannel）</p>
+</div>
+<blockquote>
+<p>💡 <strong>Stacking versus vPC</strong>: stacking is a "true single control plane", simple to configure and free of brain split (though a ring stack's cable is a risk). vPC keeps two independent control planes, raising operational complexity but avoiding "one reboot takes down half the building". <strong>Small networks tolerate stacking; core layers usually choose vPC.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>堆叠与 vPC 的取舍</strong>：堆叠是"真单控制面"，配置简单、无脑裂（环状堆叠线缆断裂会分裂成两个 stack，但检测机制成熟）；代价是<strong>控制面共命运</strong>——主交换机重启可能导致整个 stack 重启，逻辑上是一台设备也就没有"分布层分离"的可维护性。vPC 保持双控制面，可独立升级维护，代价是配置一致性要求高、需要防脑裂。<strong>核心层选 vPC/M-LAG，接入层可以选堆叠。</strong></p>
+</blockquote>
+</div>
+<h3 id="daisy-chained-access-switches">Daisy-Chained Access Switches · 菊花链接入交换机<a class="anchor" href="#daisy-chained-access-switches" title="Permanent link"></a></h3>
+<blockquote>
+<p>⚠️ Usually a temporary workaround, and it can introduce the following problems:
+- Dual-active HSRP (brain split)
+- A single point of failure in the middle of the chain
+- 50% loss of return traffic
+- A much longer convergence path</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ 通常作为临时解决方案使用，可能引入以下问题：
+- 双活 HSRP（脑裂情况）
+- 使用分布交换机 1 作为活动 FHRP 网关的设备可能丢失 50% 的返回流量
+💡 当建议替代方案时，必须确保新设计不会在故障场景中引入新的问题。否则新引入的问题将超过方案的好处。</p>
+</blockquote>
+</div>
+<p><strong>Why a "temporary" solution tends to become permanent</strong>: a daisy chain saves uplink ports and fiber (N switches need only one uplink and one fiber pair), so it is the cheapest way to close out an acceptance deadline — and once the paperwork is signed, nobody revisits it.</p>
+<div class="zh">
+<p><strong>为什么"临时方案"往往永久留下来</strong>：菊花链节省了上行端口和光纤（N 台交换机只需要 1 组上联而不是 N 组），在预算紧张时非常有吸引力。它的真实代价要到故障时才暴露：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A switch in the middle loses power</td>
+<td>Every downstream switch is isolated</td>
+</tr>
+<tr>
+<td>A link in the middle fails</td>
+<td>Every downstream switch is isolated</td>
+</tr>
+<tr>
+<td>A loop occurs</td>
+<td>The whole chain floods</td>
+</tr>
+<tr>
+<td>An upgrade is needed</td>
+<td>Several switches must go down together</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>故障</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>链中间某台交换机断电</td>
+<td><strong>下游全部失联</strong>（链式无环，没有备用路径）</td>
+</tr>
+<tr>
+<td>环状菊花链（首尾相接）</td>
+<td>STP 收敛要跨越多台设备，收敛时间线性增加</td>
+</tr>
+<tr>
+<td>中间设备被误配 HSRP</td>
+<td>出现第二个网关，部分主机网关指向错误设备</td>
+</tr>
+<tr>
+<td>广播/组播泛洪</td>
+<td>泛洪必须逐跳穿越整条链，链路带宽被无谓消耗</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The mechanism behind "50% loss of return traffic"</strong> (expanding that line from the book):</p>
+<div class="zh">
+<p><strong>"丢失 50% 返回流量"的机制</strong>（书里那句话的展开）：</p>
+</div>
+<pre><code>Chain: DSW1 ── ASW-A ── ASW-B ── ASW-C
+Host on ASW-A, gateway on DSW1
+  forward path: ASW-A → DSW1 (direct)
+  return path:  DSW1 → ASW-A (direct)  — fine
+Host on ASW-C:
+  forward: ASW-C → ASW-B → ASW-A → DSW1
+  return:  DSW1 → ASW-A → ASW-B → ASW-C
+If the ASW-A–ASW-B link fails, ASW-B and ASW-C lose the gateway entirely,
+while the forward and return paths may still differ (asymmetry, STP reconvergence)
+</code></pre>
+<div class="zh">
+<pre><code>链：DSW1 ── ASW-A ── ASW-B ── ASW-C
+主机的网关是 DSW1（HSRP Active）
+
+去程：主机 → ASW-C → ASW-B → ASW-A → DSW1   ✅ 正常
+回程：DSW1 → ASW-A → ASW-B → ASW-C → 主机
+
+如果中间某台（如 ASW-B）也被误配为同一 HSRP 组的 Active，
+且它的优先级更低没抢到 —— 但它的 MAC 表里学到了 DSW1 的虚拟 MAC 在
+两个方向上都有 → MAC 表翻转 → 回程流量可能只走一侧 → 丢 50%
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong>If a daisy chain is unavoidable</strong>: restrict it to non-critical areas, keep it to 3–4 switches, and state explicitly in the design document that "this segment has no redundancy". Hiding the risk is worse than the risk.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>如果必须用菊花链</strong>：仅限非关键区域，设备数控制在 3–4 台以内，并明确"下游整体作为单一故障域"的可用性预期——写进设计文档，而不是默认它不会出问题。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="extended-layer-2-design-decision-tree">Extended: Layer 2 Design Decision Tree · 扩展：二层设计决策树<a class="anchor" href="#extended-layer-2-design-decision-tree" title="Permanent link"></a></h2>
+<p>Compressing this chapter into a tree you can walk through in a design review:</p>
+<div class="zh">
+<p>把本章内容压缩成一棵可以在设计评审时直接走一遍的树：</p>
+</div>
+<pre><code>① Must this Layer 2 domain span more than one access switch?
+   ├─ No  → local VLAN, one access switch, done
+   └─ Yes → ② go to the next question
+
+② Does it genuinely need Layer 2 (non-IP protocol, one subnet, legacy system)?
+   ├─ No  → Layer 3 to the access layer (routed access)
+   └─ Yes → ③
+
+③ Can the two uplinks go to two devices?
+   ├─ No  → accept single-point risk, document it explicitly
+   └─ Yes → ④
+
+④ Do the two devices support clustering (vPC/VSS/stacking)?
+   ├─ Yes → clustering model, no STP blocking
+   └─ No  → STP-based U-shape with root/gateway alignment
+
+⑤ Are there more than 3 chained switches, or any single-homed access switch?
+   └─ Yes → eliminate orphans/chains first, then optimize
+</code></pre>
+<div class="zh">
+<pre><code>① 这个二层域需要跨两台以上的接入交换机吗？
+   ├─ 不需要 → 本地 VLAN + 三层到接入
+   │           → 二层无环，STP 只做保护，收敛不依赖 STP
+   └─ 需要 → ② 有跨设备二层扩展的硬需求吗？（虚拟机迁移/集群心跳/私有协议）
+              ├─ 没有 → 说明这是&quot;习惯&quot;而不是需求 → 回到本地 VLAN
+              └─ 有 → ③ 上游设备支持集群吗？
+                       ├─ 支持 → mLAG / vPC / VSS / EVPN-MH
+                       │          → 上行全转发，STP 与 FHRP 都不参与决策
+                       │          → 必须做：双活检测路径与 peer-link 物理分离
+                       └─ 不支持 → 只能用 STP 四拓扑
+                                  → 优先&quot;无环 U 型&quot;（VLAN 不跨交换机）
+                                  → 必须做：根桥 = FHRP Active，且两侧成对配置
+</code></pre>
+</div>
+<blockquote>
+<p>💡 <strong>The value of the decision tree</strong>: it turns arguments such as "should we deploy mLAG" into two verifiable questions — <strong>does Layer 2 really need to span switches, and do the uplinks really go to independent devices</strong>. Once those are answered, the technology choice follows almost automatically.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>决策树的价值</strong>：它把"要不要上 mLAG"这类争论变成两个可验证的问题——<strong>二层域多大、硬需求有没有</strong>。技术选型之争，八成是因为没先问清这两个问题。</p>
+</blockquote>
+</div>
+<p><strong>Post-decision checklist</strong> (each item can kill a proposal):</p>
+<div class="zh">
+<p><strong>决策树走完之后的检查清单</strong>（每一条都能否掉一个方案）：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Check</th>
+<th>If it fails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Is the failure-domain boundary explicit (which cabinet, which conduit, which carrier)?</td>
+<td>Redo the physical topology</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Is the STP root aligned with the FHRP active?</td>
+<td>Re-plan root and gateways</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Is the tracking decrement large enough to actually fail over?</td>
+<td>Recalculate priorities</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Are the orphans and chains inventoried?</td>
+<td>Document or eliminate them</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Is the convergence budget written down (end to end, not just STP)?</td>
+<td>Measure and tune</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Is dual-active detection configured and tested?</td>
+<td>Do not go live</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>检查项</th>
+<th>不通过怎么办</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>每个 VLAN 的根桥是否显式指定？</td>
+<td>补 <code>root primary/secondary</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>根桥与 FHRP Active 是否同一台？</td>
+<td>成对调整</td>
+</tr>
+<tr>
+<td>3</td>
+<td>每个接入口是否有 PortFast + BPDU Guard？</td>
+<td>全局模板下发</td>
+</tr>
+<tr>
+<td>4</td>
+<td>指向下游的端口是否有 Root Guard？</td>
+<td>补配</td>
+</tr>
+<tr>
+<td>5</td>
+<td>光纤互联是否有 Loop Guard / UDLD？</td>
+<td>补配</td>
+</tr>
+<tr>
+<td>6</td>
+<td>所有 trunk 是否裁剪了允许 VLAN？</td>
+<td>裁剪</td>
+</tr>
+<tr>
+<td>7</td>
+<td>native VLAN 是否独立且无业务？</td>
+<td>改到黑洞 VLAN</td>
+</tr>
+<tr>
+<td>8</td>
+<td>是否还有端口处于阻塞状态被浪费？</td>
+<td>评估能否改 mLAG</td>
+</tr>
+<tr>
+<td>9</td>
+<td>peer-link 与 keepalive 是否物理分离？</td>
+<td><strong>必须改</strong></td>
+</tr>
+<tr>
+<td>10</td>
+<td>FHRP 是否配了上行跟踪？</td>
+<td>补 object tracking</td>
+</tr>
+<tr>
+<td>11</td>
+<td>是否存在菊花链？是否写明了故障预期？</td>
+<td>补文档或改设计</td>
+</tr>
+<tr>
+<td>12</td>
+<td>收敛时间预算是否分段定义？是否有演练？</td>
+<td>定义并演练</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="extended-what-convergence-time-is-really-made-of">Extended: What Convergence Time Is Really Made Of · 扩展：收敛时间的真实构成<a class="anchor" href="#extended-what-convergence-time-is-really-made-of" title="Permanent link"></a></h2>
+<p>The "STP converges in 3 seconds" in a configuration document is only a small part of the story. What the user experiences is several timers stacked on top of each other:</p>
+<div class="zh">
+<p>配置里写的"STP 收敛 3 秒"只是故事的一小部分。用户感知到的中断，是多个定时器叠加的结果：</p>
+</div>
+<pre><code>Link or node failure
+  ↓
+① Physical detection: fiber cut = milliseconds; copper/peer down = milliseconds to one second
+  ↓
+② Failure notification: STP/RSTP or routing protocol propagation, milliseconds to seconds
+  ↓
+③ Data-plane repair: MAC table flush and relearn, ARP re-resolution, 0.1–5 s
+  ↓
+④ Gateway failover: FHRP timer or BFD, 1–10 s (with defaults, up to 10 s)
+  ↓
+⑤ Application layer: TCP retransmission, session re-establishment, 1–30 s
+</code></pre>
+<div class="zh">
+<pre><code>链路/节点故障
+  ↓
+① 物理检测：光纤断 = 毫秒；铜缆/对端断电 = 依赖链路 keepalive
+  ↓
+② STP/RSTP 收敛：1–3 秒（若规则是&quot;三层到接入&quot;，这一步不存在）
+  ↓
+③ FHRP 切换：Hello 3s + Hold 10s，或 BFD 数百毫秒
+  ↓
+④ 上游路由收敛：OSPF/EIGRP/BGP，秒级到数十秒
+  ↓
+⑤ ARP/MAC 表重建：主机重新 ARP，网关重新学习 MAC，几十毫秒到秒级
+  ↓
+业务恢复
+</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Design measure</th>
+<th>Which segment it compresses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BFD</td>
+<td>② and ④</td>
+</tr>
+<tr>
+<td>RSTP or clustering</td>
+<td>② and ③</td>
+</tr>
+<tr>
+<td>HSRP millisecond timers, preempt delay tuning</td>
+<td>④</td>
+</tr>
+<tr>
+<td>Application-side keepalives, load balancers</td>
+<td>⑤</td>
+</tr>
+<tr>
+<td>Eliminating Layer 2 spanning altogether</td>
+<td>②③④ almost entirely</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>设计手段</th>
+<th>主要压缩哪一段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>三层到接入（VLAN 不跨交换机）</td>
+<td>②③ 直接消除</td>
+</tr>
+<tr>
+<td>mLAG / 交换机集群</td>
+<td>②③ 直接消除</td>
+</tr>
+<tr>
+<td>BFD（替代调小计时器）</td>
+<td>③ 从 10 秒到亚秒</td>
+</tr>
+<tr>
+<td>上行 port-channel 跨板卡</td>
+<td>① 避免单板故障导致整链路 down</td>
+</tr>
+<tr>
+<td>网关 ARP 抑制 / 提前下发</td>
+<td>⑤ 减少主机重新 ARP 的等待</td>
+</tr>
+<tr>
+<td>路由协议快速收敛（LSA 洪泛优化、BFD）</td>
+<td>④ 秒级到亚秒</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>A common misjudgement</strong>: assuming "tuning STP timers faster" improves the experience. If ③ and ④ dominate, tuning STP changes nothing — you have optimized the wrong segment.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>常见误判</strong>：以为"把 STP 计时器调快"就能改善体验。实际上如果 ③④⑤ 占了 20 秒，②从 3 秒降到 1 秒几乎无感。<strong>先测出时间花在哪一段，再优化那一段。</strong></p>
+</blockquote>
+</div>
+<p><strong>How to measure each segment</strong>:</p>
+<div class="zh">
+<p><strong>各段的实测方法</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① Physical detection</td>
+<td>Interface log timestamps, <code>show interface</code> counters</td>
+</tr>
+<tr>
+<td>② Protocol notification</td>
+<td>STP topology change timestamps, routing protocol logs</td>
+</tr>
+<tr>
+<td>③ Data-plane repair</td>
+<td>Consecutive <code>ping</code> loss count and duration</td>
+</tr>
+<tr>
+<td>④ Gateway failover</td>
+<td>HSRP state change logs, BFD logs</td>
+</tr>
+<tr>
+<td>⑤ Application</td>
+<td>Application logs, TCP retransmission counters</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>段</th>
+<th>测量方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① 物理检测</td>
+<td>拔纤，看接口 <code>show interface</code> 的 down 时间戳；看光模块告警</td>
+</tr>
+<tr>
+<td>② STP</td>
+<td><code>show spanning-tree detail</code> 的 <code>time since topology change</code>；持续 ping 观察丢包窗口</td>
+</tr>
+<tr>
+<td>③ FHRP</td>
+<td>持续 ping 网关；看 <code>show standby</code> 状态变化时间</td>
+</tr>
+<tr>
+<td>④ 路由</td>
+<td><code>show ip ospf neighbor</code> 状态变化；看 <code>debug</code> 或事件日志的时间戳</td>
+</tr>
+<tr>
+<td>⑤ ARP/MAC</td>
+<td>故障后 <code>show ip arp</code> 条目重建时间；客户端抓包看 ARP 重试</td>
+</tr>
+<tr>
+<td><strong>端到端</strong></td>
+<td><strong>持续 ping（100ms 间隔）+ 记录丢包数 × 间隔 = 中断时长</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>A practical acceptance test</strong>: use a long <code>ping -t -l 100</code> while pulling the link, count consecutive losses, and convert to duration. Anything over 1 s is a visible outage for interactive traffic. <strong>This is the only honest way to validate a convergence claim.</strong></p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>一个实用的验收方法</strong>：用 <code>ping -t -l 100</code> 长 ping 网关和远端服务器各一台，同时拔掉设计中的"故障点"，记录丢包数。<strong>丢包数 × 100ms = 中断时间</strong>。把这个数字写进验收报告，比任何"理论上不超过 3 秒"都有说服力。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="real-world-cases">Real-World Cases · 实战案例<a class="anchor" href="#real-world-cases" title="Permanent link"></a></h2>
+<h3 id="case-1-the-gateway-on-one-device-the-root-bridge-on-the-other">Case 1: The Gateway on One Device, the Root Bridge on the Other · 案例一：网关上在了一台设备，根桥在另一台<a class="anchor" href="#case-1-the-gateway-on-one-device-the-root-bridge-on-the-other" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a university built a new teaching building with two core switches DSW1/DSW2 at the distribution layer and access switches ASW1–ASW6. Each access switch has dual uplinks, both in forwarding state. Users complained that "opening the teaching system is slow" and that the delay doubled in the afternoon.</p>
+<div class="zh">
+<p><strong>背景</strong>：某高校新建教学楼，分布层两台核心 DSW1、DSW2，接入交换机 ASW 双上行。HSRP 配好了，STP 也"没报错"，割接顺利完成。上线一周后投诉集中在：<strong>跨网段访问慢、下载只有 30MB/s（千兆链路），视频会议卡</strong>。</p>
+</div>
+<p><strong>Investigation</strong>:</p>
+<div class="zh">
+<p><strong>排查过程</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access switch uplink utilization</td>
+<td>One uplink at 70%, the other at 3%</td>
+</tr>
+<tr>
+<td>Which switch is the STP root</td>
+<td>DSW1</td>
+</tr>
+<tr>
+<td>Where the HSRP active is</td>
+<td><strong>DSW2</strong></td>
+</tr>
+<tr>
+<td>Inter-switch link utilization</td>
+<td>70%</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>发现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接入交换机上行链路利用率</td>
+<td>上行 1 号口 75%，上行 2 号口 <strong>0%</strong>（被 STP 阻塞）</td>
+</tr>
+<tr>
+<td>两台核心之间的互联链路</td>
+<td><strong>利用率 70%</strong>，几乎没有空闲</td>
+</tr>
+<tr>
+<td>STP 根桥</td>
+<td>全部 VLAN 都在 DSW1</td>
+</tr>
+<tr>
+<td>HSRP Active</td>
+<td>全部 VLAN 都在 DSW2（配置时按"DSW2 是新设备所以做主机"的直觉配的）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>The chain of causation</strong>:</p>
+<div class="zh">
+<p><strong>问题链条</strong>：</p>
+</div>
+<pre><code>Every host's gateway MAC is on DSW2
+  → but the ASW uplink traffic goes to DSW1 first (because DSW1 is the root)
+  → DSW1 must forward it across the inter-switch link to DSW2
+  → the inter-switch link becomes the bottleneck, and the second uplink is idle
+</code></pre>
+<div class="zh">
+<pre><code>所有主机的网关 MAC 都在 DSW2
+  → 但 ASW 的上行流量因根桥在 DSW1 而有 50% 被阻塞，活的那条只能到 DSW1
+  → DSW1 收到目的 MAC 为网关的帧，自己不是网关，只能从核心间链路送到 DSW2
+  → 所有跨网段流量的往返都要绕行 DSW2
+  → 核心间链路带宽被吃满 → 高峰期丢包 → 表现为&quot;时快时慢&quot;
+</code></pre>
+</div>
+<p><strong>Fix (three steps, no procurement)</strong>:
+1. Make DSW1 the root for VLAN 10/30/50 <strong>and</strong> the HSRP active for those VLANs
+2. Make DSW2 the root for VLAN 20/40/60 <strong>and</strong> the HSRP active for those VLANs
+3. Set <code>preempt delay minimum 180</code> on both sides, with decrement tracking in place</p>
+<div class="zh">
+<p><strong>修正（三步，无需采购）</strong>：
+1. 把 DSW1 设为 VLAN 10/30/50 的根桥，HSRP Active 同步改到 DSW1；DSW2 反过来做 VLAN 20/40/60
+2. 两条上行做 port-channel（或启用 vPC），<strong>两条都转发</strong>
+3. 核心间链路改为三层互联</p>
+</div>
+<p><strong>Result</strong>: inter-switch link utilization fell from 70% to 12%, both access uplinks now carry traffic, and the complaints stopped.</p>
+<div class="zh">
+<p><strong>效果</strong>：核心间链路利用率从 70% 降到 12%；接入上行两条都跑起来；投诉消失。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>"STP raised no alarms" does not mean "the design is right".</strong> STP only guarantees loop-freedom; <strong>it says nothing about path quality</strong> — and path quality is exactly what users feel.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>"STP 没报警"不等于"设计对了"。</strong> STP 只保证无环，从不保证最优。<strong>根桥位置和 FHRP Active 必须成对配置</strong>——它们描述的是同一件事：流量该往哪走。</p>
+</blockquote>
+</div>
+<h3 id="case-2-vpc-brain-split-two-hours-of-plant-wide-downtime-vpc">Case 2: vPC Brain Split, Two Hours of Plant-Wide Downtime · 案例二：vPC 脑裂，两小时全厂停机<a class="anchor" href="#case-2-vpc-brain-split-two-hours-of-plant-wide-downtime-vpc" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: an auto parts plant with two Nexus switches running vPC as the core and a dozen access switches below. Production-line PLCs connect through industrial switches; a line stop costs about 800k per hour.</p>
+<div class="zh">
+<p><strong>背景</strong>：某汽车零部件工厂，两台 Nexus 做 vPC 作为核心，下接十余台接入交换机。peer-link 是一根跨楼层的单模光纤，peer-keepalive 走管理网——但管理网的光纤<strong>和 peer-link 走在同一个桥架、同一根管道里</strong>。</p>
+</div>
+<p><strong>How the incident unfolded</strong>:</p>
+<div class="zh">
+<p><strong>事故过程</strong>：</p>
+</div>
+<pre><code>14:05  Construction on site; a cable tray is hit by a forklift
+       → peer-link fiber is severed (both peer-link and peer-keepalive run in that tray)
+       → peer-keepalive also fails (same tray)
+14:05  Both vPC members believe they are primary → brain split
+14:06  Both actively forward; duplicate gateways; broadcast storm
+14:10  Production lines stop one after another
+15:40  On-site staff reach the tray and reconnect the fiber
+16:05  Full restoration after MAC tables settle
+</code></pre>
+<div class="zh">
+<pre><code>14:05  厂区施工，一处桥架被叉车撞断
+       → peer-link 断 + peer-keepalive 同时断（同一条物理路径）
+14:05  两台核心都检测不到对端：
+       - peer-link down → 无法判断对端是死是活
+       - keepalive 也不通 → 判定对端已死
+       → 两台设备都认为自己是 primary，都激活全部 vPC 端口
+14:06  脑裂开始：两台设备同时作为所有 VLAN 的网关
+       - 同一 IP 出现在两处 → ARP 冲突
+       - MAC 表在两台设备之间反复翻转 → 大量流量被送到错误的设备
+       - 部分主机 ARP 缓存被污染，网关不可达
+14:10  运维重启一台核心 → 短暂恢复 → 但配置不一致导致部分 VLAN 不通
+16:20  全部恢复
+</code></pre>
+</div>
+<p><strong>Root cause (a design defect, not a technology limit)</strong>:</p>
+<div class="zh">
+<p><strong>根因（不是技术限制，是设计缺陷）</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Defect</th>
+<th>Correct practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keepalive in the same conduit as peer-link</td>
+<td>Route keepalive over the management network or a separate path</td>
+</tr>
+<tr>
+<td>No dual-active detection</td>
+<td>Configure fast-hello or ePAgP</td>
+</tr>
+<tr>
+<td>No alerting on vPC state</td>
+<td>Monitor vPC status and alert on change</td>
+</tr>
+<tr>
+<td>No emergency runbook</td>
+<td>Predefine "brain split" handling steps</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keepalive 与 peer-link 同一物理路径</td>
+<td>keepalive 必须走<strong>独立路由</strong>（不同光缆、不同楼层入口，最好不同运营商）</td>
+</tr>
+<tr>
+<td>未配置双活检测（如 vPC 的 dual-active / 管理面脚本）</td>
+<td>检测机制要先于业务上线就位</td>
+</tr>
+<tr>
+<td>两台设备配置未做定期一致性比对</td>
+<td>建立配置基线比对（第 12 章自动化）</td>
+</tr>
+<tr>
+<td>无"脑裂后手工恢复"预案</td>
+<td>预案必须演练过，且明确"先停一侧全部 vPC 端口"</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>every redundancy design assumes the two redundant paths cannot fail at the same time.</strong> And that assumption must be verified on the floor plan, not just in the logical diagram — a forklift does not read your design document.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>所有冗余设计都有一个前提——冗余的两条路径不能同时失效。</strong> peer-link 和检测链路本质上是同一份"心跳"，把它们放在一根管道里，等于用两个副本做了同一个单点。设计评审时对每一对"主备/双活"都要问一句：<strong>它们的失效域是独立的吗？</strong></p>
+</blockquote>
+</div>
+<h3 id="case-3-eight-10g-members-in-the-bundle-only-12g-measured-8-12g">Case 3: Eight 10G Members in the Bundle, Only 12G Measured · 案例三：8 条万兆聚合，实测只有 12G<a class="anchor" href="#case-3-eight-10g-members-in-the-bundle-only-12g-measured-8-12g" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a design dual-homes the backup server to the core with an 8×10G port-channel, promising the business side "80G backup bandwidth". Actual backup throughput capped at about 12G.</p>
+<div class="zh">
+<p><strong>背景</strong>：某设计把备份服务器双归到核心，用 8×10G port-channel，设计文档写"80G 备份带宽"。上线后夜间备份窗口仍然跑不完，实测峰值只有 12G 左右。</p>
+</div>
+<p><strong>Analysis</strong>:</p>
+<div class="zh">
+<p><strong>分析</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port-channel state</td>
+<td>All 8 members up, hash default L3</td>
+</tr>
+<tr>
+<td>Backup traffic pattern</td>
+<td>A <strong>single TCP stream</strong> from one server to one target</td>
+</tr>
+<tr>
+<td>Per-member utilization</td>
+<td>One member saturated at 10G, the others nearly idle</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>Single-threaded backup software</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>发现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port-channel 状态</td>
+<td>8 条成员全部 up、全部转发，无问题</td>
+</tr>
+<tr>
+<td>哈希因子</td>
+<td>默认 <strong>仅 L2（src/dst MAC）</strong></td>
+</tr>
+<tr>
+<td>流量构成</td>
+<td>备份服务器 → 磁带库，<strong>单一 TCP 会话</strong>，一组 IP pair</td>
+</tr>
+<tr>
+<td>单成员链路速率</td>
+<td>10G；实测 12G 说明只有约 1–2 条成员被用到</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Conclusion</strong>: hashing distributes <strong>per flow</strong>, so a single flow can never fill the aggregate. That is physics, not a configuration error.</p>
+<div class="zh">
+<p><strong>结论</strong>：哈希是<strong>按流</strong>分配的，单流永远跑不满聚合带宽。这是物理规律，不是配置错误——<strong>port-channel 增加的是"多条流的加总容量"，不是"单流的速率"</strong>。</p>
+</div>
+<p><strong>Fix (a combination)</strong>:
+1. Change the hash factor to <strong>L3+L4</strong> (src/dst IP plus ports) so the many streams of parallel sessions spread out
+2. Enable <strong>multi-stream parallelism</strong> in the backup software (8–16 streams)
+3. Replace a single big stream with <strong>multiple concurrent jobs</strong></p>
+<div class="zh">
+<p><strong>修正（组合拳）</strong>：
+1. 哈希因子改为 <strong>L3+L4</strong>（src/dst IP + 端口）
+2. 备份软件配置<strong>多流并发</strong>（16–32 个会话），并做源端口随机化
+3. 服务器侧改双网卡多 IP，制造更多哈希维度
+4. 结果：峰值提升到约 45G，备份窗口缩短 60%</p>
+</div>
+<p><strong>Another lesson</strong>: the "80G" figure in the design document misled the business side. <strong>A capacity promise must state whether it is "aggregate" or "per flow".</strong></p>
+<div class="zh">
+<p><strong>另一个教训</strong>：设计文档里"80G"这个数字误导了业务方，<strong>容量承诺要写清楚是"聚合容量"还是"单流速率"</strong>，否则验收时无法解释。</p>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>link aggregation is a multi-lane highway, not a way to make one car faster.</strong> If you need single-flow speed, you need a faster single link, not more of them.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>链路聚合是"多车道公路"，不是"让一辆车开得更快"。</strong> 需要单流高速率（迁移、复制、超算），只有两条路可走——提升单链路速率（25G/100G），或者让应用把数据拆成多流。</p>
+</blockquote>
+</div>
+<h3 id="case-4-one-way-fiber-creates-a-loop-and-stp-never-notices-stp">Case 4: One-Way Fiber Creates a Loop, and STP Never Notices · 案例四：光纤单通成环，STP 完全不知情<a class="anchor" href="#case-4-one-way-fiber-creates-a-loop-and-stp-never-notices-stp" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: two campus buildings are joined by a dual-strand single-mode fiber (one strand each way). After renovation work in one building, one strand was damaged — the link stayed "up" because the receive side still had light.</p>
+<div class="zh">
+<p><strong>背景</strong>：某园区两栋楼之间用双芯单模光纤互联（一芯收一芯发）。一次楼宇装修后，其中一芯被压断。运维检查时看到接口 <code>up</code>（发光正常、接收无光但某些模块不报错），没做处理。三天后整个园区网络变慢。</p>
+</div>
+<p><strong>How the fault evolved</strong>:</p>
+<div class="zh">
+<p><strong>故障演进</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>After renovation</td>
+<td>One fiber strand damaged, link shows <em>up</em></td>
+</tr>
+<tr>
+<td>T+0 min</td>
+<td>The forwarding path changes direction (one-way only)</td>
+</tr>
+<tr>
+<td>T+5 min</td>
+<td>A Layer 2 loop forms: frames circle in one direction</td>
+</tr>
+<tr>
+<td>T+10 min</td>
+<td>Broadcast storm; CPU on several switches hits 100%</td>
+</tr>
+<tr>
+<td>T+30 min</td>
+<td>The whole campus is effectively down</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>装修后</td>
+<td>光纤 <strong>A→B 方向通，B→A 方向断</strong>（单向链路）</td>
+</tr>
+<tr>
+<td>立即</td>
+<td>A 侧端口<strong>收不到 BPDU</strong>（因为 B→A 断）→ A 侧认为自己是"指定端口"，把端口推到 <strong>Forwarding</strong></td>
+</tr>
+<tr>
+<td>同时</td>
+<td>B 侧端口也 Forwarding（它发的 BPDU 能出去，但收不到 A 的）</td>
+</tr>
+<tr>
+<td><strong>结果</strong></td>
+<td><strong>两端都是 Forwarding → 形成二层环路</strong></td>
+</tr>
+<tr>
+<td>三天内</td>
+<td>广播帧在环上无限循环，MAC 表剧烈翻转，两台设备的 CPU 升到 80%+，核心链路被泛洪占满</td>
+</tr>
+<tr>
+<td>表现</td>
+<td>全网变慢，但<strong>没有任何告警</strong>（接口是 up 的，STP 没有不一致状态）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key troubleshooting evidence</strong>:</p>
+<div class="zh">
+<p><strong>排查关键</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show spanning-tree</code> interface state</td>
+<td>Away from the damaged link, no blocking</td>
+</tr>
+<tr>
+<td><code>show interface counters</code></td>
+<td>Output packets on one side, <strong>input packets on the other side nearly zero</strong></td>
+</tr>
+<tr>
+<td>BPDU statistics</td>
+<td>The port received no BPDUs, but STP never marked it blocked</td>
+</tr>
+<tr>
+<td>Storm control</td>
+<td>Not configured, so nothing stopped it</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show spanning-tree inconsistentports</code></td>
+<td><strong>空</strong>（没有不一致，因为两端都认为是正常状态）</td>
+</tr>
+<tr>
+<td><code>show interface</code> 的输入光功率</td>
+<td>A 侧 Rx 光功率显示 <strong>-40 dBm（无光）</strong>，但接口 up</td>
+</tr>
+<tr>
+<td><code>show spanning-tree interface ... counters</code></td>
+<td>BPDU 收到计数为 <strong>0</strong>，发送计数正常</td>
+</tr>
+<tr>
+<td>MAC 表</td>
+<td>大量 MAC 在两台设备间<strong>反复翻转</strong>（MAC flapping）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Root cause</strong>: this is exactly <strong>why Loop Guard and UDLD exist</strong>.</p>
+<div class="zh">
+<p><strong>根因</strong>：这正是 <strong>Loop Guard 和 UDLD 存在的理由</strong>。</p>
+</div>
+<pre><code>Loop Guard's logic: a port that &quot;should receive BPDUs&quot; (root port / alternate port)
+  stops receiving them → instead of transitioning to forwarding, block it and keep it blocked
+UDLD's logic: exchange keepalives with the neighbour
+  → if the neighbour is not heard on the receive direction, declare the link one-way and shut it
+</code></pre>
+<div class="zh">
+<pre><code>Loop Guard 的逻辑：一个&quot;本该收到 BPDU&quot;的端口（根端口/Alternate）如果收不到 BPDU，
+                  不推进到 Forwarding，而是进入 loop-inconsistent（阻塞）
+UDLD 的逻辑：链路层探测邻居是否还在。aggressive 模式下，单向链路直接 err-disable
+</code></pre>
+</div>
+<p><strong>Fixed configuration</strong>:</p>
+<div class="zh">
+<p><strong>修复配置</strong>：</p>
+</div>
+<pre><code class="language-cfg">! Enable Loop Guard globally (or at least on every fiber interconnect)
+spanning-tree loopguard default
+
+! UDLD aggressive mode on fiber interconnects
+interface range Te1/1/1-2
+ udld port aggressive
+
+! Plus storm control as the last line of defence
+interface Te1/1/1
+ storm-control broadcast level 1
+ storm-control multicast level 5
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! 全局开 Loop Guard（或至少在所有光纤互联口）
+spanning-tree loopguard default
+
+! UDLD aggressive（双向都开，检测更快）
+interface range TenGigabitEthernet1/1/1-2
+ udld port aggressive
+ udld message time 7
+
+! 可选：增强光功率监控
+! 采集 Rx power，低于阈值（如 -20 dBm）告警，即使接口 up
+</code></pre>
+</div>
+<p><strong>Lessons (three, ranked by value)</strong>:</p>
+<div class="zh">
+<p><strong>教训（三条，按价值排序）</strong>：</p>
+</div>
+<ol>
+<li><strong>"Interface up" does not mean "link usable".</strong> Optical modules judge up/down only on light; they cannot see whether the receive direction works.</li>
+<li><strong>One-way links are invisible to STP.</strong> Without Loop Guard or UDLD, STP treats "no BPDU received" as "maybe it is just slow" and waits.</li>
+<li><strong>Storm control and alerting are not optional.</strong> The loop was not what killed the network; the absence of any ceiling on broadcast traffic was.</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>"接口 up"不等于"链路可用"</strong>。光模块的 up/down 判定只看发光，不看收光质量。必须监控 <strong>Rx 光功率</strong>。</li>
+<li><strong>Loop Guard / UDLD 不是"可选加固"，是光纤互联的必需品</strong>。铜缆的对端断电会 down 接口，光纤的<strong>单通不会</strong>。</li>
+<li><strong>单向链路造成的环路，STP 自己是无法发现的</strong> —— 因为 STP 的防环逻辑基于"能收到 BPDU 就是有邻居"。Loop Guard 就是补这个盲区的。</li>
+</ol>
+</div>
+<h3 id="case-5-dual-uplinks-to-two-devices-in-the-same-cabinet">Case 5: Dual Uplinks to Two Devices — in the Same Cabinet · 案例五：双上行接到两台设备，但两台在同一机柜<a class="anchor" href="#case-5-dual-uplinks-to-two-devices-in-the-same-cabinet" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: in a design review the proposal said "each access switch is dual-homed to DSW1 and DSW2, achieving link and device redundancy, with 99.99% availability".</p>
+<div class="zh">
+<p><strong>背景</strong>：某设计评审，方案写"接入交换机双上行到 DSW1、DSW2，实现链路与设备双重冗余，可用性 99.99%"。评审通过了。</p>
+</div>
+<p><strong>The problem</strong>: the floor plan showed —</p>
+<div class="zh">
+<p><strong>问题</strong>：看机房平面图发现——</p>
+</div>
+<pre><code>    Cabinet A-01 (same cabinet, same PDU, same utility feed, same row air conditioner)
+    ┌─────────────────────────────────────────┐
+    │  DSW1            DSW2                   │
+    │    ╲              ╱                     │
+    │     ╲            ╱                      │
+    └──────╲──────────╱───────────────────────┘
+            ╲        ╱
+             ASW (two uplinks)
+</code></pre>
+<div class="zh">
+<pre><code>    机柜 A-01（同一机柜，同一 PDU，同一路市电，同一台列头空调）
+    ┌────────────────────────────┐
+    │  DSW1          DSW2        │
+    └────────────────────────────┘
+</code></pre>
+</div>
+<p><strong>The real failure domain</strong>:</p>
+<div class="zh">
+<p><strong>真实的失效域</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cabinet PDU failure</td>
+<td><strong>Both</strong> switches die</td>
+</tr>
+<tr>
+<td>Utility feed failure</td>
+<td><strong>Both</strong></td>
+</tr>
+<tr>
+<td>Air-conditioning failure</td>
+<td><strong>Both</strong> overheat and shut down</td>
+</tr>
+<tr>
+<td>Cabinet fire/sprinkler</td>
+<td><strong>Both</strong></td>
+</tr>
+<tr>
+<td>A single switch failure</td>
+<td>Only one — this is the <em>only</em> scenario covered</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>故障</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机柜 PDU 故障</td>
+<td>两台 DSW 同时断电 → <strong>全网断</strong></td>
+</tr>
+<tr>
+<td>市电 A 路故障</td>
+<td>两台同时断电（同一路输入）→ <strong>全网断</strong></td>
+</tr>
+<tr>
+<td>该机柜消防喷淋/漏水</td>
+<td>两台同时失效</td>
+</tr>
+<tr>
+<td>运维误拔电源（在同一个 PDU 上）</td>
+<td>两台同时断电（真实事故里很常见）</td>
+</tr>
+<tr>
+<td>楼板承重/机柜倾倒</td>
+<td>两台同时失效</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Assessment</strong>: the "device redundancy" is <strong>logically valid but physically invalid</strong>. A 99.99% promise requires independence at the power, cooling and physical-placement layers, and none of them is satisfied.</p>
+<div class="zh">
+<p><strong>评估结论</strong>：方案的"设备冗余"在<strong>逻辑上成立，物理上不成立</strong>。99.99% 的承诺无依据。</p>
+</div>
+<p><strong>Remedies (from cheapest to most expensive)</strong>:</p>
+<div class="zh">
+<p><strong>修正方案（按成本从低到高）</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Remedy</th>
+<th>Cost</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Move DSW2 to another cabinet, dual power feeds</td>
+<td>Low</td>
+<td>Removes PDU and feed single points</td>
+</tr>
+<tr>
+<td>Add a UPS plus dual-feed PDUs</td>
+<td>Medium</td>
+<td>Removes short power interruptions</td>
+</tr>
+<tr>
+<td>Separate the two switches into different rooms or fire zones</td>
+<td>High</td>
+<td>Removes cooling, fire and human-error single points</td>
+</tr>
+<tr>
+<td>Add a third site or a cloud exit</td>
+<td>Highest</td>
+<td>Geographic redundancy</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>成本</th>
+<th>收益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>两台 DSW 分置到不同机柜</strong>（同一机房）</td>
+<td>低（只需重新布线上架）</td>
+<td>消除机柜/PDU 单点，<strong>性价比最高</strong></td>
+</tr>
+<tr>
+<td><strong>双路市电 + 双 PDU</strong>（A/B 路各接一台）</td>
+<td>中</td>
+<td>消除市电单点</td>
+</tr>
+<tr>
+<td><strong>两台 DSW 分置到不同机房（不同楼）</strong></td>
+<td>高（需跨楼光纤/波分）</td>
+<td>消除机房级单点</td>
+</tr>
+<tr>
+<td><strong>再加一台 DSW 做三机 mLAG/堆叠</strong></td>
+<td>高</td>
+<td>容忍单机故障 + 单机房故障</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>an availability promise must map onto a failure-domain inventory.</strong> Before saying "dual redundancy", list every failure domain and show that each has two independent paths — otherwise the number in the design document is marketing, not engineering.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>可用性承诺必须能落到"失效域清单"上。</strong> 说"双重冗余"之前，先把所有可能的故障列出来（电、网、冷、水、火、人、楼），逐个问"这一项发生时，我的冗余还有效吗"。答不上的，就不能写进 SLA。</p>
+</blockquote>
+</div>
+<h3 id="case-6-a-maintenance-window-reboot-that-cut-off-half-the-building">Case 6: A Maintenance-Window Reboot That Cut Off Half the Building · 案例六：维护窗口重启一台交换机，断了一半楼<a class="anchor" href="#case-6-a-maintenance-window-reboot-that-cut-off-half-the-building" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a campus distribution layer runs vPC; access switch ASW-3 is <strong>single-homed to SW1</strong> (an orphan port, left over from the original design and never corrected).</p>
+<div class="zh">
+<p><strong>背景</strong>：某园区分布层 vPC，接入交换机 ASW-3 只单归到 <strong>SW1</strong>（设计时这层楼只有一条上行链路位置，施工方就接到了 SW1 上）。这一对 vPC 有 12 台接入交换机，其中 <strong>4 台是这种单归（Orphan Port）</strong>。</p>
+</div>
+<p><strong>The plan</strong>: patch and reboot SW1. The change ticket said "vPC environment; rebooting SW1 does not affect service".</p>
+<div class="zh">
+<p><strong>维护计划</strong>：给 SW1 打补丁并重启。变更单上写"vPC 环境，SW1 重启不影响业务（对端接管）"。</p>
+</div>
+<p><strong>Actual result</strong>:</p>
+<div class="zh">
+<p><strong>实际结果</strong>：</p>
+</div>
+<pre><code>SW1 reboots → the uplinks of 4 single-homed access switches go down
+            → about 120 users lose the network for 12 minutes
+            → the change ticket said &quot;no impact&quot;
+</code></pre>
+<div class="zh">
+<pre><code>SW1 重启 → 4 台单归 ASW 的上行链路 down
+        → 这 4 台 ASW 下的所有终端断网（约 180 人）
+        → 变更窗口内无法恢复（要等 SW1 起来）
+</code></pre>
+</div>
+<p><strong>Why the change ticket was wrong</strong>: <strong>vPC only protects dual-homed devices. Single-homed (orphan) ports have no protection at all.</strong> And nobody had ever inventoried the orphan ports.</p>
+<div class="zh">
+<p><strong>为什么变更单的判断是错的</strong>：<strong>vPC 只对"双归"的设备提供保护。单归（孤儿口）设备没有任何保护</strong>，它的唯一上行就在重启的那台设备上。</p>
+</div>
+<p><strong>Commands to find orphan ports</strong>:</p>
+<div class="zh">
+<p><strong>排查孤儿口的命令</strong>：</p>
+</div>
+<pre><code class="language-cfg">! Nexus / vPC
+show vpc orphan-ports
+! Catalyst / VSS
+show switch virtual link
+show etherchannel summary   ! look for single-member bundles
+</code></pre>
+<div class="zh">
+<pre><code class="language-cfg">! Nexus / vPC
+show vpc orphan-ports
+show vpc brief
+
+! 检查方式：对比每台接入交换机的 uplink 是否双归
+show cdp neighbors detail        ! 从接入侧看对端设备型号与接口
+</code></pre>
+</div>
+<p><strong>Lessons and process improvements</strong>:</p>
+<div class="zh">
+<p><strong>教训与流程改进</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Improvement</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Check orphan ports before every change</strong></td>
+<td>Add <code>show vpc orphan-ports</code> to the change checklist</td>
+</tr>
+<tr>
+<td>Inventory and label single-homed devices</td>
+<td>Make them visible in monitoring</td>
+</tr>
+<tr>
+<td>Amend the change-ticket template</td>
+<td>Replace "no impact" with "impact scope: X users in Y buildings"</td>
+</tr>
+<tr>
+<td>Plan the remediation</td>
+<td>Dual-home the orphans, or accept and document the risk</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>改进</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>变更前必须查孤儿口</strong></td>
+<td><code>show vpc orphan-ports</code> 的输出要作为变更单的附件</td>
+</tr>
+<tr>
+<td><strong>孤儿口清单要纳入资产台账</strong></td>
+<td>并标注"重启对应设备会中断该端口"</td>
+</tr>
+<tr>
+<td><strong>逐步消除孤儿口</strong></td>
+<td>加一条上联、或改用堆叠/双归，优先级按承载人数排</td>
+</tr>
+<tr>
+<td><strong>变更单模板增加一行</strong>："是否影响孤儿口？列出受影响设备与人数"</td>
+<td>这一行能挡住 80% 的"以为高可用其实不是"的变更</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="case-7-a-temporary-daisy-chain-that-lasted-three-years-then-one-power-failure-stopped-the-line">Case 7: A "Temporary" Daisy Chain That Lasted Three Years, Then One Power Failure Stopped the Line · 案例七：菊花链"临时"用了三年，一次断电全厂停线<a class="anchor" href="#case-7-a-temporary-daisy-chain-that-lasted-three-years-then-one-power-failure-stopped-the-line" title="Permanent link"></a></h3>
+<p><strong>Background</strong>: a factory workshop has 6 access switches; to save fiber and uplink ports they were connected in a <strong>daisy chain</strong>, with only SW1 uplinked to the distribution layer.</p>
+<div class="zh">
+<p><strong>背景</strong>：某工厂车间有 6 台接入交换机，为了省光纤和上联端口，采用<strong>链状菊花链</strong>：<code>核心 → SW1 → SW2 → SW3 → SW4 → SW5 → SW6</code>。项目文档写"临时方案，二期改造"。</p>
+</div>
+<p><strong>Three years later</strong>: phase two was never approved. One day SW3's power supply failed (no redundant PSU in the device).</p>
+<div class="zh">
+<p><strong>三年后</strong>：二期一直没批。某天 SW3 的电源模块故障（设备没有任何冗余电源）。</p>
+</div>
+<p><strong>Chain of consequences</strong>:</p>
+<div class="zh">
+<p><strong>后果链</strong>：</p>
+</div>
+<pre><code>SW3 loses power → SW4/SW5/SW6 all lose connectivity
+                → the workshop's terminals and scanners go offline
+                → the production line stops for 4 hours
+</code></pre>
+<div class="zh">
+<pre><code>SW3 断电 → SW4/SW5/SW6 全部失联
+       → 车间 3 条产线的工控终端离线
+       → 产线停线 4 小时（重启后还要重新初始化设备）
+       → 直接损失远大于当初省下的光纤成本
+</code></pre>
+</div>
+<p><strong>Why the "temporary" lasted three years</strong>: no budget line, no owner, no risk register. <strong>A temporary solution has no expiry mechanism, so it becomes the permanent design.</strong></p>
+<div class="zh">
+<p><strong>为什么"临时"用了三年</strong>：因为没有预算项、没有负责人、没有风险台账。<strong>临时方案的真正成本不是建设成本，是"它会在你最不希望的时候按它的真实可靠性工作"。</strong></p>
+</div>
+<p><strong>Structural comparison</strong>:</p>
+<div class="zh">
+<p><strong>结构性对比</strong>：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Uplink ports</th>
+<th>Fiber pairs</th>
+<th>Impact of one failure</th>
+<th>Convergence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daisy chain (6 switches)</td>
+<td>1</td>
+<td>1</td>
+<td>4 switches lost</td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td>Star (each to distribution)</td>
+<td>12</td>
+<td>12</td>
+<td>1 switch</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>Ring plus RSTP</td>
+<td>2</td>
+<td>6</td>
+<td>None (protected)</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>Clustered pairs</td>
+<td>6</td>
+<td>6</td>
+<td>1 pair</td>
+<td>Sub-second</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>上联端口数</th>
+<th>光纤对数</th>
+<th>单点故障影响</th>
+<th>收敛</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>链状菊花链（6 台）</td>
+<td>1 组</td>
+<td>5 对</td>
+<td><strong>中间设备故障 → 下游全断</strong></td>
+<td>STP 跨 6 台</td>
+</tr>
+<tr>
+<td>环形菊花链（6 台）</td>
+<td>1 组</td>
+<td>6 对</td>
+<td>单点故障有备份，但收敛慢</td>
+<td>STP 跨 6 台</td>
+</tr>
+<tr>
+<td><strong>每台双归到核心（mLAG）</strong></td>
+<td>6 组</td>
+<td>12 对</td>
+<td><strong>无单点</strong></td>
+<td>毫秒级</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>💡 <strong>Lesson</strong>: <strong>"temporary" must come with an expiry date.</strong> Whenever the words "temporary" appear in a design document, add an owner, a deadline and a written risk acceptance — otherwise they are permanent.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>💡 <strong>教训</strong>：<strong>"临时"必须有到期机制。</strong> 设计文档里出现"临时"两个字时，必须同时写清：谁负责、什么时候消除、消除前接受什么风险。否则它就是一个<strong>写在纸上但没人认领的风险</strong>，会一直在生产上运行，直到某次故障把它变成事故。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="layer-2-design-trade-offs">Layer 2 Design Trade-Offs · 二层设计的常见取舍<a class="anchor" href="#layer-2-design-trade-offs" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Trade-off</th>
+<th>Option A</th>
+<th>Option B</th>
+<th>How to decide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layer 2 domain size</td>
+<td>End-to-end VLAN (convenient addressing)</td>
+<td>Local VLAN (small failure domain)</td>
+<td>Does the user really need a fixed address while moving</td>
+</tr>
+<tr>
+<td>Loop protection</td>
+<td>STP (mature, simple)</td>
+<td>Clustering (no blocking, complex)</td>
+<td>Number of access switches and availability target</td>
+</tr>
+<tr>
+<td>Redundancy model</td>
+<td>Dual uplinks to independent devices</td>
+<td>Single uplink plus fast replacement</td>
+<td>Cost of downtime versus cost of hardware</td>
+</tr>
+<tr>
+<td>Bandwidth</td>
+<td>Link aggregation (aggregate)</td>
+<td>A faster single link (per flow)</td>
+<td>Traffic pattern: many flows or one</td>
+</tr>
+<tr>
+<td>Gateway</td>
+<td>HSRP active/standby</td>
+<td>Distributed anycast gateway</td>
+<td>Whether clustering is available</td>
+</tr>
+<tr>
+<td>Physical distribution</td>
+<td>Same cabinet (cheap)</td>
+<td>Different rooms (expensive)</td>
+<td>The availability number you promise</td>
+</tr>
+<tr>
+<td>Topology</td>
+<td>Daisy chain (cheap)</td>
+<td>Star (costly)</td>
+<td>Criticality of the segment</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>取舍</th>
+<th>选项 A</th>
+<th>选项 B</th>
+<th>判断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>二层域大小 vs 移动性</strong></td>
+<td>小（本地 VLAN，故障域小）</td>
+<td>大（端到端 VLAN，二层漫游）</td>
+<td>有虚拟机迁移/集群心跳硬需求吗？移动性诉求能否用 Wi-Fi 满足？</td>
+</tr>
+<tr>
+<td><strong>STP vs 集群</strong></td>
+<td>STP 四拓扑（成本低，收敛慢）</td>
+<td>mLAG/vPC（全转发，需防脑裂）</td>
+<td>上行带宽是否已成瓶颈？能否接受 1–3 秒收敛？</td>
+</tr>
+<tr>
+<td><strong>单控制面 vs 双控制面</strong></td>
+<td>堆叠（简单，共命运）</td>
+<td>vPC/M-LAG（可独立升级，需一致性管理）</td>
+<td>升级窗口能否容忍整机重启？运维能力如何？</td>
+</tr>
+<tr>
+<td><strong>带宽 vs 成本</strong></td>
+<td>双上行全转发（mLAG）</td>
+<td>单上行（U 型裸配）</td>
+<td>上行是否真的跑满？瓶颈在接入还是出口？</td>
+</tr>
+<tr>
+<td><strong>FHRP 主备 vs 双活</strong></td>
+<td>HSRP 多组分流（确定性好）</td>
+<td>vPC 双活网关（配置简单）</td>
+<td>排障能力如何？（双活故障时更难定位）</td>
+</tr>
+<tr>
+<td><strong>MST vs Rapid PVST</strong></td>
+<td>实例少（规模好）</td>
+<td>每 VLAN 独立（灵活）</td>
+<td>VLAN 数量；是否需要多厂商互通</td>
+</tr>
+<tr>
+<td><strong>VTP 便利 vs 风险</strong></td>
+<td>VTP server（少配 VLAN）</td>
+<td>transparent/off（安全）</td>
+<td><strong>几乎总是选 off</strong></td>
+</tr>
+<tr>
+<td><strong>收敛速度 vs 稳定性</strong></td>
+<td>亚秒级（BFD + 快计时器）</td>
+<td>秒级（默认计时器）</td>
+<td>业务是否真的感知 1 秒？抖动误切换的代价多大？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="design-pitfalls">Design Pitfalls · 设计缺陷<a class="anchor" href="#design-pitfalls" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Symptom</th>
+<th>Consequence</th>
+<th>Avoidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Root bridge not aligned with the FHRP active</td>
+<td>One uplink idle, inter-switch link hot</td>
+<td>Latency, wasted bandwidth</td>
+<td>Align deliberately, split VLANs between switches</td>
+</tr>
+<tr>
+<td><code>track decrement</code> too small</td>
+<td>Uplink down but the gateway stays active</td>
+<td>Silent black hole</td>
+<td>Decrement large enough, add preempt delay</td>
+</tr>
+<tr>
+<td>Native VLAN mismatch</td>
+<td>CDP warnings</td>
+<td>VLAN leak, or a loop</td>
+<td>Configure native VLAN explicitly on both ends</td>
+</tr>
+<tr>
+<td><code>allowed vlan</code> without <code>add</code></td>
+<td>VLANs disappear after a change</td>
+<td>Outage</td>
+<td>Use <code>add</code>, and review templates</td>
+</tr>
+<tr>
+<td>LACP <code>mode on</code></td>
+<td>No negotiation</td>
+<td>Loop or black hole on mismatch</td>
+<td>Use <code>mode active</code></td>
+</tr>
+<tr>
+<td>peer-link and keepalive on the same path</td>
+<td>Both fail together</td>
+<td>Brain split</td>
+<td>Physically separate paths</td>
+</tr>
+<tr>
+<td>Orphan ports not inventoried</td>
+<td>A reboot cuts users</td>
+<td>Unexpected outage</td>
+<td><code>show vpc orphan-ports</code> before every change</td>
+</tr>
+<tr>
+<td>No Loop Guard on fiber</td>
+<td>One-way link creates a loop</td>
+<td>Campus-wide storm</td>
+<td>Loop Guard plus UDLD</td>
+</tr>
+<tr>
+<td>MST region name/revision mismatch</td>
+<td>Region splits</td>
+<td>Inconsistent trees</td>
+<td>Verify the digest</td>
+</tr>
+<tr>
+<td>VLAN 1 used for management</td>
+<td>Reachable from any user port</td>
+<td>Security exposure</td>
+<td>Dedicated management VLAN</td>
+</tr>
+<tr>
+<td>No min-links on port-channels</td>
+<td>Silent degradation</td>
+<td>Latency, dropped traffic</td>
+<td>Set <code>min-links</code></td>
+</tr>
+<tr>
+<td>VTP left enabled</td>
+<td>Configuration contagion</td>
+<td>VLANs wiped network-wide</td>
+<td>Turn VTP off</td>
+</tr>
+<tr>
+<td>No storm control</td>
+<td>A loop floods unchecked</td>
+<td>Total outage</td>
+<td>Storm control plus alerting</td>
+</tr>
+<tr>
+<td>Convergence claims without measurement</td>
+<td>"It converges in 3 s" (unverified)</td>
+<td>Broken SLA</td>
+<td>Long-ping acceptance testing</td>
+</tr>
+<tr>
+<td>Availability claims without failure-domain analysis</td>
+<td>"Dual redundancy" in the same cabinet</td>
+<td>Promise not delivered</td>
+<td>Inventory failure domains</td>
+</tr>
+<tr>
+<td>Broadcast domain too large</td>
+<td>Slow ARP, flooded traffic</td>
+<td>Performance degradation</td>
+<td>Bound VLAN size</td>
+</tr>
+<tr>
+<td>Daisy chains left in place</td>
+<td>Hidden single point</td>
+<td>Cascading outages</td>
+<td>Register and eliminate</td>
+</tr>
+<tr>
+<td>Stacking cable as a single point</td>
+<td>Stack split</td>
+<td>Half the network down</td>
+<td>Ring stacking plus dual-active detection</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>缺陷</th>
+<th>表现</th>
+<th>后果</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>根桥与 FHRP 不对齐</strong></td>
+<td>STP 根桥在 A，网关 Active 在 B</td>
+<td>流量绕行核心间链路，吞吐减半、延迟 +1 跳</td>
+<td>两者成对配置；用多组 HSRP 分流（案例一）</td>
+</tr>
+<tr>
+<td><strong>没有根桥规划</strong></td>
+<td>谁先上线谁是根桥</td>
+<td>某天加了一台设备，全网路径静默改变</td>
+<td>显式配置 <code>root primary/secondary</code> + 优先级</td>
+</tr>
+<tr>
+<td><strong>脑裂检测与 peer-link 同路径</strong></td>
+<td>两者走同一根光缆/管道</td>
+<td>挖断时同时失去链路与检测，全网双主（案例二）</td>
+<td>检测链路物理分离，并提前演练恢复预案</td>
+</tr>
+<tr>
+<td><strong>没开 PortFast / 没配 BPDU Guard</strong></td>
+<td>只配其中一个</td>
+<td>缺 PortFast → 每次插拔触发全网红表老化；缺 Guard → 私接交换机成环</td>
+<td><strong>两者成对</strong>，全局模板下发</td>
+</tr>
+<tr>
+<td><strong>BPDU Filter 当保护用</strong></td>
+<td>边缘端口配 Filter</td>
+<td>端口彻底失去 STP 保护，用户接交换机直接风暴</td>
+<td>用 BPDU Guard，不用 Filter</td>
+</tr>
+<tr>
+<td><strong>光纤互联不配 Loop Guard/UDLD</strong></td>
+<td>只配 BPDU Guard（保护不到互联口）</td>
+<td>单向链路成环，STP 无法发现（案例四）</td>
+<td>互联口配 <code>guard loop</code> + <code>udld aggressive</code></td>
+</tr>
+<tr>
+<td><strong>端到端 VLAN 铺满园区</strong></td>
+<td>一个 VLAN 跨几十台交换机</td>
+<td>STP 域巨大，任何一处环路影响全网</td>
+<td>本地 VLAN + 三层到接入</td>
+</tr>
+<tr>
+<td><strong><code>switchport trunk allowed vlan</code> 覆盖式命令</strong></td>
+<td>用列表而非 <code>add</code></td>
+<td>删掉语音/管理 VLAN，部分业务全断</td>
+<td>一律用 <code>vlan add</code>；变更前采集现状做 diff</td>
+</tr>
+<tr>
+<td><strong><code>mode on</code> 静态聚合</strong></td>
+<td>一端汇聚、一端独立</td>
+<td>STP 视为环路、单播乱序、重复帧</td>
+<td>一律 LACP <code>active</code></td>
+</tr>
+<tr>
+<td><strong>以为 port-channel 能加速单流</strong></td>
+<td>8×10G 承诺 80G，实测 12G（案例三）</td>
+<td>容量承诺无法兑现，验收争议</td>
+<td>明白"按流哈希"原理，改哈希因子 + 多流</td>
+</tr>
+<tr>
+<td><strong>vPC 孤儿口未清点</strong></td>
+<td>单归设备的上联在待重启设备上（案例六）</td>
+<td>变更时悄悄断一片</td>
+<td>变更单强制附 <code>show vpc orphan-ports</code></td>
+</tr>
+<tr>
+<td><strong>冗余设备在同一机柜/同一路电</strong></td>
+<td>逻辑双冗余，物理单点（案例五）</td>
+<td>断电时同时失效</td>
+<td>做失效域清单，逐项验证独立性</td>
+</tr>
+<tr>
+<td><strong>菊花链临时方案无到期机制</strong></td>
+<td>三年后还在用（案例七）</td>
+<td>中间设备故障导致下游全断，收敛线性变慢</td>
+<td>写明负责人/消除时间/接受的风险</td>
+</tr>
+<tr>
+<td><strong>MST 区域配置不一致</strong></td>
+<td>name/revision/instance 任一不同</td>
+<td>静默退化为 CIST，负载分担失效</td>
+<td>每日比对 <code>mst configuration digest</code></td>
+</tr>
+<tr>
+<td><strong>VTP 默认开启</strong></td>
+<td>域内误删 VLAN 全网同步</td>
+<td>大范围 VLAN 消失，业务中断</td>
+<td>关闭 VTP 或改用 transparent</td>
+</tr>
+<tr>
+<td><strong>FHRP 无上行跟踪</strong></td>
+<td>上行断了网关仍 Active</td>
+<td>"网关能 ping 通但上不了网"的黑洞</td>
+<td>object tracking + 延迟抢占</td>
+</tr>
+<tr>
+<td><strong>乱调 STP/FHRP 计时器</strong></td>
+<td>把 Hello 调到 250ms 求"快"</td>
+<td>CPU 升高、链路抖动就误切换</td>
+<td>用 BFD；只在必要时微调</td>
+</tr>
+<tr>
+<td><strong>聚合成员全部在同一板卡</strong></td>
+<td>单板故障导致整链路 down</td>
+<td>冗余失效</td>
+<td>成员跨板卡分布 + <code>min-links</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>⚠️ <strong>Eight of those eighteen items come from one mental habit</strong>: treating Layer 2 as "a cable that works" rather than <strong>a forwarding domain with no control plane and no TTL</strong>. Once you think "failure domain" instead of "connectivity", most of these pitfalls disappear by themselves.</p>
+</blockquote>
+<div class="zh">
+<blockquote>
+<p>⚠️ <strong>这十八条里有八条源于同一个思维惯性</strong>：把二层当成"能通的线"，而没把它当成"有状态、有收敛、有故障域的网络"。二层不会报错，它只会<strong>安静地变慢或安静地环路</strong>。</p>
+</blockquote>
+</div>
+<hr />
+<h2 id="lessons-learned">Lessons Learned · 实战经验总结<a class="anchor" href="#lessons-learned" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ask first "how large must the Layer 2 domain be"</strong></td>
+<td>Every extra switch a VLAN spans is extra failure domain</td>
+</tr>
+<tr>
+<td><strong>The root bridge and the gateway must be the same device</strong></td>
+<td>Otherwise traffic always takes one extra hop</td>
+</tr>
+<tr>
+<td><strong>Redundancy requires independent failure domains</strong></td>
+<td>Cabinet, power, conduit and carrier all count</td>
+</tr>
+<tr>
+<td><strong>"Interface up" does not mean "link usable"</strong></td>
+<td>One-way fiber creates loops silently — use Loop Guard and UDLD</td>
+</tr>
+<tr>
+<td><strong>A TCN storm is a design problem, not a protocol problem</strong></td>
+<td>PortFast plus TCN suppression</td>
+</tr>
+<tr>
+<td><strong>Aggregate bandwidth is not single-flow bandwidth</strong></td>
+<td>Explain the difference to the business side in writing</td>
+</tr>
+<tr>
+<td><strong>Convergence must be measured, not assumed</strong></td>
+<td>Accept with long pings and record the numbers</td>
+</tr>
+<tr>
+<td><strong>"Temporary" needs an expiry date</strong></td>
+<td>Owner, deadline, written risk acceptance</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>经验</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先问"二层域要多大"</strong></td>
+<td>二层域的范围就是故障域的范围。跨交换机二层是最后手段</td>
+</tr>
+<tr>
+<td><strong>让 STP 无事可做</strong></td>
+<td>三层到接入、mLAG 集群、无环 U 型——三个手段都指向同一目标：无阻塞端口</td>
+</tr>
+<tr>
+<td><strong>根桥与网关成对设计</strong></td>
+<td>它们描述同一件事，分开配迟早会错位</td>
+</tr>
+<tr>
+<td><strong>冗余要检查失效域独立性</strong></td>
+<td>同管道、同桥架、同机柜、同运营商的两个"副本"仍然是一个单点</td>
+</tr>
+<tr>
+<td><strong>聚合带宽 ≠ 单流速率</strong></td>
+<td>按流哈希是物理规律；需要单流快就提速率，不是加条数</td>
+</tr>
+<tr>
+<td><strong>"接口 up"≠"链路可用"</strong></td>
+<td>光纤单通时接口仍 up；必须监控 Rx 光功率 + Loop Guard/UDLD</td>
+</tr>
+<tr>
+<td><strong>边缘保护要成对</strong></td>
+<td>PortFast（防 TCN）+ BPDU Guard（防环路），缺一不可</td>
+</tr>
+<tr>
+<td><strong>收敛时间要分段测量</strong></td>
+<td>STP、FHRP、路由、ARP 各占一段，优化占比最大的那段</td>
+</tr>
+<tr>
+<td><strong>"全网必须一致"的配置要有自动校验</strong></td>
+<td>MST digest、聚合参数、VLAN 列表——靠人眼比对必然腐坏</td>
+</tr>
+<tr>
+<td><strong>别只测通断，要测行为</strong></td>
+<td>拔一条线、关一台设备，看流量是否按设计改道——演练比配置更有价值</td>
+</tr>
+<tr>
+<td><strong>"临时"必须有到期机制</strong></td>
+<td>没写负责人和消除时间的临时方案，会一直运行到出事故那天</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="key-terms">Key Terms · 本章关键术语<a class="anchor" href="#key-terms" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Chinese meaning</th>
+<th>One-line memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STP</td>
+<td>生成树协议</td>
+<td>Blocks links to prevent loops</td>
+</tr>
+<tr>
+<td>RSTP</td>
+<td>快速生成树</td>
+<td>Proposal/agreement instead of timers</td>
+</tr>
+<tr>
+<td>MSTP</td>
+<td>多生成树</td>
+<td>Several trees, one per instance</td>
+</tr>
+<tr>
+<td>Root Bridge</td>
+<td>根桥</td>
+<td>The centre of the tree; should sit with the gateway</td>
+</tr>
+<tr>
+<td>Alternate Port</td>
+<td>替代端口</td>
+<td>A blocked port — redundancy you pay for and do not use</td>
+</tr>
+<tr>
+<td>PortFast</td>
+<td>边缘端口快速转发</td>
+<td>Skips listening/learning</td>
+</tr>
+<tr>
+<td>BPDU Guard</td>
+<td>BPDU 防护</td>
+<td>Shuts the port if a BPDU arrives</td>
+</tr>
+<tr>
+<td>Root Guard</td>
+<td>根桥防护</td>
+<td>Stops the root from moving</td>
+</tr>
+<tr>
+<td>Loop Guard</td>
+<td>环路防护</td>
+<td>Blocks a port that stops receiving BPDUs</td>
+</tr>
+<tr>
+<td>UDLD</td>
+<td>单向链路检测</td>
+<td>Detects one-way links</td>
+</tr>
+<tr>
+<td>TCN</td>
+<td>拓扑变更通知</td>
+<td>The trigger for network-wide MAC flushing</td>
+</tr>
+<tr>
+<td>VLAN</td>
+<td>虚拟局域网</td>
+<td>Logical broadcast domain</td>
+</tr>
+<tr>
+<td>Trunk</td>
+<td>干道链路</td>
+<td>Carries multiple VLANs on one link</td>
+</tr>
+<tr>
+<td>Native VLAN</td>
+<td>本征 VLAN</td>
+<td>Untagged VLAN on a trunk</td>
+</tr>
+<tr>
+<td>VTP</td>
+<td>VLAN 中继协议</td>
+<td>Convenient and dangerous — usually off</td>
+</tr>
+<tr>
+<td>LACP</td>
+<td>链路聚合控制协议</td>
+<td>Negotiated aggregation</td>
+</tr>
+<tr>
+<td>mLAG / vPC</td>
+<td>跨设备链路聚合</td>
+<td>Two devices acting as one</td>
+</tr>
+<tr>
+<td>Peer-link</td>
+<td>对等链路</td>
+<td>The control path of a cluster — and the new single point</td>
+</tr>
+<tr>
+<td>Brain Split</td>
+<td>脑裂</td>
+<td>Both cluster members active</td>
+</tr>
+<tr>
+<td>Orphan Port</td>
+<td>孤儿端口</td>
+<td>A device connected to only one cluster member</td>
+</tr>
+<tr>
+<td>FHRP</td>
+<td>首跳冗余协议</td>
+<td>HSRP/VRRP/GLBP</td>
+</tr>
+<tr>
+<td>Preempt Delay</td>
+<td>抢占延迟</td>
+<td>Waits for routing before taking over</td>
+</tr>
+<tr>
+<td>Object Tracking</td>
+<td>对象跟踪</td>
+<td>Ties priority to real reachability</td>
+</tr>
+<tr>
+<td>Local VLAN</td>
+<td>本地 VLAN</td>
+<td>A VLAN confined to one access switch</td>
+</tr>
+<tr>
+<td>Routed Access</td>
+<td>三层到接入</td>
+<td>Layer 3 at the access layer, no spanning tree</td>
+</tr>
+</tbody>
+</table>
+<div class="zh">
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>中文含义</th>
+<th>一句话记忆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Spanning Tree Protocol (STP)</strong></td>
+<td>生成树协议</td>
+<td>用砍链路换无环</td>
+</tr>
+<tr>
+<td><strong>802.1D</strong></td>
+<td>传统 STP</td>
+<td>等计时器，30–50 秒</td>
+</tr>
+<tr>
+<td><strong>802.1W (RSTP)</strong></td>
+<td>快速生成树</td>
+<td>问邻居，1–3 秒</td>
+</tr>
+<tr>
+<td><strong>802.1S (MST)</strong></td>
+<td>多生成树</td>
+<td>多 VLAN 映射到少数实例；<strong>三参数必须全网一致</strong></td>
+</tr>
+<tr>
+<td><strong>PVST+ / Rapid PVST+</strong></td>
+<td>Cisco 每 VLAN 一实例</td>
+<td>实例数 = VLAN 数，规模上限低</td>
+</tr>
+<tr>
+<td><strong>Root Bridge</strong></td>
+<td>根桥</td>
+<td>全网树根；必须与 FHRP Active 同设备</td>
+</tr>
+<tr>
+<td><strong>Root Port</strong></td>
+<td>根端口</td>
+<td>我去根桥的最优口</td>
+</tr>
+<tr>
+<td><strong>Alternate Port</strong></td>
+<td>替代端口</td>
+<td><strong>这就是被浪费的带宽</strong></td>
+</tr>
+<tr>
+<td><strong>Edge Port / PortFast</strong></td>
+<td>边缘端口</td>
+<td>立即转发 + <strong>不产生 TCN</strong></td>
+</tr>
+<tr>
+<td><strong>TCN</strong></td>
+<td>拓扑变更通知</td>
+<td>一次端口 up/down 可让全网 MAC 表老化</td>
+</tr>
+<tr>
+<td><strong>Loop Guard</strong></td>
+<td>环路保护</td>
+<td>防单向链路导致端口误升转发</td>
+</tr>
+<tr>
+<td><strong>Root Guard</strong></td>
+<td>根保护</td>
+<td>防下游抢根；不 err-disable，可自愈</td>
+</tr>
+<tr>
+<td><strong>BPDU Guard</strong></td>
+<td>BPDU 保护</td>
+<td>收到 BPDU 就 err-disable；<strong>朝终端用</strong></td>
+</tr>
+<tr>
+<td><strong>BPDU Filter</strong></td>
+<td>BPDU 过滤</td>
+<td>等于放弃 STP 保护，<strong>慎用</strong></td>
+</tr>
+<tr>
+<td><strong>UDLD</strong></td>
+<td>单向链路检测</td>
+<td>链路层探测，光纤互联必备</td>
+</tr>
+<tr>
+<td><strong>VLAN</strong></td>
+<td>虚拟局域网</td>
+<td>广播域 = 最小故障域</td>
+</tr>
+<tr>
+<td><strong>Native VLAN</strong></td>
+<td>本征 VLAN（不打标签）</td>
+<td>两端不一致会把两个 VLAN 桥接</td>
+</tr>
+<tr>
+<td><strong>Trunking</strong></td>
+<td>中继</td>
+<td>一条链路多 VLAN；裁剪 + <code>add</code> 增量</td>
+</tr>
+<tr>
+<td><strong>VTP</strong></td>
+<td>VLAN 中继协议</td>
+<td>配错会全网传染；<strong>建议 off</strong></td>
+</tr>
+<tr>
+<td><strong>LACP (802.3ad)</strong></td>
+<td>链路聚合控制协议</td>
+<td>至少一端 active；不用 <code>mode on</code></td>
+</tr>
+<tr>
+<td><strong>Port-channel / EtherChannel</strong></td>
+<td>链路聚合组</td>
+<td>加总容量 ≠ 单流速率</td>
+</tr>
+<tr>
+<td><strong>Hash（负载分担）</strong></td>
+<td>哈希算法</td>
+<td>按流分配；改 L3+L4 改善分布</td>
+</tr>
+<tr>
+<td><strong><code>min-links</code></strong></td>
+<td>最小成员数</td>
+<td>带宽不足时主动 down，触发路由切换</td>
+</tr>
+<tr>
+<td><strong>mLAG</strong></td>
+<td>多机箱链路聚合</td>
+<td>让接入以为上联是一台设备</td>
+</tr>
+<tr>
+<td><strong>VSS</strong></td>
+<td>虚拟交换系统</td>
+<td>双主控合一，真单控制面</td>
+</tr>
+<tr>
+<td><strong>StackWise</strong></td>
+<td>智能堆叠</td>
+<td>单一管理面，控制面共命运</td>
+</tr>
+<tr>
+<td><strong>vPC</strong></td>
+<td>虚拟端口通道（Nexus）</td>
+<td>双控制面 + peer-link + keepalive</td>
+</tr>
+<tr>
+<td><strong>M-LAG</strong></td>
+<td>标准多机箱链路聚合</td>
+<td>多厂商版 vPC</td>
+</tr>
+<tr>
+<td><strong>EVPN Multihoming</strong></td>
+<td>EVPN 多归属</td>
+<td>用 BGP 控制面替代 peer-link</td>
+</tr>
+<tr>
+<td><strong>Peer-Link</strong></td>
+<td>对等链路</td>
+<td>同步 MAC、承载 BUM；断则 vPC 挂起</td>
+</tr>
+<tr>
+<td><strong>Peer-Keepalive</strong></td>
+<td>对等保活</td>
+<td>防脑裂的<strong>心跳</strong>，必须物理独立</td>
+</tr>
+<tr>
+<td><strong>Split-Brain</strong></td>
+<td>脑裂</td>
+<td>两台同时当主；爆炸半径 = 全网</td>
+</tr>
+<tr>
+<td><strong>Dual Active Detection</strong></td>
+<td>双活检测</td>
+<td>脑裂兜底；最好再加自动化隔离</td>
+</tr>
+<tr>
+<td><strong>Orphan Port</strong></td>
+<td>孤口（单归端口）</td>
+<td>重启对应设备就会断它</td>
+</tr>
+<tr>
+<td><strong>MEC</strong></td>
+<td>多机箱 EtherChannel</td>
+<td>堆叠环境下的跨成员聚合</td>
+</tr>
+<tr>
+<td><strong>FHRP</strong></td>
+<td>首跳冗余协议</td>
+<td>网关冗余的统称</td>
+</tr>
+<tr>
+<td><strong>HSRP</strong></td>
+<td>热备份路由协议</td>
+<td>Cisco 专有；多组分流</td>
+</tr>
+<tr>
+<td><strong>VRRP</strong></td>
+<td>虚拟路由冗余协议</td>
+<td>标准，多厂商唯一选择</td>
+</tr>
+<tr>
+<td><strong>GLBP</strong></td>
+<td>网关负载均衡协议</td>
+<td>原生负载分担，确定性差</td>
+</tr>
+<tr>
+<td><strong>Object Tracking</strong></td>
+<td>对象跟踪</td>
+<td>上行断了要主动让出 Active</td>
+</tr>
+<tr>
+<td><strong>Preempt Delay</strong></td>
+<td>延迟抢占</td>
+<td>避免路由未收敛就抢回网关</td>
+</tr>
+<tr>
+<td><strong>BFD</strong></td>
+<td>双向转发检测</td>
+<td>亚秒检测，优于猛调计时器</td>
+</tr>
+<tr>
+<td><strong>E2V (End-to-End VLAN)</strong></td>
+<td>端到端 VLAN 模型</td>
+<td>移动性好，故障域灾难</td>
+</tr>
+<tr>
+<td><strong>Local VLAN</strong></td>
+<td>本地 VLAN 模型</td>
+<td>故障域小，需 IP 规划能力</td>
+</tr>
+<tr>
+<td><strong>Looped Triangle</strong></td>
+<td>环路三角形拓扑</td>
+<td>浪费 50% 上行</td>
+</tr>
+<tr>
+<td><strong>Loop-Free Inverted U</strong></td>
+<td>无环路倒 U 型</td>
+<td>单点，仅特例</td>
+</tr>
+<tr>
+<td><strong>Looped Square</strong></td>
+<td>环路方形拓扑</td>
+<td>流量绕行核心间链路</td>
+</tr>
+<tr>
+<td><strong>Loop-Free U</strong></td>
+<td>无环路 U 型</td>
+<td><strong>现代主流</strong>，需配 mLAG</td>
+</tr>
+<tr>
+<td><strong>Daisy Chain</strong></td>
+<td>菊花链</td>
+<td>中间故障下游全断</td>
+</tr>
+<tr>
+<td><strong>Failure Domain</strong></td>
+<td>失效域</td>
+<td>冗余的判据：两个副本的失效域是否独立</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2 id="chapter-summary">Chapter Summary · 本章小结<a class="anchor" href="#chapter-summary" title="Permanent link"></a></h2>
+<p>The thread of Chapter 7 is a history of <strong>"removing dependencies"</strong>:</p>
+<div class="zh">
+<p>第 7 章的主线是一条<strong>"减少依赖"的演进史</strong>：</p>
+</div>
+<pre><code>802.1D: relies on timers to converge (30–50 s) — a dependency on time
+    ↓ change the mechanism
+RSTP: relies on neighbours to agree (seconds) — a dependency on protocol
+    ↓ remove the need to block
+mLAG / clustering: relies on the peer-link — a dependency on one link
+    ↓ remove Layer 2 spanning altogether
+Routed access: relies on routing — no need for STP at all
+</code></pre>
+<div class="zh">
+<pre><code>802.1D：靠计时器收敛（30–50 秒）——依赖时间
+    ↓ 换成协商
+RSTP/MST：靠邻居握手收敛（1–3 秒）——依赖邻居，不依赖规模
+    ↓ 但仍有端口被阻塞
+链路聚合 + 无环 U 型：没有阻塞端口了，但仍依赖 STP 兜底
+    ↓ 把聚合跨到两台设备
+mLAG / VSS / vPC / EVPN-MH：STP 与 FHRP 退出决策路径
+    ↓ 代价转移到&quot;防脑裂&quot;
+（第 9 章）EVPN Multihoming：用控制面替代 peer-link
+</code></pre>
+</div>
+<p>Three sentences summarise the design judgements in this chapter:</p>
+<div class="zh">
+<p>三句话概括本章的设计判断：</p>
+</div>
+<ol>
+<li><strong>The size of the Layer 2 domain equals the size of the failure domain</strong> — use Layer 3 wherever possible</li>
+<li><strong>The root bridge and the gateway must be the same device</strong>, otherwise traffic always detours</li>
+<li><strong>Redundancy only counts when the failure domains are independent</strong> — otherwise it is decoration</li>
+</ol>
+<div class="zh">
+<ol>
+<li><strong>二层域的范围 = 故障域的范围</strong>，能三层就三层</li>
+<li><strong>根桥与网关是同一件事的两个配置面</strong>，必须成对</li>
+<li><strong>每项冗余都要验证失效域是否独立</strong>——否则冗余只是心理安慰</li>
+</ol>
+</div>
+<p>Two engineering habits to add:</p>
+<div class="zh">
+<p>再加两句工程习惯：</p>
+</div>
+<ol start="4">
+<li><strong>"Interface up" does not mean "link usable"</strong> (one-way fiber), and <strong>"it pings" does not mean "the design is right"</strong> (path quality, convergence, broadcast scope are all unverified)</li>
+<li><strong>Every "temporary" needs an expiry date and an owner</strong>, and every availability number needs a failure-domain inventory behind it</li>
+</ol>
+<div class="zh">
+<ol start="4">
+<li><strong>"接口 up"不等于"链路可用"</strong>（光纤单通），<strong>"能 ping 通"不等于"设计对了"</strong>（路径可能绕行）</li>
+<li><strong>凡"全网必须一致"的配置，必须有自动校验</strong>；凡"临时"的方案，必须有到期机制</li>
+</ol>
+</div>
+<p>The next chapter (Chapter 8, Layer 3 Technologies) picks up where this one leaves off: once Layer 2 has been compressed to its minimum, how does Layer 3 take over the redundancy, path selection and failure recovery that Layer 2 used to struggle with?</p>
+<div class="zh">
+<p>下一章（第 8 章 三层技术）会接着回答本章留下的问题：当二层被压缩到最小之后，三层如何承担起路径控制、故障收敛和可预测性的全部责任。</p>
+</div></article>
+    <nav class="pager"><a class="pager-link prev" href="en-06.html"><span class="pager-label">Previous</span><span class="pager-title">Chapter 6 · Transport Technologies</span></a></nav>
+    
+    <section class="board" id="board" data-page="EN · Chapter 7 · Layer 2 Technologies" data-key="en-07">
+      <div class="board-head">
+        <h2 class="board-title">留言板 · 想法与勘误</h2>
+        <span class="board-count" id="boardCount"></span>
+      </div>
+      <p class="board-tip">留言直接写入本仓库的 <strong>GitHub Discussions</strong>：手机、平板、任何浏览器打开都自动同步，
+        不再有「换浏览器就丢」的问题。首次发言需用 GitHub 账号登录一次，之后免登录。</p>
+      <div class="giscus-shell" id="giscusThread"></div>
+      <details class="board-local">
+        <summary>本机速记（离线草稿，仅当前浏览器，不自动同步）</summary>
+        <div class="board-local-body">
+          <p class="board-tip">这里的内容只存在当前浏览器。适合离线随手记；想并入仓库就点「导出 .json」后运行
+            <code>.\update.ps1</code>，想让我改稿就点「复制全部」或「导出 .md」贴给我。</p>
+          <form class="board-form" id="boardForm">
+            <div class="board-where">
+              <span class="board-chip" id="boardWhere">EN · Chapter 7 · Layer 2 Technologies</span>
+              <span class="board-chip anchor" id="boardAnchor">未定位到小节</span>
+            </div>
+            <textarea id="boardInput" rows="3"
+              placeholder="例如：这节说 RSTP 收敛是秒级，但没讲清楚 50 秒指的是什么场景…（Ctrl + Enter 提交）"></textarea>
+            <div class="board-actions">
+              <button type="submit" class="board-btn primary">提交留言</button>
+              <span class="board-hint" id="boardHint"></span>
+            </div>
+          </form>
+          <div class="board-tools">
+            <div class="board-filter" id="boardFilter">
+              <button type="button" class="board-tab active" data-scope="page">仅本页</button>
+              <button type="button" class="board-tab" data-scope="all">全部章节</button>
+            </div>
+            <div class="board-tools-right">
+              <button type="button" class="board-btn" id="boardCopy">复制全部</button>
+              <button type="button" class="board-btn primary" id="boardSync">导出 .json</button>
+              <button type="button" class="board-btn" id="boardExport">导出 .md</button>
+              <button type="button" class="board-btn danger" id="boardClear">清空</button>
+            </div>
+          </div>
+          <ul class="board-list" id="boardList"></ul>
+          <p class="board-empty" id="boardEmpty">本页还没有留言，随手记一条吧。</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="foot">
+      <span>CCDE 400-007 学习笔记 · 基于 Cisco Press 官方认证指南整理</span>
+      <span class="foot-note">内容仅供个人学习使用</span>
+    </footer>
+  </main>
+  <aside class="toc-rail"><div class="toc-inner"><div class="toc-title">本页目录</div><div class="toc">
+<ul>
+<li><a href="#topics-covered">Topics Covered · 本章涵盖主题</a></li>
+<li><a href="#chapter-overview-four-counter-intuitive-truths-about-layer-2-design">Chapter Overview: Four Counter-Intuitive Truths About Layer 2 Design · 本章导读：二层设计的四条反直觉认知</a><ul>
+<li><a href="#counter-intuitive-truth-1-layer-2-has-no-concept-of-destination">Counter-Intuitive Truth 1: Layer 2 Has No Concept of "Destination" · 反直觉一：二层网络没有"目的地"这个概念</a></li>
+<li><a href="#counter-intuitive-truth-2-however-well-stp-is-configured-it-is-a-patch-the-goal-is-to-leave-it-nothing-to-do-stp">Counter-Intuitive Truth 2: However Well STP Is Configured It Is a Patch — the Goal Is to Leave It Nothing to Do · 反直觉二：STP 配得再好也是"补救"，目标是让它无事可做</a></li>
+<li><a href="#counter-intuitive-truth-3-layer-2-failures-are-almost-always-silent">Counter-Intuitive Truth 3: Layer 2 Failures Are Almost Always Silent · 反直觉三：二层的故障几乎都是"静默"的</a></li>
+<li><a href="#counter-intuitive-truth-4-redundancy-is-not-reliability-unless-the-two-copies-have-independent-failure-domains">Counter-Intuitive Truth 4: Redundancy Is Not Reliability Unless the Two Copies Have Independent Failure Domains · 反直觉四：冗余 ≠ 可靠，除非两个副本的失效域是独立的</a></li>
+</ul>
+</li>
+<li><a href="#layer-2-design-methodology-five-steps-in-order">Layer 2 Design Methodology: Five Steps in Order · 二层设计方法论：五步定序</a></li>
+<li><a href="#foundation-topics">Foundation Topics · 基础内容</a><ul>
+<li><a href="#core-layer-2-technologies-at-a-glance">Core Layer 2 Technologies at a Glance · 二层核心技术总览</a></li>
+<li><a href="#spanning-tree-protocol-stp">Spanning Tree Protocol (STP) · 生成树协议</a></li>
+<li><a href="#vlans-and-trunking-vlan-trunking">VLANs and Trunking · VLAN 和 Trunking</a></li>
+<li><a href="#first-hop-redundancy-protocols-fhrp-and-stp-fhrp-stp">First Hop Redundancy Protocols (FHRP) and STP · 首跳冗余协议 (FHRP) 和 STP</a></li>
+</ul>
+</li>
+<li><a href="#common-layer-2-lan-design-models-lan">Common Layer 2 LAN Design Models · 二层 LAN 常见设计模型</a><ul>
+<li><a href="#stp-based-models-stp">STP-Based Models · 基于 STP 的模型</a></li>
+<li><a href="#switch-clustering-model-vss-vpc-stackwise">Switch Clustering Model (VSS / vPC / StackWise) · 交换机集群模型</a></li>
+<li><a href="#daisy-chained-access-switches">Daisy-Chained Access Switches · 菊花链接入交换机</a></li>
+</ul>
+</li>
+<li><a href="#extended-layer-2-design-decision-tree">Extended: Layer 2 Design Decision Tree · 扩展：二层设计决策树</a></li>
+<li><a href="#extended-what-convergence-time-is-really-made-of">Extended: What Convergence Time Is Really Made Of · 扩展：收敛时间的真实构成</a></li>
+<li><a href="#real-world-cases">Real-World Cases · 实战案例</a><ul>
+<li><a href="#case-1-the-gateway-on-one-device-the-root-bridge-on-the-other">Case 1: The Gateway on One Device, the Root Bridge on the Other · 案例一：网关上在了一台设备，根桥在另一台</a></li>
+<li><a href="#case-2-vpc-brain-split-two-hours-of-plant-wide-downtime-vpc">Case 2: vPC Brain Split, Two Hours of Plant-Wide Downtime · 案例二：vPC 脑裂，两小时全厂停机</a></li>
+<li><a href="#case-3-eight-10g-members-in-the-bundle-only-12g-measured-8-12g">Case 3: Eight 10G Members in the Bundle, Only 12G Measured · 案例三：8 条万兆聚合，实测只有 12G</a></li>
+<li><a href="#case-4-one-way-fiber-creates-a-loop-and-stp-never-notices-stp">Case 4: One-Way Fiber Creates a Loop, and STP Never Notices · 案例四：光纤单通成环，STP 完全不知情</a></li>
+<li><a href="#case-5-dual-uplinks-to-two-devices-in-the-same-cabinet">Case 5: Dual Uplinks to Two Devices — in the Same Cabinet · 案例五：双上行接到两台设备，但两台在同一机柜</a></li>
+<li><a href="#case-6-a-maintenance-window-reboot-that-cut-off-half-the-building">Case 6: A Maintenance-Window Reboot That Cut Off Half the Building · 案例六：维护窗口重启一台交换机，断了一半楼</a></li>
+<li><a href="#case-7-a-temporary-daisy-chain-that-lasted-three-years-then-one-power-failure-stopped-the-line">Case 7: A "Temporary" Daisy Chain That Lasted Three Years, Then One Power Failure Stopped the Line · 案例七：菊花链"临时"用了三年，一次断电全厂停线</a></li>
+</ul>
+</li>
+<li><a href="#layer-2-design-trade-offs">Layer 2 Design Trade-Offs · 二层设计的常见取舍</a></li>
+<li><a href="#design-pitfalls">Design Pitfalls · 设计缺陷</a></li>
+<li><a href="#lessons-learned">Lessons Learned · 实战经验总结</a></li>
+<li><a href="#key-terms">Key Terms · 本章关键术语</a></li>
+<li><a href="#chapter-summary">Chapter Summary · 本章小结</a></li>
+</ul>
+</div>
+</div></aside>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+<script src="assets/app.js"></script>
+<script src="assets/board.js"></script>
+<script src="assets/giscus.js"></script>
+</body>
+</html>
