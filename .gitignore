@@ -18,3 +18,6 @@ desktop.ini
 # 编辑器
 .vscode/
 .idea/
+
+# 第14章英文纯文源（已合并为双语，保留本地）
+_p14_en_src.md
