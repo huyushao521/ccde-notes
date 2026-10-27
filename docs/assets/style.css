@@ -18,10 +18,6 @@
   --shadow-sm: 0 1px 2px rgba(16, 32, 60, .06), 0 2px 8px rgba(16, 32, 60, .04);
   --shadow-md: 0 4px 12px rgba(16, 32, 60, .08), 0 12px 32px rgba(16, 32, 60, .06);
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  /* 英文版正文用 Monaco（无 Monaco 的系统回落到等宽字体栈） */
-  --mono-en: Monaco, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Courier New", monospace;
-  --font-cjk: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 }
 
 html[data-theme="dark"] {
@@ -490,28 +486,3 @@ html[data-theme="dark"] .badge[data-s="提纲"] { color: #e0b062; background: #2
 .zh p { color: inherit; }
 .zh strong { color: var(--text); }
 .zh code { background: var(--bg-code); }
-
-/* ===== 英文版页面：英文正文用 Monaco 等宽字体，中文对照块保持无衬线 ===== */
-.markdown-body.is-en {
-  font-family: var(--mono-en);
-  font-size: 15.2px;
-  line-height: 1.82;
-  letter-spacing: -.1px;
-}
-
-.markdown-body.is-en h1,
-.markdown-body.is-en h2,
-.markdown-body.is-en h3,
-.markdown-body.is-en h4 {
-  letter-spacing: -.2px;
-}
-
-.markdown-body.is-en .zh {
-  font-family: var(--font-cjk);
-  font-size: 14.5px;
-  line-height: 1.82;
-  letter-spacing: normal;
-}
-
-.markdown-body.is-en code,
-.markdown-body.is-en pre { font-family: var(--mono); }
