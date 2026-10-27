@@ -16,16 +16,38 @@ on:
     types: [created]
   discussion_comment:
     types: [created]
+  # 手动触发一次，用于验证 SMTP 配置是否成功（Actions 页面点 Run workflow）
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   notify:
-    # 自己发的留言不提醒自己
-    if: github.event.sender.login != github.repository_owner
+    # 自己发的留言不提醒自己；手动触发时放行
+    if: github.event_name == 'workflow_dispatch' || github.event.sender.login != github.repository_owner
     runs-on: ubuntu-latest
     steps:
+      - name: 发送测试邮件
+        if: github.event_name == 'workflow_dispatch'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: "CCDE 笔记留言 <${{ secrets.MAIL_USERNAME }}>"
+          to: ${{ secrets.MAIL_USERNAME }}
+          subject: "[笔记留言] SMTP 配置测试"
+          body: |
+            这是一封测试邮件。
+
+            能收到这封，说明 QQ 邮箱授权码与收发地址都配置正确。
+            之后有人在笔记页面上留言，你会收到同样格式、带页面链接和留言正文的提醒。
+
+            站点：https://huyushao521.github.io/ccde2023-notes/
+
       - name: 转发讨论区评论
         if: github.event_name == 'discussion_comment'
         uses: dawidd6/action-send-mail@v3
