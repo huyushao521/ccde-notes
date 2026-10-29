@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">决策树与决策矩阵的适用边界</title>
+  <desc id="d3">左侧为决策树：以"是否跨多个自治域"和"收敛是否要求小于 1 秒"两级 yes/no 判断，把候选协议收敛到 BGP、IS-IS 或 OSPF。右侧为决策矩阵：把业务需求、优先级换算成权重，对两个设计选项逐项打分并求加权总分。</desc>
+  <defs>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.2}
+    .h{font:600 15px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .q{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .leaf{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif}
+    .el{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .th{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .td{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+  </style>
+
+  <rect x="0" y="0" width="900" height="520" fill="#fbfcfe"/>
+
+  <!-- ================= 左：决策树 ================= -->
+  <rect class="pan" x="20" y="20" width="420" height="470" rx="11"/>
+  <text class="h" x="42" y="52" fill="#2f6fed">决策树 Decision Tree</text>
+  <text class="sub" x="42" y="72">只用能写成 yes / no 的硬标准，逐层排除</text>
+
+  <!-- 根问题 -->
+  <rect x="150" y="96" width="166" height="42" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="q" x="233" y="115" text-anchor="middle">跨多个自治域？</text>
+  <text class="el" x="233" y="130" text-anchor="middle">域间策略与可扩展性</text>
+
+  <!-- 第二问 -->
+  <rect x="270" y="184" width="150" height="42" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="q" x="345" y="203" text-anchor="middle">收敛要求 &lt; 1s？</text>
+  <text class="el" x="345" y="218" text-anchor="middle">大规模链路状态</text>
+
+  <!-- 叶子 -->
+  <rect x="44" y="278" width="140" height="46" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="leaf" x="114" y="299" text-anchor="middle" fill="#0f7f73">BGP</text>
+  <text class="el" x="114" y="315" text-anchor="middle">策略丰富、收敛慢</text>
+
+  <rect x="272" y="278" width="140" height="46" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+  <text class="leaf" x="342" y="299" text-anchor="middle" fill="#a86400">IS-IS</text>
+  <text class="el" x="342" y="315" text-anchor="middle">TLV 易扩展</text>
+
+  <rect x="46" y="376" width="140" height="46" rx="8" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="leaf" x="116" y="397" text-anchor="middle" fill="#4a5a72">OSPF</text>
+  <text class="el" x="116" y="413" text-anchor="middle">生态成熟、易运维</text>
+
+  <!-- 连线 -->
+  <path d="M233 138 V158 H114 V272" fill="none" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a3)"/>
+  <text class="el" x="120" y="152">是</text>
+  <path d="M233 138 V158 H345 V178" fill="none" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a3)"/>
+  <text class="el" x="350" y="152">否</text>
+  <path d="M345 226 V248 H342 V272" fill="none" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a3)"/>
+  <text class="el" x="350" y="242">是</text>
+  <path d="M345 226 V248 H116 V370" fill="none" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a3)"/>
+  <text class="el" x="122" y="242">否</text>
+
+  <text class="note" x="42" y="452">树的每个分叉都必须是可判定的硬条件。</text>
+  <text class="note" x="42" y="470">遇到"稍微贵一点但更好扩展"这类连续权衡，树就断了。</text>
+
+  <!-- ================= 右：决策矩阵 ================= -->
+  <rect class="pan" x="460" y="20" width="420" height="470" rx="11"/>
+  <text class="h" x="482" y="52" fill="#12a594">决策矩阵 Decision Matrix</text>
+  <text class="sub" x="482" y="72">把优先级换成权重，逐项打分后加总</text>
+
+  <!-- 表头 -->
+  <rect x="482" y="92" width="376" height="30" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="th" x="490" y="111">业务需求</text>
+  <text class="th" x="586" y="111">优先级</text>
+  <text class="th" x="640" y="111">权重</text>
+  <text class="th" x="694" y="111">选项 1</text>
+  <text class="th" x="758" y="111">选项 2</text>
+
+  <!-- 行 1 -->
+  <rect x="482" y="122" width="376" height="30" fill="#fff" stroke="#e6ecf4" stroke-width="1"/>
+  <text class="td" x="490" y="141">节约成本</text>
+  <text class="td" x="592" y="141">4</text>
+  <text class="td" x="648" y="141">1</text>
+  <text class="td" x="694" y="141">中 (2)</text>
+  <text class="td" x="758" y="141">低 (1)</text>
+
+  <!-- 行 2 -->
+  <rect x="482" y="152" width="376" height="30" fill="#fff" stroke="#e6ecf4" stroke-width="1"/>
+  <text class="td" x="490" y="171">可扩展</text>
+  <text class="td" x="592" y="171">1</text>
+  <text class="td" x="648" y="171">4</text>
+  <text class="td" x="694" y="171">高 (3)</text>
+  <text class="td" x="758" y="171">高 (3)</text>
+
+  <!-- 行 3 -->
+  <rect x="482" y="182" width="376" height="30" fill="#fff" stroke="#e6ecf4" stroke-width="1"/>
+  <text class="td" x="490" y="201">安全</text>
+  <text class="td" x="592" y="201">2</text>
+  <text class="td" x="648" y="201">3</text>
+  <text class="td" x="694" y="201">低 (1)</text>
+  <text class="td" x="758" y="201">高 (3)</text>
+
+  <!-- 总分行 -->
+  <rect x="482" y="212" width="376" height="36" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="th" x="490" y="235">加权总分（权重 × 分值）</text>
+  <text class="td" x="694" y="235" fill="#5b6b82">17</text>
+  <text class="td" x="758" y="235" fill="#0f7f73" font-weight="700">22 ✓</text>
+
+  <!-- 胜负列高亮 -->
+  <rect x="750" y="92" width="108" height="156" fill="none" stroke="#12a594" stroke-width="1.6" stroke-dasharray="5 3" rx="4"/>
+
+  <!-- 计算过程 -->
+  <text class="note" x="482" y="272">权重取法：优先级 1 → 权重 4，优先级 4 → 权重 1。</text>
+  <text class="note" x="482" y="290">选项 1 = 1×2 + 4×3 + 3×1 = 17；选项 2 = 1×1 + 4×3 + 3×3 = 22。</text>
+
+  <rect x="482" y="308" width="376" height="120" rx="8" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.2"/>
+  <text class="note" x="494" y="330" fill="#8a6410" font-weight="600">矩阵最容易出错的两处</text>
+  <text class="note" x="494" y="352" fill="#8a6410">1. 权重拍脑袋：权重必须来自业务优先级，不能来自技术偏好。</text>
+  <text class="note" x="494" y="372" fill="#8a6410">2. 忽略一票否决：安全为"低"时应直接淘汰，</text>
+  <text class="note" x="506" y="390" fill="#8a6410">不能靠其他项的高分把总分拉回来。</text>
+  <text class="note" x="494" y="412" fill="#8a6410">两张表的关系：树负责淘汰硬性不合格项，矩阵负责在合格项之间排序。</text>
+</svg>

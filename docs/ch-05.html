@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 6421 字</span></div><h1 id="5-reference-architecture-models-and-frameworks">第 5 章：参考架构模型与框架 (Reference Architecture Models and Frameworks)<a class="anchor" href="#5-reference-architecture-models-and-frameworks" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 6577 字</span></div><h1 id="5-reference-architecture-models-and-frameworks">第 5 章：参考架构模型与框架 (Reference Architecture Models and Frameworks)<a class="anchor" href="#5-reference-architecture-models-and-frameworks" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 234-259 页</p>
 </blockquote>
@@ -93,12 +93,11 @@
 </tbody>
 </table>
 <p>三者的关系可以这样理解：</p>
-<pre><code>框架（Framework）      → 我该按什么流程做架构？（HOW to do architecture）
-    ↓ 产出
-参考架构（Ref. Arch.）  → 这类场景通常长什么样？（WHAT it looks like）
-    ↓ 参考
-参考模型（Ref. Model）  → 用统一的语言和分层来描述它（HOW to describe it）
-</code></pre>
+<figure class="fig">
+<img src="assets/fig/ch05-01-concept-layers.svg" alt="框架、参考架构、参考模型三层的定义、作用、举例与产出关系" loading="lazy">
+<figcaption><b>图 5-1</b>　三个词分属不同层次：框架给流程，参考架构给蓝本，参考模型给语言</figcaption>
+</figure>
+
 <blockquote>
 <p>💡 <strong>关键区分</strong>：<strong>TOGAF 是框架，不是参考架构</strong>。TOGAF 不会告诉你数据中心该用 spine-leaf 还是三层架构，它只告诉你"要先用架构愿景对齐利益相关者，再做技术架构"。这是最常见的混淆点之一。</p>
 </blockquote>
@@ -217,14 +216,11 @@
 </tbody>
 </table>
 <p><strong>四个级别的递进逻辑</strong>：</p>
-<pre><code>技术特定 → 只看&quot;这个域里买什么&quot;
-     ↓ 加入更多域
-技术架构 → 看&quot;多个域怎么协同&quot;
-     ↓ 加入钱和收益
-业务解决方案 → 看&quot;这钱花得值不值&quot;
-     ↓ 加入业务变革
-业务转型 → 看&quot;IT 如何改变公司做生意的方式&quot;
-</code></pre>
+<figure class="fig">
+<img src="assets/fig/ch05-02-alignment-levels.svg" alt="业务架构四个对齐级别的递进台阶与每级的判断标志" loading="lazy">
+<figcaption><b>图 5-2</b>　四个对齐级别：级别由业务诉求决定，不由架构师偏好决定</figcaption>
+</figure>
+
 <blockquote>
 <p>💡 <strong>判断技巧</strong>：看到场景里出现 <strong>ROI / TCO / CAPEX 讨论</strong>，说明已经上升到"业务解决方案"级别；如果出现"进入新市场""数字化战略"，就是"业务转型"。这两类的设计自由度完全不同——转型类项目允许你推翻现有架构。</p>
 </blockquote>
@@ -276,6 +272,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch05-03-nine-views-day012.svg" alt="九个架构视角九宫格与 Day 0、Day 1、Day 2 运维周期" loading="lazy">
+<figcaption><b>图 5-3</b>　九个视角一张检查表；运营架构横跨 Day 0 到 Day 2</figcaption>
+</figure>
+
 <blockquote>
 <p>⚠️ <strong>注意"Day 0/1/2"这个划分</strong>——它是运维讨论中非常常见的划分：
 - <strong>Day 0</strong>：规划与设计（还没上线）
@@ -330,18 +331,11 @@
 <li><strong>标准化 (Standardization)</strong>：业务流程和系统是否统一</li>
 <li><strong>集成 (Integration)</strong>：业务单元之间是否共享数据</li>
 </ul>
-<pre><code>        集成度 高
-             ↑
-   协调型     |     统一型
- Coordination|   Unification
- (低标/高集) |   (高标/高集)
-  ───────────┼───────────→ 标准化 高
-   多样化型   |     复制型
- Diversification| Replication
- (低标/低集) |   (高标/低集)
-             ↓
-        集成度 低
-</code></pre>
+<figure class="fig">
+<img src="assets/fig/ch05-04-operating-model.svg" alt="标准化与集成两维构成的运营模型四象限及其网络设计含义" loading="lazy">
+<figcaption><b>图 5-4</b>　运营模型四象限：先定位象限，再决定标准化的范围</figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -455,13 +449,11 @@
 </tbody>
 </table>
 <p><strong>ADM 的结构理解</strong>：</p>
-<pre><code>        ┌──────── 需求管理（贯穿始终）────────┐
-        │                                      │
-   A 愿景 → B 业务 → C 信息系统 → D 技术 → E 解决方案 → F 迁移 → G 治理 → H 变更
-                                          ↑                              │
-                                          └──────────────────────────────┘
-                                                  回到 A，迭代
-</code></pre>
+<figure class="fig">
+<img src="assets/fig/ch05-05-togaf-adm.svg" alt="TOGAF ADM 八阶段环形结构与贯穿全程的需求管理" loading="lazy">
+<figcaption><b>图 5-5</b>　ADM 是环不是流水线：D 阶段落地技术架构，需求管理在环心</figcaption>
+</figure>
+
 <blockquote>
 <p>💡 <strong>两个必记要点</strong>：
 1. <strong>ADM 是循环的</strong>（A→H→回到 A），因此架构能随业务变化演进
@@ -531,6 +523,11 @@
 </table>
 <p>实际项目里两者互补：TOGAF 决定"建什么"，ITIL 保证"建好后能稳定交付"。</p>
 </blockquote>
+<figure class="fig">
+<img src="assets/fig/ch05-06-togaf-vs-itil.svg" alt="TOGAF 与 ITIL 在 Day 0 到 Day 2 时间轴上的分工与交接" loading="lazy">
+<figcaption><b>图 5-6</b>　TOGAF 与 ITIL 的时间轴分工：架构产物在交接点变成服务承诺</figcaption>
+</figure>
+
 <h3 id="_10">其他框架<a class="anchor" href="#_10" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -658,6 +655,11 @@
 - 总部只统一三件事：<strong>互联网出口共享服务、集团级安全基线、WAN 传输框架</strong>
 - 每个事业部保留自己的地址规划与变更权
 - 用<strong>分层的策略模板</strong>（强制的安全基线 + 可选的网络模板）代替"一刀切"</p>
+<figure class="fig">
+<img src="assets/fig/ch05-07-operating-model-fix.svg" alt="案例二的误判与修正：从强推三统一到多样化型加少量共享服务" loading="lazy">
+<figcaption><b>图 5-7</b>　案例修正：总部只统一三件"共享"的事，其余权力还给事业部</figcaption>
+</figure>
+
 <blockquote>
 <p>💡 <strong>教训</strong>：<strong>运营模型判断错误，会导致所有下游设计都错。</strong> 判断只需两问：各单元做事方式一样吗？单元之间需要频繁共享数据吗？</p>
 </blockquote>
@@ -693,6 +695,11 @@
 </tbody>
 </table>
 <p><strong>二期预算顺利通过</strong>——因为 CIO 能拿这张表向董事会汇报。</p>
+<figure class="fig">
+<img src="assets/fig/ch05-08-mttd-mttr.svg" alt="MTTD 与 MTTR 两条设计路径，以及案例改造前后的指标对比" loading="lazy">
+<figcaption><b>图 5-8</b>　MTTD 靠可见性、MTTR 靠弹性与自动化：两条路径不能互相替代</figcaption>
+</figure>
+
 <blockquote>
 <p>💡 <strong>教训</strong>：<strong>MTTD 靠可见性，MTTR 靠弹性与自动化。</strong> 设计之初就确定这两条指标，等于提前锁定了技术方向：想改善 MTTD 就加监测点，想改善 MTTR 就加冗余和自动化。</p>
 </blockquote>

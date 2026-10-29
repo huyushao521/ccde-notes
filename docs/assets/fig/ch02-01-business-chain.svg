@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">业务优先级到业务能力的四级映射链条</title>
+  <desc id="d1">从左到右依次为业务优先级、业务驱动力、业务成果、业务能力四列。三个优先级各自推导出对应驱动力与成果，成果再映射到一个或多个能力；虚线表示同一能力被多个成果复用。</desc>
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+    <marker id="a1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12a594"/>
+    </marker>
+  </defs>
+  <style>
+    .p{stroke-width:1.2;fill:#fff}
+    .colh{font:600 13px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .cols{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#93a1b5}
+    .t{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .tag{font:700 10.5px "Segoe UI",sans-serif;fill:#fff}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+  </style>
+
+  <rect x="0" y="0" width="900" height="520" fill="#fbfcfe"/>
+
+  <!-- 列标题 -->
+  <text class="colh" x="120" y="30" text-anchor="middle">业务优先级</text>
+  <text class="cols" x="120" y="46" text-anchor="middle">Business Priorities</text>
+  <text class="colh" x="340" y="30" text-anchor="middle">业务驱动力</text>
+  <text class="cols" x="340" y="46" text-anchor="middle">Business Drivers</text>
+  <text class="colh" x="560" y="30" text-anchor="middle">业务成果</text>
+  <text class="cols" x="560" y="46" text-anchor="middle">Business Outcomes</text>
+  <text class="colh" x="780" y="30" text-anchor="middle">业务能力</text>
+  <text class="cols" x="780" y="46" text-anchor="middle">Business Capabilities</text>
+
+  <!-- 四个列底板 -->
+  <rect class="p" x="20" y="58" width="200" height="392" rx="10" stroke="#dbe4f0"/>
+  <rect class="p" x="240" y="58" width="200" height="392" rx="10" stroke="#dbe4f0"/>
+  <rect class="p" x="460" y="58" width="200" height="392" rx="10" stroke="#dbe4f0"/>
+  <rect class="p" x="680" y="58" width="200" height="392" rx="10" stroke="#dbe4f0"/>
+
+  <!-- 第 1 列：优先级 -->
+  <g>
+    <rect x="40" y="100" width="160" height="48" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+    <rect x="40" y="100" width="34" height="16" rx="3" fill="#2f6fed"/>
+    <text class="tag" x="57" y="112" text-anchor="middle">P1</text>
+    <text class="t" x="50" y="132">安全与合规</text>
+    <text class="s" x="50" y="147">数据泄露即停业</text>
+  </g>
+  <g>
+    <rect x="40" y="190" width="160" height="48" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+    <rect x="40" y="190" width="34" height="16" rx="3" fill="#2f6fed"/>
+    <text class="tag" x="57" y="202" text-anchor="middle">P2</text>
+    <text class="t" x="50" y="222">移动与协作</text>
+    <text class="s" x="50" y="237">随时随地接入</text>
+  </g>
+  <g>
+    <rect x="40" y="280" width="160" height="48" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+    <rect x="40" y="280" width="34" height="16" rx="3" fill="#2f6fed"/>
+    <text class="tag" x="57" y="292" text-anchor="middle">P3</text>
+    <text class="t" x="50" y="312">成本与效率</text>
+    <text class="s" x="50" y="327">少花钱多办事</text>
+  </g>
+
+  <!-- 第 2 列：驱动力 -->
+  <g>
+    <rect x="260" y="100" width="160" height="48" rx="8" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="t" x="270" y="122">遵循 HIPAA / PCI</text>
+    <text class="s" x="270" y="138">不合规会被罚款</text>
+  </g>
+  <g>
+    <rect x="260" y="190" width="160" height="48" rx="8" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="t" x="270" y="212">支持远程与 BYOD</text>
+    <text class="s" x="270" y="228">业务连续性前提</text>
+  </g>
+  <g>
+    <rect x="260" y="280" width="160" height="48" rx="8" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="t" x="270" y="302">压降运营支出</text>
+    <text class="s" x="270" y="318">OPEX 有硬指标</text>
+  </g>
+
+  <!-- 第 3 列：成果 -->
+  <g>
+    <rect x="480" y="100" width="160" height="48" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="t" x="490" y="122">合规运营不中断</text>
+    <text class="s" x="490" y="138">审计可取证</text>
+  </g>
+  <g>
+    <rect x="480" y="190" width="160" height="48" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="t" x="490" y="212">员工生产力提升</text>
+    <text class="s" x="490" y="228">接入即用，不掉线</text>
+  </g>
+  <g>
+    <rect x="480" y="280" width="160" height="48" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="t" x="490" y="302">单位成本下降</text>
+    <text class="s" x="490" y="318">人力与带宽双降</text>
+  </g>
+
+  <!-- 第 4 列：能力 -->
+  <g>
+    <rect x="700" y="78" width="160" height="44" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="t" x="710" y="98">基于会话的安全</text>
+    <text class="s" x="710" y="113">逐会话认证授权</text>
+  </g>
+  <g>
+    <rect x="700" y="138" width="160" height="44" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="t" x="710" y="158">集中策略与身份</text>
+    <text class="s" x="710" y="173">策略下发到边缘</text>
+  </g>
+  <g>
+    <rect x="700" y="198" width="160" height="44" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="t" x="710" y="218">网络访问控制</text>
+    <text class="s" x="710" y="233">NAC · 厂商无关</text>
+  </g>
+  <g>
+    <rect x="700" y="258" width="160" height="44" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="t" x="710" y="278">自动化配置变更</text>
+    <text class="s" x="710" y="293">减少人工工时</text>
+  </g>
+  <g>
+    <rect x="700" y="318" width="160" height="44" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="t" x="710" y="338">分段与可视化</text>
+    <text class="s" x="710" y="353">缩小故障影响面</text>
+  </g>
+
+  <!-- 优先级 → 驱动力 -->
+  <line x1="202" y1="124" x2="254" y2="124" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+  <line x1="202" y1="214" x2="254" y2="214" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+  <line x1="202" y1="304" x2="254" y2="304" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+
+  <!-- 驱动力 → 成果 -->
+  <line x1="422" y1="124" x2="474" y2="124" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+  <line x1="422" y1="214" x2="474" y2="214" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+  <line x1="422" y1="304" x2="474" y2="304" stroke="#8494a8" stroke-width="1.4" marker-end="url(#a1)"/>
+
+  <!-- 成果 → 能力 -->
+  <path d="M642 118 H672 Q678 118 678 112 V104 Q678 98 684 98 H694" fill="none" stroke="#12a594" stroke-width="1.3" marker-end="url(#a1g)"/>
+  <path d="M642 126 H672 Q678 126 678 132 V156 Q678 162 684 162 H694" fill="none" stroke="#12a594" stroke-width="1.3" marker-end="url(#a1g)"/>
+  <path d="M642 208 H672 Q678 208 678 214 V216 Q678 220 684 220 H694" fill="none" stroke="#12a594" stroke-width="1.3" marker-end="url(#a1g)"/>
+  <path d="M642 222 H672 Q678 222 678 228 V274 Q678 280 684 280 H694" fill="none" stroke="#12a594" stroke-width="1.3" marker-end="url(#a1g)"/>
+  <path d="M642 300 H672 Q678 300 678 306 V334 Q678 340 684 340 H694" fill="none" stroke="#12a594" stroke-width="1.3" marker-end="url(#a1g)"/>
+  <!-- 复用：同一能力支撑多个成果 -->
+  <path d="M642 212 H660 V148 Q660 142 666 142 H694" fill="none" stroke="#2f6fed" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#a1b)"/>
+
+  <!-- 底部说明 -->
+  <text class="note" x="20" y="478">实线＝主要支撑关系（一成果可拆成多个能力）；虚线＝同一能力被多个成果复用，这是厂商方案能被"摊薄"到多个业务目标的原因。</text>
+  <text class="note" x="20" y="498">自顶向下读：每个优先级都要问"它如何变成可验收的成果"；自底向上读：每项技术能力都要能回答"它支撑哪个成果"。</text>
+</svg>

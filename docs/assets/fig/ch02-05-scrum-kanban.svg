@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">Scrum 冲刺循环与看板流动对比</title>
+  <desc id="d5">左侧 Scrum：冲刺计划、每日执行的开发工作、冲刺评审、冲刺回顾四个事件构成固定时长的闭环，下方为产品负责人、Scrum 大师、开发团队三个角色。右侧看板：待办、进行中、待验证、完成四列，进行中与待验证设 WIP 上限，在制品堆积即为瓶颈信号。</desc>
+  <defs>
+    <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12a594"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.2}
+    .h{font:600 15px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .ev{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .ss{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .ct{font:600 13px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .colh{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .wip{font:700 10px "Segoe UI",sans-serif;fill:#a86400}
+    .card{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#33404f}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+  </style>
+
+  <rect x="0" y="0" width="900" height="520" fill="#fbfcfe"/>
+
+  <!-- ================= 左：Scrum ================= -->
+  <rect class="pan" x="20" y="20" width="420" height="480" rx="11"/>
+  <text class="h" x="42" y="52" fill="#12a594">Scrum　固定节奏的闭环</text>
+  <text class="sub" x="42" y="72">时间盒不可延长，范围可在轮次之间更换</text>
+
+  <!-- 环形轨迹 -->
+  <circle cx="230" cy="240" r="98" fill="none" stroke="#d7ece8" stroke-width="1.2" stroke-dasharray="4 5"/>
+
+  <!-- 四个事件节点 -->
+  <rect x="170" y="126" width="120" height="34" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="ev" x="230" y="147" text-anchor="middle">冲刺计划</text>
+
+  <rect x="298" y="222" width="112" height="34" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="ev" x="354" y="243" text-anchor="middle">每日站会</text>
+
+  <rect x="170" y="320" width="120" height="34" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="ev" x="230" y="341" text-anchor="middle">冲刺评审</text>
+
+  <rect x="50" y="222" width="112" height="34" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="ev" x="106" y="243" text-anchor="middle">冲刺回顾</text>
+
+  <!-- 环向箭头 -->
+  <path d="M292 143 Q330 165 344 214" fill="none" stroke="#12a594" stroke-width="1.5" marker-end="url(#a5)"/>
+  <path d="M352 258 Q330 305 294 330" fill="none" stroke="#12a594" stroke-width="1.5" marker-end="url(#a5)"/>
+  <path d="M168 337 Q128 315 114 262" fill="none" stroke="#12a594" stroke-width="1.5" marker-end="url(#a5)"/>
+  <path d="M108 218 Q132 168 166 148" fill="none" stroke="#12a594" stroke-width="1.5" marker-end="url(#a5)"/>
+
+  <!-- 中心 -->
+  <text class="ct" x="230" y="230" text-anchor="middle">Sprint</text>
+  <text class="ct" x="230" y="250" text-anchor="middle">固定 2–4 周</text>
+  <text class="ss" x="230" y="270" text-anchor="middle">中途不插单、不改目标</text>
+
+  <!-- 角色 -->
+  <rect x="44" y="382" width="124" height="32" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.1"/>
+  <text class="ss" x="106" y="403" text-anchor="middle">产品负责人 PO</text>
+  <rect x="180" y="382" width="124" height="32" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.1"/>
+  <text class="ss" x="242" y="403" text-anchor="middle">Scrum 大师 SM</text>
+  <rect x="316" y="382" width="124" height="32" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.1"/>
+  <text class="ss" x="378" y="403" text-anchor="middle">开发团队 5–9 人</text>
+
+  <text class="note" x="42" y="458">PO 管"做什么"，SM 管"怎么顺畅"，团队管"怎么做"。</text>
+  <text class="note" x="42" y="478">角色一旦混同，冲刺就会退化成每周例会。</text>
+
+  <!-- ================= 右：看板 ================= -->
+  <rect class="pan" x="460" y="20" width="420" height="480" rx="11"/>
+  <text class="h" x="482" y="52" fill="#2f6fed">看板 Kanban　可视化流动</text>
+  <text class="sub" x="482" y="72">不设固定轮次，靠限制在制品逼出瓶颈</text>
+
+  <!-- 列头 -->
+  <g>
+    <rect x="482" y="96" width="86" height="42" rx="6" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1.1"/>
+    <text class="colh" x="525" y="114" text-anchor="middle">待办</text>
+    <text class="ss" x="525" y="129" text-anchor="middle">不设上限</text>
+  </g>
+  <g>
+    <rect x="582" y="96" width="86" height="42" rx="6" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.1"/>
+    <text class="colh" x="625" y="114" text-anchor="middle">进行中</text>
+    <text class="wip" x="625" y="129" text-anchor="middle">WIP ≤ 2</text>
+  </g>
+  <g>
+    <rect x="682" y="96" width="86" height="42" rx="6" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.1"/>
+    <text class="colh" x="725" y="114" text-anchor="middle">待验证</text>
+    <text class="wip" x="725" y="129" text-anchor="middle">WIP ≤ 2</text>
+  </g>
+  <g>
+    <rect x="782" y="96" width="86" height="42" rx="6" fill="#e8f7f4" stroke="#12a594" stroke-width="1.1"/>
+    <text class="colh" x="825" y="114" text-anchor="middle">完成</text>
+    <text class="ss" x="825" y="129" text-anchor="middle">可上线</text>
+  </g>
+
+  <!-- 列体 -->
+  <rect x="482" y="142" width="86" height="228" rx="6" fill="#fafbfd" stroke="#e6ecf4" stroke-width="1"/>
+  <rect x="582" y="142" width="86" height="228" rx="6" fill="#fffdf7" stroke="#e8c27a" stroke-width="1"/>
+  <rect x="682" y="142" width="86" height="228" rx="6" fill="#fffdf7" stroke="#e8c27a" stroke-width="1"/>
+  <rect x="782" y="142" width="86" height="228" rx="6" fill="#f8fdfb" stroke="#bfe4dc" stroke-width="1"/>
+
+  <!-- 卡片 -->
+  <g>
+    <rect x="488" y="152" width="74" height="28" rx="4" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+    <text class="card" x="496" y="170">站点接入</text>
+    <rect x="488" y="188" width="74" height="28" rx="4" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+    <text class="card" x="496" y="206">分区分段</text>
+    <rect x="488" y="224" width="74" height="28" rx="4" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+    <text class="card" x="496" y="242">备份策略</text>
+    <rect x="488" y="260" width="74" height="28" rx="4" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+    <text class="card" x="496" y="278">割接演练</text>
+  </g>
+  <g>
+    <rect x="588" y="152" width="74" height="28" rx="4" fill="#fff" stroke="#e8c27a" stroke-width="1"/>
+    <text class="card" x="596" y="170">监控埋点</text>
+    <rect x="588" y="188" width="74" height="28" rx="4" fill="#fff" stroke="#e8c27a" stroke-width="1"/>
+    <text class="card" x="596" y="206">割接脚本</text>
+    <rect x="588" y="224" width="74" height="28" rx="4" fill="#fffdf0" stroke="#d64545" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <text class="card" x="596" y="242" fill="#a32020">排队等资源</text>
+  </g>
+  <g>
+    <rect x="688" y="152" width="74" height="28" rx="4" fill="#fff" stroke="#e8c27a" stroke-width="1"/>
+    <text class="card" x="696" y="170">分段策略</text>
+  </g>
+  <g>
+    <rect x="788" y="152" width="74" height="28" rx="4" fill="#fff" stroke="#bfe4dc" stroke-width="1"/>
+    <text class="card" x="796" y="170">地址规划</text>
+    <rect x="788" y="188" width="74" height="28" rx="4" fill="#fff" stroke="#bfe4dc" stroke-width="1"/>
+    <text class="card" x="796" y="206">路由汇总</text>
+  </g>
+
+  <!-- 瓶颈提示 -->
+  <rect x="578" y="216" width="94" height="42" rx="5" fill="none" stroke="#d64545" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text class="note" x="625" y="286" text-anchor="middle" fill="#a32020">超过 WIP 上限</text>
+  <text class="note" x="625" y="300" text-anchor="middle" fill="#a32020">＝瓶颈在下游</text>
+
+  <!-- 流程箭头 -->
+  <line x1="570" y1="112" x2="578" y2="112" stroke="#8494a8" stroke-width="1.3"/>
+  <line x1="670" y1="112" x2="678" y2="112" stroke="#8494a8" stroke-width="1.3"/>
+  <line x1="770" y1="112" x2="778" y2="112" stroke="#8494a8" stroke-width="1.3"/>
+
+  <text class="note" x="482" y="394">度量只看两件事：周期时间（一张卡从待办到完成多久），</text>
+  <text class="note" x="482" y="412">吞吐量（每周完成多少张）。不看"谁在忙"。</text>
+
+  <rect x="482" y="428" width="376" height="56" rx="8" fill="#eef4ff" stroke="#b9cdf5" stroke-width="1.1"/>
+  <text class="note" x="494" y="448" fill="#1f4fc0">选择依据：新产品、范围不明的探索用 Scrum；</text>
+  <text class="note" x="494" y="466" fill="#1f4fc0">运维、支持、投诉工单这类持续到达的工作用看板。</text>
+</svg>

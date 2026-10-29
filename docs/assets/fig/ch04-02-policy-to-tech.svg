@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">从策略条款到技术手段的三步推导</title>
+  <desc id="d2">左侧是三步推导：策略条款经翻译成为可验证的控制目标，再经选型落到技术手段。右侧以"数据不出境"为例，逐层展示策略条款、控制目标与技术手段的具体内容。底部说明同一控制目标可以有多种实现，成本相差一个数量级。</desc>
+  <defs>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="ar2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9fb0c6"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .step{font:700 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#fff}
+    .b{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .d{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .op{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .note{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+
+  <text class="h" x="24" y="30">三步推导：策略条款 → 控制目标 → 技术手段</text>
+  <text class="d" x="24" y="48">左边是方法，右边是同一个方法跑在一句合规要求上的结果</text>
+
+  <!-- 左：三步 -->
+  <rect x="24" y="66" width="420" height="70" rx="8" fill="#fdecec" stroke="#d64545" stroke-width="1.3"/>
+  <circle cx="46" cy="86" r="10" fill="#d64545"/>
+  <text class="step" x="46" y="90" text-anchor="middle">1</text>
+  <text class="b" x="64" y="90" fill="#a32020">策略条款（自然语言）</text>
+  <text class="s" x="64" y="110">别人写给你的一段话，措辞模糊、没有验收标准</text>
+  <text class="d" x="64" y="127">例："客户个人数据不得离开本国境内"</text>
+
+  <line x1="234" y1="138" x2="234" y2="152" stroke="#2f6fed" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <text class="op" x="246" y="152">翻译：把形容词换成可验证的陈述</text>
+
+  <rect x="24" y="158" width="420" height="70" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <circle cx="46" cy="178" r="10" fill="#2f6fed"/>
+  <text class="step" x="46" y="182" text-anchor="middle">2</text>
+  <text class="b" x="64" y="182" fill="#1f4fc0">控制目标</text>
+  <text class="s" x="64" y="202">谁能访问什么、在什么条件下、被记录到什么程度</text>
+  <text class="d" x="64" y="219">可验证：审计员能据此判断"做到了没有"</text>
+
+  <line x1="234" y1="230" x2="234" y2="244" stroke="#2f6fed" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <text class="op" x="246" y="244">选型：在多种满足方式中挑成本可接受的那个</text>
+
+  <rect x="24" y="250" width="420" height="70" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <circle cx="46" cy="270" r="10" fill="#12a594"/>
+  <text class="step" x="46" y="274" text-anchor="middle">3</text>
+  <text class="b" x="64" y="274" fill="#0f7f73">技术手段</text>
+  <text class="s" x="64" y="294">加密 / 认证 / 分段 / 检查 / 日志——可替换的零件</text>
+  <text class="d" x="64" y="311">一个控制目标通常有 2–4 种实现，成本可差 10 倍</text>
+
+  <!-- 右：例子 -->
+  <rect x="474" y="66" width="402" height="254" rx="10" fill="#fff" stroke="#dbe4f0" stroke-width="1.2"/>
+  <text class="h" x="492" y="88">同一句话，落到设计上的样子</text>
+  <text class="d" x="492" y="105">策略来源：合同 + 数据主权法规（变更成本最高的一类）</text>
+
+  <rect x="492" y="116" width="366" height="46" rx="6" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="d" x="504" y="134" fill="#a32020">① 条款</text>
+  <text class="s" x="504" y="152">客户个人数据不得离开本国境内</text>
+
+  <path d="M675 162 V172" stroke="#9fb0c6" stroke-width="1.3" marker-end="url(#ar2g)"/>
+
+  <rect x="492" y="174" width="366" height="60" rx="6" fill="#eaf1ff" stroke="#b9cdf5" stroke-width="1"/>
+  <text class="d" x="504" y="192" fill="#1f4fc0">② 控制目标（三条）</text>
+  <text class="s" x="504" y="210">· 数据存储位置受限　· 跨境只允许脱敏汇总</text>
+  <text class="s" x="504" y="226">· 访问路径可审计，且日志留存期符合要求</text>
+
+  <path d="M675 234 V244" stroke="#9fb0c6" stroke-width="1.3" marker-end="url(#ar2g)"/>
+
+  <rect x="492" y="246" width="366" height="62" rx="6" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="d" x="504" y="264" fill="#0f7f73">③ 技术手段（由控制目标反推出的四件套）</text>
+  <text class="s" x="504" y="282">境内独立区域（第 9 章 VRF / Overlay 隔离）</text>
+  <text class="s" x="504" y="298">单向脱敏出站 + 策略管理面不带数据 + 本地日志留存</text>
+
+  <!-- 底部 -->
+  <rect x="24" y="332" width="852" height="56" rx="8" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1.1"/>
+  <text class="note" x="42" y="354" fill="#4a5a72">设计者的工作是把选项摆出来，而不是直接跳到最贵的那一个：满足"必须加密"可以选加密 VLL、应用层加密，或干脆物理独占。</text>
+  <text class="note" x="42" y="374">三者的成本差一个数量级，安全性未必差那么多——差别在运维复杂度、故障域和未来的可演进性。</text>
+</svg>

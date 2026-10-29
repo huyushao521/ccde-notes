@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 456" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">勒索事件的攻击链、每环失效原因与应补的控制</title>
+  <desc id="d7">攻击链五段：钓鱼邮件、未纳管的个人笔记本接入办公网、横向扫描命中未打补丁的文件服务器、共用域管理员账号批量加密、停产三天。中排标出每一环为什么没被拦住，下排标出本应补齐的控制手段，多数属于身份、准入、分段与检测，而非再买边界设备。</desc>
+  <defs>
+    <marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .rl{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .nt{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .ns{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .ft{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .gt{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .note{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="456" fill="#fbfcfe"/>
+
+  <text class="h" x="24" y="28">一案复盘：边界设备齐全，攻击从"人 + 身份"进来</text>
+  <text class="note" x="24" y="45">三年投入约 1200 万的边界设备没有失效，它们只是不在攻击链的关键位置上</text>
+
+  <!-- 行标签 -->
+  <text class="rl" x="24" y="94">攻击链</text>
+  <text class="rl" x="24" y="180">为什么</text>
+  <text class="rl" x="24" y="196">没拦住</text>
+  <text class="rl" x="24" y="274">该补的</text>
+  <text class="rl" x="24" y="290">控制</text>
+
+  <!-- 节点 -->
+  <rect x="120" y="62" width="136" height="70" rx="7" fill="#fff4e0" stroke="#d98600" stroke-width="1.2"/>
+  <text class="nt" x="188" y="86" text-anchor="middle" fill="#a86400">钓鱼邮件</text>
+  <text class="ns" x="188" y="104" text-anchor="middle">首次出现的域名</text>
+  <text class="ns" x="188" y="120" text-anchor="middle">员工在个人笔记本打开</text>
+
+  <rect x="272" y="62" width="136" height="70" rx="7" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="nt" x="340" y="86" text-anchor="middle" fill="#a32020">接入办公网</text>
+  <text class="ns" x="340" y="104" text-anchor="middle">个人笔记本，未纳管</text>
+  <text class="ns" x="340" y="120" text-anchor="middle">系统补丁与杀毒未知</text>
+
+  <rect x="424" y="62" width="136" height="70" rx="7" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="nt" x="492" y="86" text-anchor="middle" fill="#a32020">横向扫描</text>
+  <text class="ns" x="492" y="104" text-anchor="middle">找到一台未打补丁的</text>
+  <text class="ns" x="492" y="120" text-anchor="middle">文件服务器</text>
+
+  <rect x="576" y="62" width="136" height="70" rx="7" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="nt" x="644" y="86" text-anchor="middle" fill="#a32020">提权 + 加密</text>
+  <text class="ns" x="644" y="104" text-anchor="middle">域管理员账号：密码 5 年</text>
+  <text class="ns" x="644" y="120" text-anchor="middle">未换、多人共用、无 MFA</text>
+
+  <rect x="728" y="62" width="136" height="70" rx="7" fill="#eef1f5" stroke="#8494a8" stroke-width="1.2"/>
+  <text class="nt" x="796" y="86" text-anchor="middle" fill="#4a5a72">后果</text>
+  <text class="ns" x="796" y="104" text-anchor="middle">文件被批量加密</text>
+  <text class="ns" x="796" y="120" text-anchor="middle">停产 3 天</text>
+
+  <line x1="258" y1="96" x2="266" y2="96" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar7)"/>
+  <line x1="410" y1="96" x2="418" y2="96" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar7)"/>
+  <line x1="562" y1="96" x2="570" y2="96" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar7)"/>
+  <line x1="714" y1="96" x2="722" y2="96" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar7)"/>
+
+  <!-- 失效原因 -->
+  <rect x="120" y="148" width="136" height="84" rx="7" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="ft" x="132" y="170">沙箱只查附件，</text>
+  <text class="ft" x="132" y="186">不查链接域名</text>
+  <text class="ns" x="132" y="206">缺邮件链路与情报联动</text>
+
+  <rect x="272" y="148" width="136" height="84" rx="7" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="ft" x="284" y="170">只做了端口认证</text>
+  <text class="ft" x="284" y="186">没做设备合规检查</text>
+  <text class="ns" x="284" y="206">"能连上"被当成"可信"</text>
+
+  <rect x="424" y="148" width="136" height="84" rx="7" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="ft" x="436" y="170">办公网到服务器区</text>
+  <text class="ft" x="436" y="186">全通，无东西向控制</text>
+  <text class="ns" x="436" y="206">一次扫描就看到全部资产</text>
+
+  <rect x="576" y="148" width="136" height="84" rx="7" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="ft" x="588" y="170">无特权账号管理</text>
+  <text class="ft" x="588" y="186">无 MFA、无轮换</text>
+  <text class="ns" x="588" y="206">共享口令 = 无归属、无审计</text>
+
+  <rect x="728" y="148" width="136" height="84" rx="7" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="ft" x="740" y="170">全程没有一处</text>
+  <text class="ft" x="740" y="186">产生有效告警</text>
+  <text class="ns" x="740" y="206">只能靠杀毒软件弹窗</text>
+
+  <!-- 应补的控制 -->
+  <rect x="120" y="244" width="136" height="84" rx="7" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="gt" x="132" y="266">邮件链路 + 威胁情报</text>
+  <text class="ns" x="132" y="286">首次出现的域名也要判</text>
+  <text class="ns" x="132" y="306">沙箱要看落地页，不只附件</text>
+
+  <rect x="272" y="244" width="136" height="84" rx="7" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="gt" x="284" y="266">设备合规准入</text>
+  <text class="ns" x="284" y="286">补丁 / 加密 / EDR 状态</text>
+  <text class="ns" x="284" y="306">不达标进隔离网段整改</text>
+
+  <rect x="424" y="244" width="136" height="84" rx="7" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="gt" x="436" y="266">微分段 / 最小权限</text>
+  <text class="ns" x="436" y="286">服务器区默认拒绝，</text>
+  <text class="ns" x="436" y="306">按应用开东西向白名单</text>
+
+  <rect x="576" y="244" width="136" height="84" rx="7" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="gt" x="588" y="266">特权账号管理 + MFA</text>
+  <text class="ns" x="588" y="286">一次一密、会话录屏、</text>
+  <text class="ns" x="588" y="306">行为基线告警</text>
+
+  <rect x="728" y="244" width="136" height="84" rx="7" fill="#e8f7f4" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="gt" x="740" y="266">检测与关联</text>
+  <text class="ns" x="740" y="286">身份、流量、终端日志</text>
+  <text class="ns" x="740" y="306">串成一条时间线</text>
+
+  <!-- 结论 -->
+  <line x1="24" y1="348" x2="876" y2="348" stroke="#e6ecf4" stroke-width="1"/>
+  <text class="note" x="24" y="370" fill="#4a5a72">补齐的其实是"非设备"部分：设备合规准入、微分段、特权账号管理、MFA，以及检测能力。这四件事没有一件能靠再买一台盒子解决。</text>
+  <text class="note" x="24" y="390">安全是"普适的"，意思是它不能只靠边界设备——身份、准入、最小权限、可见性恰恰是最容易被"买设备"替代掉的部分。</text>
+  <text class="note" x="24" y="412" fill="#a32020">一条可用的自检：把攻击链画出来，逐段问"这里会产生一条告警吗"。若答案连续三段是"不会"，设备再多也只是防火墙背后的空房间。</text>
+  <text class="note" x="24" y="434">注意图中的顺序：攻击链上没有一个环节需要"更高档的边界设备"，需要的是身份、准入、分段与关联分析——这四项都在网络团队的传统采购清单之外。</text>
+</svg>

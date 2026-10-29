@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t9 d9">
+
+  <title id="t9">传输选项按层次排列：L1 暗光纤与 DWDM、L2 MPLS L2VPN、L3 L3VPN 与 SD-WAN 及无线</title>
+  <desc id="d9">按 L1、L2、L3 三层给出可选传输方式及其控制权、时延与成本特征：暗光纤与 DWDM 控制权最高时延最低成本最高；MPLS L2VPN 提供二层透明但控制权低；MPLS L3VPN、Internet+SD-WAN、5G/LTE 属三层方案。底部给出四问选型法。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:700 11px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .lbs{font:9px "Microsoft YaHei",sans-serif;fill:#8494a8}
+    .ct{font:600 10px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .cb{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .cbg{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .cbr{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .t{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">传输选项横向对比：买层次越低的链路，控制权越大、代价越高</text>
+  <text class="s" x="24" y="48">越往上是"自己点灯"，越往下是"买服务"；控制权与时延、成本三者互斥</text>
+
+  <rect x="24" y="70" width="96" height="64" rx="6" fill="#eaf1ff" stroke="#c9dbff"/>
+  <text class="lb" x="40" y="94">L1</text>
+  <text class="lbs" x="40" y="110">光层</text>
+  <text class="lbs" x="40" y="124">自己点灯</text>
+
+  <rect x="140" y="70" width="356" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="156" y="92">裸光纤 / 暗光纤</text>
+  <text class="cb" x="156" y="110">控制权最高，时延最低（光速），扩容靠自己换光模块</text>
+  <text class="cbr" x="156" y="126">成本按距离涨，适合同城 DC 互联、超低时延交易</text>
+
+  <rect x="510" y="70" width="366" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="526" y="92">DWDM 波长</text>
+  <text class="cb" x="526" y="110">一根光纤上开多路波长，大带宽长距离，仍属自控</text>
+  <text class="cbr" x="526" y="126">成本很高，典型用于数据中心互联与骨干扩容</text>
+
+  <rect x="24" y="146" width="96" height="64" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="lb" x="40" y="170" fill="#0f7f73">L2</text>
+  <text class="lbs" x="40" y="186">二层</text>
+  <text class="lbs" x="40" y="200">买透明的线</text>
+
+  <rect x="140" y="146" width="736" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="156" y="168">MPLS L2VPN：VPWS（点对点） / VPLS（多点）</text>
+  <text class="cbg" x="156" y="186">好处：二层透明——同子网、非 IP 协议、老设备原样搬迁，改造成本最低</text>
+  <text class="cb" x="156" y="202">代价：控制权在运营商，VLAN 要协调、故障域随二层域扩大、MTU 要重算</text>
+
+  <rect x="24" y="222" width="96" height="64" rx="6" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="lb" x="40" y="246" fill="#4a5a72">L3</text>
+  <text class="lbs" x="40" y="262">三层</text>
+  <text class="lbs" x="40" y="276">买可达性</text>
+
+  <rect x="140" y="222" width="236" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="156" y="244">MPLS L3VPN</text>
+  <text class="cb" x="156" y="262">传统企业 WAN 主力，路由由运营商参与</text>
+  <text class="cb" x="156" y="278">多站点任意互访最省心</text>
+
+  <rect x="390" y="222" width="236" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="406" y="244">Internet + SD-WAN</text>
+  <text class="cb" x="406" y="262">自己加密与选路，分支多、成本敏感</text>
+  <text class="cb" x="406" y="278">可容忍抖动时性价比最高</text>
+
+  <rect x="640" y="222" width="236" height="64" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="656" y="244">5G / LTE 无线</text>
+  <text class="cb" x="656" y="262">按流量计费，开通最快</text>
+  <text class="cb" x="656" y="278">备份链路、临时站点、IoT</text>
+
+  <text class="h" x="24" y="322" font-size="11">选型不是比"谁更好"，而是按业务需求排序后逐条排除</text>
+  <text class="t" x="24" y="342">① 必须二层透明？（同子网 / 非 IP 协议 / 老系统写死地址）　→ 只有 MPLS L2VPN 或暗光纤</text>
+  <text class="t" x="24" y="360">② 必须确定性时延？（金融交易 / 工业控制）　→ 暗光纤、DWDM</text>
+  <text class="t" x="24" y="378">③ 要成本与弹性？（几百个分支、业务频繁变动）　→ Internet + SD-WAN　　④ 多站点任意互访要简单？→ MPLS L3VPN</text>
+</svg>

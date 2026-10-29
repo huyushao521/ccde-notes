@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">CIA 三要素的设计手段、代价与三对冲突</title>
+  <desc id="d5">左侧三角表示机密性、完整性、可用性相互拉扯，无法同时拉满；三者各自列出一行实现手段与一行代价。右侧列出评审时必须问的三对冲突：加密与检测、可用性与机密性、完整性与应急，每对给出失效机制与解法。</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .sub{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .vt{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .vs{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .vd{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .k{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .note{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+
+  <text class="h" x="24" y="30">三个目标会互相打架，设计必须显式取舍</text>
+  <text class="sub" x="24" y="48">没有方案能把 CIA 同时拉满；写清"牺牲了哪一个"，比声称"都满足"更专业</text>
+
+  <!-- 三角 -->
+  <polygon points="222,140 112,330 332,330" fill="#f7f9fd" stroke="#c3cfe0" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text class="sub" x="222" y="252" text-anchor="middle" font-size="10px">三者互相拉扯</text>
+
+  <rect x="146" y="96" width="152" height="66" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+  <text class="vt" x="222" y="118" text-anchor="middle" fill="#1f4fc0">机密性</text>
+  <text class="vs" x="222" y="136" text-anchor="middle">加密 · 访问控制 · 分级</text>
+  <text class="vd" x="222" y="154" text-anchor="middle">代价：IPS / DLP 看不见</text>
+
+  <rect x="34" y="304" width="164" height="66" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <text class="vt" x="116" y="326" text-anchor="middle" fill="#0f7f73">完整性</text>
+  <text class="vs" x="116" y="344" text-anchor="middle">签名 · 哈希 · 基线 · 审计</text>
+  <text class="vd" x="116" y="362" text-anchor="middle">代价：校验拖慢变更</text>
+
+  <rect x="246" y="304" width="164" height="66" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+  <text class="vt" x="328" y="326" text-anchor="middle" fill="#a86400">可用性</text>
+  <text class="vs" x="328" y="344" text-anchor="middle">冗余 · 清洗 · 限速 · 收敛</text>
+  <text class="vd" x="328" y="362" text-anchor="middle">代价：更复杂、改路径</text>
+
+  <text class="note" x="24" y="400">三角的面积就是"这个架构真正到手的防护"：任何一个角被拉长，另外两角都会缩。</text>
+  <text class="note" x="24" y="420" fill="#a32020">写法建议：在方案里注明"此处以可用性优先，加密与检测的折中为……"，评审时才有人能反驳。</text>
+
+  <!-- 三对冲突 -->
+  <text class="k" x="452" y="80">评审时必须问的三对冲突</text>
+
+  <rect x="452" y="90" width="424" height="102" rx="8" fill="#fdecec" stroke="#e8b4b4" stroke-width="1.2"/>
+  <text class="vt" x="468" y="112" fill="#a32020">① 加密 ↔ 检测</text>
+  <text class="s" x="468" y="132">全链路加密后 IPS 与数据防泄漏看不见内容，也产不出日志。</text>
+  <text class="s" x="468" y="150" fill="#0f7f73">解法：在检查点终结加密（TLS 卸载），或接受这段不可见、靠终端</text>
+  <text class="s" x="468" y="166" fill="#0f7f73">EDR 与日志关联补偿——但要写明"哪一段不可见"。</text>
+  <text class="note" x="468" y="184" fill="#a32020">反面：上完 IPsec 顺手关掉 IPS，攻击在隧道内畅通且无日志</text>
+
+  <rect x="452" y="202" width="424" height="102" rx="8" fill="#fdecec" stroke="#e8b4b4" stroke-width="1.2"/>
+  <text class="vt" x="468" y="224" fill="#a32020">② 可用性 ↔ 机密性</text>
+  <text class="s" x="468" y="244">为抗 DDoS 把全部流量牵到第三方清洗中心，等于把流量交给外人看；</text>
+  <text class="s" x="468" y="262">跨境清洗还会顺带违反数据主权。</text>
+  <text class="s" x="468" y="280" fill="#0f7f73">解法：按流量类型分流——公开业务走第三方，敏感业务保留自有清洗；</text>
+  <text class="s" x="468" y="296" fill="#0f7f73">把"谁看得见流量"写进数据流图。</text>
+
+  <rect x="452" y="314" width="424" height="102" rx="8" fill="#fdecec" stroke="#e8b4b4" stroke-width="1.2"/>
+  <text class="vt" x="468" y="336" fill="#a32020">③ 完整性 ↔ 可用性（应急）</text>
+  <text class="s" x="468" y="356">严格的配置基线会拦住"故障中的应急修改"，而应急修改往往恢复最快。</text>
+  <text class="s" x="468" y="374" fill="#0f7f73">解法：允许破窗，但强制留痕与事后反哺——应急自动开单、24 小时内</text>
+  <text class="s" x="468" y="390" fill="#0f7f73">补基线（第 12 章漂移检测）。禁止应急的团队最后会绕过流程。</text>
+</svg>

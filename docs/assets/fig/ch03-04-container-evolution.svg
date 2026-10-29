@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 490" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">传统部署、虚拟化部署、容器部署的堆叠方式对比</title>
+  <desc id="d4">左：传统部署，两个应用直接跑在同一个操作系统上，共享资源、互相争抢。中：虚拟化部署，Hypervisor 之上每台虚拟机各自带一套客户操作系统。右：容器部署，多个容器共享同一个宿主操作系统与运行时，靠命名空间与配额隔离。</desc>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.2}
+    .h{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .sub{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .srv{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#9fb0c6}
+    .b{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .note{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .kd{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="490" fill="#fbfcfe"/>
+
+  <!-- ============ ① 传统 ============ -->
+  <rect class="pan" x="20" y="30" width="280" height="400" rx="10"/>
+  <text class="h" x="40" y="56" fill="#7c8b9f">① 传统部署</text>
+  <text class="sub" x="40" y="73">一台机器一个 OS，应用直接混跑</text>
+
+  <rect x="50" y="86" width="220" height="236" rx="8" fill="#fafbfd" stroke="#b9c4d4" stroke-width="1.2"/>
+  <text class="srv" x="60" y="102">物理服务器</text>
+
+  <rect x="64" y="108" width="192" height="54" rx="6" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="b" x="76" y="130">应用 A</text>
+  <text class="s" x="76" y="148">依赖库直接装进系统目录</text>
+
+  <rect x="64" y="168" width="192" height="54" rx="6" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="b" x="76" y="190">应用 B</text>
+  <text class="s" x="76" y="208">可能与 A 抢同一个端口</text>
+
+  <rect x="64" y="228" width="192" height="80" rx="6" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="b" x="76" y="248" fill="#4a5a72">单一操作系统</text>
+  <text class="s" x="76" y="266">CPU / 内存 / 磁盘无配额</text>
+  <text class="s" x="76" y="284">一个应用失控，整机受影响</text>
+  <text class="s" x="76" y="300" fill="#a32020">资源竞争：谁抢到算谁的</text>
+
+  <text class="note" x="40" y="344">· 隔离：进程级，几乎为零</text>
+  <text class="note" x="40" y="362">· 密度：一台机器常只跑一个应用</text>
+  <text class="note" x="40" y="380">· 上架周期：采购 + 装系统，按周算</text>
+  <text class="note" x="40" y="404" fill="#a32020">· 典型症状：扩容只能换更贵的机器</text>
+
+  <!-- ============ ② 虚拟化 ============ -->
+  <rect class="pan" x="310" y="30" width="280" height="400" rx="10"/>
+  <text class="h" x="330" y="56" fill="#12a594">② 虚拟化部署</text>
+  <text class="sub" x="330" y="73">每个应用一套完整客户机操作系统</text>
+
+  <rect x="340" y="86" width="220" height="236" rx="8" fill="#fafbfd" stroke="#b9c4d4" stroke-width="1.2"/>
+  <text class="srv" x="350" y="102">物理服务器</text>
+
+  <rect x="354" y="108" width="192" height="72" rx="6" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="b" x="366" y="128" fill="#0f7f73">VM 1</text>
+  <text class="s" x="366" y="146">应用 A</text>
+  <text class="s" x="366" y="164">客户机 OS（整套）</text>
+
+  <rect x="354" y="186" width="192" height="72" rx="6" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="b" x="366" y="206" fill="#0f7f73">VM 2</text>
+  <text class="s" x="366" y="224">应用 B</text>
+  <text class="s" x="366" y="242">客户机 OS（整套）</text>
+
+  <rect x="354" y="264" width="192" height="44" rx="6" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="b" x="366" y="284" fill="#4a5a72">Hypervisor</text>
+  <text class="s" x="366" y="300">分配 vCPU / 内存 / 虚拟网卡</text>
+
+  <text class="note" x="330" y="344">· 隔离：虚拟机级，边界清晰</text>
+  <text class="note" x="330" y="362">· 密度：受每套 OS 的固定开销拖累</text>
+  <text class="note" x="330" y="380">· 镜像大、启动按分钟计，补丁要逐台打</text>
+  <text class="note" x="330" y="404" fill="#a32020">· 典型症状：VM 数量一多，OS 运维成为瓶颈</text>
+
+  <!-- ============ ③ 容器 ============ -->
+  <rect class="pan" x="600" y="30" width="280" height="400" rx="10"/>
+  <text class="h" x="620" y="56" fill="#d98600">③ 容器部署</text>
+  <text class="sub" x="620" y="73">共享宿主内核，只打包应用与依赖</text>
+
+  <rect x="630" y="86" width="220" height="236" rx="8" fill="#fafbfd" stroke="#b9c4d4" stroke-width="1.2"/>
+  <text class="srv" x="640" y="102">物理服务器</text>
+
+  <rect x="644" y="108" width="192" height="46" rx="6" fill="#fff4e0" stroke="#d98600" stroke-width="1.2"/>
+  <text class="b" x="656" y="126" fill="#a86400">容器 1 · 应用 A</text>
+  <text class="s" x="656" y="143">自带文件系统与依赖</text>
+
+  <rect x="644" y="160" width="192" height="46" rx="6" fill="#fff4e0" stroke="#d98600" stroke-width="1.2"/>
+  <text class="b" x="656" y="178" fill="#a86400">容器 2 · 应用 B</text>
+  <text class="s" x="656" y="195">独立进程空间与端口映射</text>
+
+  <rect x="644" y="212" width="192" height="46" rx="6" fill="#fff4e0" stroke="#d98600" stroke-width="1.2"/>
+  <text class="b" x="656" y="230" fill="#a86400">容器 3 · 应用 C</text>
+  <text class="s" x="656" y="247">按配额共享 CPU / 内存</text>
+
+  <rect x="644" y="266" width="192" height="42" rx="6" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="b" x="656" y="284" fill="#4a5a72">共享宿主 OS + 容器运行时</text>
+  <text class="s" x="656" y="300">命名空间做隔离，CGroup 限配额</text>
+
+  <text class="note" x="620" y="344">· 隔离：命名空间级，比 VM 弱但足够</text>
+  <text class="note" x="620" y="362">· 密度：一台机器几十个容器，秒级启动</text>
+  <text class="note" x="620" y="380">· 镜像只含应用，环境差异被消除</text>
+  <text class="note" x="620" y="404" fill="#a32020">· 前提：应用无状态、配置外置、数据分层</text>
+
+  <text class="note" x="20" y="456">三者不是代际替代关系：同一企业里通常共存——重负载、强隔离需求仍用 VM，弹性、快速迭代的服务用容器。</text>
+  <text class="note" x="20" y="476">容器化的收益不在"打包格式"，而在把环境差异与交付节奏解耦；只把单体应用塞进容器，得到的是更小的单体。</text>
+</svg>

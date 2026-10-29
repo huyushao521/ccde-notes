@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 312" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">MAC 地址的学习路径：VPLS 靠数据面泛洪，EVPN 靠 BGP 路由通告</title>
+  <desc id="d7">上排 VPLS：帧到达 PE 后目的 MAC 未知，未知单播泛洪到所有 PW，对端回包后才学到 MAC，老化后需重来，耗时含老化定时器。下排 EVPN：PE 生成 Type 2 路由经 MP-BGP 通告，各 PE 直接装表，多归属可用 Type 1 批量撤消，收敛只取决于 BFD 与 BGP 传播。</desc>
+  <defs>
+    <marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .rh{font:600 10.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .gh{font:600 10.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .t{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="312" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">同一件事的两种做法：MAC 从"数据面学到"变成"一条 BGP 路由"</text>
+  <text class="s" x="24" y="48">VPLS 的所有毛病都来自"没有控制平面"，EVPN 只是把学习搬到了控制面</text>
+
+  <text class="rh" x="24" y="76">VPLS：数据面泛洪学习（先发再学，忘了再发）</text>
+
+  <rect x="24" y="88" width="190" height="50" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="c" x="119" y="108" text-anchor="middle">帧到达 PE1，目的 MAC 未知</text>
+  <text class="c" x="119" y="124" text-anchor="middle">VSI 查表失败</text>
+  <rect x="234" y="88" width="190" height="50" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="c" x="329" y="108" text-anchor="middle">未知单播 / 广播 / ARP</text>
+  <text class="c" x="329" y="124" text-anchor="middle">泛洪到所有 PW</text>
+  <rect x="444" y="88" width="190" height="50" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="c" x="539" y="108" text-anchor="middle">对端回包，PE1 才学到</text>
+  <text class="c" x="539" y="124" text-anchor="middle">"这个 MAC 在那个口"</text>
+  <rect x="654" y="88" width="190" height="50" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="c" x="749" y="108" text-anchor="middle">表项老化后失效</text>
+  <text class="c" x="749" y="124" text-anchor="middle">整个过程重来一遍</text>
+  <line x1="214" y1="113" x2="232" y2="113" stroke="#8494a8" marker-end="url(#a7)"/>
+  <line x1="424" y1="113" x2="442" y2="113" stroke="#8494a8" marker-end="url(#a7)"/>
+  <line x1="634" y1="113" x2="652" y2="113" stroke="#8494a8" marker-end="url(#a7)"/>
+  <text class="r" x="24" y="156">耗时 ≈ 检测 + 老化定时器（数十秒）+ 泛洪收敛；期间泛洪持续占用带宽，多归属只能靠 MC-LAG</text>
+
+  <text class="gh" x="24" y="182">EVPN：控制面 BGP 通告（先学再用，撤消即失效）</text>
+
+  <rect x="24" y="194" width="190" height="50" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="c" x="119" y="214" text-anchor="middle">PE1 生成 Type 2 路由</text>
+  <text class="c" x="119" y="230" text-anchor="middle">（MAC / IP + 下一跳）</text>
+  <rect x="234" y="194" width="190" height="50" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="c" x="329" y="214" text-anchor="middle">MP-BGP 通告给所有 PE</text>
+  <text class="c" x="329" y="230" text-anchor="middle">带扩展团体与序列号</text>
+  <rect x="444" y="194" width="190" height="50" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="c" x="539" y="214" text-anchor="middle">各 PE 直接装表转发</text>
+  <text class="c" x="539" y="230" text-anchor="middle">不需要泛洪、不需要等回包</text>
+  <rect x="654" y="194" width="190" height="50" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="c" x="749" y="214" text-anchor="middle">故障：Type 1 批量撤消</text>
+  <text class="c" x="749" y="230" text-anchor="middle">一条更新撤掉整个 ESI</text>
+  <line x1="214" y1="219" x2="232" y2="219" stroke="#8494a8" marker-end="url(#a7)"/>
+  <line x1="424" y1="219" x2="442" y2="219" stroke="#8494a8" marker-end="url(#a7)"/>
+  <line x1="634" y1="219" x2="652" y2="219" stroke="#8494a8" marker-end="url(#a7)"/>
+  <text class="g" x="24" y="262">耗时 ≈ BFD 检测（毫秒~秒级）+ BGP 更新传播；ARP 代理让 BUM 流量大幅下降</text>
+
+  <text class="t" x="24" y="288">设计含义：EVPN 把"数据面的不确定性"换成"控制面的确定性"——可预测、可编排，这才第 9 章、第 12 章反复用它的原因。</text>
+</svg>

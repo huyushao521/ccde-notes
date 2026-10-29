@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">Carrier Ethernet 三种标准服务：E-Line、E-LAN、E-Tree</title>
+  <desc id="d1">E-Line 为点对点两 UNI 电路，承袭租用线路与 FR/ATM PVC；E-LAN 为多点到多点全互通，承袭自建二层互联；E-Tree 为点对多点且叶子互相隔离，适合视频分发与基站回传。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .pt{font:600 12px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .ps{font:9px "Microsoft YaHei",sans-serif;fill:#8494a8}
+    .u{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .b{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .t{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="300" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Carrier Ethernet 三种标准服务：拓扑决定"你能做什么"</text>
+  <text class="s" x="24" y="48">服务名称统一才能跨运营商比价；拓扑决定它能不能替代你手里的老网络</text>
+
+  <rect x="24" y="64" width="264" height="196" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="40" y="88">E-Line</text>
+  <text class="ps" x="88" y="88">点对点 P2P</text>
+  <rect x="62" y="112" width="58" height="24" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="u" x="91" y="128" text-anchor="middle">UNI</text>
+  <rect x="192" y="112" width="58" height="24" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="u" x="221" y="128" text-anchor="middle">UNI</text>
+  <line x1="120" y1="124" x2="192" y2="124" stroke="#2f6fed" stroke-width="1.4"/>
+  <text class="b" x="40" y="162">两个 UNI 之间的一条以太网电路</text>
+  <text class="g" x="40" y="180">承袭：租用线路、FR / ATM PVC</text>
+  <text class="g" x="40" y="196">对应：VPWS、EPL、EVPL</text>
+  <text class="t" x="40" y="224">用途：两地互联、DCI、把老广域</text>
+  <text class="t" x="40" y="240">链路一对一换掉</text>
+
+  <rect x="318" y="64" width="264" height="196" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="334" y="88">E-LAN</text>
+  <text class="ps" x="382" y="88">多点到多点 MP2MP</text>
+  <rect x="420" y="100" width="58" height="24" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="u" x="449" y="116" text-anchor="middle">UNI</text>
+  <rect x="372" y="142" width="58" height="24" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="u" x="401" y="158" text-anchor="middle">UNI</text>
+  <rect x="470" y="142" width="58" height="24" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="u" x="499" y="158" text-anchor="middle">UNI</text>
+  <line x1="449" y1="124" x2="401" y2="142" stroke="#2f6fed" stroke-width="1.2"/>
+  <line x1="449" y1="124" x2="499" y2="142" stroke="#2f6fed" stroke-width="1.2"/>
+  <line x1="430" y1="154" x2="470" y2="154" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="b" x="334" y="190">所有 UNI 之间可互通，像同一台交换机</text>
+  <text class="g" x="334" y="208">承袭：自建二层互联、ATM LANE</text>
+  <text class="g" x="334" y="224">对应：VPLS、EPLAN、EVPLAN</text>
+  <text class="t" x="334" y="246">代价：故障域 = 整个二层域</text>
+
+  <rect x="612" y="64" width="264" height="196" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="628" y="88">E-Tree</text>
+  <text class="ps" x="676" y="88">点对多点 Root-Leaf</text>
+  <rect x="715" y="100" width="58" height="24" rx="4" fill="#fff" stroke="#12a594"/>
+  <text class="u" x="744" y="116" text-anchor="middle">Root</text>
+  <rect x="655" y="142" width="58" height="24" rx="4" fill="#fff" stroke="#12a594"/>
+  <text class="u" x="684" y="158" text-anchor="middle">Leaf</text>
+  <rect x="775" y="142" width="58" height="24" rx="4" fill="#fff" stroke="#12a594"/>
+  <text class="u" x="804" y="158" text-anchor="middle">Leaf</text>
+  <line x1="735" y1="124" x2="688" y2="142" stroke="#12a594" stroke-width="1.2"/>
+  <line x1="753" y1="124" x2="802" y2="142" stroke="#12a594" stroke-width="1.2"/>
+  <line x1="713" y1="154" x2="775" y2="154" stroke="#d64545" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="ps" x="744" y="167" text-anchor="middle" fill="#d64545">叶子互不通</text>
+  <text class="b" x="628" y="190">点对多点：叶子之间天然隔离</text>
+  <text class="g" x="628" y="208">适合：视频分发、内容推送</text>
+  <text class="g" x="628" y="224">适合：基站回传、门店只读查询</text>
+  <text class="t" x="628" y="246">效果类似 Private VLAN</text>
+
+  <text class="s" x="24" y="284">记住分工：服务类型（E-Line / E-LAN / E-Tree）决定"能做什么"，传输模型（基于端口 / 基于 VLAN）决定"花多少钱"。</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 356" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">H-VPLS 分层模型：MTU 收回接入层，全互联只留在 N-PE 之间</title>
+  <desc id="d6">四个 CE 接入四个 MTU，MTU 两两汇聚到两台 N-PE，只有 N-PE 之间需要全互联。右侧给出扩展效果：PW 数量从 (m+n)² 降到 n²+m，站点增长从平方级降为线性级，并列出 MTU 单点、故障域扩大与运维层数增加的代价。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .b{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .c{font:9.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .pt{font:600 10px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <rect x="0" y="0" width="900" height="356" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">H-VPLS：把全互联收敛到一个层次，代价是多了一个单点</text>
+  <text class="s" x="24" y="48">MTU 扮演 U-PE 角色，只需连到 N-PE；N-PE 之间才需要全互联</text>
+
+  <rect x="120" y="64" width="64" height="30" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="152" y="84" text-anchor="middle">CE1</text>
+  <rect x="280" y="64" width="64" height="30" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="312" y="84" text-anchor="middle">CE2</text>
+  <rect x="440" y="64" width="64" height="30" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="472" y="84" text-anchor="middle">CE3</text>
+  <rect x="600" y="64" width="64" height="30" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="632" y="84" text-anchor="middle">CE4</text>
+
+  <rect x="120" y="118" width="64" height="34" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="152" y="140" text-anchor="middle">MTU1</text>
+  <rect x="280" y="118" width="64" height="34" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="312" y="140" text-anchor="middle">MTU2</text>
+  <rect x="440" y="118" width="64" height="34" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="472" y="140" text-anchor="middle">MTU3</text>
+  <rect x="600" y="118" width="64" height="34" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="632" y="140" text-anchor="middle">MTU4</text>
+  <text class="g" x="392" y="112" text-anchor="middle">MTU 作为 U-PE：只收敛接入，不做跨站点转发</text>
+
+  <line x1="152" y1="94" x2="152" y2="118" stroke="#8494a8"/>
+  <line x1="312" y1="94" x2="312" y2="118" stroke="#8494a8"/>
+  <line x1="472" y1="94" x2="472" y2="118" stroke="#8494a8"/>
+  <line x1="632" y1="94" x2="632" y2="118" stroke="#8494a8"/>
+
+  <rect x="110" y="220" width="130" height="44" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="175" y="247" text-anchor="middle">N-PE1</text>
+  <rect x="450" y="220" width="130" height="44" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="515" y="247" text-anchor="middle">N-PE2</text>
+
+  <line x1="152" y1="152" x2="168" y2="220" stroke="#8494a8"/>
+  <line x1="312" y1="152" x2="196" y2="220" stroke="#8494a8"/>
+  <line x1="472" y1="152" x2="494" y2="220" stroke="#8494a8"/>
+  <line x1="632" y1="152" x2="524" y2="220" stroke="#8494a8"/>
+  <text class="b" x="366" y="186" text-anchor="middle">每个 MTU 一条 PW</text>
+
+  <line x1="240" y1="235" x2="450" y2="235" stroke="#0f7f73" stroke-width="1.5"/>
+  <line x1="240" y1="243" x2="450" y2="243" stroke="#0f7f73" stroke-width="1.5"/>
+  <text class="c" x="345" y="264" text-anchor="middle">N-PE 之间才全互联</text>
+
+  <rect x="660" y="64" width="216" height="118" rx="7" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="pt" x="674" y="84" fill="#0f7f73">扩展效果</text>
+  <text class="b" x="674" y="104">m 个 MTU + n 个 N-PE</text>
+  <text class="b" x="674" y="122">PW：(m+n)² → n² + m</text>
+  <text class="b" x="674" y="140">站点增长：平方级 → 线性级</text>
+  <text class="c" x="674" y="160">原来 8 个 PE 需 28 条，</text>
+  <text class="c" x="674" y="176">分层后约 5 条</text>
+
+  <rect x="660" y="192" width="216" height="112" rx="7" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="pt" x="674" y="212" fill="#a32020">换来的三个代价</text>
+  <text class="r" x="674" y="232">① MTU 成为单点（除非双归属）</text>
+  <text class="r" x="674" y="250">② 故障域扩大：一个环路可影响全域</text>
+  <text class="r" x="674" y="268">③ 多一层配置，Day 2 成本上升</text>
+  <text class="b" x="674" y="290">这正是"可管理性"原则的体现</text>
+
+  <text class="s" x="24" y="300">判断：站点数少时用基本 VPLS 更简单；站点几百个、增长预期明确时才值得引入分层——分层不是"更先进"，是"更贵但更可扩展"。</text>
+  <text class="s" x="24" y="318">设计动作：至少要给 MTU 做双归属（双上行到两台 N-PE），否则一次 MTU 故障就是一整片站点失联，这笔可用性账通常不划算。</text>
+</svg>

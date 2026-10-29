@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 7323 字</span></div><h1 id="3-whats-the-purpose-of-the-network">第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 7552 字</span></div><h1 id="3-whats-the-purpose-of-the-network">第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 181-208 页</p>
 </blockquote>
@@ -138,6 +138,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch03-01-app-models.svg" alt="单服务器、二层、三层三种应用模型的分层方式与各自需要的网络要素" loading="lazy">
+<figcaption><b>图 3-1</b>　三种应用模型：分层越多，可独立设计的网络边界越多，但跨层流量也越多</figcaption>
+</figure>
+
 <h3 id="_4">应用约束和需求<a class="anchor" href="#_4" title="Permanent link"></a></h3>
 <p>网络设计师需要了解的常见应用约束和需求：</p>
 <table>
@@ -243,6 +248,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch03-02-service-models.svg" alt="本地部署、IaaS、PaaS、SaaS 七层技术栈的责任分界与逐级下移" loading="lazy">
+<figcaption><b>图 3-2</b>　四种服务模型的真实差别只有一个：运维责任的分界线画在第几层</figcaption>
+</figure>
+
 <hr />
 <h2 id="the-cloud">云 (The Cloud)<a class="anchor" href="#the-cloud" title="Permanent link"></a></h2>
 <p>当企业开始利用任何形式的云时，网络设计师应考虑三个用例：</p>
@@ -272,6 +282,11 @@
 </ul>
 <h4 id="3-hybrid-approach">3. 混合方法 (Hybrid Approach)<a class="anchor" href="#3-hybrid-approach" title="Permanent link"></a></h4>
 <p>DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或网关站点，取决于哪条路径提供最佳性能。</p>
+<figure class="fig">
+<img src="assets/fig/ch03-03-cloud-access.svg" alt="直接云接入、通过网关接入、混合方法三种云连接模型的流量路径对比" loading="lazy">
+<figcaption><b>图 3-3</b>　三种云连接模型：差别不在链路技术，而在 SaaS 流量从哪一跳出 Internet</figcaption>
+</figure>
+
 <h3 id="_8">云类型<a class="anchor" href="#_8" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -417,20 +432,11 @@
 - 更高的可扩展性，限制客户端-服务器交互</p>
 <h3 id="_12">云容器化架构<a class="anchor" href="#_12" title="Permanent link"></a></h3>
 <p>从传统部署到容器化云部署的演进：</p>
-<pre><code>传统部署               虚拟化部署              容器部署
-┌──────────┐         ┌──────────────┐      ┌──────────────┐
-│ 物理服务器 │         │  物理服务器    │      │  物理服务器    │
-│          │         │ ┌──────────┐ │      │ ┌──────────┐ │
-│ 应用A     │         │ │ VM1      │ │      │ │ 容器1    │ │
-│          │         │ │ 应用A OS │ │      │ │ 应用A    │ │
-│ 应用B     │         │ └──────────┘ │      │ ├──────────┤ │
-│          │         │ ┌──────────┐ │      │ │ 容器2    │ │
-│ (资源竞争) │         │ │ VM2      │ │      │ │ 应用B    │ │
-│          │         │ │ 应用B OS │ │      │ ├──────────┤ │
-│          │         │ └──────────┘ │      │ │ 共享 OS   │ │
-│          │         │  Hypervisor  │      │ └──────────┘ │
-└──────────┘         └──────────────┘      └──────────────┘
-</code></pre>
+<figure class="fig">
+<img src="assets/fig/ch03-04-container-evolution.svg" alt="传统部署、虚拟化部署、容器部署三种堆叠方式对比，含隔离级别与密度差异" loading="lazy">
+<figcaption><b>图 3-4</b>　三代部署方式：从"一个 OS 抢所有资源"到"每 VM 一套 OS"，再到"共享内核 + 命名空间隔离"</figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -629,6 +635,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch03-05-chatty-latency.svg" alt="同样 40 个串行往返在 1 毫秒与 35 毫秒 RTT 下的累计耗时对比，以及减少往返与降低 RTT 两种杠杆" loading="lazy">
+<figcaption><b>图 3-5</b>　chatty 应用的时延放大：往返次数不变，RTT 一变，2 秒就变成 8 秒</figcaption>
+</figure>
+
 <p><strong>根因</strong>：应用架构是<strong>chatty</strong>（大量小往返）型，在局域网低时延下看不出来，跨广域网后时延被放大 40 倍。</p>
 <p><strong>修正方向</strong>：应用侧改为批量查询/缓存；网络侧用云专线把 RTT 压到 10ms 以内；数据库读写分离减少跨区域访问。</p>
 <blockquote>

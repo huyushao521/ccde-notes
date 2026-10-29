@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 412" width="100%" role="img" aria-labelledby="t8 d8">
+
+  <title id="t8">MTTD 与 MTTR 对应两条不同的设计路径，以及案例改造前后的指标变化</title>
+  <desc id="d8">上排 MTTD 衡量可见性，手段是流量分析、NetFlow、日志集中与监测点分布；下排 MTTR 衡量弹性与自动化，手段是冗余设计、快速收敛、自动化隔离剧本。底部给出案例改造前后三组数据：发现失陷主机 21 天降到 4 小时，修复 5 天降到 6 小时，违规接入每月 30 起降到 2 起。</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lt{font:700 12px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .ls{font:9px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8494a8}
+    .ln{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .chip{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .ct{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .old{font:600 11px "Segoe UI",sans-serif;fill:#98a6b8}
+    .new{font:700 11px "Segoe UI",sans-serif;fill:#0f7f73}
+    .t{font:9px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .tt{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="412" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">MTTD 与 MTTR：两条完全不同的改进路径</text>
+  <text class="s" x="24" y="48">一个加"眼睛"，一个加"冗余和自动化"；买错方向，指标不会动</text>
+
+  <rect x="24" y="64" width="176" height="80" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="lt" x="40" y="88">MTTD</text>
+  <text class="ls" x="40" y="104">平均检测时间</text>
+  <text class="ln" x="40" y="124">衡量：可见性</text>
+
+  <rect x="220" y="64" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="234" y="92">流量分析、流量采样</text>
+  <text class="chip" x="234" y="112">看清"谁在和谁说话"</text>
+
+  <rect x="434" y="64" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="448" y="92">NetFlow / IPFIX</text>
+  <text class="chip" x="448" y="112">连接级元数据，成本低</text>
+
+  <rect x="648" y="64" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="662" y="92">日志集中 + 监测点</text>
+  <text class="chip" x="662" y="112">多点关联才有时间线</text>
+
+  <rect x="24" y="156" width="176" height="80" rx="7" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="lt" x="40" y="180" fill="#0f7f73">MTTR</text>
+  <text class="ls" x="40" y="196">平均修复时间</text>
+  <text class="ln" x="40" y="216">衡量：弹性与自动化</text>
+
+  <rect x="220" y="156" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="234" y="184">冗余设计</text>
+  <text class="chip" x="234" y="204">设备、链路、路径都不止一份</text>
+
+  <rect x="434" y="156" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="448" y="184">快速收敛</text>
+  <text class="chip" x="448" y="204">BFD、FRR、预置备份路径</text>
+
+  <rect x="648" y="156" width="200" height="80" rx="7" fill="#fff" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="chip" x="662" y="184">自动化隔离剧本</text>
+  <text class="chip" x="662" y="204">把"手动半小时"变成分钟级</text>
+
+  <text class="ln" x="24" y="266">案例改造前后：同一套设备，指标差了一到两个数量级</text>
+
+  <rect x="24" y="276" width="270" height="100" rx="7" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="ct" x="40" y="298">MTTD · 发现失陷主机</text>
+  <text class="old" x="40" y="326">21 天</text>
+  <text class="ct" x="104" y="326">→</text>
+  <text class="new" x="126" y="326">4 小时</text>
+  <text class="t" x="40" y="348">手段：NetFlow + 日志集中</text>
+  <text class="t" x="40" y="364">先有数据，才谈得上检测</text>
+
+  <rect x="314" y="276" width="270" height="100" rx="7" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="ct" x="330" y="298">MTTR · 修复平均时间</text>
+  <text class="old" x="330" y="326">5 天</text>
+  <text class="ct" x="376" y="326">→</text>
+  <text class="new" x="398" y="326">6 小时</text>
+  <text class="t" x="330" y="348">手段：自动化隔离剧本</text>
+  <text class="t" x="330" y="364">把处置动作标准化、可编排</text>
+
+  <rect x="604" y="276" width="270" height="100" rx="7" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="ct" x="620" y="298">违规终端接入事件</text>
+  <text class="old" x="620" y="326">每月 30+ 起</text>
+  <text class="ct" x="704" y="326">→</text>
+  <text class="new" x="726" y="326">每月 2 起</text>
+  <text class="t" x="620" y="348">手段：准入 + 合规检查</text>
+  <text class="t" x="620" y="364">从"事后发现"前移到"接入拦截"</text>
+
+  <text class="tt" x="24" y="398">设计之初就定这两个指标，等于提前锁定方向：想改善 MTTD 就加监测点，想改善 MTTR 就加冗余与自动化——两者不能互相替代。</text>
+</svg>

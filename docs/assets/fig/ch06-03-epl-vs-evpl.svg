@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">EPL 基于端口与 EVPL 基于 VLAN 的传输模型对比</title>
+  <desc id="d3">左侧 EPL：整个物理端口被独占，所有帧走同一条 EVC，完全透明但端口闲置也付费。右侧 EVPL：同一端口上多个 VLAN 分别映射到不同 EVC 与不同远端，端口复用节省成本，但 VLAN 规划必须与运营商协调。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .pt{font:600 11px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .ps{font:9px "Microsoft YaHei",sans-serif;fill:#8494a8}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .b{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:8.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+
+  <rect x="0" y="0" width="900" height="320" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">EPL 与 EVPL：唯一的实质区别是"整口独占"还是"多 EVC 共享一口"</text>
+  <text class="s" x="24" y="48">同一对 CE/PE 之间，端口模型决定了透明性、成本与运营耦合度</text>
+
+  <rect x="24" y="64" width="410" height="186" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="40" y="86">EPL · 基于端口</text>
+  <text class="ps" x="140" y="86">Ethernet Private Line</text>
+  <rect x="48" y="118" width="64" height="52" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="80" y="148" text-anchor="middle">CE</text>
+  <rect x="322" y="118" width="64" height="52" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="354" y="148" text-anchor="middle">PE</text>
+  <line x1="112" y1="144" x2="322" y2="144" stroke="#2f6fed" stroke-width="4"/>
+  <text class="b" x="217" y="136" text-anchor="middle">整口 = 一条 EVC</text>
+  <text class="c" x="217" y="164" text-anchor="middle">所有帧原样透传，VLAN/Trunk 都能跑</text>
+  <text class="b" x="40" y="196">适合：严格透明（Trunk 互联、DCI）</text>
+  <text class="r" x="40" y="214">代价：端口独占，闲置也按整口付费</text>
+  <text class="g" x="40" y="232">故障定界最清楚：通或不通，一看便知</text>
+
+  <rect x="466" y="64" width="410" height="186" rx="7" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="pt" x="482" y="86" fill="#0f7f73">EVPL · 基于 VLAN</text>
+  <text class="ps" x="596" y="86">Ethernet Virtual Private Line</text>
+  <rect x="490" y="118" width="64" height="52" rx="4" fill="#fff" stroke="#12a594"/>
+  <text class="n" x="522" y="148" text-anchor="middle">CE</text>
+  <rect x="770" y="118" width="64" height="52" rx="4" fill="#fff" stroke="#12a594"/>
+  <text class="n" x="802" y="148" text-anchor="middle">PE</text>
+  <line x1="554" y1="126" x2="770" y2="126" stroke="#12a594" stroke-width="1.5"/>
+  <line x1="554" y1="144" x2="770" y2="144" stroke="#12a594" stroke-width="1.5"/>
+  <line x1="554" y1="162" x2="770" y2="162" stroke="#12a594" stroke-width="1.5"/>
+  <text class="c" x="560" y="122">VLAN 10 → EVC-A（远端站点 1）</text>
+  <text class="c" x="560" y="140">VLAN 20 → EVC-B（远端站点 2）</text>
+  <text class="c" x="560" y="158">VLAN 30 → EVC-C（数据中心）</text>
+  <text class="b" x="482" y="196">适合：多站点、多服务的成本敏感场景</text>
+  <text class="r" x="482" y="214">代价：VLAN 规划须与运营商一致，改 VLAN 要开工单</text>
+  <text class="g" x="482" y="232">红利：按 EVC 计费，一端口带多业务</text>
+
+  <text class="s" x="24" y="278">设计提醒：EVPL 下"同一物理链路、不同 VLAN 不同质量"是常态，端口级监控看不出单 VLAN 丢包——</text>
+  <text class="s" x="24" y="296">所以 SLA 必须按 VLAN 分别约定，并在分界点内侧按 VLAN 做性能测量（第 6 章情景二的争议就出在这里）。</text>
+</svg>

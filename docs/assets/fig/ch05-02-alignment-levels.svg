@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">业务架构四个对齐级别的递进与判断标志</title>
+  <desc id="d2">四级台阶由低到高：技术特定、技术架构、业务解决方案、业务转型。每一级列出架构类型、业务诉求、设计师产出与场景判断标志。越往上域数增加、加入成本收益、加入业务变革，设计自由度上升但举证责任也上升。</desc>
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .n{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .y{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#98a6b8}
+    .b{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .o{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .f{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .t{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">四个对齐级别：业务问到哪一层，设计就做到哪一层</text>
+  <text class="s" x="24" y="48">级别不是"成熟度评级"，而是"这次要找 IT 解决什么"；判断错级别，比做错技术更常见</text>
+
+  <line x1="30" y1="100" x2="862" y2="100" stroke="#c9d6e8" stroke-width="1.2" stroke-dasharray="6 4" marker-end="url(#a2)"/>
+  <text class="t" x="30" y="90">业务对架构的诉求逐级上升，设计自由度同步上升，举证责任也同步上升</text>
+
+  <rect x="24" y="206" width="190" height="126" rx="8" fill="#fff" stroke="#dbe4f0" stroke-width="1.2"/>
+  <text class="n" x="38" y="228" fill="#1f4fc0">① 技术特定</text>
+  <text class="y" x="38" y="244">Technology Specific</text>
+  <text class="b" x="38" y="264">领域特定架构：只在某个域内</text>
+  <text class="b" x="38" y="280">找合适的产品，不跨领域</text>
+  <text class="o" x="38" y="302">产出：选型建议、产品对比</text>
+  <text class="f" x="38" y="320">标志：出现"选型 / 对比"</text>
+
+  <line x1="214" y1="269" x2="234" y2="241" stroke="#2f6fed" stroke-width="1.4" marker-end="url(#a2)"/>
+
+  <rect x="236" y="176" width="190" height="126" rx="8" fill="#fff" stroke="#dbe4f0" stroke-width="1.2"/>
+  <text class="n" x="250" y="198" fill="#1f4fc0">② 技术架构</text>
+  <text class="y" x="250" y="214">Technology Architecture · MDA</text>
+  <text class="b" x="250" y="234">两个或更多架构领域被纳入，</text>
+  <text class="b" x="250" y="250">需要说清跨域怎么协同</text>
+  <text class="o" x="250" y="272">产出：跨域整合方案</text>
+  <text class="f" x="250" y="290">标志：出现"跨域 / 多域"</text>
+
+  <line x1="426" y1="239" x2="446" y2="211" stroke="#2f6fed" stroke-width="1.4" marker-end="url(#a2)"/>
+
+  <rect x="448" y="146" width="190" height="126" rx="8" fill="#fff" stroke="#dbe4f0" stroke-width="1.2"/>
+  <text class="n" x="462" y="168" fill="#1f4fc0">③ 业务解决方案</text>
+  <text class="y" x="462" y="184">Business Solutions · 部分 BA</text>
+  <text class="b" x="462" y="204">开始算钱：CAPEX / OPEX /</text>
+  <text class="b" x="462" y="220">ROI / TCO 进入讨论</text>
+  <text class="o" x="462" y="242">产出：商业论证、决策矩阵</text>
+  <text class="f" x="462" y="260">标志：看到 ROI / TCO / CAPEX</text>
+
+  <line x1="638" y1="209" x2="658" y2="181" stroke="#2f6fed" stroke-width="1.4" marker-end="url(#a2)"/>
+
+  <rect x="660" y="116" width="190" height="126" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="n" x="674" y="138" fill="#1f4fc0">④ 业务转型</text>
+  <text class="y" x="674" y="154">Business Transformation</text>
+  <text class="b" x="674" y="174">业务主导的架构：转变业务</text>
+  <text class="b" x="674" y="190">能力、加速公司数字化</text>
+  <text class="o" x="674" y="212">产出：路线图、演进规划</text>
+  <text class="f" x="674" y="230">标志：出现"新市场 / 数字化"</text>
+
+  <text class="t" x="24" y="356">① → ④ 不是"越高级越好"：该停在哪一级由业务诉求决定，不由架构师偏好决定。</text>
+  <text class="t" x="24" y="376">级别错配的两种表现：用一份选型报告应付转型需求（太浅）；用转型级流程做一次产品替换（太重）。</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">订户视角与承载视角：二层服务其实跑在 MPLS 核心上</title>
+  <desc id="d2">上排是订户看到的一条透明以太网线；下排是实际承载：CE 经接入电路 AC 到 PE，PE 之间用伪线 PW 与 LSP 标签栈穿越 MPLS 核心，再到对端 PE 与 AC。同一套核心可同时承载 L2VPN、L3VPN 与组播 VPN。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+
+  <rect x="0" y="0" width="900" height="300" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">同一件事的两种看法：你买到的是"一条线"，运营商做的是"标签转发"</text>
+  <text class="s" x="24" y="48">现代运营商核心几乎全是 MPLS，二层服务只是"跑在 MPLS 上的仿真"</text>
+
+  <text class="lb" x="24" y="76">订户视角</text>
+  <rect x="24" y="84" width="52" height="32" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="50" y="104" text-anchor="middle">CE</text>
+  <rect x="824" y="84" width="52" height="32" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="850" y="104" text-anchor="middle">CE</text>
+  <rect x="84" y="84" width="732" height="32" rx="16" fill="#eaf1ff" stroke="#2f6fed" stroke-dasharray="5 4"/>
+  <text class="b" x="450" y="104" text-anchor="middle">一条透明的以太网线（或一个透明 LAN）—— 到对端就像接在同一台设备上</text>
+
+  <text class="lb" x="24" y="152">承载视角</text>
+  <rect x="24" y="178" width="52" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="50" y="199" text-anchor="middle">CE1</text>
+  <rect x="96" y="178" width="80" height="34" rx="4" fill="#fff" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="n" x="136" y="193" text-anchor="middle">AC</text>
+  <text class="g" x="136" y="206" text-anchor="middle">接入电路</text>
+  <rect x="196" y="174" width="70" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="231" y="200" text-anchor="middle">PE1</text>
+  <rect x="640" y="174" width="70" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="675" y="200" text-anchor="middle">PE2</text>
+  <rect x="730" y="178" width="80" height="34" rx="4" fill="#fff" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="n" x="770" y="193" text-anchor="middle">AC</text>
+  <text class="g" x="770" y="206" text-anchor="middle">接入电路</text>
+  <rect x="824" y="178" width="52" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="850" y="199" text-anchor="middle">CE2</text>
+
+  <rect x="286" y="150" width="334" height="90" rx="8" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="453" y="168" text-anchor="middle" fill="#4a5a72">MPLS 核心</text>
+  <line x1="266" y1="195" x2="640" y2="195" stroke="#0f7f73" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text class="c" x="453" y="188" text-anchor="middle">PW 伪线（承载在 LSP 标签栈上）</text>
+  <text class="g" x="453" y="212" text-anchor="middle">同一套核心同时承载 L2VPN / L3VPN / 组播 VPN</text>
+  <text class="g" x="453" y="230" text-anchor="middle">→ 规模经济，这是运营商把一切变标签的动机</text>
+
+  <line x1="76" y1="195" x2="96" y2="195" stroke="#8494a8"/>
+  <line x1="176" y1="195" x2="196" y2="195" stroke="#8494a8"/>
+  <line x1="710" y1="195" x2="730" y2="195" stroke="#8494a8"/>
+  <line x1="810" y1="195" x2="824" y2="195" stroke="#8494a8"/>
+
+  <text class="r" x="24" y="266">设计含义一：你只能观测两端。PW 状态、标签栈、运营商内部保护倒换都不在你手里，故障定位必须先有端到端 OAM/BFD。</text>
+  <text class="r" x="24" y="284">设计含义二：MTU 要在整条链路上算。多一层封装就少一截有效 MTU，表现为"ping 通但业务传不动"。</text>
+</svg>

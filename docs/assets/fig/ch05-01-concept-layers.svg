@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 476" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">框架、参考架构、参考模型三个概念的层次与产出关系</title>
+  <desc id="d1">三层结构：框架提供流程与治理并产出架构决策；参考架构是某类场景的结构化模板，提供可复用蓝本；参考模型提供统一的语言与分层，用来描述架构。底部点出最常见的混淆：TOGAF 是框架而非参考架构。</desc>
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .n{font:600 13px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .e{font:9.5px "Segoe UI",sans-serif;fill:#98a6b8}
+    .b{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .c{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8494a8}
+    .k{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif}
+    .t{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="476" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">三个词层次不同：流程、蓝本、语言</text>
+  <text class="s" x="24" y="48">混用它们的代价很具体——用流程去回答"该长什么样"，或用模板去回答"该怎么走流程"</text>
+
+  <!-- 框架 -->
+  <rect x="40" y="76" width="820" height="84" rx="8" fill="#eaf1ff" stroke="#c9dbff" stroke-width="1"/>
+  <rect x="40" y="76" width="6" height="84" fill="#2f6fed"/>
+  <text class="n" x="64" y="104" fill="#1f4fc0">框架</text>
+  <text class="e" x="64" y="120">Framework</text>
+  <text class="b" x="64" y="140">管理流程与方法论</text>
+  <text class="b" x="256" y="102">提供做事的步骤与治理：</text>
+  <text class="b" x="256" y="120">谁在什么阶段决策、产出什么文档、</text>
+  <text class="b" x="256" y="138">谁签字、变更走哪条路</text>
+  <text class="k" x="540" y="102" fill="#1f4fc0">产出</text>
+  <text class="b" x="540" y="120">架构流程、决策留痕、</text>
+  <text class="b" x="540" y="138">治理证据</text>
+  <text class="t" x="676" y="102">TOGAF · ITIL</text>
+  <text class="t" x="676" y="120">FEAF · DODAF · RMF</text>
+  <text class="c" x="676" y="140">政府 / 国防 / 风险驱动</text>
+
+  <line x1="140" y1="162" x2="140" y2="184" stroke="#2f6fed" stroke-width="1.4" marker-end="url(#a1)"/>
+  <text class="t" x="152" y="178">产出决策依据</text>
+
+  <!-- 参考架构 -->
+  <rect x="40" y="186" width="820" height="84" rx="8" fill="#e8f7f4" stroke="#b6e3da" stroke-width="1"/>
+  <rect x="40" y="186" width="6" height="84" fill="#12a594"/>
+  <text class="n" x="64" y="214" fill="#0f7f73">参考架构</text>
+  <text class="e" x="64" y="230">Reference Architecture</text>
+  <text class="b" x="64" y="250">某类场景的结构化模板</text>
+  <text class="b" x="256" y="212">提供可复用的设计蓝本：</text>
+  <text class="b" x="256" y="230">分几层、域怎么划、检查点放哪、</text>
+  <text class="b" x="256" y="248">规模边界在哪</text>
+  <text class="k" x="540" y="212" fill="#0f7f73">产出</text>
+  <text class="b" x="540" y="230">可直接裁剪的</text>
+  <text class="b" x="540" y="248">拓扑与分段骨架</text>
+  <text class="t" x="676" y="212">Cisco SAFE · CVD</text>
+  <text class="t" x="676" y="230">园区分层 · Spine-Leaf</text>
+  <text class="c" x="676" y="250">对应第 4、15、9 章</text>
+
+  <line x1="140" y1="272" x2="140" y2="294" stroke="#12a594" stroke-width="1.4" marker-end="url(#a1)"/>
+  <text class="t" x="152" y="288">借用其语言描述</text>
+
+  <!-- 参考模型 -->
+  <rect x="40" y="296" width="820" height="84" rx="8" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <rect x="40" y="296" width="6" height="84" fill="#8494a8"/>
+  <text class="n" x="64" y="324" fill="#4a5a72">参考模型</text>
+  <text class="e" x="64" y="340">Reference Model</text>
+  <text class="b" x="64" y="360">抽象、分层的通用框架</text>
+  <text class="b" x="256" y="322">提供思考维度与术语：</text>
+  <text class="b" x="256" y="340">把架构拆成可以讨论的层次，</text>
+  <text class="b" x="256" y="358">让"第几层出了问题"能说清</text>
+  <text class="k" x="540" y="322" fill="#4a5a72">产出</text>
+  <text class="b" x="540" y="340">共同语言，而非架构</text>
+  <text class="b" x="540" y="358">（不产生设计决策）</text>
+  <text class="t" x="676" y="322">OSI 七层 · TCP/IP</text>
+  <text class="t" x="676" y="340">MIT 运营模型四象限</text>
+  <text class="c" x="676" y="360">只描述，不规定</text>
+
+  <!-- 混淆提示 -->
+  <rect x="40" y="396" width="820" height="62" rx="8" fill="#fdecec" stroke="#e8b4b4" stroke-width="1.1"/>
+  <text class="b" x="58" y="418" fill="#a32020">最常见的混淆：TOGAF 是框架，不是参考架构。</text>
+  <text class="b" x="58" y="436" fill="#a32020">它规定"先对齐利益相关者、再做技术架构"，不规定数据中心该用 spine-leaf 还是三层。</text>
+  <text class="b" x="58" y="452" fill="#a32020">同理，OSI 模型不产出架构：它只给你说清"这是二层问题还是三层问题"的公共语言。</text>
+</svg>

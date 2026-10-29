@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">本地部署、IaaS、PaaS、SaaS 的责任分界线</title>
+  <desc id="d2">四列横向对比七层技术栈：数据与访问配置、应用、运行时、操作系统、虚拟化、服务器与存储、网络。蓝色表示企业自行负责，灰色表示由云服务商负责，分界线自上而下逐级下移。</desc>
+  <style>
+    .nm{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .tg{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .own{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .csp{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lg{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .note{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="450" fill="#fbfcfe"/>
+
+  <!-- 列标题 -->
+  <text class="nm" x="120" y="34" text-anchor="middle">本地部署 On-prem</text>
+  <text class="tg" x="120" y="52" text-anchor="middle">全部自己买、自己管</text>
+
+  <text class="nm" x="340" y="34" text-anchor="middle">IaaS</text>
+  <text class="tg" x="340" y="52" text-anchor="middle">买机器与虚拟化，其余自管</text>
+
+  <text class="nm" x="560" y="34" text-anchor="middle">PaaS</text>
+  <text class="tg" x="560" y="52" text-anchor="middle">只写代码，平台承担运行</text>
+
+  <text class="nm" x="780" y="34" text-anchor="middle">SaaS</text>
+  <text class="tg" x="780" y="52" text-anchor="middle">只管理账号与数据</text>
+
+  <!-- ===== 第 1 层：数据与访问配置 ===== -->
+  <rect x="20" y="68" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="88" text-anchor="middle">数据与访问配置</text>
+  <rect x="240" y="68" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="340" y="88" text-anchor="middle">数据与访问配置</text>
+  <rect x="460" y="68" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="560" y="88" text-anchor="middle">数据与访问配置</text>
+  <rect x="680" y="68" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="780" y="88" text-anchor="middle">数据与访问配置</text>
+
+  <!-- ===== 第 2 层：应用 ===== -->
+  <rect x="20" y="102" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="122" text-anchor="middle">应用与业务逻辑</text>
+  <rect x="240" y="102" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="340" y="122" text-anchor="middle">应用与业务逻辑</text>
+  <rect x="460" y="102" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="560" y="122" text-anchor="middle">应用与业务逻辑</text>
+  <rect x="680" y="102" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="122" text-anchor="middle">应用（供应商产品）</text>
+
+  <!-- ===== 第 3 层：运行时 ===== -->
+  <rect x="20" y="136" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="156" text-anchor="middle">运行时 / 中间件</text>
+  <rect x="240" y="136" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="340" y="156" text-anchor="middle">运行时 / 中间件</text>
+  <rect x="460" y="136" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="560" y="156" text-anchor="middle">运行时 / 中间件</text>
+  <rect x="680" y="136" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="156" text-anchor="middle">运行时 / 中间件</text>
+
+  <!-- ===== 第 4 层：操作系统 ===== -->
+  <rect x="20" y="170" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="190" text-anchor="middle">操作系统</text>
+  <rect x="240" y="170" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="340" y="190" text-anchor="middle">操作系统（含补丁）</text>
+  <rect x="460" y="170" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="560" y="190" text-anchor="middle">操作系统</text>
+  <rect x="680" y="170" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="190" text-anchor="middle">操作系统</text>
+
+  <!-- ===== 第 5 层：虚拟化 ===== -->
+  <rect x="20" y="204" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="224" text-anchor="middle">虚拟化 / 编排</text>
+  <rect x="240" y="204" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="340" y="224" text-anchor="middle">虚拟化 / 编排</text>
+  <rect x="460" y="204" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="560" y="224" text-anchor="middle">虚拟化 / 编排</text>
+  <rect x="680" y="204" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="224" text-anchor="middle">虚拟化 / 编排</text>
+
+  <!-- ===== 第 6 层：服务器与存储 ===== -->
+  <rect x="20" y="238" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="258" text-anchor="middle">服务器与存储</text>
+  <rect x="240" y="238" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="340" y="258" text-anchor="middle">服务器与存储</text>
+  <rect x="460" y="238" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="560" y="258" text-anchor="middle">服务器与存储</text>
+  <rect x="680" y="238" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="258" text-anchor="middle">服务器与存储</text>
+
+  <!-- ===== 第 7 层：网络 ===== -->
+  <rect x="20" y="272" width="200" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="own" x="120" y="292" text-anchor="middle">网络与机房设施</text>
+  <rect x="240" y="272" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="340" y="292" text-anchor="middle">物理网络与机房</text>
+  <rect x="460" y="272" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="560" y="292" text-anchor="middle">物理网络与机房</text>
+  <rect x="680" y="272" width="200" height="30" rx="4" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="csp" x="780" y="292" text-anchor="middle">物理网络与机房</text>
+
+  <!-- 责任分界线 -->
+  <path d="M120 306 V320" fill="none" stroke="#d64545" stroke-width="1.4"/>
+  <path d="M340 206 V320" fill="none" stroke="#d64545" stroke-width="1.4"/>
+  <path d="M560 172 V320" fill="none" stroke="#d64545" stroke-width="1.4"/>
+  <path d="M780 138 V320" fill="none" stroke="#d64545" stroke-width="1.4"/>
+
+  <text class="note" x="120" y="336" text-anchor="middle" fill="#a32020">责任全在企业</text>
+  <text class="note" x="340" y="336" text-anchor="middle" fill="#a32020">分界在虚拟化</text>
+  <text class="note" x="560" y="336" text-anchor="middle" fill="#a32020">分界在运行时</text>
+  <text class="note" x="780" y="336" text-anchor="middle" fill="#a32020">只剩数据与账号</text>
+
+  <!-- 图例 -->
+  <rect x="20" y="352" width="14" height="14" rx="3" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1"/>
+  <text class="lg" x="40" y="364">企业负责</text>
+  <rect x="120" y="352" width="14" height="14" rx="3" fill="#f1f3f7" stroke="#b9c4d4" stroke-width="1"/>
+  <text class="lg" x="140" y="364">云服务商负责</text>
+
+  <text class="note" x="20" y="392">读法：红线以上的格子是你要交付运维能力的部分，红线以下交出去。选错模型的典型症状，是红线画在自己并不擅长的那一层上。</text>
+  <text class="note" x="20" y="412">注意两处例外：IaaS 里 VPC、安全组、路由表仍由企业配置，网络责任是"共担"；SaaS 里数据主权、账号与集成永远是企业的。</text>
+  <text class="note" x="20" y="432">SaaS 的取舍是把可控性换成可用性承诺；本地部署的取舍是把可用性责任留给自己，换回完全控制权。</text>
+</svg>

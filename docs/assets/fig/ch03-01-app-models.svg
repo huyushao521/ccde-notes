@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">单服务器、二层、三层三种应用模型</title>
+  <desc id="d1">左侧单服务器模型：表示、逻辑、数据全部在一台机器上。中间二层模型：客户端承载表示层，服务器承载数据集层，无中间层。右侧三层模型：表示层、中间层、数据库层分离，各层流量模式与所需网络要素不同。</desc>
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.2}
+    .h{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#2f6fed}
+    .sub{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .b{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .el{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .note{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .kd{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+
+  <!-- ============ A 单服务器 ============ -->
+  <rect class="pan" x="20" y="24" width="280" height="392" rx="10"/>
+  <text class="h" x="40" y="50">① 单服务器 Single-Server</text>
+  <text class="sub" x="40" y="67">所有组件同机，最简单也最脆弱</text>
+
+  <rect x="70" y="86" width="180" height="42" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.1"/>
+  <text class="b" x="160" y="112" text-anchor="middle">终端用户</text>
+
+  <line x1="160" y1="128" x2="160" y2="164" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a1)"/>
+  <text class="el" x="166" y="150">唯一一段流量</text>
+
+  <rect x="62" y="166" width="196" height="90" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="s" x="74" y="186">同一台机器内：</text>
+  <text class="b" x="74" y="206" fill="#1f4fc0">表示层</text>
+  <text class="b" x="74" y="224" fill="#1f4fc0">业务逻辑</text>
+  <text class="b" x="74" y="242" fill="#1f4fc0">数据库</text>
+  <text class="s" x="170" y="206">三层职能</text>
+  <text class="s" x="170" y="224">没有网络边界</text>
+  <text class="s" x="170" y="242">都在进程内调用</text>
+
+  <text class="note" x="40" y="282">· 客户端只连一个目的地址，网络只需保证可达</text>
+  <text class="note" x="40" y="300">· 升级或故障＝整机停机，没有可分段保护的部分</text>
+  <text class="note" x="40" y="318">· 扩展只能纵向加配置，用户一多就排队</text>
+
+  <rect x="40" y="336" width="240" height="62" rx="7" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.1"/>
+  <text class="kd" x="52" y="356">网络设计要素</text>
+  <text class="note" x="52" y="374">一条可达性即可；真正要设计的是</text>
+  <text class="note" x="52" y="390">这台机器的机房与备份，而非网络。</text>
+
+  <!-- ============ B 二层 ============ -->
+  <rect class="pan" x="310" y="24" width="280" height="392" rx="10"/>
+  <text class="h" x="330" y="50" fill="#12a594">② 二层 2-Tier（C/S）</text>
+  <text class="sub" x="330" y="67">表示层在客户端，数据集层在服务器</text>
+
+  <rect x="360" y="86" width="180" height="42" rx="7" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="b" x="450" y="104" text-anchor="middle" fill="#0f7f73">客户端</text>
+  <text class="s" x="450" y="119" text-anchor="middle">表示层 + 部分业务逻辑</text>
+
+  <line x1="450" y1="128" x2="450" y2="164" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a1)"/>
+  <text class="el" x="456" y="150">无中间层，直接读写</text>
+
+  <rect x="360" y="166" width="180" height="90" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="b" x="372" y="188" fill="#0f7f73">服务器</text>
+  <text class="s" x="372" y="208">数据集层</text>
+  <text class="s" x="372" y="226">存储过程 / 触发器</text>
+  <text class="s" x="372" y="244">数据库引擎</text>
+
+  <text class="note" x="330" y="282">· 逻辑没有中立地带：要么在客户端，要么塞进存储过程</text>
+  <text class="note" x="330" y="300">· 客户端必须能连到数据库端口，安全边界被拉长</text>
+  <text class="note" x="330" y="318">· 每次交互都是完整往返，时延直接放大体验差异</text>
+
+  <rect x="330" y="336" width="240" height="62" rx="7" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.1"/>
+  <text class="kd" x="342" y="356">网络设计要素</text>
+  <text class="note" x="342" y="374">端口暴露范围、往返次数、带宽形态；</text>
+  <text class="note" x="342" y="390">分支到中心的 RTT 就是用户的等待时间。</text>
+
+  <!-- ============ C 三层 ============ -->
+  <rect class="pan" x="600" y="24" width="280" height="392" rx="10"/>
+  <text class="h" x="620" y="50" fill="#d98600">③ 三层 3-Tier</text>
+  <text class="sub" x="620" y="67">每层可单独设计网络，当今最常见的模型</text>
+
+  <rect x="650" y="84" width="180" height="44" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="b" x="740" y="102" text-anchor="middle" fill="#1f4fc0">① 表示层 Web / DMZ</text>
+  <text class="s" x="740" y="118" text-anchor="middle">终端用户访问的入口</text>
+
+  <line x1="740" y1="128" x2="740" y2="152" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a1)"/>
+  <text class="el" x="746" y="144">HTTPS</text>
+
+  <rect x="650" y="154" width="180" height="44" rx="7" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+  <text class="b" x="740" y="172" text-anchor="middle" fill="#a86400">② 中间层 应用 / 逻辑</text>
+  <text class="s" x="740" y="188" text-anchor="middle">无外部地址，负载均衡后</text>
+
+  <line x1="740" y1="198" x2="740" y2="222" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a1)"/>
+  <text class="el" x="746" y="214">SQL / 私有协议</text>
+
+  <rect x="650" y="224" width="180" height="44" rx="7" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="b" x="740" y="242" text-anchor="middle" fill="#4a5a72">③ 数据库层</text>
+  <text class="s" x="740" y="258" text-anchor="middle">只对应用层开放 + 复制链路</text>
+
+  <text class="note" x="620" y="290">· 三层之间三种流量模式，三套安全策略</text>
+  <text class="note" x="620" y="308">· 数据库复制是东西向，设计位置与 WAN 方案不同</text>
+  <text class="note" x="620" y="326">· 好处：任意一层扩容或替换，不必动其他层</text>
+
+  <rect x="620" y="336" width="240" height="62" rx="7" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.1"/>
+  <text class="kd" x="632" y="356">网络设计要素</text>
+  <text class="note" x="632" y="374">Web：全球可达 + LB + Anycast；应用：仅内部 +</text>
+  <text class="note" x="632" y="390">SNAT/Sticky；数据库：仅应用层 + 复制同步链路。</text>
+</svg>

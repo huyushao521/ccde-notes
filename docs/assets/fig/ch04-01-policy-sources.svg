@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">安全策略的四类来源：变更成本与违规后果两维分布</title>
+  <desc id="d1">横轴表示变更所需的授权层级与时间，纵轴表示违反后的后果严重程度。法规与标准落在"不可协商、后果不可承受"象限；合同与 SLA 落在"商务可谈、技术必须兑现"象限；内部制度落在"可协商但需时间授权"象限；架构原则落在"可讨论、例外必须留痕"象限。</desc>
+  <style>
+    .ax{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .qt{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#b3bfcd}
+    .ct{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .cs{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .cd{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .note{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .warn{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill="#a86400"}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+
+  <!-- 坐标轴 -->
+  <line x1="90" y1="220" x2="870" y2="220" stroke="#dbe4f0" stroke-width="1.2"/>
+  <line x1="480" y1="60" x2="480" y2="392" stroke="#dbe4f0" stroke-width="1.2"/>
+
+  <text class="ax" x="90" y="212" fill="#8a97a8">← 几乎无法变更（只能改实现方式）</text>
+  <text class="ax" x="870" y="212" text-anchor="end">可讨论（但例外须留痕）→</text>
+  <text class="ax" x="486" y="66" fill="#8a97a8">↑ 违规代价无法承受</text>
+  <text class="ax" x="486" y="388">↓ 违规代价可承受</text>
+
+  <text class="qt" x="440" y="248" text-anchor="end">变更成本高</text>
+  <text class="qt" x="440" y="300" text-anchor="end">变更成本低</text>
+
+  <!-- 左上：法规与标准 -->
+  <rect x="150" y="76" width="290" height="120" rx="9" fill="#fdecec" stroke="#d64545" stroke-width="1.4"/>
+  <text class="ct" x="168" y="100" fill="#a32020">法规与标准</text>
+  <text class="cs" x="168" y="122">GDPR · PCI DSS · HIPAA · 行业监管</text>
+  <text class="cd" x="168" y="144">表达形式：必须 / 禁止式条款</text>
+  <text class="cd" x="168" y="164" fill="#a32020">不可协商，只能改变实现方式</text>
+  <text class="cd" x="168" y="184">谈判空间＝0，但技术选型空间很大</text>
+
+  <!-- 右上：合同与 SLA -->
+  <rect x="536" y="76" width="290" height="120" rx="9" fill="#fdf6e8" stroke="#d98600" stroke-width="1.4"/>
+  <text class="ct" x="554" y="100" fill="#a86400">合同与 SLA</text>
+  <text class="cs" x="554" y="122">数据驻留承诺 · 审计权 · 隔离条款</text>
+  <text class="cd" x="554" y="144">表达形式：合同条款 + 罚则</text>
+  <text class="cd" x="554" y="164" fill="#a86400">商务层面可谈，技术层面必须兑现</text>
+  <text class="cd" x="554" y="184">先谈条款再定架构，顺序反了就是返工</text>
+
+  <!-- 左下：内部制度 -->
+  <rect x="150" y="272" width="290" height="120" rx="9" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+  <text class="ct" x="168" y="296" fill="#1f4fc0">内部制度</text>
+  <text class="cs" x="168" y="318">密码与账号策略 · 离职流程 · 特权账号 · 终端合规</text>
+  <text class="cd" x="168" y="340">表达形式：管理办法、检查表</text>
+  <text class="cd" x="168" y="360" fill="#1f4fc0">可协商，但推动内部变更需要时间与授权</text>
+  <text class="cd" x="168" y="380">这类失败通常是"组织问题"，不是技术问题</text>
+
+  <!-- 右下：架构原则 -->
+  <rect x="536" y="272" width="290" height="120" rx="9" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <text class="ct" x="554" y="296" fill="#0f7f73">架构原则</text>
+  <text class="cs" x="554" y="318">零信任 · 最小权限 · 默认拒绝 · 纵深防御</text>
+  <text class="cd" x="554" y="340">表达形式：原则 + 例外流程</text>
+  <text class="cd" x="554" y="360" fill="#0f7f73">原则本身可讨论，例外必须留痕</text>
+  <text class="cd" x="554" y="380">最容易出现"口头批准、无人复核"的区域</text>
+
+  <!-- 底部提示 -->
+  <rect x="24" y="404" width="852" height="52" rx="8" fill="#fff4e0" stroke="#e8c27a" stroke-width="1.1"/>
+  <text class="warn" x="42" y="426">⚠ 最常见的缺口不是"没有策略"，而是"没有例外流程"</text>
+  <text class="note" x="42" y="446">每条控制目标都要配四样东西：谁批准、有效期多久、多久复核一次、留痕放在哪里。缺了它，策略会在半年内退化成口头约定。</text>
+</svg>

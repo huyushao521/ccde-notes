@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">安全域划分与检查点位置</title>
+  <desc id="d3">企业核心层之下划分四个安全域：互联网边缘域、数据中心安全域、网络管理区、WAN 安全域。每个域与核心层之间有一个检查点（防火墙/IPS），数据中心内部再按 Web、App、DB 做内部分段与内部检查点。底部列出划分依据与检查点设计的硬约束。</desc>
+  <defs>
+    <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9fb0c6"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .core{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .dn{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .dt{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .it{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .cp{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .note{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .kd{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+
+  <!-- 核心层 -->
+  <rect x="60" y="58" width="800" height="46" rx="7" fill="#eef1f5" stroke="#9fb0c6" stroke-width="1.3" stroke-dasharray="6 4"/>
+  <text class="core" x="460" y="78" text-anchor="middle">企业核心层 / 骨干（只做转发，不放策略）</text>
+  <text class="dt" x="460" y="95" text-anchor="middle">跨域策略一律不上核心，否则策略随拓扑扩散</text>
+
+  <!-- 检查点 -->
+  <rect x="100" y="118" width="112" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="cp" x="156" y="139" text-anchor="middle">FW + IPS</text>
+  <rect x="358" y="118" width="112" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="cp" x="414" y="139" text-anchor="middle">FW + IPS + WAF</text>
+  <rect x="590" y="118" width="110" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="cp" x="645" y="139" text-anchor="middle">FW + 跳板</text>
+  <rect x="740" y="118" width="110" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="cp" x="795" y="139" text-anchor="middle">FW + IPsec</text>
+
+  <line x1="156" y1="104" x2="156" y2="116" stroke="#9fb0c6" stroke-width="1.2" marker-end="url(#ar3)"/>
+  <line x1="414" y1="104" x2="414" y2="116" stroke="#9fb0c6" stroke-width="1.2" marker-end="url(#ar3)"/>
+  <line x1="645" y1="104" x2="645" y2="116" stroke="#9fb0c6" stroke-width="1.2" marker-end="url(#ar3)"/>
+  <line x1="795" y1="104" x2="795" y2="116" stroke="#9fb0c6" stroke-width="1.2" marker-end="url(#ar3)"/>
+
+  <!-- 域 1：互联网边缘域 -->
+  <rect x="60" y="160" width="190" height="232" rx="9" fill="#fdecec" stroke="#d64545" stroke-width="1.3"/>
+  <text class="dn" x="76" y="182" fill="#a32020">互联网边缘域</text>
+  <text class="dt" x="76" y="198">信任等级：低</text>
+  <rect x="76" y="208" width="158" height="36" rx="5" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="it" x="88" y="230">公网入口 + DDoS 清洗</text>
+  <rect x="76" y="250" width="158" height="36" rx="5" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="it" x="88" y="272">对外发布区（WAF）</text>
+  <rect x="76" y="292" width="158" height="36" rx="5" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="it" x="88" y="314">远程接入 VPN → ZTNA</text>
+  <rect x="76" y="334" width="158" height="36" rx="5" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="it" x="88" y="356">出口代理 / CASB</text>
+  <text class="note" x="76" y="384">这里的东西必须假定已被扫描</text>
+
+  <!-- 域 2：数据中心安全域 -->
+  <rect x="270" y="160" width="290" height="232" rx="9" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="dn" x="286" y="182" fill="#1f4fc0">数据中心安全域</text>
+  <text class="dt" x="286" y="198">信任等级：高 → 最高（按分级再拆）</text>
+
+  <rect x="286" y="208" width="258" height="44" rx="5" fill="#fff" stroke="#b9cdf5" stroke-width="1"/>
+  <text class="it" x="298" y="226" fill="#1f4fc0">Web / 前端区</text>
+  <text class="dt" x="298" y="242">无状态，可弹性扩缩</text>
+
+  <rect x="286" y="258" width="258" height="24" rx="4" fill="#fdecec" stroke="#d64545" stroke-width="1"/>
+  <text class="cp" x="415" y="274" text-anchor="middle">内部检查点：Web → App 只放行指定端口</text>
+
+  <rect x="286" y="288" width="258" height="44" rx="5" fill="#fff" stroke="#b9cdf5" stroke-width="1"/>
+  <text class="it" x="298" y="306" fill="#1f4fc0">App / 业务逻辑区</text>
+  <text class="dt" x="298" y="322">有状态，出向访问受控</text>
+
+  <rect x="286" y="338" width="258" height="24" rx="4" fill="#fdecec" stroke="#d64545" stroke-width="1"/>
+  <text class="cp" x="415" y="354" text-anchor="middle">内部检查点：DB 只接受来自 App 的连接</text>
+
+  <text class="note" x="286" y="382">再往下是 DB 区（最高信任）：不做成"域套域"，靠第 10 章微分段收敛</text>
+
+  <!-- 域 3：网络管理区 -->
+  <rect x="580" y="160" width="130" height="232" rx="9" fill="#f3eaff" stroke="#8b5cf6" stroke-width="1.3"/>
+  <text class="dn" x="594" y="182" fill="#6d3fc4">网络管理区</text>
+  <text class="dt" x="594" y="198">信任等级：最高</text>
+  <rect x="594" y="208" width="102" height="40" rx="5" fill="#fff" stroke="#d6c4f5" stroke-width="1"/>
+  <text class="it" x="604" y="226" fill="#6d3fc4">堡垒机</text>
+  <text class="dt" x="604" y="241">只出不进</text>
+  <rect x="594" y="254" width="102" height="40" rx="5" fill="#fff" stroke="#d6c4f5" stroke-width="1"/>
+  <text class="it" x="604" y="272" fill="#6d3fc4">网管平台</text>
+  <text class="dt" x="604" y="287">TACACS / RADIUS</text>
+  <rect x="594" y="300" width="102" height="40" rx="5" fill="#fff" stroke="#d6c4f5" stroke-width="1"/>
+  <text class="it" x="604" y="318" fill="#6d3fc4">日志 + NTP</text>
+  <text class="dt" x="604" y="333">时间源唯一</text>
+  <text class="note" x="594" y="362">管理面独立成域，</text>
+  <text class="note" x="594" y="378">不与被管设备同网段</text>
+
+  <!-- 域 4：WAN 安全域 -->
+  <rect x="730" y="160" width="130" height="232" rx="9" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+  <text class="dn" x="744" y="182" fill="#0f7f73">WAN 安全域</text>
+  <text class="dt" x="744" y="198">信任等级：中</text>
+  <rect x="744" y="208" width="102" height="40" rx="5" fill="#fff" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="it" x="754" y="226" fill="#0f7f73">专线聚合</text>
+  <text class="dt" x="754" y="241">MPLS / VLL</text>
+  <rect x="744" y="254" width="102" height="40" rx="5" fill="#fff" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="it" x="754" y="272" fill="#0f7f73">加密隧道</text>
+  <text class="dt" x="754" y="287">IPsec / MACsec</text>
+  <rect x="744" y="300" width="102" height="40" rx="5" fill="#fff" stroke="#a8ddd2" stroke-width="1"/>
+  <text class="it" x="754" y="318" fill="#0f7f73">分支接入</text>
+  <text class="dt" x="754" y="333">按分支分级</text>
+  <text class="note" x="744" y="362">运营商网络视为不可信，</text>
+  <text class="note" x="744" y="378">策略在自有设备上执行</text>
+
+  <!-- 底部依据 -->
+  <line x1="24" y1="406" x2="876" y2="406" stroke="#e6ecf4" stroke-width="1"/>
+  <text class="kd" x="24" y="426">域怎么划：三条依据</text>
+  <text class="note" x="24" y="444">① 信任等级（被攻破后攻击者能做什么）　② 合规边界（数据跨过这条线后规则是否变化）　③ 爆炸半径（一个域出事能扩散多远）</text>
+  <text class="note" x="24" y="464">反直觉点：域不是越细越好。每加一个域就多一组域间策略、一个故障点、一条排障路径；典型企业 5–12 个域，超过这个数维护成本大于收益。</text>
+  <text class="note" x="24" y="484" fill="#a32020">硬约束：跨域流量必须收敛到少数检查点；过 IPsec/TLS 的流量 IPS 与 DLP 都看不见——要么在检查点终结加密，要么接受这段不可见并写进设计文档。</text>
+</svg>

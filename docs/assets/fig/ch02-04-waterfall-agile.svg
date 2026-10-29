@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 510" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">瀑布与敏捷的交付节奏对比</title>
+  <desc id="d4">左侧瀑布模型：需求、设计、实施、测试、交付五阶段顺序推进，阶梯式右移，只有末尾一次交付；测试阶段发现问题需回到需求阶段返工。右侧敏捷模型：产品待办列表按多个固定时长冲刺推进，每个冲刺结束都产出可交付增量，并可在冲刺之间重排优先级。</desc>
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+    <marker id="a4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+    <marker id="a4b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.2}
+    .h{font:600 15px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .st{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .ss{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .em{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="510" fill="#fbfcfe"/>
+
+  <!-- ================= 左：瀑布 ================= -->
+  <rect class="pan" x="20" y="20" width="420" height="458" rx="11"/>
+  <text class="h" x="42" y="52" fill="#d98600">瀑布 Waterfall</text>
+  <text class="sub" x="42" y="72">阶段串行，一次交付，变更代价随阶段递增</text>
+
+  <g>
+    <rect x="52" y="100" width="170" height="40" rx="7" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="st" x="64" y="118">1 需求分析</text>
+    <text class="ss" x="64" y="133">产出需求基线文档</text>
+  </g>
+  <g>
+    <rect x="76" y="156" width="170" height="40" rx="7" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="st" x="88" y="174">2 架构设计</text>
+    <text class="ss" x="88" y="189">方案冻结，进入实施</text>
+  </g>
+  <g>
+    <rect x="100" y="212" width="170" height="40" rx="7" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.2"/>
+    <text class="st" x="112" y="230">3 实施配置</text>
+    <text class="ss" x="112" y="245">按设计文档落地</text>
+  </g>
+  <g>
+    <rect x="124" y="268" width="170" height="40" rx="7" fill="#ffecec" stroke="#d64545" stroke-width="1.3"/>
+    <text class="st" x="136" y="286" fill="#a32020">4 测试验收</text>
+    <text class="ss" x="136" y="301" fill="#a32020">此刻才发现需求缺口</text>
+  </g>
+  <g>
+    <rect x="148" y="324" width="170" height="40" rx="7" fill="#fff4e0" stroke="#d98600" stroke-width="1.3"/>
+    <text class="st" x="160" y="342" fill="#a86400">5 一次交付</text>
+    <text class="ss" x="160" y="357" fill="#a86400">业务方第一次看到成品</text>
+  </g>
+
+  <line x1="180" y1="140" x2="210" y2="152" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a4)"/>
+  <line x1="204" y1="196" x2="234" y2="208" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a4)"/>
+  <line x1="228" y1="252" x2="258" y2="264" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a4)"/>
+  <line x1="252" y1="308" x2="282" y2="320" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a4)"/>
+
+  <!-- 返工回路 -->
+  <path d="M124 288 H40 V120 H46" fill="none" stroke="#d64545" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#a4r)"/>
+  <text class="note" x="34" y="212" transform="rotate(-90 34 212)" text-anchor="middle" fill="#a32020">返工：回到需求重做，前面阶段的投入全部沉没</text>
+
+  <text class="note" x="42" y="404">优点：阶段边界清晰、文档完整、进度好汇报。</text>
+  <text class="note" x="42" y="424">代价：业务价值在最后一步才兑现，而这时预算与时间都所剩无几。</text>
+  <text class="note" x="42" y="452">适用：需求稳定且有合规强制的项目（如一次性割接、监管改造）。</text>
+
+  <!-- ================= 右：敏捷 ================= -->
+  <rect class="pan" x="460" y="20" width="420" height="458" rx="11"/>
+  <text class="h" x="482" y="52" fill="#12a594">敏捷 Agile / Scrum</text>
+  <text class="sub" x="482" y="72">固定节奏的小循环，每轮都交付可用增量</text>
+
+  <!-- 待办列表 -->
+  <rect x="482" y="100" width="86" height="196" rx="8" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="st" x="525" y="122" text-anchor="middle">产品待办</text>
+  <line x1="490" y1="132" x2="560" y2="132" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="ss" x="492" y="152">· 站点接入</text>
+  <text class="ss" x="492" y="172">· 分区分段</text>
+  <text class="ss" x="492" y="192">· 监控埋点</text>
+  <text class="ss" x="492" y="212">· 备份策略</text>
+  <text class="ss" x="492" y="232">· 割接演练</text>
+  <text class="ss" x="492" y="262">优先级由</text>
+  <text class="ss" x="492" y="278">产品负责人</text>
+  <text class="ss" x="492" y="292">随时重排</text>
+
+  <!-- 冲刺 -->
+  <g>
+    <rect x="592" y="110" width="80" height="56" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="st" x="632" y="130" text-anchor="middle" fill="#0f7f73">Sprint 1</text>
+    <text class="ss" x="632" y="146" text-anchor="middle">2 周</text>
+    <text class="ss" x="632" y="160" text-anchor="middle" fill="#0f7f73">可用增量</text>
+  </g>
+  <g>
+    <rect x="690" y="110" width="80" height="56" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="st" x="730" y="130" text-anchor="middle" fill="#0f7f73">Sprint 2</text>
+    <text class="ss" x="730" y="146" text-anchor="middle">2 周</text>
+    <text class="ss" x="730" y="160" text-anchor="middle" fill="#0f7f73">可用增量</text>
+  </g>
+  <g>
+    <rect x="788" y="110" width="80" height="56" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.3"/>
+    <text class="st" x="828" y="130" text-anchor="middle" fill="#0f7f73">Sprint 3</text>
+    <text class="ss" x="828" y="146" text-anchor="middle">2 周</text>
+    <text class="ss" x="828" y="160" text-anchor="middle" fill="#0f7f73">可用增量</text>
+  </g>
+
+  <!-- 冲刺内活动 -->
+  <text class="ss" x="592" y="184">每轮内部固定四个动作：</text>
+  <text class="ss" x="592" y="200">计划 → 每日站会 → 评审 → 回顾</text>
+
+  <!-- 待办到冲刺的箭头 -->
+  <line x1="570" y1="138" x2="586" y2="138" stroke="#8494a8" stroke-width="1.3" marker-end="url(#a4)"/>
+
+  <!-- 增量产出箭头 -->
+  <line x1="632" y1="166" x2="632" y2="226" stroke="#12a594" stroke-width="1.3" marker-end="url(#a4)"/>
+  <line x1="730" y1="166" x2="730" y2="226" stroke="#12a594" stroke-width="1.3" marker-end="url(#a4)"/>
+  <line x1="828" y1="166" x2="828" y2="226" stroke="#12a594" stroke-width="1.3" marker-end="url(#a4)"/>
+
+  <rect x="588" y="230" width="88" height="40" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="ss" x="632" y="247" text-anchor="middle" fill="#1f4fc0">可验收的</text>
+  <text class="ss" x="632" y="261" text-anchor="middle" fill="#1f4fc0">小范围上线</text>
+
+  <rect x="686" y="230" width="88" height="40" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="ss" x="730" y="247" text-anchor="middle" fill="#1f4fc0">按反馈调整</text>
+  <text class="ss" x="730" y="261" text-anchor="middle" fill="#1f4fc0">后续范围</text>
+
+  <rect x="784" y="230" width="88" height="40" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="ss" x="828" y="247" text-anchor="middle" fill="#1f4fc0">累积成</text>
+  <text class="ss" x="828" y="261" text-anchor="middle" fill="#1f4fc0">完整方案</text>
+
+  <!-- 反馈回路 -->
+  <path d="M828 290 V306 H525 V300" fill="none" stroke="#2f6fed" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#a4b)"/>
+  <text class="em" x="676" y="324" text-anchor="middle">每轮结束都可把反馈写回待办，重新排序</text>
+
+  <text class="note" x="482" y="352">优点：价值早兑现、变更随时吸收、风险按轮次切小。</text>
+  <text class="note" x="482" y="372">代价：完成日期难以承诺；需要高技能、能自驱动的团队；</text>
+  <text class="note" x="482" y="390">范围若无人守门，会一轮一轮蔓延，永远收不了尾。</text>
+  <text class="note" x="482" y="420">两种模型都用在真实项目里：把框架当成目标，</text>
+  <text class="note" x="482" y="438">就会为了流程而流程，交付物反而不是重点。</text>
+  <text class="note" x="482" y="462">选型标准：需求能否在开工前被稳定描述。</text>
+</svg>

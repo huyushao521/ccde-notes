@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 310" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">VPWS 与伪线结构：两条接入电路 AC 用一条 PW 对接</title>
+  <desc id="d4">CE1 经 AC1 接入 PE1，PE1 与 PE2 之间是一条伪线 PW，封装含控制字与标签栈，再经 AC2 到 CE2。VPWS 不做 MAC 学习与交换，只逐帧搬运。下方对比基于端口与基于 VLAN 两种接入模型。</desc>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .b{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .c{font:9.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .pt{font:600 10.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <rect x="0" y="0" width="900" height="310" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">VPWS：把一条"看不见的网线"从 A 点拉到 B 点</text>
+  <text class="s" x="24" y="48">不做 MAC 学习、不做交换，只把 AC 上的帧封装进 PW 逐帧搬运</text>
+
+  <rect x="24" y="96" width="56" height="36" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="52" y="118" text-anchor="middle">CE1</text>
+  <rect x="100" y="96" width="84" height="36" rx="4" fill="#fff" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="n" x="142" y="111" text-anchor="middle">AC1</text>
+  <text class="g" x="142" y="124" text-anchor="middle">接入电路</text>
+  <rect x="200" y="90" width="76" height="48" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="238" y="119" text-anchor="middle">PE1</text>
+  <line x1="276" y1="111" x2="624" y2="111" stroke="#0f7f73" stroke-width="1.4"/>
+  <line x1="276" y1="118" x2="624" y2="118" stroke="#0f7f73" stroke-width="1.4"/>
+  <text class="c" x="450" y="104" text-anchor="middle">PW 伪线（承载在 MPLS 上）</text>
+  <text class="g" x="450" y="134" text-anchor="middle">封装 = 控制字 + 标签栈：保序、填充短帧、处理分片</text>
+  <rect x="624" y="90" width="76" height="48" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="662" y="119" text-anchor="middle">PE2</text>
+  <rect x="716" y="96" width="84" height="36" rx="4" fill="#fff" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="n" x="758" y="111" text-anchor="middle">AC2</text>
+  <text class="g" x="758" y="124" text-anchor="middle">接入电路</text>
+  <rect x="820" y="96" width="56" height="36" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="848" y="118" text-anchor="middle">CE2</text>
+  <text class="b" x="450" y="158" text-anchor="middle">信令三选一：LDP（Martini，主流）/ BGP（Kompella，可自动发现）/ 静态配置</text>
+
+  <rect x="24" y="176" width="430" height="110" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="40" y="198">模型一：基于端口</text>
+  <text class="b" x="40" y="218">整个物理端口被隧道化，所有帧原样送到远端 PE</text>
+  <text class="c" x="40" y="236">好处：完全透明，客户可自由用 VLAN / Trunk</text>
+  <text class="r" x="40" y="254">风险：端口独占成本高；STP BPDU 也会被透传</text>
+  <text class="g" x="40" y="272">典型用途：老 WAN 串行链路替换、数据中心二层互联</text>
+
+  <rect x="466" y="176" width="410" height="110" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pt" x="482" y="198">模型二：基于 VLAN</text>
+  <text class="b" x="482" y="218">端口上的 VLAN 各自映射到不同远端 PE</text>
+  <text class="c" x="482" y="236">好处：一个端口接多站点，成本低</text>
+  <text class="r" x="482" y="254">风险：两端 VLAN 规划必须一致，改 VLAN 影响客户</text>
+  <text class="g" x="482" y="272">典型用途：不需要改 IP 地址的传统 FR/ATM 迁移</text>
+</svg>

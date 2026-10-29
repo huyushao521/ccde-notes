@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">TOGAF 与 ITIL 在 Day 0 到 Day 2 时间轴上的分工</title>
+  <desc id="d6">时间轴分 Day 0 规划与设计、Day 1 部署与开通、Day 2 日常运维与变更。TOGAF 覆盖 Day 0，产出架构蓝图与路线图；ITIL 覆盖 Day 1 与 Day 2，产出 SLA、变更流程与事件管理；两者在 Day 0 末尾交接。</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .bt{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .bs{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .dt{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .ds{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .t{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="420" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">TOGAF 与 ITIL：一个管"建什么"，一个管"建好后怎么交付"</text>
+  <text class="s" x="24" y="48">把两者的时间轴叠在一起，就知道哪件事该找哪套流程</text>
+
+  <text class="t" x="60" y="140">规划层面：决策与留痕</text>
+  <text class="t" x="410" y="140">运营层面：交付与稳定</text>
+
+  <rect x="60" y="150" width="300" height="52" rx="7" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.2"/>
+  <text class="bt" x="76" y="172">TOGAF · 架构怎么建</text>
+  <text class="bs" x="76" y="190">Day 0：架构蓝图、差距分析、迁移路线图</text>
+
+  <circle cx="385" cy="176" r="17" fill="#fff4e0" stroke="#d98600" stroke-width="1.2"/>
+  <text class="t" x="385" y="180" text-anchor="middle" fill="#a86400">交接</text>
+
+  <rect x="410" y="150" width="450" height="52" rx="7" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="bt" x="426" y="172" fill="#0f7f73">ITIL · 服务怎么交付</text>
+  <text class="bs" x="426" y="190">Day 1–2：服务转换、运营、持续改进；SLA 与变更流程</text>
+
+  <line x1="60" y1="250" x2="860" y2="250" stroke="#c3cfe0" stroke-width="1.4"/>
+  <line x1="60" y1="245" x2="60" y2="255" stroke="#c3cfe0" stroke-width="1.2"/>
+  <line x1="380" y1="245" x2="380" y2="255" stroke="#c3cfe0" stroke-width="1.2"/>
+  <line x1="610" y1="245" x2="610" y2="255" stroke="#c3cfe0" stroke-width="1.2"/>
+  <line x1="860" y1="245" x2="860" y2="255" stroke="#c3cfe0" stroke-width="1.2"/>
+
+  <text class="dt" x="70" y="274">Day 0 · 规划与设计</text>
+  <text class="ds" x="70" y="290">还没上线：分段、地址、容量、选型</text>
+  <text class="dt" x="392" y="274">Day 1 · 部署与开通</text>
+  <text class="ds" x="392" y="290">上线那一刻：配置下发、迁移、验收</text>
+  <text class="dt" x="622" y="274">Day 2 · 日常运维与变更</text>
+  <text class="ds" x="622" y="290">长期运行：监控、变更、故障处置</text>
+
+  <line x1="60" y1="322" x2="860" y2="322" stroke="#e6ecf4" stroke-width="1"/>
+
+  <text class="t" x="24" y="344">互补关系：架构产物在交接点变成服务承诺——蓝图里的"计划停机窗口"就是 SLA 里的维护条款。</text>
+  <text class="t" x="24" y="364" fill="#a32020">错配症状一：用架构流程管日常变更 → 一次 ACL 调整要走三个月评审，运维被迫绕流程。</text>
+  <text class="t" x="24" y="384" fill="#a32020">错配症状二：只有运维流程没有架构治理 → 每个项目各自长成"本地最优"的孤岛，三年后无法整合。</text>
+  <text class="t" x="24" y="404">一个可用的判定：变更是否改变架构（找 TOGAF），是否影响服务承诺（找 ITIL）；两者都涉及时，先架构后服务。</text>
+</svg>

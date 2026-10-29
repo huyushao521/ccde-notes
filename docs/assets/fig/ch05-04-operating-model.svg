@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">运营模型四象限：标准化与集成的组合及其网络设计含义</title>
+  <desc id="d4">以标准化和集成两维构成四象限：协调型（高集成低标准化）、统一型（双高）、多样化型（双低）、复制型（高标准化低集成）。右侧给出每个象限对应的网络设计方向，底部给出定位象限的两个问题。</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .n{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .q{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .g{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .ax{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8494a8}
+    .rn{font:600 10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .rb{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">运营模型四象限：先定位，再决定标准化到什么程度</text>
+  <text class="s" x="24" y="48">这一步错，后面所有设计都会错——标准化范围是架构的第一约束</text>
+
+  <rect x="100" y="96" width="185" height="142" fill="#e8f7f4"/>
+  <rect x="285" y="96" width="185" height="142" fill="#eaf1ff"/>
+  <rect x="100" y="238" width="185" height="142" fill="#f7f9fd"/>
+  <rect x="285" y="238" width="185" height="142" fill="#f4f7fb"/>
+  <rect x="100" y="96" width="370" height="284" fill="none" stroke="#c3cfe0" stroke-width="1.1"/>
+  <line x1="285" y1="96" x2="285" y2="380" stroke="#c3cfe0" stroke-width="1.1"/>
+  <line x1="100" y1="238" x2="470" y2="238" stroke="#c3cfe0" stroke-width="1.1"/>
+
+  <text class="ax" x="285" y="90" text-anchor="middle">集成 高 ▲</text>
+  <text class="ax" x="285" y="394" text-anchor="middle">集成 低 ▼</text>
+  <text class="ax" x="90" y="238" text-anchor="middle" transform="rotate(-90 90 238)">标准化 低 ◀</text>
+  <text class="ax" x="480" y="238" text-anchor="middle" transform="rotate(90 480 238)">标准化 高 ▶</text>
+
+  <text class="n" x="116" y="122">协调型 Coordination</text>
+  <text class="q" x="116" y="142">高集成 · 低标准化</text>
+  <text class="q" x="116" y="162">跨组共享数据，业务单元</text>
+  <text class="q" x="116" y="178">各自发布创新</text>
+  <text class="g" x="116" y="202">→ DCI、SD-WAN 灵活策略</text>
+
+  <text class="n" x="301" y="122">统一型 Unification</text>
+  <text class="q" x="301" y="142">高集成 · 高标准化</text>
+  <text class="q" x="301" y="162">集中管理与流程设计，</text>
+  <text class="q" x="301" y="178">集中数据库与 IT 组织</text>
+  <text class="g" x="301" y="202">→ 统一模板最易落地</text>
+
+  <text class="n" x="116" y="264">多样化型 Diversification</text>
+  <text class="q" x="116" y="284">低集成 · 低标准化</text>
+  <text class="q" x="116" y="304">各单元独立 + 少量共享</text>
+  <text class="q" x="116" y="320">服务，规模经济有限</text>
+  <text class="g" x="116" y="344">→ 独立建网 + 共享出口</text>
+
+  <text class="n" x="301" y="264">复制型 Replication</text>
+  <text class="q" x="301" y="284">低集成 · 高标准化</text>
+  <text class="q" x="301" y="304">单元自治，但做事方式</text>
+  <text class="q" x="301" y="320">一致，共享学习</text>
+  <text class="g" x="301" y="344">→ 分支模板复制</text>
+
+  <text class="rn" x="504" y="100">这个象限对网络意味着什么</text>
+
+  <rect x="500" y="110" width="376" height="54" rx="6" fill="#e8f7f4" stroke="#b6e3da" stroke-width="1"/>
+  <text class="rn" x="514" y="130" fill="#0f7f73">协调型</text>
+  <text class="rb" x="514" y="150">灵活的东西向连通 + 跨域数据共享（DCI、策略随行）</text>
+
+  <rect x="500" y="170" width="376" height="54" rx="6" fill="#eaf1ff" stroke="#c9dbff" stroke-width="1"/>
+  <text class="rn" x="514" y="190">统一型</text>
+  <text class="rb" x="514" y="210">集中架构 + 统一策略 + 强治理；模板化与自动化收益最大</text>
+
+  <rect x="500" y="230" width="376" height="54" rx="6" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="rn" x="514" y="250" fill="#4a5a72">复制型</text>
+  <text class="rb" x="514" y="270">分支 / 多站点标准化模板复制，每站点独立运营（连锁企业）</text>
+
+  <rect x="500" y="290" width="376" height="54" rx="6" fill="#f7f9fd" stroke="#dbe4f0" stroke-width="1"/>
+  <text class="rn" x="514" y="310" fill="#4a5a72">多样化型</text>
+  <text class="rb" x="514" y="330">各单元独立建网 + 少量共享服务（如共享互联网出口）</text>
+
+  <rect x="500" y="352" width="376" height="70" rx="6" fill="#fdecec" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="rn" x="514" y="372" fill="#a32020">两个问题定位象限</text>
+  <text class="rb" x="514" y="392" fill="#a32020">① 各单元做事方式一样吗？→ 一样 = 高标准化</text>
+  <text class="rb" x="514" y="410" fill="#a32020">② 单元之间要频繁共享数据吗？→ 要 = 高集成</text>
+</svg>

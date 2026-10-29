@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 578" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">零信任授权闭环与 ZTNA 路径对比</title>
+  <desc id="d4">上半部分为零信任授权闭环：请求方经策略执行点 PEP 向策略引擎请求判定，策略引擎从清单与遥测取属性、由信任引擎算出信任分数，判定结果回传 PEP，PEP 只建立到单个应用的会话。左下角是信任分数与风险阈值的比较关系，右下角列出闭环七步。下半部分对比传统 VPN 与 ZTNA 的访问路径。</desc>
+  <defs>
+    <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="ar4t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12a594"/>
+    </marker>
+    <marker id="ar4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+    <marker id="ar4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9fb0c6"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .bt{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .bs{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .note{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .kd{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .num{font:700 10px "Segoe UI",sans-serif;fill:#fff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="578" fill="#fbfcfe"/>
+
+  <text class="h" x="24" y="30">零信任授权闭环：没有"通过了检查就一直可信"这回事</text>
+  <text class="bs" x="24" y="48">每次访问重新算一遍信任分；PEP 发的授权只在单次会话内有效</text>
+
+  <!-- 请求方 -->
+  <rect x="24" y="140" width="150" height="88" rx="8" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.3"/>
+  <text class="bt" x="99" y="166" text-anchor="middle" fill="#1f4fc0">用户 + 设备</text>
+  <text class="bs" x="99" y="186" text-anchor="middle">身份：谁（MFA 后的主体）</text>
+  <text class="bs" x="99" y="204" text-anchor="middle">设备：补丁 / 加密 / EDR</text>
+  <text class="note" x="99" y="221" text-anchor="middle">两个都要证明，缺一不算可信</text>
+
+  <!-- PEP -->
+  <rect x="214" y="140" width="140" height="88" rx="8" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+  <text class="bt" x="284" y="166" text-anchor="middle" fill="#a86400">策略执行点 PEP</text>
+  <text class="bs" x="284" y="186" text-anchor="middle">应用前置 / 终端代理</text>
+  <text class="bs" x="284" y="204" text-anchor="middle">放行、拒绝、断开</text>
+  <text class="note" x="284" y="221" text-anchor="middle">它不判断，只执行</text>
+
+  <line x1="178" y1="184" x2="208" y2="184" stroke="#2f6fed" stroke-width="1.6" marker-end="url(#ar4)"/>
+  <circle cx="193" cy="172" r="7" fill="#2f6fed"/>
+  <text class="num" x="193" y="175" text-anchor="middle">1</text>
+
+  <!-- 策略引擎 -->
+  <rect x="440" y="80" width="206" height="72" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <text class="bt" x="543" y="104" text-anchor="middle" fill="#0f7f73">策略引擎 PAP + PDP</text>
+  <text class="bs" x="543" y="124" text-anchor="middle">匹配规则 → 生成访问授权</text>
+  <text class="bs" x="543" y="141" text-anchor="middle">"这种身份＋设备＋上下文能做什么"</text>
+
+  <!-- 信任引擎 -->
+  <rect x="440" y="162" width="206" height="76" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <text class="bt" x="543" y="184" text-anchor="middle" fill="#0f7f73">信任引擎</text>
+  <text class="bs" x="543" y="202" text-anchor="middle">静态因素：凭证 / 设备信任 / 位置</text>
+  <text class="bs" x="543" y="219" text-anchor="middle">动态因素：威胁情报 / 地理速度</text>
+  <text class="note" x="543" y="233" text-anchor="middle">输出：信任分数（随时间衰减）</text>
+
+  <line x1="543" y1="160" x2="543" y2="156" stroke="#12a594" stroke-width="1.4" marker-end="url(#ar4t)"/>
+  <circle cx="566" cy="159" r="7" fill="#12a594"/>
+  <text class="num" x="566" y="162" text-anchor="middle">4</text>
+
+  <!-- 往返 -->
+  <line x1="360" y1="152" x2="432" y2="120" stroke="#2f6fed" stroke-width="1.6" marker-end="url(#ar4)"/>
+  <circle cx="392" cy="133" r="7" fill="#2f6fed"/>
+  <text class="num" x="392" y="136" text-anchor="middle">2</text>
+  <line x1="432" y1="146" x2="360" y2="182" stroke="#2f6fed" stroke-width="1.6" stroke-dasharray="6 3" marker-end="url(#ar4)"/>
+  <circle cx="392" cy="166" r="7" fill="#2f6fed"/>
+  <text class="num" x="392" y="169" text-anchor="middle">5</text>
+
+  <!-- 清单 -->
+  <rect x="440" y="278" width="96" height="66" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="bt" x="488" y="298" text-anchor="middle">清单 PIP</text>
+  <text class="bs" x="488" y="316" text-anchor="middle">身份 / 资产</text>
+  <text class="bs" x="488" y="332" text-anchor="middle">/ 应用</text>
+
+  <!-- 遥测 -->
+  <rect x="550" y="278" width="96" height="66" rx="7" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1.2"/>
+  <text class="bt" x="598" y="298" text-anchor="middle">遥测与日志</text>
+  <text class="bs" x="598" y="316" text-anchor="middle">流量 / 行为</text>
+  <text class="bs" x="598" y="332" text-anchor="middle">/ 告警</text>
+
+  <line x1="488" y1="274" x2="512" y2="242" stroke="#9fb0c6" stroke-width="1.3" marker-end="url(#ar4g)"/>
+  <circle cx="497" cy="262" r="7" fill="#8494a8"/>
+  <text class="num" x="497" y="265" text-anchor="middle">3</text>
+  <line x1="598" y1="274" x2="574" y2="242" stroke="#9fb0c6" stroke-width="1.3" marker-end="url(#ar4g)"/>
+  <circle cx="589" cy="262" r="7" fill="#8494a8"/>
+  <text class="num" x="589" y="265" text-anchor="middle">7</text>
+
+  <!-- 应用 -->
+  <rect x="700" y="140" width="176" height="88" rx="8" fill="#fff" stroke="#1a2233" stroke-width="1.3"/>
+  <text class="bt" x="788" y="166" text-anchor="middle">应用 A</text>
+  <text class="bs" x="788" y="186" text-anchor="middle">不发布公网，无固定入口</text>
+  <text class="bs" x="788" y="204" text-anchor="middle">只接受来自 PEP 的连接</text>
+  <text class="note" x="788" y="221" text-anchor="middle">用户不知道它物理在哪</text>
+
+  <path d="M300 230 V252 H788 V232" fill="none" stroke="#2f6fed" stroke-width="1.6" marker-end="url(#ar4)"/>
+  <circle cx="400" cy="252" r="7" fill="#2f6fed"/>
+  <text class="num" x="400" y="255" text-anchor="middle">6</text>
+  <text class="note" x="700" y="270" fill="#1f4fc0">⑥ 会话只到这一个应用，看不到网段</text>
+
+  <!-- 分数框 -->
+  <rect x="24" y="284" width="356" height="152" rx="8" fill="#fff" stroke="#dbe4f0" stroke-width="1.1"/>
+  <text class="kd" x="40" y="306" fill="#1a2233">放行的两个条件，缺一不可</text>
+  <text class="note" x="40" y="324">信任分再高，没有对应授权也不放行</text>
+
+  <line x1="52" y1="352" x2="332" y2="352" stroke="#c3cfe0" stroke-width="1.4"/>
+  <line x1="52" y1="348" x2="52" y2="356" stroke="#c3cfe0" stroke-width="1.2"/>
+  <text class="note" x="52" y="370" text-anchor="middle">0</text>
+  <line x1="192" y1="348" x2="192" y2="356" stroke="#c3cfe0" stroke-width="1.2"/>
+  <text class="note" x="192" y="370" text-anchor="middle">0.5</text>
+  <line x1="332" y1="348" x2="332" y2="356" stroke="#c3cfe0" stroke-width="1.2"/>
+  <text class="note" x="332" y="370" text-anchor="middle">1.0</text>
+
+  <line x1="220" y1="336" x2="220" y2="366" stroke="#d64545" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <text class="note" x="204" y="330" text-anchor="middle" fill="#a32020">风险阈值 0.60</text>
+  <circle cx="270" cy="352" r="6" fill="#12a594"/>
+  <text class="note" x="286" y="330" text-anchor="middle" fill="#0f7f73">信任分 0.78</text>
+
+  <text class="note" x="40" y="394">信任分 ≥ 该应用的阈值 → 进入"是否被授权"判断</text>
+  <text class="note" x="40" y="412">低于阈值 → 降级（只读 / 二次 MFA）或直接拒绝</text>
+  <text class="note" x="40" y="430" fill="#a32020">阈值按资源敏感度设：财务系统与公告板不是一条线</text>
+
+  <!-- 七步 -->
+  <rect x="700" y="284" width="176" height="152" rx="8" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1.1"/>
+  <text class="kd" x="714" y="304" fill="#1a2233">闭环七步</text>
+  <text class="note" x="714" y="324">① 发起访问请求</text>
+  <text class="note" x="714" y="342">② 向策略引擎请求判定</text>
+  <text class="note" x="714" y="360">③ 从清单取身份与资产属性</text>
+  <text class="note" x="714" y="378">④ 信任引擎算出信任分</text>
+  <text class="note" x="714" y="396">⑤ 授权 + 会话令牌回给 PEP</text>
+  <text class="note" x="714" y="414">⑥ 建立到单个应用的会话</text>
+  <text class="note" x="714" y="432">⑦ 遥测回灌，动态改策略</text>
+
+  <!-- ZTNA vs VPN -->
+  <line x1="24" y1="456" x2="876" y2="456" stroke="#e6ecf4" stroke-width="1"/>
+
+  <text class="kd" x="24" y="486" fill="#a32020">传统 VPN</text>
+  <rect x="106" y="466" width="96" height="34" rx="5" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1"/>
+  <text class="bs" x="154" y="487" text-anchor="middle">员工</text>
+  <line x1="204" y1="483" x2="240" y2="483" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar4r)"/>
+  <rect x="244" y="466" width="160" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="bs" x="324" y="487" text-anchor="middle" fill="#a32020">VPN 网关（公网暴露）</text>
+  <line x1="406" y1="483" x2="442" y2="483" stroke="#d64545" stroke-width="1.5" marker-end="url(#ar4r)"/>
+  <rect x="446" y="466" width="180" height="34" rx="5" fill="#fdecec" stroke="#d64545" stroke-width="1.2"/>
+  <text class="bs" x="536" y="487" text-anchor="middle" fill="#a32020">整个内网网段</text>
+  <text class="note" x="644" y="480">拿到的是"网段的可达性"</text>
+  <text class="note" x="644" y="496" fill="#a32020">→ 可横向扫描；账号被盗 = 全网入口</text>
+
+  <text class="kd" x="24" y="532" fill="#0f7f73">ZTNA</text>
+  <rect x="106" y="512" width="96" height="34" rx="5" fill="#f4f7fb" stroke="#9fb0c6" stroke-width="1"/>
+  <text class="bs" x="154" y="533" text-anchor="middle">员工 + 设备</text>
+  <line x1="204" y1="529" x2="240" y2="529" stroke="#12a594" stroke-width="1.5" marker-end="url(#ar4t)"/>
+  <rect x="244" y="512" width="160" height="34" rx="5" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="bs" x="324" y="533" text-anchor="middle" fill="#0f7f73">应用连接器（不暴露公网）</text>
+  <line x1="406" y1="529" x2="442" y2="529" stroke="#12a594" stroke-width="1.5" marker-end="url(#ar4t)"/>
+  <rect x="446" y="512" width="180" height="34" rx="5" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="bs" x="536" y="533" text-anchor="middle" fill="#0f7f73">单个应用 A</text>
+  <text class="note" x="644" y="526">拿到的是"一个应用的会话"</text>
+  <text class="note" x="644" y="542" fill="#0f7f73">→ 看不到其他资源，横向移动被切断</text>
+</svg>

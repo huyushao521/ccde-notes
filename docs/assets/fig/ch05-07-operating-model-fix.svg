@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">案例复盘：把统一型误判改为多样化型加少量共享服务</title>
+  <desc id="d7">左侧是误判：认定集团为统一型，强推统一 IP、统一安全策略、统一出口，随后列出汽车件、家电件、模具、新能源四个事业部遇到的实际冲突。右侧是重定位为多样化型后总部只统一的三件事，以及事业部保留的权力与分层策略模板。</desc>
+  <defs>
+    <marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .bt{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .bg{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .chip{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#a32020}
+    .chipg{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .n{font:600 10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .t{font:9.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lab{font:9px "Segoe UI","Microsoft YaHei",sans-serif;fill:#d64545}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">案例复盘：把"统一型"误判改成"多样化型 + 少量共享服务"</text>
+  <text class="s" x="24" y="48">同一次评审，改的不是技术方案，是先纠正了对运营模型的判断</text>
+
+  <rect x="24" y="66" width="406" height="338" rx="8" fill="#fdecec" stroke="#e8b4b4" stroke-width="1.1"/>
+  <text class="bt" x="42" y="90">误判：认定集团为统一型，强推"三统一"</text>
+
+  <rect x="42" y="100" width="120" height="26" rx="13" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="chip" x="102" y="117" text-anchor="middle">统一 IP 规划</text>
+  <rect x="172" y="100" width="120" height="26" rx="13" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="chip" x="232" y="117" text-anchor="middle">统一安全策略</text>
+  <rect x="302" y="100" width="112" height="26" rx="13" fill="#fff" stroke="#e8b4b4" stroke-width="1"/>
+  <text class="chip" x="358" y="117" text-anchor="middle">统一互联网出口</text>
+
+  <text class="n" x="42" y="154">于是四条冲突同时出现</text>
+
+  <text class="n" x="42" y="178">汽车件</text>
+  <text class="b" x="42" y="194">与主机厂做 EDI 对接，专线必须走客户指定运营商</text>
+  <line x1="42" y1="204" x2="412" y2="204" stroke="#f2d4d4" stroke-width="1"/>
+
+  <text class="n" x="42" y="222">家电件</text>
+  <text class="b" x="42" y="238">自建电商，要快速变更 CDN 与云资源，审批链路过长</text>
+  <line x1="42" y1="248" x2="412" y2="248" stroke="#f2d4d4" stroke-width="1"/>
+
+  <text class="n" x="42" y="266">模具</text>
+  <text class="b" x="42" y="282">只有 200 人，IT 是兼职的，统一管理平台无人接手</text>
+  <line x1="42" y1="292" x2="412" y2="292" stroke="#f2d4d4" stroke-width="1"/>
+
+  <text class="n" x="42" y="310">新能源</text>
+  <text class="b" x="42" y="326">新建工厂，与集团几乎不共享数据，强绑拖慢建厂</text>
+
+  <text class="t" x="42" y="356" fill="#a32020">共同点：这些都是"业务事实"，不是"不配合"。</text>
+  <text class="t" x="42" y="374" fill="#a32020">把业务事实当阻力，架构就只能靠行政命令推行。</text>
+
+  <line x1="434" y1="235" x2="462" y2="235" stroke="#d64545" stroke-width="1.6" marker-end="url(#a7)"/>
+  <text class="lab" x="448" y="224" text-anchor="middle">两问</text>
+  <text class="lab" x="448" y="253" text-anchor="middle">重定位</text>
+
+  <rect x="470" y="66" width="406" height="338" rx="8" fill="#e8f7f4" stroke="#b6e3da" stroke-width="1.1"/>
+  <text class="bg" x="488" y="90">重定位：多样化型（低标 / 低集）+ 少量共享服务</text>
+
+  <text class="n" x="488" y="114">总部只统一三件事，且都是"共享"而非"强绑"</text>
+
+  <rect x="488" y="124" width="370" height="40" rx="6" fill="#fff" stroke="#b6e3da" stroke-width="1"/>
+  <text class="chipg" x="502" y="142">① 互联网出口：做成共享服务，各事业部自带策略接入</text>
+  <text class="t" x="502" y="157" fill="#0f7f73">省的是线路与设备钱，不是自主权</text>
+
+  <rect x="488" y="172" width="370" height="40" rx="6" fill="#fff" stroke="#b6e3da" stroke-width="1"/>
+  <text class="chipg" x="502" y="190">② 集团级安全基线：只保底线，强制项越少越能落地</text>
+  <text class="t" x="502" y="205" fill="#0f7f73">底线之外留白，才有人愿意接入</text>
+
+  <rect x="488" y="220" width="370" height="40" rx="6" fill="#fff" stroke="#b6e3da" stroke-width="1"/>
+  <text class="chipg" x="502" y="238">③ WAN 传输框架：规定选型范围与互联方式，不定拓扑</text>
+  <text class="t" x="502" y="253" fill="#0f7f73">框架管"能选什么"，不判"必须怎么连"</text>
+
+  <line x1="488" y1="272" x2="858" y2="272" stroke="#c7e9e2" stroke-width="1"/>
+
+  <text class="n" x="488" y="292">事业部保留</text>
+  <text class="b" x="488" y="310">地址规划权、变更权、本地运维自主权</text>
+
+  <text class="n" x="488" y="332">替代"一刀切"的做法</text>
+  <text class="b" x="488" y="350">分层策略模板：强制的安全基线 + 可选的网络模板</text>
+  <text class="t" x="488" y="368">强制的部分要少而硬；可选的部分要能各自演进。</text>
+
+  <text class="t" x="24" y="430">判断只需两问：各单元做事方式一样吗（标准化）？单元之间需要频繁共享数据吗（集成）？答案落到象限，标准化范围就定了。</text>
+</svg>

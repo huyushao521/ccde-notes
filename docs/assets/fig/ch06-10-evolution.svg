@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 352" width="100%" role="img" aria-labelledby="t10 d10">
+
+  <title id="t10">二层传输技术演进主线：租用线路、VPWS、VPLS、EVPN、PBB-EVPN</title>
+  <desc id="d10">五步演进，每一步都解决前一步的可扩展性问题并引入新的运维复杂度：租用线路物理独占；VPWS 用伪线在 MPLS 上仿真；VPLS 扩展到多点但 PW 数量 O(n²) 且靠泛洪学习；EVPN 把 MAC 搬到 BGP；PBB-EVPN 用 MAC-in-MAC 隐藏客户 MAC。</desc>
+  <defs>
+    <marker id="a10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .nm{font:600 10.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .d{font:8.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .sl{font:600 8.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .cl{font:600 8.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .t{font:9px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .tt{font:9.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="352" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">一条主线：每一代都在解决可扩展性，同时增加运维复杂度</text>
+  <text class="s" x="24" y="48">记住这条链，等于记住了整章；题目问"该选哪种服务"时，答案往往取决于你走到第几步</text>
+
+  <rect x="24" y="70" width="154" height="192" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="nm" x="40" y="94" fill="#4a5a72">租用线路</text>
+  <text class="d" x="40" y="116">物理独占，无复用</text>
+  <text class="d" x="40" y="132">站点间一根专用电路</text>
+  <text class="sl" x="40" y="158">解决：简单、确定</text>
+  <text class="d" x="40" y="176">带宽与时延完全可预期</text>
+  <text class="cl" x="40" y="202">代价</text>
+  <text class="d" x="40" y="220">按距离与带宽计费，</text>
+  <text class="d" x="40" y="236">站点一多成本失控</text>
+
+  <rect x="200" y="70" width="154" height="192" rx="7" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="nm" x="216" y="94">VPWS</text>
+  <text class="d" x="216" y="116">用伪线在 MPLS 上</text>
+  <text class="d" x="216" y="132">仿真一条透明电路</text>
+  <text class="sl" x="216" y="158">解决：复用核心</text>
+  <text class="d" x="216" y="176">不学 MAC、不改地址</text>
+  <text class="cl" x="216" y="202">代价</text>
+  <text class="d" x="216" y="220">点对点，端口型独占</text>
+  <text class="d" x="216" y="236">站点多了要 N 条</text>
+
+  <rect x="376" y="70" width="154" height="192" rx="7" fill="#fff4e0" stroke="#f0d6a8"/>
+  <text class="nm" x="392" y="94" fill="#a86400">VPLS</text>
+  <text class="d" x="392" y="116">多点到多点，PE 间</text>
+  <text class="d" x="392" y="132">全互联 PW</text>
+  <text class="sl" x="392" y="158">解决：多站点同子网</text>
+  <text class="d" x="392" y="176">像连在同一台交换机</text>
+  <text class="cl" x="392" y="202">代价</text>
+  <text class="d" x="392" y="220">O(n²) 的 PW、泛洪、</text>
+  <text class="d" x="392" y="236">没有控制平面</text>
+
+  <rect x="552" y="70" width="154" height="192" rx="7" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="nm" x="568" y="94" fill="#0f7f73">EVPN</text>
+  <text class="d" x="568" y="116">MAC 变成 BGP 路由</text>
+  <text class="d" x="568" y="132">控制面学习与通告</text>
+  <text class="sl" x="568" y="158">解决：无控制平面</text>
+  <text class="d" x="568" y="176">原生多归属、ARP 代理</text>
+  <text class="cl" x="568" y="202">代价</text>
+  <text class="d" x="568" y="220">参数多：ESI、DF、</text>
+  <text class="d" x="568" y="236">移动性序列号要调</text>
+
+  <rect x="728" y="70" width="148" height="192" rx="7" fill="#eaf1ff" stroke="#c9dbff"/>
+  <text class="nm" x="744" y="94">PBB-EVPN</text>
+  <text class="d" x="744" y="116">MAC-in-MAC：客户</text>
+  <text class="d" x="744" y="132">MAC 藏进运营商 MAC</text>
+  <text class="sl" x="744" y="158">解决：MAC 规模爆炸</text>
+  <text class="d" x="744" y="176">核心只学 B-MAC</text>
+  <text class="cl" x="744" y="202">代价</text>
+  <text class="d" x="744" y="220">封装更厚、排障更难，</text>
+  <text class="d" x="744" y="236">只在真的到瓶颈时才用</text>
+
+  <line x1="178" y1="166" x2="198" y2="166" stroke="#8494a8" marker-end="url(#a10)"/>
+  <line x1="354" y1="166" x2="374" y2="166" stroke="#8494a8" marker-end="url(#a10)"/>
+  <line x1="530" y1="166" x2="550" y2="166" stroke="#8494a8" marker-end="url(#a10)"/>
+  <line x1="706" y1="166" x2="726" y2="166" stroke="#8494a8" marker-end="url(#a10)"/>
+
+  <text class="t" x="24" y="286">一句话记忆：</text>
+  <text class="tt" x="24" y="306">VPWS 是一根网线，VPLS 是一台交换机，EVPN 是"用路由协议管理的交换机"，PBB-EVPN 是"给交换机戴上两层 MAC 面具"。</text>
+  <text class="tt" x="24" y="326" fill="#a32020">每一代都在用"更多运维复杂度"换"更好扩展性"——所以选型的关键不是"哪代更新"，而是"你现在真的卡在哪一步"。</text>
+</svg>

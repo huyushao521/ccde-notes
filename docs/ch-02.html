@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 7183 字</span></div><h1 id="2-designing-for-business-success">第 2 章：为商业成功而设计 (Designing for Business Success)<a class="anchor" href="#2-designing-for-business-success" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 7469 字</span></div><h1 id="2-designing-for-business-success">第 2 章：为商业成功而设计 (Designing for Business Success)<a class="anchor" href="#2-designing-for-business-success" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 141-180 页</p>
 </blockquote>
@@ -128,6 +128,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch02-01-business-chain.svg" alt="业务优先级、驱动力、成果、能力四列的映射链条，以及同一能力被多个成果复用" loading="lazy">
+<figcaption><b>图 2-1</b>　业务语言到技术能力的四级链条：优先级决定驱动力，驱动力验收为成果，成果由能力支撑</figcaption>
+</figure>
+
 <hr />
 <h3 id="business-continuity">业务连续性 (Business Continuity)<a class="anchor" href="#business-continuity" title="Permanent link"></a></h3>
 <p>业务连续性 (BC) 是指在中断后继续业务活动的能力。中断可能由系统故障或自然灾害引起。因此，企业需要建立和提高弹性水平，以应对和恢复意外中断。</p>
@@ -145,6 +150,11 @@
 <blockquote>
 <p>例如，一个基于云的基础设施公司的 RPO 为 15 分钟、RTO 为 20 分钟。如果发生 10 分钟的中断，两个指标都在范围内。但如果发生 2 小时的中断，则有 1 小时 40 分钟的中断时间未被覆盖。</p>
 </blockquote>
+<figure class="fig">
+<img src="assets/fig/ch02-02-rpo-rto.svg" alt="RPO 与 RTO 在同一时间轴上的位置，以及同一设计对 10 分钟与 120 分钟中断的判定" loading="lazy">
+<figcaption><b>图 2-2</b>　RPO 往回看数据、RTO 往前看服务：两个数字必须成对出现才有意义</figcaption>
+</figure>
+
 <hr />
 <h3 id="elasticity">弹性以支持战略业务趋势 (Elasticity)<a class="anchor" href="#elasticity" title="Permanent link"></a></h3>
 <p>弹性是指设计在响应业务变化时可以提供的灵活程度。变化可以是有机增长、业务衰退、合并或收购。</p>
@@ -274,6 +284,11 @@
 </tbody>
 </table>
 <p>在上例中，基于业务需求和优先级，设计选项 2 更适合。</p>
+<figure class="fig">
+<img src="assets/fig/ch02-03-decision-tools.svg" alt="决策树用 yes/no 逐层排除候选，决策矩阵用加权打分在合格选项中排序" loading="lazy">
+<figcaption><b>图 2-3</b>　决策树负责淘汰硬性不合格项，决策矩阵负责在合格项之间排序，两者是接力而非替代</figcaption>
+</figure>
+
 <h4 id="_3">规划方法<a class="anchor" href="#_3" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -453,6 +468,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch02-04-waterfall-agile.svg" alt="瀑布模型的串行阶段与一次交付，对比敏捷的多轮冲刺与增量交付" loading="lazy">
+<figcaption><b>图 2-4</b>　瀑布把风险集中在最后一次验收，敏捷把风险切碎摊到每一轮交付</figcaption>
+</figure>
+
 <hr />
 <h3 id="scrum">Scrum 方法论<a class="anchor" href="#scrum" title="Permanent link"></a></h3>
 <p>Scrum 是敏捷方法论的一种具体实现，使用固定时长的迭代称为<strong>冲刺 (Sprint)</strong>。</p>
@@ -618,6 +638,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch02-05-scrum-kanban.svg" alt="Scrum 冲刺闭环与三个角色，对比看板四列、WIP 上限与瓶颈识别" loading="lazy">
+<figcaption><b>图 2-5</b>　Scrum 用时间盒对抗范围蔓延，看板用 WIP 上限暴露瓶颈</figcaption>
+</figure>
+
 <hr />
 <h2 id="_9">实战案例<a class="anchor" href="#_9" title="Permanent link"></a></h2>
 <h3 id="6">案例一：进度"一切正常"，最后延期 6 个月<a class="anchor" href="#6" title="Permanent link"></a></h3>

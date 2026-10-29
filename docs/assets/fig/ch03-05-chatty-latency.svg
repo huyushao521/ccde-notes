@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">chatty 应用在时延放大下的性能崩塌</title>
+  <desc id="d5">同一次列表请求包含 40 个串行数据库往返。自建机房 RTT 约 1 毫秒，往返开销合计 80 毫秒；迁移到公有云后 RTT 变为 35 毫秒，同样的 40 个往返合计 2.8 秒，叠加原有逻辑后用户感知约 8 秒。下方对比减少往返次数与降低单次 RTT 两种杠杆。</desc>
+  <style>
+    .h{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .sub{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .rl{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .v{font:700 13px "Segoe UI","Microsoft YaHei",sans-serif}
+    .tk{font:10px "Segoe UI",sans-serif;fill:#9fb0c6}
+    .note{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .mono{font:11.5px Consolas,"Courier New",monospace;fill:#33404f}
+    .kd{font:600 11.5px "Segoe UI","Microsoft YaHei",sans-serif}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+
+  <text class="h" x="24" y="34">一次"打开单据列表" ＝ 40 个串行往返</text>
+  <text class="sub" x="24" y="52">应用本身没有变慢，变慢的是每一次往返的代价</text>
+
+  <!-- 行 A：自建机房 -->
+  <text class="rl" x="24" y="92">自建机房</text>
+  <text class="tk" x="24" y="108" fill="#7c8b9f">RTT ≈ 1 ms</text>
+  <rect x="200" y="84" width="18" height="26" rx="2" fill="#12a594"/>
+  <text class="v" x="230" y="103" fill="#0f7f73">80 ms</text>
+  <text class="note" x="286" y="103">40 个往返挤在 18 像素里，用户感知不到</text>
+
+  <!-- 行 B：公有云 -->
+  <text class="rl" x="24" y="162">跨广域到云</text>
+  <text class="tk" x="24" y="178" fill="#7c8b9f">RTT ≈ 35 ms</text>
+
+  <g>
+    <rect x="200" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="216" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="232" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="248" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="264" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="280" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="296" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="312" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="328" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="344" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="360" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="376" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="392" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="408" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="424" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="440" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="456" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="472" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="488" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="504" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="520" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="536" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="552" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="568" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="584" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="600" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="616" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="632" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="648" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="664" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="680" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="696" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="712" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="728" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="744" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="760" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="776" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="792" y="152" width="16" height="28" fill="#e87878"/>
+    <rect x="808" y="152" width="16" height="28" fill="#d64545"/>
+    <rect x="824" y="152" width="16" height="28" fill="#e87878"/>
+  </g>
+
+  <text class="v" x="200" y="200" fill="#a32020">2.8 s　仅往返开销</text>
+  <text class="note" x="360" y="200">40 格 ＝ 40 个往返，每格 70 ms</text>
+
+  <!-- 刻度 -->
+  <line x1="200" y1="214" x2="840" y2="214" stroke="#e6ecf4" stroke-width="1"/>
+  <line x1="200" y1="214" x2="200" y2="220" stroke="#c3cfe0" stroke-width="1"/>
+  <text class="tk" x="200" y="234" text-anchor="middle">0</text>
+  <line x1="360" y1="214" x2="360" y2="220" stroke="#c3cfe0" stroke-width="1"/>
+  <text class="tk" x="360" y="234" text-anchor="middle">0.7 s</text>
+  <line x1="520" y1="214" x2="520" y2="220" stroke="#c3cfe0" stroke-width="1"/>
+  <text class="tk" x="520" y="234" text-anchor="middle">1.4 s</text>
+  <line x1="680" y1="214" x2="680" y2="220" stroke="#c3cfe0" stroke-width="1"/>
+  <text class="tk" x="680" y="234" text-anchor="middle">2.1 s</text>
+  <line x1="840" y1="214" x2="840" y2="220" stroke="#c3cfe0" stroke-width="1"/>
+  <text class="tk" x="840" y="234" text-anchor="middle">2.8 s</text>
+
+  <!-- 计算 -->
+  <rect x="24" y="248" width="852" height="74" rx="8" fill="#f4f7fb" stroke="#dbe4f0" stroke-width="1.1"/>
+  <text class="mono" x="40" y="270">往返开销 ＝ 往返次数 × RTT × 2</text>
+  <text class="mono" x="40" y="292">自建机房：40 × 1 ms × 2 ＝ 80 ms　　云上：40 × 35 ms × 2 ＝ 2 800 ms</text>
+  <text class="mono" x="40" y="312" fill="#a32020">用户感知 8 s ≈ 2.8 s 往返 ＋ 原有机房内的 2 s 处理 ＋ 序列化与前端渲染</text>
+
+  <!-- 两种杠杆 -->
+  <text class="kd" x="24" y="348" fill="#4a5a72">两种杠杆，只有一种是修架构</text>
+
+  <rect x="24" y="360" width="410" height="94" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+  <text class="kd" x="40" y="382" fill="#0f7f73">减少往返次数（应用侧 · 治本）</text>
+  <text class="note" x="40" y="402">批量查询、二级缓存、读写分离、把 N+1 改成一次 join。</text>
+  <text class="note" x="40" y="420">40 次降到 3 次：35 ms 下往返开销只剩 0.21 s。</text>
+  <text class="note" x="40" y="440" fill="#0f7f73">架构不变，网络做什么都是缓解。</text>
+
+  <rect x="466" y="360" width="410" height="94" rx="8" fill="#fdf6e8" stroke="#e8c27a" stroke-width="1.2"/>
+  <text class="kd" x="482" y="382" fill="#a86400">降低单次 RTT（网络侧 · 治标）</text>
+  <text class="note" x="482" y="402">云专线、就近接入区域、边缘加速，把 35 ms 压到 10 ms。</text>
+  <text class="note" x="482" y="420">40 次往返仍有 0.8 s；且 RTT 由地理距离决定，有下限。</text>
+  <text class="note" x="482" y="440" fill="#a32020">网络只能缓解，不能修复 chatty 架构。</text>
+</svg>
