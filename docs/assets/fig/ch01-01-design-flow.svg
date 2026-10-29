@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t1 d1">
+  <title id="t1">自顶向下与自底向上两种设计路径对比</title>
+  <desc id="d1">左侧为自顶向下路径：业务目标、需求、逻辑与物理设计、实施验证，并有向上的验证反馈虚线；右侧为自底向上路径：先选技术与设备，再拼装设计、事后寻找业务依据，最终业务需求不满足。</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5b6b82"/>
+    </marker>
+    <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+    <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.4}
+    .h{font:600 16px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .bt{font:600 14px "Segoe UI","Microsoft YaHei",sans-serif}
+    .bs{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#5b6b82}
+    .num{font:700 12px "Segoe UI",sans-serif;fill:#fff}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+  </style>
+
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+
+  <!-- ============ 左：自顶向下 ============ -->
+  <rect class="pan" x="20" y="20" width="420" height="440" rx="12"/>
+  <text class="h" x="42" y="54" fill="#2f6fed">自顶向下 Top-down</text>
+  <text class="sub" x="42" y="76">从业务出发，逐层约束技术选择</text>
+
+  <g>
+    <rect x="56" y="100" width="348" height="54" rx="9" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+    <circle cx="80" cy="127" r="11" fill="#2f6fed"/><text class="num" x="80" y="131" text-anchor="middle">1</text>
+    <text class="bt" x="100" y="123" fill="#1a2233">业务目标与驱动力</text>
+    <text class="bs" x="100" y="141">营收 · 合规 · 用户体验 · 成本</text>
+  </g>
+  <g>
+    <rect x="56" y="190" width="348" height="54" rx="9" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+    <circle cx="80" cy="217" r="11" fill="#12a594"/><text class="num" x="80" y="221" text-anchor="middle">2</text>
+    <text class="bt" x="100" y="213" fill="#1a2233">需求层</text>
+    <text class="bs" x="100" y="231">业务 / 应用 / 功能 / 技术 + 约束</text>
+  </g>
+  <g>
+    <rect x="56" y="280" width="348" height="54" rx="9" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+    <circle cx="80" cy="307" r="11" fill="#d98600"/><text class="num" x="80" y="311" text-anchor="middle">3</text>
+    <text class="bt" x="100" y="303" fill="#1a2233">逻辑设计 → 物理设计</text>
+    <text class="bs" x="100" y="321">协议 · 拓扑 · 平台选型 · 地址与路由规划</text>
+  </g>
+  <g>
+    <rect x="56" y="370" width="348" height="54" rx="9" fill="#f1f3f7" stroke="#8a97a8" stroke-width="1.4"/>
+    <circle cx="80" cy="397" r="11" fill="#8a97a8"/><text class="num" x="80" y="401" text-anchor="middle">4</text>
+    <text class="bt" x="100" y="393" fill="#1a2233">实施 · 验证 · 运营反馈</text>
+    <text class="bs" x="100" y="411">验收用例对照需求基线，偏差回写第 2 步</text>
+  </g>
+
+  <line x1="230" y1="156" x2="230" y2="184" stroke="#5b6b82" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="230" y1="246" x2="230" y2="274" stroke="#5b6b82" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="230" y1="336" x2="230" y2="364" stroke="#5b6b82" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <path d="M56 397 H36 V127 H52" fill="none" stroke="#2f6fed" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arB)"/>
+  <text class="note" x="30" y="262" transform="rotate(-90 30 262)" text-anchor="middle" fill="#2f6fed">验证与反馈（可回溯）</text>
+
+  <!-- ============ 右：自底向上 ============ -->
+  <rect class="pan" x="460" y="20" width="420" height="440" rx="12"/>
+  <text class="h" x="482" y="54" fill="#d64545">自底向上 Bottom-up</text>
+  <text class="sub" x="482" y="76">先定技术，再倒推业务依据</text>
+
+  <g>
+    <rect x="496" y="100" width="348" height="54" rx="9" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.4"/>
+    <circle cx="520" cy="127" r="11" fill="#8a97a8"/><text class="num" x="520" y="131" text-anchor="middle">1</text>
+    <text class="bt" x="540" y="123" fill="#1a2233">先选技术与设备型号</text>
+    <text class="bs" x="540" y="141">以"熟悉 / 便宜 / 流行"为选择依据</text>
+  </g>
+  <g>
+    <rect x="496" y="190" width="348" height="54" rx="9" fill="#f1f3f7" stroke="#9fb0c6" stroke-width="1.4"/>
+    <circle cx="520" cy="217" r="11" fill="#8a97a8"/><text class="num" x="520" y="221" text-anchor="middle">2</text>
+    <text class="bt" x="540" y="213" fill="#1a2233">拼装网络设计</text>
+    <text class="bs" x="540" y="231">自下而上堆叠，接口能通即视为完成</text>
+  </g>
+  <g>
+    <rect x="496" y="280" width="348" height="54" rx="9" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+    <circle cx="520" cy="307" r="11" fill="#d98600"/><text class="num" x="520" y="311" text-anchor="middle">3</text>
+    <text class="bt" x="540" y="303" fill="#1a2233">事后寻找业务依据</text>
+    <text class="bs" x="540" y="321">上线前才补需求文档，约束已被技术锁死</text>
+  </g>
+  <g>
+    <rect x="496" y="370" width="348" height="54" rx="9" fill="#ffecec" stroke="#d64545" stroke-width="1.6"/>
+    <circle cx="520" cy="397" r="11" fill="#d64545"/><text class="num" x="520" y="401" text-anchor="middle">4</text>
+    <text class="bt" x="540" y="393" fill="#a32020">业务或应用需求不满足</text>
+    <text class="bs" x="540" y="411" fill="#a32020">返工成本最高，且往往无法通过调优补救</text>
+  </g>
+
+  <line x1="670" y1="156" x2="670" y2="184" stroke="#5b6b82" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="670" y1="246" x2="670" y2="274" stroke="#5b6b82" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="670" y1="336" x2="670" y2="364" stroke="#d64545" stroke-width="1.8" marker-end="url(#arR)"/>
+
+  <text class="note" x="482" y="445" fill="#d64545">⚠ 缺少需求基线：验收无依据，风险在设计完成之后才暴露</text>
+
+  <text class="note" x="450" y="484" text-anchor="middle">箭头方向＝推演的先后顺序；虚线为反馈路径。两条路径做完的动作相同，顺序决定了返工发生在哪一步。</text>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 566" width="100%" role="img" aria-labelledby="t4 d4">
+  <title id="t4">冗余不等于可用性：故障域决定真实可用性</title>
+  <desc id="d4">左图为假冗余：双设备双链路但共用同一管井与机柜，一次施工即全断；右图为真冗余：两个故障域物理分离，任一域失效业务仍在另一域运行；下方给出串联与并联可用性计算方法。</desc>
+  <defs>
+    <marker id="gr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12855f"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.4}
+    .ttl{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .dev{fill:#f7f9fc;stroke:#8a97a8;stroke-width:1.2}
+    .dl{font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#3d4a5e;text-anchor:middle}
+    .ann{font:11px "Segoe UI","Microsoft YaHei",sans-serif}
+    .card{fill:#fff;stroke:#dbe4f0;stroke-width:1.3}
+    .ch{font:600 12.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .fm{font:600 14px Consolas,"Cascadia Mono",monospace;fill:#2f6fed}
+    .ex{font:11px Consolas,"Cascadia Mono",monospace;fill:#12855f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="566" fill="#fbfcfe"/>
+
+  <!-- ============ 左：假冗余 ============ -->
+  <rect class="pan" x="20" y="20" width="410" height="330" rx="12"/>
+  <text class="ttl" x="38" y="52" fill="#d64545">✕ 设备是双份，故障域是单份</text>
+  <text class="sub" x="38" y="72">双路由器 + 双链路，但共用同一段物理路径</text>
+
+  <rect class="dev" x="60" y="90" width="110" height="40" rx="7"/><text class="dl" x="115" y="115">路由器 R1</text>
+  <rect class="dev" x="270" y="90" width="110" height="40" rx="7"/><text class="dl" x="325" y="115">路由器 R2</text>
+  <rect class="dev" x="60" y="232" width="110" height="40" rx="7"/><text class="dl" x="115" y="257">交换机 SW1</text>
+  <rect class="dev" x="270" y="232" width="110" height="40" rx="7"/><text class="dl" x="325" y="257">交换机 SW2</text>
+
+  <g stroke="#5b6b82" stroke-width="1.5">
+    <line x1="100" y1="130" x2="100" y2="232"/>
+    <line x1="140" y1="130" x2="285" y2="232"/>
+    <line x1="300" y1="130" x2="150" y2="232"/>
+    <line x1="340" y1="130" x2="340" y2="232"/>
+  </g>
+
+  <rect x="52" y="160" width="336" height="54" rx="27" fill="#ffecec" fill-opacity="0.75" stroke="#d64545" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text class="ann" x="220" y="182" text-anchor="middle" fill="#a32020" font-weight="600">共享域：同一市政管井 · 同一机柜 · 同一 PDU</text>
+  <text class="ann" x="220" y="200" text-anchor="middle" fill="#a32020">四条链路全部穿过这里</text>
+
+  <text class="ann" x="38" y="304" fill="#a32020">✕ 挖断一次 = 四条链路同时中断，可用性等于单链路</text>
+  <text class="ann" x="38" y="324" fill="#a32020">冗余必须以故障域为单位衡量，不以设备数量衡量</text>
+
+  <!-- ============ 右：真冗余 ============ -->
+  <rect class="pan" x="470" y="20" width="410" height="330" rx="12"/>
+  <text class="ttl" x="488" y="52" fill="#12855f">✓ 故障域分离，才是真冗余</text>
+  <text class="sub" x="488" y="72">不同运营商 · 不同机房 · 不同供电 · 不同光纤路由</text>
+
+  <rect x="486" y="84" width="186" height="210" rx="10" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text class="ann" x="500" y="102" fill="#0c5f47" font-weight="600">故障域 A</text>
+  <rect x="700" y="84" width="166" height="210" rx="10" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text class="ann" x="714" y="102" fill="#0c5f47" font-weight="600">故障域 B</text>
+
+  <rect class="dev" x="504" y="112" width="110" height="38" rx="7"/><text class="dl" x="559" y="136">路由器 R1</text>
+  <rect class="dev" x="724" y="112" width="110" height="38" rx="7"/><text class="dl" x="779" y="136">路由器 R2</text>
+  <rect class="dev" x="504" y="228" width="110" height="38" rx="7"/><text class="dl" x="559" y="252">交换机 SW1</text>
+  <rect class="dev" x="724" y="228" width="110" height="38" rx="7"/><text class="dl" x="779" y="252">交换机 SW2</text>
+
+  <line x1="548" y1="150" x2="548" y2="228" stroke="#5b6b82" stroke-width="1.5"/>
+  <line x1="768" y1="150" x2="768" y2="228" stroke="#5b6b82" stroke-width="1.5"/>
+  <line x1="786" y1="150" x2="786" y2="228" stroke="#5b6b82" stroke-width="1.5"/>
+  <line x1="530" y1="150" x2="530" y2="228" stroke="#5b6b82" stroke-width="1.5"/>
+
+  <line x1="614" y1="247" x2="720" y2="247" stroke="#12855f" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#gr)"/>
+  <text x="667" y="240" text-anchor="middle" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="9.5" fill="#0c5f47">备份路径</text>
+
+  <text class="ann" x="488" y="304" fill="#0c5f47">✓ 任一域整体失效，业务在另一域继续运行</text>
+  <text class="ann" x="488" y="324" fill="#0c5f47">代价：带宽 ×2、运维 ×2、跨域一致性设计</text>
+
+  <!-- ============ 下：计算方法 ============ -->
+  <rect class="card" x="20" y="366" width="273" height="150" rx="12"/>
+  <text class="ch" x="38" y="392">串联（互为依赖）</text>
+  <text class="fm" x="38" y="420">A = A₁ × A₂ × … × Aₙ</text>
+  <text class="ex" x="38" y="448">0.999 × 0.999 = 0.998</text>
+  <text x="38" y="474" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">经过的设备越多，整体可用性越低</text>
+  <text x="38" y="494" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">每串入一级，就是一次可用性打折</text>
+
+  <rect class="card" x="313" y="366" width="273" height="150" rx="12"/>
+  <text class="ch" x="331" y="392">并联（真冗余）</text>
+  <text class="fm" x="331" y="420">A = 1 − (1 − A)ⁿ</text>
+  <text class="ex" x="331" y="448">双机 99.9% ⇒ 99.9999%</text>
+  <text x="331" y="474" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">前提：两条路径的故障域相互独立</text>
+  <text x="331" y="494" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">相关故障（同管道）会让公式失效</text>
+
+  <rect class="card" x="606" y="366" width="274" height="150" rx="12"/>
+  <text class="ch" x="624" y="392">多少冗余算过多</text>
+  <text x="624" y="418" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#3d4a5e">2 条：标准做法</text>
+  <text x="624" y="440" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#3d4a5e">4 条：有明确理由才做</text>
+  <text x="624" y="462" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#a32020">5 条以上：复杂度超过收益</text>
+  <text x="624" y="490" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">当复杂度与成本的增加不再对应</text>
+  <text x="624" y="506" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6f8098">可用性收益时，就是过多了</text>
+
+  <text x="450" y="546" text-anchor="middle" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#6f8098">消除单点故障与消除双点故障的成本差异是指数级的——先算清"业务能忍受中断多久"，再决定买到哪一档。</text>
+</svg>

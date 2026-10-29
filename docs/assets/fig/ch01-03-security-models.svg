@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t3 d3">
+  <title id="t3">三种安全模型的演进</title>
+  <desc id="d3">左：边界安全只在网络边界部署防火墙，内部东西向流量不受检查；中：会话与交易安全对每个会话做认证与授权；右：零信任架构用分析引擎给每个实体打信任分数并实时决策。</desc>
+  <defs>
+    <marker id="ra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d64545"/>
+    </marker>
+    <marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12855f"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.4}
+    .ttl{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233}
+    .sub{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .host{fill:#fff;stroke:#9fb0c6;stroke-width:1.1}
+    .hl{font:600 9.5px "Segoe UI",sans-serif;fill:#5b6b82;text-anchor:middle}
+    .ann{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif}
+    .foot{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+    .zone{fill:#f7f9fc;stroke:#cfd8e6;stroke-width:1.1}
+  </style>
+
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+
+  <!-- ================= ① 边界安全 ================= -->
+  <g transform="translate(20,20)">
+    <rect class="pan" x="0" y="0" width="280" height="400" rx="12"/>
+    <text class="ttl" x="14" y="30">① 边界安全（龟壳模型）</text>
+    <text class="sub" x="14" y="50">只有一道门，进门之后全部敞开</text>
+
+    <rect class="zone" x="10" y="68" width="260" height="182" rx="8"/>
+    <rect x="10" y="68" width="260" height="26" rx="6" fill="#ffecec" stroke="#d64545" stroke-width="1.2"/>
+    <text class="ann" x="140" y="85" text-anchor="middle" fill="#a32020" font-weight="600">防火墙 · 唯一防线</text>
+
+    <rect class="host" x="40" y="124" width="34" height="30" rx="4"/><text class="hl" x="57" y="143">主机</text>
+    <rect class="host" x="124" y="124" width="34" height="30" rx="4"/><text class="hl" x="141" y="143">主机</text>
+    <rect class="host" x="208" y="124" width="34" height="30" rx="4"/><text class="hl" x="225" y="143">主机</text>
+    <rect class="host" x="40" y="180" width="34" height="30" rx="4"/><text class="hl" x="57" y="199">服务器</text>
+    <rect class="host" x="124" y="180" width="34" height="30" rx="4"/><text class="hl" x="141" y="199">服务器</text>
+    <rect class="host" x="208" y="180" width="34" height="30" rx="4"/><text class="hl" x="225" y="199">服务器</text>
+
+    <g stroke="#d64545" stroke-width="1.3" stroke-dasharray="4 3" fill="none" marker-end="url(#ra)">
+      <line x1="74" y1="139" x2="120" y2="139"/>
+      <line x1="158" y1="139" x2="204" y2="139"/>
+      <line x1="57" y1="154" x2="57" y2="176"/>
+      <line x1="141" y1="154" x2="141" y2="176"/>
+      <line x1="225" y1="154" x2="225" y2="176"/>
+      <line x1="238" y1="175" x2="163" y2="196"/>
+    </g>
+    <text class="ann" x="140" y="234" text-anchor="middle" fill="#d64545">东西向流量 100% 放通，无人检查</text>
+
+    <rect x="10" y="258" width="260" height="66" rx="8" fill="#ffecec" stroke="#d64545" stroke-dasharray="5 4" stroke-width="1.3"/>
+    <text class="ann" x="22" y="278" fill="#a32020" font-weight="600">✕ 一次突破边界 = 全网横向畅通</text>
+    <text class="ann" x="22" y="296" fill="#a32020">内部威胁、失陷终端、外包设备</text>
+    <text class="ann" x="22" y="313" fill="#a32020">都不再有任何拦截点</text>
+
+    <text class="foot" x="14" y="352">适用：边界清晰的小型封闭网络</text>
+  </g>
+
+  <!-- ================= ② 会话与交易安全 ================= -->
+  <g transform="translate(310,20)">
+    <rect class="pan" x="0" y="0" width="280" height="400" rx="12"/>
+    <text class="ttl" x="14" y="30">② 会话与交易安全</text>
+    <text class="sub" x="14" y="50">每个会话都认证、都授权</text>
+
+    <rect class="zone" x="10" y="68" width="260" height="182" rx="8"/>
+
+    <rect class="host" x="40" y="110" width="34" height="28" rx="4"/><text class="hl" x="57" y="128">用户</text>
+    <rect class="host" x="124" y="110" width="34" height="28" rx="4"/><text class="hl" x="141" y="128">用户</text>
+    <rect class="host" x="208" y="110" width="34" height="28" rx="4"/><text class="hl" x="225" y="128">应用</text>
+    <rect class="host" x="40" y="186" width="34" height="28" rx="4"/><text class="hl" x="57" y="204">数据库</text>
+    <rect class="host" x="124" y="186" width="34" height="28" rx="4"/><text class="hl" x="141" y="204">服务器</text>
+    <rect class="host" x="208" y="186" width="34" height="28" rx="4"/><text class="hl" x="225" y="204">服务器</text>
+
+    <g stroke="#12855f" stroke-width="1.4" fill="none" marker-end="url(#ga)">
+      <line x1="74" y1="124" x2="120" y2="124"/>
+      <line x1="158" y1="124" x2="204" y2="124"/>
+      <line x1="57" y1="138" x2="57" y2="182"/>
+    </g>
+    <g fill="#e6f7ef" stroke="#12855f" stroke-width="1.1">
+      <circle cx="97" cy="124" r="8"/><circle cx="181" cy="124" r="8"/><circle cx="57" cy="160" r="8"/>
+    </g>
+    <g fill="#12855f" font-family="Segoe UI,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">
+      <text x="97" y="127">✓</text><text x="181" y="127">✓</text><text x="57" y="163">✓</text>
+    </g>
+
+    <rect x="62" y="222" width="156" height="24" rx="6" fill="#e8f7f4" stroke="#12a594" stroke-width="1.2"/>
+    <text class="ann" x="140" y="238" text-anchor="middle" fill="#0c5f47">身份与策略引擎</text>
+    <g stroke="#9fb0c6" stroke-width="0.9" stroke-dasharray="3 3">
+      <line x1="97" y1="222" x2="70" y2="138"/>
+      <line x1="140" y1="222" x2="141" y2="138"/>
+      <line x1="183" y1="222" x2="212" y2="138"/>
+    </g>
+
+    <rect x="10" y="258" width="260" height="66" rx="8" fill="#e8f7f4" stroke="#12a594" stroke-dasharray="5 4" stroke-width="1.3"/>
+    <text class="ann" x="22" y="278" fill="#0c5f47" font-weight="600">✓ 东西向被纳入管控范围</text>
+    <text class="ann" x="22" y="296" fill="#0c5f47">按设备、用户、位置、需求动态授权</text>
+    <text class="ann" x="22" y="313" fill="#0c5f47">100% 认证 + 100% 授权</text>
+
+    <text class="foot" x="14" y="352">代价：策略复杂度随用户与资产数上升</text>
+  </g>
+
+  <!-- ================= ③ 零信任 ================= -->
+  <g transform="translate(600,20)">
+    <rect class="pan" x="0" y="0" width="280" height="400" rx="12"/>
+    <text class="ttl" x="14" y="30">③ 零信任架构 Zero Trust</text>
+    <text class="sub" x="14" y="50">持续评估信任分数，逐流实时决策</text>
+
+    <rect class="zone" x="10" y="68" width="260" height="182" rx="8"/>
+
+    <rect class="host" x="34" y="104" width="58" height="26" rx="4"/><text class="hl" x="63" y="121">设备</text>
+    <rect class="host" x="111" y="104" width="58" height="26" rx="4"/><text class="hl" x="140" y="121">用户</text>
+    <rect class="host" x="188" y="104" width="58" height="26" rx="4"/><text class="hl" x="217" y="121">应用</text>
+    <rect class="host" x="34" y="176" width="58" height="26" rx="4"/><text class="hl" x="63" y="193">资源</text>
+    <rect class="host" x="111" y="176" width="58" height="26" rx="4"/><text class="hl" x="140" y="193">数据</text>
+    <rect class="host" x="188" y="176" width="58" height="26" rx="4"/><text class="hl" x="217" y="193">服务</text>
+
+    <g>
+      <rect x="34" y="134" width="58" height="15" rx="7.5" fill="#e6f7ef" stroke="#12855f" stroke-width="0.9"/>
+      <text x="63" y="145" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#0c5f47">信任 92</text>
+      <rect x="111" y="134" width="58" height="15" rx="7.5" fill="#e6f7ef" stroke="#12855f" stroke-width="0.9"/>
+      <text x="140" y="145" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#0c5f47">信任 88</text>
+      <rect x="188" y="134" width="58" height="15" rx="7.5" fill="#ffecec" stroke="#d64545" stroke-width="0.9"/>
+      <text x="217" y="145" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#a32020">信任 31</text>
+      <rect x="34" y="206" width="58" height="15" rx="7.5" fill="#e6f7ef" stroke="#12855f" stroke-width="0.9"/>
+      <text x="63" y="217" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#0c5f47">信任 95</text>
+      <rect x="111" y="206" width="58" height="15" rx="7.5" fill="#fff8e8" stroke="#d98600" stroke-width="0.9"/>
+      <text x="140" y="217" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#a56400">信任 64</text>
+      <rect x="188" y="206" width="58" height="15" rx="7.5" fill="#e6f7ef" stroke="#12855f" stroke-width="0.9"/>
+      <text x="217" y="217" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8.5" fill="#0c5f47">信任 90</text>
+    </g>
+
+    <g stroke="#12855f" stroke-width="1.3" fill="none" marker-end="url(#ga)">
+      <line x1="92" y1="117" x2="108" y2="117"/>
+      <line x1="169" y1="189" x2="185" y2="189"/>
+    </g>
+    <line x1="188" y1="117" x2="172" y2="117" stroke="#d64545" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="178" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#d64545">✕</text>
+
+    <rect x="10" y="226" width="260" height="22" rx="6" fill="#f3e9ff" stroke="#7a4fd0" stroke-width="1.1"/>
+    <text class="ann" x="140" y="241" text-anchor="middle" fill="#4b2a8a" font-size="10">分析引擎 · AI/ML 实时决策</text>
+
+    <rect x="10" y="266" width="260" height="58" rx="8" fill="#f3e9ff" stroke="#7a4fd0" stroke-dasharray="5 4" stroke-width="1.3"/>
+    <text class="ann" x="22" y="285" fill="#4b2a8a" font-weight="600">✓ 信任分数低 → 该流被拒</text>
+    <text class="ann" x="22" y="303" fill="#4b2a8a">分数随行为动态变化，不是一次授权</text>
+    <text class="ann" x="22" y="319" fill="#4b2a8a">任何位置都不默认"可信"</text>
+
+    <text class="foot" x="14" y="352">代价：需要全流量可见性与数据治理</text>
+  </g>
+
+  <text x="450" y="442" text-anchor="middle" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#6f8098">三个模型不是替代关系而是递进关系：③ 包含 ② 的逐会话授权，② 包含 ① 的边界防护。</text>
+</svg>

@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 8979 字</span></div><h1 id="1-network-design">第 1 章：网络设计 (Network Design)<a class="anchor" href="#1-network-design" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="精讲">精讲</span><span class="ch-words">约 9239 字</span></div><h1 id="1-network-design">第 1 章：网络设计 (Network Design)<a class="anchor" href="#1-network-design" title="Permanent link"></a></h1>
 <blockquote>
 <p>《CCDE 400-007 Official Cert Guide》中文翻译 | 原书第 81-140 页</p>
 </blockquote>
@@ -68,6 +68,11 @@
 <p><strong>自顶向下方法 (Top-down Approach)</strong>：通过拆分设计任务来简化设计过程，使其更专注于设计范围，以更受控的方式执行。这种方法最终帮助网络设计师从业务角度审视网络设计解决方案。</p>
 <p><strong>自底向上方法 (Bottom-up Approach)</strong>：与之相反，自底向上方法首先关注选择网络技术和设计模型。这会带来很高的设计失败风险，因为网络可能无法满足业务或应用的需求。</p>
 <p>要实现成功的战略设计，必须更加重视业务。这意味着首要关注业务优先级、驱动力、成果、技术目标以及现有和未来的服务与应用。事实上，在当今的网络中，业务需求正在驱动 IT 和网络计划。</p>
+<figure class="fig">
+<img src="assets/fig/ch01-01-design-flow.svg" alt="自顶向下与自底向上两种设计路径的四步对比" loading="lazy">
+<figcaption><b>图 1-1</b>　自顶向下 vs 自底向上：四步动作相同，顺序决定返工发生在哪一步</figcaption>
+</figure>
+
 <hr />
 <h2 id="network-design-fundamentals">网络设计基础 (Network Design Fundamentals)<a class="anchor" href="#network-design-fundamentals" title="Permanent link"></a></h2>
 <p>网络设计基础是所有网络设计师应该理解并知道如何利用的基础元素：</p>
@@ -145,6 +150,11 @@
 <blockquote>
 <p><strong>示例场景</strong>：一家全国性零售公司目前计划在未来 12 个月内扩展业务，增加多个国际站点。然而，以现有的 IT 基础设施，他们在管理和维护现有的两个数据和语音网络方面面临高昂费用。此外，企业希望投资于能提升业务效率和员工生产力的技术。</p>
 </blockquote>
+<figure class="fig">
+<img src="assets/fig/ch01-02-requirements.svg" alt="业务需求到设计规格的五层需求结构，以及可追溯的追问方向" loading="lazy">
+<figcaption><b>图 1-2</b>　需求的五层结构：每一层都能由上层推导，也必须能向上追问为什么</figcaption>
+</figure>
+
 <h3 id="design-scope">设计范围 (Design Scope)<a class="anchor" href="#design-scope" title="Permanent link"></a></h3>
 <p>在任何设计项目中，网络设计师在开始收集信息和规划网络设计之前，必须仔细分析和评估设计范围。因此，确定设计任务是针对<strong>全新网络 (Greenfield)</strong> 还是现有生产网络至关重要。同样重要的是确定设计是跨越单个网络模块还是多个模块。</p>
 <table>
@@ -309,6 +319,11 @@
 </tr>
 </tbody>
 </table>
+<figure class="fig">
+<img src="assets/fig/ch01-03-security-models.svg" alt="边界安全、会话与交易安全、零信任三种安全模型的对比" loading="lazy">
+<figcaption><b>图 1-3</b>　三种安全模型：从"守边界"到"逐会话授权"再到"逐流计算信任"</figcaption>
+</figure>
+
 <h3 id="availability">可用性 (Availability)<a class="anchor" href="#availability" title="Permanent link"></a></h3>
 <p>可用性包括冗余、弹性、可靠性等概念：</p>
 <table>
@@ -337,6 +352,11 @@
 <p>随着可用性水平的提高，复杂性和相关成本也随之增加。消除单点故障 vs 消除双点故障——后者使成本和复杂性呈指数级增长。</p>
 </blockquote>
 <p><strong>多少冗余是过多的？</strong> 当增加的复杂性、成本和可用性的相关回报不值得时，就是过多了。例如，设计八条二层或三层链路之间的连接是不合理的——两条是标准，四条有合理理由，五条或更多增加的复杂性远超收益。</p>
+<figure class="fig">
+<img src="assets/fig/ch01-04-availability.svg" alt="假冗余与真冗余的对比，以及串联并联可用性计算" loading="lazy">
+<figcaption><b>图 1-4</b>　冗余不等于可用性：设备数量是假象，故障域是否分离才是真相</figcaption>
+</figure>
+
 <h3 id="scalability">可扩展性 (Scalability)<a class="anchor" href="#scalability" title="Permanent link"></a></h3>
 <p>可扩展性是网络设计原则，确保设计能够适应业务的增长和扩展。网络设计师需要考虑：</p>
 <ul>
@@ -394,6 +414,11 @@
 - 灵活性</p>
 <h3 id="hierarchy">层次化设计 (Hierarchy)<a class="anchor" href="#hierarchy" title="Permanent link"></a></h3>
 <p>层次化设计将网络分为核心层、分布层和接入层，每层有明确职责。</p>
+<figure class="fig">
+<img src="assets/fig/ch01-05-hierarchy.svg" alt="核心、汇聚、接入三层的职责划分，以及按功能划分的模块与故障隔离域" loading="lazy">
+<figcaption><b>图 1-5</b>　层次化解决模块内分工，模块化解决模块间解耦：叠加后才有隔离与信息隐藏</figcaption>
+</figure>
+
 <hr />
 <h2 id="network-design-pitfalls">网络设计缺陷 (Network Design Pitfalls)<a class="anchor" href="#network-design-pitfalls" title="Permanent link"></a></h2>
 <h3 id="1-assumptions">1. 假设 (Assumptions)<a class="anchor" href="#1-assumptions" title="Permanent link"></a></h3>

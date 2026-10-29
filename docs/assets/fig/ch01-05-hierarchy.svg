@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 566" width="100%" role="img" aria-labelledby="t5 d5">
+  <title id="t5">层次化与模块化设计：故障隔离与信息隐藏</title>
+  <desc id="d5">左侧展示核心层、汇聚层、接入层的职责划分与上下行数据流；右侧展示按功能划分的模块（园区A、园区B、数据中心、WAN边缘）各自形成故障隔离域，只向核心通告汇总路由。</desc>
+  <defs>
+    <marker id="up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12855f"/>
+    </marker>
+    <marker id="dw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .pan{fill:#fff;stroke:#dbe4f0;stroke-width:1.4}
+    .ttl{font:600 13.5px "Segoe UI","Microsoft YaHei",sans-serif}
+    .sub{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .ly{font:600 13px "Segoe UI","Microsoft YaHei",sans-serif}
+    .ls{font:11px "Segoe UI","Microsoft YaHei",sans-serif;fill:#3d4a5e}
+    .ann{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif}
+    .mod{fill:#fff;stroke:#9fb0c6;stroke-width:1.3}
+    .mn{font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#1a2233;text-anchor:middle}
+    .ms{font:10px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098;text-anchor:middle}
+  </style>
+
+  <rect x="0" y="0" width="900" height="566" fill="#fbfcfe"/>
+
+  <!-- ================= 左：层次化 ================= -->
+  <rect class="pan" x="20" y="20" width="420" height="470" rx="12"/>
+  <text class="ttl" x="38" y="52" fill="#1a2233">层次化 Hierarchy：每层只做一件事</text>
+  <text class="sub" x="38" y="72">层内高内聚，层间低耦合</text>
+
+  <rect x="56" y="92" width="348" height="76" rx="9" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+  <text class="ly" x="74" y="118" fill="#1a2233">核心层 Core</text>
+  <text class="ls" x="74" y="140">只做高速转发：不接终端、不做策略、不做复杂 ACL</text>
+  <text class="ls" x="74" y="158">目标是"最短路径 + 最快收敛"</text>
+
+  <rect x="56" y="196" width="348" height="76" rx="9" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <text class="ly" x="74" y="222" fill="#1a2233">汇聚层 / 分布层 Distribution</text>
+  <text class="ls" x="74" y="244">策略与边界：路由汇总、QoS 标记、策略执行、区域边界</text>
+  <text class="ls" x="74" y="262">向核心只通告汇总路由（信息隐藏的主要发生点）</text>
+
+  <rect x="56" y="300" width="348" height="76" rx="9" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+  <text class="ly" x="74" y="326" fill="#1a2233">接入层 Access</text>
+  <text class="ls" x="74" y="348">面对终端：端口密度、PoE、二层隔离、准入认证入口</text>
+  <text class="ls" x="74" y="366">变动最频繁的一层，必须设计成"可整块替换"</text>
+
+  <path d="M40 372 V104" fill="none" stroke="#12855f" stroke-width="1.5" marker-end="url(#up)"/>
+  <path d="M424 104 V372" fill="none" stroke="#2f6fed" stroke-width="1.5" marker-end="url(#dw)"/>
+  <text class="ann" x="34" y="240" transform="rotate(-90 34 240)" text-anchor="middle" fill="#12855f">汇总上行</text>
+  <text class="ann" x="432" y="240" transform="rotate(-90 432 240)" text-anchor="middle" fill="#2f6fed">流量下行</text>
+
+  <rect x="38" y="398" width="384" height="72" rx="9" fill="#f7f9fc" stroke="#cfd8e6" stroke-dasharray="5 4" stroke-width="1.2"/>
+  <text class="ann" x="52" y="418" fill="#3d4a5e" font-weight="600">层数不是越多越好</text>
+  <text class="ann" x="52" y="437" fill="#3d4a5e">每增加一层：多一次故障点、多一跳延迟、多一套配置基线</text>
+  <text class="ann" x="52" y="456" fill="#3d4a5e">小型分支常见"二层折叠"（核心兼汇聚），是合理的取舍</text>
+
+  <!-- ================= 右：模块化 ================= -->
+  <rect class="pan" x="460" y="20" width="420" height="470" rx="12"/>
+  <text class="ttl" x="478" y="52" fill="#1a2233">模块化 Modularity：把故障关进模块里</text>
+  <text class="sub" x="478" y="72">模块内部高带宽、模块之间受控互访</text>
+
+  <g>
+    <rect x="480" y="92" width="164" height="86" rx="9" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <text class="ann" x="494" y="110" fill="#0c5f47">故障隔离域 ①</text>
+    <rect class="mod" x="492" y="118" width="140" height="48" rx="7"/>
+    <text class="mn" x="562" y="139">园区 A</text>
+    <text class="ms" x="562" y="156">接入 + 汇聚，本模块内收敛</text>
+  </g>
+  <g>
+    <rect x="696" y="92" width="164" height="86" rx="9" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <text class="ann" x="710" y="110" fill="#0c5f47">故障隔离域 ②</text>
+    <rect class="mod" x="708" y="118" width="140" height="48" rx="7"/>
+    <text class="mn" x="778" y="139">园区 B</text>
+    <text class="ms" x="778" y="156">同构复制，策略不跨模块</text>
+  </g>
+  <g>
+    <rect x="480" y="204" width="164" height="86" rx="9" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <text class="ann" x="494" y="222" fill="#0c5f47">故障隔离域 ③</text>
+    <rect class="mod" x="492" y="230" width="140" height="48" rx="7"/>
+    <text class="mn" x="562" y="251">数据中心</text>
+    <text class="ms" x="562" y="268">独立地址域与安全边界</text>
+  </g>
+  <g>
+    <rect x="696" y="204" width="164" height="86" rx="9" fill="#f2fbf7" stroke="#12855f" stroke-width="1.2" stroke-dasharray="6 4"/>
+    <text class="ann" x="710" y="222" fill="#0c5f47">故障隔离域 ④</text>
+    <rect class="mod" x="708" y="230" width="140" height="48" rx="7"/>
+    <text class="mn" x="778" y="251">WAN / 互联网边缘</text>
+    <text class="ms" x="778" y="268">唯一对外出口与信任边界</text>
+  </g>
+
+  <rect x="592" y="356" width="152" height="56" rx="9" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+  <text class="mn" x="668" y="379" fill="#1a2233">核心骨干</text>
+  <text class="ms" x="668" y="397">只负责模块间互联</text>
+
+  <g stroke="#5b6b82" stroke-width="1.3" fill="none">
+    <line x1="562" y1="178" x2="640" y2="352"/>
+    <line x1="778" y1="178" x2="700" y2="352"/>
+    <line x1="562" y1="278" x2="626" y2="352"/>
+    <line x1="778" y1="278" x2="714" y2="352"/>
+  </g>
+  <rect x="608" y="308" width="120" height="20" rx="5" fill="#fbfcfe" fill-opacity="0.94"/>
+  <text class="ann" x="668" y="322" text-anchor="middle" fill="#3d4a5e">只通告汇总路由</text>
+
+  <rect x="478" y="428" width="384" height="44" rx="9" fill="#f7f9fc" stroke="#cfd8e6" stroke-dasharray="5 4" stroke-width="1.2"/>
+  <text class="ann" x="492" y="447" fill="#3d4a5e" font-weight="600">一个模块内的事件，不传导到其他模块</text>
+  <text class="ann" x="492" y="464" fill="#3d4a5e">这是"隔离"而非"消除"：故障仍会发生，但影响范围被限定</text>
+
+  <text x="450" y="530" text-anchor="middle" font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="11" fill="#6f8098">层次化解决"同一模块内部怎么分工"，模块化解决"不同区域之间如何解耦"；两者叠加，才同时得到故障隔离与信息隐藏。</text>
+</svg>

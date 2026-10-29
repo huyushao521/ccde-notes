@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 566" width="100%" role="img" aria-labelledby="t2 d2">
+  <title id="t2">需求的分层结构与可追溯链路</title>
+  <desc id="d2">五层需求自上而下收窄：业务需求、应用需求、功能需求、技术需求、设计规格与配置；每层都可由上层推导，也可向上追问为什么。右侧标注未明确需求与约束的作用位置。</desc>
+  <defs>
+    <marker id="dn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5b6b82"/>
+    </marker>
+  </defs>
+  <style>
+    .ln{font:600 14px "Segoe UI","Microsoft YaHei",sans-serif}
+    .ex{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#3d4a5e}
+    .tag{font:700 11px "Segoe UI",sans-serif}
+    .note{font:11.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#6f8098}
+    .conn{font:10.5px "Segoe UI","Microsoft YaHei",sans-serif;fill:#8a97a8}
+  </style>
+
+  <rect x="0" y="0" width="900" height="566" fill="#fbfcfe"/>
+
+  <!-- L1 业务需求 -->
+  <rect x="70" y="82" width="760" height="70" rx="10" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.4"/>
+  <rect x="70" y="82" width="8" height="70" rx="4" fill="#2f6fed"/>
+  <text class="ln" x="96" y="110" fill="#1a2233">① 业务需求 Business</text>
+  <text class="ex" x="96" y="132">进入新市场 · 三年内站点翻倍 · 合规审计 · IT 支出降 15%</text>
+  <text class="tag" x="700" y="112" fill="#2f6fed">谁提的：董事会 / 业务线</text>
+  <text class="note" x="700" y="132">不涉及任何技术名词</text>
+
+  <!-- L2 应用需求 -->
+  <rect x="120" y="168" width="660" height="70" rx="10" fill="#e8f7f4" stroke="#12a594" stroke-width="1.4"/>
+  <rect x="120" y="168" width="8" height="70" rx="4" fill="#12a594"/>
+  <text class="ln" x="146" y="196" fill="#1a2233">② 应用需求 Application</text>
+  <text class="ex" x="146" y="218">VoIP 单向延迟 &lt; 150 ms、丢包 &lt; 1%；视频坐席需稳定 2 Mbps 上行</text>
+  <text class="tag" x="620" y="198" fill="#12a594">决定设计上限的硬约束</text>
+  <text class="note" x="620" y="218">应用特性会反向约束二层/三层</text>
+
+  <!-- L3 功能需求 -->
+  <rect x="170" y="254" width="560" height="70" rx="10" fill="#fff4e0" stroke="#d98600" stroke-width="1.4"/>
+  <rect x="170" y="254" width="8" height="70" rx="4" fill="#d98600"/>
+  <text class="ln" x="196" y="282" fill="#1a2233">③ 功能需求 Functional（做什么）</text>
+  <text class="ex" x="196" y="304">语音走 10G 光纤、数据走 OC-48；不同流量类型可走不同路径</text>
+  <text class="tag" x="578" y="284" fill="#d98600">又称行为需求</text>
+  <text class="note" x="578" y="304">常需设计师主动推导</text>
+
+  <!-- L4 技术需求 -->
+  <rect x="220" y="340" width="460" height="70" rx="10" fill="#f3e9ff" stroke="#7a4fd0" stroke-width="1.4"/>
+  <rect x="220" y="340" width="8" height="70" rx="4" fill="#7a4fd0"/>
+  <text class="ln" x="246" y="366" fill="#1a2233">④ 技术需求 Technical（非功能需求）</text>
+  <text class="ex" x="246" y="387">MPLS-TE + FRR · FHRP · QoS 队列 · 控制面保护 · NetFlow/RADIUS</text>
+  <text class="note" x="246" y="404" fill="#7a4fd0">用途：证明技术选型合理，而不是罗列功能</text>
+
+  <!-- L5 设计规格 -->
+  <rect x="270" y="426" width="360" height="70" rx="10" fill="#f1f3f7" stroke="#8a97a8" stroke-width="1.4"/>
+  <rect x="270" y="426" width="8" height="70" rx="4" fill="#8a97a8"/>
+  <text class="ln" x="296" y="454" fill="#1a2233">⑤ 设计规格与配置</text>
+  <text class="ex" x="296" y="476">平台型号 · 软件版本 · 接口与策略 · 地址与路由规划</text>
+  <text class="note" x="520" y="456">可直接落地的产物</text>
+
+  <!-- 连接箭头 -->
+  <g stroke="#5b6b82" stroke-width="1.4" marker-end="url(#dn)" fill="none">
+    <line x1="450" y1="152" x2="450" y2="166"/>
+    <line x1="450" y1="238" x2="450" y2="252"/>
+    <line x1="450" y1="324" x2="450" y2="338"/>
+    <line x1="450" y1="410" x2="450" y2="424"/>
+  </g>
+  <text class="conn" x="462" y="163">驱动</text>
+  <text class="conn" x="462" y="249">驱动</text>
+  <text class="conn" x="462" y="335">驱动</text>
+  <text class="conn" x="462" y="421">驱动</text>
+
+  <!-- 右侧向上追问 -->
+  <path d="M858 410 V96" fill="none" stroke="#2f6fed" stroke-width="1.4" stroke-dasharray="4 4"/>
+  <path d="M858 96 l-5 10 h10 z" fill="#2f6fed"/>
+  <text class="note" x="872" y="270" transform="rotate(-90 872 270)" text-anchor="middle" fill="#2f6fed">每一层向上追问 Why</text>
+
+  <!-- 未明确需求提示 -->
+  <rect x="646" y="426" width="216" height="70" rx="9" fill="#fff8e8" stroke="#d98600" stroke-dasharray="5 4" stroke-width="1.4"/>
+  <text class="tag" x="660" y="447" fill="#a56400">⚠ 未明确需求 Unstated</text>
+  <text class="ex" x="660" y="465">客户没写下来但会致命：</text>
+  <text class="ex" x="660" y="483">变更窗口、运维技能、合规要求</text>
+
+  <text class="note" x="450" y="536" text-anchor="middle">向上任何一层断链，都会让下一层的技术选择失去依据：这正是"设计看着很专业，却解决不了业务问题"的根因。</text>
+</svg>
