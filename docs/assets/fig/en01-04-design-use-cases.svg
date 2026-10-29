@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">The seven design use cases, with greenfield as the easiest and divestment as the hardest</title>
+  <desc id="d4">Eight cards cover greenfield, brownfield, adding a technology, replacing a technology, merger, divestment, scaling and design failure, each with the question that has to be answered. Divestment is flagged as the most difficult case because two incomplete systems must both keep operating.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ct{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="320" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Identify the use case before you touch the design</text>
+  <text class="s" x="24" y="48">The same technology decision is cheap in one use case and reckless in another</text>
+
+  <rect x="24" y="72" width="200" height="92" rx="6" fill="#e8f7f4" stroke="#12a594"/>
+  <text class="ct" x="38" y="94" fill="#0f7f73">1 · Greenfield</text>
+  <text class="cb" x="38" y="114">Blank sheet, best case.</text>
+  <text class="cb" x="38" y="128">Check that what you propose</text>
+  <text class="cb" x="38" y="142">is what the business needs.</text>
+
+  <rect x="236" y="72" width="200" height="92" rx="6" fill="#eaf1ff" stroke="#c9dbff"/>
+  <text class="ct" x="250" y="94">2 · Brownfield</text>
+  <text class="cb" x="250" y="114">Live traffic. Discover the</text>
+  <text class="cb" x="250" y="128">current state first — technical</text>
+  <text class="cb" x="250" y="142">and business direction.</text>
+
+  <rect x="448" y="72" width="200" height="92" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="462" y="94">3 · Adding tech or app</text>
+  <text class="cb" x="462" y="114">Will the addition break</text>
+  <text class="cb" x="462" y="128">anything? Traffic pattern,</text>
+  <text class="cb" x="462" y="142">convergence, latency.</text>
+
+  <rect x="660" y="72" width="200" height="92" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="674" y="94">4 · Replacing tech</text>
+  <text class="cb" x="674" y="114">Justify the reason, then</text>
+  <text class="cb" x="674" y="128">a tested migration plan with</text>
+  <text class="cb" x="674" y="142">verification and rollback.</text>
+
+  <rect x="24" y="176" width="200" height="92" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="38" y="198">5 · Merge</text>
+  <text class="cb" x="38" y="218">Overlapping RFC 1918 space</text>
+  <text class="cb" x="38" y="232">is the norm: NAT now,</text>
+  <text class="cb" x="38" y="246">renumber at the refresh.</text>
+
+  <rect x="236" y="176" width="200" height="92" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="ct" x="250" y="198" fill="#a32020">6 · Divestment — hardest</text>
+  <text class="cb" x="250" y="218">You are left with two</text>
+  <text class="cb" x="250" y="232">incomplete systems, and both</text>
+  <text class="cb" x="250" y="246">must keep earning.</text>
+
+  <rect x="448" y="176" width="200" height="92" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="462" y="198">7 · Scaling</text>
+  <text class="cb" x="462" y="218">Planned growth or organic?</text>
+  <text class="cb" x="462" y="232">Redesign before growth,</text>
+  <text class="cb" x="462" y="246">not during the incident.</text>
+
+  <rect x="660" y="176" width="200" height="92" rx="6" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="674" y="198">8 · Design failure</text>
+  <text class="cb" x="674" y="218">Usually why you were called.</text>
+  <text class="cb" x="674" y="232">Example: STP root and the</text>
+  <text class="cb" x="674" y="246">FHRP gateway on different boxes.</text>
+
+  <text class="n" x="24" y="290">Effort and risk are not ordered by technology:</text>
+  <text class="t" x="24" y="308">greenfield  &lt;  scaling  &lt;  adding  &lt;  replacing  &lt;  merging  &lt;  divesting      —      the difficulty comes from the asymmetry between the two sides, not from the protocols.</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">The six design fundamentals, with "Why" underneath all five of the others</title>
+  <desc id="d2">Mindset, requirements, design use cases, the business and constraints are the five building blocks a designer must command; "why" is the question underneath all of them, asked five times until the answer is verifiable.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ct{font:600 10px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .wt{font:700 11px "Segoe UI",sans-serif;fill:#0f7f73}
+    .wb{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="300" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Six fundamentals: five building blocks and the question underneath them</text>
+  <text class="s" x="24" y="48">Knowing the technology is necessary but it is the comparatively easy part</text>
+
+  <rect x="24" y="72" width="156" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="38" y="94">Mindset</text>
+  <text class="cb" x="38" y="114">Design, not implementation</text>
+  <text class="cb" x="38" y="128">Ask "what happens when</text>
+  <text class="cb" x="38" y="142">this fails?"</text>
+
+  <rect x="198" y="72" width="156" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="212" y="94">Requirements</text>
+  <text class="cb" x="212" y="114">Functional, technical,</text>
+  <text class="cb" x="212" y="128">application — measured,</text>
+  <text class="cb" x="212" y="142">never quoted</text>
+
+  <rect x="372" y="72" width="156" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="386" y="94">Design use cases</text>
+  <text class="cb" x="386" y="114">Greenfield, brownfield,</text>
+  <text class="cb" x="386" y="128">add, replace, merge or</text>
+  <text class="cb" x="386" y="142">divest, scale, failure</text>
+
+  <rect x="546" y="72" width="156" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="560" y="94">The business</text>
+  <text class="cb" x="560" y="114">Every decision exists so</text>
+  <text class="cb" x="560" y="128">the business can earn,</text>
+  <text class="cb" x="560" y="142">save or serve</text>
+
+  <rect x="720" y="72" width="156" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="734" y="94">Constraints</text>
+  <text class="cb" x="734" y="114">Business, application,</text>
+  <text class="cb" x="734" y="128">technical — they narrow</text>
+  <text class="cb" x="734" y="142">the solution space</text>
+
+  <rect x="24" y="180" width="852" height="46" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="wt" x="40" y="200">"Why"</text>
+  <text class="wb" x="86" y="200">Ask it five times, like a five-year-old, until the answer is something you can understand and verify.</text>
+  <text class="wb" x="40" y="217">The answer is rarely "it is a requirement" — that sentence is the start of the conversation, not the end of it.</text>
+
+  <text class="t" x="24" y="252">Every principle in the rest of the chapter (security, availability, scalability, cost, manageability) reaches the designer as an</text>
+  <text class="t" x="24" y="270">unstated requirement. Finding, levelling and documenting it is the designer's job, not the customer's.</text>
+</svg>

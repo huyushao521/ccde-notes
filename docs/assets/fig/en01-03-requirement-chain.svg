@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 344" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">Application requirements drive functional requirements, which in turn force technical requirements</title>
+  <desc id="d3">Application requirements are the deciding factor and constrain everything downstream. They drive functional (behavioral) requirements, which force technical nonfunctional requirements such as availability, integration and infrastructure security. A VoIP SLA example shows the chain end to end.</desc>
+  <defs>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ct{font:600 10px "Segoe UI",sans-serif;fill:#1a2233}
+    .cs{font:8.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .ex{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .exb{font:600 9px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="344" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">The requirement chain: application drives functional, functional forces technical</text>
+  <text class="s" x="24" y="48">Read it right to left when you defend a platform choice; left to right when you justify a design</text>
+
+  <rect x="56" y="84" width="230" height="108" rx="6" fill="#fff4e0" stroke="#d98600"/>
+  <text class="ct" x="72" y="106">Application requirements</text>
+  <text class="cs" x="72" y="122">the deciding factor — they constrain the design</text>
+  <text class="cb" x="72" y="144">· How much traffic, bursty or steady?</text>
+  <text class="cb" x="72" y="160">· Loss, one-way delay, jitter budget?</text>
+  <text class="cb" x="72" y="176">· Regulated or policy separation?</text>
+
+  <rect x="335" y="84" width="230" height="108" rx="6" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="ct" x="351" y="106">Functional requirements</text>
+  <text class="cs" x="351" y="122">what the system does — "behavioral"</text>
+  <text class="cb" x="351" y="144">· "VoIP over 10G fiber, data over OC-48"</text>
+  <text class="cb" x="351" y="160">· implies a per-flow path mechanism</text>
+  <text class="cb" x="351" y="176">· often derived, not handed over</text>
+
+  <rect x="614" y="84" width="230" height="108" rx="6" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="ct" x="630" y="106">Technical requirements</text>
+  <text class="cs" x="630" y="122">the nonfunctional attributes</text>
+  <text class="cb" x="630" y="144">· Availability: FHRP, fast reroute</text>
+  <text class="cb" x="630" y="160">· Integration: NetFlow, RADIUS</text>
+  <text class="cb" x="630" y="176">· Infra security: CoPP, infrastructure ACL</text>
+
+  <line x1="286" y1="138" x2="333" y2="138" stroke="#2f6fed" marker-end="url(#a3)"/>
+  <line x1="565" y1="138" x2="612" y2="138" stroke="#2f6fed" marker-end="url(#a3)"/>
+  <text class="t" x="310" y="128" text-anchor="middle">drives</text>
+  <text class="t" x="589" y="128" text-anchor="middle">forces</text>
+
+  <rect x="56" y="212" width="788" height="56" rx="6" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="ex" x="72" y="234"><tspan class="exb">Example · </tspan>SLA: one-way delay under 150 ms, loss under 1% for VoIP</text>
+  <text class="ex" x="72" y="254">→ functional: MPLS-TE with Fast Reroute on the PE devices → technical: platform and software release must support TE + FRR today</text>
+
+  <text class="t" x="24" y="296">If a design misses a functional requirement, it is a bad design — however elegant the technology. Technical requirements are what you use to</text>
+  <text class="t" x="24" y="314">prove the choice was justified: features, protocols, software release, and sometimes the hardware platform itself.</text>
+</svg>

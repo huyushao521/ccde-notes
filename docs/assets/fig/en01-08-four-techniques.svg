@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 332" width="100%" role="img" aria-labelledby="t8 d8">
+
+  <title id="t8">The four design techniques: fault isolation, information hiding, modularity and hierarchy</title>
+  <desc id="d8">Each technique is shown with what it does, the mechanism that implements it, and what you observe when it is working. All four buy a bounded blast radius and all four cost more design decisions up front.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ct{font:700 10px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .cw{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .ck{font:600 8.5px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.4px}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="332" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Four techniques, one purpose: keep a failure inside its own box</text>
+  <text class="s" x="24" y="48">These are the only techniques the guide names, and every later chapter is an application of one of them</text>
+
+  <rect x="24" y="72" width="420" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="40" y="94">1 · Fault isolation</text>
+  <text class="cb" x="40" y="114">A failure in one module or layer does not spread to the others.</text>
+  <text class="cb" x="40" y="132"><tspan class="ck">HOW </tspan> module boundaries, summarisation edges, separate IGP areas, redundant paths that fail independently</text>
+  <text class="cb" x="40" y="150"><tspan class="ck">YOU SEE IT </tspan> one area flaps, the rest keeps forwarding without a topology change</text>
+
+  <rect x="456" y="72" width="420" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="472" y="94">2 · Information hiding</text>
+  <text class="cb" x="472" y="114">Propagate state, not detail — every prefix you advertise is a failure you import.</text>
+  <text class="cb" x="472" y="132"><tspan class="ck">HOW </tspan> route summarisation, area design, hierarchy that hides the inside of a region from the outside</text>
+  <text class="cb" x="472" y="150"><tspan class="ck">YOU SEE IT </tspan> a leak inside one region appears to the rest of the network as a single flapping prefix</text>
+
+  <rect x="24" y="176" width="420" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="40" y="198">3 · Modularity</text>
+  <text class="cb" x="40" y="218">Each functional module is designed, changed and operated by a named owner.</text>
+  <text class="cb" x="40" y="236"><tspan class="ck">HOW </tspan> campus, data centre, WAN and edge as separate modules with explicit interfaces between them</text>
+  <text class="cb" x="40" y="254"><tspan class="ck">YOU SEE IT </tspan> a data-centre change is reviewed by the DC team only, and the campus team never notices</text>
+
+  <rect x="456" y="176" width="420" height="92" rx="6" fill="#fff" stroke="#c9dbff"/>
+  <text class="ct" x="472" y="198">4 · Hierarchy</text>
+  <text class="cb" x="472" y="218">Core, distribution and access, each with one job and a stated responsibility.</text>
+  <text class="cb" x="472" y="236"><tspan class="ck">HOW </tspan> policy at the layer boundary, capacity added where it is needed, summarisation at the distribution</text>
+  <text class="cb" x="472" y="254"><tspan class="ck">YOU SEE IT </tspan> the diagram explains itself and a capacity question has one obvious place to go</text>
+
+  <text class="t" x="24" y="292">All four buy the same thing — a bounded blast radius: the difference between "a switch died" and "the region died".</text>
+  <text class="t" x="24" y="310">All four cost the same thing — more design decisions before the first cable is pulled, and more to explain to whoever inherits it.</text>
+  <text class="t" x="24" y="326" fill="#a32020">None of them is free at runtime either: every boundary is a place where a route can be summarised wrongly, or a policy applied twice.</text>
+</svg>

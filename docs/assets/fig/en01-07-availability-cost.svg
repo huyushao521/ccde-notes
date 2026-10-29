@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 352" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">The cost of each additional nine of availability, and where redundancy stops paying</title>
+  <desc id="d7">Four rows pair an availability target with the downtime it permits per year and what that target typically buys, from redundant power supplies at 99% up to process, drills and supply chain at 99.999%. A small bar chart shows two links as standard, four needing justification, and five or more adding more complexity than benefit.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ph{font:600 10px "Segoe UI",sans-serif;fill:#1a2233}
+    .pct{font:700 10px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .dt{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .db{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .bl{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .n{font:8.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="352" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Each additional nine costs more than the previous one</text>
+  <text class="s" x="24" y="48">Eliminating a double failure costs exponentially more than eliminating a single failure — decide which one the business actually needs</text>
+
+  <text class="ph" x="24" y="74">What the target buys</text>
+
+  <rect x="24" y="84" width="66" height="40" rx="4" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="pct" x="57" y="109" text-anchor="middle" fill="#4a5a72">99%</text>
+  <text class="dt" x="102" y="100">3.65 days of downtime a year</text>
+  <text class="db" x="102" y="116">redundant power supplies, a spare switch on the shelf</text>
+
+  <rect x="24" y="130" width="66" height="40" rx="4" fill="#eaf1ff" stroke="#c9dbff"/>
+  <text class="pct" x="57" y="155" text-anchor="middle">99.9%</text>
+  <text class="dt" x="102" y="146">8.76 hours a year</text>
+  <text class="db" x="102" y="162">device redundancy, FHRP, failover that has been tested</text>
+
+  <rect x="24" y="176" width="66" height="40" rx="4" fill="#e8f7f4" stroke="#b6e3da"/>
+  <text class="pct" x="57" y="201" text-anchor="middle" fill="#0f7f73">99.99%</text>
+  <text class="dt" x="102" y="192">52.6 minutes a year</text>
+  <text class="db" x="102" y="208">path redundancy, tuned convergence, monitoring you trust</text>
+
+  <rect x="24" y="222" width="66" height="40" rx="4" fill="#fff4e0" stroke="#f0d6a8"/>
+  <text class="pct" x="57" y="247" text-anchor="middle" fill="#a86400">99.999%</text>
+  <text class="dt" x="102" y="238">5.3 minutes a year</text>
+  <text class="db" x="102" y="254">process, drills, change control, supply chain, spare inventory</text>
+
+  <rect x="576" y="64" width="300" height="216" rx="6" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="ph" x="592" y="86">How much redundancy is too much?</text>
+
+  <text class="bl" x="592" y="110">2 parallel links — the standard</text>
+  <rect x="592" y="114" width="80" height="14" rx="3" fill="#12a594"/>
+  <text class="n" x="680" y="125">adequate</text>
+
+  <text class="bl" x="592" y="152">4 parallel links — needs justification</text>
+  <rect x="592" y="156" width="140" height="14" rx="3" fill="#e0a72a"/>
+  <text class="n" x="740" y="167">justify it</text>
+
+  <text class="bl" x="592" y="194">5 or more — complexity in search of a problem</text>
+  <rect x="592" y="198" width="210" height="14" rx="3" fill="#c9534f"/>
+  <text class="n" x="810" y="209">no</text>
+
+  <text class="n" x="592" y="234">Too much is not a count of links. It is where</text>
+  <text class="n" x="592" y="248">added complexity and cost stop paying — and</text>
+  <text class="n" x="592" y="262">nobody left can predict the failure behaviour.</text>
+
+  <text class="t" x="24" y="292">Note the asymmetry: going from 99.99% to 99.999% is not "one more redundant device". It is change windows, rehearsed failovers,</text>
+  <text class="t" x="24" y="310">contractual spare parts and a team that practices. Nine tenths of the cost of the last nine is organisational, not capital.</text>
+  <text class="t" x="24" y="334" fill="#a32020">Ask the business to name the outage it is willing to survive, in hours — not to name a percentage. Then design to the sentence, not the number.</text>
+</svg>

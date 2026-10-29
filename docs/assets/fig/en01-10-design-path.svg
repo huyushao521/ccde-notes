@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t10 d10">
+
+  <title id="t10">The design path of Chapter 1 in six steps, each with the artefact it should produce</title>
+  <desc id="d10">Ask why, translate into three requirement types, force out unstated constraints, validate against the principles, implement with four techniques, and self-check against three pitfalls. Each step lists the document it leaves behind, from the measured problem statement to the pre-build review checklist.</desc>
+  <defs>
+    <marker id="a10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .num{font:700 10px "Segoe UI",sans-serif;fill:#2f6fed}
+    .st{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .ar{font:8.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .al{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73;letter-spacing:.6px}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">The whole chapter as one sequence of actions</text>
+  <text class="s" x="24" y="48">Six steps on the left, the document each one must leave behind on the right</text>
+
+  <text class="al" x="474" y="72">ARTEFACT</text>
+
+  <rect x="24" y="76" width="430" height="38" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="num" x="40" y="100">1</text>
+  <text class="st" x="60" y="92">Ask "why" — the business objective</text>
+  <text class="sb" x="60" y="106">until the answer is something you can verify</text>
+  <text class="ar" x="474" y="92">→ a measured problem statement and a business case,</text>
+  <text class="ar" x="474" y="106">not a list of technologies</text>
+
+  <rect x="24" y="124" width="430" height="38" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="num" x="40" y="148">2</text>
+  <text class="st" x="60" y="140">Translate into functional, technical, application</text>
+  <text class="sb" x="60" y="154">each requirement with a stated level, not a slogan</text>
+  <text class="ar" x="474" y="140">→ a requirement table in which every line names the</text>
+  <text class="ar" x="474" y="154">business objective it traces back to</text>
+
+  <rect x="24" y="172" width="430" height="38" rx="5" fill="#fff4e0" stroke="#d98600"/>
+  <text class="num" x="40" y="196" fill="#a86400">3</text>
+  <text class="st" x="60" y="188">Force out the unstated constraints</text>
+  <text class="sb" x="60" y="202">budget, compliance, legacy, people, time</text>
+  <text class="ar" x="474" y="188">→ a constraint register, including the constraints the</text>
+  <text class="ar" x="474" y="202">customer assumed you already knew</text>
+
+  <rect x="24" y="220" width="430" height="38" rx="5" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="num" x="40" y="244" fill="#0f7f73">4</text>
+  <text class="st" x="60" y="236">Validate against the six principles</text>
+  <text class="sb" x="60" y="250">security, availability, scalability, cost, manageability, unstated needs</text>
+  <text class="ar" x="474" y="236">→ a decision record showing which principle decided</text>
+  <text class="ar" x="474" y="250">each contested trade-off</text>
+
+  <rect x="24" y="268" width="430" height="38" rx="5" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="num" x="40" y="292" fill="#0f7f73">5</text>
+  <text class="st" x="60" y="284">Implement with the four techniques</text>
+  <text class="sb" x="60" y="298">fault isolation, information hiding, modularity, hierarchy</text>
+  <text class="ar" x="474" y="284">→ a module and layer diagram whose interfaces are</text>
+  <text class="ar" x="474" y="298">explicit enough to hand over</text>
+
+  <rect x="24" y="316" width="430" height="38" rx="5" fill="#fdecec" stroke="#e8b4b4"/>
+  <text class="num" x="40" y="340" fill="#a32020">6</text>
+  <text class="st" x="60" y="332">Self-check against the three pitfalls</text>
+  <text class="sb" x="60" y="346">assumptions, over-engineering, the best-practice fallacy</text>
+  <text class="ar" x="474" y="332">→ a review checklist signed before the build starts,</text>
+  <text class="ar" x="474" y="346">including why the rejected options were rejected</text>
+
+  <line x1="44" y1="116" x2="44" y2="122" stroke="#2f6fed" marker-end="url(#a10)"/>
+  <line x1="44" y1="164" x2="44" y2="170" stroke="#2f6fed" marker-end="url(#a10)"/>
+  <line x1="44" y1="212" x2="44" y2="218" stroke="#2f6fed" marker-end="url(#a10)"/>
+  <line x1="44" y1="260" x2="44" y2="266" stroke="#2f6fed" marker-end="url(#a10)"/>
+  <line x1="44" y1="308" x2="44" y2="314" stroke="#2f6fed" marker-end="url(#a10)"/>
+
+  <text class="t" x="24" y="376">The path is a loop, not a waterfall: a constraint discovered at step 3 sends you back to step 2, and a failed self-check at step 6 sends you back to step 4.</text>
+  <text class="n" x="24" y="394">Skip a hop and it does not disappear — it returns later as rework, with the schedule already spent.</text>
+</svg>

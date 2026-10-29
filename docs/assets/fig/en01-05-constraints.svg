@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">Business, application and technical constraints successively narrow the solution space</title>
+  <desc id="d5">A four-step funnel shows how the set of technically possible designs shrinks once business, application and technical constraints are applied. Below it, the five constraints designers meet most often — cost, time, location, infrastructure and staff expertise — are listed with their typical effect.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .bt{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .bb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .vt{font:600 8.5px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.6px}
+    .lb2{font:700 8px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.7px}
+    .ct{font:700 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .cb{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .eq{font:600 9.5px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Constraints do not add requirements; they remove options</text>
+  <text class="s" x="24" y="48">Start with everything technically possible, then let each constraint class delete what you cannot fund, build or operate</text>
+
+  <text class="vt" x="60" y="182" text-anchor="middle" transform="rotate(-90 60 182)">SOLUTION SPACE</text>
+
+  <rect x="120" y="82" width="720" height="38" rx="4" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="bt" x="136" y="106">All technically possible designs</text>
+
+  <rect x="120" y="128" width="600" height="38" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="bt" x="136" y="147" fill="#a86400">− Business constraints</text>
+  <text class="bb" x="266" y="147">budget, staffing, contractual scope or timeline</text>
+
+  <rect x="120" y="174" width="480" height="38" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="bt" x="136" y="193">− Application constraints</text>
+  <text class="bb" x="266" y="193">needs layer 2, hard-coded addresses, multicast clustering</text>
+
+  <rect x="120" y="220" width="360" height="38" rx="4" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="bt" x="136" y="239" fill="#0f7f73">− Technical constraints</text>
+  <text class="bb" x="266" y="239">vendor lock, no proprietary features</text>
+
+  <text class="eq" x="496" y="244">= the designs you can actually build</text>
+
+  <text class="t" x="120" y="278">Each step is a subtraction, which is why a long list of "requirements" is often just a short list of constraints wearing the wrong label.</text>
+
+  <text class="lb2" x="24" y="294">THE FIVE YOU MEET MOST OFTEN</text>
+
+  <rect x="24" y="300" width="150" height="52" rx="5" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="38" y="318">Cost</text>
+  <text class="cb" x="38" y="334">a constraint only when stated,</text>
+  <text class="cb" x="38" y="347">or when it breaks a tie</text>
+
+  <rect x="186" y="300" width="150" height="52" rx="5" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="200" y="318">Time</text>
+  <text class="cb" x="200" y="336">a deadline decides the</text>
+  <text class="cb" x="200" y="347">technology, not the reverse</text>
+
+  <rect x="348" y="300" width="150" height="52" rx="5" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="362" y="318">Location</text>
+  <text class="cb" x="362" y="336">no fiber at the site leaves</text>
+  <text class="cb" x="362" y="347">wireless as the only option</text>
+
+  <rect x="510" y="300" width="150" height="52" rx="5" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="524" y="318">Infrastructure</text>
+  <text class="cb" x="524" y="336">legacy kit with no refresh</text>
+  <text class="cb" x="524" y="347">plan caps the feature set</text>
+
+  <rect x="672" y="300" width="150" height="52" rx="5" fill="#fff" stroke="#dbe4f0"/>
+  <text class="ct" x="686" y="318">Staff expertise</text>
+  <text class="cb" x="686" y="336">train (slow to fix) or hire</text>
+  <text class="cb" x="686" y="347">(expensive) — no third path</text>
+
+  <text class="t" x="24" y="374">A constraint is not an obstacle to the design; it is the shape of the design. Two designs that satisfy the same requirements but different</text>
+  <text class="t" x="24" y="392">constraints are not competing answers — they are answers to different questions.</text>
+</svg>

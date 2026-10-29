@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 336" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">Three security models: perimeter, session and transaction, zero trust</title>
+  <desc id="d6">Perimeter security protects only the edge, leaving east-west traffic open. Session and transaction security pins users and devices and authorises every session. Zero trust adds real-time capture and analytics so each identity, device, application and the data itself carries a continuously updated trust score.</desc>
+  <defs>
+    <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .hd{font:700 9.5px "Segoe UI",sans-serif;letter-spacing:.3px}
+    .hs{font:8.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .pl{font:600 8.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .pb{font:8.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="336" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Security moved from the edge of the network to every decision inside it</text>
+  <text class="s" x="24" y="48">The three models are historical stages, not alternatives you may pick freely — each one answers a question the previous one could not</text>
+
+  <rect x="24" y="66" width="270" height="146" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <rect x="24" y="66" width="270" height="32" rx="6" fill="#f8d7d7" stroke="#e8b4b4"/>
+  <text class="hd" x="40" y="86" fill="#a32020">1 · PERIMETER  "turtle shell"</text>
+  <text class="cb" x="40" y="118">· Firewalls at the perimeter only</text>
+  <text class="cb" x="40" y="136">· Inside is wide open, east-west traffic</text>
+  <text class="cb" x="40" y="154">  is implicitly trusted</text>
+  <text class="cb" x="40" y="172">· Insider threats flourish</text>
+  <text class="pl" x="40" y="196" fill="#a32020">Protects: the entry points — nothing lateral</text>
+
+  <rect x="309" y="66" width="270" height="146" rx="6" fill="#eaf1ff" stroke="#c9dbff"/>
+  <rect x="309" y="66" width="270" height="32" rx="6" fill="#dbe7ff" stroke="#c9dbff"/>
+  <text class="hd" x="325" y="86" fill="#1f4fc0">2 · SESSION &amp; TRANSACTION</text>
+  <text class="cb" x="325" y="118">· Evolved from perimeter security</text>
+  <text class="cb" x="325" y="136">· Users and devices are pinned down</text>
+  <text class="cb" x="325" y="154">· Policy follows device, user, location</text>
+  <text class="cb" x="325" y="172">· 100% authentication + 100% authorisation</text>
+  <text class="pb" x="325" y="196" fill="#1f4fc0">Protects: every session and transaction</text>
+
+  <rect x="594" y="66" width="270" height="146" rx="6" fill="#e8f7f4" stroke="#b6e3da"/>
+  <rect x="594" y="66" width="270" height="32" rx="6" fill="#cdeee7" stroke="#b6e3da"/>
+  <text class="hd" x="610" y="86" fill="#0f7f73">3 · ZERO TRUST ARCHITECTURE</text>
+  <text class="cb" x="610" y="118">· Adds real-time capture and analytics</text>
+  <text class="cb" x="610" y="136">· AI/ML decisions made in real time</text>
+  <text class="cb" x="610" y="154">· Trust score per identity, device, app,</text>
+  <text class="cb" x="610" y="172">  server, service and the data itself</text>
+  <text class="pb" x="610" y="196">Protects: the flows and the data, continuously</text>
+
+  <line x1="294" y1="139" x2="307" y2="139" stroke="#8494a8" marker-end="url(#a6)"/>
+  <line x1="579" y1="139" x2="592" y2="139" stroke="#8494a8" marker-end="url(#a6)"/>
+
+  <rect x="24" y="228" width="852" height="46" rx="6" fill="#f4f7fb" stroke="#dbe4f0"/>
+  <text class="t" x="40" y="247">What gets inspected:   the entry point   →   every session and transaction   →   every flow plus the data, all the time.</text>
+  <text class="t" x="40" y="265">What trust means:   binary, inside vs outside   →   authenticated identity   →   a number that rises and falls with observed behaviour.</text>
+
+  <text class="n" x="24" y="298">The design consequence: security is not a box at the edge of the diagram. It is a decision made again at every later chapter — segmentation,</text>
+  <text class="n" x="24" y="316">encryption, control-plane protection, management access — which is why the guide treats it as a design principle before it treats it as a technology.</text>
+</svg>

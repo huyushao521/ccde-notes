@@ -168,6 +168,11 @@ For a successful strategic design, more emphasis must be placed on the business:
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en01-01-topdown-bottomup.svg" alt="Top-down lane deriving requirements downward and bottom-up lane verifying feasibility upward, converging on one design decision" loading="lazy">
+<figcaption><b>Figure 1-1　Top-down and bottom-up are two directions of one design, not rival camps</b><br><span>图 1-1　自顶向下推需求、自底向上验可行性，是同一条路径的两个方向</span></figcaption>
+</figure>
+
 ## Network Design Fundamentals · 网络设计基础
 
 The design fundamentals are the building blocks every network designer must understand and know how to use:
@@ -195,6 +200,11 @@ The design fundamentals are the building blocks every network designer must unde
 6. **"为什么" (Why)**
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en01-02-six-fundamentals.svg" alt="Five fundamentals cards with a Why bar underneath covering all of them" loading="lazy">
+<figcaption><b>Figure 1-2　Five building blocks, and the "why" underneath all of them</b><br><span>图 1-2　五个基础构件，以及压在它们下面的那个"为什么"</span></figcaption>
+</figure>
 
 ### Mindset · 思维模式
 
@@ -338,6 +348,11 @@ If a service provider has an SLA requiring one-way delay below 150 ms and packet
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en01-03-requirement-chain.svg" alt="Application requirements drive functional requirements which force technical requirements, illustrated by a VoIP SLA example" loading="lazy">
+<figcaption><b>Figure 1-3　Application requirements drive functional, functional forces technical</b><br><span>图 1-3　应用需求驱动功能需求，功能需求倒逼技术需求</span></figcaption>
+</figure>
+
 The designer should also consider:
 
 <div class="zh" markdown="1">
@@ -431,6 +446,11 @@ A successful design requires correctly identifying the specific use case.
 要构建成功的网络设计，需要正确识别特定网络设计用例：
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en01-04-design-use-cases.svg" alt="Eight use case cards from greenfield through divestment and design failure" loading="lazy">
+<figcaption><b>Figure 1-4　Seven use cases, from a blank sheet to the hardest one — divestment</b><br><span>图 1-4　七类设计用例：从一张白纸到最难的剥离</span></figcaption>
+</figure>
 
 #### 1. Greenfield · 全新设计
 
@@ -585,6 +605,11 @@ When we start designing for a customer, the slate is clean — no requirements, 
 | **技术约束** | 特定厂商硬件或解决方案的限制 | 被限制在特定厂商、不能使用专有技术或已使用无法迁移的专有方案 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en01-05-constraints.svg" alt="A funnel where business, application and technical constraints successively remove options, plus the five most common constraints" loading="lazy">
+<figcaption><b>Figure 1-5　Constraints subtract options; they do not add requirements</b><br><span>图 1-5　约束是在删选项，不是在加需求</span></figcaption>
+</figure>
 
 #### The Most Common Design Constraints · 最常见的设计约束
 
@@ -742,6 +767,11 @@ Historically security was not treated as a design principle. Because of its impa
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en01-06-security-models.svg" alt="Perimeter, session and transaction, and zero trust security models with what each one protects" loading="lazy">
+<figcaption><b>Figure 1-6　Three security models: the edge, the session, the continuous score</b><br><span>图 1-6　三种安全模型：守边界、查会话、持续打分</span></figcaption>
+</figure>
+
 ### Availability · 可用性
 
 Availability encompasses redundancy, resilience and reliability:
@@ -783,6 +813,11 @@ Availability encompasses redundancy, resilience and reliability:
 **多少冗余是过多的？** 当增加的复杂性、成本和可用性的相关回报不值得时，就是过多了。例如，设计八条二层或三层链路之间的连接是不合理的——两条是标准，四条有合理理由，五条或更多增加的复杂性远超收益。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en01-07-availability-cost.svg" alt="Availability targets with permitted yearly downtime and typical means, plus a bar chart of two, four and five-plus parallel links" loading="lazy">
+<figcaption><b>Figure 1-7　Each additional nine costs more than the previous one</b><br><span>图 1-7　可用性每多一个 9，代价都比上一个更高</span></figcaption>
+</figure>
 
 ### Scalability · 可扩展性
 
@@ -908,6 +943,11 @@ Hierarchical design splits the network into core, distribution and access layers
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en01-08-four-techniques.svg" alt="Four cards for fault isolation, information hiding, modularity and hierarchy, each with mechanism and observable effect" loading="lazy">
+<figcaption><b>Figure 1-8　Four techniques, one purpose: keep a failure inside its own box</b><br><span>图 1-8　四项技术，同一个目的：把故障关在自己的盒子里</span></figcaption>
+</figure>
+
 ## Network Design Pitfalls · 网络设计缺陷
 
 ### 1. Assumptions · 假设
@@ -941,6 +981,11 @@ Hierarchical design splits the network into core, distribution and access layers
 </div>
 
 ---
+
+<figure class="fig">
+<img src="assets/fig/en01-09-pitfalls.svg" alt="Three pitfall cards showing symptom, cause and countermeasure for assumptions, over-engineering and the best-practice fallacy" loading="lazy">
+<figcaption><b>Figure 1-9　Three ways a good engineer still produces a bad design</b><br><span>图 1-9　好工程师做出坏设计的三种方式</span></figcaption>
+</figure>
 
 ## Case Studies · 实战案例
 
@@ -1321,36 +1366,14 @@ Chapter 1 delivers **a method, not a set of conclusions**. The whole chapter com
 
 </div>
 
-```
-Ask "why" first (business objective)
-    ↓
-Translate the objective into three requirement types: functional / technical / application
-    ↓
-Force out the unstated constraints (budget, compliance, legacy, people, time)
-    ↓
-Validate the solution against six principles
-(pervasive security, availability, scalability, cost, manageability, unstated requirements)
-    ↓
-Implement it with four techniques (fault isolation, information hiding, modularity, hierarchy)
-    ↓
-Self-check against three pitfalls (assumptions, over-engineering, best-practice fallacy)
-```
+<figure class="fig">
+<img src="assets/fig/en01-10-design-path.svg" alt="Six-step design path from business objective to pre-build review checklist" loading="lazy">
+<figcaption><b>Figure 1-10　The chapter as one sequence of actions, and the artefact each step must leave behind</b><br><span>图 1-10　全章动作序列，以及每一步必须留下的文档</span></figcaption>
+</figure>
 
 <div class="zh" markdown="1">
 
-```
-先问"为什么"（业务目标）
-    ↓
-把目标翻译成三类需求：功能 / 技术 / 应用
-    ↓
-把没说出口的约束逼出来（预算、合规、遗留系统、人力、时间）
-    ↓
-用六条原则校验方案（普适安全、可用性、可扩展性、成本、可管理性、未明确需求）
-    ↓
-用四项技术实现（故障隔离、信息隐藏、模块化、层次化）
-    ↓
-用三个缺陷自检（假设、过度设计、最佳实践误区）
-```
+六步动作序列与每步应交付的文档见上图：先问"为什么"，再翻译成三类需求，逼出约束，用原则校验，用技术实现，用缺陷自检。
 
 </div>
 

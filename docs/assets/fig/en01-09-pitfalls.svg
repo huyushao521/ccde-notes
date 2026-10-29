@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 314" width="100%" role="img" aria-labelledby="t9 d9">
+
+  <title id="t9">Three design pitfalls: assumptions, over-engineering and the best-practice fallacy</title>
+  <desc id="d9">Each pitfall is shown with how it appears in a real project, why it happens, and the countermeasure: ask for a number and measure it, make extra capability justify itself, and check that the constraints a best practice assumes still hold in your environment.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .hd{font:700 9.5px "Segoe UI",sans-serif;letter-spacing:.3px}
+    .lb{font:700 8px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.7px}
+    .cb{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .fx{font:8.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .t{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="314" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Three ways a good engineer still produces a bad design</text>
+  <text class="s" x="24" y="48">All three are invisible in the diagram and expensive on Day 2</text>
+
+  <rect x="24" y="66" width="270" height="194" rx="6" fill="#fdecec" stroke="#e8b4b4"/>
+  <rect x="24" y="66" width="270" height="30" rx="6" fill="#f8d7d7" stroke="#e8b4b4"/>
+  <text class="hd" x="40" y="85" fill="#a32020">1 · ASSUMPTIONS</text>
+  <text class="lb" x="40" y="116">SYMPTOM</text>
+  <text class="cb" x="40" y="132">"MPLS is more expensive than Internet."</text>
+  <text class="cb" x="40" y="146">"A small team means a cheap design."</text>
+  <text class="lb" x="40" y="168">WHY IT HAPPENS</text>
+  <text class="cb" x="40" y="184">Experience substitutes for evidence,</text>
+  <text class="cb" x="40" y="198">and nobody asked for a number.</text>
+  <text class="lb" x="40" y="220">COUNTERMEASURE</text>
+  <text class="fx" x="40" y="236">Ask for the invoice, then measure.</text>
+
+  <rect x="309" y="66" width="270" height="194" rx="6" fill="#fff4e0" stroke="#f0d6a8"/>
+  <rect x="309" y="66" width="270" height="30" rx="6" fill="#ffe8c4" stroke="#f0d6a8"/>
+  <text class="hd" x="325" y="85" fill="#a86400">2 · OVER-ENGINEERING</text>
+  <text class="lb" x="325" y="116">SYMPTOM</text>
+  <text class="cb" x="325" y="132">Eight parallel links; dual everything</text>
+  <text class="cb" x="325" y="146">at a twenty-person sales office.</text>
+  <text class="lb" x="325" y="168">WHY IT HAPPENS</text>
+  <text class="cb" x="325" y="184">Fear of blame plus a vendor deck</text>
+  <text class="cb" x="325" y="198">plus the word "standardisation".</text>
+  <text class="lb" x="325" y="220">COUNTERMEASURE</text>
+  <text class="fx" x="325" y="236">Solve the stated problem; make</text>
+
+  <rect x="594" y="66" width="270" height="194" rx="6" fill="#eaf1ff" stroke="#c9dbff"/>
+  <rect x="594" y="66" width="270" height="30" rx="6" fill="#dbe7ff" stroke="#c9dbff"/>
+  <text class="hd" x="610" y="85" fill="#1f4fc0">3 · BEST-PRACTICE FALLACY</text>
+  <text class="lb" x="610" y="116">SYMPTOM</text>
+  <text class="cb" x="610" y="132">Copying a hyperscaler's design, or a</text>
+  <text class="cb" x="610" y="146">peer's slide, without its constraints.</text>
+  <text class="lb" x="610" y="168">WHY IT HAPPENS</text>
+  <text class="cb" x="610" y="184">The conclusion travels well; the</text>
+  <text class="cb" x="610" y="198">constraints it assumed do not travel.</text>
+  <text class="lb" x="610" y="220">COUNTERMEASURE</text>
+  <text class="fx" x="610" y="236">List what the practice assumes;</text>
+
+  <text class="fx" x="40" y="252">Write it down and mark it unverified.</text>
+  <text class="fx" x="325" y="252">extra capability argue its own case.</text>
+  <text class="fx" x="610" y="252">check that yours still match.</text>
+
+  <text class="t" x="24" y="288">The shared symptom: the design answers a question nobody asked. The shared cost: it is discovered after the purchase order, not before.</text>
+  <text class="n" x="24" y="306">Case 2 later in this chapter — "the same standard as headquarters" — is the best-practice fallacy and over-engineering arriving together under the name of policy.</text>
+</svg>
