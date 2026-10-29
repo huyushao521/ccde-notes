@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t54 d54">
+  <title id="t54">The nine architecture perspectives business architecture must cover, above the Day 0, Day 1 and Day 2 split where most designs fail</title>
+  <desc id="d54">Nine cards in three rows cover the architecture perspectives: strategy and vision, business architecture, application architecture, technology architecture, infrastructure architecture, physical architecture, data architecture, operations architecture and architecture governance, each with what it has to support. Beneath them the lifecycle is split into Day 0 planning and design, Day 1 deployment and provisioning, and Day 2 day-to-day operations and change. A red note states that many designs fail not because Day 0 was designed wrong but because the Day 2 operating cost was never counted, for example configuration so complex that a human change causes the outage.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Nine perspectives, one architecture: miss one and the design has a blind side</text>
+  <text class="s" x="24" y="45">The first and last are the ones designers skip: the business outcome at the top and the operating cost at the bottom</text>
+
+  <rect x="24" y="64" width="272" height="74" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="82" fill="#1f4fc0">Strategy and vision</text>
+  <text class="c" x="36" y="98">architecture capability aligned to</text>
+  <text class="c" x="36" y="110">business goals and outcomes</text>
+  <text class="w" x="36" y="128">the only card with no technology in it</text>
+
+  <rect x="314" y="64" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="326" y="82">Business architecture</text>
+  <text class="c" x="326" y="98">consistent with the business model</text>
+  <text class="c" x="326" y="110">and the market / industry view</text>
+
+  <rect x="604" y="64" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="616" y="82">Application architecture</text>
+  <text class="c" x="616" y="98">coexists with hybrid cloud; three-tier</text>
+  <text class="c" x="616" y="110">and N-tier standards</text>
+
+  <rect x="24" y="146" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="36" y="164">Technology architecture</text>
+  <text class="c" x="36" y="180">automation, configuration, orchestration,</text>
+  <text class="c" x="36" y="192">analytics, telemetry</text>
+
+  <rect x="314" y="146" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="326" y="164">Infrastructure architecture</text>
+  <text class="c" x="326" y="180">data centre, cloud, collaboration, security,</text>
+  <text class="c" x="326" y="192">SASE, enterprise network, IoT</text>
+
+  <rect x="604" y="146" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="616" y="164">Physical architecture</text>
+  <text class="c" x="616" y="180">compute, storage, virtualization</text>
+  <text class="c" x="616" y="192">the floor the logical design stands on</text>
+
+  <rect x="24" y="228" width="272" height="74" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="36" y="246">Data architecture</text>
+  <text class="c" x="36" y="262">business intelligence, integration, data</text>
+  <text class="c" x="36" y="274">security, management and operations</text>
+
+  <rect x="314" y="228" width="272" height="74" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="b" x="326" y="246" fill="#a86400">Operations architecture</text>
+  <text class="c" x="326" y="262">ITIL service capability, aligned across</text>
+  <text class="c" x="326" y="274">Day 0, Day 1 and Day 2</text>
+  <text class="w" x="326" y="292">where the recurring cost actually lives</text>
+
+  <rect x="604" y="228" width="272" height="74" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="616" y="246" fill="#1f4fc0">Architecture governance</text>
+  <text class="c" x="616" y="262">architecture management office; plan,</text>
+  <text class="c" x="616" y="274">design, implement, operate</text>
+  <text class="w" x="616" y="292">who says yes, and on what evidence</text>
+
+  <text class="k" x="24" y="326">THE SAME LIFECYCLE, SPLIT THREE WAYS</text>
+  <rect x="24" y="332" width="272" height="44" rx="2" fill="#eef1f5" stroke="#8494a8" stroke-width=".6"/>
+  <text class="b" x="34" y="348">Day 0 &#183; planning and design</text>
+  <text class="c" x="34" y="364">nothing is live yet; documents and decisions</text>
+
+  <rect x="314" y="332" width="272" height="44" rx="2" fill="#eef7f5" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="b" x="324" y="348" fill="#0f7f73">Day 1 &#183; deployment and provisioning</text>
+  <text class="c" x="324" y="364">the moment it goes live; first real traffic</text>
+
+  <rect x="604" y="332" width="272" height="44" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="614" y="348" fill="#c0392b">Day 2 &#183; operations and change</text>
+  <text class="c" x="614" y="364">the long running period nobody budgets for</text>
+
+  <text class="c" x="24" y="390" fill="#c0392b">Most designs do not fail because Day 0 was drawn wrong; they fail because Day 2 was never priced &#8212; configuration so complex that the next human change is the outage.</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t11 d11">
+
+  <title id="t11">Forty serial queries across a 35-millisecond link cost 2.8 seconds per page load, and the same code on a local network costs 8 milliseconds</title>
+  <desc id="d11">The application was moved to a cloud region while its database stayed behind. Each of forty sequential queries pays two crossings of a thirty-five millisecond link, so one page load waits 2.8 seconds. The same code against a local database costs about 8 milliseconds. The options are ranked: move the database next to the application, parallelise or batch the queries, cache the hot reads, choose a nearer region, and combine them.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .big{font:700 15px "Segoe UI",sans-serif;fill:#c0392b}
+    .big2{font:700 15px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Forty sequential queries, one 35 ms link: the application moved and the database did not</text>
+  <text class="s" x="24" y="45">Latency is paid per round trip, not per megabyte — so a chatty application pays it forty times before the first byte of the answer</text>
+
+  <rect x="32" y="70" width="150" height="40" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="107" y="86" text-anchor="middle">web + application</text>
+  <text class="w" x="107" y="99" text-anchor="middle">cloud region A</text>
+  <rect x="262" y="70" width="150" height="40" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".9"/>
+  <text class="mid" x="337" y="86" text-anchor="middle">database</text>
+  <text class="w" x="337" y="99" text-anchor="middle">stayed on premises</text>
+  <path d="M182 80 L250 80" stroke="#c0392b" stroke-width=".8" marker-end="url(#n11)"/>
+  <path d="M250 96 L182 96" stroke="#c0392b" stroke-width=".8" marker-end="url(#n11)"/>
+
+  <defs>
+    <marker id="n11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="c" x="216" y="70" text-anchor="middle" fill="#c0392b">35 ms</text>
+  <text class="c" x="216" y="112" text-anchor="middle" fill="#c0392b">35 ms</text>
+
+  <text class="mid" x="32" y="132">one page load = 40 of these, strictly in sequence</text>
+
+  <g>
+    <circle cx="40" cy="150" r="2.5" fill="#c0392b"/><circle cx="64" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="88" cy="150" r="2.5" fill="#c0392b"/><circle cx="112" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="136" cy="150" r="2.5" fill="#c0392b"/><circle cx="160" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="184" cy="150" r="2.5" fill="#c0392b"/><circle cx="208" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="232" cy="150" r="2.5" fill="#c0392b"/><circle cx="256" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="280" cy="150" r="2.5" fill="#c0392b"/><circle cx="304" cy="150" r="2.5" fill="#c0392b"/>
+    <circle cx="328" cy="150" r="2.5" fill="#c0392b"/>
+    <text class="c" x="346" y="153">… 40</text>
+  </g>
+
+  <text class="big" x="32" y="184">40 × (35 + 35) = 2 800 ms</text>
+  <text class="c" x="32" y="200">waiting, before any useful work is done</text>
+
+  <text class="big2" x="32" y="230">40 × (0.1 + 0.1) = 8 ms</text>
+  <text class="c" x="32" y="246">the same code against a local database</text>
+
+  <rect x="32" y="258" width="380" height="52" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="sm" x="42" y="274" fill="#0f7f73">The application did not get slower. It got farther away,</text>
+  <text class="sm" x="42" y="288" fill="#0f7f73">and it makes 40 calls where a well-designed client makes four.</text>
+  <text class="w" x="42" y="302">Both halves of that sentence are design decisions, and both are reversible.</text>
+
+  <text class="ln" x="440" y="70">TIME PER PAGE LOAD, BY REMEDY</text>
+
+  <line x1="520" y1="86" x2="520" y2="330" stroke="#c3cddb"/>
+  <line x1="520" y1="330" x2="850" y2="330" stroke="#c3cddb"/>
+  <text class="w" x="520" y="344" text-anchor="middle">0</text>
+  <text class="w" x="602" y="344" text-anchor="middle">700</text>
+  <text class="w" x="685" y="344" text-anchor="middle">1 400</text>
+  <text class="w" x="768" y="344" text-anchor="middle">2 100</text>
+  <text class="w" x="850" y="344" text-anchor="middle">2 800 ms</text>
+
+  <text class="c" x="440" y="106">as migrated</text>
+  <rect x="520" y="96" width="300" height="14" fill="#c0392b"/>
+  <text class="w" x="826" y="107" fill="#c0392b">2 800</text>
+
+  <text class="c" x="440" y="136">nearer region (12 ms)</text>
+  <rect x="520" y="126" width="103" height="14" fill="#d98600"/>
+  <text class="w" x="629" y="137" fill="#a86400">960</text>
+
+  <text class="c" x="440" y="166">cache the hot reads</text>
+  <rect x="520" y="156" width="45" height="14" fill="#d98600"/>
+  <text class="w" x="571" y="167" fill="#a86400">420</text>
+
+  <text class="c" x="440" y="196">parallelise to 4 round trips</text>
+  <rect x="520" y="186" width="30" height="14" fill="#0f7f73"/>
+  <text class="w" x="556" y="197" fill="#0f7f73">280</text>
+
+  <text class="c" x="440" y="226">move the database next to it</text>
+  <rect x="520" y="216" width="17" height="14" fill="#0f7f73"/>
+  <text class="w" x="543" y="227" fill="#0f7f73">160</text>
+
+  <text class="c" x="440" y="256" fill="#0f7f73">both together</text>
+  <rect x="520" y="246" width="3" height="14" fill="#0f7f73"/>
+  <text class="w" x="529" y="257" fill="#0f7f73">16</text>
+
+  <text class="sm" x="440" y="282">The remedies multiply, they do not compete: shortening the</text>
+  <text class="sm" x="440" y="294">path and cutting the number of trips are independent wins.</text>
+  <text class="sm" x="440" y="306" fill="#c0392b">Buying bandwidth changes none of the bars above.</text>
+
+  <rect x="440" y="356" width="436" height="36" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="sm" x="450" y="371" fill="#1f4fc0">Count the round trips before you choose the distance: 40 serial calls tolerate one RTT,</text>
+  <text class="sm" x="450" y="384" fill="#1f4fc0">4 calls tolerate a continent. If the count cannot change, the distance cannot either.</text>
+</svg>

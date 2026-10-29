@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 5 · about 5203 words</span></div><h1 id="chapter-5-reference-architecture-models-and-frameworks-5">Chapter 5: Reference Architecture Models and Frameworks · 第 5 章：参考架构模型与框架<a class="anchor" href="#chapter-5-reference-architecture-models-and-frameworks-5" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 5 · about 5953 words</span></div><h1 id="chapter-5-reference-architecture-models-and-frameworks-5">Chapter 5: Reference Architecture Models and Frameworks · 第 5 章：参考架构模型与框架<a class="anchor" href="#chapter-5-reference-architecture-models-and-frameworks-5" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 5 (pp. 234–259)</p>
 <p>Terminology follows the English edition. Every English passage is followed by its Chinese counterpart in the grey block below it, so the two can be checked sentence by sentence.</p>
@@ -186,6 +186,11 @@ Reference model        → describe it with a common language and layering (HOW 
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en05-01-three-concepts.svg" alt="Framework, reference architecture and reference model stacked by the question each one answers" loading="lazy">
+<figcaption><b>Figure 5-1　Three concepts, three levels: a framework gives the process, a reference architecture gives the shape, a reference model gives the words</b><br><span>图 5-1　三个概念三个层级：框架给流程，参考架构给形态，参考模型给语言</span></figcaption>
+</figure>
+
 <h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <blockquote>
 <p>How do you know the option you chose from a network design perspective is viable? Are you making the right network design decisions? How do you define the word "architecture"? Who defines your architecture?</p>
@@ -350,6 +355,11 @@ Reference model        → describe it with a common language and layering (HOW 
 <p>⚠️ <strong>常见陷阱</strong>：场景里给你的"需求"如果不满足 SMART，你必须<strong>回头向业务方澄清</strong>，而不是自己脑补一个可测量的版本。设计需求无法验证 = 项目无法验收。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-02-smart-gate.svg" alt="Interacting capabilities forming a business solution and delivering a business outcome, with SMART as the acceptance test" loading="lazy">
+<figcaption><b>Figure 5-2　A business solution is judged by the outcome it moves, and SMART is the test that makes the claim checkable</b><br><span>图 5-2　业务解决方案由成果评判，SMART 是让成果可被验证的闸门</span></figcaption>
+</figure>
+
 <h3 id="the-four-alignment-levels-of-business-architecture">The Four Alignment Levels of Business Architecture · 业务架构的四个对齐级别<a class="anchor" href="#the-four-alignment-levels-of-business-architecture" title="Permanent link"></a></h3>
 <p>This is the first key model in the chapter — <strong>the demands business places on architecture rise level by level with maturity</strong>:</p>
 <div class="zh">
@@ -459,6 +469,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>💡 <strong>判断技巧</strong>：看到场景里出现 <strong>ROI / TCO / CAPEX 讨论</strong>，说明已经上升到"业务解决方案"级别；如果出现"进入新市场""数字化战略"，就是"业务转型"。这两类的设计自由度完全不同——转型类项目允许你推翻现有架构。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-03-alignment-levels.svg" alt="The four alignment levels as rising steps, each with its trigger and its deliverable" loading="lazy">
+<figcaption><b>Figure 5-3　Four alignment levels: the business asks for more with each step, and the trigger tells you which step a scenario sits on</b><br><span>图 5-3　四个对齐级别：每上一层业务要求更高，触发词决定落在哪一层</span></figcaption>
+</figure>
+
 <h3 id="business-architecture-guiding-principles">Business Architecture Guiding Principles · 业务架构指导原则<a class="anchor" href="#business-architecture-guiding-principles" title="Permanent link"></a></h3>
 <p>Combining the guiding principles of TOGAF and ITIL, business architecture needs to cover <strong>nine architecture perspectives</strong>:</p>
 <div class="zh">
@@ -574,6 +589,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>很多设计失败不是 Day 0 设计错了，而是<strong>没有考虑 Day 2 的运维成本</strong>（比如配置太复杂导致人为变更故障）。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-04-nine-perspectives.svg" alt="The nine architecture perspectives in a grid above the Day 0, Day 1 and Day 2 split" loading="lazy">
+<figcaption><b>Figure 5-4　Nine perspectives, one architecture: skip the first or the last and the design has a blind side</b><br><span>图 5-4　九个架构视角与 Day 0/1/2 切分：忽略两端就会留下盲区</span></figcaption>
+</figure>
+
 <h3 id="key-performance-indicators-kpis">Key Performance Indicators (KPIs) · 关键绩效指标<a class="anchor" href="#key-performance-indicators-kpis" title="Permanent link"></a></h3>
 <p>How do you know whether a framework or reference architecture succeeded? You measure it with KPIs:</p>
 <div class="zh">
@@ -612,6 +632,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en05-05-kpi-mttd-mttr.svg" alt="From business goal to IT capability to one board-readable number, then the different design paths behind MTTD and MTTR" loading="lazy">
+<figcaption><b>Figure 5-5　From business goal to a number the board can read, and why MTTD and MTTR buy completely different things</b><br><span>图 5-5　从业务目标到能上报的数字：MTTD 买可见性，MTTR 买弹性</span></figcaption>
+</figure>
+
 <h2 id="enterprise-architecture-ea">Enterprise Architecture (EA) · 企业架构<a class="anchor" href="#enterprise-architecture-ea" title="Permanent link"></a></h2>
 <p>Enterprise architecture is the process of organizing business processes and IT infrastructure logic, reflecting the integration and standardization requirements of the company's operating model.</p>
 <div class="zh">
@@ -670,6 +695,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 💡 <strong>"厂商无关团队"这个角色值得注意</strong>：它的存在就是为了防止第 1 章讲的"厂商锁定"约束。当场景里出现"必须支持多厂商"或"不能绑定单一供应商"时，说明组织里可能存在这样一个治理角色。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-06-ea-method-steps.svg" alt="The three enterprise architecture method steps in fixed order with the four stakeholder groups beneath" loading="lazy">
+<figcaption><b>Figure 5-6　Three steps in one order: requirements, then the people who must agree, then the operating model</b><br><span>图 5-6　EA 方法论三步与四类干相人：顺序不能颠倒</span></figcaption>
+</figure>
+
 <h3 id="operating-model-types-a-core-model">Operating Model Types (a core model) · 运营模型类型（核心模型）<a class="anchor" href="#operating-model-types-a-core-model" title="Permanent link"></a></h3>
 <p>The operating model determines <strong>the degree of standardization and integration inside the enterprise</strong> — this is the classic MIT four-quadrant model, positioned on two dimensions:</p>
 <div class="zh">
@@ -808,6 +838,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en05-07-operating-model.svg" alt="The four operating model quadrants on standardisation and integration with the design direction each one implies" loading="lazy">
+<figcaption><b>Figure 5-7　Four operating models, and the network each one actually needs</b><br><span>图 5-7　四种运营模型与它们各自需要的网络</span></figcaption>
+</figure>
+
 <h2 id="common-enterprise-architecture-frameworks">Common Enterprise Architecture Frameworks · 常见企业架构框架<a class="anchor" href="#common-enterprise-architecture-frameworks" title="Permanent link"></a></h2>
 <h3 id="togaf-the-open-group-architecture-framework">TOGAF (The Open Group Architecture Framework)<a class="anchor" href="#togaf-the-open-group-architecture-framework" title="Permanent link"></a></h3>
 <p>TOGAF is an enterprise architecture methodology containing a high-level, enterprise-oriented framework focused on designing, planning, implementing and governing enterprise IT architecture.</p>
@@ -974,6 +1009,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>对网络设计师来说，<strong>D 阶段（技术架构）是你的主场</strong>，但你必须能追溯到 B/C 阶段的业务与信息架构，否则设计就没有依据——这就是"自顶向下"。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-08-togaf-adm.svg" alt="The eight TOGAF ADM phases on a ring around requirements management, with phase D marked as the designer's home ground" loading="lazy">
+<figcaption><b>Figure 5-8　TOGAF ADM as a ring: phase D is where network design lands, and A to C are what keep it from landing on nothing</b><br><span>图 5-8　TOGAF ADM 循环：D 阶段是网络设计的落点，A–C 是它的依据</span></figcaption>
+</figure>
+
 <h3 id="itil-information-technology-infrastructure-library">ITIL (Information Technology Infrastructure Library)<a class="anchor" href="#itil-information-technology-infrastructure-library" title="Permanent link"></a></h3>
 <p>ITIL is a set of best-practice processes for IT service management.</p>
 <div class="zh">
@@ -1107,6 +1147,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>实际项目里两者互补：TOGAF 决定"建什么"，ITIL 保证"建好后能稳定交付"。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-09-itil-and-togaf-split.svg" alt="The five ITIL service lifecycle stages looping back through continual improvement, and how ITIL divides work with TOGAF" loading="lazy">
+<figcaption><b>Figure 5-9　ITIL covers the half of the lifecycle TOGAF stops short of: one decides the shape, the other whether it can be run</b><br><span>图 5-9　ITIL 与 TOGAF 的分工：一个定形态，一个定能不能跑得下去</span></figcaption>
+</figure>
+
 <h3 id="other-frameworks">Other Frameworks · 其他框架<a class="anchor" href="#other-frameworks" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -1259,6 +1304,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en05-10-frameworks-to-reference-arch.svg" alt="Frameworks feeding reference architectures, and the column of constraints that no reference architecture carries" loading="lazy">
+<figcaption><b>Figure 5-10　Frameworks give the process, reference architectures give the shape, and only you can supply the constraints</b><br><span>图 5-10　框架给流程、参考架构给形态，约束只能自己补</span></figcaption>
+</figure>
+
 <h2 id="case-studies">Case Studies · 实战案例<a class="anchor" href="#case-studies" title="Permanent link"></a></h2>
 <h3 id="case-1-a-bank-moves-to-the-cloud-phase-a-cannot-be-skipped-a">Case 1: A Bank "Moves to the Cloud" — Phase A Cannot Be Skipped · 案例一：银行"上云"——A 阶段不能跳<a class="anchor" href="#case-1-a-bank-moves-to-the-cloud-phase-a-cannot-be-skipped-a" title="Permanent link"></a></h3>
 <p><strong>Background</strong>: the business side of a city commercial bank proposed "move the core business to the cloud within two years". The architecture team went straight to technology selection: private or public cloud, which SDN vendor, VXLAN or EVPN.</p>
@@ -1295,6 +1345,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>💡 <strong>教训</strong>：<strong>需求没澄清之前，任何技术方案都是在猜。</strong> TOGAF 的 A、B 阶段看起来"虚"，但它们是防止"技术自嗨"的唯一闸门。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-11-case1-skip-phase-a.svg" alt="Case 1 in two lanes: jumping straight to phase D against starting at phase A in the same bank" loading="lazy">
+<figcaption><b>Figure 5-11　Case 1: the same bank twice &#8212; four months in phase D answered none of the CFO's three questions</b><br><span>图 5-11　案例一：直奔 D 阶段四个月，CFO 的三个问题一个都答不上</span></figcaption>
+</figure>
+
 <h3 id="case-2-a-manufacturing-group-with-the-wrong-operating-model">Case 2: A Manufacturing Group With the Wrong Operating Model · 案例二：制造集团运营模型错配<a class="anchor" href="#case-2-a-manufacturing-group-with-the-wrong-operating-model" title="Permanent link"></a></h3>
 <p><strong>Background</strong>: a manufacturing group has five business units (auto parts, home appliance parts, tooling, trading, new energy). Headquarters required "one unified network architecture and unified management across the group".</p>
 <div class="zh">
@@ -1394,6 +1449,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 <p>💡 <strong>教训</strong>：<strong>运营模型判断错误，会导致所有下游设计都错。</strong> 判断只需两问：各单元做事方式一样吗？单元之间需要频繁共享数据吗？</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en05-12-case2-operating-model-mismatch.svg" alt="Case 2: headquarters assuming Unification, the four units' real constraints, and the corrected three-things-unified design" loading="lazy">
+<figcaption><b>Figure 5-12　Case 2: &#8220;the group is therefore Unification&#8221; was the design error, and three unified services were the fix</b><br><span>图 5-12　案例二：误判为统一型是设计错误，只统一三件事才是解法</span></figcaption>
+</figure>
+
 <h3 id="case-3-a-security-project-that-could-not-prove-its-value-and-lost-its-budget">Case 3: A Security Project That Could Not Prove Its Value and Lost Its Budget · 案例三：安全项目无法证明价值，预算被砍<a class="anchor" href="#case-3-a-security-project-that-could-not-prove-its-value-and-lost-its-budget" title="Permanent link"></a></h3>
 <p><strong>Background</strong>: a retailer invested 8M in a network-wide security overhaul (firewalls, microsegmentation, NAC). A year later its request for phase-two funding was rejected.</p>
 <div class="zh">
@@ -1474,6 +1534,11 @@ Business transformation → &quot;how does IT change the way the company does bu
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en05-13-case3-metrics.svg" alt="Case 3: the unverifiable business case that lost phase two, and the three measurable rows that won it back" loading="lazy">
+<figcaption><b>Figure 5-13　Case 3: three rows of measurable metrics won back the budget an unverifiable business case had lost</b><br><span>图 5-13　案例三：三行可测指标赢回了不可验证方案丢掉的预算</span></figcaption>
+</figure>
+
 <h2 id="design-pitfalls">Design Pitfalls · 设计缺陷<a class="anchor" href="#design-pitfalls" title="Permanent link"></a></h2>
 <table>
 <thead>

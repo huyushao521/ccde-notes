@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">A trust score means nothing until a risk score sets the threshold it has to clear</title>
+  <desc id="d7">The trust score describes the subject right now and is built from static factors such as identity and role and dynamic factors such as location, time and patch state. The risk score describes the resource and rises with the impact of a wrong decision. As resource risk rises the trust score required to clear it rises too, so the same subject is allowed to reach a wiki and refused a payroll system. High trust plus high risk does not mean allow: it means allow with constraints such as step-up authentication, a time limit and session recording.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .ax{font:7px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Trust is about the subject; risk is about the resource</text>
+  <text class="s" x="24" y="45">The score alone decides nothing — it has to clear a threshold that the resource sets</text>
+
+  <rect x="150" y="80" width="490" height="260" fill="#fbfcfe"/>
+  <rect x="150" y="80" width="490" height="260" fill="none" stroke="#c3cddb"/>
+  <line x1="150" y1="340" x2="640" y2="340" stroke="#c3cddb"/>
+  <line x1="150" y1="80" x2="150" y2="340" stroke="#c3cddb"/>
+
+  <polygon points="150,288 640,119 640,80 150,80" fill="#f7fffd" stroke="none"/>
+  <polygon points="150,340 640,340 640,119" fill="#fff8f7" stroke="none"/>
+  <line x1="150" y1="288" x2="640" y2="119" stroke="#0f7f73" stroke-width="1.3"/>
+
+  <text class="ax" x="150" y="354" text-anchor="middle">0</text>
+  <text class="ax" x="395" y="354" text-anchor="middle">5</text>
+  <text class="ax" x="640" y="354" text-anchor="middle">10</text>
+  <text class="ax" x="395" y="370" text-anchor="middle">risk score of the resource — what a wrong decision costs</text>
+
+  <text class="ax" x="142" y="343" text-anchor="end">0</text>
+  <text class="ax" x="142" y="216" text-anchor="end">5</text>
+  <text class="ax" x="142" y="86" text-anchor="end">10</text>
+  <text class="ax" x="40" y="210" transform="rotate(-90 40 210)" text-anchor="middle">trust score of the subject — right now</text>
+
+  <text class="c" x="168" y="106" fill="#0f7f73">above the line: cleared</text>
+  <text class="w" x="168" y="118">allow, log normally, revisit on context change</text>
+
+  <text class="c" x="380" y="322" fill="#c0392b">below the line: refused</text>
+  <text class="w" x="380" y="334">and the refusal must be attributable to a score</text>
+
+  <text class="c" x="440" y="140" fill="#1f4fc0">high risk, high trust</text>
+  <text class="w" x="440" y="152">allow with constraints: step-up MFA,</text>
+  <text class="w" x="440" y="163">time limit, session recording</text>
+
+  <circle cx="266" cy="220" r="3.5" fill="#0f7f73"/>
+  <text class="w" x="274" y="212">a wiki, from a managed laptop</text>
+  <circle cx="560" cy="180" r="3.5" fill="#c0392b"/>
+  <text class="w" x="568" y="178">payroll, from an unmanaged device</text>
+  <text class="w" x="568" y="190">same subject, different verdict</text>
+
+  <line x1="640" y1="119" x2="640" y2="80" stroke="#0f7f73" stroke-width=".7" stroke-dasharray="3 3"/>
+  <text class="ax" x="645" y="100">required</text>
+
+  <line x1="660" y1="60" x2="660" y2="344" stroke="#e3e8ef"/>
+
+  <text class="ln" x="680" y="76">WHAT FEEDS THE TWO SCORES</text>
+  <text class="mid" x="680" y="96">trust score · about the subject</text>
+  <text class="c" x="680" y="110">static: identity, role, department, device type</text>
+  <text class="c" x="680" y="122">dynamic: location, time, patch state, behaviour</text>
+  <text class="c" x="680" y="134">continuous — a login is a sample, not a fact</text>
+
+  <text class="mid" x="680" y="158">risk score · about the resource</text>
+  <text class="c" x="680" y="172">what leaks, what breaks, what the regulator says</text>
+  <text class="c" x="680" y="184">set by data classification, not by the request</text>
+  <text class="c" x="680" y="196">it moves with the data, not with the user</text>
+
+  <rect x="680" y="210" width="196" height="72" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="690" y="226" fill="#c0392b">the trap</text>
+  <text class="c" x="690" y="240">A high trust score grants nothing</text>
+  <text class="c" x="690" y="252">by itself. If the role is not entitled</text>
+  <text class="c" x="690" y="264">to that resource, the answer is still</text>
+  <text class="c" x="690" y="276">no — trust and authorisation are two tests.</text>
+
+  <rect x="680" y="292" width="196" height="48" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="690" y="308" fill="#0f7f73">so the decision is a pair:</text>
+  <text class="c" x="690" y="322">is the subject trustworthy enough,</text>
+  <text class="c" x="690" y="334">and is it entitled at all?</text>
+
+  <text class="t" x="24" y="386">An access decision with no risk score has no threshold to clear, which is why zero trust projects that only add MFA end with stronger passwords, not a new architecture.</text>
+</svg>

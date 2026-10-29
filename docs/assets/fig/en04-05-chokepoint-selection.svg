@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="d5">Five chokepoint types compared by capability, placement and what each one cannot do</title>
+  <desc id="d5">A stateless ACL filters five-tuples at line rate but tracks no session and sees no application. A stateful firewall tracks sessions, translates addresses and identifies applications, but its state must be synchronised across an HA pair. An IPS detects and blocks known attacks on north-south paths but is blind to encrypted traffic and needs tuning. A WAF covers HTTP attacks on published applications only. A proxy or CASB controls and audits outbound access but needs endpoint cooperation. The three hard constraints are few and explicit chokepoints, accepting the encryption and inspection conflict, and synchronising state.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .hd{font:700 8px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.5px}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Not every crossing deserves the same device</text>
+  <text class="s" x="24" y="45">Pick the chokepoint by what it must decide — then write down what it will be blind to</text>
+
+  <text class="hd" x="24" y="72">CHOKEPOINT</text>
+  <text class="hd" x="150" y="72">WHAT IT DECIDES</text>
+  <text class="hd" x="376" y="72">WHERE IT BELONGS</text>
+  <text class="hd" x="636" y="72">WHAT IT CANNOT DO</text>
+  <line x1="24" y1="78" x2="876" y2="78" stroke="#c3cddb"/>
+
+  <rect x="24" y="84" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="102">stateless ACL / iACL</text>
+  <text class="w" x="32" y="116">line rate, no memory</text>
+  <text class="c" x="150" y="102">five-tuple permit or deny, at wire speed</text>
+  <text class="c" x="150" y="116">cheap, deterministic, no session table to exhaust</text>
+  <text class="c" x="376" y="102">coarse filtering inside a domain,</text>
+  <text class="c" x="376" y="116">infrastructure and loopback protection</text>
+  <text class="c" x="636" y="102">tracks no session and identifies no application;</text>
+  <text class="c" x="636" y="116">it cannot tell a browser from a backup</text>
+
+  <rect x="24" y="130" width="852" height="46" fill="#ffffff"/>
+  <text class="mid" x="32" y="148">stateful firewall</text>
+  <text class="w" x="32" y="162">every main crossing</text>
+  <text class="c" x="150" y="148">sessions, NAT, application identification</text>
+  <text class="c" x="150" y="162">the default answer for inter-domain paths</text>
+  <text class="c" x="376" y="148">every main inter-domain path,</text>
+  <text class="c" x="376" y="162">in pairs, sized for peak sessions</text>
+  <text class="c" x="636" y="148">keeps state: an HA pair that does not sync</text>
+  <text class="c" x="636" y="162">sessions drops every long-lived connection at failover</text>
+
+  <rect x="24" y="176" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="194">IPS</text>
+  <text class="w" x="32" y="208">known attacks</text>
+  <text class="c" x="150" y="194">signature detection and blocking</text>
+  <text class="c" x="150" y="208">known bad, at the cost of false positives</text>
+  <text class="c" x="376" y="194">north-south main paths,</text>
+  <text class="c" x="376" y="208">data centre ingress, mail and web edges</text>
+  <text class="c" x="636" y="194">blind inside IPsec and TLS; needs decryption</text>
+  <text class="c" x="636" y="208">at the chokepoint, and continuous tuning</text>
+
+  <rect x="24" y="222" width="852" height="46" fill="#ffffff"/>
+  <text class="mid" x="32" y="240">WAF</text>
+  <text class="w" x="32" y="254">HTTP only</text>
+  <text class="c" x="150" y="240">HTTP-layer attacks: injection, scripting, bots</text>
+  <text class="c" x="150" y="254">understands the protocol, so it can be precise</text>
+  <text class="c" x="376" y="240">application front ends that are</text>
+  <text class="c" x="376" y="254">published to the Internet</text>
+  <text class="c" x="636" y="240">covers web only; it has no opinion about</text>
+  <text class="c" x="636" y="254">a database port or an MQTT broker</text>
+
+  <rect x="24" y="268" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="286">proxy / CASB</text>
+  <text class="w" x="32" y="300">who goes out</text>
+  <text class="c" x="150" y="286">outbound control, audit, data loss rules</text>
+  <text class="c" x="150" y="300">the only place that sees user to SaaS traffic</text>
+  <text class="c" x="376" y="286">Internet egress,</text>
+  <text class="c" x="376" y="300">SaaS access and shadow IT discovery</text>
+  <text class="c" x="636" y="286">needs the endpoint to cooperate: proxy settings,</text>
+  <text class="c" x="636" y="300">PAC file or an agent; bypass is one setting away</text>
+
+  <line x1="24" y1="322" x2="876" y2="322" stroke="#c3cddb"/>
+  <text class="nb" x="24" y="340" fill="#c0392b">Three constraints that decide whether this design survives contact with operations</text>
+
+  <rect x="24" y="348" width="272" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="34" y="363" fill="#c0392b">few and explicit</text>
+  <text class="c" x="34" y="376">traffic must converge, or consistency and</text>
+  <text class="c" x="34" y="387">capacity planning both become impossible</text>
+
+  <rect x="304" y="348" width="272" height="44" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="314" y="363" fill="#a86400">encryption against inspection</text>
+  <text class="c" x="314" y="376">terminate at the chokepoint, or accept the</text>
+  <text class="c" x="314" y="387">segment is unobservable — write down which</text>
+
+  <rect x="584" y="348" width="292" height="44" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="594" y="363" fill="#1f4fc0">state must survive failover</text>
+  <text class="c" x="594" y="376">otherwise the switchover succeeds and the</text>
+  <text class="c" x="594" y="387">business stops: the worst kind of success</text>
+</svg>

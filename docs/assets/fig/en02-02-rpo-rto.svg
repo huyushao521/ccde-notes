@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 344" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">RPO measures data loss before the failure, RTO measures downtime after it</title>
+  <desc id="d2">On a single timeline, the recovery point objective spans from the last good copy to the moment of failure and states how much data may be lost; the recovery time objective spans from the failure to restored service and states how long the business may be offline. A two-hour outage against a twenty-minute RTO leaves one hundred minutes uncovered.</desc>
+
+  <defs>
+    <marker id="r2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#0f7f73;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .bad{font:600 9px "Segoe UI",sans-serif;fill:#c0392b}
+  </style>
+
+  <rect x="0" y="0" width="900" height="344" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">RPO looks backwards to the last good copy; RTO looks forwards to restored service</text>
+  <text class="s" x="24" y="48">Both are time values, which is why they get confused — but only one is about data, and only one is about the business being down</text>
+
+  <text class="ln" x="60" y="76">RECOVERY POINT OBJECTIVE · how much data may be lost</text>
+  <text class="ln2" x="470" y="76">RECOVERY TIME OBJECTIVE · how long you may be offline</text>
+
+  <line x1="60" y1="158" x2="860" y2="158" stroke="#c3cddb"/>
+
+  <rect x="260" y="120" width="170" height="12" rx="3" fill="#dce8ff" stroke="#2f6fed"/>
+  <rect x="430" y="120" width="310" height="12" rx="3" fill="#d9f2ee" stroke="#0f7f73"/>
+
+  <line x1="260" y1="104" x2="260" y2="184" stroke="#2f6fed" stroke-dasharray="3 3"/>
+  <line x1="430" y1="100" x2="430" y2="196" stroke="#c0392b" stroke-width="1.4"/>
+  <line x1="740" y1="104" x2="740" y2="184" stroke="#0f7f73" stroke-dasharray="3 3"/>
+
+  <text class="n" x="269" y="112">last good copy — backup or replication point</text>
+  <text class="bad" x="437" y="112">failure: outage starts here</text>
+  <text class="n" x="749" y="112">service restored</text>
+
+  <text class="nb" x="345" y="147" text-anchor="middle" fill="#1f4fc0">RPO 15 min</text>
+  <text class="t" x="345" y="172" text-anchor="middle">the 15 minutes of orders</text>
+  <text class="t" x="345" y="183" text-anchor="middle">you accept losing</text>
+
+  <text class="nb" x="600" y="147" text-anchor="middle" fill="#0f7f73">RTO 20 min</text>
+  <text class="t" x="600" y="172" text-anchor="middle">measured to restored service,</text>
+  <text class="t" x="600" y="183" text-anchor="middle">not to the link switchover</text>
+
+  <line x1="60" y1="214" x2="860" y2="214" stroke="#e3e8ef"/>
+
+  <text class="nb" x="60" y="234">The same targets hit by a real incident</text>
+  <text class="t" x="60" y="248">a 2-hour outage (120 min) against RPO 15 min and RTO 20 min</text>
+
+  <rect x="430" y="260" width="66" height="14" rx="3" fill="#d9f2ee" stroke="#0f7f73"/>
+  <rect x="496" y="260" width="334" height="14" rx="3" fill="#fbe3e0" stroke="#c0392b"/>
+  <line x1="430" y1="252" x2="430" y2="300" stroke="#8494a8"/>
+  <line x1="496" y1="252" x2="496" y2="300" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <line x1="830" y1="252" x2="830" y2="300" stroke="#8494a8"/>
+
+  <text class="t" x="463" y="312" text-anchor="middle">covered</text>
+  <text class="bad" x="663" y="312" text-anchor="middle">100 min uncovered — the commitment is breached</text>
+
+  <text class="t" x="24" y="334">In practice RPO is usually under one hour, with a ten-minute average; if the DR data is forty minutes stale, no RTO helps — the loss already happened.</text>
+</svg>

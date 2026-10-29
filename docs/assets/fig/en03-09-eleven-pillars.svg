@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 372" width="100%" role="img" aria-labelledby="t9 d9">
+
+  <title id="t9">Eleven data management capabilities in four clusters, and the three that fall partly on the network</title>
+  <desc id="d9">Data governance, architecture and modelling form the planning cluster. Storage and operations plus security form the foundation cluster. Integration and interoperability, document and content management, and reference and master data form the movement cluster. Warehousing and BI, metadata and data quality form the analysis cluster. Security, integration and quality are the three where network design contributes directly.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:7.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .cb{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .num{font:700 8px "Segoe UI",sans-serif;fill:#b0bccd}
+  </style>
+
+  <rect x="0" y="0" width="900" height="372" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Eleven data capabilities, four clusters — a capability map, not a project plan</text>
+  <text class="s" x="24" y="45">All eleven run at once; the network contributes directly to three of them and inherits constraints from the rest</text>
+
+  <text class="ln" x="24" y="66">PLAN IT</text>
+  <text class="ln" x="240" y="66" fill="#0f7f73">RUN IT</text>
+  <text class="ln" x="456" y="66" fill="#a86400">MOVE IT</text>
+  <text class="ln" x="672" y="66" fill="#bf5b1d">READ IT</text>
+
+  <rect x="24" y="74" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="num" x="32" y="88">01</text>
+  <text class="mid" x="50" y="88">data governance</text>
+  <text class="c" x="32" y="102">who owns which data, who may see it,</text>
+  <text class="c" x="32" y="114">who decides when it may move</text>
+
+  <rect x="24" y="128" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="num" x="32" y="142">02</text>
+  <text class="mid" x="50" y="142">data architecture</text>
+  <text class="c" x="32" y="156">the model of how data flows between</text>
+  <text class="c" x="32" y="168">systems — the map behind the diagram</text>
+
+  <rect x="24" y="182" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="num" x="32" y="196">03</text>
+  <text class="mid" x="50" y="196">modelling and design</text>
+  <text class="c" x="32" y="210">normalised vs dimensional, keys,</text>
+  <text class="c" x="32" y="222">lifecycle and retention by design</text>
+
+  <rect x="240" y="74" width="204" height="48" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="num" x="248" y="88">04</text>
+  <text class="mid" x="266" y="88">storage and operations</text>
+  <text class="c" x="248" y="102">where the copies live, who may reach</text>
+  <text class="c" x="248" y="114">them, when they are destroyed</text>
+
+  <rect x="240" y="128" width="204" height="48" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="num" x="248" y="142">05</text>
+  <text class="mid" x="266" y="142">data security</text>
+  <text class="c" x="248" y="156">classification, encryption in transit</text>
+  <text class="c" x="248" y="168">and at rest, egress inspection</text>
+
+  <rect x="456" y="74" width="204" height="48" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="num" x="464" y="88">06</text>
+  <text class="mid" x="482" y="88">integration and interop</text>
+  <text class="c" x="464" y="102">batch vs streaming, sync vs async,</text>
+  <text class="c" x="464" y="114">and the latency each one demands</text>
+
+  <rect x="456" y="128" width="204" height="48" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="num" x="464" y="142">07</text>
+  <text class="mid" x="482" y="142">document and content</text>
+  <text class="c" x="464" y="156">unstructured data: files, images, mail —</text>
+  <text class="c" x="464" y="168">the largest and least governed volume</text>
+
+  <rect x="456" y="182" width="204" height="48" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="num" x="464" y="196">08</text>
+  <text class="mid" x="482" y="196">reference and master data</text>
+  <text class="c" x="464" y="210">one customer, one part number,</text>
+  <text class="c" x="464" y="222">one definition across sites</text>
+
+  <rect x="672" y="74" width="204" height="48" rx="3" fill="#fff8f0" stroke="#bf5b1d" stroke-width=".8"/>
+  <text class="num" x="680" y="88">09</text>
+  <text class="mid" x="698" y="88">warehousing and BI</text>
+  <text class="c" x="680" y="102">load windows, extract volume,</text>
+  <text class="c" x="680" y="114">and the queries that follow the load</text>
+
+  <rect x="672" y="128" width="204" height="48" rx="3" fill="#fff8f0" stroke="#bf5b1d" stroke-width=".8"/>
+  <text class="num" x="680" y="142">10</text>
+  <text class="mid" x="698" y="142">metadata management</text>
+  <text class="c" x="680" y="156">what exists, where it came from,</text>
+  <text class="c" x="680" y="168">who changed it and when</text>
+
+  <rect x="672" y="182" width="204" height="48" rx="3" fill="#fff8f0" stroke="#bf5b1d" stroke-width=".8"/>
+  <text class="num" x="680" y="196">11</text>
+  <text class="mid" x="698" y="196">data quality</text>
+  <text class="c" x="680" y="210">completeness, accuracy, timeliness —</text>
+  <text class="c" x="680" y="222">measured, or merely believed</text>
+
+  <line x1="24" y1="246" x2="876" y2="246" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="264">The three the network contributes to directly</text>
+
+  <rect x="24" y="272" width="270" height="62" rx="4" fill="#ffffff" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="mid" x="34" y="288" fill="#0f7f73">05 · security</text>
+  <text class="c" x="34" y="302">segmentation between data classes, encryption in</text>
+  <text class="c" x="34" y="314">transit on every replication path, and egress control:</text>
+  <text class="c" x="34" y="326">the largest leaks leave by a route nobody watched.</text>
+
+  <rect x="303" y="272" width="270" height="62" rx="4" fill="#ffffff" stroke="#d98600" stroke-width=".8"/>
+  <text class="mid" x="313" y="288" fill="#a86400">06 · integration</text>
+  <text class="c" x="313" y="302">replication and change capture are latency-bound:</text>
+  <text class="c" x="313" y="314">distance sets the floor, so batch windows must be</text>
+  <text class="c" x="313" y="326">sized from measured RTT, not from the vendor slide.</text>
+
+  <rect x="582" y="272" width="294" height="62" rx="4" fill="#ffffff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="mid" x="592" y="288" fill="#1f4fc0">11 · quality</text>
+  <text class="c" x="592" y="302">timeliness is a network property: clock skew, sync</text>
+  <text class="c" x="592" y="314">delay and loss make "real time" differ per site,</text>
+  <text class="c" x="592" y="326">and reconciliation then blames the data.</text>
+
+  <text class="t" x="24" y="352">The pillars are standing capabilities, not phases: a company without data governance does not "finish" architecture next.</text>
+  <text class="t" x="24" y="366">Network design inherits from 05, 06 and 11 — the rest set requirements the network must be able to meet.</text>
+</svg>

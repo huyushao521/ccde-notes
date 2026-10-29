@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t8 d8">
+
+  <title id="t8">Scrum delivers in fixed sprints; Kanban manages a continuous flow with WIP limits</title>
+  <desc id="d8">In Scrum the product backlog feeds sprint planning, then a fixed two-to-four-week sprint with a daily stand-up, then a review and a retrospective that loops back to the backlog. In Kanban the work moves continuously across board columns, each column capped by a work-in-progress limit, and the metrics are cycle time and throughput rather than velocity and burn-down.</desc>
+
+  <defs>
+    <marker id="b8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="g8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#a86400;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Two shapes of agile: Scrum delivers in a fixed rhythm, Kanban keeps a flow and caps what is open</text>
+  <text class="s" x="24" y="48">Scrum answers "when will this sprint be done", Kanban answers "how long does one item take" — different questions, different metrics</text>
+
+  <rect x="40" y="64" width="410" height="196" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="56" y="84">SCRUM · fixed-length sprints</text>
+  <text class="sm" x="56" y="98">product owner sets the what · scrum master removes the blockers · team self-organizes</text>
+
+  <rect x="56" y="112" width="70" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="sm" x="91" y="130" text-anchor="middle">product</text>
+  <text class="sm" x="91" y="142" text-anchor="middle">backlog</text>
+
+  <rect x="140" y="112" width="70" height="42" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="sm" x="175" y="130" text-anchor="middle">sprint</text>
+  <text class="sm" x="175" y="142" text-anchor="middle">planning</text>
+
+  <rect x="224" y="112" width="70" height="42" rx="4" fill="#dce8ff" stroke="#2f6fed"/>
+  <text class="sm" x="259" y="128" text-anchor="middle">sprint</text>
+  <text class="sm" x="259" y="140" text-anchor="middle">2–4 weeks</text>
+
+  <rect x="300" y="112" width="68" height="42" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="sm" x="334" y="130" text-anchor="middle">review</text>
+  <text class="sm" x="334" y="142" text-anchor="middle">increment</text>
+
+  <rect x="376" y="112" width="58" height="42" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="sm" x="405" y="130" text-anchor="middle">retro</text>
+  <text class="sm" x="405" y="142" text-anchor="middle">spective</text>
+
+  <line x1="128" y1="133" x2="138" y2="133" stroke="#2f6fed" marker-end="url(#b8)"/>
+  <line x1="212" y1="133" x2="222" y2="133" stroke="#2f6fed" marker-end="url(#b8)"/>
+  <line x1="296" y1="133" x2="298" y2="133" stroke="#2f6fed" marker-end="url(#b8)"/>
+  <line x1="370" y1="133" x2="374" y2="133" stroke="#2f6fed" marker-end="url(#b8)"/>
+
+  <text class="sm" x="259" y="170" text-anchor="middle" fill="#1f4fc0">daily stand-up · 15 min</text>
+  <text class="sm" x="259" y="183" text-anchor="middle" fill="#1f4fc0">same time, every day</text>
+
+  <path d="M406 154 L406 196 L91 196 L91 156" fill="none" stroke="#0f7f73" stroke-dasharray="4 3" marker-end="url(#g8)"/>
+  <text class="sm" x="240" y="208" text-anchor="middle" fill="#0f7f73">retrospective re-orders the backlog for the next sprint</text>
+
+  <text class="sm" x="56" y="230">Fits new product development: every sprint ends in something demonstrable.</text>
+  <text class="sm" x="56" y="244" fill="#a86400">Fails when the product owner keeps adding: scope creep with no end date.</text>
+
+  <rect x="466" y="64" width="394" height="196" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln2" x="482" y="84">KANBAN · continuous flow, WIP limits</text>
+  <text class="sm" x="482" y="98">no fixed roles, no fixed meetings, no fixed sprints</text>
+
+  <rect x="482" y="108" width="84" height="96" rx="4" fill="#f7f9fc" stroke="#e3e8ef"/>
+  <text class="mid" x="524" y="122" text-anchor="middle">Backlog</text>
+  <rect x="490" y="130" width="68" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="490" y="144" width="68" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="490" y="158" width="68" height="10" rx="2" fill="#dde5ef"/>
+
+  <rect x="574" y="108" width="84" height="96" rx="4" fill="#fff" stroke="#d98600"/>
+  <text class="mid" x="616" y="122" text-anchor="middle">Ready · 3</text>
+  <rect x="582" y="130" width="68" height="10" rx="2" fill="#ffe9c4"/>
+  <rect x="582" y="144" width="68" height="10" rx="2" fill="#ffe9c4"/>
+  <rect x="582" y="158" width="68" height="10" rx="2" fill="#ffe9c4"/>
+
+  <rect x="666" y="108" width="84" height="96" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="708" y="122" text-anchor="middle">Doing · 2</text>
+  <rect x="674" y="130" width="68" height="10" rx="2" fill="#fbdcd8"/>
+  <rect x="674" y="144" width="68" height="10" rx="2" fill="#fbdcd8"/>
+  <text class="sm" x="708" y="170" text-anchor="middle" fill="#c0392b">full — start</text>
+  <text class="sm" x="708" y="182" text-anchor="middle" fill="#c0392b">nothing new</text>
+
+  <rect x="758" y="108" width="84" height="96" rx="4" fill="#f7fbfa" stroke="#0f7f73"/>
+  <text class="mid" x="800" y="122" text-anchor="middle">Done</text>
+  <rect x="766" y="130" width="68" height="10" rx="2" fill="#cfeae4"/>
+  <rect x="766" y="144" width="68" height="10" rx="2" fill="#cfeae4"/>
+  <rect x="766" y="158" width="68" height="10" rx="2" fill="#cfeae4"/>
+  <rect x="766" y="172" width="68" height="10" rx="2" fill="#cfeae4"/>
+
+  <text class="sm" x="482" y="222">The cap is the method: when "Doing" is full, the next item waits, so</text>
+  <text class="sm" x="482" y="234">work finishes instead of multiplying. Metrics: cycle time, throughput.</text>
+  <text class="sm" x="482" y="250" fill="#a86400">No cap means everything is in progress and nothing is done.</text>
+
+  <line x1="40" y1="272" x2="860" y2="272" stroke="#e3e8ef"/>
+  <text class="mid" x="40" y="290">Kanban vs Scrum</text>
+  <text class="sm" x="200" y="290" fill="#a86400">Kanban</text>
+  <text class="sm" x="420" y="290" fill="#1f4fc0">Scrum</text>
+  <text class="sm" x="40" y="304">work organized</text><text class="sm" x="200" y="304">by process stage</text><text class="sm" x="420" y="304">by sprint</text>
+  <text class="sm" x="40" y="316">change</text><text class="sm" x="200" y="316">any time</text><text class="sm" x="420" y="316">frozen during a sprint</text>
+  <text class="sm" x="40" y="328">roles and meetings</text><text class="sm" x="200" y="328">none fixed; as needed</text><text class="sm" x="420" y="328">three roles, five fixed events</text>
+  <text class="sm" x="40" y="340">metrics</text><text class="sm" x="200" y="340">cycle time, throughput</text><text class="sm" x="420" y="340">velocity, burn-down</text>
+  <text class="sm" x="40" y="352">best fit</text><text class="sm" x="200" y="352">operations, support, remediation</text><text class="sm" x="420" y="352">new product development</text>
+
+  <text class="t" x="24" y="376">Team size is a hard constraint in Scrum: five to nine people. Beyond that the daily stand-up stops being a stand-up.</text>
+  <text class="t" x="24" y="392">Hybrid in practice: the audit-heavy main track runs phase gates, while individual technical fixes move across a Kanban board week by week.</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t8 d8">
+
+  <title id="t8">Traditional, virtualised and containerised deployment, and what each one changes for the network</title>
+  <desc id="d8">In the traditional model several applications share one operating system on one physical server, so there is no isolation and one MAC and IP address per server. Virtualisation adds a hypervisor so each application gets its own guest operating system and virtual switch, with per-tenant VLANs. Containers share the host kernel and give each application its own namespace and address, which multiplies endpoints and turns most traffic east-west.</desc>
+
+  <defs>
+    <marker id="a8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .c{font:7.5px "Segoe UI",sans-serif;fill:#3d4c63}
+  </style>
+
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">From one server to thousands of endpoints: what each deployment model does to the network</text>
+  <text class="s" x="24" y="45">Isolation, density and address count change together — the network sees the consequence, not the cause</text>
+
+  <text class="ln" x="24" y="68">1 · TRADITIONAL</text>
+  <rect x="24" y="76" width="260" height="150" rx="4" fill="#ffffff" stroke="#8494a8" stroke-width=".9"/>
+  <text class="w" x="32" y="90">physical server</text>
+  <rect x="34" y="94" width="240" height="34" rx="2" fill="#eef3fb" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="42" y="106">app A</text><text class="c" x="120" y="106">app B</text><text class="c" x="190" y="106">app C</text>
+  <text class="w" x="42" y="120">all share one OS, one address, one patch cycle</text>
+  <rect x="34" y="132" width="240" height="24" rx="2" fill="#f2f4f7" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="42" y="147">operating system</text>
+  <rect x="34" y="160" width="240" height="24" rx="2" fill="#f2f4f7" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="42" y="175">hardware · 1 MAC · 1 IP · 1 network port</text>
+  <text class="c" x="34" y="200" fill="#c0392b">no isolation: one app's runaway CPU or crash takes all three</text>
+  <text class="c" x="34" y="214">network: static, easy to document, easy to audit</text>
+
+  <text class="ln" x="312" y="68">2 · VIRTUALISED</text>
+  <rect x="312" y="76" width="260" height="150" rx="4" fill="#ffffff" stroke="#8494a8" stroke-width=".9"/>
+  <rect x="322" y="86" width="76" height="46" rx="2" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="328" y="98">VM 1</text><text class="c" x="328" y="110">app A + OS</text><text class="c" x="328" y="122">own IP</text>
+  <rect x="404" y="86" width="76" height="46" rx="2" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="410" y="98">VM 2</text><text class="c" x="410" y="110">app B + OS</text><text class="c" x="410" y="122">own IP</text>
+  <rect x="486" y="86" width="76" height="46" rx="2" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="492" y="98">VM 3</text><text class="c" x="492" y="110">app C + OS</text><text class="c" x="492" y="122">own IP</text>
+  <rect x="322" y="138" width="240" height="22" rx="2" fill="#eaf7f5" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="330" y="152">hypervisor · virtual switch · per-tenant VLAN / VXLAN</text>
+  <rect x="322" y="166" width="240" height="20" rx="2" fill="#f2f4f7" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="330" y="180">hardware · 2 links · 1 MAC per VM</text>
+  <text class="c" x="322" y="200">isolation per VM, but every VM carries a full guest OS</text>
+  <text class="c" x="322" y="214" fill="#c0392b">network: MAC table and VLAN count grow with density</text>
+
+  <text class="ln" x="600" y="68" fill="#bf5b1d">3 · CONTAINERISED</text>
+  <rect x="600" y="76" width="276" height="150" rx="4" fill="#ffffff" stroke="#8494a8" stroke-width=".9"/>
+  <rect x="608" y="86" width="52" height="30" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="616" y="99">ctr A</text><text class="c" x="616" y="111">10.1.1.7</text>
+  <rect x="666" y="86" width="52" height="30" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="674" y="99">ctr B</text><text class="c" x="674" y="111">10.1.1.8</text>
+  <rect x="724" y="86" width="52" height="30" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="732" y="99">ctr C</text><text class="c" x="732" y="111">10.1.1.9</text>
+  <rect x="782" y="86" width="52" height="30" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="790" y="99">ctr D</text><text class="c" x="790" y="111">10.1.1.10</text>
+  <rect x="608" y="124" width="226" height="20" rx="2" fill="#fff8f0" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="616" y="138">container engine · orchestration · service discovery</text>
+  <rect x="608" y="148" width="226" height="18" rx="2" fill="#f2f4f7" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="616" y="161">host OS, shared kernel — no guest OS per app</text>
+  <rect x="608" y="170" width="226" height="16" rx="2" fill="#f2f4f7" stroke="#8494a8" stroke-width=".7"/>
+  <text class="c" x="616" y="182">hardware · 10–100 endpoints per host</text>
+  <text class="c" x="608" y="200">isolation by namespace, seconds to start, high churn</text>
+  <text class="c" x="608" y="214" fill="#c0392b">network: identity moved from IP to service name</text>
+
+  <line x1="24" y1="232" x2="876" y2="232" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="250">What changes for the network — the part that is always underestimated</text>
+
+  <rect x="24" y="258" width="260" height="86" rx="4" fill="#f7f9fc" stroke="#e3e8ef"/>
+  <text class="mid" x="34" y="274">traditional</text>
+  <text class="sm" x="34" y="290">one address, one path, stable for years</text>
+  <text class="sm" x="34" y="304">security = firewall at the perimeter</text>
+  <text class="sm" x="34" y="318">troubleshooting: follow one cable</text>
+  <text class="sm" x="34" y="332">change window: planned, slow, safe</text>
+
+  <rect x="312" y="258" width="260" height="86" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="mid" x="322" y="274" fill="#1f4fc0">virtualised</text>
+  <text class="sm" x="322" y="290">overlay network, VM-to-VM traffic on one host</text>
+  <text class="sm" x="322" y="304">security = perimeter + host-based rules</text>
+  <text class="sm" x="322" y="318">troubleshooting: virtual switch + physical path</text>
+  <text class="sm" x="322" y="332">capacity: oversubscription hides the real load</text>
+
+  <rect x="600" y="258" width="276" height="86" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="mid" x="610" y="274" fill="#bf5b1d">containerised</text>
+  <text class="sm" x="610" y="290">thousands of short-lived endpoints, east-west</text>
+  <text class="sm" x="610" y="304">security = per-workload identity, mTLS, policy</text>
+  <text class="sm" x="610" y="318">troubleshooting: trace the call, not the cable</text>
+  <text class="sm" x="610" y="332">DNS and service discovery become critical path</text>
+
+  <text class="t" x="24" y="362">Containers did not make the network simpler — they moved identity from an address that lived for years to a name that lives for minutes.</text>
+  <text class="t" x="24" y="378">Every model above shifts work from the application to shared infrastructure: the failure domain widens even as the deployment gets faster.</text>
+  <text class="t" x="24" y="398">Pick the model per application, not per company: a payroll batch and a search front end have nothing in common except the network they share.</text>
+</svg>

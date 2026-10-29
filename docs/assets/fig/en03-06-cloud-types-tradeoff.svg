@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">Four cloud types positioned by control and cost, with the attribute each one actually buys</title>
+  <desc id="d6">Private cloud has the most control and the highest maintenance. Public cloud has the least control, the lowest cost and no maintenance. Hybrid mixes the two. Multi-cloud has the least control per provider, the highest flexibility across providers and the highest cost, and is the hardest to migrate between. Flexibility across providers costs both money and control.</desc>
+
+  <defs>
+    <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .ax{font:600 8px "Segoe UI",sans-serif;fill:#6b7a90}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four cloud types: what each one buys, and what it charges you for</text>
+  <text class="s" x="24" y="45">Control and cost trade against each other; flexibility across providers is bought with both, plus migration difficulty</text>
+
+  <rect x="60" y="70" width="360" height="266" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="72" y="88">POSITIONING</text>
+
+  <line x1="92" y1="326" x2="404" y2="326" stroke="#8494a8" marker-end="url(#a6)"/>
+  <line x1="92" y1="326" x2="92" y2="104" stroke="#8494a8" marker-end="url(#a6)"/>
+  <text class="ax" x="230" y="340" text-anchor="middle">CONTROL →  (least to most)</text>
+  <text class="ax" x="80" y="215" text-anchor="middle" transform="rotate(-90 80 215)">COST / MAINTENANCE →</text>
+
+  <circle cx="362" cy="122" r="5" fill="#0f7f73"/>
+  <text class="mid" x="352" y="112" text-anchor="end">private cloud</text>
+  <text class="w" x="352" y="124" text-anchor="end">most control, highest maintenance</text>
+
+  <circle cx="252" cy="150" r="5" fill="#2f6fed"/>
+  <text class="mid" x="264" y="142">hybrid cloud</text>
+  <text class="w" x="264" y="154">mixed control, medium maintenance</text>
+
+  <circle cx="140" cy="290" r="5" fill="#d98600"/>
+  <text class="mid" x="152" y="282">public cloud</text>
+  <text class="w" x="152" y="294">least control, lowest cost, no maintenance</text>
+
+  <circle cx="112" cy="108" r="5" fill="#c0392b"/>
+  <text class="mid" x="124" y="100">multi-cloud</text>
+  <text class="w" x="124" y="112">least control per CSP, highest cost</text>
+  <text class="w" x="124" y="124">highest flexibility across CSPs, hardest migration</text>
+
+  <path d="M118 120 C 180 150, 300 170, 356 134" fill="none" stroke="#c0392b" stroke-width=".8" stroke-dasharray="4 3"/>
+  <text class="w" x="250" y="176" fill="#c0392b">every extra CSP adds a control plane you do not own</text>
+
+  <text class="nb" x="450" y="80">The attribute each type actually buys</text>
+
+  <rect x="450" y="90" width="426" height="20" rx="2" fill="#eef3fb"/>
+  <text class="mid" x="458" y="104">type</text>
+  <text class="mid" x="560" y="104">strength</text>
+  <text class="mid" x="712" y="104">price</text>
+
+  <rect x="450" y="110" width="426" height="54" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="mid" x="458" y="128" fill="#0f7f73">private</text>
+  <text class="sm" x="458" y="142">dedicated equipment,</text>
+  <text class="sm" x="458" y="154">own network, own data path</text>
+  <text class="sm" x="560" y="134">most control, highest scalability</text>
+  <text class="sm" x="560" y="148">compliance and residency easy</text>
+  <text class="sm" x="712" y="134">highest cost,</text>
+  <text class="sm" x="712" y="148">hard to migrate away</text>
+
+  <rect x="450" y="164" width="426" height="54" fill="#fffdf7" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="mid" x="458" y="182" fill="#a86400">public</text>
+  <text class="sm" x="458" y="196">shared with other tenants,</text>
+  <text class="sm" x="458" y="208">operated by the CSP</text>
+  <text class="sm" x="560" y="188">lowest cost, no maintenance,</text>
+  <text class="sm" x="560" y="202">flexible, elastic</text>
+  <text class="sm" x="712" y="188">least control,</text>
+  <text class="sm" x="712" y="202">hard to migrate</text>
+
+  <rect x="450" y="218" width="426" height="54" fill="#f4f8ff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="mid" x="458" y="236" fill="#1f4fc0">hybrid</text>
+  <text class="sm" x="458" y="250">private for what must stay,</text>
+  <text class="sm" x="458" y="262">public for what may move</text>
+  <text class="sm" x="560" y="242">keeps both benefits,</text>
+  <text class="sm" x="560" y="256">easiest migration of the four</text>
+  <text class="sm" x="712" y="242">two estates to run,</text>
+  <text class="sm" x="712" y="256">high cost, lowest scalability</text>
+
+  <rect x="450" y="272" width="426" height="54" fill="#fff8f7" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="mid" x="458" y="290" fill="#c0392b">multi-cloud</text>
+  <text class="sm" x="458" y="304">two or more CSPs,</text>
+  <text class="sm" x="458" y="316">workloads move between them</text>
+  <text class="sm" x="560" y="296">highest flexibility,</text>
+  <text class="sm" x="560" y="310">highest scalability, no single vendor</text>
+  <text class="sm" x="712" y="296">highest cost, per-CSP</text>
+  <text class="sm" x="712" y="310">maintenance, hardest migration</text>
+
+  <text class="nb" x="450" y="350">The question is not which type is better</text>
+  <text class="sm" x="450" y="364">It is which workloads must stay under your control — residency, latency, regulation —</text>
+  <text class="sm" x="450" y="376">and which need not. Answered per workload, the mix follows by itself.</text>
+
+  <text class="t" x="24" y="356">Hybrid is not a compromise between the others — it is the normal end state of an enterprise with a data centre it cannot vacate.</text>
+  <text class="t" x="24" y="372">Multi-cloud is chosen for negotiating leverage and failure independence, and paid for in duplicate tooling, policy and skills.</text>
+  <text class="t" x="24" y="392">"Highly scalable" appears in every row of the table, which is the sign that it is not a differentiator — control and cost are.</text>
+</svg>

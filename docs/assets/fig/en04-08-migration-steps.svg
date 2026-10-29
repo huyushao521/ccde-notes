@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t8 d8">
+
+  <title id="t8">The five migration steps, their outputs, and the three prerequisites that decide whether step one can start</title>
+  <desc id="d8">Step one builds three inventories of identities, assets and applications. Step two puts identity governance in place: MFA coverage, automatic leaver revocation and privileged access management. Step three moves from the whole intranet being reachable to each application being reachable, isolating high-risk applications first. Step four writes application-level policy with device posture conditions. Step five adds continuous telemetry so trust is recalculated. Three prerequisites gate all of it: a complete inventory, a strong identity foundation, and an operations capability that keeps tuning policy.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .hd{font:700 8.5px "Segoe UI",sans-serif;fill:#ffffff}
+    .k{font:7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Inventory first, product last</text>
+  <text class="s" x="24" y="45">The order is not a preference: each step produces the input the next one consumes, and step one produces nothing until the inventory exists</text>
+
+  <text class="ln" x="24" y="68">FIVE STEPS, EACH WITH AN OUTPUT</text>
+
+  <rect x="24" y="76" width="162" height="174" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <rect x="24" y="76" width="162" height="30" rx="3" fill="#5a6b82"/>
+  <text class="hd" x="34" y="95">1 · inventory</text>
+  <text class="c" x="34" y="122">three inventories: identities,</text>
+  <text class="c" x="34" y="136">assets, applications</text>
+  <text class="c" x="34" y="154">until you can write the sentence</text>
+  <text class="c" x="34" y="168">"who, with what device, uses</text>
+  <text class="c" x="34" y="182">which application", nothing</text>
+  <text class="c" x="34" y="196">downstream can be written</text>
+  <text class="k" x="34" y="216">OUTPUT</text>
+  <text class="c" x="34" y="230" fill="#5a6b82">a policy you are able to write</text>
+  <text class="w" x="34" y="244">and the reason projects stall</text>
+
+  <rect x="195" y="76" width="162" height="174" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <rect x="195" y="76" width="162" height="30" rx="3" fill="#4a7fa8"/>
+  <text class="hd" x="205" y="95">2 · identity governance</text>
+  <text class="c" x="205" y="122">MFA coverage, leaver</text>
+  <text class="c" x="205" y="136">revocation, privileged</text>
+  <text class="c" x="205" y="150">accounts under management</text>
+  <text class="c" x="205" y="168">the joiner-mover-leaver flow</text>
+  <text class="c" x="205" y="182">is the only control that keeps</text>
+  <text class="c" x="205" y="196">access from accumulating</text>
+  <text class="k" x="205" y="216">OUTPUT</text>
+  <text class="c" x="205" y="230" fill="#4a7fa8">no orphan accounts</text>
+  <text class="w" x="205" y="244">and an authority you can point to</text>
+
+  <rect x="366" y="76" width="162" height="174" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <rect x="366" y="76" width="162" height="30" rx="3" fill="#2f8f9a"/>
+  <text class="hd" x="376" y="95">3 · segmentation</text>
+  <text class="c" x="376" y="122">from "the intranet is reachable"</text>
+  <text class="c" x="376" y="136">to "each application is reachable"</text>
+  <text class="c" x="376" y="154">start with the applications that</text>
+  <text class="c" x="376" y="168">would end the company: finance,</text>
+  <text class="c" x="376" y="182">HR, the code repository</text>
+  <text class="k" x="376" y="216">OUTPUT</text>
+  <text class="c" x="376" y="230" fill="#2f8f9a">high-risk apps isolated first</text>
+  <text class="w" x="376" y="244">not the easiest ones first</text>
+
+  <rect x="537" y="76" width="162" height="174" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <rect x="537" y="76" width="162" height="30" rx="3" fill="#1f7f6f"/>
+  <text class="hd" x="547" y="95">4 · policy and enforcement</text>
+  <text class="c" x="547" y="122">per-application rules with</text>
+  <text class="c" x="547" y="136">device posture conditions</text>
+  <text class="c" x="547" y="154">written where they are</text>
+  <text class="c" x="547" y="168">enforced, so the same rule</text>
+  <text class="c" x="547" y="182">cannot mean two things</text>
+  <text class="k" x="547" y="216">OUTPUT</text>
+  <text class="c" x="547" y="230" fill="#1f7f6f">enforceable rules, not intent</text>
+  <text class="w" x="547" y="244">testable by a contractor account</text>
+
+  <rect x="708" y="76" width="162" height="174" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <rect x="708" y="76" width="162" height="30" rx="3" fill="#0f7f73"/>
+  <text class="hd" x="718" y="95">5 · continuous telemetry</text>
+  <text class="c" x="718" y="122">log correlation, behaviour</text>
+  <text class="c" x="718" y="136">baselines, dynamic adjustment</text>
+  <text class="c" x="718" y="154">this is where a decision made</text>
+  <text class="c" x="718" y="168">at login becomes a decision</text>
+  <text class="c" x="718" y="182">made per request</text>
+  <text class="k" x="718" y="216">OUTPUT</text>
+  <text class="c" x="718" y="230" fill="#0f7f73">trust recalculated in real time</text>
+  <text class="w" x="718" y="244">and revocable before the session ends</text>
+
+  <line x1="24" y1="262" x2="876" y2="262" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="280" fill="#c0392b">Three prerequisites — none of them network work, all of them prerequisites for network work</text>
+
+  <rect x="24" y="288" width="272" height="46" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="34" y="303" fill="#c0392b">a complete inventory</text>
+  <text class="c" x="34" y="316">without it, fine-grained policy cannot be written,</text>
+  <text class="c" x="34" y="328">only "allow all" with a nicer interface</text>
+
+  <rect x="304" y="288" width="272" height="46" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="c" x="314" y="303" fill="#a86400">a strong identity foundation</text>
+  <text class="c" x="314" y="316">MFA and lifecycle come first; a gateway without</text>
+  <text class="c" x="314" y="328">governance relocates the problem, it does not solve it</text>
+
+  <rect x="584" y="288" width="292" height="46" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="594" y="303" fill="#1f4fc0">an operations capability</text>
+  <text class="c" x="594" y="316">a policy nobody tunes drifts back to "allow everything";</text>
+  <text class="c" x="594" y="328">budget the review cycle with the licence</text>
+
+  <text class="t" x="24" y="356">The common failure is buying first and finding the inventory afterwards: identity data is a mess, no application list exists, and logs cannot be correlated.</text>
+  <text class="t" x="24" y="370">The product is the carrier of the last step. Bought first, it becomes a more expensive perimeter — the same trust model with a new invoice.</text>
+  <text class="t" x="24" y="384">Steps two and three are also the only ones that survive a change of vendor, which is a useful test of what to do in-house.</text>
+</svg>

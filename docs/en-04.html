@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 4 · about 5938 words</span></div><h1 id="chapter-4-security-is-pervasive-4">Chapter 4: Security Is Pervasive · 第 4 章：安全是普适的<a class="anchor" href="#chapter-4-security-is-pervasive-4" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 4 · about 6836 words</span></div><h1 id="chapter-4-security-is-pervasive-4">Chapter 4: Security Is Pervasive · 第 4 章：安全是普适的<a class="anchor" href="#chapter-4-security-is-pervasive-4" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 4 (pp. 209–233)</p>
 <p>Terminology follows the English edition. Every English passage is followed by its Chinese counterpart in the grey block below it, so the two can be checked sentence by sentence.</p>
@@ -135,6 +135,11 @@
 </blockquote>
 </div>
 <h4 id="the-four-sources-of-security-policy">The Four Sources of Security Policy · 安全策略的四类来源<a class="anchor" href="#the-four-sources-of-security-policy" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-01-policy-sources.svg" alt="Four sources of policy, each pushing a different requirement onto the same network element, with the tie-break rule beside them" loading="lazy">
+<figcaption><b>Figure 4-1　The four sources of security policy, and which one wins when they disagree</b><br><span>图 4-1　安全策略的四类来源，以及冲突时谁优先</span></figcaption>
+</figure>
+
 <p>Policy is not one document; it is <strong>the union of four kinds of input</strong>. A designer must be able to say which category every requirement comes from, because their <strong>cost of change is completely different</strong>:</p>
 <div class="zh">
 <p>策略不是一份文档，而是<strong>四类输入的合集</strong>。设计者必须能说清每条要求来自哪一类，因为它们的<strong>变更成本完全不同</strong>：</p>
@@ -222,6 +227,11 @@
 </blockquote>
 </div>
 <h4 id="three-steps-from-policy-to-technology">Three Steps from Policy to Technology · 从策略推导到技术的三步<a class="anchor" href="#three-steps-from-policy-to-technology" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-02-policy-to-means.svg" alt="Three steps from a policy statement to a technical means with what each step can and cannot decide" loading="lazy">
+<figcaption><b>Figure 4-2　From policy to technology in three steps, and what each step may and may not decide</b><br><span>图 4-2　从策略到技术的三步，以及每一步能决定什么</span></figcaption>
+</figure>
+
 <pre><code>① Policy clause (natural language)
       ↓ translate
 ② Control objective (a verifiable statement: who may access what, under which conditions, logged to what extent)
@@ -291,6 +301,11 @@
 <p><strong>这一步的价值在于</strong>：同一个策略条款，可以有多种技术实现（加密 VLL vs 应用层加密 vs 不加密但物理独占），<strong>成本差一个数量级</strong>。设计者的工作是把选项摆出来，而不是直接跳到最贵的那一个。</p>
 </div>
 <h3 id="security-domains-and-zones">Security Domains and Zones · 安全域和区域<a class="anchor" href="#security-domains-and-zones" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-03-domains-chokepoints.svg" alt="User, server and management domains with the address range each one owns, every crossing marked by a chokepoint, and a policy table giving each crossing its service, action and enforcement point" loading="lazy">
+<figcaption><b>Figure 4-3　Domains are cut where trust, rules or blast radius change, and every crossing needs one chokepoint — with the address range each domain owns and the policy row that enforces it</b><br><span>图 4-3　域的划分、地址段与跨域检查点的策略行</span></figcaption>
+</figure>
+
 <p>Using a structured, modular approach, divide the network into <strong>security domains</strong> and introduce <strong>chokepoints</strong> between them:</p>
 <div class="zh">
 <p>使用结构化模块化方法，将网络分成多个<strong>安全域</strong>，在域之间引入<strong>检查点 (Chokepoints)</strong>：</p>
@@ -325,6 +340,11 @@
 <p>每个域被赋予信任级别，使用 iACL、防火墙、IPS 等机制控制域间流量。</p>
 </div>
 <h4 id="three-criteria-for-drawing-domain-boundaries">Three Criteria for Drawing Domain Boundaries · 域怎么划：三条依据<a class="anchor" href="#three-criteria-for-drawing-domain-boundaries" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-04-domain-boundaries.svg" alt="Three criteria for a boundary beside a curve of isolation gained per added domain against a flat policy cost line" loading="lazy">
+<figcaption><b>Figure 4-4　Three criteria for a boundary, and the economic question that decides how many</b><br><span>图 4-4　划域的三条依据，以及决定域数量的经济问题</span></figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -388,6 +408,11 @@
 </blockquote>
 </div>
 <h4 id="choosing-chokepoints">Choosing Chokepoints · 检查点的选型<a class="anchor" href="#choosing-chokepoints" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-05-chokepoint-selection.svg" alt="Five chokepoint types in a matrix of capability, placement and blind spot, with three operational constraints below" loading="lazy">
+<figcaption><b>Figure 4-5　Five chokepoint types, what each decides, and what each is blind to</b><br><span>图 4-5　五类检查点的能力、位置与盲区</span></figcaption>
+</figure>
+
 <p>Not all inter-domain traffic should cross the same class of device:</p>
 <div class="zh">
 <p>不是所有跨域流量都该过同一类设备：</p>
@@ -499,6 +524,11 @@
 <p>零信任架构是对安全的范式转变——不再是边界防火墙模型，而是<strong>无边界架构，拒绝所有访问直到明确允许</strong>。</p>
 </div>
 <h3 id="the-pillars-of-zero-trust">The Pillars of Zero Trust · 零信任架构的支柱<a class="anchor" href="#the-pillars-of-zero-trust" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-06-zero-trust-pillars.svg" alt="Six zero trust pillars beside the decision loop from subject through enforcement point to resource, fed by inventory and telemetry" loading="lazy">
+<figcaption><b>Figure 4-6　The six pillars of zero trust and the decision loop that connects them</b><br><span>图 4-6　零信任的六根支柱与判定回路</span></figcaption>
+</figure>
+
 <ol>
 <li><strong>Verify identity, every time</strong>: identity is the new security perimeter, and authentication applies to users and devices alike</li>
 <li><strong>Assess device posture</strong>: are patches current, is disk encryption on, is EDR running, is the device managed</li>
@@ -518,6 +548,11 @@
 </ol>
 </div>
 <h3 id="key-concepts">Key Concepts · 零信任架构概念<a class="anchor" href="#key-concepts" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-07-trust-vs-risk.svg" alt="Subject trust plotted against resource risk with the required trust threshold rising with risk, beside the factors feeding each score" loading="lazy">
+<figcaption><b>Figure 4-7　Trust is about the subject, risk is about the resource, and the resource sets the threshold</b><br><span>图 4-7　主体信任与资源风险：阈值由资源设定</span></figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -692,6 +727,11 @@
 </table>
 </div>
 <h3 id="migration-steps">Migration Steps · 零信任迁移步骤<a class="anchor" href="#migration-steps" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-08-migration-steps.svg" alt="Five migration steps in order with their outputs, and the three prerequisites beneath them" loading="lazy">
+<figcaption><b>Figure 4-8　Five migration steps with their outputs, gated by three prerequisites</b><br><span>图 4-8　零信任迁移五步、每步的产出，以及三个前提</span></figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -812,6 +852,11 @@
 </blockquote>
 </div>
 <h4 id="ztna-vs-traditional-vpn-ztna-vpn">ZTNA vs. Traditional VPN · 零信任网络访问 (ZTNA) 与传统 VPN 的区别<a class="anchor" href="#ztna-vs-traditional-vpn-ztna-vpn" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-09-vpn-vs-ztna.svg" alt="VPN and ZTNA side by side: the VPN exposes a segment and every host in it, ZTNA exposes one named application while the rest stay unreachable" loading="lazy">
+<figcaption><b>Figure 4-9　A VPN grants a segment; ZTNA grants an application</b><br><span>图 4-9　VPN 给的是一个网段，ZTNA 给的是一应用</span></figcaption>
+</figure>
+
 <table>
 <thead>
 <tr>
@@ -959,6 +1004,11 @@
 </table>
 </div>
 <h4 id="design-means-for-each-element-and-their-conflicts">Design Means for Each Element and Their Conflicts · 三要素对应的设计手段与代价<a class="anchor" href="#design-means-for-each-element-and-their-conflicts" title="Permanent link"></a></h4>
+<figure class="fig">
+<img src="assets/fig/en04-10-cia-tradeoffs.svg" alt="The CIA triangle with the means for each goal and three conflict panels: encryption against detection, availability against confidentiality, integrity against availability" loading="lazy">
+<figcaption><b>Figure 4-10　CIA is a triangle of trade-offs: every means takes something from the other two goals</b><br><span>图 4-10　CIA 是取舍三角：手段与代价</span></figcaption>
+</figure>
+
 <p>The three CIA goals constantly pull against each other in design: encryption hides traffic from inspection, isolation raises availability risk, and log retention widens the exposure surface. The table below maps each goal to its primary means and to the conflict the means creates.</p>
 <div class="zh">
 <p>三要素不是并列的口号，而是一组<strong>会互相打架的目标</strong>。设计者的工作是在具体场景里排出优先级：</p>
@@ -1039,6 +1089,11 @@
 <p>网络设计师应能够获取任何合规标准，并设计符合其特定约束的解决方案。</p>
 </div>
 <h3 id="hipaa-hipaa">HIPAA · HIPAA（美国健康保险流通与责任法案）<a class="anchor" href="#hipaa-hipaa" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-11-hipaa-phi-path.svg" alt="PHI on the clinician workstation, in the EHR, in the exchange with insurers and in backups, each with the safeguard it forces, then the four obligations the network owes" loading="lazy">
+<figcaption><b>Figure 4-11　Where PHI lives, and the safeguard each place forces on the network</b><br><span>图 4-11　PHI 在哪里，以及每处对网络提出的要求</span></figcaption>
+</figure>
+
 <p>The Health Insurance Portability and Accountability Act protects the privacy and security of <strong>protected health information (PHI)</strong> in the United States.</p>
 <div class="zh">
 <p>1996 年颁布，由民权办公室执行。</p>
@@ -1098,6 +1153,11 @@
 <p><strong>适用场景</strong>：医院、诊所、保险机构、与覆盖实体密切合作的服务提供商。</p>
 </div>
 <h3 id="pci-dss-pci-dss">PCI DSS · PCI DSS（支付卡行业数据安全标准）<a class="anchor" href="#pci-dss-pci-dss" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-12-pci-scope.svg" alt="The cardholder data environment before and after segmentation, with the audit scope following the network in one and the data in the other, beside the four levers that shrink it" loading="lazy">
+<figcaption><b>Figure 4-12　PCI DSS: the audit follows the network before segmentation, and the data after it</b><br><span>图 4-12　PCI DSS：分段前审计跟着网络走，分段后跟着数据走</span></figcaption>
+</figure>
+
 <p>The Payment Card Industry Data Security Standard applies to any organization that stores, processes or transmits cardholder data.</p>
 <div class="zh">
 <p>由信用卡公司强制要求，确保信用卡交易安全。由 PCI 安全标准委员会开发和管理。</p>
@@ -1231,6 +1291,11 @@
 - 性取向</p>
 </div>
 <h3 id="data-sovereignty">Data Sovereignty · 数据主权<a class="anchor" href="#data-sovereignty" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-13-gdpr-sovereignty.svg" alt="Three GDPR questions with their deliverables, and a border diagram showing what may cross and what must stay local" loading="lazy">
+<figcaption><b>Figure 4-13　GDPR's three questions, and the border that decides what may cross</b><br><span>图 4-13　GDPR 三问，以及什么可以过境</span></figcaption>
+</figure>
+
 <p>Information is governed by the regulations of the country where it is collected and processed. Information collected and processed in a country must remain within that country's borders and be protected under its law.</p>
 <div class="zh">
 <p>信息受其收集和处理所在地的法规约束。信息在某个国家收集和处理后，必须留在该国边界内，并按该国法律保护。</p>
@@ -1244,6 +1309,11 @@
 </blockquote>
 </div>
 <h3 id="translating-compliance-into-design-input">Translating Compliance into Design Input · 把合规翻译成设计输入<a class="anchor" href="#translating-compliance-into-design-input" title="Permanent link"></a></h3>
+<figure class="fig">
+<img src="assets/fig/en04-14-compliance-to-design.svg" alt="Five compliance clauses mapped to the network design element each forces and to the artefact that proves it later" loading="lazy">
+<figcaption><b>Figure 4-14　Five clauses, the design element each forces, and the artefact that proves it</b><br><span>图 4-14　五条合规条款、逼出的设计要素与证明它的交付物</span></figcaption>
+</figure>
+
 <p>Compliance clauses read as "requirements", while design needs "constraints". The translation method is <strong>three questions</strong>:</p>
 <div class="zh">
 <p>合规条款读起来都是"要求"，但设计需要的是"约束"。翻译的方法是<strong>三问</strong>：</p>
@@ -1392,6 +1462,11 @@
         → domain administrator account (password unchanged for 5 years, shared by many)
           encrypted files in bulk
 </code></pre>
+<figure class="fig">
+<img src="assets/fig/en04-15-case1-attack-chain.svg" alt="The five stages of the first case study's attack chain with the missing control beneath each, the same chain plotted on a clock from delivery to the first alarm, and a summary of what was bought against what was missing" loading="lazy">
+<figcaption><b>Figure 4-15　The attack chain of Case 1, the control missing at each stage, and the same chain on a clock</b><br><span>图 4-15　案例一的攻击链、每一环缺失的控制，以及同一条链的时间轴</span></figcaption>
+</figure>
+
 <div class="zh">
 <pre><code>钓鱼邮件 → 员工在个人笔记本打开 → 该笔记本接在办公网（未被管理）
         → 横向扫描找到一台未打补丁的文件服务器

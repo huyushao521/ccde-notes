@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">Each tier of a three-tier application has its own access scope, its own network elements and its own questions</title>
+  <desc id="d2">Global users reach the web tier through the Internet edge and firewall; the web tier sits in a DMZ with anycast or global load balancing and is the only tier with external addressing. The application tier is internal only, behind load balancing, source NAT and stickiness. The database tier is internal only, behind multiple security layers, and its replication and cross-data-centre synchronisation are the hard questions.</desc>
+
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a2t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .z{font:700 7.5px "Segoe UI",sans-serif;fill:#b0bccd;letter-spacing:.6px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Design the three tiers separately — each one has a different access scope</text>
+  <text class="s" x="24" y="45">Splitting the application into tiers is what lets you put a different network design, and a different security posture, on each</text>
+
+  <rect x="120" y="70" width="230" height="26" rx="13" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="sm" x="235" y="87" text-anchor="middle">global end users (any device, any network)</text>
+  <text class="z" x="20" y="87">EXTERNAL</text>
+
+  <rect x="140" y="112" width="190" height="26" rx="3" fill="#fff6e6" stroke="#d98600" stroke-width=".8"/>
+  <text class="sm" x="235" y="129" text-anchor="middle">Internet edge · firewall · DDoS scrubbing</text>
+  <line x1="235" y1="96" x2="235" y2="110" stroke="#2f6fed" marker-end="url(#a2)"/>
+
+  <rect x="40" y="154" width="390" height="60" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".7" stroke-dasharray="4 3"/>
+  <text class="z" x="48" y="167">DMZ · EXTERNAL ADDRESSING ALLOWED</text>
+  <rect x="60" y="172" width="150" height="32" rx="3" fill="#ffffff" stroke="#d98600" stroke-width=".9"/>
+  <text class="sm" x="135" y="185" text-anchor="middle">web tier · 4 servers</text>
+  <text class="w" x="135" y="197" text-anchor="middle">anycast / GSLB + LB</text>
+  <rect x="228" y="172" width="182" height="32" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="sm" x="319" y="185" text-anchor="middle">public DNS, certificates, WAF</text>
+  <text class="w" x="319" y="197" text-anchor="middle">what global users are actually routed to</text>
+  <line x1="235" y1="138" x2="235" y2="152" stroke="#2f6fed" marker-end="url(#a2)"/>
+
+  <rect x="40" y="228" width="390" height="60" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7" stroke-dasharray="4 3"/>
+  <text class="z" x="48" y="241">INTERNAL · NO EXTERNAL ADDRESSING, NO EXTERNAL ROUTE</text>
+  <rect x="60" y="246" width="150" height="32" rx="3" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="sm" x="135" y="259" text-anchor="middle">app tier · 8 servers</text>
+  <text class="w" x="135" y="271" text-anchor="middle">LB + SNAT + stickiness</text>
+  <rect x="228" y="246" width="182" height="32" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="sm" x="319" y="259" text-anchor="middle">internal segmentation + ACL policy</text>
+  <text class="w" x="319" y="271" text-anchor="middle">several layers of internal security</text>
+  <line x1="160" y1="214" x2="160" y2="244" stroke="#2f6fed" marker-end="url(#a2)"/>
+
+  <rect x="40" y="302" width="390" height="60" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7" stroke-dasharray="4 3"/>
+  <text class="z" x="48" y="315">INTERNAL · DATA LAYER, REPLICATION IS THE HARD PART</text>
+  <rect x="60" y="320" width="150" height="32" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="sm" x="135" y="333" text-anchor="middle">db tier · primary / standby</text>
+  <text class="w" x="135" y="345" text-anchor="middle">shared storage + heartbeat</text>
+  <rect x="228" y="320" width="182" height="32" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="sm" x="319" y="333" text-anchor="middle">replication sync · change control</text>
+  <text class="w" x="319" y="345" text-anchor="middle">cross-DC is where designs break</text>
+  <line x1="135" y1="288" x2="135" y2="318" stroke="#2f6fed" marker-end="url(#a2)"/>
+
+  <rect x="40" y="372" width="20" height="0" fill="none"/>
+  <text class="w" x="240" y="360"> </text>
+
+  <text class="ln" x="450" y="70">PER-TIER QUESTIONS</text>
+
+  <rect x="450" y="80" width="426" height="70" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="mid" x="462" y="96" fill="#bf5b1d">WEB TIER</text>
+  <text class="sm" x="462" y="111">traffic: end users ↔ web · no database-tier access at all</text>
+  <text class="sm" x="462" y="124">elements: DMZ, anycast or GSLB, public DNS, WAF, HA group</text>
+  <text class="sm" x="462" y="137">ask: how do global users reach it · which IP/routing is advertised · HA = A/A, A/S or anycast</text>
+
+  <rect x="450" y="160" width="426" height="70" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="mid" x="462" y="176" fill="#0f7f73">APPLICATION TIER</text>
+  <text class="sm" x="462" y="191">traffic: web ↔ app · internal only, no external addresses or routes</text>
+  <text class="sm" x="462" y="204">elements: load balancing, SNAT, session stickiness, internal ACLs</text>
+  <text class="sm" x="462" y="217">ask: how does web talk to app · does db↔app need SNAT or sticky sessions</text>
+
+  <rect x="450" y="240" width="426" height="70" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="mid" x="462" y="256" fill="#1f4fc0">DATABASE TIER</text>
+  <text class="sm" x="462" y="271">traffic: app ↔ db · internal only, behind multiple security layers</text>
+  <text class="sm" x="462" y="284">elements: replication path, shared storage, heartbeat network</text>
+  <text class="sm" x="462" y="297">ask: how do replicas sync · how are schema changes synchronised across data centres</text>
+
+  <text class="nb" x="450" y="332">The tier boundary is the design boundary</text>
+  <text class="sm" x="450" y="346">A tier that needs its own load balancing, NAT, DNS or routing is a tier that needs its own design.</text>
+  <text class="sm" x="450" y="352">Draw the tiers first, then annotate each boundary:</text>
+  <text class="sm" x="450" y="364">who initiates, which address is seen, who applies policy.</text>
+
+  <text class="t" x="24" y="388">Failure to separate tiers is why a single firewall rule change can break the web tier and the database at the same time.</text>
+</svg>

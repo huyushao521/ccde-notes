@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="100%" role="img" aria-labelledby="t512 d512">
+  <title id="t512">Case 2: headquarters assumed Unification while the facts pointed to Diversification, and the architecture each assumption produces</title>
+  <desc id="d512">Two panels at the top contrast the assumed operating model, Unification with unified IP planning, unified security policy and a unified egress, with the actual one, Diversification with independent units plus a few shared services at most moving towards Coordination. A four row table then pairs each business unit with its real characteristic and what unification broke: auto parts with EDI over a carrier the customer names against a unified egress that cannot be implemented, home appliance parts with its own e-commerce against a change chain that is too long, tooling with two hundred people and a part-time IT role against a platform nobody can carry, and a new energy plant sharing almost no data against a build slowed by a forced architecture. The corrected design unifies only the shared internet egress, the group security baseline and the WAN transport framework, while each unit keeps its addressing and change authority and layered templates replace the one size fits all.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:7.8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .th{font:700 7.4px "Segoe UI",sans-serif;fill:#1a2233;letter-spacing:.3px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="420" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Case 2: &#8220;the group is therefore Unification&#8221; was the whole design error</text>
+  <text class="s" x="24" y="45">Five business units, one headquarters assumption, and three of the five standards failed on contact with reality</text>
+
+  <rect x="24" y="60" width="416" height="66" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="38" y="78" fill="#c0392b">assumed: Unification</text>
+  <text class="c" x="38" y="96">unified IP planning &#183; unified security policy</text>
+  <text class="c" x="38" y="109">&#183; unified internet egress, pushed to every unit</text>
+  <text class="w" x="38" y="122">the model headquarters wanted to be true</text>
+
+  <rect x="460" y="60" width="416" height="66" rx="3" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="b" x="474" y="78" fill="#0f7f73">actual: Diversification, trending to Coordination</text>
+  <text class="c" x="474" y="96">independent units plus a few shared services</text>
+  <text class="c" x="474" y="109">(low standardisation, low integration)</text>
+  <text class="w" x="474" y="122">the model the two questions actually returned</text>
+
+  <rect x="24" y="140" width="852" height="20" fill="#eef1f5" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="th" x="34" y="153">BUSINESS UNIT</text>
+  <text class="th" x="170" y="153">REAL CHARACTERISTIC</text>
+  <text class="th" x="526" y="153">WHAT UNIFICATION BROKE</text>
+
+  <rect x="24" y="160" width="120" height="28" fill="#ffffff" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="b" x="34" y="178">auto parts</text>
+  <rect x="144" y="160" width="372" height="28" fill="#ffffff" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="156" y="178">EDI with OEMs; the circuit must use the carrier the customer names</text>
+  <rect x="516" y="160" width="360" height="28" fill="#fff8f7" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="528" y="178" fill="#c0392b">the unified egress cannot be implemented at all</text>
+
+  <rect x="24" y="188" width="120" height="28" fill="#f7f9fc" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="b" x="34" y="206">home appliance parts</text>
+  <rect x="144" y="188" width="372" height="28" fill="#f7f9fc" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="156" y="206">runs its own e-commerce; needs fast CDN and cloud changes</text>
+  <rect x="516" y="188" width="360" height="28" fill="#fdf2f0" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="528" y="206" fill="#c0392b">the change approval chain is far too long</text>
+
+  <rect x="24" y="216" width="120" height="28" fill="#ffffff" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="b" x="34" y="234">tooling</text>
+  <rect x="144" y="216" width="372" height="28" fill="#ffffff" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="156" y="234">200 people; IT is a part-time role</text>
+  <rect x="516" y="216" width="360" height="28" fill="#fff8f7" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="528" y="234" fill="#c0392b">nobody can carry a unified management platform</text>
+
+  <rect x="24" y="244" width="120" height="28" fill="#f7f9fc" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="b" x="34" y="262">new energy</text>
+  <rect x="144" y="244" width="372" height="28" fill="#f7f9fc" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="156" y="262">a brand-new plant sharing almost no data with the group</text>
+  <rect x="516" y="244" width="360" height="28" fill="#fdf2f0" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="c" x="528" y="262" fill="#c0392b">forcing the architecture into the build slows the plant</text>
+
+  <text class="k" x="24" y="294">THE CORRECTED DESIGN &#183; UNIFY THREE THINGS, LET THE REST BE LOCAL</text>
+  <rect x="24" y="302" width="272" height="40" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="34" y="318" fill="#0f7f73">shared internet egress</text>
+  <text class="w" x="34" y="332">bought once, consumed by every unit</text>
+  <rect x="304" y="302" width="272" height="40" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="314" y="318" fill="#0f7f73">group security baseline</text>
+  <text class="w" x="314" y="332">mandatory, auditable, not negotiable</text>
+  <rect x="584" y="302" width="292" height="40" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="594" y="318" fill="#0f7f73">WAN transport framework</text>
+  <text class="w" x="594" y="332">which carriers, which paths, which SLA</text>
+
+  <text class="c" x="24" y="360">each unit keeps <tspan style="font-weight:700">its own addressing plan and its own change authority</tspan> &#8212; that is what Diversification means in practice</text>
+  <text class="c" x="24" y="374"><tspan style="font-weight:700">layered policy templates</tspan> replace the one-size-fits-all: a mandatory security baseline plus optional network templates</text>
+
+  <rect x="24" y="384" width="852" height="28" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="38" y="402" fill="#c0392b">Get the operating model wrong and every downstream design is wrong: the units were not being difficult, they were being described by a model nobody had checked.</text>
+</svg>

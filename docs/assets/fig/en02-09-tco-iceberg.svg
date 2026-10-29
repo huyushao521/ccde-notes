@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">CAPEX is the tip of the TCO iceberg, and the overruns land in the rows nobody budgeted</title>
+  <desc id="d5">Above the approval line sit equipment, licences and implementation; below it sit five years of operations, the migration overlap period, training and retirement. The right panel compares the approved and actual spend of the case study by category: hardware, implementation services, operations, training, and dual running during migration, where the last three were never in the project TCO.</desc>
+
+  <defs>
+    <marker id="k5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#a86400;letter-spacing:.4px}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .cat{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">CAPEX is the tip of the TCO iceberg — and the overrun always lands in the rows nobody budgeted</text>
+  <text class="s" x="24" y="48">Case study: a refresh approved at 5.0M closed at 6.2M, a 24% overrun, with hardware price movement responsible for only 0.2M of it</text>
+
+  <rect x="40" y="64" width="396" height="252" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="56" y="84">ABOVE THE LINE · what gets approved</text>
+
+  <rect x="64" y="96" width="348" height="26" rx="4" fill="#dce8ff" stroke="#2f6fed"/>
+  <text class="n" x="76" y="113">Hardware · licences · implementation services</text>
+  <line x1="56" y1="134" x2="420" y2="134" stroke="#2f6fed" stroke-dasharray="5 3"/>
+  <text class="sm" x="56" y="148" fill="#1f4fc0">the approval line — the number the CFO signs</text>
+
+  <text class="ln2" x="56" y="176">BELOW THE LINE · what the project still costs</text>
+
+  <rect x="64" y="188" width="348" height="24" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="76" y="204">Five years of operations — often several times CAPEX</text>
+
+  <rect x="64" y="218" width="348" height="24" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="76" y="234">Migration overlap — old and new paid for at once</text>
+
+  <rect x="64" y="248" width="348" height="24" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="76" y="264">Training, documentation, process change</text>
+
+  <rect x="64" y="278" width="348" height="24" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="n" x="76" y="294">Retirement, disposal and the decommission work</text>
+
+  <text class="sm" x="56" y="310" fill="#a86400">one TCO basis: equipment + licences + implementation + overlap + operations + training + retirement</text>
+
+  <text class="nb" x="470" y="84">Where the 24% actually went</text>
+  <text class="sm" x="470" y="98">approved 5.0M → actual 6.2M</text>
+  <text class="sm" x="700" y="84" fill="#2f6fed">approval</text>
+  <text class="sm" x="756" y="84" fill="#c0392b">actual</text>
+
+  <text class="cat" x="470" y="120">Hardware</text>
+  <rect x="600" y="112" width="160" height="7" rx="2" fill="#bcd0f5"/>
+  <rect x="600" y="121" width="170" height="7" rx="2" fill="#c0392b"/>
+  <text class="sm" x="776" y="126" fill="#a86400">+0.2M FX, components</text>
+
+  <text class="cat" x="470" y="148">Implementation</text>
+  <rect x="600" y="140" width="40" height="7" rx="2" fill="#bcd0f5"/>
+  <rect x="600" y="149" width="65" height="7" rx="2" fill="#c0392b"/>
+  <text class="sm" x="672" y="154" fill="#a86400">+0.5M night cutovers, decommissioning</text>
+
+  <text class="cat" x="470" y="176">Operations (5 yr)</text>
+  <rect x="600" y="168" width="1" height="7" rx="2" fill="#e9eef5"/>
+  <rect x="600" y="177" width="45" height="7" rx="2" fill="#c0392b"/>
+  <text class="sm" x="652" y="182" fill="#c0392b">+0.9M never in the project TCO</text>
+
+  <text class="cat" x="470" y="204">Training, docs</text>
+  <rect x="600" y="196" width="1" height="7" rx="2" fill="#e9eef5"/>
+  <rect x="600" y="205" width="10" height="7" rx="2" fill="#c0392b"/>
+  <text class="sm" x="616" y="210" fill="#c0392b">+0.2M missing entirely</text>
+
+  <text class="cat" x="470" y="232">Dual running</text>
+  <rect x="600" y="224" width="1" height="7" rx="2" fill="#e9eef5"/>
+  <rect x="600" y="233" width="20" height="7" rx="2" fill="#c0392b"/>
+  <text class="sm" x="626" y="238" fill="#c0392b">+0.4M old and new circuits at once</text>
+
+  <line x1="470" y1="254" x2="830" y2="254" stroke="#e3e8ef"/>
+  <text class="sm" x="470" y="272">Three of five rows started at zero. None of them was a surprise</text>
+  <text class="sm" x="470" y="284">technical event — they were simply outside the approved basis.</text>
+
+  <rect x="470" y="296" width="360" height="40" rx="5" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="nb" x="482" y="313" fill="#0f7f73">The fix is not a bigger contingency</text>
+  <text class="sm" x="482" y="327">it is comparing the options on one TCO basis before approval, overlap included</text>
+
+  <text class="t" x="24" y="342">A 10–15% contingency covers estimate error. It does not cover entire cost categories that were never estimated — that is a scoping fault, not a variance.</text>
+  <text class="t" x="24" y="360">Day-2 operations is usually several times CAPEX, so someone has to represent operations in every design review; nobody else in the room is paid to.</text>
+  <text class="t" x="24" y="378">The cheapest moment to find the overlap period, the training line and the disposal cost is before approval, when the options are still being compared.</text>
+  <text class="t" x="24" y="396">If two options cannot be compared on the same basis, they are not being compared at all — they are being advocated.</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t11 d11">
+
+  <title id="t11">Where PHI travels, and the HIPAA safeguard each crossing forces on the network</title>
+  <desc id="d11">Protected health information appears on the clinician workstation, in the EHR application and database, in the exchange with insurers and clearinghouses, and in backups and audit logs. Each place carries a specific technical safeguard: unique user identity and session lock, role-based access with encryption at rest, transmission security such as TLS or IPsec, and integrity controls with retained audit logs. For the network this becomes encrypted transmission, strict access control, a complete audit trail and isolation of the systems that handle PHI.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <defs>
+    <marker id="a11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">HIPAA in network terms: four places PHI exists, four safeguards</text>
+  <text class="s" x="24" y="45">The Privacy Rule decides who may look; the Security Rule decides what must be built so that "who" can be proven</text>
+
+  <text class="ln" x="24" y="68">WHERE PHI ACTUALLY SITS</text>
+
+  <rect x="24" y="78" width="192" height="46" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="120" y="96" text-anchor="middle">clinician workstation</text>
+  <text class="c" x="120" y="112" text-anchor="middle">the screen everyone walks past</text>
+  <line x1="218" y1="101" x2="236" y2="101" stroke="#8494a8" marker-end="url(#a11)"/>
+
+  <rect x="240" y="78" width="192" height="46" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="336" y="96" text-anchor="middle">EHR application + database</text>
+  <text class="c" x="336" y="112" text-anchor="middle">the system of record</text>
+  <line x1="434" y1="101" x2="452" y2="101" stroke="#8494a8" marker-end="url(#a11)"/>
+
+  <rect x="456" y="78" width="192" height="46" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="mid" x="552" y="96" text-anchor="middle">insurer / clearinghouse</text>
+  <text class="c" x="552" y="112" text-anchor="middle">PHI leaves the building here</text>
+  <line x1="650" y1="101" x2="668" y2="101" stroke="#8494a8" marker-end="url(#a11)"/>
+
+  <rect x="672" y="78" width="192" height="46" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="mid" x="768" y="96" text-anchor="middle">backup · archive · logs</text>
+  <text class="c" x="768" y="112" text-anchor="middle">a copy nobody remembers is still PHI</text>
+
+  <text class="k" x="24" y="146">SAFEGUARD FORCED ON THAT CROSSING</text>
+
+  <text class="c" x="24" y="162" fill="#1f4fc0">unique user identity, automatic</text>
+  <text class="c" x="24" y="174" fill="#1f4fc0">session lock, no shared accounts</text>
+  <text class="c" x="24" y="190">a shared login makes the audit</text>
+  <text class="c" x="24" y="202">log useless as evidence</text>
+
+  <text class="c" x="240" y="162" fill="#1f4fc0">role-based access, encryption at</text>
+  <text class="c" x="240" y="174" fill="#1f4fc0">rest, integrity controls</text>
+  <text class="c" x="240" y="190">segmentation so that only the EHR</text>
+  <text class="c" x="240" y="202">tier can reach the database</text>
+
+  <text class="c" x="456" y="162" fill="#c0392b">transmission security: TLS or</text>
+  <text class="c" x="456" y="174" fill="#c0392b">IPsec, no plaintext over any</text>
+  <text class="c" x="456" y="186" fill="#c0392b">untrusted path</text>
+  <text class="c" x="456" y="202">and a named counterparty, on a</text>
+  <text class="c" x="456" y="214">channel that can be audited</text>
+
+  <text class="c" x="672" y="162" fill="#4a5a72">retained, tamper-evident audit</text>
+  <text class="c" x="672" y="174" fill="#4a5a72">logs, encrypted backups</text>
+  <text class="c" x="672" y="190">and a deletion path that actually</text>
+  <text class="c" x="672" y="202">reaches the tape and the replica</text>
+
+  <line x1="24" y1="216" x2="876" y2="216" stroke="#e3e8ef"/>
+  <text class="ln" x="24" y="234" fill="#0f7f73">WHAT THE NETWORK DESIGN OWES</text>
+
+  <rect x="24" y="244" width="204" height="58" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="36" y="260" fill="#0f7f73">encrypted transmission</text>
+  <text class="c" x="36" y="276">TLS on every application path,</text>
+  <text class="c" x="36" y="288">IPsec on every site link</text>
+
+  <rect x="244" y="244" width="204" height="58" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="256" y="260" fill="#0f7f73">strict access control</text>
+  <text class="c" x="256" y="276">the PHI segment answered to by</text>
+  <text class="c" x="256" y="288">one device, one policy, one owner</text>
+
+  <rect x="464" y="244" width="204" height="58" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="476" y="260" fill="#0f7f73">complete audit trail</text>
+  <text class="c" x="476" y="276">central log, one-way export,</text>
+  <text class="c" x="476" y="288">one NTP source for the whole estate</text>
+
+  <rect x="684" y="244" width="192" height="58" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="696" y="260" fill="#0f7f73">isolation of PHI systems</text>
+  <text class="c" x="696" y="276">one domain, one boundary, and a</text>
+  <text class="c" x="696" y="288">scope you can draw on one page</text>
+
+  <text class="t" x="24" y="326">The Privacy Rule is not a network requirement; the Security Rule is. Its four technical safeguards — access control, audit control, integrity, transmission</text>
+  <text class="t" x="24" y="340">security — map one to one onto controls a network team already builds, which is why HIPAA projects fail on process rather than on equipment.</text>
+  <text class="t" x="24" y="356">The cheapest control in the list is the one nobody schedules: every copy of PHI you delete, retire or stop replicating removes itself from the audit scope too.</text>
+  <text class="t" x="24" y="370">For a partner or a cloud provider, the same four obligations apply, and they arrive as a contract clause — a business associate agreement — before they arrive as a design.</text>
+  <text class="t" x="24" y="384">Write down who may see PHI and on which path; everything else in this figure is machinery in service of that sentence.</text>
+</svg>

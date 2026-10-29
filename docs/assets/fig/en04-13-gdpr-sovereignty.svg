@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t13 d13">
+
+  <title id="t13">GDPR forces three questions about every record, and data sovereignty decides what may cross the border</title>
+  <desc id="d13">The data subject rights of access, rectification, erasure and portability mean the designer must answer three questions: what the data is and where it lives, where the boundary is, and how it can be proven. The answers are a classification and distribution map, a logical and physical boundary, and an evidence chain. Data sovereignty then fixes what may cross a national border: the local instance and the local logs stay, only de-identified aggregates leave, and the global plane carries configuration rather than data.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .qa{font:600 8.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <defs>
+    <marker id="a13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a13b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">GDPR asks for rights; the network has to answer with a map, a boundary and a proof</text>
+  <text class="s" x="24" y="45">"Where is this record, who can see it, how long is it kept" is not a legal question once it is asked of a network design</text>
+
+  <text class="ln" x="24" y="68">THREE QUESTIONS, THREE DELIVERABLES</text>
+
+  <rect x="24" y="78" width="398" height="56" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="qa" x="36" y="94">what is the data, and where does it live?</text>
+  <text class="c" x="36" y="110">output: a classification and a distribution map — "customer identity data, sensitive,</text>
+  <text class="c" x="36" y="124">in the order database and in the CRM replica"; order summaries can be de-identified</text>
+
+  <rect x="24" y="142" width="398" height="56" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="qa" x="36" y="158">where is the boundary?</text>
+  <text class="c" x="36" y="174">output: logical and physical boundaries — domestic and foreign, production and test,</text>
+  <text class="c" x="36" y="188">what a supplier may reach and what it may not. A boundary nobody drew is not a rule.</text>
+
+  <rect x="24" y="206" width="398" height="56" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="qa" x="36" y="222">how is it proven?</text>
+  <text class="c" x="36" y="238">output: an evidence chain — access logs, encryption status, approval records, change</text>
+  <text class="c" x="36" y="252">records, retained for the required period. Logs with the wrong time prove nothing.</text>
+
+  <text class="c" x="24" y="282" fill="#c0392b">The erasure right is the one that hurts: it must reach the replica, the backup and the log, or the answer to the request is "we deleted it somewhere".</text>
+  <text class="c" x="24" y="296">Special categories — health, genetic, biometric, ethnic, political, sexual orientation — raise the protection requirement and therefore the width of the boundary.</text>
+
+  <rect x="446" y="60" width="430" height="252" rx="4" fill="#ffffff" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="ln" x="458" y="78" fill="#0f7f73">DATA SOVEREIGNTY · WHAT MAY CROSS A BORDER</text>
+
+  <rect x="458" y="88" width="192" height="184" rx="3" fill="#f7fffd" stroke="#a9d8d3" stroke-width=".7"/>
+  <text class="k" x="466" y="102" fill="#0f7f73">IN-COUNTRY ZONE</text>
+  <rect x="466" y="110" width="176" height="30" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="554" y="122" text-anchor="middle" fill="#0f7f73">local application instance</text>
+  <text class="w" x="554" y="134" text-anchor="middle">holds the personal data</text>
+  <rect x="466" y="148" width="176" height="30" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="554" y="160" text-anchor="middle" fill="#0f7f73">local logs and evidence</text>
+  <text class="w" x="554" y="172" text-anchor="middle">retained where the law applies</text>
+  <rect x="466" y="186" width="176" height="30" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="554" y="198" text-anchor="middle" fill="#0f7f73">local monitoring collection</text>
+  <text class="w" x="554" y="210" text-anchor="middle">the collector is a data store too</text>
+  <rect x="466" y="224" width="176" height="30" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="554" y="236" text-anchor="middle" fill="#0f7f73">local storage and backup</text>
+  <text class="w" x="554" y="248" text-anchor="middle">erasure must reach the replica</text>
+
+  <line x1="660" y1="84" x2="660" y2="276" stroke="#c0392b" stroke-width=".9" stroke-dasharray="5 3"/>
+  <text class="w" x="660" y="288" text-anchor="middle" fill="#c0392b">border</text>
+
+  <rect x="670" y="88" width="194" height="184" rx="3" fill="#fbfcfe" stroke="#dfe6ee" stroke-width=".7"/>
+  <text class="k" x="678" y="102">GLOBAL PLANE</text>
+  <rect x="678" y="110" width="178" height="30" rx="2" fill="#ffffff" stroke="#dfe6ee" stroke-width=".6"/>
+  <text class="c" x="767" y="122" text-anchor="middle">identity directory</text>
+  <text class="w" x="767" y="134" text-anchor="middle">no personal data in the entry</text>
+  <rect x="678" y="148" width="178" height="30" rx="2" fill="#ffffff" stroke="#dfe6ee" stroke-width=".6"/>
+  <text class="c" x="767" y="160" text-anchor="middle">policy management plane</text>
+  <text class="w" x="767" y="172" text-anchor="middle">distributes configuration only</text>
+  <rect x="678" y="186" width="178" height="30" rx="2" fill="#ffffff" stroke="#dfe6ee" stroke-width=".6"/>
+  <text class="c" x="767" y="198" text-anchor="middle">de-identified aggregates</text>
+  <text class="w" x="767" y="210" text-anchor="middle">for group reporting</text>
+  <rect x="678" y="224" width="178" height="30" rx="2" fill="#ffffff" stroke="#dfe6ee" stroke-width=".6"/>
+  <text class="c" x="767" y="236" text-anchor="middle">central operations console</text>
+  <text class="w" x="767" y="248" text-anchor="middle">sees alerts, not records</text>
+
+  <line x1="648" y1="166" x2="672" y2="166" stroke="#0f7f73" marker-end="url(#a13)"/>
+  <text class="w" x="660" y="158" text-anchor="middle">one way</text>
+  <line x1="672" y1="196" x2="648" y2="196" stroke="#2f6fed" marker-end="url(#a13b)"/>
+  <text class="w" x="660" y="212" text-anchor="middle">config</text>
+
+  <text class="t" x="24" y="330">Data sovereignty is the constraint that outranks the architecture: a unified global design that cannot be delivered inside the border is not a design, it is a proposal.</text>
+  <text class="t" x="24" y="346">The usual resolution is the same one the case study reaches: keep the data local, keep the control plane global, and make the crossing one-way and de-identified.</text>
+  <text class="t" x="24" y="362">Decide it at design time. Discovering a residency requirement after the cloud region is chosen costs a re-architecture, not a firewall rule.</text>
+</svg>

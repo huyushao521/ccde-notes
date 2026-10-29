@@ -254,6 +254,11 @@ Business capabilities map directly to business outcomes. Several capabilities of
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en02-01-business-chain.svg" alt="Four columns from business priority through driver and outcome to business capability, with four example rows and many-to-many arrows" loading="lazy">
+<figcaption><b>Figure 2-1　Priority, driver, outcome, capability — four layers, and every line must be traceable</b><br><span>图 2-1　优先级、驱动力、成果、能力：四层链条，每条线都要能追溯</span></figcaption>
+</figure>
+
 ### Business Continuity · 业务连续性
 
 Business continuity (BC) is the ability to keep business activities running after a disruption. Disruptions can come from system failure or natural disaster, so enterprises must build and improve their level of resilience in order to withstand and recover from unplanned outages.
@@ -310,6 +315,11 @@ RTO 是应用、系统、网络或资源可以离线而不造成重大业务损�
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en02-02-rpo-rto.svg" alt="Timeline showing the recovery point objective between the last good copy and the failure, and the recovery time objective between the failure and restored service, plus a two-hour outage breaching a twenty-minute RTO" loading="lazy">
+<figcaption><b>Figure 2-2　RPO looks backwards to the last good copy, RTO looks forwards to restored service</b><br><span>图 2-2　RPO 往回看最近一次好数据，RTO 往前看业务恢复</span></figcaption>
+</figure>
+
 ### Elasticity to Support Strategic Business Trends · 弹性以支持战略业务趋势
 
 Elasticity is the degree of flexibility a design can offer in response to business change. Change can mean organic growth, business decline, merger or acquisition.
@@ -327,6 +337,11 @@ Elasticity is the degree of flexibility a design can offer in response to busine
 > 示例：一个高等教育园区架构有四个直接互连的位置。任何需要添加新位置的有机会增长都会在布线、控制平面和可管理性方面引入大量复杂性。通过添加核心模块来优化模块化设计，添加或删除任何模块/位置不会影响其他位置。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-03-elasticity-vs-scalability.svg" alt="Left panel shows capacity stepping up and staying, right panel shows capacity expanding and being reclaimed with automation, bottom band contrasts four fully meshed campus sites with four sites behind a core module" loading="lazy">
+<figcaption><b>Figure 2-3　Scalability grows capacity; elasticity gives it back, and modularity decides the price</b><br><span>图 2-3　可扩展让容量变大，弹性让容量能收回，模块化决定代价</span></figcaption>
+</figure>
 
 ### IT as a Business Innovation Enabler · IT 作为"业务创新"推动者
 
@@ -395,6 +410,11 @@ Over the past decade, IT and networking have come to resemble utility providers 
 > 消除单故障点是最佳设计选项——提供冗余解决方案，提高整体业务可用性，同时限制资金成本。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-04-redundancy-tradeoff.svg" alt="Three cards comparing a single point of failure, removing the single point, and removing dual points of failure on cost, business risk and business reward" loading="lazy">
+<figcaption><b>Figure 2-4　Three redundancy choices, three bills — the middle option is almost always the answer</b><br><span>图 2-4　三种冗余选择，三张账单：中间那档通常就是答案</span></figcaption>
+</figure>
 
 ### Money, Money, Money · 钱、钱、钱
 
@@ -509,6 +529,11 @@ In the example above, design option 2 is the better fit given the business requi
 | **战术规划** | 面向克服问题或实现短期目标 | 企业临时通过 Internet 提供远程访问，直到提供专用连接 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-05-decision-tools.svg" alt="A decision tree branching on scale and vendor count, a decision matrix weighting three requirements by priority, and the strategic versus tactical split" loading="lazy">
+<figcaption><b>Figure 2-5　Decision tree, decision matrix, and the line between strategy and tactics</b><br><span>图 2-5　决策树、决策矩阵，以及战略与战术的分界线</span></figcaption>
+</figure>
 
 #### Strategic Balance · 战略平衡
 
@@ -690,6 +715,11 @@ Agile methodologies are based on an incremental, iterative approach. Instead of 
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en02-06-waterfall-vs-agile.svg" alt="Waterfall phases descending with no way back, next to agile iterations each ending in a working increment with feedback returning to the backlog" loading="lazy">
+<figcaption><b>Figure 2-6　Waterfall walks the phases once; agile keeps every loop</b><br><span>图 2-6　瀑布只走一遍阶段，敏捷留住每一个循环</span></figcaption>
+</figure>
+
 ### Scrum Methodology · Scrum 方法论
 
 Scrum is a concrete implementation of agile that uses fixed-length iterations called **sprints**.
@@ -836,6 +866,11 @@ Kanban is a visual project management method focused on continuous delivery and 
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en02-07-scrum-kanban.svg" alt="Scrum cycle from product backlog through sprint planning, sprint, review and retrospective, next to a Kanban board with work-in-progress limits and a comparison table" loading="lazy">
+<figcaption><b>Figure 2-7　Scrum delivers in a fixed rhythm; Kanban caps what is open and measures flow</b><br><span>图 2-7　Scrum 按固定节奏交付，看板限制在制品并度量流动</span></figcaption>
+</figure>
+
 ## Case Studies · 实战案例
 
 ### Case 1: Status "All Green", Delivered Six Months Late · 案例一：进度"一切正常"，最后延期 6 个月
@@ -879,6 +914,11 @@ Device purchase (3 months) → delivery → configuration   ← this one actuall
 ```
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-08-critical-path.svg" alt="Critical path from fiber survey through carrier order and construction to five-to-six-month circuit delivery then go-live, with device purchase running in parallel with float" loading="lazy">
+<figcaption><b>Figure 2-8　The critical path is set by the task that can least afford to wait</b><br><span>图 2-8　关键路径由"最不能等"的任务决定，不是由工作量最大的任务决定</span></figcaption>
+</figure>
 
 **Lesson checklist**:
 
@@ -957,6 +997,11 @@ Device purchase (3 months) → delivery → configuration   ← this one actuall
 **正确的 TCO 口径**：设备 + 许可 + 实施 + **迁移过渡期** + **5 年运维** + 培训 + 退役处置。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-09-tco-iceberg.svg" alt="Above the approval line sit hardware, licences and implementation; below it sit operations, migration overlap, training and retirement, with the approved and actual spend compared by category" loading="lazy">
+<figcaption><b>Figure 2-9　CAPEX is the tip of the TCO iceberg, and the overrun lands in the rows nobody budgeted</b><br><span>图 2-9　CAPEX 只是 TCO 的冰山一角，超支总落在没人预算过的那几格</span></figcaption>
+</figure>
 
 > 💡 **Lesson**: **CAPEX is only the tip of the iceberg.** Compare options on a TCO basis at approval time; overruns usually land in "the cell nobody owns".
 
@@ -1089,6 +1134,11 @@ Device purchase (3 months) → delivery → configuration   ← this one actuall
 3. 用哪种项目管理方法论推进整改更合适？
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en02-10-rto-time-budget.svg" alt="A two-hour RTO split into six segments each needing an owner, above a nine-hour measured outage where only the twenty-five-minute network switchover had an owner" loading="lazy">
+<figcaption><b>Figure 2-10　An RTO must be a time budget with an owner per segment, not a single number</b><br><span>图 2-10　RTO 必须是一张带责任人的时间预算表，而不是一个数字</span></figcaption>
+</figure>
 
 **Reference approach**:
 - **The failure is not in the network, it is in the boundary of the RTO definition.** Business reads RTO as "time to restore the business"; the network team reads it as "time to switch the links". **The eight hours in between are exactly what the design never wrote down**: DNS, certificates, authentication, storage replication, business validation steps, and the person authorized to decide.

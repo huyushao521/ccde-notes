@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 364" width="100%" role="img" aria-labelledby="t510 d510">
+  <title id="t510">Frameworks feeding reference architectures, and the constraints no reference architecture contains</title>
+  <desc id="d510">Three columns. The left column holds frameworks and the process they supply: TOGAF for enterprise architecture, ITIL for service management, FEAF for federal enterprise architecture, DoDAF for defence architecture and RMF for risk management. They feed the middle column of reference architectures and the shape they supply: SAFE for security, CVD for validated designs, layered campus for the WAN, spine-leaf for the data centre, SD-WAN for branch and cloud access and cloud on-ramp for hybrid. The middle column is constrained by the right column, what none of them brings: budget, skills, the existing estate, regulatory scope and the target operating model. A note states that a reference architecture is a starting shape, not a decision.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="364" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Frameworks give the process, reference architectures give the shape, nothing gives the constraints</text>
+  <text class="s" x="24" y="45">Borrowed wisdom stops at the middle column; the right column is the work only you can do</text>
+
+  <text class="k" x="24" y="70">FRAMEWORKS &#183; THE PROCESS</text>
+  <rect x="24" y="80" width="232" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="34" y="93" fill="#5a3fa8">TOGAF</text>
+  <text class="w" x="34" y="104">enterprise architecture method</text>
+  <rect x="24" y="116" width="232" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="34" y="129" fill="#5a3fa8">ITIL</text>
+  <text class="w" x="34" y="140">service management</text>
+  <rect x="24" y="152" width="232" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="34" y="165" fill="#5a3fa8">FEAF</text>
+  <text class="w" x="34" y="176">federal enterprise architecture</text>
+  <rect x="24" y="188" width="232" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="34" y="201" fill="#5a3fa8">DoDAF</text>
+  <text class="w" x="34" y="212">defence architecture framework</text>
+  <rect x="24" y="224" width="232" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="34" y="237" fill="#5a3fa8">RMF</text>
+  <text class="w" x="34" y="248">risk management framework</text>
+
+  <line x1="260" y1="167" x2="276" y2="167" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M274 163 l7 4 l-7 4 z" fill="#9aa8ba"/>
+  <text class="w" x="268" y="158" text-anchor="middle">feeds</text>
+
+  <text class="k" x="286" y="70">REFERENCE ARCHITECTURES &#183; THE SHAPE</text>
+  <rect x="286" y="80" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="296" y="96" fill="#0f7f73">SAFE</text>
+  <text class="w" x="296" y="110">security architecture</text>
+  <text class="w" x="296" y="122">for the enterprise</text>
+  <rect x="438" y="80" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="448" y="96" fill="#0f7f73">CVD</text>
+  <text class="w" x="448" y="110">validated design:</text>
+  <text class="w" x="448" y="122">tested, sized, documented</text>
+  <rect x="286" y="142" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="296" y="158" fill="#0f7f73">layered campus</text>
+  <text class="w" x="296" y="172">access &#183; distribution</text>
+  <text class="w" x="296" y="184">&#183; core</text>
+  <rect x="438" y="142" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="448" y="158" fill="#0f7f73">spine-leaf</text>
+  <text class="w" x="448" y="172">data centre fabric,</text>
+  <text class="w" x="448" y="184">east-west by default</text>
+  <rect x="286" y="204" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="296" y="220" fill="#0f7f73">SD-WAN</text>
+  <text class="w" x="296" y="234">branch and cloud</text>
+  <text class="w" x="296" y="246">access, policy by app</text>
+  <rect x="438" y="204" width="144" height="54" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="448" y="220" fill="#0f7f73">cloud on-ramp</text>
+  <text class="w" x="448" y="234">hybrid connectivity</text>
+  <text class="w" x="448" y="246">and identity boundary</text>
+
+  <line x1="588" y1="167" x2="602" y2="167" stroke="#c0392b" stroke-width=".9"/>
+  <path d="M600 163 l7 4 l-7 4 z" fill="#c0392b"/>
+  <text class="w" x="596" y="158" text-anchor="middle">meets</text>
+
+  <text class="k" x="612" y="70">WHAT NONE OF THEM BRINGS</text>
+  <rect x="612" y="80" width="264" height="120" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="624" y="98" fill="#c0392b">your constraints</text>
+  <text class="c" x="624" y="116">budget and the buying cycle</text>
+  <text class="c" x="624" y="131">the skills the team actually has</text>
+  <text class="c" x="624" y="146">the estate already in production</text>
+  <text class="c" x="624" y="161">regulatory and data scope</text>
+  <text class="c" x="624" y="176">the target operating model (the quadrant)</text>
+  <text class="w" x="624" y="194">a reference architecture is generic by design</text>
+  <rect x="612" y="212" width="264" height="46" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="c" x="624" y="230">A reference architecture is a starting</text>
+  <text class="c" x="624" y="243">shape, never a decision.</text>
+
+  <rect x="24" y="278" width="852" height="50" rx="3" fill="#eef1f5" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="38" y="298"><tspan style="font-weight:700">Reading order at a real engagement:</tspan> the framework says what to produce and in what order, the reference architecture says what a sane answer looks like,</text>
+  <text class="c" x="38" y="314">and the constraints decide which of those shapes survives contact with your estate.</text>
+
+  <text class="w" x="24" y="352">Borrowing a shape is fine; borrowing the assumptions behind it is how a validated design becomes an unvalidated failure.</text>
+</svg>

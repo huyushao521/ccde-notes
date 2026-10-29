@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t9 d9">
+
+  <title id="t9">A VPN grants reachability to a segment, ZTNA grants reachability to one application</title>
+  <desc id="d9">With a VPN, the user reaches a gateway with a public address and from there the whole intranet, so one compromised laptop can move laterally to every application. With ZTNA, the application connector makes an outbound connection only and the user gets access to a single named application, so the other applications stay invisible and unreachable. The unit of authorisation changes from the site to the application.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .a{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <defs>
+    <marker id="a9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+    <marker id="a9r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="a9g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The unit of authorisation changed: from the site to the application</text>
+  <text class="s" x="24" y="45">Both let a remote user work. They differ in what the user can reach after the door opens</text>
+
+  <rect x="24" y="60" width="410" height="216" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="ln" x="36" y="78" fill="#c0392b">VPN · REACHABILITY TO A SEGMENT</text>
+
+  <circle cx="56" cy="122" r="8" fill="none" stroke="#4a5a72" stroke-width=".9"/>
+  <text class="w" x="56" y="140" text-anchor="middle">user</text>
+  <line x1="68" y1="122" x2="100" y2="122" stroke="#8494a8" marker-end="url(#a9)"/>
+  <rect x="104" y="106" width="112" height="32" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="a" x="160" y="120" text-anchor="middle">VPN gateway</text>
+  <text class="w" x="160" y="132" text-anchor="middle">public IP, always reachable</text>
+  <line x1="216" y1="122" x2="244" y2="122" stroke="#8494a8" marker-end="url(#a9)"/>
+
+  <rect x="248" y="94" width="172" height="164" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="w" x="334" y="108" text-anchor="middle">intranet — the whole segment</text>
+  <rect x="256" y="116" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="294" y="128" text-anchor="middle">finance</text>
+  <rect x="336" y="116" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="374" y="128" text-anchor="middle">payroll</text>
+  <rect x="256" y="140" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="294" y="152" text-anchor="middle">HR files</text>
+  <rect x="336" y="140" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="374" y="152" text-anchor="middle">code repo</text>
+  <rect x="256" y="164" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="294" y="176" text-anchor="middle">wiki</text>
+  <rect x="336" y="164" width="76" height="18" rx="2" fill="#fdeceb" stroke="#c0392b" stroke-width=".5"/>
+  <text class="a" x="374" y="176" text-anchor="middle">build server</text>
+  <path d="M256 208 L412 194" stroke="#c0392b" stroke-width=".8" stroke-dasharray="3 2" marker-end="url(#a9r)"/>
+  <text class="w" x="256" y="228">one hop to everything else</text>
+  <text class="w" x="256" y="244">once the laptop is in, the segment is in</text>
+
+  <text class="c" x="36" y="252" fill="#c0392b">exposure: the gateway, permanently, plus every host behind it</text>
+  <text class="c" x="36" y="266">blast radius: whatever the user could reach on the office network</text>
+
+  <rect x="452" y="60" width="424" height="216" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="ln" x="464" y="78" fill="#0f7f73">ZTNA · REACHABILITY TO ONE APPLICATION</text>
+
+  <circle cx="484" cy="122" r="8" fill="none" stroke="#4a5a72" stroke-width=".9"/>
+  <text class="w" x="484" y="140" text-anchor="middle">user</text>
+  <line x1="496" y1="122" x2="528" y2="122" stroke="#8494a8" marker-end="url(#a9)"/>
+  <rect x="532" y="106" width="118" height="32" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="a" x="591" y="120" text-anchor="middle">app connector</text>
+  <text class="w" x="591" y="132" text-anchor="middle">outbound only, no listener</text>
+  <line x1="650" y1="122" x2="678" y2="122" stroke="#0f7f73" marker-end="url(#a9g)"/>
+
+  <rect x="682" y="94" width="176" height="164" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="w" x="770" y="108" text-anchor="middle">applications, individually named</text>
+  <rect x="690" y="116" width="76" height="18" rx="2" fill="#0f7f73"/>
+  <text class="a" x="728" y="128" text-anchor="middle" fill="#ffffff">finance</text>
+  <rect x="774" y="116" width="76" height="18" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="w" x="812" y="128" text-anchor="middle">payroll</text>
+  <rect x="690" y="140" width="76" height="18" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="w" x="728" y="152" text-anchor="middle">HR files</text>
+  <rect x="774" y="140" width="76" height="18" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="w" x="812" y="152" text-anchor="middle">code repo</text>
+  <rect x="690" y="164" width="76" height="18" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="w" x="728" y="176" text-anchor="middle">wiki</text>
+  <rect x="774" y="164" width="76" height="18" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="w" x="812" y="176" text-anchor="middle">build server</text>
+  <text class="w" x="690" y="208">the grey boxes are not filtered out —</text>
+  <text class="w" x="690" y="220">they are not routable from here at all</text>
+  <text class="w" x="690" y="244">no east-west foothold to inherit</text>
+
+  <text class="c" x="464" y="252" fill="#0f7f73">exposure: one application, named in a policy</text>
+  <text class="c" x="464" y="266">blast radius: that application, and only for this identity</text>
+
+  <line x1="24" y1="288" x2="876" y2="288" stroke="#e3e8ef"/>
+  <rect x="24" y="296" width="272" height="42" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="34" y="311" fill="#1a2233">granularity of authorisation</text>
+  <text class="c" x="34" y="324">segment, then everything inside it</text>
+  <text class="c" x="34" y="334">versus one named application</text>
+
+  <rect x="304" y="296" width="272" height="42" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="314" y="311" fill="#1a2233">what an attacker inherits</text>
+  <text class="c" x="314" y="324">a network position with neighbours</text>
+  <text class="c" x="314" y="334">versus one session to one application</text>
+
+  <rect x="584" y="296" width="292" height="42" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="594" y="311" fill="#1a2233">user experience</text>
+  <text class="c" x="594" y="324">VPN: connect, then hunt for the app; ZTNA: open the app</text>
+  <text class="c" x="594" y="334">and the connector needs no inbound port at all</text>
+
+  <text class="t" x="24" y="360">ZTNA is not a better VPN. It answers a different question: not which network this user may enter, but which application this identity may reach, right now.</text>
+  <text class="t" x="24" y="374">The security gain is the reduction of reachable surface; the operational gain is that application access no longer requires a network change.</text>
+  <text class="t" x="24" y="388">The cost is that every application must be named and owned — which is why the inventory comes first, again.</text>
+</svg>

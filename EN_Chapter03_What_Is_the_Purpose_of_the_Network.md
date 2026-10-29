@@ -224,6 +224,11 @@ The most common application model today, made up of three tiers:
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en03-01-app-models.svg" alt="Single server, two tier, three tier and microservices shown side by side with hop counts and a network-work gauge rising left to right" loading="lazy">
+<figcaption><b>Figure 3-1　Four application models, and what each one costs the network</b><br><span>图 3-1　四种应用模型，以及各自让网络付出的代价</span></figcaption>
+</figure>
+
 ### Network Design Elements of the 3-Tier Model · 三层模型的网络设计要素
 
 | Tier | Traffic pattern | Network design elements | Questions to consider |
@@ -241,6 +246,11 @@ The most common application model today, made up of three tiers:
 | **数据库层** | 应用层 ↔ 数据库层 | 仅内部访问。通常位于内部多层安全之后 | 不同数据库成员服务器之间如何复制？数据库变更如何同步？(多数据中心场景尤为重要) |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en03-02-three-tier-design-elements.svg" alt="Global users, Internet edge and firewall above a DMZ web tier, then an internal application tier and database tier, each annotated with its network elements and open questions" loading="lazy">
+<figcaption><b>Figure 3-2　Three tiers, three access scopes, three sets of network elements</b><br><span>图 3-2　三层、三套访问范围、三组网络要素</span></figcaption>
+</figure>
 
 ### Application Constraints and Requirements · 应用约束和需求
 
@@ -279,6 +289,11 @@ Common application constraints and requirements a network designer should know:
 </div>
 
 ---
+
+<figure class="fig">
+<img src="assets/fig/en03-03-application-trait-matrix.svg" alt="Matrix of seven traits against video conferencing, file backup, ERP transactions and database replication, with colour marking the critical cells" loading="lazy">
+<figcaption><b>Figure 3-3　Describe an application by its traits, never by its name</b><br><span>图 3-3　用特征描述应用，而不是用名字</span></figcaption>
+</figure>
 
 ## Service Models · 服务模型
 
@@ -452,6 +467,11 @@ An on-demand, pay-as-you-go model for storage, networking and virtualization ser
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en03-04-service-model-stack.svg" alt="Four columns for on-premises, IaaS, PaaS and SaaS, seven layers each shaded by whether the enterprise or the provider operates it, ending in what the network still owes" loading="lazy">
+<figcaption><b>Figure 3-4　Who operates which layer, and what the network still owes</b><br><span>图 3-4　谁运维哪一层，以及网络还欠什么</span></figcaption>
+</figure>
+
 ## The Cloud · 云
 
 When an enterprise starts using any form of cloud, a network designer should consider three use cases:
@@ -538,6 +558,11 @@ DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或�
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en03-05-cloud-connection-models.svg" alt="Direct cloud access, gateway hairpin and hybrid shown as three traffic paths, beside a panel on determinism, SLA ownership and what to write into the design" loading="lazy">
+<figcaption><b>Figure 3-5　Three cloud connection models — determinism decides, not bandwidth</b><br><span>图 3-5　云连接三模型：决定因素是对确定性，而不是带宽</span></figcaption>
+</figure>
+
 ### Cloud Types · 云类型
 
 | Cloud type | Definition | Characteristic |
@@ -577,6 +602,11 @@ DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或�
 | **多云** | 最少控制 | 每个 CSP 维护高 | 跨 CSP 最高灵活性 | 最高可扩展性 | 最难迁移 | 最高成本 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en03-06-cloud-types-tradeoff.svg" alt="Private, public, hybrid and multi-cloud positioned on control against cost, with a table of the strength and price of each type" loading="lazy">
+<figcaption><b>Figure 3-6　Four cloud types: control and cost trade against each other</b><br><span>图 3-6　云类型四选一：控制力与成本此消彼长</span></figcaption>
+</figure>
 
 ### Cloud-Agnostic Architecture · 云无关架构
 
@@ -633,6 +663,11 @@ A cloud-agnostic architecture avoids vendor-specific proprietary features and fo
    - 规划应用迁移到 CSP 的方式
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en03-07-cloud-agnostic-tradeoff.svg" alt="An application above an abstraction layer of SOA, containers and declarative configuration, feeding two cloud providers and the own data centre, with gains and losses listed and the three concerns explained" loading="lazy">
+<figcaption><b>Figure 3-7　Cloud agnosticism is a trade, not an upgrade</b><br><span>图 3-7　云无关是一场交易，而不是一次升级</span></figcaption>
+</figure>
 
 ### Service-Oriented Architecture (SOA) · 面向服务架构
 
@@ -765,6 +800,11 @@ Traditional            Virtualized            Containerized
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en03-08-deployment-evolution.svg" alt="Traditional, virtualised and containerised stacks side by side, with what each changes for the network: one address, MAC and VLAN growth, or thousands of short-lived east-west endpoints" loading="lazy">
+<figcaption><b>Figure 3-8　Traditional, virtualised, containerised — and what the network inherits</b><br><span>图 3-8　传统、虚拟化、容器化：网络继承了什么</span></figcaption>
+</figure>
+
 ### Cloud Application Strategy · 云应用策略
 
 When an enterprise prepares to migrate applications to the cloud, an **application assessment process** should be built in. Form an application assessment team:
@@ -857,6 +897,11 @@ Data management lays the foundation for data analytics. Without good data manage
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en03-09-eleven-pillars.svg" alt="Eleven data capabilities grouped into plan, run, move and read clusters, with security, integration and quality highlighted as the three the network contributes to" loading="lazy">
+<figcaption><b>Figure 3-9　Eleven data capabilities: three of them fall partly on the network</b><br><span>图 3-9　数据管理十一项能力，其中三项网络直接参与</span></figcaption>
+</figure>
+
 ## Case Studies · 实战案例
 
 ### Case 1: Bandwidth Doubled, Video Conferencing Still Stutters · 案例一：带宽翻倍，视频会议还是卡
@@ -915,6 +960,11 @@ Data management lays the foundation for data analytics. Without good data manage
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en03-10-case1-bandwidth-not-latency.svg" alt="Measured throughput, round-trip time, jitter, loss and uplink asymmetry beside the three real causes and a four-step fix ordered by effect" loading="lazy">
+<figcaption><b>Figure 3-10　Doubling the circuit did not fix a jitter and upstream problem</b><br><span>图 3-10　带宽翻倍解决不了抖动与上行问题</span></figcaption>
+</figure>
+
 **Fix**: a dedicated queue for real-time traffic + branch uplink upgrade + jitter buffering. **Total bandwidth did not increase, yet the experience improved.**
 
 <div class="zh" markdown="1">
@@ -966,6 +1016,11 @@ Data management lays the foundation for data analytics. Without good data manage
 | 计算 | 40 × 35ms × 2 ≈ **2.8 秒只是往返开销**，叠加原有逻辑即 8 秒 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en03-11-case2-round-trips.svg" alt="Forty sequential queries each paying a 35 ms crossing, giving 2.8 seconds per page load against 8 ms locally, with remedy options ranked as bars" loading="lazy">
+<figcaption><b>Figure 3-11　Forty round trips turn 35 ms into 2.8 s per page load</b><br><span>图 3-11　四十次往返，把 35 ms 放大成每次 2.8 s</span></figcaption>
+</figure>
 
 **Root cause**: the application architecture is **chatty** (many small round trips). It was invisible at LAN latency, and the move to WAN multiplied the latency by 40.
 
@@ -1073,6 +1128,11 @@ Data management lays the foundation for data analytics. Without good data manage
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en03-12-scenario1-tier-migration.svg" alt="Web tier marked as movable, application tier movable only with its database, database tier staying, over a 200 ms per-transaction budget bar and a five-step migration order" loading="lazy">
+<figcaption><b>Figure 3-12　One ERP, three tiers, three answers</b><br><span>图 3-12　一个 ERP，三层，三个答案</span></figcaption>
+</figure>
+
 **Reference approach**:
 - **Compute the latency budget before discussing the move.** 24 million per day ≈ 278 per second at 0.2 ms per round trip; if RTT rises to 2 ms, each transaction adds about 1.8 ms, and under concurrency limits that directly depresses throughput. **This combination of high-frequency small transactions and tightly coupled application/database tiers is the hardest case in cloud migration.**
 - **The usual conclusion is "migrate by tier", not a wholesale lift and shift**: the web tier (stateless, sensitive to user-side latency but not to back-end RTT) moves first; the application and database tiers must stay inside one low-latency domain (same campus, same availability zone, or a dedicated circuit with measured RTT that meets target).
@@ -1116,6 +1176,11 @@ Data management lays the foundation for data analytics. Without good data manage
 3. "双云 + 机房"的架构是否应该调整？
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en03-13-scenario2-east-west.svg" alt="Monolith with one north-south flow and one log, compared with thirty services behind a gateway whose east-west calls no single log records, plus the five capabilities the design must add" loading="lazy">
+<figcaption><b>Figure 3-13　East-west traffic removed the only log that saw the whole request</b><br><span>图 3-13　东西向流量带走了唯一能看见整条请求的日志</span></figcaption>
+</figure>
 
 **Reference approach**:
 - **The common root cause is loss of control over east-west traffic.** In the monolith era traffic was mostly north-south with fixed paths; in the microservices era it is mostly east-west with dynamic call relationships. The old design assumptions — edge-centric, IP-identified, static ACL policy — all fail in the new shape.

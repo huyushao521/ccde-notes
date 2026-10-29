@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t5 d5">
+
+  <title id="t5">Three cloud connection models: direct access, gateway hairpin and the hybrid in between</title>
+  <desc id="d5">In direct cloud access the branch sends selected application traffic straight to the Internet while other traffic still backhauls to a regional hub. In the gateway model SaaS traffic is tunnelled to the best-performing gateway site and only then routed to the Internet. The hybrid runs both and chooses per application by measured performance. The choice is about determinism and who carries the SLA, not about bandwidth.</desc>
+
+  <defs>
+    <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a5t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three ways to reach the cloud, and the traffic that does not take the new path</text>
+  <text class="s" x="24" y="45">The design question is not "how much bandwidth" but "is latency predictable, and who carries the SLA when it is not"</text>
+
+  <text class="ln" x="24" y="68">1 · DIRECT CLOUD ACCESS (DIA)</text>
+  <rect x="24" y="76" width="80" height="30" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="mid" x="64" y="95" text-anchor="middle">branch</text>
+  <line x1="104" y1="91" x2="136" y2="91" stroke="#2f6fed" marker-end="url(#a5)"/>
+  <rect x="140" y="76" width="96" height="30" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="188" y="88" text-anchor="middle">Internet</text>
+  <text class="w" x="188" y="99" text-anchor="middle">best path per app</text>
+  <line x1="236" y1="91" x2="268" y2="91" stroke="#2f6fed" marker-end="url(#a5)"/>
+  <rect x="272" y="76" width="86" height="30" rx="3" fill="#fff6e6" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="315" y="95" text-anchor="middle">SaaS</text>
+  <rect x="24" y="112" width="334" height="20" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7" stroke-dasharray="4 3"/>
+  <text class="w" x="32" y="126">all other traffic still backhauls via regional hub / data centre / CNF</text>
+  <text class="w" x="24" y="146">path is dropped from the candidate set when unreachable or underperforming</text>
+
+  <text class="ln" x="24" y="172">2 · ACCESS THROUGH A GATEWAY (CLIENT SITE → GATEWAY SITE)</text>
+  <rect x="24" y="180" width="80" height="30" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="mid" x="64" y="194" text-anchor="middle">client site</text>
+  <text class="w" x="64" y="205" text-anchor="middle">no DIA allowed</text>
+  <line x1="104" y1="195" x2="136" y2="195" stroke="#0f7f73" stroke-dasharray="4 3" marker-end="url(#a5t)"/>
+  <rect x="140" y="180" width="96" height="30" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="mid" x="188" y="192" text-anchor="middle">gateway site</text>
+  <text class="w" x="188" y="203" text-anchor="middle">policy + security</text>
+  <line x1="236" y1="195" x2="268" y2="195" stroke="#2f6fed" marker-end="url(#a5)"/>
+  <rect x="272" y="180" width="86" height="30" rx="3" fill="#fff6e6" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="315" y="199" text-anchor="middle">SaaS</text>
+  <text class="w" x="24" y="224">tunnelled to the best-performing gateway site, then routed to the Internet — hairpin latency is the price of central control</text>
+  <text class="w" x="24" y="238">different client sites and applications may use different gateway sites and paths</text>
+
+  <text class="ln" x="24" y="266">3 · HYBRID — BOTH, DECIDED PER APPLICATION</text>
+  <rect x="24" y="274" width="80" height="34" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="mid" x="64" y="294" text-anchor="middle">branch</text>
+  <path d="M104 284 L136 284" stroke="#2f6fed" marker-end="url(#a5)"/>
+  <text class="w" x="108" y="279">DIA</text>
+  <path d="M104 298 L136 298" stroke="#0f7f73" stroke-dasharray="4 3" marker-end="url(#a5t)"/>
+  <text class="w" x="108" y="312">gateway</text>
+  <rect x="140" y="278" width="120" height="26" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="w" x="200" y="295" text-anchor="middle">per-app steering</text>
+  <line x1="260" y1="291" x2="288" y2="291" stroke="#2f6fed" marker-end="url(#a5)"/>
+  <rect x="292" y="278" width="66" height="26" rx="3" fill="#fff6e6" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="325" y="295" text-anchor="middle">SaaS</text>
+  <text class="w" x="24" y="326">whichever path measures better wins; this is what most enterprises end up running, whether they planned it or not</text>
+
+  <rect x="386" y="60" width="490" height="322" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="400" y="80">What actually decides the model</text>
+
+  <rect x="400" y="90" width="462" height="72" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="mid" x="412" y="106" fill="#1f4fc0">determinism, not bandwidth</text>
+  <text class="sm" x="412" y="122">Internet: cheap, best-effort, latency varies by hour and by route.</text>
+  <text class="sm" x="412" y="136">VPN over Internet: encrypted but inherits the same variance — jitter kills chatty traffic.</text>
+  <text class="sm" x="412" y="150">Dedicated circuit / cloud exchange: predictable latency and loss, contractual SLA, per-Mbps price.</text>
+
+  <rect x="400" y="170" width="462" height="72" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="mid" x="412" y="186" fill="#c0392b">who carries the SLA</text>
+  <text class="sm" x="412" y="202">On the Internet nobody does: the path crosses several providers with no end-to-end commitment.</text>
+  <text class="sm" x="412" y="216">On a dedicated circuit the provider commits to latency and loss — insist those numbers appear,</text>
+  <text class="sm" x="412" y="230">not just "10 Gbps": 10 Gbps at 3% loss can be worse than 1 Gbps at 0.05% for small transactions.</text>
+
+  <rect x="400" y="250" width="462" height="72" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="mid" x="412" y="266" fill="#0f7f73">what to write into the design</text>
+  <text class="sm" x="412" y="282">per application class: which path, what RTT ceiling, what loss ceiling, what happens when it is breached.</text>
+  <text class="sm" x="412" y="296">per site: is local Internet egress allowed, and if so who inspects that traffic.</text>
+  <text class="sm" x="412" y="310">per region: where the cloud region physically sits, because the RTT floor is geography, not engineering.</text>
+
+  <text class="sm" x="400" y="340" fill="#bf5b1d">"Plenty of bandwidth" answers a question nobody asked. Determinism answers the one the business asked.</text>
+  <text class="sm" x="400" y="358">Bandwidth grows with money; determinism grows only with engineering and contracts.</text>
+  <text class="sm" x="400" y="374">Both paths must exist before you need them — a fallback that has never carried traffic is not a fallback.</text>
+
+  <text class="t" x="24" y="388">DIA is a policy decision as much as a routing one: once branches egress locally, every local device is an Internet-facing edge.</text>
+</svg>

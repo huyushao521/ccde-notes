@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">Cloud agnosticism sits on an abstraction layer: portability gained on one side, native capability given up on the other</title>
+  <desc id="d7">An application talks to an abstraction layer built from service-oriented design, containers and declarative configuration, and that layer talks to two cloud providers and the enterprise data centre. What the enterprise gains is portability and exit leverage; what it gives up is managed platform services, native load balancing, DNS and identity, some performance, and operational simplicity. Agnosticism is worth buying only on the layer that truly needs cross-cloud movement, usually data and identity.</desc>
+
+  <defs>
+    <marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a7t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Cloud agnosticism is a trade, not an upgrade</text>
+  <text class="s" x="24" y="45">Every abstraction layer buys portability with native capability — the only design decision is which layer is worth it</text>
+
+  <rect x="120" y="64" width="200" height="26" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".9"/>
+  <text class="mid" x="220" y="81" text-anchor="middle">your application</text>
+
+  <rect x="60" y="102" width="320" height="40" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width="1"/>
+  <text class="mid" x="220" y="117" text-anchor="middle" fill="#0f7f73">abstraction layer you now own</text>
+  <rect x="72" y="122" width="90" height="14" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="w" x="117" y="133" text-anchor="middle">SOA / decoupling</text>
+  <rect x="168" y="122" width="76" height="14" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="w" x="206" y="133" text-anchor="middle">containers</text>
+  <rect x="250" y="122" width="118" height="14" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="w" x="309" y="133" text-anchor="middle">declarative config</text>
+  <line x1="220" y1="90" x2="220" y2="100" stroke="#2f6fed" marker-end="url(#a7)"/>
+
+  <rect x="40" y="170" width="100" height="34" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="90" y="184" text-anchor="middle">CSP A</text>
+  <text class="w" x="90" y="196" text-anchor="middle">region 1</text>
+  <rect x="170" y="170" width="100" height="34" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="220" y="184" text-anchor="middle">CSP B</text>
+  <text class="w" x="220" y="196" text-anchor="middle">disaster recovery</text>
+  <rect x="300" y="170" width="100" height="34" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".9"/>
+  <text class="mid" x="350" y="184" text-anchor="middle">own data centre</text>
+  <text class="w" x="350" y="196" text-anchor="middle">what cannot move</text>
+  <line x1="140" y1="142" x2="90" y2="168" stroke="#0f7f73" marker-end="url(#a7t)"/>
+  <line x1="220" y1="142" x2="220" y2="168" stroke="#0f7f73" marker-end="url(#a7t)"/>
+  <line x1="300" y1="142" x2="350" y2="168" stroke="#0f7f73" marker-end="url(#a7t)"/>
+
+  <line x1="145" y1="187" x2="165" y2="187" stroke="#0f7f73" stroke-width=".8" stroke-dasharray="3 2" marker-end="url(#a7t)"/>
+  <line x1="275" y1="187" x2="295" y2="187" stroke="#0f7f73" stroke-width=".8" stroke-dasharray="3 2" marker-end="url(#a7t)"/>
+  <text class="w" x="220" y="216" text-anchor="middle">workload moves through the layer, not through the providers</text>
+
+  <rect x="24" y="234" width="196" height="90" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="mid" x="34" y="250" fill="#0f7f73">what you gain</text>
+  <text class="sm" x="34" y="266">portability between providers</text>
+  <text class="sm" x="34" y="280">exit leverage in negotiation</text>
+  <text class="sm" x="34" y="294">one operational model to learn</text>
+  <text class="sm" x="34" y="308">no single-vendor outage dependency</text>
+
+  <rect x="232" y="234" width="196" height="90" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="mid" x="242" y="250" fill="#c0392b">what you give up</text>
+  <text class="sm" x="242" y="266">managed PaaS, native DB and AI services</text>
+  <text class="sm" x="242" y="280">native LB, DNS, identity integration</text>
+  <text class="sm" x="242" y="294">some performance, more hops</text>
+  <text class="sm" x="242" y="308">an extra team owning the layer</text>
+
+  <rect x="450" y="60" width="426" height="106" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="462" y="78">THE THREE CONCERNS</text>
+  <text class="mid" x="462" y="96">portability</text>
+  <text class="sm" x="560" y="96">move applications and services between CSPs through the abstraction layer</text>
+  <text class="mid" x="462" y="118">abstraction</text>
+  <text class="sm" x="560" y="118">decouple from cloud-specific features — flexibility up, cost down</text>
+  <text class="mid" x="462" y="140">interoperability</text>
+  <text class="sm" x="560" y="140">build services not bound to one feature set, so porting needs no rework</text>
+  <text class="sm" x="462" y="158">If a design cannot name which of the three it needs, it is agnosticism for its own sake.</text>
+
+  <rect x="450" y="176" width="426" height="106" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="462" y="194">PRACTICES THAT DELIVER IT</text>
+  <text class="mid" x="462" y="212">decoupling</text>
+  <text class="sm" x="560" y="212">application from platform, cloud components from consumers — SOA in practice</text>
+  <text class="mid" x="462" y="234">containerisation</text>
+  <text class="sm" x="560" y="234">packages the app with everything but the OS, so the host stops mattering</text>
+  <text class="mid" x="462" y="256">know the boundary</text>
+  <text class="sm" x="560" y="256">label each service agnostic or proprietary and plan its migration</text>
+  <text class="sm" x="462" y="274">The label matters more than the tool: proprietary in a container is still proprietary.</text>
+
+  <rect x="450" y="292" width="426" height="48" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="mid" x="462" y="306" fill="#1f4fc0">Where to buy it, where not to</text>
+  <text class="sm" x="462" y="319" fill="#1f4fc0">buy it for data and identity — hardest to move, most damaging to lose</text>
+  <text class="sm" x="462" y="331" fill="#1f4fc0">do not buy it for compute and network: pick the best option per scenario</text>
+
+  <text class="t" x="24" y="352">A cloud-agnostic architecture is the more advanced practice only when cross-cloud movement is a real requirement.</text>
+  <text class="t" x="24" y="366">If the whole estate is rebuilt on IaaS "to stay portable", portability was paid for with the platform that was actually needed.</text>
+  <text class="t" x="24" y="378">Test: name the workload that will move, the date, and what depends on it moving. If any of the three is missing, the abstraction is speculative.</text>
+</svg>

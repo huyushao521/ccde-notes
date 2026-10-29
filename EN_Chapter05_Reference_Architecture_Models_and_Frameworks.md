@@ -136,6 +136,11 @@ Reference model        → describe it with a common language and layering (HOW 
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en05-01-three-concepts.svg" alt="Framework, reference architecture and reference model stacked by the question each one answers" loading="lazy">
+<figcaption><b>Figure 5-1　Three concepts, three levels: a framework gives the process, a reference architecture gives the shape, a reference model gives the words</b><br><span>图 5-1　三个概念三个层级：框架给流程，参考架构给形态，参考模型给语言</span></figcaption>
+</figure>
+
 ## Foundation Topics · 基础内容
 
 > How do you know the option you chose from a network design perspective is viable? Are you making the right network design decisions? How do you define the word "architecture"? Who defines your architecture?
@@ -242,6 +247,11 @@ Business architecture puts everyone from the strategic planning team to the impl
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en05-02-smart-gate.svg" alt="Interacting capabilities forming a business solution and delivering a business outcome, with SMART as the acceptance test" loading="lazy">
+<figcaption><b>Figure 5-2　A business solution is judged by the outcome it moves, and SMART is the test that makes the claim checkable</b><br><span>图 5-2　业务解决方案由成果评判，SMART 是让成果可被验证的闸门</span></figcaption>
+</figure>
+
 ### The Four Alignment Levels of Business Architecture · 业务架构的四个对齐级别
 
 This is the first key model in the chapter — **the demands business places on architecture rise level by level with maturity**:
@@ -310,6 +320,11 @@ Business transformation → "how does IT change the way the company does busines
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en05-03-alignment-levels.svg" alt="The four alignment levels as rising steps, each with its trigger and its deliverable" loading="lazy">
+<figcaption><b>Figure 5-3　Four alignment levels: the business asks for more with each step, and the trigger tells you which step a scenario sits on</b><br><span>图 5-3　四个对齐级别：每上一层业务要求更高，触发词决定落在哪一层</span></figcaption>
+</figure>
+
 ### Business Architecture Guiding Principles · 业务架构指导原则
 
 Combining the guiding principles of TOGAF and ITIL, business architecture needs to cover **nine architecture perspectives**:
@@ -366,6 +381,11 @@ Combining the guiding principles of TOGAF and ITIL, business architecture needs 
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en05-04-nine-perspectives.svg" alt="The nine architecture perspectives in a grid above the Day 0, Day 1 and Day 2 split" loading="lazy">
+<figcaption><b>Figure 5-4　Nine perspectives, one architecture: skip the first or the last and the design has a blind side</b><br><span>图 5-4　九个架构视角与 Day 0/1/2 切分：忽略两端就会留下盲区</span></figcaption>
+</figure>
+
 ### Key Performance Indicators (KPIs) · 关键绩效指标
 
 How do you know whether a framework or reference architecture succeeded? You measure it with KPIs:
@@ -411,6 +431,11 @@ How do you know whether a framework or reference architecture succeeded? You mea
 </div>
 
 ---
+
+<figure class="fig">
+<img src="assets/fig/en05-05-kpi-mttd-mttr.svg" alt="From business goal to IT capability to one board-readable number, then the different design paths behind MTTD and MTTR" loading="lazy">
+<figcaption><b>Figure 5-5　From business goal to a number the board can read, and why MTTD and MTTR buy completely different things</b><br><span>图 5-5　从业务目标到能上报的数字：MTTD 买可见性，MTTR 买弹性</span></figcaption>
+</figure>
 
 ## Enterprise Architecture (EA) · 企业架构
 
@@ -483,6 +508,11 @@ Enterprise architecture is the process of organizing business processes and IT i
 > 💡 **"厂商无关团队"这个角色值得注意**：它的存在就是为了防止第 1 章讲的"厂商锁定"约束。当场景里出现"必须支持多厂商"或"不能绑定单一供应商"时，说明组织里可能存在这样一个治理角色。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en05-06-ea-method-steps.svg" alt="The three enterprise architecture method steps in fixed order with the four stakeholder groups beneath" loading="lazy">
+<figcaption><b>Figure 5-6　Three steps in one order: requirements, then the people who must agree, then the operating model</b><br><span>图 5-6　EA 方法论三步与四类干相人：顺序不能颠倒</span></figcaption>
+</figure>
 
 ### Operating Model Types (a core model) · 运营模型类型（核心模型）
 
@@ -569,6 +599,11 @@ The operating model determines **the degree of standardization and integration i
 </div>
 
 ---
+
+<figure class="fig">
+<img src="assets/fig/en05-07-operating-model.svg" alt="The four operating model quadrants on standardisation and integration with the design direction each one implies" loading="lazy">
+<figcaption><b>Figure 5-7　Four operating models, and the network each one actually needs</b><br><span>图 5-7　四种运营模型与它们各自需要的网络</span></figcaption>
+</figure>
 
 ## Common Enterprise Architecture Frameworks · 常见企业架构框架
 
@@ -662,6 +697,11 @@ TOGAF 是一种企业架构方法论，包含面向企业的高层框架，专�
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en05-08-togaf-adm.svg" alt="The eight TOGAF ADM phases on a ring around requirements management, with phase D marked as the designer's home ground" loading="lazy">
+<figcaption><b>Figure 5-8　TOGAF ADM as a ring: phase D is where network design lands, and A to C are what keep it from landing on nothing</b><br><span>图 5-8　TOGAF ADM 循环：D 阶段是网络设计的落点，A–C 是它的依据</span></figcaption>
+</figure>
+
 ### ITIL (Information Technology Infrastructure Library)
 
 ITIL is a set of best-practice processes for IT service management.
@@ -723,6 +763,11 @@ ITIL 是一组 IT 服务管理的最佳实践流程。
 > 实际项目里两者互补：TOGAF 决定"建什么"，ITIL 保证"建好后能稳定交付"。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en05-09-itil-and-togaf-split.svg" alt="The five ITIL service lifecycle stages looping back through continual improvement, and how ITIL divides work with TOGAF" loading="lazy">
+<figcaption><b>Figure 5-9　ITIL covers the half of the lifecycle TOGAF stops short of: one decides the shape, the other whether it can be run</b><br><span>图 5-9　ITIL 与 TOGAF 的分工：一个定形态，一个定能不能跑得下去</span></figcaption>
+</figure>
 
 ### Other Frameworks · 其他框架
 
@@ -792,6 +837,11 @@ Frameworks are generic, but network design needs concrete blueprints. The networ
 
 ---
 
+<figure class="fig">
+<img src="assets/fig/en05-10-frameworks-to-reference-arch.svg" alt="Frameworks feeding reference architectures, and the column of constraints that no reference architecture carries" loading="lazy">
+<figcaption><b>Figure 5-10　Frameworks give the process, reference architectures give the shape, and only you can supply the constraints</b><br><span>图 5-10　框架给流程、参考架构给形态，约束只能自己补</span></figcaption>
+</figure>
+
 ## Case Studies · 实战案例
 
 ### Case 1: A Bank "Moves to the Cloud" — Phase A Cannot Be Skipped · 案例一：银行"上云"——A 阶段不能跳
@@ -849,6 +899,11 @@ The architecture team could not answer. **Because phase A (architecture vision) 
 > 💡 **教训**：**需求没澄清之前，任何技术方案都是在猜。** TOGAF 的 A、B 阶段看起来"虚"，但它们是防止"技术自嗨"的唯一闸门。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en05-11-case1-skip-phase-a.svg" alt="Case 1 in two lanes: jumping straight to phase D against starting at phase A in the same bank" loading="lazy">
+<figcaption><b>Figure 5-11　Case 1: the same bank twice &#8212; four months in phase D answered none of the CFO's three questions</b><br><span>图 5-11　案例一：直奔 D 阶段四个月，CFO 的三个问题一个都答不上</span></figcaption>
+</figure>
 
 ### Case 2: A Manufacturing Group With the Wrong Operating Model · 案例二：制造集团运营模型错配
 
@@ -924,6 +979,11 @@ The architecture team could not answer. **Because phase A (architecture vision) 
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en05-12-case2-operating-model-mismatch.svg" alt="Case 2: headquarters assuming Unification, the four units' real constraints, and the corrected three-things-unified design" loading="lazy">
+<figcaption><b>Figure 5-12　Case 2: &#8220;the group is therefore Unification&#8221; was the design error, and three unified services were the fix</b><br><span>图 5-12　案例二：误判为统一型是设计错误，只统一三件事才是解法</span></figcaption>
+</figure>
+
 ### Case 3: A Security Project That Could Not Prove Its Value and Lost Its Budget · 案例三：安全项目无法证明价值，预算被砍
 
 **Background**: a retailer invested 8M in a network-wide security overhaul (firewalls, microsegmentation, NAC). A year later its request for phase-two funding was rejected.
@@ -983,6 +1043,11 @@ The architecture team could not answer. **Because phase A (architecture vision) 
 </div>
 
 ---
+
+<figure class="fig">
+<img src="assets/fig/en05-13-case3-metrics.svg" alt="Case 3: the unverifiable business case that lost phase two, and the three measurable rows that won it back" loading="lazy">
+<figcaption><b>Figure 5-13　Case 3: three rows of measurable metrics won back the budget an unverifiable business case had lost</b><br><span>图 5-13　案例三：三行可测指标赢回了不可验证方案丢掉的预算</span></figcaption>
+</figure>
 
 ## Design Pitfalls · 设计缺陷
 

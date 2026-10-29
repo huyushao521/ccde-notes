@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">Who operates which layer in the four service models, and what the network still has to do in each</title>
+  <desc id="d4">On-premises leaves every layer with the enterprise. IaaS hands over facilities, compute and virtualisation while the enterprise keeps the operating system upward. PaaS also hands over the operating system and runtime. SaaS leaves the enterprise only its data, identities and integrations. Each column ends with what the network team must still deliver: build it, connect it, reach it or steer it.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:7.5px "Segoe UI",sans-serif;fill:#3d4c63}
+    .cb{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The service model decides how much control you keep — and what is left for you to build</text>
+  <text class="s" x="24" y="45">Green = the enterprise operates it · grey = the provider operates it. The last row is the part designers forget: what the network still owes.</text>
+
+  <rect x="20" y="66" width="14" height="9" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="sm" x="40" y="74">enterprise</text>
+  <rect x="106" y="66" width="14" height="9" fill="#eef1f6" stroke="#8494a8" stroke-width=".7"/>
+  <text class="sm" x="126" y="74">provider</text>
+
+  <text class="mid" x="52" y="96">On-premises</text>
+  <text class="w" x="52" y="106">you own everything</text>
+  <text class="mid" x="212" y="96">IaaS</text>
+  <text class="w" x="212" y="106">pay as you go, keep control</text>
+  <text class="mid" x="372" y="96">PaaS</text>
+  <text class="w" x="372" y="106">tools, not servers</text>
+  <text class="mid" x="532" y="96">SaaS</text>
+  <text class="w" x="532" y="106">subscribe, do not maintain</text>
+
+  <rect x="48" y="114" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="129">facilities, power, WAN, site</text>
+  <rect x="208" y="114" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="214" y="129">provider data centre</text>
+  <rect x="368" y="114" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="374" y="129">provider data centre</text>
+  <rect x="528" y="114" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="129">provider data centre</text>
+
+  <rect x="48" y="138" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="153">servers, storage, virtualisation</text>
+  <rect x="208" y="138" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="214" y="153">virtual machines, storage</text>
+  <rect x="368" y="138" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="374" y="153">managed runtime, scaling</text>
+  <rect x="528" y="138" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="153">whole application</text>
+
+  <rect x="48" y="162" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="177">operating system, patching</text>
+  <rect x="208" y="162" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="214" y="177">operating system, patching</text>
+  <rect x="368" y="162" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="374" y="177">platform, OS patches</text>
+  <rect x="528" y="162" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="177">platform and upgrades</text>
+
+  <rect x="48" y="186" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="201">middleware, integration</text>
+  <rect x="208" y="186" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="214" y="201">runtime, middleware</text>
+  <rect x="368" y="186" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="374" y="201">build tools, CI/CD, queueing</text>
+  <rect x="528" y="186" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="201">configuration only</text>
+
+  <rect x="48" y="210" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="225">application code</text>
+  <rect x="208" y="210" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="214" y="225">your application</text>
+  <rect x="368" y="210" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="374" y="225">your application</text>
+  <rect x="528" y="210" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="225">vendor application</text>
+
+  <rect x="48" y="234" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="249">data, backup, retention</text>
+  <rect x="208" y="234" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="214" y="249">data, backup, retention</text>
+  <rect x="368" y="234" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="374" y="249">data, backup, retention</text>
+  <rect x="528" y="234" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="534" y="249">data ownership, residency</text>
+
+  <rect x="48" y="258" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="54" y="273">24×7 operations, on-call</text>
+  <rect x="208" y="258" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="214" y="273">24×7 operations, on-call</text>
+  <rect x="368" y="258" width="150" height="24" fill="#d9f2ee" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="374" y="273">24×7 for what you built</text>
+  <rect x="528" y="258" width="150" height="24" fill="#eef1f6" stroke="#8494a8" stroke-width=".6"/>
+  <text class="c" x="534" y="273">provider, under contract</text>
+
+  <text class="cb" x="48" y="296">control you keep</text>
+  <circle cx="150" cy="293" r="3" fill="#0f7f73"/><circle cx="160" cy="293" r="3" fill="#0f7f73"/><circle cx="170" cy="293" r="3" fill="#0f7f73"/><circle cx="180" cy="293" r="3" fill="#0f7f73"/>
+  <circle cx="200" cy="293" r="3" fill="#0f7f73"/><circle cx="210" cy="293" r="3" fill="#0f7f73"/><circle cx="220" cy="293" r="3" fill="#0f7f73"/><circle cx="230" cy="293" r="3" fill="#dde5ef"/>
+  <circle cx="300" cy="293" r="3" fill="#0f7f73"/><circle cx="310" cy="293" r="3" fill="#0f7f73"/><circle cx="320" cy="293" r="3" fill="#dde5ef"/><circle cx="330" cy="293" r="3" fill="#dde5ef"/>
+  <circle cx="420" cy="293" r="3" fill="#0f7f73"/><circle cx="430" cy="293" r="3" fill="#dde5ef"/><circle cx="440" cy="293" r="3" fill="#dde5ef"/><circle cx="450" cy="293" r="3" fill="#dde5ef"/>
+
+  <rect x="48" y="304" width="630" height="34" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="cb" x="56" y="317" fill="#1f4fc0">What the network team still owes</text>
+  <text class="c" x="56" y="330" fill="#1f4fc0">build it (on-prem) · connect it (IaaS) · reach it (PaaS) · steer it (SaaS)</text>
+
+  <text class="nb" x="24" y="358">SaaS does not remove design work; it moves it from build to select + integrate + backstop</text>
+  <text class="sm" x="24" y="372">Do not design SaaS assurance with an IaaS mindset: you cannot add a link to fix a vendor's region outage, and you cannot put a QoS queue on their ingress.</text>
+
+  <text class="t" x="24" y="392">The question is never "which model is better" but "who is best at this layer" — outsource what is not differentiating, keep what is.</text>
+</svg>

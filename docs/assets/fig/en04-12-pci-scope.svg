@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t12 d12">
+
+  <title id="t12">The cardholder data environment before and after segmentation, and what shrinking it buys</title>
+  <desc id="d12">Before segmentation the audit scope follows the network: every host that can reach cardholder data is in scope, which is most of the estate. After segmentation the scope follows the data: the cardholder data environment is a small named zone behind a strict boundary, and only that zone is audited. The levers are tokenisation, VLAN or VRF segmentation with a stateful boundary, removing shared administrative jump hosts, and aggregating logs in a protected segment.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <defs>
+    <marker id="a12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">PCI DSS is a scope problem before it is a control problem</text>
+  <text class="s" x="24" y="45">The audit does not cover what you configured; it covers everything that can reach cardholder data</text>
+
+  <rect x="24" y="64" width="198" height="196" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width=".8"/>
+  <text class="k" x="36" y="82" fill="#c0392b">BEFORE · SCOPE FOLLOWS THE NETWORK</text>
+  <rect x="36" y="92" width="174" height="78" rx="2" fill="#fdf4f3" stroke="#e9b6b0" stroke-dasharray="4 3"/>
+  <rect x="44" y="100" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="76" y="100" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="108" y="100" width="26" height="14" rx="2" fill="#c0392b"/>
+  <rect x="140" y="100" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="172" y="100" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="44" y="122" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="76" y="122" width="26" height="14" rx="2" fill="#c0392b"/>
+  <rect x="108" y="122" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="140" y="122" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="172" y="122" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="44" y="144" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="76" y="144" width="26" height="14" rx="2" fill="#c0392b"/>
+  <rect x="108" y="144" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="140" y="144" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="172" y="144" width="26" height="14" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <text class="c" x="36" y="186" fill="#c0392b">the whole estate is in scope,</text>
+  <text class="c" x="36" y="198" fill="#c0392b">because anything can reach it</text>
+  <text class="w" x="36" y="216">flat network, shared jump host,</text>
+  <text class="w" x="36" y="228">one admin account everywhere</text>
+
+  <line x1="228" y1="162" x2="248" y2="162" stroke="#8494a8" marker-end="url(#a12)"/>
+
+  <rect x="256" y="64" width="192" height="196" rx="3" fill="#ffffff" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="k" x="268" y="82" fill="#0f7f73">AFTER · SCOPE FOLLOWS THE DATA</text>
+  <rect x="268" y="92" width="168" height="140" rx="2" fill="#fbfcfe" stroke="#dfe6ee"/>
+  <rect x="278" y="100" width="22" height="12" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="306" y="100" width="22" height="12" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="334" y="100" width="22" height="12" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="278" y="120" width="22" height="12" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="306" y="120" width="22" height="12" rx="2" fill="#f2f4f7" stroke="#dfe6ee" stroke-width=".5"/>
+  <rect x="370" y="104" width="54" height="88" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-dasharray="4 3"/>
+  <text class="w" x="397" y="120" text-anchor="middle">CDE</text>
+  <rect x="376" y="126" width="42" height="12" rx="2" fill="#0f7f73"/>
+  <rect x="376" y="142" width="42" height="12" rx="2" fill="#0f7f73"/>
+  <rect x="376" y="158" width="42" height="12" rx="2" fill="#0f7f73"/>
+  <rect x="376" y="174" width="42" height="12" rx="2" fill="#0f7f73"/>
+  <text class="c" x="268" y="206" fill="#0f7f73">one zone, one boundary,</text>
+  <text class="c" x="268" y="218" fill="#0f7f73">one evidence set to produce</text>
+  <text class="w" x="268" y="236">tokens elsewhere: the rest of</text>
+  <text class="w" x="268" y="248">the estate never sees a PAN</text>
+
+  <line x1="460" y1="60" x2="460" y2="286" stroke="#e3e8ef"/>
+
+  <text class="ln" x="476" y="76">WHAT SHRINKING THE CDE BUYS</text>
+
+  <rect x="476" y="86" width="400" height="56" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="mid" x="488" y="102">fewer systems to evidence</text>
+  <text class="c" x="488" y="118">Requirement 10 asks for access logs — from every component in scope. Halve the scope and you</text>
+  <text class="c" x="488" y="132">halve the log volume, the retention bill and the number of people who must be identified.</text>
+
+  <rect x="476" y="150" width="400" height="56" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="mid" x="488" y="166">change control you can afford</text>
+  <text class="c" x="488" y="182">A patch window over a small zone is maintenance; over the whole estate it is a project.</text>
+  <text class="c" x="488" y="196">Scope decides which one you get, every month.</text>
+
+  <rect x="476" y="214" width="400" height="56" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="mid" x="488" y="230">a boundary you can defend</text>
+  <text class="c" x="488" y="246">"Nothing outside this line can reach the data" is a sentence an assessor can test. "We trust</text>
+  <text class="c" x="488" y="260">our staff" is not, and it fails at the first exception.</text>
+
+  <line x1="24" y1="280" x2="876" y2="280" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="298" fill="#1f4fc0">Four levers that actually shrink it</text>
+
+  <rect x="24" y="306" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="34" y="321" fill="#1f4fc0">tokenisation</text>
+  <text class="c" x="34" y="334">if the PAN is not there, the system</text>
+  <text class="c" x="34" y="346">is not in scope</text>
+
+  <rect x="244" y="306" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="254" y="321" fill="#1f4fc0">segmentation</text>
+  <text class="c" x="254" y="334">VLAN or VRF plus a stateful</text>
+  <text class="c" x="254" y="346">boundary, default deny at the edge</text>
+
+  <rect x="464" y="306" width="204" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="474" y="321" fill="#1f4fc0">no shared jump host</text>
+  <text class="c" x="474" y="334">one admin path in and out of scope</text>
+  <text class="c" x="474" y="346">is a scope multiplier by design</text>
+
+  <rect x="684" y="306" width="192" height="48" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="694" y="321" fill="#1f4fc0">log aggregation</text>
+  <text class="c" x="694" y="334">the log segment is in scope too —</text>
+  <text class="c" x="694" y="346">budget it as part of the CDE</text>
+
+  <text class="t" x="24" y="374">The twelve requirements do not change when the scope shrinks; only the number of places you have to prove them changes. That is the whole economic argument.</text>
+  <text class="t" x="24" y="388">Which is why "we will comply by buying a WAF" is a strategy for the web tier, and not a strategy for the cardholder data environment.</text>
+</svg>

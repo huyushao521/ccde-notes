@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 348" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">Three redundancy choices compared on cost, business risk and business reward</title>
+  <desc id="d4">A single point of failure is cheap but carries very high business risk and low reward. Removing the single point of failure costs medium, carries low risk and high reward, and is the recommended option. Removing dual points of failure costs high and reduces risk further, but at extreme complexity.</desc>
+
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .lbl{font:700 8.5px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.3px}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="348" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Cost, business risk and business reward move together — the middle option is almost always the answer</text>
+  <text class="s" x="24" y="48">"How much redundancy?" is a business question, because every extra nine is paid for in capital and in operational complexity</text>
+
+  <rect x="40" y="66" width="256" height="196" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="56" y="86">A · Single point of failure</text>
+  <text class="sm" x="56" y="100">one link, one core, one power feed</text>
+
+  <text class="lbl" x="56" y="124">COST</text>
+  <rect x="120" y="116" width="30" height="9" rx="2" fill="#2f6fed"/><rect x="154" y="116" width="30" height="9" rx="2" fill="#e9eef5"/><rect x="188" y="116" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="228" y="124">low</text>
+
+  <text class="lbl" x="56" y="150">RISK</text>
+  <rect x="120" y="142" width="30" height="9" rx="2" fill="#c0392b"/><rect x="154" y="142" width="30" height="9" rx="2" fill="#c0392b"/><rect x="188" y="142" width="30" height="9" rx="2" fill="#c0392b"/>
+  <text class="sm" x="228" y="150" fill="#c0392b">very high</text>
+
+  <text class="lbl" x="56" y="176">REWARD</text>
+  <rect x="120" y="168" width="30" height="9" rx="2" fill="#0f7f73"/><rect x="154" y="168" width="30" height="9" rx="2" fill="#e9eef5"/><rect x="188" y="168" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="228" y="176">low</text>
+
+  <text class="sm" x="56" y="206">Cheap until the first outage: a single</text>
+  <text class="sm" x="56" y="218">failure takes the business offline</text>
+  <text class="sm" x="56" y="230">and the saving is spent in one day</text>
+  <text class="sm" x="56" y="248" fill="#c0392b">not a design, a deferral</text>
+
+  <rect x="322" y="66" width="256" height="196" rx="6" fill="#f7fffd" stroke="#0f7f73" stroke-width="1.4"/>
+  <text class="nb" x="338" y="86" fill="#0f7f73">B · Remove the single point</text>
+  <text class="sm" x="338" y="100">redundant components and paths, one deep</text>
+
+  <text class="lbl" x="338" y="124">COST</text>
+  <rect x="402" y="116" width="30" height="9" rx="2" fill="#2f6fed"/><rect x="436" y="116" width="30" height="9" rx="2" fill="#2f6fed"/><rect x="470" y="116" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="510" y="124">medium</text>
+
+  <text class="lbl" x="338" y="150">RISK</text>
+  <rect x="402" y="142" width="30" height="9" rx="2" fill="#c0392b"/><rect x="436" y="142" width="30" height="9" rx="2" fill="#e9eef5"/><rect x="470" y="142" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="510" y="150">low</text>
+
+  <text class="lbl" x="338" y="176">REWARD</text>
+  <rect x="402" y="168" width="30" height="9" rx="2" fill="#0f7f73"/><rect x="436" y="168" width="30" height="9" rx="2" fill="#0f7f73"/><rect x="470" y="168" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="510" y="176" fill="#0f7f73">high</text>
+
+  <text class="sm" x="338" y="206">The business keeps running through</text>
+  <text class="sm" x="338" y="218">one failure while capital cost stays</text>
+  <text class="sm" x="338" y="230">limited — the standard answer</text>
+  <text class="sm" x="338" y="248" fill="#0f7f73">best balance of the three</text>
+
+  <rect x="604" y="66" width="256" height="196" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="620" y="86">C · Remove dual points of failure</text>
+  <text class="sm" x="620" y="100">survives two simultaneous failures</text>
+
+  <text class="lbl" x="620" y="124">COST</text>
+  <rect x="684" y="116" width="30" height="9" rx="2" fill="#2f6fed"/><rect x="718" y="116" width="30" height="9" rx="2" fill="#2f6fed"/><rect x="752" y="116" width="30" height="9" rx="2" fill="#2f6fed"/>
+  <text class="sm" x="792" y="124" fill="#c0392b">high</text>
+
+  <text class="lbl" x="620" y="150">RISK</text>
+  <rect x="684" y="142" width="30" height="9" rx="2" fill="#c0392b"/><rect x="718" y="142" width="30" height="9" rx="2" fill="#e9eef5"/><rect x="752" y="142" width="30" height="9" rx="2" fill="#e9eef5"/>
+  <text class="sm" x="792" y="150">very low</text>
+
+  <text class="lbl" x="620" y="176">REWARD</text>
+  <rect x="684" y="168" width="30" height="9" rx="2" fill="#0f7f73"/><rect x="718" y="168" width="30" height="9" rx="2" fill="#0f7f73"/><rect x="752" y="168" width="30" height="9" rx="2" fill="#0f7f73"/>
+  <text class="sm" x="792" y="176" fill="#0f7f73">very high</text>
+
+  <text class="sm" x="620" y="206">Substantial initial investment, and</text>
+  <text class="sm" x="620" y="218">every additional path is another</text>
+  <text class="sm" x="620" y="230">thing to troubleshoot at 3 a.m.</text>
+  <text class="sm" x="620" y="248" fill="#a86400">complexity is the real price</text>
+
+  <line x1="150" y1="282" x2="710" y2="282" stroke="#8494a8" stroke-dasharray="4 3" marker-end="url(#a4)"/>
+  <text class="t" x="150" y="276">more redundancy, more capital, more operational load</text>
+
+  <text class="t" x="24" y="306">The trap: a business case that lists only option A's low price and option C's high availability, so the honest middle option never gets compared.</text>
+  <text class="t" x="24" y="324">Cost is not only CAPEX: the 3 a.m. troubleshooting cost of option C is an OPEX line, and it is paid every year, not once.</text>
+  <text class="t" x="24" y="342">Where the business legitimately needs C — trading floors, payment clearing, emergency services — the exercise is to fund it, not to argue it away.</text>
+</svg>

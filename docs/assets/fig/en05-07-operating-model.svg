@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t57 d57">
+  <title id="t57">The four operating model quadrants on standardisation and integration, with the network design direction each one implies</title>
+  <desc id="d57">A two by two grid plots integration vertically against standardisation horizontally. Coordination, low standardisation and high integration, shares data across units and needs flexible east-west connectivity, data centre interconnect and flexible SD-WAN policy. Unification, high on both, centralises process and databases and gets one architecture with unified policy and strong governance. Diversification, low on both, leaves each unit its own network plus a few shared services. Replication, high standardisation and low integration, replicates a template per branch so each site runs itself. A side panel gives the two questions that place a scenario, and a note warns that assuming Unification inside a Diversification group makes unified addressing, unified policy and a unified egress fail on contact with the business units.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ax{font:600 7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+  </style>
+
+  <rect x="0" y="0" width="900" height="424" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Two questions, four operating models, and the network each one actually needs</text>
+  <text class="s" x="24" y="45">Get the quadrant wrong and every downstream standardisation decision is wrong too</text>
+
+  <rect x="96" y="64" width="252" height="126" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="110" y="86" fill="#0f7f73">Coordination</text>
+  <text class="w" x="110" y="100">low standardisation &#183; high integration</text>
+  <text class="c" x="110" y="120">units share data, each one innovates</text>
+  <text class="c" x="110" y="134">east-west flexibility, DCI,</text>
+  <text class="c" x="110" y="146">flexible SD-WAN policy</text>
+
+  <rect x="348" y="64" width="252" height="126" fill="#eef7f5" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="b" x="362" y="86" fill="#0f7f73">Unification</text>
+  <text class="w" x="362" y="100">high standardisation &#183; high integration</text>
+  <text class="c" x="362" y="120">centralised process design, central</text>
+  <text class="c" x="362" y="134">databases, one IT organisation</text>
+  <text class="c" x="362" y="146" fill="#0f7f73">templates land most easily here</text>
+
+  <rect x="96" y="190" width="252" height="126" fill="#fafbfc" stroke="#8494a8" stroke-width=".7"/>
+  <text class="b" x="110" y="212">Diversification</text>
+  <text class="w" x="110" y="226">low standardisation &#183; low integration</text>
+  <text class="c" x="110" y="246">independent units plus shared services</text>
+  <text class="c" x="110" y="260">own network per unit, a few</text>
+  <text class="c" x="110" y="272">services bought once for scale</text>
+
+  <rect x="348" y="190" width="252" height="126" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="b" x="362" y="212" fill="#a86400">Replication</text>
+  <text class="w" x="362" y="226">high standardisation &#183; low integration</text>
+  <text class="c" x="362" y="246">autonomous units, identical operations</text>
+  <text class="c" x="362" y="260">one template replicated per branch,</text>
+  <text class="c" x="362" y="272">each site runs itself</text>
+
+  <line x1="348" y1="64" x2="348" y2="316" stroke="#c3cddb" stroke-width=".9"/>
+  <line x1="96" y1="190" x2="600" y2="190" stroke="#c3cddb" stroke-width=".9"/>
+  <text class="ax" x="348" y="332" text-anchor="middle">standardisation &#8594;</text>
+  <text class="ax" x="84" y="196" transform="rotate(-90 84 196)" text-anchor="middle">integration &#8594;</text>
+  <text class="w" x="96" y="332">low</text>
+  <text class="w" x="586" y="332">high</text>
+
+  <rect x="612" y="64" width="264" height="252" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="k" x="626" y="82">THE TWO QUESTIONS</text>
+  <text class="c" x="626" y="102" fill="#1f4fc0">1  Do the units do things the same way?</text>
+  <text class="w" x="626" y="116">yes &#8594; high standardisation</text>
+  <text class="c" x="626" y="138" fill="#1f4fc0">2  Do they share data or interact often?</text>
+  <text class="w" x="626" y="152">yes &#8594; high integration</text>
+  <line x1="626" y1="168" x2="862" y2="168" stroke="#e3e8ef"/>
+  <text class="c" x="626" y="188">the answers buy one of two things:</text>
+  <text class="c" x="626" y="208" fill="#0f7f73">high standardisation buys templating,</text>
+  <text class="c" x="626" y="220">automation and one policy set</text>
+  <text class="c" x="626" y="242" fill="#0f7f73">high integration buys east-west</text>
+  <text class="c" x="626" y="254">bandwidth, cross-domain policy and</text>
+  <text class="c" x="626" y="266">low-latency interconnect</text>
+  <text class="w" x="626" y="290">both cost money; the quadrant says which</text>
+  <text class="w" x="626" y="302">one the business is actually paying for</text>
+
+  <rect x="24" y="344" width="852" height="46" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="344" width="4" height="46" fill="#c0392b"/>
+  <text class="c" x="40" y="364" fill="#c0392b"><tspan style="font-weight:700">Wrong quadrant, wrong everything.</tspan> Assume Unification inside a Diversification group and unified addressing, unified policy and a unified egress all fail on contact.</text>
+  <text class="c" x="40" y="380">The units are not being difficult; somebody designed a standard the business model never asked for.</text>
+
+  <text class="w" x="24" y="414">What a group with five business units and one headquarters usually has is Diversification, with a few services deliberately promoted towards Coordination.</text>
+</svg>

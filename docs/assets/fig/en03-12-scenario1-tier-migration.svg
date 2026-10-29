@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t12 d12">
+
+  <title id="t12">Deciding the ERP migration tier by tier: the web tier can move, the application tier only with its database</title>
+  <desc id="d12">The web tier is stateless and tolerant, so it moves to the cloud behind anycast. The application tier makes forty queries per transaction and needs sub-millisecond access to the database, so it moves only together with it. The database holds four terabytes and 1.2 million transactions a day under a fifteen-minute recovery point objective, so it stays where it is or moves as a single unit. The per-transaction latency budget shows how much room each move consumes.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .v{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">One ERP, three tiers, three different answers</text>
+  <text class="s" x="24" y="45">The question is never "should the ERP go to the cloud" — it is which tier can survive the distance, and which cannot</text>
+
+  <text class="ln" x="24" y="68">DECIDE PER TIER</text>
+
+  <rect x="24" y="76" width="120" height="34" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="mid" x="84" y="90" text-anchor="middle">web tier</text>
+  <text class="w" x="84" y="102" text-anchor="middle">stateless, tolerant</text>
+  <rect x="156" y="76" width="58" height="34" rx="3" fill="#0f7f73"/>
+  <text class="v" x="185" y="97" text-anchor="middle">MOVES</text>
+  <text class="c" x="226" y="88">anycast or GSLB in front,</text>
+  <text class="c" x="226" y="100">100 ms budget is enough</text>
+
+  <rect x="24" y="122" width="120" height="34" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="84" y="136" text-anchor="middle">application tier</text>
+  <text class="w" x="84" y="148" text-anchor="middle">40 queries per txn</text>
+  <rect x="156" y="122" width="58" height="34" rx="3" fill="#d98600"/>
+  <text class="v" x="185" y="143" text-anchor="middle">WITH DB</text>
+  <text class="c" x="226" y="134">moves only as a unit with</text>
+  <text class="c" x="226" y="146">the database it talks to</text>
+
+  <rect x="24" y="168" width="120" height="34" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".9"/>
+  <text class="mid" x="84" y="182" text-anchor="middle">database tier</text>
+  <text class="w" x="84" y="194" text-anchor="middle">4 TB · 1.2 M txn/day</text>
+  <rect x="156" y="168" width="58" height="34" rx="3" fill="#c0392b"/>
+  <text class="v" x="185" y="189" text-anchor="middle">STAYS</text>
+  <text class="c" x="226" y="180">RPO 15 min and residency,</text>
+  <text class="c" x="226" y="192">replication measured, not assumed</text>
+
+  <text class="ln" x="24" y="228">PER-TRANSACTION LATENCY BUDGET · 200 ms allowed end to end</text>
+  <rect x="24" y="238" width="440" height="26" rx="3" fill="#f2f4f7" stroke="#c3cddb" stroke-width=".7"/>
+  <rect x="24" y="238" width="88" height="26" fill="#8494a8"/>
+  <text class="w" x="32" y="255">user ↔ web 40 ms</text>
+  <rect x="112" y="238" width="9" height="26" fill="#0f7f73"/>
+  <rect x="121" y="238" width="4" height="26" fill="#d98600"/>
+  <text class="w" x="130" y="255">web ↔ app 4 ms · app ↔ db 2 ms</text>
+  <rect x="240" y="238" width="66" height="26" fill="#b0bccd"/>
+  <text class="w" x="246" y="255">render 30 ms</text>
+  <text class="w" x="312" y="255">margin 124 ms — this is what a migration may spend</text>
+
+  <text class="c" x="24" y="282" fill="#c0392b">Move the database alone and every one of the 40 queries pays 35 ms twice: 2.8 s, against a 200 ms budget.</text>
+  <text class="c" x="24" y="294" fill="#c0392b">The margin above is 124 ms, which is one and a half round trips. The arithmetic, not the vendor, sets the architecture.</text>
+
+  <text class="ln" x="24" y="322">CONNECTION MODEL, CHOSEN BY DETERMINISM</text>
+  <text class="c" x="24" y="338">web ↔ users: Internet is acceptable — the web tier is stateless and retries are cheap</text>
+  <text class="c" x="24" y="352">app ↔ db: dedicated circuit or same-region placement — 2 ms is not negotiable</text>
+  <text class="c" x="24" y="366">db replication: dedicated path with measured loss; a 15-minute RPO is a bandwidth and latency claim</text>
+
+  <rect x="490" y="60" width="386" height="150" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="502" y="78">The order that survives audit</text>
+  <text class="c" x="502" y="98">1 · measure the round-trip count per transaction, in production, not in the diagram</text>
+  <text class="c" x="502" y="114">2 · move the stateless tier first; it is reversible in a weekend and proves the path</text>
+  <text class="c" x="502" y="130">3 · keep the stateful pair co-located until the application can be made less chatty</text>
+  <text class="c" x="502" y="146">4 · write the latency and loss ceilings into the circuit contract, with a breach clause</text>
+  <text class="c" x="502" y="162">5 · rehearse the return path before the forward one — an untested way back is not a plan</text>
+  <text class="sm" x="502" y="186" fill="#0f7f73">Steps 1 and 5 cost nothing and decide whether the other three are affordable.</text>
+  <text class="sm" x="502" y="200" fill="#0f7f73">The rest of the migration is procurement and scheduling.</text>
+
+  <rect x="490" y="222" width="386" height="126" rx="5" fill="#fffdf7" stroke="#d98600" stroke-width=".8"/>
+  <text class="nb" x="502" y="240" fill="#a86400">What the network team must hand over</text>
+  <text class="c" x="502" y="260">a measured RTT matrix between every pair of sites and regions</text>
+  <text class="c" x="502" y="276">the same matrix under load, at peak hour, not at 3 a.m.</text>
+  <text class="c" x="502" y="292">per-path loss and jitter, because the ERP is chatty and TCP hides neither</text>
+  <text class="c" x="502" y="308">the replication bandwidth actually available after every other tenant</text>
+  <text class="c" x="502" y="324">the failure behaviour: what the path does when the primary circuit dies</text>
+  <text class="sm" x="502" y="340" fill="#a86400">Numbers, not adjectives. "Low latency" is not a handover.</text>
+
+  <text class="t" x="24" y="392">The temptation is a single decision for "the ERP". The work is three decisions that happen to share a name.</text>
+</svg>

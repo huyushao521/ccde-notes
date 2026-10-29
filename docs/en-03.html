@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 3 · about 5739 words</span></div><h1 id="chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network">Chapter 3: What's the Purpose of the Network? · 第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 3 · about 6482 words</span></div><h1 id="chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network">Chapter 3: What's the Purpose of the Network? · 第 3 章：网络的目的是什么？ (What's the Purpose of the Network?)<a class="anchor" href="#chapter-3-whats-the-purpose-of-the-network-3-whats-the-purpose-of-the-network" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 3 (pp. 181–208)</p>
 <p>Terminology follows the English edition. Every English passage is followed by its Chinese counterpart in the grey block below it, so the two can be checked sentence by sentence.</p>
@@ -215,6 +215,11 @@
 <p>💡 将应用拆分为不同层级（n 层架构）使网络设计师可以<strong>为每层单独设计网络</strong>。每层可能需要自己的负载均衡、源 NAT、DNS、源路由和流量工程设计。</p>
 </blockquote>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-01-app-models.svg" alt="Single server, two tier, three tier and microservices shown side by side with hop counts and a network-work gauge rising left to right" loading="lazy">
+<figcaption><b>Figure 3-1　Four application models, and what each one costs the network</b><br><span>图 3-1　四种应用模型，以及各自让网络付出的代价</span></figcaption>
+</figure>
+
 <h3 id="network-design-elements-of-the-3-tier-model">Network Design Elements of the 3-Tier Model · 三层模型的网络设计要素<a class="anchor" href="#network-design-elements-of-the-3-tier-model" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -278,6 +283,11 @@
 </tbody>
 </table>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-02-three-tier-design-elements.svg" alt="Global users, Internet edge and firewall above a DMZ web tier, then an internal application tier and database tier, each annotated with its network elements and open questions" loading="lazy">
+<figcaption><b>Figure 3-2　Three tiers, three access scopes, three sets of network elements</b><br><span>图 3-2　三层、三套访问范围、三组网络要素</span></figcaption>
+</figure>
+
 <h3 id="application-constraints-and-requirements">Application Constraints and Requirements · 应用约束和需求<a class="anchor" href="#application-constraints-and-requirements" title="Permanent link"></a></h3>
 <p>Common application constraints and requirements a network designer should know:</p>
 <div class="zh">
@@ -346,6 +356,11 @@
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en03-03-application-trait-matrix.svg" alt="Matrix of seven traits against video conferencing, file backup, ERP transactions and database replication, with colour marking the critical cells" loading="lazy">
+<figcaption><b>Figure 3-3　Describe an application by its traits, never by its name</b><br><span>图 3-3　用特征描述应用，而不是用名字</span></figcaption>
+</figure>
+
 <h2 id="service-models">Service Models · 服务模型<a class="anchor" href="#service-models" title="Permanent link"></a></h2>
 <p>The service model determines where the application lives and which elements of it the enterprise owns and manages.</p>
 <div class="zh">
@@ -514,6 +529,11 @@
 </table>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en03-04-service-model-stack.svg" alt="Four columns for on-premises, IaaS, PaaS and SaaS, seven layers each shaded by whether the enterprise or the provider operates it, ending in what the network still owes" loading="lazy">
+<figcaption><b>Figure 3-4　Who operates which layer, and what the network still owes</b><br><span>图 3-4　谁运维哪一层，以及网络还欠什么</span></figcaption>
+</figure>
+
 <h2 id="the-cloud">The Cloud · 云<a class="anchor" href="#the-cloud" title="Permanent link"></a></h2>
 <p>When an enterprise starts using any form of cloud, a network designer should consider three use cases:</p>
 <div class="zh">
@@ -579,6 +599,11 @@
 <div class="zh">
 <p>DIA 和客户端/网关站点的组合。SaaS 应用可以使用 DIA 出口或网关站点，取决于哪条路径提供最佳性能。</p>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-05-cloud-connection-models.svg" alt="Direct cloud access, gateway hairpin and hybrid shown as three traffic paths, beside a panel on determinism, SLA ownership and what to write into the design" loading="lazy">
+<figcaption><b>Figure 3-5　Three cloud connection models — determinism decides, not bandwidth</b><br><span>图 3-5　云连接三模型：决定因素是对确定性，而不是带宽</span></figcaption>
+</figure>
+
 <h3 id="cloud-types">Cloud Types · 云类型<a class="anchor" href="#cloud-types" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -749,6 +774,11 @@
 </tbody>
 </table>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-06-cloud-types-tradeoff.svg" alt="Private, public, hybrid and multi-cloud positioned on control against cost, with a table of the strength and price of each type" loading="lazy">
+<figcaption><b>Figure 3-6　Four cloud types: control and cost trade against each other</b><br><span>图 3-6　云类型四选一：控制力与成本此消彼长</span></figcaption>
+</figure>
+
 <h3 id="cloud-agnostic-architecture">Cloud-Agnostic Architecture · 云无关架构<a class="anchor" href="#cloud-agnostic-architecture" title="Permanent link"></a></h3>
 <p>A cloud-agnostic architecture avoids vendor-specific proprietary features and focuses on using the same cloud capabilities across different cloud providers.</p>
 <div class="zh">
@@ -836,6 +866,11 @@
    - 规划应用迁移到 CSP 的方式</li>
 </ol>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-07-cloud-agnostic-tradeoff.svg" alt="An application above an abstraction layer of SOA, containers and declarative configuration, feeding two cloud providers and the own data centre, with gains and losses listed and the three concerns explained" loading="lazy">
+<figcaption><b>Figure 3-7　Cloud agnosticism is a trade, not an upgrade</b><br><span>图 3-7　云无关是一场交易，而不是一次升级</span></figcaption>
+</figure>
+
 <h3 id="service-oriented-architecture-soa">Service-Oriented Architecture (SOA) · 面向服务架构<a class="anchor" href="#service-oriented-architecture-soa" title="Permanent link"></a></h3>
 <p>SOA is the key software design style that makes a cloud-agnostic architecture succeed.</p>
 <div class="zh">
@@ -965,6 +1000,11 @@
 - 提高应用性能的可预测性
 - 提高资源效率</p>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-08-deployment-evolution.svg" alt="Traditional, virtualised and containerised stacks side by side, with what each changes for the network: one address, MAC and VLAN growth, or thousands of short-lived east-west endpoints" loading="lazy">
+<figcaption><b>Figure 3-8　Traditional, virtualised, containerised — and what the network inherits</b><br><span>图 3-8　传统、虚拟化、容器化：网络继承了什么</span></figcaption>
+</figure>
+
 <h3 id="cloud-application-strategy">Cloud Application Strategy · 云应用策略<a class="anchor" href="#cloud-application-strategy" title="Permanent link"></a></h3>
 <p>When an enterprise prepares to migrate applications to the cloud, an <strong>application assessment process</strong> should be built in. Form an application assessment team:</p>
 <div class="zh">
@@ -1158,6 +1198,11 @@
 </blockquote>
 </div>
 <hr />
+<figure class="fig">
+<img src="assets/fig/en03-09-eleven-pillars.svg" alt="Eleven data capabilities grouped into plan, run, move and read clusters, with security, integration and quality highlighted as the three the network contributes to" loading="lazy">
+<figcaption><b>Figure 3-9　Eleven data capabilities: three of them fall partly on the network</b><br><span>图 3-9　数据管理十一项能力，其中三项网络直接参与</span></figcaption>
+</figure>
+
 <h2 id="case-studies">Case Studies · 实战案例<a class="anchor" href="#case-studies" title="Permanent link"></a></h2>
 <h3 id="case-1-bandwidth-doubled-video-conferencing-still-stutters">Case 1: Bandwidth Doubled, Video Conferencing Still Stutters · 案例一：带宽翻倍，视频会议还是卡<a class="anchor" href="#case-1-bandwidth-doubled-video-conferencing-still-stutters" title="Permanent link"></a></h3>
 <p><strong>Background</strong>: a company suffered frequent video conference stutter. IT raised bandwidth from 100M to 300M and the problem remained.</p>
@@ -1248,6 +1293,11 @@
 <li>部分分支出口是<strong>非对称带宽</strong>（下行 300M、上行 20M），而会议是双向对称流量</li>
 </ol>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-10-case1-bandwidth-not-latency.svg" alt="Measured throughput, round-trip time, jitter, loss and uplink asymmetry beside the three real causes and a four-step fix ordered by effect" loading="lazy">
+<figcaption><b>Figure 3-10　Doubling the circuit did not fix a jitter and upstream problem</b><br><span>图 3-10　带宽翻倍解决不了抖动与上行问题</span></figcaption>
+</figure>
+
 <p><strong>Fix</strong>: a dedicated queue for real-time traffic + branch uplink upgrade + jitter buffering. <strong>Total bandwidth did not increase, yet the experience improved.</strong></p>
 <div class="zh">
 <p><strong>修正</strong>：为实时流量单独队列 + 分支上行扩容 + 开启抖动缓冲。<strong>总带宽没增，体验反而好了。</strong></p>
@@ -1323,6 +1373,11 @@
 </tbody>
 </table>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-11-case2-round-trips.svg" alt="Forty sequential queries each paying a 35 ms crossing, giving 2.8 seconds per page load against 8 ms locally, with remedy options ranked as bars" loading="lazy">
+<figcaption><b>Figure 3-11　Forty round trips turn 35 ms into 2.8 s per page load</b><br><span>图 3-11　四十次往返，把 35 ms 放大成每次 2.8 s</span></figcaption>
+</figure>
+
 <p><strong>Root cause</strong>: the application architecture is <strong>chatty</strong> (many small round trips). It was invisible at LAN latency, and the move to WAN multiplied the latency by 40.</p>
 <div class="zh">
 <p><strong>根因</strong>：应用架构是<strong>chatty</strong>（大量小往返）型，在局域网低时延下看不出来，跨广域网后时延被放大 40 倍。</p>
@@ -1536,6 +1591,11 @@
 2. 连接模型怎么选？
 3. 如果不改应用，网络能补到什么程度、补不到什么程度？</p>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-12-scenario1-tier-migration.svg" alt="Web tier marked as movable, application tier movable only with its database, database tier staying, over a 200 ms per-transaction budget bar and a five-step migration order" loading="lazy">
+<figcaption><b>Figure 3-12　One ERP, three tiers, three answers</b><br><span>图 3-12　一个 ERP，三层，三个答案</span></figcaption>
+</figure>
+
 <p><strong>Reference approach</strong>:
 - <strong>Compute the latency budget before discussing the move.</strong> 24 million per day ≈ 278 per second at 0.2 ms per round trip; if RTT rises to 2 ms, each transaction adds about 1.8 ms, and under concurrency limits that directly depresses throughput. <strong>This combination of high-frequency small transactions and tightly coupled application/database tiers is the hardest case in cloud migration.</strong>
 - <strong>The usual conclusion is "migrate by tier", not a wholesale lift and shift</strong>: the web tier (stateless, sensitive to user-side latency but not to back-end RTT) moves first; the application and database tiers must stay inside one low-latency domain (same campus, same availability zone, or a dedicated circuit with measured RTT that meets target).
@@ -1567,6 +1627,11 @@
 2. 网络设计要补哪些能力？
 3. "双云 + 机房"的架构是否应该调整？</p>
 </div>
+<figure class="fig">
+<img src="assets/fig/en03-13-scenario2-east-west.svg" alt="Monolith with one north-south flow and one log, compared with thirty services behind a gateway whose east-west calls no single log records, plus the five capabilities the design must add" loading="lazy">
+<figcaption><b>Figure 3-13　East-west traffic removed the only log that saw the whole request</b><br><span>图 3-13　东西向流量带走了唯一能看见整条请求的日志</span></figcaption>
+</figure>
+
 <p><strong>Reference approach</strong>:
 - <strong>The common root cause is loss of control over east-west traffic.</strong> In the monolith era traffic was mostly north-south with fixed paths; in the microservices era it is mostly east-west with dynamic call relationships. The old design assumptions — edge-centric, IP-identified, static ACL policy — all fail in the new shape.
 - <strong>Latency</strong>: a large part of the 260 ms is not the link but <strong>serial calls plus missing locality routing plus no connection pooling</strong>. The first step is not more bandwidth but <strong>flattening the call chain</strong> (same-domain first, locality routing, caching), then re-evaluating whether the cross-cloud call is needed at all.

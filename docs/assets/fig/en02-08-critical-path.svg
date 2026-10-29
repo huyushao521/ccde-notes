@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 348" width="100%" role="img" aria-labelledby="t9 d9">
+
+  <title id="t9">The critical path is set by the task that can least afford to wait, not by the largest task</title>
+  <desc id="d9">The factory project's critical path runs from fiber survey through the carrier order and construction to circuit delivery, which takes five to six months, then to device go-live, integration test and production. Device purchase runs in parallel with three months and has plenty of float, so a green weekly report on progress said nothing about the schedule.</desc>
+
+  <defs>
+    <marker id="r9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="g9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="n9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#c0392b;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#0f7f73;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="348" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">A twelve-month project that ran eight months "all green" and delivered six months late</text>
+  <text class="s" x="24" y="48">The weekly reports measured whether tasks were being worked on. Nobody measured what was left on the thing everything else waited for</text>
+
+  <text class="ln" x="40" y="76">CRITICAL PATH · 5–6 months just to get the fiber, and every downstream task waits on it</text>
+
+  <rect x="40" y="88" width="104" height="44" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="92" y="105" text-anchor="middle">fiber survey</text>
+  <text class="sm" x="92" y="119" text-anchor="middle">carrier site visit</text>
+
+  <rect x="154" y="88" width="104" height="44" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="206" y="105" text-anchor="middle">carrier order</text>
+  <text class="sm" x="206" y="119" text-anchor="middle">resource check</text>
+
+  <rect x="268" y="88" width="104" height="44" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="320" y="105" text-anchor="middle">construction</text>
+  <text class="sm" x="320" y="119" text-anchor="middle">no fiber in campus</text>
+
+  <rect x="382" y="88" width="104" height="44" rx="4" fill="#fbe3e0" stroke="#c0392b" stroke-width="1.4"/>
+  <text class="mid" x="434" y="105" text-anchor="middle" fill="#c0392b">circuit delivery</text>
+  <text class="sm" x="434" y="119" text-anchor="middle" fill="#c0392b">5–6 months</text>
+
+  <rect x="496" y="88" width="104" height="44" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="548" y="105" text-anchor="middle">device go-live</text>
+  <text class="sm" x="548" y="119" text-anchor="middle">needs the circuit</text>
+
+  <rect x="610" y="88" width="104" height="44" rx="4" fill="#fff" stroke="#c0392b"/>
+  <text class="mid" x="662" y="105" text-anchor="middle">integration test</text>
+  <text class="sm" x="662" y="119" text-anchor="middle">with core and apps</text>
+
+  <rect x="724" y="88" width="104" height="44" rx="4" fill="#fbe3e0" stroke="#c0392b"/>
+  <text class="mid" x="776" y="105" text-anchor="middle">production</text>
+  <text class="sm" x="776" y="119" text-anchor="middle">month 18, not 12</text>
+
+  <line x1="144" y1="110" x2="152" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+  <line x1="258" y1="110" x2="266" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+  <line x1="372" y1="110" x2="380" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+  <line x1="486" y1="110" x2="494" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+  <line x1="600" y1="110" x2="608" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+  <line x1="714" y1="110" x2="722" y2="110" stroke="#c0392b" marker-end="url(#r9)"/>
+
+  <line x1="92" y1="132" x2="92" y2="156" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <line x1="434" y1="132" x2="434" y2="156" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <line x1="92" y1="156" x2="434" y2="156" stroke="#c0392b"/>
+  <text class="sm" x="263" y="170" text-anchor="middle" fill="#c0392b">the whole budget of slack was here, and it was consumed before anyone looked</text>
+
+  <text class="ln2" x="40" y="200">PARALLEL LANE · plenty of float, and therefore not where the risk was</text>
+
+  <rect x="154" y="212" width="130" height="40" rx="4" fill="#f7fffd" stroke="#0f7f73"/>
+  <text class="mid" x="219" y="228" text-anchor="middle">device purchase</text>
+  <text class="sm" x="219" y="242" text-anchor="middle">3 months</text>
+
+  <rect x="300" y="212" width="110" height="40" rx="4" fill="#f7fffd" stroke="#0f7f73"/>
+  <text class="mid" x="355" y="228" text-anchor="middle">delivery</text>
+  <text class="sm" x="355" y="242" text-anchor="middle">on schedule</text>
+
+  <rect x="426" y="212" width="110" height="40" rx="4" fill="#f7fffd" stroke="#0f7f73"/>
+  <text class="mid" x="481" y="228" text-anchor="middle">configuration</text>
+  <text class="sm" x="481" y="242" text-anchor="middle">done early</text>
+
+  <line x1="284" y1="232" x2="298" y2="232" stroke="#0f7f73" marker-end="url(#g9)"/>
+  <line x1="410" y1="232" x2="424" y2="232" stroke="#0f7f73" marker-end="url(#g9)"/>
+  <line x1="536" y1="232" x2="546" y2="210" stroke="#0f7f73" marker-end="url(#g9)"/>
+
+  <line x1="556" y1="232" x2="722" y2="232" stroke="#0f7f73" stroke-dasharray="4 3" marker-end="url(#g9)"/>
+  <text class="sm" x="640" y="226" text-anchor="middle" fill="#0f7f73">float: this lane could have waited months</text>
+
+  <text class="t" x="24" y="284">Week one: list every long-lead external dependency — circuits, data-centre space, regulatory approvals — and put them on the critical-path candidate list by default.</text>
+  <text class="t" x="24" y="302">Wrong metric: "is the task being worked on" (percent complete). Right metric: remaining float, and the date at which float reaches zero.</text>
+  <text class="t" x="24" y="320">Every external dependency on the critical path needs a Plan B signed off before it is needed — microwave, 5G, a temporary facility.</text>
+  <text class="t" x="24" y="338">Green status is not evidence about the schedule. It is evidence about activity, and activity was never the constraint here.</text>
+</svg>

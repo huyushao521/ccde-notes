@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="100%" role="img" aria-labelledby="t52 d52">
+  <title id="t52">From interacting business capabilities to a business solution to a business outcome, with SMART as the acceptance test</title>
+  <desc id="d52">The left panel shows the chain: interacting business capabilities form a business solution, which delivers business outcomes, and a solution is judged by the outcome it moves rather than by the components it contains. The right panel is the SMART gate, one letter per row with the counter-example that fails it: specific against improve the network experience, measurable against make the network faster, achievable against achieve zero failures, relevant against a technical metric tied to no goal, time-bound against done some day. The bottom band states that if a requirement fails SMART the designer goes back to the business instead of inventing a measurable version, with three acceptable outcomes listed as examples.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .lt{font:800 8px "Consolas",monospace;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="360" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A business solution is judged by the outcome it moves, not by the boxes it contains</text>
+  <text class="s" x="24" y="45">The chain on the left produces a claim; SMART on the right is what makes the claim checkable</text>
+
+  <rect x="24" y="64" width="392" height="208" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="k" x="40" y="82">THE CHAIN INSIDE BUSINESS ARCHITECTURE</text>
+  <rect x="40" y="92" width="360" height="32" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="b" x="52" y="112" fill="#1f4fc0">business capabilities &#183; interacting, not a list</text>
+  <line x1="220" y1="126" x2="220" y2="138" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M216 136 l4 6 l4 -6 z" fill="#9aa8ba"/>
+  <rect x="40" y="140" width="360" height="32" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="b" x="52" y="160" fill="#1f4fc0">&#183; business solution</text>
+  <line x1="220" y1="174" x2="220" y2="186" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M216 184 l4 6 l4 -6 z" fill="#9aa8ba"/>
+  <rect x="40" y="188" width="360" height="32" rx="2" fill="#eef7f5" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="52" y="208" fill="#0f7f73">&#183; business outcome &#183; measurable, time-bound</text>
+  <text class="c" x="40" y="240">The outcome is the only part a designer can be held to;</text>
+  <text class="c" x="40" y="252">the capabilities are how the business chooses to get there.</text>
+
+  <rect x="428" y="64" width="448" height="208" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="k" x="444" y="82">SMART IS THE ACCEPTANCE TEST</text>
+  <rect x="440" y="93" width="18" height="14" rx="2" fill="#c0392b"/>
+  <text class="lt" x="449" y="103" text-anchor="middle">S</text>
+  <text class="b" x="466" y="103">Specific</text>
+  <text class="c" x="552" y="103">&#8220;improve the network experience&#8221;</text>
+  <rect x="440" y="115" width="18" height="14" rx="2" fill="#c0392b"/>
+  <text class="lt" x="449" y="125" text-anchor="middle">M</text>
+  <text class="b" x="466" y="125">Measurable</text>
+  <text class="c" x="552" y="125">&#8220;make the network faster&#8221;</text>
+  <rect x="440" y="137" width="18" height="14" rx="2" fill="#c0392b"/>
+  <text class="lt" x="449" y="147" text-anchor="middle">A</text>
+  <text class="b" x="466" y="147">Achievable</text>
+  <text class="c" x="552" y="147">&#8220;achieve zero failures&#8221;</text>
+  <rect x="440" y="159" width="18" height="14" rx="2" fill="#c0392b"/>
+  <text class="lt" x="449" y="169" text-anchor="middle">R</text>
+  <text class="b" x="466" y="169">Relevant</text>
+  <text class="c" x="552" y="169">a technical metric tied to no business goal</text>
+  <rect x="440" y="181" width="18" height="14" rx="2" fill="#c0392b"/>
+  <text class="lt" x="449" y="191" text-anchor="middle">T</text>
+  <text class="b" x="466" y="191">Time-bound</text>
+  <text class="c" x="552" y="191">&#8220;done some day in the future&#8221;</text>
+  <text class="w" x="444" y="216">right column: statements that fail the letter on their left</text>
+  <text class="c" x="444" y="238">Every real outcome below passes all five:</text>
+  <text class="w" x="444" y="252">same-day shipments +20% before Q1 &#183; time to market &#8722;25% before Q3</text>
+
+  <rect x="24" y="284" width="576" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="284" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="304" fill="#c0392b"><tspan style="font-weight:700">Do not invent the number.</tspan> A requirement that fails SMART goes back to the business.</text>
+  <text class="c" x="40" y="320">A design requirement nobody can verify is a project nobody can accept.</text>
+
+  <rect x="612" y="284" width="264" height="52" rx="3" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="k" x="626" y="300">PASSES</text>
+  <text class="c" x="626" y="314">customer lifetime value +10% in 24 months</text>
+  <text class="c" x="626" y="328">sales +10% this fiscal year</text>
+
+  <text class="w" x="24" y="352">The SMART test is cheap and it runs before any technology choice; it is also the only defence against a business case like &#8220;improve the overall security level&#8221;.</text>
+</svg>

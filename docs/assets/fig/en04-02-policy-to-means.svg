@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t2 d2">
+
+  <title id="t2">One policy clause becomes three control objectives, and several technical means whose costs differ by an order of magnitude</title>
+  <desc id="d2">The clause "customer data may not leave the country" translates into three verifiable control objectives: storage location constrained, only de-identified aggregates cross the border, and access paths auditable. Each objective can be met by several technical means. The same clause can be satisfied by an encrypted virtual leased line, by application-layer encryption, or by a physically dedicated circuit, and the cost of those three differs by roughly an order of magnitude.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .st{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+    .q{font:italic 8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+  </style>
+
+  <defs>
+    <marker id="d4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">From a sentence in a contract to a device configuration</text>
+  <text class="s" x="24" y="45">Policy speaks in obligations; design speaks in constraints. The translation is the designer's work, and it is where cost is decided</text>
+
+  <circle cx="38" cy="76" r="9" fill="#8494a8"/>
+  <text class="st" x="38" y="79" text-anchor="middle">1</text>
+  <text class="mid" x="54" y="72">policy clause — natural language, not testable</text>
+  <rect x="54" y="80" width="330" height="34" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="q" x="66" y="95">"Customer personal data must not leave the country."</text>
+  <text class="w" x="66" y="108">one sentence, and three departments will read it three ways</text>
+
+  <line x1="38" y1="118" x2="38" y2="136" stroke="#8494a8" marker-end="url(#d4a)"/>
+  <text class="w" x="46" y="132">translate</text>
+
+  <circle cx="38" cy="156" r="9" fill="#2f6fed"/>
+  <text class="st" x="38" y="159" text-anchor="middle">2</text>
+  <text class="mid" x="54" y="152">control objectives — verifiable statements</text>
+  <rect x="54" y="160" width="330" height="76" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="c" x="66" y="176">storage location is constrained to in-country facilities,</text>
+  <text class="c" x="66" y="190">only de-identified aggregates may cross the border,</text>
+  <text class="c" x="66" y="204">every access path to the data is auditable.</text>
+  <text class="w" x="66" y="224">each one can be tested; "must not leave" cannot</text>
+
+  <line x1="38" y1="240" x2="38" y2="258" stroke="#8494a8" marker-end="url(#d4a)"/>
+  <text class="w" x="46" y="254">select</text>
+
+  <circle cx="38" cy="278" r="9" fill="#0f7f73"/>
+  <text class="st" x="38" y="281" text-anchor="middle">3</text>
+  <text class="mid" x="54" y="274">technical means — replaceable, and priced</text>
+  <rect x="54" y="282" width="330" height="24" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="66" y="298">in-country isolated zone: VRF or overlay separation</text>
+  <rect x="54" y="310" width="330" height="24" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="66" y="326">one-way de-identified egress with an approval record</text>
+  <rect x="54" y="338" width="330" height="24" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="66" y="354">central policy plane: configuration only, no data; local logs</text>
+
+  <line x1="404" y1="60" x2="404" y2="372" stroke="#e3e8ef"/>
+
+  <text class="ln" x="424" y="66">SAME CLAUSE, THREE PRICE POINTS</text>
+  <text class="c" x="424" y="82">"Any traffic crossing networks we do not own must be encrypted" — three ways to satisfy it:</text>
+
+  <rect x="424" y="94" width="452" height="60" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="436" y="110" fill="#0f7f73">encrypted VLL over existing dark fibre</text>
+  <text class="c" x="436" y="124">IPsec or MACsec on a circuit you already lease; changes one configuration</text>
+  <text class="c" x="436" y="136">reuses the plant, so the cost is a licence and a weekend of work</text>
+  <rect x="436" y="142" width="60" height="7" fill="#0f7f73"/><text class="w" x="502" y="149">1×</text>
+
+  <rect x="424" y="162" width="452" height="60" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="mid" x="436" y="178" fill="#a86400">application-layer encryption</text>
+  <text class="c" x="436" y="192">TLS end to end, so the network stays plain and the application carries the burden</text>
+  <text class="c" x="436" y="204">no circuit change, but every integration must be touched and re-tested</text>
+  <rect x="436" y="210" width="150" height="7" fill="#d98600"/><text class="w" x="592" y="217">4–6×</text>
+
+  <rect x="424" y="230" width="452" height="60" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="mid" x="436" y="246" fill="#c0392b">physically dedicated circuit, no sharing</text>
+  <text class="c" x="436" y="260">a separate fibre pair or wavelength per customer, encrypted or not</text>
+  <text class="c" x="436" y="272">satisfies the clause most convincingly and costs the most, every month</text>
+  <rect x="436" y="278" width="330" height="7" fill="#c0392b"/><text class="w" x="772" y="285">10×</text>
+
+  <rect x="424" y="300" width="452" height="46" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="sm" x="436" y="316" fill="#1f4fc0">The designer's job is to lay out these three with their prices, not to jump</text>
+  <text class="sm" x="436" y="330" fill="#1f4fc0">to the most expensive one — and not to let procurement choose in the dark.</text>
+
+  <text class="t" x="24" y="380">A clause answers "what must be true". A control objective answers "how would we test it". A technical means answers "what do we configure".</text>
+  <text class="t" x="24" y="394">Skipping the middle step is why designs get challenged in audit: nothing links the configuration back to the sentence it was meant to satisfy.</text>
+</svg>

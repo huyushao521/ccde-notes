@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t53 d53">
+  <title id="t53">The four alignment levels of business architecture as rising steps, with the trigger that places a scenario and the deliverable each level demands</title>
+  <desc id="d53">Four steps rise from left to right. Technology specific, a domain-specific architecture, triggers on one domain and a product decision and delivers product comparisons and selection advice. Technology architecture, a multi-domain architecture, triggers when two or more domains must work together and delivers a cross-domain integration design. Business solutions, partial business architecture, triggers when ROI, TCO or CAPEX enter the discussion and delivers a business case and decision matrix. Business transformation, business-led architecture, triggers on a new market or a digital strategy and delivers a roadmap and evolution plan. Design freedom widens as the level rises, and a note at the bottom gives the reading test for placing a scenario.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:800 10px "Consolas",monospace;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The business asks for more with every level, and the design budget grows with it</text>
+  <text class="s" x="24" y="45">Level 1 buys a product; level 4 may legitimately overturn the architecture you already have</text>
+  <text class="k" x="716" y="63">DESIGN FREEDOM &#8594;</text>
+
+  <rect x="24" y="240" width="196" height="60" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <rect x="24" y="240" width="196" height="16" rx="3" fill="#1f4fc0"/>
+  <text class="n" x="34" y="252">1</text>
+  <text class="b" x="50" y="252" fill="#ffffff">Technology specific</text>
+  <text class="c" x="34" y="272">domain-specific architecture</text>
+  <text class="c" x="34" y="286">trigger: one domain, a product call</text>
+
+  <rect x="236" y="190" width="196" height="110" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <rect x="236" y="190" width="196" height="16" rx="3" fill="#1f4fc0"/>
+  <text class="n" x="246" y="202">2</text>
+  <text class="b" x="262" y="202" fill="#ffffff">Technology architecture</text>
+  <text class="c" x="246" y="222">multi-domain architecture (MDA)</text>
+  <text class="c" x="246" y="236">trigger: two or more domains</text>
+  <text class="c" x="246" y="250">must work together</text>
+  <text class="c" x="246" y="272" fill="#1f4fc0">delivers: cross-domain integration</text>
+  <text class="c" x="246" y="286">design, not a shopping list</text>
+
+  <rect x="448" y="140" width="196" height="160" rx="3" fill="#eef7f5" stroke="#0f7f73" stroke-width=".8"/>
+  <rect x="448" y="140" width="196" height="16" rx="3" fill="#0f7f73"/>
+  <text class="n" x="458" y="152">3</text>
+  <text class="b" x="474" y="152" fill="#ffffff">Business solutions</text>
+  <text class="c" x="458" y="172">partial business architecture</text>
+  <text class="c" x="458" y="186">trigger: ROI, TCO, CAPEX enter</text>
+  <text class="c" x="458" y="200">the conversation</text>
+  <text class="c" x="458" y="222" fill="#0f7f73">delivers: business case,</text>
+  <text class="c" x="458" y="236">decision matrix, the money answer</text>
+  <text class="c" x="458" y="266">the business is buying an outcome</text>
+  <text class="c" x="458" y="280">and asking whether it was worth it</text>
+
+  <rect x="660" y="90" width="196" height="210" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".9"/>
+  <rect x="660" y="90" width="196" height="16" rx="3" fill="#d98600"/>
+  <text class="n" x="670" y="102">4</text>
+  <text class="b" x="686" y="102" fill="#ffffff">Business transformation</text>
+  <text class="c" x="670" y="122">business-led architecture</text>
+  <text class="c" x="670" y="136">trigger: a new market, a digital</text>
+  <text class="c" x="670" y="150">strategy, a capability rebuild</text>
+  <text class="c" x="670" y="172" fill="#a86400">delivers: roadmap, evolution plan,</text>
+  <text class="c" x="670" y="186">staged capability change</text>
+  <text class="c" x="670" y="216">here the constraints themselves move,</text>
+  <text class="c" x="670" y="230">so last year's design is evidence,</text>
+  <text class="c" x="670" y="244">not precedent</text>
+  <text class="w" x="670" y="272">only this level may overturn the</text>
+  <text class="w" x="670" y="284">architecture already in production</text>
+
+  <rect x="24" y="316" width="852" height="44" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="38" y="334"><tspan style="font-weight:700">The reading test:</tspan> see ROI / TCO / CAPEX and the scenario sits at level 3 &#183; see &#8220;enter a new market&#8221; or &#8220;digital strategy&#8221; and it sits at level 4.</text>
+  <text class="c" x="38" y="350">Answering a level 4 need with a level 1 report is the level mismatch in the pitfalls table; the reverse is the same error.</text>
+  <text class="w" x="24" y="386">Level and depth are decided before the design starts, because they set how much process the project can carry.</text>
+</svg>

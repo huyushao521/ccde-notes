@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 630" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">Security domains with chokepoints between them, the trust level and address range of each domain, and a policy table for every crossing</title>
+  <desc id="d3">The enterprise core is divided into four domains. The Internet edge domain holds public-facing services and a firewall with IPS at low trust. The data centre security domain holds web, application and database zones at high value. The network management zone is the highest trust. The WAN security domain carries the encryption boundary and variable trust. Traffic between domains crosses only three marked chokepoints, and inside each domain a stateless ACL does coarse filtering. Each domain also owns a stated address range, and a table at the bottom turns every crossing into a rule with a service, an action and the device that enforces it.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .ch{font:700 7px "Segoe UI",sans-serif;fill:#ffffff;letter-spacing:.4px}
+    .z{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .dg{font:800 9px "Segoe UI",sans-serif;fill:#ffffff}
+    .ad{font:7.5px "Consolas","Courier New",monospace;fill:#1f4fc0}
+    .th{font:700 7.6px "Segoe UI",sans-serif;fill:#1a2233;letter-spacing:.3px}
+    .td{font:7.8px "Segoe UI",sans-serif;fill:#1a2233}
+    .tda{font:7.4px "Consolas","Courier New",monospace;fill:#1f4fc0}
+    .tdp{font:600 7.8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .tdd{font:700 7.8px "Segoe UI",sans-serif;fill:#c0392b}
+    .tdw{font:600 7.8px "Segoe UI",sans-serif;fill:#a86400}
+  </style>
+
+  <rect x="0" y="0" width="900" height="630" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Domains carry the trust level; chokepoints carry the policy</text>
+  <text class="s" x="24" y="45">Divide by what an attacker could do, where the rules change, and how far a failure spreads — then converge the crossings</text>
+
+  <rect x="24" y="58" width="852" height="22" rx="3" fill="#eef1f5" stroke="#8494a8" stroke-width=".7"/>
+  <text class="mid" x="450" y="73" text-anchor="middle">enterprise core — routing and switching, no policy of its own</text>
+
+  <rect x="24" y="94" width="200" height="206" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="36" y="112" fill="#1f4fc0">Internet edge domain</text>
+  <text class="c" x="36" y="128">public services that anyone</text>
+  <text class="c" x="36" y="140">in the world may reach</text>
+  <rect x="36" y="150" width="176" height="20" rx="2" fill="#ffffff" stroke="#2f6fed" stroke-width=".5"/>
+  <text class="z" x="124" y="164" text-anchor="middle">firewall</text>
+  <rect x="36" y="174" width="176" height="20" rx="2" fill="#ffffff" stroke="#2f6fed" stroke-width=".5"/>
+  <text class="z" x="124" y="188" text-anchor="middle">IPS</text>
+  <rect x="36" y="198" width="176" height="20" rx="2" fill="#ffffff" stroke="#2f6fed" stroke-width=".5"/>
+  <text class="z" x="124" y="212" text-anchor="middle">WAF on published applications</text>
+  <rect x="36" y="222" width="176" height="20" rx="2" fill="#ffffff" stroke="#2f6fed" stroke-width=".5"/>
+  <text class="z" x="124" y="236" text-anchor="middle">DDoS scrubbing</text>
+  <text class="c" x="36" y="262">threat is external and constant;</text>
+  <text class="c" x="36" y="274">an hour of exposure is public</text>
+  <rect x="36" y="282" width="176" height="10" fill="#2f6fed"/>
+  <text class="ch" x="124" y="290" text-anchor="middle">TRUST: LOW</text>
+
+  <rect x="232" y="94" width="240" height="206" rx="4" fill="#f7fffd" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="mid" x="244" y="112" fill="#0f7f73">data centre security domain</text>
+  <text class="c" x="244" y="128">the data itself — the only thing</text>
+  <text class="c" x="244" y="140">worth crossing a border for</text>
+  <rect x="244" y="150" width="104" height="20" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".5"/>
+  <text class="z" x="296" y="164" text-anchor="middle">web 10.20.10/24</text>
+  <rect x="356" y="150" width="104" height="20" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".5"/>
+  <text class="z" x="408" y="164" text-anchor="middle">app 10.20.20/24</text>
+  <rect x="244" y="174" width="104" height="20" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".5"/>
+  <text class="z" x="296" y="188" text-anchor="middle">db 10.20.30/24</text>
+  <rect x="356" y="174" width="104" height="20" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".5"/>
+  <text class="z" x="408" y="188" text-anchor="middle">cde 10.20.40/24</text>
+  <text class="c" x="244" y="212">zones inside a domain still need</text>
+  <text class="c" x="244" y="224">policy: web must not reach db</text>
+  <text class="c" x="244" y="236">directly, or the DMZ is decoration</text>
+  <text class="c" x="244" y="256">a compromise here is a breach,</text>
+  <text class="c" x="244" y="268">not an incident</text>
+  <rect x="244" y="282" width="216" height="10" fill="#0f7f73"/>
+  <text class="ch" x="352" y="290" text-anchor="middle">TRUST: HIGH VALUE</text>
+
+  <rect x="480" y="94" width="180" height="206" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="492" y="112" fill="#a86400">network mgmt zone</text>
+  <text class="c" x="492" y="128">the keys to everything else</text>
+  <rect x="492" y="138" width="156" height="20" rx="2" fill="#ffffff" stroke="#d98600" stroke-width=".5"/>
+  <text class="z" x="570" y="152" text-anchor="middle">out-of-band console</text>
+  <rect x="492" y="162" width="156" height="20" rx="2" fill="#ffffff" stroke="#d98600" stroke-width=".5"/>
+  <text class="z" x="570" y="176" text-anchor="middle">jump host + session record</text>
+  <rect x="492" y="186" width="156" height="20" rx="2" fill="#ffffff" stroke="#d98600" stroke-width=".5"/>
+  <text class="z" x="570" y="200" text-anchor="middle">NTP source</text>
+  <text class="c" x="492" y="222">no user traffic enters this zone,</text>
+  <text class="c" x="492" y="234">ever; admin access is per ticket</text>
+  <text class="c" x="492" y="256">one compromised admin account</text>
+  <text class="c" x="492" y="268">reaches every domain at once</text>
+  <rect x="492" y="282" width="156" height="10" fill="#d98600"/>
+  <text class="ch" x="570" y="290" text-anchor="middle">TRUST: HIGHEST</text>
+
+  <rect x="668" y="94" width="208" height="206" rx="4" fill="#f4f6f8" stroke="#8494a8" stroke-width=".9"/>
+  <text class="mid" x="680" y="112">WAN security domain</text>
+  <text class="c" x="680" y="128">sites, partners and cloud, reached</text>
+  <text class="c" x="680" y="140">over infrastructure you do not own</text>
+  <rect x="680" y="150" width="184" height="20" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".5"/>
+  <text class="z" x="772" y="164" text-anchor="middle">firewall per site boundary</text>
+  <rect x="680" y="174" width="184" height="20" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".5"/>
+  <text class="z" x="772" y="188" text-anchor="middle">IPsec / MACsec encryption boundary</text>
+  <rect x="680" y="198" width="184" height="20" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".5"/>
+  <text class="z" x="772" y="212" text-anchor="middle">partner connection, per contract</text>
+  <text class="c" x="680" y="234">trust is not uniform: a branch is not</text>
+  <text class="c" x="680" y="246">a partner, and a partner is not SaaS</text>
+  <text class="c" x="680" y="268">classified per path, not per site</text>
+  <rect x="680" y="282" width="184" height="10" fill="#8494a8"/>
+  <text class="ch" x="772" y="290" text-anchor="middle">TRUST: VARIABLE</text>
+
+  <path d="M228 130 l8 8 l-8 8 l-8 -8 z" fill="#c0392b"/>
+  <text class="dg" x="228" y="141" text-anchor="middle">1</text>
+  <path d="M476 162 l8 8 l-8 8 l-8 -8 z" fill="#c0392b"/>
+  <text class="dg" x="476" y="173" text-anchor="middle">2</text>
+  <path d="M664 130 l8 8 l-8 8 l-8 -8 z" fill="#c0392b"/>
+  <text class="dg" x="664" y="141" text-anchor="middle">3</text>
+
+  <text class="w" x="24" y="316">edge</text>
+  <text class="ad" x="52" y="316">10.10.0.0/24</text>
+  <text class="w" x="232" y="316">dc</text>
+  <text class="ad" x="256" y="316">10.20.0.0/16</text>
+  <text class="w" x="24" y="333">dc zones inside one range: web .10 &#183; app .20 &#183; db .30 &#183; cde .40 &#8212; a zone is a policy boundary, not a routing one</text>
+  <text class="w" x="480" y="316">mgmt</text>
+  <text class="ad" x="512" y="316">10.30.0.0/24</text>
+  <text class="w" x="668" y="316">wan</text>
+  <text class="ad" x="696" y="316">10.40.0.0/12 &#183; 172.16.0.0/12</text>
+
+  <text class="nb" x="24" y="352">Three crossings, and each one is a decision about what will be inspected and what will not</text>
+
+  <rect x="24" y="358" width="272" height="40" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="34" y="373" fill="#c0392b">1 · edge to data centre</text>
+  <text class="c" x="34" y="386">stateful firewall plus IPS; decrypt here or accept blindness</text>
+
+  <rect x="304" y="358" width="272" height="40" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="314" y="373" fill="#c0392b">2 · any domain to management</text>
+  <text class="c" x="314" y="386">jump host, per-ticket opening, full command audit</text>
+
+  <rect x="584" y="358" width="292" height="40" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="594" y="373" fill="#c0392b">3 · data centre to WAN</text>
+  <text class="c" x="594" y="386">encryption boundary; state must survive failover</text>
+
+  <text class="nb" x="24" y="420">The crossings written as rules &#8212; one row, one crossing, one enforcement point</text>
+  <rect x="24" y="428" width="852" height="167" fill="none" stroke="#c3cddb" stroke-width=".6"/>
+  <rect x="24" y="428" width="852" height="20" fill="#eef1f5" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="th" x="32" y="441">SOURCE</text>
+  <text class="th" x="208" y="441">DESTINATION</text>
+  <text class="th" x="406" y="441">SERVICE</text>
+  <text class="th" x="524" y="441">ACTION</text>
+  <text class="th" x="644" y="441">WHERE IT IS ENFORCED</text>
+  <line x1="24" y1="448" x2="876" y2="448" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="462">edge 10.10.0.0/24</text>
+  <text class="tda" x="208" y="462">web 10.20.10.0/24</text>
+  <text class="td" x="406" y="462">tcp/80, tcp/443</text>
+  <text class="tdp" x="524" y="462">permit</text>
+  <text class="td" x="644" y="462">stateful FW, WAF; TLS ends here</text>
+  <rect x="24" y="469" width="852" height="21" fill="#f7f9fc"/>
+  <line x1="24" y1="469" x2="876" y2="469" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="483">edge 10.10.0.0/24</text>
+  <text class="tda" x="208" y="483">app/db 10.20.20-30/24</text>
+  <text class="td" x="406" y="483">any</text>
+  <text class="tdd" x="524" y="483">deny</text>
+  <text class="td" x="644" y="483">implicit drop, logged at the edge</text>
+  <line x1="24" y1="490" x2="876" y2="490" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="504">web 10.20.10.0/24</text>
+  <text class="tda" x="208" y="504">app 10.20.20.0/24</text>
+  <text class="td" x="406" y="504">tcp/8443</text>
+  <text class="tdp" x="524" y="504">permit</text>
+  <text class="td" x="644" y="504">app-aware FW, per-rule log</text>
+  <rect x="24" y="511" width="852" height="21" fill="#f7f9fc"/>
+  <line x1="24" y1="511" x2="876" y2="511" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="525">app 10.20.20.0/24</text>
+  <text class="tda" x="208" y="525">db 10.20.30.0/24</text>
+  <text class="td" x="406" y="525">tcp/1521, tcp/5432</text>
+  <text class="tdp" x="524" y="525">permit</text>
+  <text class="td" x="644" y="525">db firewall, session baseline</text>
+  <line x1="24" y1="532" x2="876" y2="532" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="546">web 10.20.10.0/24</text>
+  <text class="tda" x="208" y="546">db 10.20.30.0/24</text>
+  <text class="td" x="406" y="546">any</text>
+  <text class="tdd" x="524" y="546">deny</text>
+  <text class="td" x="644" y="546">no path exists &#8212; not a rule order</text>
+  <rect x="24" y="553" width="852" height="21" fill="#f7f9fc"/>
+  <line x1="24" y1="553" x2="876" y2="553" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="567">any domain</text>
+  <text class="tda" x="208" y="567">mgmt 10.30.0.0/24</text>
+  <text class="td" x="406" y="567">tcp/22, tcp/443</text>
+  <text class="tdw" x="524" y="567">permit, per ticket</text>
+  <text class="td" x="644" y="567">jump host, full session record</text>
+  <line x1="24" y1="574" x2="876" y2="574" stroke="#dde3ec" stroke-width=".5"/>
+  <text class="tda" x="32" y="588">dc 10.20.0.0/16</text>
+  <text class="tda" x="208" y="588">wan 10.40.0.0/12</text>
+  <text class="td" x="406" y="588">udp/500, udp/4500</text>
+  <text class="tdp" x="524" y="588">permit</text>
+  <text class="td" x="644" y="588">IPsec boundary; state survives failover</text>
+
+  <text class="t" x="24" y="614">Inside each domain a stateless ACL does the coarse filtering; between domains only the numbered devices decide, which is what makes the policy auditable.</text>
+</svg>

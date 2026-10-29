@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">Priority, driver, outcome and capability: four layers from business intent to network design</title>
+  <desc id="d1">Business priorities rank the goals; each priority is served by drivers that state why something must happen; each driver maps to measurable outcomes; each outcome is delivered by business capabilities, which several different solutions may provide. The mapping is many-to-many, and a capability is not a product.</desc>
+
+  <defs>
+    <marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">From business intent to network capability: four layers, and every line must be traceable</text>
+  <text class="s" x="24" y="48">A network design that cannot be traced back through all four layers is a technology decision wearing a business costume</text>
+
+  <text class="ln" x="40" y="76">PRIORITY · ranked goals</text>
+  <text class="ln" x="250" y="76">DRIVER · the "why"</text>
+  <text class="ln" x="460" y="76">OUTCOME · measurable result</text>
+  <text class="ln" x="670" y="76">CAPABILITY · what a solution gives you</text>
+
+  <rect x="40" y="88" width="196" height="50" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="nb" x="52" y="106">#1 Security</text>
+  <text class="t" x="52" y="122">zero trust · modernization ·</text>
+  <text class="t" x="52" y="133">risk management framework</text>
+
+  <rect x="250" y="88" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="262" y="106">Required to comply with HIPAA</text>
+  <text class="t" x="262" y="122">non-negotiable; fines or shutdown</text>
+  <text class="t" x="262" y="133">if data is compromised</text>
+
+  <rect x="460" y="88" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="472" y="106">Stay legally in operation</text>
+  <text class="t" x="472" y="122">auditable evidence of control</text>
+  <text class="t" x="472" y="133">on every access path</text>
+
+  <rect x="670" y="88" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="682" y="106">Session-based security</text>
+  <text class="t" x="682" y="122">vendor-neutral NAC · or ISE as</text>
+  <text class="t" x="682" y="133">one vendor implementation</text>
+
+  <rect x="40" y="148" width="196" height="50" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="nb" x="52" y="166">#2 Cost control</text>
+  <text class="t" x="52" y="182">group target: −30% in three</text>
+  <text class="t" x="52" y="193">years on total IT spend</text>
+
+  <rect x="250" y="148" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="262" y="166">WAN expense must fall</text>
+  <text class="t" x="262" y="182">MPLS 18M/yr, maintenance 4M,</text>
+  <text class="t" x="262" y="193">outsourcing 3M</text>
+
+  <rect x="460" y="148" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="472" y="166">Auditable TCO reduction</text>
+  <text class="t" x="472" y="182">same denominator, same year,</text>
+  <text class="t" x="472" y="193">hidden items included</text>
+
+  <rect x="670" y="148" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="682" y="166">Metering and on-demand bandwidth</text>
+  <text class="t" x="682" y="182">pay for what is used, not</text>
+  <text class="t" x="682" y="193">for what was provisioned</text>
+
+  <rect x="40" y="208" width="196" height="50" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="nb" x="52" y="226">#3 Growth</text>
+  <text class="t" x="52" y="242">new stores · M&amp;A · data</text>
+  <text class="t" x="52" y="253">residency after the merger</text>
+
+  <rect x="250" y="208" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="262" y="226">New site must open in a quarter</text>
+  <text class="t" x="262" y="242">45-day onboarding blocks</text>
+  <text class="t" x="262" y="253">the revenue date</text>
+
+  <rect x="460" y="208" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="472" y="226">Onboarding in 7 days</text>
+  <text class="t" x="472" y="242">measured per site, with a</text>
+  <text class="t" x="472" y="253">named owner and a clock</text>
+
+  <rect x="670" y="208" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="682" y="226">Zero-touch site bring-up</text>
+  <text class="t" x="682" y="242">templates + overlay + central</text>
+  <text class="t" x="682" y="253">policy, not per-site CLI</text>
+
+  <rect x="40" y="268" width="196" height="50" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="nb" x="52" y="286">#4 Availability</text>
+  <text class="t" x="52" y="302">the network is expected to</text>
+  <text class="t" x="52" y="313">behave like a utility</text>
+
+  <rect x="250" y="268" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="262" y="286">No single failure may stop trade</text>
+  <text class="t" x="262" y="302">every store trades through the</text>
+  <text class="t" x="262" y="313">same data center</text>
+
+  <rect x="460" y="268" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="472" y="286">Outage under 4 hours, proven</text>
+  <text class="t" x="472" y="302">by exercise, not by design</text>
+  <text class="t" x="472" y="313">claim</text>
+
+  <rect x="670" y="268" width="196" height="50" rx="5" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="682" y="286">Redundant paths plus tested failover</text>
+  <text class="t" x="682" y="302">dual links, dual core, scripted</text>
+  <text class="t" x="682" y="313">switchover with an owner</text>
+
+  <line x1="238" y1="113" x2="248" y2="113" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="238" y1="173" x2="248" y2="173" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="238" y1="233" x2="248" y2="233" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="238" y1="293" x2="248" y2="293" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="448" y1="113" x2="458" y2="113" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="448" y1="173" x2="458" y2="173" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="448" y1="233" x2="458" y2="233" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="448" y1="293" x2="458" y2="293" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="658" y1="113" x2="668" y2="113" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="658" y1="173" x2="668" y2="173" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="658" y1="233" x2="668" y2="233" stroke="#2f6fed" marker-end="url(#b1)"/>
+  <line x1="658" y1="293" x2="668" y2="293" stroke="#2f6fed" marker-end="url(#b1)"/>
+
+  <rect x="40" y="330" width="826" height="24" rx="4" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="w" x="52" y="346" fill="#0f7f73">The mapping is many-to-many: one capability can serve several outcomes, and one outcome usually needs several capabilities.</text>
+
+  <text class="t" x="24" y="374">Reading rule 1 — a capability is not a solution: "session-based security" is the capability, "NAC" is the class of solution, "ISE" is one product.</text>
+  <text class="t" x="24" y="392">Reading rule 2 — many outcomes per driver, many capabilities per outcome. Draw the arrows per project; a generic diagram hides the contradictions.</text>
+</svg>

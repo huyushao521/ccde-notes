@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t51 d51">
+  <title id="t51">Framework, reference architecture and reference model, and which question each one answers</title>
+  <desc id="d51">Three stacked rows. The framework answers how we do architecture and gives phases, decision gates and governance, with TOGAF, ITIL, FEAF, DoDAF and RMF as examples; it produces the reference architecture, which answers what this class of scenario looks like and gives a reusable blueprint and validated scale boundaries, with Cisco SAFE, CVD, layered campus, spine-leaf data centre and SD-WAN as examples; the reference model is what describes it, an abstract layered general framework with shared vocabulary, with the OSI seven layers and the TCP/IP model as examples. A red note at the bottom states that TOGAF is a framework and not a reference architecture.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three words used interchangeably, sitting at three different levels</text>
+  <text class="s" x="24" y="45">Read the answers column downwards: how to do it, what it looks like, how to describe it</text>
+
+  <rect x="24" y="64" width="852" height="76" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <rect x="24" y="64" width="6" height="76" fill="#6b4fbf"/>
+  <text class="b" x="42" y="86" fill="#5a3fa8">Framework</text>
+  <text class="c" x="42" y="102" fill="#5a3fa8">answers HOW we do architecture</text>
+  <text class="c" x="266" y="86">manages process and methodology: phases,</text>
+  <text class="c" x="266" y="98">decision gates, governance, documents</text>
+  <text class="k" x="628" y="82">EXAMPLES</text>
+  <text class="c" x="628" y="96">TOGAF &#183; ITIL &#183; FEAF</text>
+  <text class="c" x="628" y="108">DoDAF &#183; RMF</text>
+  <text class="w" x="42" y="124">you follow it; it does not draw your network</text>
+
+  <line x1="60" y1="140" x2="60" y2="154" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M56 152 l4 6 l4 -6 z" fill="#9aa8ba"/>
+  <text class="k" x="72" y="150">PRODUCES</text>
+
+  <rect x="24" y="156" width="852" height="76" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="24" y="156" width="6" height="76" fill="#0f7f73"/>
+  <text class="b" x="42" y="178" fill="#0f7f73">Reference architecture</text>
+  <text class="c" x="42" y="194" fill="#0f7f73">answers WHAT this class of scenario looks like</text>
+  <text class="c" x="266" y="178">a structured template for a class of scenarios:</text>
+  <text class="c" x="266" y="190">reusable blueprint, modules, validated scale</text>
+  <text class="k" x="628" y="174">EXAMPLES</text>
+  <text class="c" x="628" y="188">Cisco SAFE &#183; CVD &#183; layered campus</text>
+  <text class="c" x="628" y="200">spine-leaf data centre &#183; SD-WAN</text>
+  <text class="w" x="42" y="216">it carries the shape, not your constraints</text>
+
+  <line x1="60" y1="232" x2="60" y2="246" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M56 244 l4 6 l4 -6 z" fill="#9aa8ba"/>
+  <text class="k" x="72" y="242">IS DESCRIBED BY</text>
+
+  <rect x="24" y="248" width="852" height="76" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="24" y="248" width="6" height="76" fill="#1f4fc0"/>
+  <text class="b" x="42" y="270" fill="#1f4fc0">Reference model</text>
+  <text class="c" x="42" y="286" fill="#1f4fc0">answers HOW we describe it</text>
+  <text class="c" x="266" y="270">an abstract, layered general framework:</text>
+  <text class="c" x="266" y="282">shared vocabulary, layers, interfaces</text>
+  <text class="k" x="628" y="266">EXAMPLES</text>
+  <text class="c" x="628" y="280">OSI seven layers</text>
+  <text class="c" x="628" y="292">TCP/IP model</text>
+  <text class="w" x="42" y="308">it gives names to things, not decisions</text>
+
+  <rect x="24" y="344" width="852" height="48" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="344" width="4" height="48" fill="#c0392b"/>
+  <text class="c" x="40" y="364" fill="#c0392b"><tspan style="font-weight:700">TOGAF is a framework, not a reference architecture.</tspan> It tells you to align stakeholders on a vision before touching technology.</text>
+  <text class="c" x="40" y="380">It will never tell you whether the data centre should be spine-leaf or three-tier &#8212; that answer comes from a reference architecture.</text>
+</svg>

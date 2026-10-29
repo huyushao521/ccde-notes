@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 358" width="100%" role="img" aria-labelledby="t513 d513">
+  <title id="t513">Case 3: an unverifiable business case lost phase two funding, and the measurable table that won it back</title>
+  <desc id="d513">The red band at the top quotes the original business case, improve the overall security level, with eight million spent and no visible change, so phase two was rejected. Three metric rows then carry the table that replaced it: mean time to detect a compromised host fell from 21 days to 4 hours through NetFlow and centralised logging, mean time to repair fell from 5 days to 6 hours through automated isolation playbooks, and non-compliant endpoint connection events fell from more than 30 a month to 2 through NAC with posture checks. A green band states that phase two was approved because the CIO could put this table in front of the board, and a closing note explains that MTTD depends on visibility while MTTR depends on resilience and automation.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .before{font:700 11px "Segoe UI",sans-serif;fill:#c0392b}
+    .after{font:700 11px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="358" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Case 3: &#8220;improve the overall security level&#8221; is not a business case</text>
+  <text class="s" x="24" y="45">Eight million spent, nothing countable to show, phase two refused &#8212; and the same project rescued by three rows of a table</text>
+
+  <rect x="24" y="60" width="852" height="46" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <rect x="24" y="60" width="4" height="46" fill="#c0392b"/>
+  <text class="c" x="40" y="80" fill="#c0392b"><tspan style="font-weight:700">The business case that failed:</tspan> 8M on firewalls, microsegmentation and NAC, justified by &#8220;improve the overall security level&#8221; &#8212; not specific, not measurable.</text>
+  <text class="c" x="40" y="96">What the CIO saw was eight million spent and no visible change, so the phase-two request was rejected.</text>
+
+  <text class="k" x="24" y="128">THE TABLE THAT REPLACED IT</text>
+  <text class="k" x="286" y="128">BEFORE</text>
+  <text class="k" x="470" y="128">AFTER</text>
+  <text class="k" x="664" y="128">WHAT BOUGHT IT</text>
+
+  <rect x="24" y="136" width="852" height="52" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="36" y="156">MTTD &#183; mean time to find a compromised host</text>
+  <text class="w" x="36" y="172">the visibility metric</text>
+  <text class="before" x="286" y="166">21 days</text>
+  <line x1="404" y1="162" x2="440" y2="162" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M438 158 l7 4 l-7 4 z" fill="#9aa8ba"/>
+  <text class="after" x="470" y="166">4 hours</text>
+  <text class="c" x="664" y="156">NetFlow plus centralised logs</text>
+  <text class="w" x="664" y="172">detection is a data problem before it is a tool problem</text>
+
+  <rect x="24" y="194" width="852" height="52" rx="2" fill="#f7f9fc" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="36" y="214">MTTR &#183; mean time to repair</text>
+  <text class="w" x="36" y="230">the resilience metric</text>
+  <text class="before" x="286" y="224">5 days</text>
+  <line x1="404" y1="220" x2="440" y2="220" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M438 216 l7 4 l-7 4 z" fill="#9aa8ba"/>
+  <text class="after" x="470" y="224">6 hours</text>
+  <text class="c" x="664" y="214">automated isolation playbooks</text>
+  <text class="w" x="664" y="230">same team, the recovery finally written down</text>
+
+  <rect x="24" y="252" width="852" height="52" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="36" y="272">non-compliant endpoint connection events</text>
+  <text class="w" x="36" y="288">the control metric</text>
+  <text class="before" x="286" y="282">30+ / month</text>
+  <line x1="404" y1="278" x2="440" y2="278" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M438 274 l7 4 l-7 4 z" fill="#9aa8ba"/>
+  <text class="after" x="470" y="282">2 / month</text>
+  <text class="c" x="664" y="272">NAC with posture checks</text>
+  <text class="w" x="664" y="288">the only row a board member repeats verbatim</text>
+
+  <rect x="24" y="314" width="852" height="26" rx="2" fill="#eef7f5" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="38" y="331" fill="#0f7f73"><tspan style="font-weight:700">Phase two was approved</tspan> &#8212; not because the second proposal was better engineered, but because the CIO could put this table in front of the board.</text>
+
+  <text class="w" x="24" y="352">MTTD depends on visibility, MTTR on resilience and automation: naming them on Day 0 locks the technical direction before the first purchase order.</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 384" width="100%" role="img" aria-labelledby="t10 d10">
+
+  <title id="t10">An RTO has to be split into a time budget with an owner per segment, or the drill measures improvisation</title>
+  <desc id="d10">A bank promised an RTO of two hours. The exercise took nine hours; the network switchover itself was twenty-five minutes and the remaining eight hours and thirty-five minutes went to waiting for business authorisation, draining the storage replication backlog, unsynchronised DNS and certificates, and business validation without executable test cases. The design had written down only the segment it controlled.</desc>
+
+  <defs>
+    <marker id="r10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="g10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#0f7f73;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#c0392b;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="384" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">The design wrote down the twenty-five minutes it controlled; the other eight hours were never in the document</text>
+  <text class="s" x="24" y="48">Promised RTO 2 h, RPO 15 min. The annual exercise measured 9 h of downtime and about 40 min of lost transactions</text>
+
+  <text class="ln" x="60" y="76">TARGET · the RTO must be a budget with an owner per segment, not a single number</text>
+
+  <rect x="60" y="86" width="120" height="30" rx="3" fill="#d9f2ee" stroke="#0f7f73"/>
+  <text class="mid" x="120" y="99" text-anchor="middle">detect</text>
+  <text class="sm" x="120" y="110" text-anchor="middle">5 min</text>
+  <rect x="180" y="86" width="120" height="30" rx="3" fill="#eaf7f5" stroke="#0f7f73"/>
+  <text class="mid" x="240" y="99" text-anchor="middle">authorise</text>
+  <text class="sm" x="240" y="110" text-anchor="middle">who decides, in what time?</text>
+  <rect x="300" y="86" width="120" height="30" rx="3" fill="#cfeae4" stroke="#0f7f73"/>
+  <text class="mid" x="360" y="99" text-anchor="middle">network switch</text>
+  <text class="sm" x="360" y="110" text-anchor="middle">25 min, measured</text>
+  <rect x="420" y="86" width="120" height="30" rx="3" fill="#eaf7f5" stroke="#0f7f73"/>
+  <text class="mid" x="480" y="99" text-anchor="middle">storage catch-up</text>
+  <text class="sm" x="480" y="110" text-anchor="middle">depends on the backlog</text>
+  <rect x="540" y="86" width="120" height="30" rx="3" fill="#eaf7f5" stroke="#0f7f73"/>
+  <text class="mid" x="600" y="99" text-anchor="middle">app start</text>
+  <text class="sm" x="600" y="110" text-anchor="middle">start order matters</text>
+  <rect x="660" y="86" width="160" height="30" rx="3" fill="#eaf7f5" stroke="#0f7f73"/>
+  <text class="mid" x="740" y="99" text-anchor="middle">business validation</text>
+  <text class="sm" x="740" y="110" text-anchor="middle">needs test cases, not a login</text>
+
+  <line x1="60" y1="126" x2="820" y2="126" stroke="#0f7f73"/>
+  <line x1="60" y1="120" x2="60" y2="132" stroke="#0f7f73"/>
+  <line x1="820" y1="120" x2="820" y2="132" stroke="#0f7f73"/>
+  <text class="sm" x="440" y="142" text-anchor="middle" fill="#0f7f73">sum must be ≤ 2 h — otherwise lower the commitment or fund the gap</text>
+
+  <line x1="40" y1="160" x2="860" y2="160" stroke="#e3e8ef"/>
+
+  <text class="ln2" x="60" y="182">WHAT THE DRILL MEASURED · 9 h, of which 8 h 35 min had no owner</text>
+
+  <rect x="60" y="192" width="725" height="30" rx="3" fill="#f2f4f7" stroke="#c3cddb"/>
+  <text class="mid" x="370" y="205" text-anchor="middle">waiting for business confirmation · draining replication backlog · DNS and certificates unsynchronised ·</text>
+  <text class="mid" x="370" y="217" text-anchor="middle">business validation with no executable cases · nobody authorised to decide</text>
+
+  <rect x="785" y="192" width="35" height="30" rx="3" fill="#fbe3e0" stroke="#c0392b"/>
+  <text class="sm" x="802" y="211" text-anchor="middle" fill="#c0392b">25m</text>
+
+  <text class="sm" x="60" y="238" fill="#c0392b">the part the network team measured</text>
+  <line x1="802" y1="224" x2="802" y2="234" stroke="#c0392b" stroke-dasharray="3 3"/>
+
+  <text class="sm" x="60" y="258">The gap is not a network failure. It is a definition failure: business reads RTO as "business restored",</text>
+  <text class="sm" x="60" y="270">the network team reads it as "links switched", and the difference was never written down by anyone.</text>
+
+  <rect x="60" y="282" width="760" height="46" rx="5" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="nb" x="72" y="299" fill="#0f7f73">What the design must add</text>
+  <text class="sm" x="72" y="312">automated DNS, certificate and configuration sync to the DR site · independent, bandwidth-guaranteed</text>
+  <text class="sm" x="72" y="323">replication path · pre-switch health checks · the ability to switch partially, core first</text>
+
+  <text class="t" x="24" y="348">The single most important line: put the decision time limit for "business confirmation" into the design document. An RTO without an authorisation deadline is never met.</text>
+  <text class="t" x="24" y="366">Remediation methodology: phase gates for the audit trail (assess, design, implement, exercise, sign-off) while the individual fixes move across a Kanban board week by week.</text>
+  
+</svg>

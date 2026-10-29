@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t4 d4">
+
+  <title id="t4">Three criteria for drawing domain boundaries, and why more domains stop paying for themselves</title>
+  <desc id="d4">Domains are drawn on three criteria: the trust level of the assets, whether the compliance rules change across the boundary, and how far a compromise or failure would spread. The right-hand chart shows the isolation gained by adding one more domain falling while the cost of maintaining its policies stays roughly constant, so the two cross and every additional domain beyond that point buys almost nothing for the same maintenance burden.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .ax{font:7px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">How many domains? Three criteria, then one economic question</text>
+  <text class="s" x="24" y="45">Draw boundaries where the rules change, then check that each extra boundary still earns its maintenance</text>
+
+  <rect x="24" y="60" width="442" height="66" rx="4" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="40" cy="78" r="4" fill="#2f6fed"/>
+  <text class="mid" x="52" y="82">trust level — if this is compromised, what can the attacker do?</text>
+  <text class="c" x="40" y="100">user endpoints (low) · servers (high value) · management (highest)</text>
+  <text class="c" x="40" y="114">the domain is a statement about consequence, not about floor plan</text>
+
+  <rect x="24" y="134" width="442" height="66" rx="4" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <circle cx="40" cy="152" r="4" fill="#0f7f73"/>
+  <text class="mid" x="52" y="156">compliance boundary — do the rules differ on either side?</text>
+  <text class="c" x="40" y="174">cardholder data environment · domestic and foreign · production and test</text>
+  <text class="c" x="40" y="188">this is the boundary that shrinks an audit, and it must be visible in the design</text>
+
+  <rect x="24" y="208" width="442" height="66" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width=".7"/>
+  <circle cx="40" cy="226" r="4" fill="#c0392b"/>
+  <text class="mid" x="52" y="230">blast radius — how far does one failure or one compromise spread?</text>
+  <text class="c" x="40" y="248">factory OT apart from office · production apart from test · supplier apart from staff</text>
+  <text class="c" x="40" y="262">if the answer is "all the way", the two sides are already one domain</text>
+
+  <text class="nb" x="24" y="296">The question that decides the number</text>
+  <text class="c" x="24" y="312">Every added domain buys isolation once, and then charges rent forever: one more policy set, one more failure point,</text>
+  <text class="c" x="24" y="326">one more path to debug at three in the morning. So the useful question is not "how fine can we cut this" but</text>
+  <text class="c" x="24" y="340">"does the next cut still pay for itself" — and that has an economic answer, drawn on the right.</text>
+
+  <rect x="490" y="60" width="386" height="270" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="502" y="78">GAIN AND COST OF ONE MORE DOMAIN</text>
+
+  <rect x="578" y="90" width="85" height="230" fill="#eef3fb"/>
+  <text class="w" x="620" y="104" text-anchor="middle">5–12 typical</text>
+
+  <line x1="530" y1="90" x2="530" y2="320" stroke="#c3cddb"/>
+  <line x1="530" y1="320" x2="810" y2="320" stroke="#c3cddb"/>
+  <text class="ax" x="524" y="324" text-anchor="end">0</text>
+  <text class="ax" x="530" y="88" text-anchor="middle">45</text>
+  <text class="ax" x="530" y="336" text-anchor="middle">1</text>
+  <text class="ax" x="664" y="336" text-anchor="middle">12</text>
+  <text class="ax" x="810" y="336" text-anchor="middle">24</text>
+  <text class="ax" x="670" y="350" text-anchor="middle">domains in the design</text>
+
+  <polyline points="530,176 542,195 554,212 566,226 578,239 590,250 602,259 614,267 626,274 639,280 651,285 663,290 675,294 688,298 700,300 712,303 724,305 737,307 749,309 761,310 773,312 785,313 798,314 810,315"
+            fill="none" stroke="#0f7f73" stroke-width="1.2"/>
+  <polyline points="530,290 542,289 554,288 566,286 578,285 590,284 602,283 614,281 626,280 639,279 651,278 663,276 675,275 688,274 700,272 712,271 724,270 737,269 749,268 761,266 773,265 785,264 798,262 810,260"
+            fill="none" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5 3"/>
+
+  <line x1="633" y1="120" x2="633" y2="320" stroke="#8494a8" stroke-width=".7" stroke-dasharray="3 3"/>
+  <circle cx="633" cy="279" r="2.6" fill="#1a2233"/>
+  <text class="c" x="640" y="132" fill="#1a2233">the crossing</text>
+  <text class="w" x="640" y="144">beyond it, the next domain</text>
+  <text class="w" x="640" y="155">costs full price and isolates</text>
+  <text class="w" x="640" y="166">almost nothing new</text>
+
+  <line x1="502" y1="372" x2="530" y2="372" stroke="#0f7f73" stroke-width="1.2"/>
+  <text class="ax" x="536" y="375">isolation gained by the next domain</text>
+  <line x1="700" y1="372" x2="728" y2="372" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text class="ax" x="734" y="375">policy cost per domain</text>
+
+  <text class="t" x="24" y="392">The chart is illustrative, the shape is not: gain decays, cost does not. Enterprises land between five and twelve domains because that is where the two lines still separate.</text>
+</svg>

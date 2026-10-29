@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 292" width="100%" role="img" aria-labelledby="t56 d56">
+  <title id="t56">The three steps of the enterprise architecture method in fixed order, the four stakeholder groups to align, and why the order cannot be reversed</title>
+  <desc id="d56">Three boxes run left to right: identify business requirements, align stakeholders and identify the operating model. The four stakeholder groups are listed beneath: the IT steering committee with the architecture management office, the vendor-neutral team and senior management; architects, both business and technology and enterprise; finance and procurement with the CFO, procurement and supplier relationships; and enterprise process owners with functional owners, user groups and business unit leaders. A red band states that reversing the order, fixing the operating model first and hunting for requirements afterwards, is the bottom-up error chapter 1 criticised, and that the vendor-neutral team exists to keep vendor lock-in out of the design.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="292" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three steps, one order: requirements, then people, then the operating model</text>
+  <text class="s" x="24" y="45">Each step constrains the next; nothing downstream can repair an upstream mistake</text>
+
+  <rect x="24" y="60" width="256" height="56" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="36" y="80" fill="#1f4fc0">1 &#183; identify business requirements</text>
+  <text class="c" x="36" y="96">which outcome, whose problem, by when</text>
+  <text class="w" x="36" y="109">output: SMART business outcomes</text>
+  <line x1="284" y1="88" x2="300" y2="88" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M298 84 l7 4 l-7 4 z" fill="#9aa8ba"/>
+
+  <rect x="306" y="60" width="256" height="56" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="318" y="80" fill="#1f4fc0">2 &#183; align stakeholders</text>
+  <text class="c" x="318" y="96">four groups, four different definitions of done</text>
+  <text class="w" x="318" y="109">output: agreement on the constraint set</text>
+  <line x1="566" y1="88" x2="582" y2="88" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M580 84 l7 4 l-7 4 z" fill="#9aa8ba"/>
+
+  <rect x="588" y="60" width="288" height="56" rx="3" fill="#eef7f5" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="b" x="600" y="80" fill="#0f7f73">3 &#183; identify the operating model</text>
+  <text class="c" x="600" y="96">two questions place you in one of four quadrants</text>
+  <text class="w" x="600" y="109">output: the scope of later standardisation</text>
+
+  <text class="k" x="24" y="136">WHO HAS TO AGREE &#8212; AND WHAT EACH GROUP ACTUALLY CARES ABOUT</text>
+  <rect x="24" y="144" width="204" height="54" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="34" y="161">IT steering committee</text>
+  <text class="c" x="34" y="176">architecture management office,</text>
+  <text class="c" x="34" y="188">vendor-neutral team, senior management</text>
+
+  <rect x="236" y="144" width="204" height="54" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="246" y="161">Architects</text>
+  <text class="c" x="246" y="176">business, technology and</text>
+  <text class="c" x="246" y="188">enterprise architects</text>
+
+  <rect x="448" y="144" width="204" height="54" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="458" y="161">Finance and procurement</text>
+  <text class="c" x="458" y="176">CFO, procurement team,</text>
+  <text class="c" x="458" y="188">supplier relationships</text>
+
+  <rect x="660" y="144" width="216" height="54" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="b" x="670" y="161">Enterprise process owners</text>
+  <text class="c" x="670" y="176">functional owners, user groups,</text>
+  <text class="c" x="670" y="188">business unit leaders</text>
+
+  <rect x="24" y="214" width="852" height="46" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="214" width="4" height="46" fill="#c0392b"/>
+  <text class="c" x="40" y="234" fill="#c0392b"><tspan style="font-weight:700">Step 3 cannot come first.</tspan> Fix the operating model first and hunt for requirements afterwards and you have the bottom-up error chapter 1 rejected.</text>
+  <text class="c" x="40" y="250">The vendor-neutral team in step 2 exists for one reason: to keep vendor lock-in from being designed in.</text>
+
+  <text class="w" x="24" y="280">A framework earns its keep here: it forces these three conversations in this order, before anyone opens a product datasheet.</text>
+</svg>

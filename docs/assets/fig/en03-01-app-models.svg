@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">Four application models, and what each one makes the network do</title>
+  <desc id="d1">Single-server needs one hop, two-tier needs one hop with presentation on the client, three-tier adds a web, an application and a database tier each with its own load balancing, NAT, DNS and security layers, and microservices turn one user click into dozens of east-west service calls. Network work rises left to right as the model gets more distributed.</desc>
+
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .w{font:8px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four application models, and what each one costs the network</text>
+  <text class="s" x="24" y="45">The model decides the traffic direction and the number of hops per user action — the network designer inherits both</text>
+
+  <rect x="24" y="62" width="196" height="196" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="36" y="80">1 · SINGLE SERVER</text>
+  <circle cx="46" cy="104" r="7" fill="none" stroke="#4a5a72" stroke-width=".9"/>
+  <text class="w" x="46" y="122" text-anchor="middle">user</text>
+  <rect x="96" y="88" width="106" height="46" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="sm" x="149" y="103" text-anchor="middle">all components</text>
+  <text class="sm" x="149" y="115" text-anchor="middle">on one server</text>
+  <text class="sm" x="149" y="127" text-anchor="middle">app + data</text>
+  <line x1="56" y1="104" x2="92" y2="104" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <text class="w" x="74" y="98" text-anchor="middle">1 hop</text>
+  <text class="sm" x="36" y="152">needs reachability only</text>
+  <text class="sm" x="36" y="166">no LB, no NAT, no tiers</text>
+  <text class="sm" x="36" y="180" fill="#c0392b">one server = one single point</text>
+  <text class="sm" x="36" y="194">traffic: north-south</text>
+  <text class="mid" x="36" y="216">network work</text>
+  <circle cx="112" cy="213" r="3.5" fill="#2f6fed"/><circle cx="126" cy="213" r="3.5" fill="#dde5ef"/><circle cx="140" cy="213" r="3.5" fill="#dde5ef"/><circle cx="154" cy="213" r="3.5" fill="#dde5ef"/>
+
+  <rect x="236" y="62" width="196" height="196" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="248" y="80">2 · TWO TIER</text>
+  <rect x="248" y="88" width="66" height="34" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="sm" x="281" y="101" text-anchor="middle">client</text>
+  <text class="sm" x="281" y="113" text-anchor="middle">presentation</text>
+  <rect x="344" y="88" width="76" height="34" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="sm" x="382" y="101" text-anchor="middle">server</text>
+  <text class="sm" x="382" y="113" text-anchor="middle">data set</text>
+  <line x1="316" y1="105" x2="340" y2="105" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <text class="w" x="328" y="99" text-anchor="middle">1 hop</text>
+  <text class="sm" x="248" y="146">no application layer between them</text>
+  <text class="sm" x="248" y="160">classic client / server</text>
+  <text class="sm" x="248" y="174">latency budget: 1 round trip</text>
+  <text class="sm" x="248" y="188">traffic: north-south, chatty</text>
+  <text class="mid" x="248" y="216">network work</text>
+  <circle cx="324" cy="213" r="3.5" fill="#2f6fed"/><circle cx="338" cy="213" r="3.5" fill="#2f6fed"/><circle cx="352" cy="213" r="3.5" fill="#dde5ef"/><circle cx="366" cy="213" r="3.5" fill="#dde5ef"/>
+
+  <rect x="448" y="62" width="196" height="196" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="460" y="80">3 · THREE TIER</text>
+  <rect x="460" y="88" width="52" height="26" rx="3" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="sm" x="486" y="104" text-anchor="middle">user</text>
+  <rect x="524" y="88" width="52" height="26" rx="3" fill="#fff6e6" stroke="#d98600" stroke-width=".8"/>
+  <text class="sm" x="550" y="104" text-anchor="middle">web / DMZ</text>
+  <rect x="588" y="88" width="52" height="26" rx="3" fill="#eaf7f5" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="sm" x="614" y="104" text-anchor="middle">app tier</text>
+  <rect x="524" y="128" width="52" height="26" rx="3" fill="#eef3fb" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="sm" x="550" y="144" text-anchor="middle">database</text>
+  <line x1="512" y1="101" x2="520" y2="101" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <line x1="576" y1="101" x2="584" y2="101" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <line x1="614" y1="114" x2="580" y2="126" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <text class="w" x="604" y="126">3 hops</text>
+  <text class="sm" x="460" y="172">each tier gets its own LB, SNAT,</text>
+  <text class="sm" x="460" y="184">DNS, source routing and security</text>
+  <text class="sm" x="460" y="198">traffic: north-south through tiers</text>
+  <text class="mid" x="460" y="216">network work</text>
+  <circle cx="536" cy="213" r="3.5" fill="#2f6fed"/><circle cx="550" cy="213" r="3.5" fill="#2f6fed"/><circle cx="564" cy="213" r="3.5" fill="#2f6fed"/><circle cx="578" cy="213" r="3.5" fill="#dde5ef"/>
+
+  <rect x="660" y="62" width="216" height="196" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="672" y="80" fill="#bf5b1d">4 · MICROSERVICES</text>
+  <rect x="672" y="88" width="40" height="18" rx="2" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="w" x="692" y="100" text-anchor="middle">user</text>
+  <rect x="722" y="88" width="46" height="18" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="745" y="100" text-anchor="middle">gateway</text>
+  <line x1="712" y1="97" x2="718" y2="97" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <rect x="722" y="120" width="40" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="742" y="131" text-anchor="middle">svc A</text>
+  <rect x="768" y="120" width="40" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="788" y="131" text-anchor="middle">svc B</text>
+  <rect x="722" y="146" width="40" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="742" y="157" text-anchor="middle">svc C</text>
+  <rect x="768" y="146" width="40" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="788" y="157" text-anchor="middle">svc D</text>
+  <rect x="722" y="172" width="86" height="16" rx="2" fill="#eef3fb" stroke="#2f6fed" stroke-width=".8"/>
+  <text class="w" x="765" y="183" text-anchor="middle">data stores (per service)</text>
+  <line x1="745" y1="106" x2="745" y2="118" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <line x1="742" y1="136" x2="766" y2="136" stroke="#0f7f73" stroke-width=".9" marker-end="url(#a1g)"/>
+  <line x1="742" y1="150" x2="766" y2="150" stroke="#0f7f73" stroke-width=".9" marker-end="url(#a1g)"/>
+  <line x1="745" y1="162" x2="745" y2="170" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <line x1="788" y1="162" x2="788" y2="170" stroke="#2f6fed" marker-end="url(#a1)"/>
+  <text class="sm" x="672" y="204">one click = 30 service calls</text>
+  <text class="sm" x="672" y="216">traffic: east-west dominant</text>
+  <text class="mid" x="672" y="234">network work</text>
+  <circle cx="748" cy="231" r="3.5" fill="#2f6fed"/><circle cx="762" cy="231" r="3.5" fill="#2f6fed"/><circle cx="776" cy="231" r="3.5" fill="#2f6fed"/><circle cx="790" cy="231" r="3.5" fill="#2f6fed"/>
+
+  <line x1="24" y1="274" x2="876" y2="274" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="292">What the designer must add per model</text>
+  <text class="sm" x="24" y="308">single server — routing only</text>
+  <text class="sm" x="24" y="320">two tier — firewall between client and data</text>
+  <text class="sm" x="300" y="308">three tier — per-tier LB, SNAT, DNS, DMZ placement, anycast for the web tier</text>
+  <text class="sm" x="300" y="320">microservices — service discovery, east-west policy, distributed tracing, per-service identity</text>
+  <text class="sm" x="610" y="308" fill="#bf5b1d">cost moves from servers</text>
+  <text class="sm" x="610" y="320" fill="#bf5b1d">into network + observability</text>
+
+  <text class="t" x="24" y="346">Latency budget belongs to one business transaction: 30 calls × 5 ms extra = 150 ms of extra waiting, whatever the per-hop number says.</text>
+  <text class="t" x="24" y="362">Tiers let you design each layer separately — but every extra tier is another place for load balancing, NAT and security policy to go wrong.</text>
+  <text class="t" x="24" y="378">Changing the network to fit the application is always cheaper than rebuilding the application to fit the network.</text>
+</svg>

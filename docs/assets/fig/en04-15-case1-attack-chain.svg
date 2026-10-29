@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" role="img" aria-labelledby="t15 d15">
+
+  <title id="t15">The attack chain of the first case study, with the missing control at each of its five stages and the same chain plotted on a clock</title>
+  <desc id="d15">A phishing email reached an employee who opened it on a personal laptop; the laptop then joined the office network with only port authentication and no device compliance check; lateral scanning found an unpatched file server because the office and server segments were fully open; a shared domain administrator account with a five-year-old password encrypted files in bulk; and the only alarm came from antivirus software. The appliances covered the perimeter, and the missing parts were device admission, microsegmentation, privileged account management, MFA and detection. On a clock, delivery to the first alarm took three days and fourteen hours, while the encryption itself took eight minutes.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .st{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .m{font:700 7.5px "Consolas","Courier New",monospace;fill:#c0392b}
+  </style>
+
+  <defs>
+    <marker id="a15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="520" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Every appliance on the perimeter, and the chain still ran to the end</text>
+  <text class="s" x="24" y="45">Case 1: the failure at each stage was not a missing box but a missing property — read the right-hand column of the table, not the left</text>
+
+  <text class="ln" x="24" y="66">THE CHAIN</text>
+
+  <rect x="24" y="76" width="158" height="38" rx="2" fill="#c0392b"/>
+  <text class="st" x="34" y="92">1 · phishing email</text>
+  <text class="w" x="34" y="106">opened on a personal laptop</text>
+  <line x1="186" y1="95" x2="204" y2="95" stroke="#c0392b" marker-end="url(#a15)"/>
+
+  <rect x="208" y="76" width="158" height="38" rx="2" fill="#c0392b"/>
+  <text class="st" x="218" y="92">2 · laptop joins office LAN</text>
+  <text class="w" x="218" y="106">unmanaged, admitted anyway</text>
+  <line x1="370" y1="95" x2="388" y2="95" stroke="#c0392b" marker-end="url(#a15)"/>
+
+  <rect x="392" y="76" width="158" height="38" rx="2" fill="#c0392b"/>
+  <text class="st" x="402" y="92">3 · lateral scan</text>
+  <text class="w" x="402" y="106">finds an unpatched file server</text>
+  <line x1="554" y1="95" x2="572" y2="95" stroke="#c0392b" marker-end="url(#a15)"/>
+
+  <rect x="576" y="76" width="158" height="38" rx="2" fill="#c0392b"/>
+  <text class="st" x="586" y="92">4 · shared domain admin</text>
+  <text class="w" x="586" y="106">password unchanged 5 years</text>
+  <line x1="738" y1="95" x2="756" y2="95" stroke="#c0392b" marker-end="url(#a15)"/>
+
+  <rect x="760" y="76" width="116" height="38" rx="2" fill="#8c2f24"/>
+  <text class="st" x="770" y="92">5 · files encrypted</text>
+  <text class="w" x="770" y="106">three days of downtime</text>
+
+  <text class="k" x="24" y="134">WHY THE CONTROL DID NOT HOLD</text>
+
+  <text class="c" x="24" y="150">The sandbox inspected</text>
+  <text class="c" x="24" y="162">attachments only — not links to</text>
+  <text class="c" x="24" y="174">newly registered domains</text>
+  <text class="w" x="24" y="192">mail path must meet threat</text>
+  <text class="w" x="24" y="204">intelligence at the edge</text>
+
+  <text class="c" x="208" y="150">Port authentication only:</text>
+  <text class="c" x="208" y="162">the port knew something was</text>
+  <text class="c" x="208" y="174">plugged in, not what it was</text>
+  <text class="w" x="208" y="192">verify the device before</text>
+  <text class="w" x="208" y="204">granting access</text>
+
+  <text class="c" x="392" y="150">Office to server segment was</text>
+  <text class="c" x="392" y="162">fully open, so one hop</text>
+  <text class="c" x="392" y="174">reached every server</text>
+  <text class="w" x="392" y="192">microsegmentation, least</text>
+  <text class="w" x="392" y="204">privilege between tiers</text>
+
+  <text class="c" x="576" y="150">No privileged account</text>
+  <text class="c" x="576" y="162">management, no MFA, and</text>
+  <text class="c" x="576" y="174">many people held the password</text>
+  <text class="w" x="576" y="192">identity is the new perimeter</text>
+
+  <text class="c" x="760" y="150">No detection: the first alarm</text>
+  <text class="c" x="760" y="162">was antivirus software,</text>
+  <text class="c" x="760" y="174">already inside the incident</text>
+  <text class="w" x="760" y="192">visibility is a control</text>
+
+  <line x1="24" y1="220" x2="876" y2="220" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="238" fill="#1f4fc0">What was bought, and what was actually missing</text>
+
+  <rect x="24" y="246" width="270" height="52" rx="3" fill="#f7f8fa" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="34" y="262" fill="#7c8b9f">bought: perimeter firewall, IPS, WAF, sandbox</text>
+  <text class="c" x="34" y="276">Three years and about 12M, and every one of them</text>
+  <text class="c" x="34" y="290">sat on the outside of the chain above.</text>
+
+  <rect x="306" y="246" width="270" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="316" y="262" fill="#c0392b">missing: device compliance admission</text>
+  <text class="c" x="316" y="276">the laptop was never checked, so stage 2 needed</text>
+  <text class="c" x="316" y="290">no exploit at all — only an open port</text>
+
+  <rect x="588" y="246" width="288" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="598" y="262" fill="#c0392b">missing: microsegmentation, PAM, MFA, detection</text>
+  <text class="c" x="598" y="276">four properties, no appliance in the rack, and the</text>
+  <text class="c" x="598" y="290">budget line that nobody wanted to open</text>
+
+  <text class="k" x="24" y="318">THE SAME CHAIN ON A CLOCK</text>
+  <line x1="34" y1="368" x2="866" y2="368" stroke="#c3cddb" stroke-width=".8"/>
+  <path d="M866 364 l5 4 l-5 4 z" fill="#c3cddb"/>
+  <line x1="110" y1="362" x2="110" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="110" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="110" y="352" text-anchor="middle">T+0</text>
+  <text class="c" x="110" y="386" text-anchor="middle">email delivered</text>
+  <text class="w" x="110" y="398" text-anchor="middle">one click</text>
+  <line x1="265" y1="362" x2="265" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="265" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="265" y="352" text-anchor="middle">T+38m</text>
+  <text class="c" x="265" y="386" text-anchor="middle">laptop admitted</text>
+  <text class="w" x="265" y="398" text-anchor="middle">no device check</text>
+  <line x1="420" y1="362" x2="420" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="420" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="420" y="352" text-anchor="middle">T+5h</text>
+  <text class="c" x="420" y="386" text-anchor="middle">lateral scan</text>
+  <text class="w" x="420" y="398" text-anchor="middle">two hours unopposed</text>
+  <line x1="575" y1="362" x2="575" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="575" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="575" y="352" text-anchor="middle">T+2d</text>
+  <text class="c" x="575" y="386" text-anchor="middle">admin account used</text>
+  <text class="w" x="575" y="398" text-anchor="middle">no MFA, no PAM</text>
+  <line x1="720" y1="362" x2="720" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="720" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="720" y="352" text-anchor="middle">T+3d 4h</text>
+  <text class="c" x="720" y="386" text-anchor="middle">encryption starts</text>
+  <text class="w" x="720" y="398" text-anchor="middle">eight minutes</text>
+  <line x1="820" y1="362" x2="820" y2="374" stroke="#c3cddb" stroke-width=".6"/>
+  <circle cx="820" cy="368" r="4" fill="#c0392b"/>
+  <text class="m" x="820" y="352" text-anchor="middle">T+3d 14h</text>
+  <text class="c" x="820" y="386" text-anchor="middle">antivirus alerts</text>
+  <text class="w" x="820" y="398" text-anchor="middle">the first alarm</text>
+  <line x1="110" y1="412" x2="820" y2="412" stroke="#c0392b" stroke-width=".7" stroke-dasharray="3 2"/>
+  <line x1="110" y1="406" x2="110" y2="418" stroke="#c0392b" stroke-width=".7"/>
+  <line x1="820" y1="406" x2="820" y2="418" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="465" y="430" text-anchor="middle" fill="#c0392b">86 hours from delivery to the first alarm &#8212; the eight minutes of encryption were not what cost three days</text>
+
+  <text class="t" x="24" y="452">"Security is pervasive" means it cannot rest on perimeter appliances: identity, device state, least privilege and visibility are the parts a purchase order replaces first.</text>
+  <text class="t" x="24" y="466">They are also the parts this chain used, one stage at a time.</text>
+  <text class="t" x="24" y="486">The appliances did buy time, and nobody saw stages one and two either. Detection is the only control that changes how long an incident lasts.</text>
+  <text class="t" x="24" y="502">The chain is also the shortest available argument for the four migration steps earlier in this chapter: admission, segmentation, privileged access, telemetry.</text>
+</svg>

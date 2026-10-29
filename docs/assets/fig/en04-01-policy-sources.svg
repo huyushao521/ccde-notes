@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t1 d1">
+
+  <title id="t1">Four sources of security policy, ordered by the cost of changing them</title>
+  <desc id="d1">Laws and standards are not negotiable and only their implementation can change. Contracts and SLAs are negotiable commercially but binding technically. Internal policy is negotiable but slow to change. Architecture principles are debatable but exceptions must be recorded. Beneath all four sits the process most often missing: who approves an exception, for how long, reviewed how often, recorded where.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .k{font:7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.6px}
+    .v{font:700 7.5px "Segoe UI",sans-serif;fill:#ffffff;letter-spacing:.5px}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">"It is just a policy" is four different budgets</text>
+  <text class="s" x="24" y="45">Every requirement must be traceable to one of these four, because the cost of changing it decides how firmly the design must hold it</text>
+
+  <text class="w" x="24" y="64">cheap to change</text>
+  <text class="w" x="876" y="64" text-anchor="end">cannot be changed</text>
+  <line x1="24" y1="69" x2="876" y2="69" stroke="#c3cddb"/>
+  <line x1="24" y1="65" x2="24" y2="73" stroke="#c3cddb"/>
+  <line x1="876" y1="65" x2="876" y2="73" stroke="#c3cddb"/>
+
+  <rect x="24" y="78" width="216" height="196" rx="4" fill="#eef3fb" stroke="#2f6fed" stroke-width=".6"/>
+  <text class="mid" x="36" y="96">Architecture principles</text>
+  <text class="c" x="36" y="112">zero trust, least privilege,</text>
+  <text class="c" x="36" y="124">default deny, defence in depth</text>
+  <text class="k" x="36" y="144">EXPRESSED AS</text>
+  <text class="c" x="36" y="158">principle plus an exception process</text>
+  <text class="k" x="36" y="176">NEGOTIABILITY</text>
+  <rect x="36" y="182" width="192" height="16" rx="2" fill="#0f7f73"/>
+  <text class="v" x="132" y="193" text-anchor="middle">DEBATABLE, ON RECORD</text>
+  <text class="k" x="36" y="214">WHO CAN OVERRULE IT</text>
+  <text class="c" x="36" y="228">the architecture board, in writing,</text>
+  <text class="c" x="36" y="240">with a review date</text>
+  <text class="w" x="36" y="260">change cost</text>
+  <rect x="96" y="253" width="30" height="9" fill="#0f7f73"/><rect x="128" y="253" width="30" height="9" fill="#dfe6ee"/>
+  <rect x="160" y="253" width="30" height="9" fill="#dfe6ee"/><rect x="192" y="253" width="30" height="9" fill="#dfe6ee"/>
+
+  <rect x="252" y="78" width="216" height="196" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".6"/>
+  <text class="mid" x="264" y="96">Internal policy</text>
+  <text class="c" x="264" y="112">passwords, offboarding, privileged</text>
+  <text class="c" x="264" y="124">access, endpoint compliance</text>
+  <text class="k" x="264" y="144">EXPRESSED AS</text>
+  <text class="c" x="264" y="158">procedures and checklists</text>
+  <text class="k" x="264" y="176">NEGOTIABILITY</text>
+  <rect x="264" y="182" width="192" height="16" rx="2" fill="#2f6fed"/>
+  <text class="v" x="360" y="193" text-anchor="middle">NEGOTIABLE, BUT SLOW</text>
+  <text class="k" x="264" y="214">WHO CAN OVERRULE IT</text>
+  <text class="c" x="264" y="228">management, and it takes a quarter</text>
+  <text class="c" x="264" y="240">of pushing and a mandate</text>
+  <text class="w" x="264" y="260">change cost</text>
+  <rect x="324" y="253" width="30" height="9" fill="#2f6fed"/><rect x="356" y="253" width="30" height="9" fill="#2f6fed"/>
+  <rect x="388" y="253" width="30" height="9" fill="#dfe6ee"/><rect x="420" y="253" width="30" height="9" fill="#dfe6ee"/>
+
+  <rect x="480" y="78" width="216" height="196" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".6"/>
+  <text class="mid" x="492" y="96">Contracts and SLAs</text>
+  <text class="c" x="492" y="112">data residency, audit rights,</text>
+  <text class="c" x="492" y="124">isolation commitments</text>
+  <text class="k" x="492" y="144">EXPRESSED AS</text>
+  <text class="c" x="492" y="158">contract clauses and penalties</text>
+  <text class="k" x="492" y="176">NEGOTIABILITY</text>
+  <rect x="492" y="182" width="192" height="16" rx="2" fill="#d98600"/>
+  <text class="v" x="588" y="193" text-anchor="middle">BINDING ONCE SIGNED</text>
+  <text class="k" x="492" y="214">WHO CAN OVERRULE IT</text>
+  <text class="c" x="492" y="228">legal and the customer, and it</text>
+  <text class="c" x="492" y="240">costs money or the deal</text>
+  <text class="w" x="492" y="260">change cost</text>
+  <rect x="552" y="253" width="30" height="9" fill="#d98600"/><rect x="584" y="253" width="30" height="9" fill="#d98600"/>
+  <rect x="616" y="253" width="30" height="9" fill="#d98600"/><rect x="648" y="253" width="30" height="9" fill="#dfe6ee"/>
+
+  <rect x="708" y="78" width="168" height="196" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".6"/>
+  <text class="mid" x="720" y="96">Laws and standards</text>
+  <text class="c" x="720" y="112">GDPR, PCI DSS, HIPAA,</text>
+  <text class="c" x="720" y="124">sector regulators</text>
+  <text class="k" x="720" y="144">EXPRESSED AS</text>
+  <text class="c" x="720" y="158">"must" and "must not"</text>
+  <text class="k" x="720" y="176">NEGOTIABILITY</text>
+  <rect x="720" y="182" width="144" height="16" rx="2" fill="#c0392b"/>
+  <text class="v" x="792" y="193" text-anchor="middle">NOT NEGOTIABLE</text>
+  <text class="k" x="720" y="214">WHO CAN OVERRULE IT</text>
+  <text class="c" x="720" y="228">nobody in the company —</text>
+  <text class="c" x="720" y="240">only the implementation changes</text>
+  <text class="w" x="720" y="260">change cost</text>
+  <rect x="780" y="253" width="20" height="9" fill="#c0392b"/><rect x="802" y="253" width="20" height="9" fill="#c0392b"/>
+  <rect x="824" y="253" width="20" height="9" fill="#c0392b"/><rect x="846" y="253" width="20" height="9" fill="#c0392b"/>
+
+  <line x1="24" y1="288" x2="876" y2="288" stroke="#e3e8ef"/>
+  <text class="nb" x="24" y="306" fill="#c0392b">The gap is almost never "no policy" — it is "no exception process"</text>
+  <text class="c" x="24" y="322">A rule says all traffic crossing non-owned networks must be encrypted, and nobody defines who judges a new exception or how often it is reviewed.</text>
+  <text class="c" x="24" y="336">Exceptions then get approved verbally, and three months later nobody can explain why the rule was opened.</text>
+
+  <rect x="24" y="346" width="204" height="34" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="34" y="360">who approves, by name and role</text>
+  <text class="w" x="34" y="372">not a committee that never meets</text>
+  <rect x="240" y="346" width="204" height="34" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="250" y="360">validity period, with an expiry date</text>
+  <text class="w" x="250" y="372">exceptions that never expire become policy</text>
+  <rect x="456" y="346" width="204" height="34" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="466" y="360">review cycle and the trigger</text>
+  <text class="w" x="466" y="372">what change forces a re-decision</text>
+  <rect x="672" y="346" width="204" height="34" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="682" y="360">where it is recorded and found</text>
+  <text class="w" x="682" y="372">searchable, or it did not happen</text>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 384" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">Three planning tools: decision tree, decision matrix and the strategic versus tactical split</title>
+  <desc id="d6">A decision tree compares options one criterion at a time. A decision matrix carries more dimensions at once and weights them by business priority, which is why it can include priorities that a tree cannot. The strategic layer looks three to five years out, while the tactical layer covers this year's projects and must still carry a migration path toward the strategy.</desc>
+
+  <defs>
+    <marker id="p6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .th{font:700 8px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.3px}
+    .cell{font:8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="384" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Three tools for the same job: turning "which design?" into a decision someone else can re-check</text>
+  <text class="s" x="24" y="48">A tree compares criteria one at a time, a matrix compares them together, and strategy decides which criteria are allowed to outrank the others</text>
+
+  <rect x="40" y="64" width="256" height="240" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="56" y="84">DECISION TREE</text>
+  <text class="sm" x="56" y="98">one criterion at a time</text>
+
+  <rect x="120" y="110" width="96" height="22" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="cell" x="168" y="125" text-anchor="middle">Which routing</text>
+  <text class="cell" x="168" y="134" text-anchor="middle" opacity="0">.</text>
+
+  <line x1="168" y1="132" x2="96" y2="158" stroke="#8494a8" marker-end="url(#p6)"/>
+  <line x1="168" y1="132" x2="240" y2="158" stroke="#8494a8" marker-end="url(#p6)"/>
+  <text class="sm" x="104" y="150">more than</text>
+  <text class="sm" x="104" y="160" opacity="0">.</text>
+  <text class="sm" x="214" y="150">few sites,</text>
+
+  <rect x="56" y="168" width="82" height="20" rx="4" fill="#fff" stroke="#8494a8"/>
+  <text class="cell" x="97" y="182" text-anchor="middle">500 nodes?</text>
+  <rect x="198" y="168" width="82" height="20" rx="4" fill="#fff" stroke="#8494a8"/>
+  <text class="cell" x="239" y="182" text-anchor="middle">one vendor?</text>
+
+  <line x1="86" y1="188" x2="70" y2="216" stroke="#8494a8" marker-end="url(#p6)"/>
+  <line x1="112" y1="188" x2="128" y2="216" stroke="#8494a8" marker-end="url(#p6)"/>
+  <line x1="228" y1="188" x2="212" y2="216" stroke="#8494a8" marker-end="url(#p6)"/>
+  <line x1="254" y1="188" x2="270" y2="216" stroke="#8494a8" marker-end="url(#p6)"/>
+
+  <text class="sm" x="44" y="230" fill="#1f4fc0">BGP</text>
+  <text class="sm" x="104" y="230" fill="#1f4fc0">OSPF multi-area</text>
+  <text class="sm" x="188" y="230" fill="#1f4fc0">EIGRP</text>
+  <text class="sm" x="248" y="230" fill="#1f4fc0">OSPF single</text>
+
+  <text class="sm" x="56" y="256">Readable and auditable, but every new</text>
+  <text class="sm" x="56" y="268">dimension forces a new branch — and</text>
+  <text class="sm" x="56" y="280">business priority has nowhere to sit.</text>
+  <text class="sm" x="56" y="296" fill="#a86400">a tree can hide a criterion; a matrix cannot</text>
+
+  <rect x="322" y="64" width="256" height="240" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="338" y="84">DECISION MATRIX</text>
+  <text class="sm" x="338" y="98">many criteria, weighted by priority</text>
+
+  <line x1="338" y1="112" x2="562" y2="112" stroke="#e3e8ef"/>
+  <text class="th" x="338" y="124">REQUIREMENT</text>
+  <text class="th" x="452" y="124" text-anchor="middle">PRIO</text>
+  <text class="th" x="492" y="124" text-anchor="middle">OPT 1</text>
+  <text class="th" x="536" y="124" text-anchor="middle">OPT 2</text>
+
+  <text class="cell" x="338" y="146">Cost savings</text>
+  <text class="cell" x="452" y="146" text-anchor="middle">4</text>
+  <text class="cell" x="492" y="146" text-anchor="middle">medium</text>
+  <text class="cell" x="536" y="146" text-anchor="middle" fill="#0f7f73">low</text>
+  <line x1="338" y1="154" x2="562" y2="154" stroke="#f0f3f7"/>
+
+  <text class="cell" x="338" y="172">Scalability</text>
+  <text class="cell" x="452" y="172" text-anchor="middle">1</text>
+  <text class="cell" x="492" y="172" text-anchor="middle">high</text>
+  <text class="cell" x="536" y="172" text-anchor="middle">high</text>
+  <line x1="338" y1="180" x2="562" y2="180" stroke="#f0f3f7"/>
+
+  <text class="cell" x="338" y="198">Security</text>
+  <text class="cell" x="452" y="198" text-anchor="middle">2</text>
+  <text class="cell" x="492" y="198" text-anchor="middle" fill="#c0392b">low</text>
+  <text class="cell" x="536" y="198" text-anchor="middle">high</text>
+  <line x1="338" y1="206" x2="562" y2="206" stroke="#e3e8ef"/>
+
+  <text class="sm" x="338" y="224" fill="#0f7f73">Option 2 wins — not because it wins every row,</text>
+  <text class="sm" x="338" y="236" fill="#0f7f73">but because it wins the rows that rank 1 and 2.</text>
+
+  <text class="sm" x="338" y="258">Priority 1 = most important. Without that</text>
+  <text class="sm" x="338" y="270">column the matrix is just a comparison;</text>
+  <text class="sm" x="338" y="282">with it, it is a business decision.</text>
+  <text class="sm" x="338" y="298" fill="#a86400">write it down once, stop re-arguing it</text>
+
+  <rect x="604" y="64" width="256" height="240" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="620" y="84">STRATEGY vs TACTICS</text>
+  <text class="sm" x="620" y="98">who outranks whom when they conflict</text>
+
+  <rect x="620" y="110" width="224" height="74" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="th" x="632" y="126" fill="#1f4fc0">STRATEGY · 3–5 YEARS</text>
+  <text class="sm" x="632" y="142">long-term business outcomes</text>
+  <text class="sm" x="632" y="158">migrating the provider core from</text>
+  <text class="sm" x="632" y="170">ATM to MPLS · cloud and branch models</text>
+
+  <rect x="620" y="192" width="224" height="74" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="th" x="632" y="208" fill="#a86400">TACTICS · THIS YEAR</text>
+  <text class="sm" x="632" y="224">beat a problem or reach a short goal</text>
+  <text class="sm" x="632" y="240">temporary internet remote access until</text>
+  <text class="sm" x="632" y="252">the dedicated circuits are delivered</text>
+
+  <line x1="640" y1="276" x2="824" y2="276" stroke="#8494a8" stroke-dasharray="4 3" marker-end="url(#p6)"/>
+  <text class="sm" x="620" y="292">strategy wins, but the tactical layer must</text>
+  <text class="sm" x="620" y="302">still carry a migration path toward it</text>
+
+  <text class="t" x="24" y="322">Strategic balance: IT wants the most reliable option, marketing wants redundancy, finance wants the cheapest — usually two links plus an overlay.</text>
+  <text class="t" x="24" y="340">"Best practice" is not a decision method: it answers "what do people usually do", not "what does this business need, in this priority order".</text>
+  <text class="t" x="24" y="358">A tool only earns its keep if it changes the answer: if the matrix is written after the decision, it is documentation, not planning.</text>
+  <text class="t" x="24" y="376">Keep the matrix in the design document — the next similar project inherits the criteria instead of re-litigating them from memory.</text>
+</svg>

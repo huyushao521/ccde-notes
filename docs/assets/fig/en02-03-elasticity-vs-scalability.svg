@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">Scalability grows capacity, elasticity also gives it back, and modularity is what makes either one affordable</title>
+  <desc id="d3">The left panel shows scalability: capacity steps up and stays. The right panel shows elasticity: capacity expands and contracts with demand, driven by standardisation, automation and metering. The bottom band contrasts four directly interconnected campus locations with the same four locations behind a core module, where adding or removing a site leaves the others untouched.</desc>
+
+  <defs>
+    <marker id="b3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="o3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d98600"/>
+    </marker>
+    <marker id="g3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#a86400;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Scalability grows capacity; elasticity gives it back — and modularity decides which one you can afford</text>
+  <text class="s" x="24" y="48">Use the wrong word in the business case and you buy the wrong architecture: a campus rarely needs elasticity, a cloud-native app rarely survives on scalability alone</text>
+
+  <rect x="40" y="62" width="390" height="188" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="56" y="82">SCALABILITY · capacity can grow</text>
+  <text class="sm" x="56" y="96">"We will need more of it next year"</text>
+
+  <line x1="70" y1="222" x2="410" y2="222" stroke="#c3cddb"/>
+  <rect x="80" y="192" width="44" height="30" rx="3" fill="#dce8ff" stroke="#2f6fed"/>
+  <rect x="140" y="172" width="44" height="50" rx="3" fill="#dce8ff" stroke="#2f6fed"/>
+  <rect x="200" y="146" width="44" height="76" rx="3" fill="#dce8ff" stroke="#2f6fed"/>
+  <rect x="260" y="120" width="44" height="102" rx="3" fill="#dce8ff" stroke="#2f6fed"/>
+  <line x1="70" y1="222" x2="70" y2="112" stroke="#c3cddb" marker-end="url(#b3)"/>
+  <text class="sm" x="78" y="126" fill="#1f4fc0">capacity</text>
+  <text class="sm" x="160" y="238" text-anchor="middle">year 1 → year 4</text>
+
+  <text class="n" x="330" y="150">fits</text>
+  <text class="n" x="330" y="162">the</text>
+  <text class="n" x="330" y="174">campus</text>
+
+  <rect x="470" y="62" width="390" height="188" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln2" x="486" y="82">ELASTICITY · capacity is added and reclaimed</text>
+  <text class="sm" x="486" y="96">"We will need more at 9 a.m. and less at 9 p.m."</text>
+
+  <line x1="500" y1="222" x2="840" y2="222" stroke="#c3cddb"/>
+  <rect x="510" y="200" width="40" height="22" rx="3" fill="#fff4e0" stroke="#d98600"/>
+  <rect x="566" y="168" width="40" height="54" rx="3" fill="#fff4e0" stroke="#d98600"/>
+  <rect x="622" y="188" width="40" height="34" rx="3" fill="#fff4e0" stroke="#d98600"/>
+  <rect x="678" y="146" width="40" height="76" rx="3" fill="#fff4e0" stroke="#d98600"/>
+  <rect x="734" y="196" width="40" height="26" rx="3" fill="#fff4e0" stroke="#d98600"/>
+  <line x1="500" y1="222" x2="500" y2="112" stroke="#c3cddb" marker-end="url(#o3)"/>
+  <line x1="698" y1="134" x2="698" y2="118" stroke="#0f7f73" marker-end="url(#g3)"/>
+  <text class="sm" x="704" y="130" fill="#0f7f73">scale out</text>
+  <line x1="754" y1="188" x2="754" y2="206" stroke="#c0392b" marker-end="url(#o3)"/>
+  <text class="sm" x="760" y="200" fill="#a86400">reclaim</text>
+  <text class="sm" x="580" y="238" text-anchor="middle">same hardware, demand-shaped</text>
+
+  <rect x="40" y="262" width="390" height="96" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="56" y="280">Four sites wired directly to each other</text>
+  <circle cx="120" cy="304" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <circle cx="120" cy="340" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <circle cx="192" cy="304" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <circle cx="192" cy="340" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <line x1="120" y1="314" x2="120" y2="330" stroke="#8494a8"/>
+  <line x1="130" y1="304" x2="182" y2="304" stroke="#8494a8"/>
+  <line x1="130" y1="340" x2="182" y2="340" stroke="#8494a8"/>
+  <line x1="130" y1="309" x2="182" y2="335" stroke="#8494a8"/>
+  <line x1="130" y1="335" x2="182" y2="309" stroke="#8494a8"/>
+  <text class="sm" x="212" y="312">a fifth site adds four new links,</text>
+  <text class="sm" x="212" y="324">four new adjacencies, and a</text>
+  <text class="sm" x="212" y="336">control-plane change everywhere</text>
+  <text class="sm" x="212" y="350" fill="#c0392b">cabling, control plane, manageability</text>
+
+  <rect x="470" y="262" width="390" height="96" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="486" y="280">The same four sites behind a core module</text>
+  <rect x="500" y="296" width="46" height="26" rx="4" fill="#e8f7f4" stroke="#0f7f73"/>
+  <text class="sm" x="523" y="313" text-anchor="middle" fill="#0f7f73">CORE</text>
+  <circle cx="592" cy="296" r="9" fill="#eaf1ff" stroke="#2f6fed"/>
+  <circle cx="592" cy="322" r="9" fill="#eaf1ff" stroke="#2f6fed"/>
+  <circle cx="592" cy="348" r="9" fill="#eaf1ff" stroke="#2f6fed"/>
+  <line x1="546" y1="304" x2="583" y2="298" stroke="#0f7f73"/>
+  <line x1="546" y1="309" x2="583" y2="321" stroke="#0f7f73"/>
+  <line x1="546" y1="314" x2="583" y2="345" stroke="#0f7f73"/>
+  <text class="sm" x="612" y="304">add or remove a module and the</text>
+  <text class="sm" x="612" y="316">other sites do not notice: the</text>
+  <text class="sm" x="612" y="328">change stops at the core</text>
+  <text class="sm" x="612" y="344" fill="#0f7f73">modularity is what buys the elasticity</text>
+
+  <text class="t" x="24" y="380">Elasticity in practice = standardisation + automation + metering. Someone who reads it as "buy more boxes when load rises" has built scalability and called it elasticity.</text>
+  <text class="t" x="24" y="394">Business change is not only growth: decline and merger are equally valid inputs, and a design that cannot shrink is as rigid as one that cannot grow.</text>
+</svg>

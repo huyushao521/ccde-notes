@@ -162,6 +162,12 @@ A security policy is a formal statement of the rules that anyone granted access 
 
 #### The Four Sources of Security Policy · 安全策略的四类来源
 
+<figure class="fig">
+<img src="assets/fig/en04-01-policy-sources.svg" alt="Four sources of policy, each pushing a different requirement onto the same network element, with the tie-break rule beside them" loading="lazy">
+<figcaption><b>Figure 4-1　The four sources of security policy, and which one wins when they disagree</b><br><span>图 4-1　安全策略的四类来源，以及冲突时谁优先</span></figcaption>
+</figure>
+
+
 Policy is not one document; it is **the union of four kinds of input**. A designer must be able to say which category every requirement comes from, because their **cost of change is completely different**:
 
 <div class="zh" markdown="1">
@@ -197,6 +203,12 @@ Policy is not one document; it is **the union of four kinds of input**. A design
 </div>
 
 #### Three Steps from Policy to Technology · 从策略推导到技术的三步
+
+<figure class="fig">
+<img src="assets/fig/en04-02-policy-to-means.svg" alt="Three steps from a policy statement to a technical means with what each step can and cannot decide" loading="lazy">
+<figcaption><b>Figure 4-2　From policy to technology in three steps, and what each step may and may not decide</b><br><span>图 4-2　从策略到技术的三步，以及每一步能决定什么</span></figcaption>
+</figure>
+
 
 ```
 ① Policy clause (natural language)
@@ -252,6 +264,12 @@ Using the policy "data may not leave the country" as an example:
 
 ### Security Domains and Zones · 安全域和区域
 
+<figure class="fig">
+<img src="assets/fig/en04-03-domains-chokepoints.svg" alt="User, server and management domains with the address range each one owns, every crossing marked by a chokepoint, and a policy table giving each crossing its service, action and enforcement point" loading="lazy">
+<figcaption><b>Figure 4-3　Domains are cut where trust, rules or blast radius change, and every crossing needs one chokepoint — with the address range each domain owns and the policy row that enforces it</b><br><span>图 4-3　域的划分、地址段与跨域检查点的策略行</span></figcaption>
+</figure>
+
+
 Using a structured, modular approach, divide the network into **security domains** and introduce **chokepoints** between them:
 
 <div class="zh" markdown="1">
@@ -301,6 +319,12 @@ Each domain is assigned a trust level, and inter-domain traffic is controlled wi
 
 #### Three Criteria for Drawing Domain Boundaries · 域怎么划：三条依据
 
+<figure class="fig">
+<img src="assets/fig/en04-04-domain-boundaries.svg" alt="Three criteria for a boundary beside a curve of isolation gained per added domain against a flat policy cost line" loading="lazy">
+<figcaption><b>Figure 4-4　Three criteria for a boundary, and the economic question that decides how many</b><br><span>图 4-4　划域的三条依据，以及决定域数量的经济问题</span></figcaption>
+</figure>
+
+
 | Criterion | Question | Example |
 |-----------|----------|---------|
 | **Trust level** | If assets here are compromised, what can the attacker do? | User endpoint domain (low trust) vs. server domain (high value) vs. management domain (highest) |
@@ -326,6 +350,12 @@ Each domain is assigned a trust level, and inter-domain traffic is controlled wi
 </div>
 
 #### Choosing Chokepoints · 检查点的选型
+
+<figure class="fig">
+<img src="assets/fig/en04-05-chokepoint-selection.svg" alt="Five chokepoint types in a matrix of capability, placement and blind spot, with three operational constraints below" loading="lazy">
+<figcaption><b>Figure 4-5　Five chokepoint types, what each decides, and what each is blind to</b><br><span>图 4-5　五类检查点的能力、位置与盲区</span></figcaption>
+</figure>
+
 
 Not all inter-domain traffic should cross the same class of device:
 
@@ -383,6 +413,12 @@ Traditional security assumes everything inside the perimeter is trusted and only
 
 ### The Pillars of Zero Trust · 零信任架构的支柱
 
+<figure class="fig">
+<img src="assets/fig/en04-06-zero-trust-pillars.svg" alt="Six zero trust pillars beside the decision loop from subject through enforcement point to resource, fed by inventory and telemetry" loading="lazy">
+<figcaption><b>Figure 4-6　The six pillars of zero trust and the decision loop that connects them</b><br><span>图 4-6　零信任的六根支柱与判定回路</span></figcaption>
+</figure>
+
+
 1. **Verify identity, every time**: identity is the new security perimeter, and authentication applies to users and devices alike
 2. **Assess device posture**: are patches current, is disk encryption on, is EDR running, is the device managed
 3. **Least privilege**: grant only the access needed for the task, never permanent broad access
@@ -402,6 +438,12 @@ Traditional security assumes everything inside the perimeter is trusted and only
 </div>
 
 ### Key Concepts · 零信任架构概念
+
+<figure class="fig">
+<img src="assets/fig/en04-07-trust-vs-risk.svg" alt="Subject trust plotted against resource risk with the required trust threshold rising with risk, beside the factors feeding each score" loading="lazy">
+<figcaption><b>Figure 4-7　Trust is about the subject, risk is about the resource, and the resource sets the threshold</b><br><span>图 4-7　主体信任与资源风险：阈值由资源设定</span></figcaption>
+</figure>
+
 
 | Concept | Meaning |
 |---------|---------|
@@ -457,6 +499,12 @@ Traditional security assumes everything inside the perimeter is trusted and only
 
 ### Migration Steps · 零信任迁移步骤
 
+<figure class="fig">
+<img src="assets/fig/en04-08-migration-steps.svg" alt="Five migration steps in order with their outputs, and the three prerequisites beneath them" loading="lazy">
+<figcaption><b>Figure 4-8　Five migration steps with their outputs, gated by three prerequisites</b><br><span>图 4-8　零信任迁移五步、每步的产出，以及三个前提</span></figcaption>
+</figure>
+
+
 | Step | Content | Output |
 |------|---------|--------|
 | **1. Inventory** | Build three inventories: identity, asset, application | Who, with what device, uses which application |
@@ -502,6 +550,12 @@ Traditional security assumes everything inside the perimeter is trusted and only
 </div>
 
 #### ZTNA vs. Traditional VPN · 零信任网络访问 (ZTNA) 与传统 VPN 的区别
+
+<figure class="fig">
+<img src="assets/fig/en04-09-vpn-vs-ztna.svg" alt="VPN and ZTNA side by side: the VPN exposes a segment and every host in it, ZTNA exposes one named application while the rest stay unreachable" loading="lazy">
+<figcaption><b>Figure 4-9　A VPN grants a segment; ZTNA grants an application</b><br><span>图 4-9　VPN 给的是一个网段，ZTNA 给的是一应用</span></figcaption>
+</figure>
+
 
 | Dimension | Traditional VPN | ZTNA |
 |-----------|-----------------|------|
@@ -561,6 +615,12 @@ The CIA triad is the classic model of information security:
 
 #### Design Means for Each Element and Their Conflicts · 三要素对应的设计手段与代价
 
+<figure class="fig">
+<img src="assets/fig/en04-10-cia-tradeoffs.svg" alt="The CIA triangle with the means for each goal and three conflict panels: encryption against detection, availability against confidentiality, integrity against availability" loading="lazy">
+<figcaption><b>Figure 4-10　CIA is a triangle of trade-offs: every means takes something from the other two goals</b><br><span>图 4-10　CIA 是取舍三角：手段与代价</span></figcaption>
+</figure>
+
+
 The three CIA goals constantly pull against each other in design: encryption hides traffic from inspection, isolation raises availability risk, and log retention widens the exposure surface. The table below maps each goal to its primary means and to the conflict the means creates.
 
 <div class="zh" markdown="1">
@@ -610,6 +670,12 @@ Enterprises today must satisfy a large number of regulatory requirements, and ma
 
 ### HIPAA · HIPAA（美国健康保险流通与责任法案）
 
+<figure class="fig">
+<img src="assets/fig/en04-11-hipaa-phi-path.svg" alt="PHI on the clinician workstation, in the EHR, in the exchange with insurers and in backups, each with the safeguard it forces, then the four obligations the network owes" loading="lazy">
+<figcaption><b>Figure 4-11　Where PHI lives, and the safeguard each place forces on the network</b><br><span>图 4-11　PHI 在哪里，以及每处对网络提出的要求</span></figcaption>
+</figure>
+
+
 The Health Insurance Portability and Accountability Act protects the privacy and security of **protected health information (PHI)** in the United States.
 
 <div class="zh" markdown="1">
@@ -644,6 +710,12 @@ For network design this translates into: **encrypted transmission, strict access
 </div>
 
 ### PCI DSS · PCI DSS（支付卡行业数据安全标准）
+
+<figure class="fig">
+<img src="assets/fig/en04-12-pci-scope.svg" alt="The cardholder data environment before and after segmentation, with the audit scope following the network in one and the data in the other, beside the four levers that shrink it" loading="lazy">
+<figcaption><b>Figure 4-12　PCI DSS: the audit follows the network before segmentation, and the data after it</b><br><span>图 4-12　PCI DSS：分段前审计跟着网络走，分段后跟着数据走</span></figcaption>
+</figure>
+
 
 The Payment Card Industry Data Security Standard applies to any organization that stores, processes or transmits cardholder data.
 
@@ -738,6 +810,12 @@ The General Data Protection Regulation protects the personal data of individuals
 
 ### Data Sovereignty · 数据主权
 
+<figure class="fig">
+<img src="assets/fig/en04-13-gdpr-sovereignty.svg" alt="Three GDPR questions with their deliverables, and a border diagram showing what may cross and what must stay local" loading="lazy">
+<figcaption><b>Figure 4-13　GDPR's three questions, and the border that decides what may cross</b><br><span>图 4-13　GDPR 三问，以及什么可以过境</span></figcaption>
+</figure>
+
+
 Information is governed by the regulations of the country where it is collected and processed. Information collected and processed in a country must remain within that country's borders and be protected under its law.
 
 <div class="zh" markdown="1">
@@ -755,6 +833,12 @@ Information is governed by the regulations of the country where it is collected 
 </div>
 
 ### Translating Compliance into Design Input · 把合规翻译成设计输入
+
+<figure class="fig">
+<img src="assets/fig/en04-14-compliance-to-design.svg" alt="Five compliance clauses mapped to the network design element each forces and to the artefact that proves it later" loading="lazy">
+<figcaption><b>Figure 4-14　Five clauses, the design element each forces, and the artefact that proves it</b><br><span>图 4-14　五条合规条款、逼出的设计要素与证明它的交付物</span></figcaption>
+</figure>
+
 
 Compliance clauses read as "requirements", while design needs "constraints". The translation method is **three questions**:
 
@@ -844,6 +928,12 @@ Phishing email → employee opened it on a personal laptop → laptop plugged in
         → domain administrator account (password unchanged for 5 years, shared by many)
           encrypted files in bulk
 ```
+
+<figure class="fig">
+<img src="assets/fig/en04-15-case1-attack-chain.svg" alt="The five stages of the first case study's attack chain with the missing control beneath each, the same chain plotted on a clock from delivery to the first alarm, and a summary of what was bought against what was missing" loading="lazy">
+<figcaption><b>Figure 4-15　The attack chain of Case 1, the control missing at each stage, and the same chain on a clock</b><br><span>图 4-15　案例一的攻击链、每一环缺失的控制，以及同一条链的时间轴</span></figcaption>
+</figure>
+
 
 <div class="zh" markdown="1">
 

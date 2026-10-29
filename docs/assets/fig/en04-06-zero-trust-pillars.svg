@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t6 d6">
+
+  <title id="t6">The six pillars of zero trust beside the decision loop that connects subject, enforcement point, policy engine and telemetry</title>
+  <desc id="d6">Six pillars: verify identity every time, assess device posture, grant least privilege, microsegment between workloads, monitor and respond continuously, and assume breach. The decision loop shows a subject made of user, device and context requesting access through a policy enforcement point to a resource. The enforcement point asks a policy engine, which takes a trust score from a trust engine, which is fed by inventories and by telemetry. The decision is allow, deny or allow with constraints, and telemetry flows back to update the trust score.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <defs>
+    <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Zero trust is six commitments and one loop</text>
+  <text class="s" x="24" y="45">The pillars say what must be true; the loop says where the decision is made and where the evidence comes back</text>
+
+  <text class="ln" x="24" y="68">THE SIX PILLARS</text>
+
+  <rect x="24" y="76" width="196" height="72" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="40" cy="92" r="7" fill="#2f6fed"/>
+  <text class="n" x="40" y="95" text-anchor="middle">1</text>
+  <text class="mid" x="54" y="95">verify identity, every time</text>
+  <text class="c" x="36" y="114">identity is the new perimeter;</text>
+  <text class="c" x="36" y="128">it covers users and devices alike</text>
+  <text class="w" x="36" y="142">not once at the door</text>
+
+  <rect x="228" y="76" width="196" height="72" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="244" cy="92" r="7" fill="#2f6fed"/>
+  <text class="n" x="244" y="95" text-anchor="middle">2</text>
+  <text class="mid" x="258" y="95">assess device posture</text>
+  <text class="c" x="240" y="114">patched? encrypted? EDR running?</text>
+  <text class="c" x="240" y="128">managed, or merely owned?</text>
+  <text class="w" x="240" y="142">the laptop is half the identity</text>
+
+  <rect x="24" y="156" width="196" height="72" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="40" cy="172" r="7" fill="#2f6fed"/>
+  <text class="n" x="40" y="175" text-anchor="middle">3</text>
+  <text class="mid" x="54" y="175">least privilege</text>
+  <text class="c" x="36" y="194">only what the task needs,</text>
+  <text class="c" x="36" y="208">only for as long as it needs it</text>
+  <text class="w" x="36" y="222">permanent broad access is a choice</text>
+
+  <rect x="228" y="156" width="196" height="72" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="244" cy="172" r="7" fill="#2f6fed"/>
+  <text class="n" x="244" y="175" text-anchor="middle">4</text>
+  <text class="mid" x="258" y="175">microsegmentation</text>
+  <text class="c" x="240" y="194">policy between workloads,</text>
+  <text class="c" x="240" y="208">not just at the perimeter</text>
+  <text class="w" x="240" y="222">identity alone does not stop a subnet</text>
+
+  <rect x="24" y="236" width="196" height="72" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <circle cx="40" cy="252" r="7" fill="#2f6fed"/>
+  <text class="n" x="40" y="255" text-anchor="middle">5</text>
+  <text class="mid" x="54" y="255">continuous monitoring</text>
+  <text class="c" x="36" y="274">log, detect, analyse, respond;</text>
+  <text class="c" x="36" y="288">trust is recomputed, not cached</text>
+  <text class="w" x="36" y="302">a decision made once is a hope</text>
+
+  <rect x="228" y="236" width="196" height="72" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <circle cx="244" cy="252" r="7" fill="#c0392b"/>
+  <text class="n" x="244" y="255" text-anchor="middle">6</text>
+  <text class="mid" x="258" y="255" fill="#c0392b">assume breach</text>
+  <text class="c" x="240" y="274">design as if the attacker is inside:</text>
+  <text class="c" x="240" y="288">limit lateral movement, shorten dwell</text>
+  <text class="w" x="240" y="302">this is the one that changes budgets</text>
+
+  <line x1="436" y1="64" x2="436" y2="318" stroke="#e3e8ef"/>
+
+  <text class="ln" x="456" y="68" fill="#0f7f73">THE DECISION LOOP</text>
+
+  <rect x="456" y="80" width="136" height="44" rx="3" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="mid" x="524" y="96" text-anchor="middle">subject</text>
+  <text class="w" x="524" y="110" text-anchor="middle">user + device + context</text>
+
+  <rect x="620" y="80" width="128" height="44" rx="3" fill="#eef3fb" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="684" y="96" text-anchor="middle" fill="#1f4fc0">PEP</text>
+  <text class="w" x="684" y="110" text-anchor="middle">enforces, cannot decide</text>
+
+  <rect x="776" y="80" width="100" height="44" rx="3" fill="#f7fffd" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="826" y="96" text-anchor="middle">resource</text>
+  <text class="w" x="826" y="110" text-anchor="middle">app and data</text>
+
+  <line x1="592" y1="102" x2="614" y2="102" stroke="#2f6fed" marker-end="url(#a6)"/>
+  <line x1="748" y1="102" x2="770" y2="102" stroke="#0f7f73" marker-end="url(#a6g)"/>
+  <text class="w" x="756" y="76" text-anchor="middle">if allowed</text>
+
+  <rect x="620" y="156" width="128" height="44" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="684" y="172" text-anchor="middle">policy engine</text>
+  <text class="w" x="684" y="186" text-anchor="middle">matches rules, returns a verdict</text>
+
+  <line x1="684" y1="156" x2="684" y2="130" stroke="#2f6fed" marker-end="url(#a6)"/>
+  <text class="w" x="690" y="146">decision</text>
+
+  <rect x="456" y="156" width="136" height="44" rx="3" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="524" y="172" text-anchor="middle">trust engine</text>
+  <text class="w" x="524" y="186" text-anchor="middle">static + dynamic factors</text>
+  <line x1="592" y1="178" x2="614" y2="178" stroke="#0f7f73" marker-end="url(#a6g)"/>
+  <text class="w" x="592" y="196" text-anchor="middle">score</text>
+
+  <rect x="456" y="230" width="136" height="40" rx="3" fill="#f7f8fa" stroke="#8494a8" stroke-width=".7"/>
+  <text class="mid" x="524" y="246" text-anchor="middle">inventory</text>
+  <text class="w" x="524" y="260" text-anchor="middle">identities, assets, applications</text>
+  <line x1="524" y1="230" x2="524" y2="206" stroke="#8494a8" marker-end="url(#a6)"/>
+
+  <rect x="620" y="230" width="128" height="40" rx="3" fill="#f7f8fa" stroke="#8494a8" stroke-width=".7"/>
+  <text class="mid" x="684" y="246" text-anchor="middle">telemetry</text>
+  <text class="w" x="684" y="260" text-anchor="middle">flow, log, behaviour</text>
+  <line x1="684" y1="230" x2="684" y2="206" stroke="#8494a8" marker-end="url(#a6)"/>
+
+  <path d="M876 124 L876 274 L754 274" fill="none" stroke="#8494a8" stroke-width=".7" stroke-dasharray="4 3" marker-end="url(#a6)"/>
+  <text class="w" x="878" y="196" text-anchor="middle" transform="rotate(90 878 196)">feedback</text>
+
+  <rect x="456" y="286" width="420" height="26" rx="3" fill="#eef3fb" stroke="#2f6fed" stroke-width=".6"/>
+  <text class="c" x="466" y="303">verdicts: allow · deny · allow with constraints (step-up, time limit, session recording)</text>
+
+  <text class="t" x="24" y="348">Remove the inventory and the loop still runs — it just answers "allow everything", which is the perimeter with extra steps.</text>
+  <text class="t" x="24" y="362">Remove the telemetry and the trust score is set at login and never moves, which is the old model wearing new vocabulary.</text>
+  <text class="t" x="24" y="376">The pillars are cheap to buy one at a time and useless one at a time: each one is the input of another.</text>
+  <text class="t" x="24" y="390">Pillar 6 is the one that pays for the other five, because it is the only one that assumes they will fail.</text>
+</svg>

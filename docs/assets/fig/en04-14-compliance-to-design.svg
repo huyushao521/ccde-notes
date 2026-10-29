@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t14 d14">
+
+  <title id="t14">Five compliance requirements mapped to network design elements and to the evidence an auditor will ask for</title>
+  <desc id="d14">Encryption in transit means IPsec or TLS on public links and a decision on internal links from data classification, evidenced by a link inventory and cipher configuration. Least-privilege access means the cardholder data environment is segmented and every cross-domain flow passes a stateful device, evidenced by a segment diagram and a rule export. Log retention means a dedicated log segment, one-way export and a single time source, evidenced by retention settings and an immutability proof. Data residency means an in-country instance with one-way de-identified flow and local collection points. Auditable third-party access means a dedicated supplier channel with per-ticket access and session recording.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .hd{font:700 8px "Segoe UI",sans-serif;fill:#7c8b9f;letter-spacing:.5px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Compliance clauses are requirements; design needs constraints</text>
+  <text class="s" x="24" y="45">Each row below is one clause, the element it forces into the design, and the artefact that proves it later</text>
+
+  <text class="hd" x="24" y="66">REQUIREMENT</text>
+  <text class="hd" x="232" y="66">WHAT IT FORCES INTO THE DESIGN</text>
+  <text class="hd" x="556" y="66">WHAT PROVES IT AFTERWARDS</text>
+  <line x1="24" y1="72" x2="876" y2="72" stroke="#c3cddb"/>
+
+  <rect x="24" y="76" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="94">encryption in transit</text>
+  <text class="w" x="32" y="108">PCI DSS requirement 4</text>
+  <text class="c" x="232" y="94">Public links must be IPsec or TLS. Internal links are decided</text>
+  <text class="c" x="232" y="108">by data classification — MACsec where the data says so</text>
+  <text class="c" x="556" y="94">Link inventory with the protocol per link; cipher</text>
+  <text class="c" x="556" y="108">configuration; key rotation record</text>
+
+  <rect x="24" y="122" width="852" height="46" fill="#ffffff"/>
+  <text class="mid" x="32" y="140">least-privilege access</text>
+  <text class="w" x="32" y="154">PCI DSS requirement 7</text>
+  <text class="c" x="232" y="140">The cardholder data environment is separately segmented</text>
+  <text class="c" x="232" y="154">(VLAN or VRF); every cross-domain flow passes a stateful device</text>
+  <text class="c" x="556" y="140">Segment diagram the assessor can walk; rule export;</text>
+  <text class="c" x="556" y="154">periodic review minutes with names on them</text>
+
+  <rect x="24" y="168" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="186">log retention and immutability</text>
+  <text class="w" x="32" y="200">PCI DSS 10 · GDPR</text>
+  <text class="c" x="232" y="186">A dedicated log segment, one-way export, and a single</text>
+  <text class="c" x="232" y="200">NTP source — logs with the wrong time have no evidentiary value</text>
+  <text class="c" x="556" y="186">Retention setting; write-once or hash proof; the time</text>
+  <text class="c" x="556" y="200">source and a sample query run in front of the auditor</text>
+
+  <rect x="24" y="214" width="852" height="46" fill="#ffffff"/>
+  <text class="mid" x="32" y="232">data residency</text>
+  <text class="w" x="32" y="246">data sovereignty</text>
+  <text class="c" x="232" y="232">In-country instance, one-way de-identified flow, local storage —</text>
+  <text class="c" x="232" y="246">including the monitoring collection points, which are stores too</text>
+  <text class="c" x="556" y="232">Data flow diagram; egress rule set; proof that the collector</text>
+  <text class="c" x="556" y="246">and the backup sit inside the border as well</text>
+
+  <rect x="24" y="260" width="852" height="46" fill="#f7f8fa"/>
+  <text class="mid" x="32" y="278">auditable third-party access</text>
+  <text class="w" x="32" y="292">HIPAA · GDPR</text>
+  <text class="c" x="232" y="278">Suppliers come through a dedicated channel, access is opened</text>
+  <text class="c" x="232" y="292">per ticket and time-boxed, sessions are recorded and audited</text>
+  <text class="c" x="556" y="278">Ticket-to-session mapping, recording samples, and the</text>
+  <text class="c" x="556" y="292">expiry that closed the access without anyone asking</text>
+
+  <line x1="24" y1="314" x2="876" y2="314" stroke="#c3cddb"/>
+  <rect x="24" y="320" width="852" height="54" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="nb" x="36" y="337" fill="#1f4fc0">The deliverable is an evidence chain, not a control list</text>
+  <text class="c" x="36" y="352">Auditors do not inspect what you configured; they test whether you can show it was that way at any point in time.</text>
+  <text class="c" x="36" y="366">Logs, time synchronisation, change records and periodic review are design outputs, handed over with the network design.</text>
+
+  <text class="t" x="24" y="388">A design that cannot produce these five artefacts is not non-compliant yet — it is unauditable, which fails the same way and later.</text>
+</svg>

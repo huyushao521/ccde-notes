@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t10 d10">
+
+  <title id="t10">The CIA triad and the three conflicts its design means create</title>
+  <desc id="d10">Confidentiality is delivered by encryption and segmentation, integrity by signatures, change control and immutable logs, availability by redundancy and capacity margin. Each means takes something away from the other two goals: encryption blinds inspection, traffic scrubbing hands visibility to a third party, and strict change control blocks the emergency edit that restores service fastest. A security design that does not say which goal was traded for which cannot be reviewed.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .v{font:700 14px "Segoe UI",sans-serif;fill:#ffffff}
+    .vn{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">CIA is a triangle of trade-offs, not three checkboxes</text>
+  <text class="s" x="24" y="45">Every means that buys one goal takes something away from the other two — the design must say what was traded</text>
+
+  <polygon points="240,104 150,268 330,268" fill="#f7f9fc" stroke="#c3cddb" stroke-width=".8"/>
+
+  <circle cx="240" cy="112" r="20" fill="#2f6fed"/>
+  <text class="v" x="240" y="118" text-anchor="middle">C</text>
+  <text class="vn" x="240" y="86" text-anchor="middle">Confidentiality</text>
+
+  <circle cx="150" cy="268" r="20" fill="#0f7f73"/>
+  <text class="v" x="150" y="274" text-anchor="middle">I</text>
+  <text class="vn" x="118" y="252" text-anchor="middle">Integrity</text>
+
+  <circle cx="330" cy="268" r="20" fill="#c0392b"/>
+  <text class="v" x="330" y="274" text-anchor="middle">A</text>
+  <text class="vn" x="366" y="252" text-anchor="middle">Availability</text>
+
+  <text class="c" x="204" y="196" text-anchor="middle">seen only</text>
+  <text class="c" x="204" y="208" text-anchor="middle">by the entitled</text>
+  <text class="c" x="284" y="196" text-anchor="middle">usable when</text>
+  <text class="c" x="284" y="208" text-anchor="middle">it is needed</text>
+  <text class="c" x="240" y="292" text-anchor="middle">changed only by the entitled, and complete</text>
+
+  <line x1="60" y1="316" x2="400" y2="316" stroke="#e3e8ef"/>
+  <text class="c" x="60" y="332" fill="#2f6fed">the means: encryption in transit and at rest, access control, segmentation</text>
+  <text class="c" x="60" y="346" fill="#0f7f73">hashing and signatures, change control, immutable logs</text>
+  <text class="c" x="60" y="360" fill="#c0392b">redundancy, capacity margin, DDoS mitigation, backup and recovery</text>
+
+  <rect x="430" y="88" width="446" height="74" rx="3" fill="#ffffff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="442" y="104" fill="#1f4fc0">1 · encryption against detection</text>
+  <text class="c" x="442" y="120">Confidentiality encrypts the traffic; the IPS and the DLP then see nothing worth inspecting.</text>
+  <text class="c" x="442" y="134">Terminate encryption at the inspection point, or accept that the segment is unobservable and</text>
+  <text class="c" x="442" y="148">compensate with endpoint EDR and behaviour baselines — and write down which you chose.</text>
+
+  <rect x="430" y="170" width="446" height="74" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="mid" x="442" y="186" fill="#c0392b">2 · availability against confidentiality</text>
+  <text class="c" x="442" y="202">Steering all traffic to a scrubbing centre to survive a DDoS hands it to a third party's eyes.</text>
+  <text class="c" x="442" y="216">The mitigation is real; so is the exposure. Pick it per service, not per company, and scope</text>
+  <text class="c" x="442" y="230">the contract to say what the provider may see and keep.</text>
+
+  <rect x="430" y="252" width="446" height="74" rx="3" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mid" x="442" y="268" fill="#0f7f73">3 · integrity against availability</text>
+  <text class="c" x="442" y="284">Strict baselines refuse the change made at 2 a.m. to restore service, and that change is often</text>
+  <text class="c" x="442" y="298">the fastest path back. Allow the emergency path, then force the write-back: without the</text>
+  <text class="c" x="442" y="312">second half, integrity becomes the reason the baseline is permanently wrong.</text>
+
+  <text class="t" x="24" y="380">A security design that does not name the trades it made cannot be reviewed, and cannot be defended to an auditor or to the business when the bill arrives.</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t13 d13">
+
+  <title id="t13">When the monolith becomes thirty services, the traffic turns east-west and the visibility disappears with it</title>
+  <desc id="d13">A monolith has one north-south flow that a firewall log records completely. Split into services behind a gateway, one user click fans out into dozens of east-west calls between pods, and no single log contains the request any more. Three symptoms follow: intermittent errors for some users, one page slow from one site only, and nothing in the logs. The capabilities needed are service discovery, workload identity, east-west policy, distributed tracing and a per-hop latency budget.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+    .v{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <defs>
+    <marker id="a13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a13t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Thirty services, one user click, and nobody can answer "where did the request go"</text>
+  <text class="s" x="24" y="45">The traffic direction changed, and with it the place where evidence lives</text>
+
+  <text class="ln" x="24" y="68">BEFORE · ONE FLOW, ONE LOG</text>
+  <circle cx="36" cy="98" r="6" fill="none" stroke="#4a5a72" stroke-width=".9"/>
+  <text class="w" x="36" y="114" text-anchor="middle">user</text>
+  <line x1="44" y1="98" x2="76" y2="98" stroke="#2f6fed" marker-end="url(#a13)"/>
+  <rect x="80" y="82" width="120" height="34" rx="3" fill="#f2f4f7" stroke="#8494a8" stroke-width=".9"/>
+  <text class="v" x="140" y="97" text-anchor="middle">monolith</text>
+  <text class="w" x="140" y="109" text-anchor="middle">all functions inside</text>
+  <line x1="200" y1="98" x2="232" y2="98" stroke="#2f6fed" marker-end="url(#a13)"/>
+  <rect x="236" y="82" width="80" height="34" rx="3" fill="#eef3fb" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="v" x="276" y="102" text-anchor="middle">database</text>
+  <text class="c" x="330" y="94">one north-south flow,</text>
+  <text class="c" x="330" y="106">one firewall log,</text>
+  <text class="c" x="330" y="118">one timeline</text>
+
+  <text class="ln" x="24" y="146" fill="#bf5b1d">AFTER · DOZENS OF EAST-WEST FLOWS, NO OWNER OF THE WHOLE</text>
+  <rect x="36" y="158" width="52" height="18" rx="2" fill="#eef3fb" stroke="#8494a8" stroke-width=".8"/>
+  <text class="w" x="62" y="170" text-anchor="middle">user</text>
+  <line x1="88" y1="167" x2="102" y2="167" stroke="#2f6fed" marker-end="url(#a13)"/>
+  <rect x="106" y="156" width="56" height="22" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".8"/>
+  <text class="w" x="134" y="170" text-anchor="middle">gateway</text>
+
+  <rect x="180" y="150" width="44" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="w" x="202" y="161" text-anchor="middle">svc 1</text>
+  <rect x="232" y="150" width="44" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="w" x="254" y="161" text-anchor="middle">svc 2</text>
+  <rect x="284" y="150" width="44" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="w" x="306" y="161" text-anchor="middle">svc 3</text>
+  <rect x="336" y="150" width="44" height="16" rx="2" fill="#fdf3e3" stroke="#d98600" stroke-width=".7"/>
+  <text class="w" x="358" y="161" text-anchor="middle">svc 4</text>
+
+  <rect x="180" y="176" width="44" height="16" rx="2" fill="#eef3fb" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="w" x="202" y="187" text-anchor="middle">cache</text>
+  <rect x="232" y="176" width="44" height="16" rx="2" fill="#eef3fb" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="w" x="254" y="187" text-anchor="middle">queue</text>
+  <rect x="284" y="176" width="44" height="16" rx="2" fill="#eef3fb" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="w" x="306" y="187" text-anchor="middle">auth</text>
+  <rect x="336" y="176" width="44" height="16" rx="2" fill="#eef3fb" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="w" x="358" y="187" text-anchor="middle">db proxy</text>
+
+  <line x1="162" y1="167" x2="176" y2="158" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="224" y1="158" x2="228" y2="158" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="276" y1="158" x2="280" y2="158" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="328" y1="158" x2="332" y2="158" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="202" y1="166" x2="202" y2="174" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="254" y1="166" x2="254" y2="174" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="306" y1="166" x2="306" y2="174" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="358" y1="166" x2="358" y2="174" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a13t)"/>
+  <line x1="224" y1="184" x2="280" y2="184" stroke="#0f7f73" stroke-width=".6" stroke-dasharray="3 2"/>
+  <line x1="276" y1="184" x2="332" y2="184" stroke="#0f7f73" stroke-width=".6" stroke-dasharray="3 2"/>
+  <line x1="328" y1="184" x2="340" y2="184" stroke="#0f7f73" stroke-width=".6" stroke-dasharray="3 2"/>
+
+  <text class="c" x="36" y="208">every service can call every other; each hop is its own policy, key and address</text>
+  <text class="c" x="36" y="220" fill="#bf5b1d">no single device sees the request end to end, so no single log explains it</text>
+
+  <text class="nb" x="24" y="246">Three symptoms, one root cause</text>
+  <rect x="24" y="254" width="430" height="52" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="c" x="34" y="270" fill="#c0392b">intermittent 5xx for a subset of users — one replica or one zone fails a dependency</text>
+  <text class="c" x="34" y="284" fill="#c0392b">one page slow from one site only — that site crosses to another region for a service</text>
+  <text class="c" x="34" y="298" fill="#c0392b">nothing in the logs — the failing hop is east-west and not in any perimeter log</text>
+
+  <text class="c" x="24" y="320">add, do not replace: what the perimeter log recorded before is now spread across clients, gateways, meshes and pods.</text>
+  <text class="c" x="24" y="334">the missing capability is correlation — a request ID carried through every hop, timestamped at each one.</text>
+
+  <text class="ln" x="470" y="68">WHAT THE DESIGN MUST ADD</text>
+  <rect x="470" y="76" width="406" height="24" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="480" y="92" fill="#1f4fc0">service discovery</text>
+  <text class="c" x="580" y="92">names, not fixed addresses — pods are replaced hourly</text>
+  <rect x="470" y="104" width="406" height="24" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="480" y="120" fill="#1f4fc0">workload identity</text>
+  <text class="c" x="580" y="120">mTLS per service: the address is ephemeral, the identity is not</text>
+  <rect x="470" y="132" width="406" height="24" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="480" y="148" fill="#1f4fc0">east-west policy</text>
+  <text class="c" x="580" y="148">which service may call which, enforced where the call happens</text>
+  <rect x="470" y="160" width="406" height="24" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="480" y="176" fill="#1f4fc0">tracing and flow logs</text>
+  <text class="c" x="580" y="176">one request ID, every hop, plus the flow record of what actually crossed</text>
+  <rect x="470" y="188" width="406" height="24" rx="3" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".7"/>
+  <text class="mid" x="480" y="204" fill="#1f4fc0">per-hop latency budget</text>
+  <text class="c" x="580" y="204">total allowed, divided by hops, with the remainder visible</text>
+
+  <rect x="470" y="220" width="406" height="112" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="nb" x="480" y="238">Instrument the hops, not the boxes</text>
+  <text class="c" x="480" y="256">gateway → svc 1 → svc 2 → db proxy: nine hops at 3 ms is 27 ms,</text>
+  <text class="c" x="480" y="270">which fits in a 200 ms budget. One hop at 40 ms cross-region does not,</text>
+  <text class="c" x="480" y="284">and it will be invisible unless the trace records the hop, not the host.</text>
+  <text class="c" x="480" y="302" fill="#0f7f73">every alert must name a hop, an error rate and a latency percentile</text>
+  <text class="c" x="480" y="316" fill="#0f7f73">"the application is slow" is a symptom the network cannot fix</text>
+
+  <text class="t" x="24" y="360">The monolith hid its complexity inside one process; the network was simple. Microservices move that complexity onto the network.</text>
+  <text class="t" x="24" y="376">That is a legitimate trade, but only if the network is funded with the tools the monolith did not need: identity, policy, tracing, budget.</text>
+  <text class="t" x="24" y="392">Decoupling is what makes the move possible; observability is what makes it survivable.</text>
+</svg>

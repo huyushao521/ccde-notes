@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t3 d3">
+
+  <title id="t3">Describe an application by its traits, not by its name — the trait matrix is the input to QoS, WAN and cloud choices</title>
+  <desc id="d3">A matrix compares video conferencing, file backup, ERP transactions and database replication across protocol, loss sensitivity, jitter sensitivity, bandwidth shape, symmetry, statefulness and direction. Video conferencing is critical on loss and jitter and symmetric; backup is tolerant but bandwidth hungry; ERP is many small transactions with sticky state; replication is sustained and bursty.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .ch{font:600 8px "Segoe UI",sans-serif;fill:#1a2233}
+    .row{font:600 8px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Describe an application by its traits, never by its name</text>
+  <text class="s" x="24" y="45">"Video conferencing needs bandwidth" is not a requirement — this table is. It is the same table that QoS, WAN selection and cloud connectivity consume.</text>
+
+  <rect x="40" y="60" width="608" height="22" rx="2" fill="#eef3fb"/>
+  <text class="ch" x="48" y="75">trait</text>
+  <text class="ch" x="168" y="75">video conferencing</text>
+  <text class="ch" x="288" y="75">file backup</text>
+  <text class="ch" x="408" y="75">ERP / OLTP</text>
+  <text class="ch" x="528" y="75">db replication</text>
+
+  <rect x="40" y="82" width="608" height="30" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="101">protocol</text>
+  <text class="c" x="168" y="101">UDP / RTP</text>
+  <text class="c" x="288" y="101">TCP</text>
+  <text class="c" x="408" y="101">TCP, many small</text>
+  <text class="c" x="528" y="101">TCP / private</text>
+
+  <rect x="40" y="112" width="608" height="30" fill="#fff8f7" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="131">loss</text>
+  <text class="c" x="168" y="131" fill="#c0392b">critical · 1% = artifacts</text>
+  <text class="c" x="288" y="131">tolerant · retransmit</text>
+  <text class="c" x="408" y="131" fill="#a86400">sensitive (TCP meltdown)</text>
+  <text class="c" x="528" y="131" fill="#a86400">sensitive</text>
+
+  <rect x="40" y="142" width="608" height="30" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="161">jitter</text>
+  <text class="c" x="168" y="161" fill="#c0392b">critical · buffer limited</text>
+  <text class="c" x="288" y="161">tolerant</text>
+  <text class="c" x="408" y="161">moderate</text>
+  <text class="c" x="528" y="161" fill="#a86400">sensitive · ordered</text>
+
+  <rect x="40" y="172" width="608" height="30" fill="#fff8f7" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="191">bandwidth shape</text>
+  <text class="c" x="168" y="191">2–4 M per stream, steady</text>
+  <text class="c" x="288" y="191" fill="#a86400">very high, bursty</text>
+  <text class="c" x="408" y="191">low per txn, high rate</text>
+  <text class="c" x="528" y="191" fill="#a86400">high, sustained</text>
+
+  <rect x="40" y="202" width="608" height="30" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="221">symmetry</text>
+  <text class="c" x="168" y="221" fill="#c0392b">symmetric (up = down)</text>
+  <text class="c" x="288" y="221">download-heavy</text>
+  <text class="c" x="408" y="221">small up, small down</text>
+  <text class="c" x="528" y="221">one-way heavy</text>
+
+  <rect x="40" y="232" width="608" height="30" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="251">statefulness</text>
+  <text class="c" x="168" y="251">soft · reconnect ok</text>
+  <text class="c" x="288" y="251">none</text>
+  <text class="c" x="408" y="251" fill="#a86400">sticky sessions</text>
+  <text class="c" x="528" y="251" fill="#a86400">strong · heartbeat</text>
+
+  <rect x="40" y="262" width="608" height="30" fill="#ffffff" stroke="#e8edf4" stroke-width=".6"/>
+  <text class="row" x="48" y="281">direction</text>
+  <text class="c" x="168" y="281">north-south + east-west</text>
+  <text class="c" x="288" y="281">north-south, scheduled</text>
+  <text class="c" x="408" y="281">north-south, chatty</text>
+  <text class="c" x="528" y="281">east-west, constant</text>
+
+  <rect x="40" y="292" width="608" height="26" rx="2" fill="#f4f8ff"/>
+  <text class="row" x="48" y="309">what it forces in design</text>
+  <text class="c" x="168" y="309">PQ for real time</text>
+  <text class="c" x="288" y="309">off-peak window, WRED</text>
+  <text class="c" x="408" y="309">low RTT, same domain</text>
+  <text class="c" x="528" y="309">dedicated path, capacity</text>
+
+  <text class="c" x="656" y="72"> </text>
+
+  <rect x="668" y="60" width="208" height="126" rx="4" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="678" y="76">THE SAME TABLE, THREE USES</text>
+  <text class="sm" x="678" y="94">QoS classification and queues</text>
+  <text class="sm" x="678" y="108">which class, which queue, which drop policy</text>
+  <text class="sm" x="678" y="126">WAN and cloud path selection</text>
+  <text class="sm" x="678" y="140">what needs a dedicated circuit</text>
+  <text class="sm" x="678" y="158">SLA numbers per application</text>
+  <text class="sm" x="678" y="172">a loss target you can put in a contract</text>
+
+  <rect x="668" y="196" width="208" height="122" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="ln" x="678" y="212" fill="#c0392b">THE TRAP</text>
+  <text class="sm" x="678" y="230">Designing from the name produces</text>
+  <text class="sm" x="678" y="242">"add bandwidth" as the answer,</text>
+  <text class="sm" x="678" y="254">so the artifacts survive the upgrade.</text>
+  <text class="sm" x="678" y="274" fill="#c0392b">Bandwidth is one column.</text>
+  <text class="sm" x="678" y="286" fill="#c0392b">Loss, jitter, symmetry and state</text>
+  <text class="sm" x="678" y="298" fill="#c0392b">are the other four.</text>
+
+  <text class="nb" x="40" y="344">Filled three times: once with the application owner, once with the network team, once against the measured data after go-live</text>
+  <text class="sm" x="40" y="360">The first two always disagree, and the disagreement is the actual requirement — it is where the network team learns what the application</text>
+  <text class="sm" x="40" y="372">cannot tolerate and where the application team learns what the network cannot promise.</text>
+
+  <text class="t" x="24" y="394">A trait that is "sensitive" but unwritten becomes an incident. A trait that is written becomes a design constraint with a number attached.</text>
+</svg>

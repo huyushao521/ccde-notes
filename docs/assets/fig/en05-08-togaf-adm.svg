@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t58 d58">
+  <title id="t58">The eight TOGAF ADM phases as an iterative ring around requirements management, with phase D as the network designer's home ground</title>
+  <desc id="d58">Eight phases sit on a dashed ring: A architecture vision, B business architecture, C information systems architecture, D technology architecture, E opportunities and solutions, F migration planning, G implementation governance and H architecture change management. The ring runs back to A, which is what makes the method iterative rather than waterfall. Requirements management sits in the middle and spans every phase. Three notes on the right explain that phase D is where network design lands, that a design must trace back to B and C or it has no basis, and that TOGAF will never choose between spine-leaf and three-tier. A red note ties this to case 1, where phases A and B were skipped and the CFO's three questions went unanswered.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .p{font:700 8px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">TOGAF ADM: a ring, not a waterfall, with requirements held in the middle</text>
+  <text class="s" x="24" y="45">Phase D is where a network design lands; phases A to C are what keeps it from landing on nothing</text>
+
+  <circle cx="232" cy="218" r="132" fill="none" stroke="#c3cddb" stroke-width=".8" stroke-dasharray="4 3"/>
+  <circle cx="232" cy="218" r="46" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="232" y="208" text-anchor="middle" fill="#1f4fc0">requirements</text>
+  <text class="b" x="232" y="220" text-anchor="middle" fill="#1f4fc0">management</text>
+  <text class="w" x="232" y="234" text-anchor="middle">spans every phase</text>
+
+  <rect x="180" y="72" width="104" height="28" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="p" x="232" y="90" text-anchor="middle" fill="#1f4fc0">A &#183; vision</text>
+  <rect x="273" y="111" width="104" height="28" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="p" x="325" y="129" text-anchor="middle" fill="#1f4fc0">B &#183; business</text>
+  <rect x="312" y="204" width="104" height="28" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="p" x="364" y="222" text-anchor="middle" fill="#1f4fc0">C &#183; information</text>
+  <rect x="273" y="297" width="104" height="28" rx="2" fill="#fffdf7" stroke="#d98600" stroke-width=".9"/>
+  <text class="p" x="325" y="315" text-anchor="middle" fill="#a86400">D &#183; technology</text>
+  <rect x="180" y="336" width="104" height="28" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="p" x="232" y="354" text-anchor="middle">E &#183; solutions</text>
+  <rect x="87" y="297" width="104" height="28" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="p" x="139" y="315" text-anchor="middle">F &#183; migration</text>
+  <rect x="48" y="204" width="104" height="28" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="p" x="100" y="222" text-anchor="middle">G &#183; governance</text>
+  <rect x="87" y="111" width="104" height="28" rx="2" fill="#ffffff" stroke="#8494a8" stroke-width=".7"/>
+  <text class="p" x="139" y="129" text-anchor="middle">H &#183; change</text>
+
+  <path d="M258 356 l10 6 l-10 6 z" fill="#c3cddb"/>
+  <path d="M118 96 l-6 10 l-1 -12 z" fill="#c3cddb"/>
+  <text class="w" x="232" y="382" text-anchor="middle">H runs back into A: the architecture keeps moving with the business</text>
+
+  <rect x="452" y="64" width="424" height="84" rx="3" fill="#fffdf7" stroke="#d98600" stroke-width=".7"/>
+  <text class="b" x="466" y="82" fill="#a86400">D is your home ground</text>
+  <text class="c" x="466" y="100">Technology architecture is the phase where the network design</text>
+  <text class="c" x="466" y="113">is written down: baseline and target, gaps, and the standards</text>
+  <text class="c" x="466" y="126">later projects are supposed to obey.</text>
+  <text class="w" x="466" y="140">E to H are then delivery mechanics: work packages, roadmap, oversight, change</text>
+
+  <rect x="452" y="156" width="424" height="84" rx="3" fill="#ffffff" stroke="#c3cddb" stroke-width=".7"/>
+  <text class="b" x="466" y="174" fill="#1f4fc0">Trace back or the design has no basis</text>
+  <text class="c" x="466" y="192">A design that cannot name the B capability it serves and the C data</text>
+  <text class="c" x="466" y="205">and application it connects is a preference, not an architecture.</text>
+  <text class="c" x="466" y="222" fill="#1f4fc0">B &#8594; C &#8594; D is the whole of &#8220;top-down&#8221; in one line.</text>
+
+  <rect x="452" y="248" width="424" height="82" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="466" y="266" fill="#c0392b">And it will not choose your topology</text>
+  <text class="c" x="466" y="284">TOGAF never says spine-leaf or three-tier; that comes from a</text>
+  <text class="c" x="466" y="297">reference architecture (SAFE, CVD) and your own constraints.</text>
+  <text class="c" x="466" y="316" fill="#c0392b">Case 1: four months in D, and the CFO&#8217;s three questions still had no answer.</text>
+
+  <text class="c" x="24" y="392">Skipping A and B is the most expensive shortcut in the chapter: it does not save four weeks, it spends four months on a design that cannot be defended.</text>
+</svg>

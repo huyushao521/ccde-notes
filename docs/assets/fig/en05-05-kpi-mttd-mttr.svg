@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 366" width="100%" role="img" aria-labelledby="t55 d55">
+  <title id="t55">How architecture value is measured, and the two different design paths behind MTTD and MTTR</title>
+  <desc id="d55">A three-box chain runs from the business goal through the IT capability that moves it to the single number that can be reported to the board. Below it, two panels split the security and availability metrics: MTTD measures visibility and depends on traffic analysis, logs and NetFlow, so the design move is to add monitoring points; MTTR measures resilience and depends on redundancy, fast convergence and automation, so the design move is to add redundancy and automate recovery. Neither can be improved with the other's budget. A strip of six KPIs follows: IT CAPEX and OPEX down, time to market up, new service launch time down, MTTD and MTTR from days to hours, and ROI attributable to IT.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="366" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Value has to be countable, or the design cannot be defended in a budget review</text>
+  <text class="s" x="24" y="45">One chain from business goal to a number, then two metrics that pull the design in different directions</text>
+
+  <rect x="24" y="60" width="268" height="44" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="b" x="36" y="78" fill="#1f4fc0">business goal</text>
+  <text class="c" x="36" y="94">what the company is already trying to do</text>
+  <line x1="296" y1="82" x2="312" y2="82" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M310 78 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="318" y="60" width="268" height="44" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="b" x="330" y="78" fill="#1f4fc0">IT capability that moves it</text>
+  <text class="c" x="330" y="94">the thing your architecture actually changes</text>
+  <line x1="590" y1="82" x2="606" y2="82" stroke="#9aa8ba" stroke-width=".8"/>
+  <path d="M604 78 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="612" y="60" width="264" height="44" rx="3" fill="#eef7f5" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="b" x="624" y="78" fill="#0f7f73">one number the board can read</text>
+  <text class="c" x="624" y="94">the KPI that survives review season</text>
+
+  <text class="k" x="24" y="128">TWO METRICS, TWO DIFFERENT DESIGN PATHS</text>
+
+  <rect x="24" y="136" width="416" height="130" rx="3" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="38" y="156" fill="#1f4fc0">MTTD &#183; mean time to detect</text>
+  <text class="w" x="38" y="170">measures VISIBILITY</text>
+  <text class="c" x="38" y="188">depends on: traffic analysis, logs, NetFlow</text>
+  <text class="c" x="38" y="204">design move: add monitoring points and</text>
+  <text class="c" x="38" y="216">centralise the logs they feed</text>
+  <text class="c" x="38" y="238" fill="#c0392b">buying redundancy does nothing for this number</text>
+  <text class="w" x="38" y="254">cheapest lever: one more flow export, one more tap</text>
+
+  <rect x="460" y="136" width="416" height="130" rx="3" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="b" x="474" y="156" fill="#0f7f73">MTTR &#183; mean time to repair</text>
+  <text class="w" x="474" y="170">measures RESILIENCE</text>
+  <text class="c" x="474" y="188">depends on: redundancy, fast convergence, automation</text>
+  <text class="c" x="474" y="204">design move: add paths and automate the</text>
+  <text class="c" x="474" y="216">isolation and recovery playbook</text>
+  <text class="c" x="474" y="238" fill="#c0392b">adding sensors does nothing for this number</text>
+  <text class="w" x="474" y="254">cheapest lever: a second path and a tested runbook</text>
+
+  <text class="k" x="24" y="288">THE KPI SHORTLIST</text>
+  <rect x="24" y="294" width="134" height="38" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="34" y="310">IT CAPEX and OPEX</text>
+  <text class="c" x="34" y="324" fill="#0f7f73">down x%</text>
+  <rect x="167" y="294" width="134" height="38" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="177" y="310">time to market</text>
+  <text class="c" x="177" y="324" fill="#0f7f73">up x%</text>
+  <rect x="310" y="294" width="134" height="38" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="320" y="310">new service launch</text>
+  <text class="c" x="320" y="324" fill="#0f7f73">down x%</text>
+  <rect x="453" y="294" width="134" height="38" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="c" x="463" y="310">MTTD</text>
+  <text class="c" x="463" y="324" fill="#1f4fc0">x days &#8594; x hours</text>
+  <rect x="596" y="294" width="134" height="38" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="606" y="310">MTTR</text>
+  <text class="c" x="606" y="324" fill="#0f7f73">x days &#8594; x hours</text>
+  <rect x="739" y="294" width="137" height="38" rx="2" fill="#ffffff" stroke="#c3cddb" stroke-width=".6"/>
+  <text class="c" x="749" y="310">business ROI</text>
+  <text class="c" x="749" y="324">attributable to IT</text>
+
+  <text class="c" x="24" y="356">Pick the KPI on Day 0: it is a design input, not a report card. A metric invented after go-live measures how well you told the story, not how good the architecture is.</text>
+</svg>

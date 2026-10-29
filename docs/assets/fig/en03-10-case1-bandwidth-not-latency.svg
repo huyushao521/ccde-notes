@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t10 d10">
+
+  <title id="t10">Video conferencing still stuttered after the circuit was doubled, because the bottleneck was jitter, upload capacity and queueing</title>
+  <desc id="d10">Measured before the second upgrade: bandwidth was doubled from 100 to 200 Mbps yet the conference still stuttered. Round-trip time was acceptable at 45 ms, but jitter was 30 ms and loss around 0.6 percent, and the uplink was asymmetric at 300 down and 20 up. The three causes were real-time traffic sharing one queue with backup and file sync, the upstream direction saturating first, and no per-class queueing anywhere on the path. The fix was a dedicated priority queue, moving backup out of hours, and admission control on the uplink.</desc>
+
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+    .mid{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .cb{font:600 8px "Segoe UI",sans-serif;fill:#1a2233}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The circuit was doubled and the video still stuttered</text>
+  <text class="s" x="24" y="45">The upgrade added a resource that was not the constraint — the measurement that would have said so was never taken</text>
+
+  <rect x="24" y="60" width="278" height="286" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="36" y="78">WHAT WAS MEASURED</text>
+
+  <text class="cb" x="36" y="98">throughput on the circuit</text>
+  <rect x="36" y="104" width="120" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="36" y="104" width="60" height="10" rx="2" fill="#8494a8"/>
+  <text class="w" x="162" y="113">100 → 200 Mbps after upgrade</text>
+
+  <text class="cb" x="36" y="134">round-trip time</text>
+  <rect x="36" y="140" width="120" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="36" y="140" width="54" height="10" rx="2" fill="#0f7f73"/>
+  <line x1="96" y1="136" x2="96" y2="154" stroke="#c0392b" stroke-width="1"/>
+  <text class="w" x="162" y="149" fill="#0f7f73">45 ms — acceptable for RTP</text>
+
+  <text class="cb" x="36" y="170">jitter</text>
+  <rect x="36" y="176" width="120" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="36" y="176" width="96" height="10" rx="2" fill="#c0392b"/>
+  <line x1="48" y1="172" x2="48" y2="190" stroke="#1a2233" stroke-width="1"/>
+  <text class="w" x="162" y="185" fill="#c0392b">30 ms — 6× the usable budget</text>
+
+  <text class="cb" x="36" y="206">packet loss</text>
+  <rect x="36" y="212" width="120" height="10" rx="2" fill="#dde5ef"/>
+  <rect x="36" y="212" width="42" height="10" rx="2" fill="#d98600"/>
+  <line x1="48" y1="208" x2="48" y2="226" stroke="#1a2233" stroke-width="1"/>
+  <text class="w" x="162" y="221" fill="#a86400">≈0.6% — visible artifacts</text>
+
+  <text class="cb" x="36" y="242">uplink, per direction</text>
+  <rect x="36" y="248" width="120" height="10" rx="2" fill="#eaf7f5"/>
+  <rect x="36" y="248" width="60" height="10" rx="2" fill="#0f7f73"/>
+  <rect x="36" y="262" width="120" height="10" rx="2" fill="#fdeceb"/>
+  <rect x="36" y="262" width="12" height="10" rx="2" fill="#c0392b"/>
+  <text class="w" x="162" y="257">down 300 Mbps</text>
+  <text class="w" x="162" y="271" fill="#c0392b">up 20 Mbps — saturates first</text>
+
+  <text class="cb" x="36" y="292">what was never measured</text>
+  <text class="c" x="36" y="306">jitter and loss per traffic class,</text>
+  <text class="c" x="36" y="318">queue depth on the WAN edge,</text>
+  <text class="c" x="36" y="330">bytes queued per participant</text>
+
+  <text class="ln" x="316" y="78" fill="#a86400">THREE CAUSES, NONE OF THEM BANDWIDTH</text>
+
+  <rect x="316" y="86" width="272" height="80" rx="4" fill="#fffdf7" stroke="#d98600" stroke-width=".9"/>
+  <text class="mid" x="328" y="102" fill="#a86400">1 · one queue for everything</text>
+  <text class="c" x="328" y="118">Real-time RTP competes with the nightly backup</text>
+  <text class="c" x="328" y="130">and file sync in the same FIFO. Under a burst the</text>
+  <text class="c" x="328" y="142">router drops whatever arrives — usually voice.</text>
+  <text class="c" x="328" y="156" fill="#a86400">adding capacity just made the bursts bigger</text>
+
+  <rect x="316" y="176" width="272" height="80" rx="4" fill="#fff8f7" stroke="#c0392b" stroke-width=".9"/>
+  <text class="mid" x="328" y="192" fill="#c0392b">2 · the wrong direction was sized</text>
+  <text class="c" x="328" y="208">300 participants send video up as well as down;</text>
+  <text class="c" x="328" y="220">20 Mbps of upstream cannot carry them, so the</text>
+  <text class="c" x="328" y="232">encoder degrades and the queue builds upstream.</text>
+  <text class="c" x="328" y="246" fill="#c0392b">a symmetric-looking service was asymmetric</text>
+
+  <rect x="316" y="266" width="272" height="80" rx="4" fill="#f4f8ff" stroke="#2f6fed" stroke-width=".9"/>
+  <text class="mid" x="328" y="282" fill="#1f4fc0">3 · no queue policy on the path</text>
+  <text class="c" x="328" y="298">Even where QoS was configured, the marking was</text>
+  <text class="c" x="328" y="310">stripped at a carrier hand-off, so the LLQ class was</text>
+  <text class="c" x="328" y="322">always empty and best-effort carried everything.</text>
+  <text class="c" x="328" y="336" fill="#1f4fc0">a policy that does not survive the hand-off is decoration</text>
+
+  <rect x="600" y="60" width="276" height="286" rx="5" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="612" y="78" fill="#0f7f73">THE FIX, IN ORDER OF EFFECT</text>
+
+  <text class="cb" x="612" y="100" fill="#0f7f73">1 · dedicated priority queue</text>
+  <text class="c" x="612" y="114">LLQ/PQ for RTP, marked at the source end to end,</text>
+  <text class="c" x="612" y="126">with the carrier contract requiring the marking to</text>
+  <text class="c" x="612" y="138">survive every hand-off — verified per hop, not assumed.</text>
+
+  <text class="cb" x="612" y="162" fill="#0f7f73">2 · separate the bulk traffic</text>
+  <text class="c" x="612" y="176">Backup and sync move to an off-peak window with a</text>
+  <text class="c" x="612" y="188">hard rate limit, so they can never fill the queue</text>
+  <text class="c" x="612" y="200">the conference depends on.</text>
+
+  <text class="cb" x="612" y="224" fill="#0f7f73">3 · size and police the upstream</text>
+  <text class="c" x="612" y="238">Measure the up direction, cap it just below line rate,</text>
+  <text class="c" x="612" y="250">and add admission control so participant 301 is</text>
+  <text class="c" x="612" y="262">refused rather than degrading all 300.</text>
+
+  <text class="cb" x="612" y="286" fill="#0f7f73">4 · change the metric</text>
+  <text class="c" x="612" y="300">Report jitter and loss per class, per minute. Throughput</text>
+  <text class="c" x="612" y="312">was never the number that described the user's problem.</text>
+  <text class="c" x="612" y="324" fill="#0f7f73">the dashboard now fails before the users do</text>
+
+  <text class="t" x="24" y="366">Bandwidth answers "can it all fit". Voice and video ask "did it all arrive in the right order, in the right time".</text>
+  <text class="t" x="24" y="380">Every upgrade must name the metric it intends to move. If the metric is not in the acceptance test, the upgrade cannot be shown to have worked.</text>
+  <text class="t" x="24" y="394">The cheapest fix here was a queue, not a circuit — the circuit was bought because it was the only lever procurement knew how to pull.</text>
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 372" width="100%" role="img" aria-labelledby="t7 d7">
+
+  <title id="t7">Waterfall runs phases once in sequence, agile repeats short cycles and keeps the feedback</title>
+  <desc id="d7">Waterfall moves from requirements through design, implementation and testing to deployment with no way back, so the business sees a working solution only at the end. Agile delivers in repeated short iterations, each ending in a working increment that feeds the next round of feedback.</desc>
+
+  <defs>
+    <marker id="b7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="o7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d98600"/>
+    </marker>
+    <marker id="r7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:10px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .ln{font:700 9px "Segoe UI",sans-serif;fill:#1f4fc0;letter-spacing:.4px}
+    .ln2{font:700 9px "Segoe UI",sans-serif;fill:#a86400;letter-spacing:.4px}
+    .n{font:9px "Segoe UI",sans-serif;fill:#4a5a72}
+    .nb{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .t{font:9px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .sm{font:8.5px "Segoe UI",sans-serif;fill:#4a5a72}
+  </style>
+
+  <rect x="0" y="0" width="900" height="372" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Waterfall walks the phases once; agile walks short cycles and keeps every loop</text>
+  <text class="s" x="24" y="48">The difference that matters to the business is not speed — it is when they first see something that works, and what happens when a requirement changes</text>
+
+  <rect x="40" y="64" width="398" height="248" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln" x="56" y="84">WATERFALL · sequential, one pass</text>
+  <text class="sm" x="56" y="98">historically the default for IT projects</text>
+
+  <rect x="56" y="110" width="150" height="26" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="68" y="127">1  Requirements</text>
+  <rect x="96" y="150" width="150" height="26" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="108" y="167">2  Design</text>
+  <rect x="136" y="190" width="150" height="26" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="148" y="207">3  Implementation</text>
+  <rect x="176" y="230" width="150" height="26" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="188" y="247">4  Testing</text>
+  <rect x="216" y="270" width="150" height="26" rx="4" fill="#dce8ff" stroke="#2f6fed"/>
+  <text class="n" x="228" y="287">5  Deployment</text>
+
+  <line x1="131" y1="136" x2="171" y2="149" stroke="#2f6fed" marker-end="url(#b7)"/>
+  <line x1="171" y1="176" x2="211" y2="189" stroke="#2f6fed" marker-end="url(#b7)"/>
+  <line x1="211" y1="216" x2="251" y2="229" stroke="#2f6fed" marker-end="url(#b7)"/>
+  <line x1="251" y1="256" x2="291" y2="269" stroke="#2f6fed" marker-end="url(#b7)"/>
+
+  <line x1="230" y1="230" x2="150" y2="126" stroke="#c0392b" stroke-dasharray="4 3" marker-end="url(#r7)"/>
+  <text class="sm" x="238" y="164" fill="#c0392b">a missing capability found in test</text>
+  <text class="sm" x="238" y="176" fill="#c0392b">means starting the chain over</text>
+
+  <text class="sm" x="56" y="306" fill="#1f4fc0">strengths: one pattern, clear gates, complete documentation</text>
+  <text class="sm" x="56" y="318" fill="#a86400">weakness: the business first sees a working solution at step 5</text>
+
+  <rect x="450" y="64" width="410" height="248" rx="6" fill="#ffffff" stroke="#e3e8ef"/>
+  <text class="ln2" x="466" y="84">AGILE · incremental, iterative</text>
+  <text class="sm" x="466" y="98">requirements are expected to change, and that is the point</text>
+
+  <rect x="466" y="108" width="74" height="120" rx="4" fill="#fff4e0" stroke="#d98600"/>
+  <text class="sm" x="503" y="126" text-anchor="middle">backlog</text>
+  <rect x="482" y="134" width="42" height="7" rx="2" fill="#e6c98a"/>
+  <rect x="482" y="146" width="42" height="7" rx="2" fill="#e6c98a"/>
+  <rect x="482" y="158" width="42" height="7" rx="2" fill="#e6c98a"/>
+  <rect x="482" y="170" width="42" height="7" rx="2" fill="#e6c98a"/>
+  <text class="sm" x="503" y="196" text-anchor="middle">priority</text>
+  <text class="sm" x="503" y="208" text-anchor="middle">order</text>
+
+  <rect x="562" y="108" width="86" height="52" rx="4" fill="#fff" stroke="#d98600"/>
+  <text class="sm" x="605" y="126" text-anchor="middle">iteration 1</text>
+  <text class="sm" x="605" y="140" text-anchor="middle">2–4 weeks</text>
+  <text class="sm" x="605" y="152" text-anchor="middle" fill="#0f7f73">working increment</text>
+
+  <rect x="562" y="170" width="86" height="52" rx="4" fill="#fff" stroke="#d98600"/>
+  <text class="sm" x="605" y="188" text-anchor="middle">iteration 2</text>
+  <text class="sm" x="605" y="202" text-anchor="middle">2–4 weeks</text>
+  <text class="sm" x="605" y="214" text-anchor="middle" fill="#0f7f73">working increment</text>
+
+  <rect x="668" y="108" width="86" height="52" rx="4" fill="#fff" stroke="#d98600"/>
+  <text class="sm" x="711" y="126" text-anchor="middle">iteration 3</text>
+  <text class="sm" x="711" y="140" text-anchor="middle">2–4 weeks</text>
+  <text class="sm" x="711" y="152" text-anchor="middle" fill="#0f7f73">working increment</text>
+
+  <rect x="668" y="170" width="86" height="52" rx="4" fill="#f7fbfa" stroke="#0f7f73" stroke-dasharray="4 3"/>
+  <text class="sm" x="711" y="188" text-anchor="middle">iteration n</text>
+  <text class="sm" x="711" y="202" text-anchor="middle">scope reordered</text>
+  <text class="sm" x="711" y="214" text-anchor="middle" fill="#0f7f73">by feedback</text>
+
+  <line x1="540" y1="134" x2="560" y2="134" stroke="#d98600" marker-end="url(#o7)"/>
+  <line x1="605" y1="160" x2="605" y2="168" stroke="#d98600" marker-end="url(#o7)"/>
+  <line x1="648" y1="134" x2="666" y2="134" stroke="#d98600" marker-end="url(#o7)"/>
+  <line x1="711" y1="160" x2="711" y2="168" stroke="#d98600" marker-end="url(#o7)"/>
+  <line x1="668" y1="222" x2="656" y2="222" stroke="#0f7f73" marker-end="url(#b7)"/>
+  <text class="sm" x="770" y="150">feedback</text>
+  <text class="sm" x="770" y="162">re-enters</text>
+  <text class="sm" x="770" y="174">the backlog</text>
+
+  <text class="sm" x="466" y="242">fits an unknown future state; the cost is a timeline nobody can promise</text>
+  <text class="sm" x="466" y="254" fill="#a86400">and a final product that may drift from what was first imagined</text>
+  <text class="sm" x="466" y="272">needs self-starting, highly skilled people who are fully committed</text>
+  <text class="sm" x="466" y="284" fill="#c0392b">the one thing it cannot fix: external dependencies with a fixed clock</text>
+
+  <text class="t" x="24" y="334">The real choice is per project, not per team: exploratory work with an unclear end state suits iterative delivery, a compliance migration with audit gates suits phases.</text>
+  <text class="t" x="24" y="352">Mixed reality: run the delivery cadence in sprints, and keep the long-lead external dependencies (circuits, space, approvals) on a waterfall-style critical path.</text>
+  <text class="t" x="24" y="370">A wrong technology choice can be reversed in the next release; a wrong methodology choice keeps charging rent until the project closes.</text>
+</svg>
