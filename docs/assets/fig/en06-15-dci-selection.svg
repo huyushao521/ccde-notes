@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 384" width="100%" role="img" aria-labelledby="t615 d615">
+
+  <title id="t615">Choosing a data centre interconnect technology: four scenarios mapped to VPLS, EVPN or PBB-EVPN</title>
+  <desc id="d615">Four scenario rows. Few data centres with few interconnect points map to VPLS because it is simple and mature. Many data centres with many interconnect points map to EVPN or PBB-EVPN for scalability. A strong MAC mobility requirement maps to EVPN because MACs are advertised in the control plane. An enormous number of MAC addresses maps to PBB-EVPN because it hides customer MACs. A note at the bottom says the order of the questions matters: first ask whether Layer 2 extension is needed at all, then count the MACs, and only then name a technology.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ch{font:700 8.5px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="384" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">DCI is not a technology question first &#8212; it is a count of sites, links and MAC addresses</text>
+  <text class="s" x="24" y="45">The same three protocols, read as four answers to four different measurements</text>
+
+  <text class="k" x="38" y="68">THE SITUATION</text>
+  <text class="k" x="332" y="68">THE CHOICE</text>
+  <text class="k" x="540" y="68">WHY</text>
+
+  <rect x="24" y="76" width="852" height="56" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="98">Few data centres,</text>
+  <text class="c" x="38" y="112">few interconnect points</text>
+  <text class="w" x="38" y="126">two or three sites, one path each</text>
+  <path d="M286 104 L318 104" fill="none" stroke="#9aa8ba" stroke-width=".8"/><path d="M314 100 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="324" y="90" width="150" height="26" rx="13" fill="#1f4fc0"/>
+  <text class="ch" x="399" y="107" text-anchor="middle">VPLS</text>
+  <text class="c" x="540" y="98">Simple and mature; the operational</text>
+  <text class="w" x="540" y="112">team already knows it, and the mesh is small</text>
+  <text class="w" x="540" y="126" fill="#c0392b">no control-plane MAC advertisement</text>
+
+  <rect x="24" y="132" width="852" height="56" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="38" y="154">Many data centres,</text>
+  <text class="c" x="38" y="168">many interconnect points</text>
+  <text class="w" x="38" y="182">the mesh no longer fits in a spreadsheet</text>
+  <path d="M286 160 L318 160" fill="none" stroke="#9aa8ba" stroke-width=".8"/><path d="M314 156 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="324" y="146" width="184" height="26" rx="13" fill="#0f7f73"/>
+  <text class="ch" x="416" y="163" text-anchor="middle">EVPN / PBB-EVPN</text>
+  <text class="c" x="540" y="154">High scalability: routes replace the mesh,</text>
+  <text class="w" x="540" y="168">and new sites are added without touching peers</text>
+
+  <rect x="24" y="188" width="852" height="56" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="38" y="210">Strong MAC mobility</text>
+  <text class="c" x="38" y="224">virtual machines move between sites</text>
+  <text class="w" x="38" y="238">and users notice every second of it</text>
+  <path d="M286 216 L318 216" fill="none" stroke="#9aa8ba" stroke-width=".8"/><path d="M314 212 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="324" y="202" width="150" height="26" rx="13" fill="#6b4fbf"/>
+  <text class="ch" x="399" y="219" text-anchor="middle">EVPN</text>
+  <text class="c" x="540" y="210">MAC advertisement in the control plane,</text>
+  <text class="w" x="540" y="224">so movement is a route update, not a flood</text>
+
+  <rect x="24" y="244" width="852" height="56" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <text class="b" x="38" y="266">An enormous number</text>
+  <text class="c" x="38" y="280">of MAC addresses</text>
+  <text class="w" x="38" y="294">tables are the measured bottleneck</text>
+  <path d="M286 272 L318 272" fill="none" stroke="#9aa8ba" stroke-width=".8"/><path d="M314 268 l6 4 l-6 4 z" fill="#9aa8ba"/>
+  <rect x="324" y="258" width="150" height="26" rx="13" fill="#b8862b"/>
+  <text class="ch" x="399" y="275" text-anchor="middle">PBB-EVPN</text>
+  <text class="c" x="540" y="266">MAC hiding: the core carries B-MACs only,</text>
+  <text class="w" x="540" y="280">customer churn stops at the BEB</text>
+
+  <rect x="24" y="314" width="852" height="58" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="314" width="4" height="58" fill="#c0392b"/>
+  <text class="c" x="40" y="334" fill="#c0392b"><tspan style="font-weight:700">Ask the questions in this order, or the answer will be wrong:</tspan> does this workload actually need one Layer 2 domain across the two sites?</text>
+  <text class="c" x="40" y="350" fill="#c0392b">If it does not, a Layer 3 DCI removes this table entirely. If it does, count the MACs and the sites before naming a protocol &#8212; the protocol is the last decision, not the first.</text>
+  <text class="c" x="40" y="366" fill="#c0392b">Scenario 1 at the end of this chapter is exactly this question, with a manager who has already decided the answer.</text>
+</svg>

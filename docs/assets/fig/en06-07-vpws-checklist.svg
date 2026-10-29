@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t67 d67">
+
+  <title id="t67">Five item VPWS design checklist: MTU, failure detection, redundancy, multicast and spanning tree</title>
+  <desc id="d67">Five rows. MTU, where the label stack shrinks the usable frame and large packets are dropped silently. Failure detection, where the pseudowire is down but the customer keeps sending. Redundancy, where a single pseudowire plus a single PE is a single point of failure. Multicast, where customer PIM floods across the pseudowire and saturates the circuit. Spanning tree, where port-based mode passes BPDUs and merges two sites into one domain. Each row gives the symptom of ignoring the item and the concrete design action, and a note at the bottom says the spanning tree item is the one that is decided by accident if nobody decides it on purpose.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five things to settle before the VPWS contract is signed, not after</text>
+  <text class="s" x="24" y="45">Every row is a support case that is cheaper to prevent than to debug across two organisations</text>
+
+  <text class="k" x="42" y="68">ITEM</text>
+  <text class="k" x="196" y="68">HOW IT FAILS WHEN IGNORED</text>
+  <text class="k" x="544" y="68">WHAT THE DESIGN MUST DO</text>
+
+  <rect x="24" y="76" width="852" height="56" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <circle cx="34" cy="104" r="7" fill="#1f4fc0"/><text class="n" x="34" y="107" text-anchor="middle">1</text>
+  <text class="b" x="50" y="100">MTU</text>
+  <text class="w" x="50" y="114">the label tax</text>
+  <text class="c" x="196" y="100">Ping works, the file transfer stalls. The label stack ate bytes</text>
+  <text class="c" x="196" y="113">nobody budgeted for, so large frames vanish mid-path.</text>
+  <text class="c" x="544" y="100">Verify CE and PE MTU end to end, and remember that</text>
+  <text class="c" x="544" y="113">tunnels inside tunnels shrink it again. Clamp MSS if needed.</text>
+
+  <rect x="24" y="136" width="852" height="56" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="34" cy="164" r="7" fill="#0f7f73"/><text class="n" x="34" y="167" text-anchor="middle">2</text>
+  <text class="b" x="50" y="160">Failure detection</text>
+  <text class="w" x="50" y="174">silence &#8800; up</text>
+  <text class="c" x="196" y="160">The pseudowire is down, the CE keeps sending, and the routing</text>
+  <text class="c" x="196" y="173">protocol keeps believing the path is fine.</text>
+  <text class="c" x="544" y="160">OAM (CFM/LFM) or BFD, with a timer shorter than the</text>
+  <text class="c" x="544" y="173">application&#8217;s tolerance. Test it by pulling one link.</text>
+
+  <rect x="24" y="196" width="852" height="56" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <circle cx="34" cy="224" r="7" fill="#6b4fbf"/><text class="n" x="34" y="227" text-anchor="middle">3</text>
+  <text class="b" x="50" y="220">Redundancy</text>
+  <text class="w" x="50" y="234">one wire, one risk</text>
+  <text class="c" x="196" y="220">A single pseudowire over a single PE pair is a single point</text>
+  <text class="c" x="196" y="233">of failure dressed up as a service.</text>
+  <text class="c" x="544" y="220">Dual PE with dual pseudowires, or the carrier&#8217;s protection</text>
+  <text class="c" x="544" y="233">switching time written into the contract as a number.</text>
+
+  <rect x="24" y="256" width="852" height="56" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <circle cx="34" cy="284" r="7" fill="#b8862b"/><text class="n" x="34" y="287" text-anchor="middle">4</text>
+  <text class="b" x="50" y="280">Multicast</text>
+  <text class="w" x="50" y="294">someone else&#8217;s flood</text>
+  <text class="c" x="196" y="280">VPWS does not understand multicast, so it forwards it. Customer</text>
+  <text class="c" x="196" y="293">PIM then floods across the pseudowire and fills the circuit.</text>
+  <text class="c" x="544" y="280">Estimate the multicast load before signing, or keep multicast</text>
+  <text class="c" x="544" y="293">on the Layer 3 side where it can be pruned.</text>
+
+  <rect x="24" y="316" width="852" height="56" rx="3" fill="#fff8f7" stroke="#e8c4c0" stroke-width=".7"/>
+  <circle cx="34" cy="344" r="7" fill="#c0392b"/><text class="n" x="34" y="347" text-anchor="middle">5</text>
+  <text class="b" x="50" y="340" fill="#c0392b">Spanning tree</text>
+  <text class="w" x="50" y="354">the decision nobody makes</text>
+  <text class="c" x="196" y="340">Port-based mode passes BPDUs, so two sites become one tree.</text>
+  <text class="c" x="196" y="353">Root election crosses the WAN and paths become unpredictable.</text>
+  <text class="c" x="544" y="340">Filter BPDUs at the CE and keep two domains, or accept the</text>
+  <text class="c" x="544" y="353">merge knowingly. Do not let it happen by default.</text>
+
+  <rect x="24" y="384" width="852" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="384" width="4" height="44" fill="#c0392b"/>
+  <text class="c" x="40" y="403" fill="#c0392b"><tspan style="font-weight:700">Item five is the only one that happens even when nobody chooses it.</tspan> The service is transparent by default; STP convergence is not.</text>
+  <text class="c" x="40" y="419">Write the answer into the design document as a sentence: spanning tree does, or does not, cross this WAN.</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t713 d713">
+
+  <title id="t713">How a switch with an older but higher VTP revision wipes VLANs from the whole domain, and the four modes that decide whether it can</title>
+  <desc id="d713">Four steps in a chain. A spare switch returns to the network carrying revision forty two while the estate is at thirty eight, and older but higher wins. Its database is propagated everywhere. The database predates VLAN 20 and VLAN 99. Both disappear from every switch, their SVI interfaces go down, and voice and data fail together. A table beside it describes server, client, transparent and off modes, and a note says the only benefit is saving a few configuration lines, which configuration management already provides without the contagion.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+    .m{font:7.5px "Consolas",monospace;fill:#c0392b}
+  </style>
+
+  <rect x="0" y="0" width="900" height="424" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">VTP is the only protocol in this chapter that can delete configuration you never touched</text>
+  <text class="s" x="24" y="45">It resolves conflicts by revision number, not by truth &#8212; and a spare switch from the store room always wins</text>
+
+  <line x1="46" y1="84" x2="46" y2="286" stroke="#c8d4e6" stroke-width=".8"/>
+  <path d="M42 286 l4 8 l4 -8 z" fill="#c8d4e6"/>
+
+  <circle cx="46" cy="86" r="8" fill="#1f4fc0"/><text class="n" x="46" y="89" text-anchor="middle">1</text>
+  <text class="b" x="64" y="84">A spare switch returns, revision 42</text>
+  <text class="w" x="64" y="96">the estate is at revision 38; the newcomer is older in configuration and higher in number</text>
+
+  <circle cx="46" cy="132" r="8" fill="#6b4fbf"/><text class="n" x="46" y="135" text-anchor="middle">2</text>
+  <text class="b" x="64" y="130">Higher revision wins the argument</text>
+  <text class="w" x="64" y="142">every switch accepts the database from the highest revision, content never compared</text>
+
+  <circle cx="46" cy="178" r="8" fill="#b8862b"/><text class="n" x="46" y="181" text-anchor="middle">3</text>
+  <text class="b" x="64" y="176">Its database predates VLAN 20 and 99</text>
+  <text class="w" x="64" y="188">those VLANs were added in the last two years, on a switch that has been powered off since</text>
+
+  <circle cx="46" cy="224" r="8" fill="#c0392b"/><text class="n" x="46" y="227" text-anchor="middle">4</text>
+  <text class="b" x="64" y="222" fill="#c0392b">They disappear from every switch at once</text>
+  <text class="m" x="64" y="236">voice and management VLANs deleted &#8594; SVIs down &#8594; phones and management both lost</text>
+  <text class="w" x="64" y="248">no single device did anything wrong; the protocol did exactly what it was designed to do</text>
+
+  <text class="w" x="64" y="272" fill="#c0392b">Recovery is not a rollback: nothing was saved, and the database must be rebuilt by hand.</text>
+
+  <line x1="560" y1="72" x2="560" y2="268" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="582" y="78">FOUR MODES</text>
+  <text class="b" x="582" y="98">server</text>
+  <text class="c" x="648" y="98">creates and deletes, and propagates what it holds</text>
+  <text class="b" x="582" y="124">client</text>
+  <text class="c" x="648" y="124">accepts everything, cannot create anything</text>
+  <text class="b" x="582" y="150">transparent</text>
+  <text class="c" x="648" y="150">forwards advertisements but keeps its own database</text>
+  <text class="b" x="582" y="176">off</text>
+  <text class="c" x="648" y="176">does not participate at all &#8212; the only safe default</text>
+
+  <text class="w" x="582" y="200">The single benefit is saving a few lines of configuration</text>
+  <text class="w" x="582" y="212">on every switch. Configuration management already does</text>
+  <text class="w" x="582" y="224">that, without the contagion and without the revision race.</text>
+  <text class="c" x="582" y="246" fill="#c0392b">Cost of leaving it on: one unlabelled spare switch</text>
+  <text class="c" x="582" y="258" fill="#c0392b">and one afternoon of rebuilding every VLAN by hand.</text>
+
+  <rect x="24" y="296" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="296" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="316" fill="#c0392b"><tspan style="font-weight:700">The decision is not a judgement call:</tspan> turn VTP off, everywhere, and if a mode must be kept for an inherited network, make it transparent rather than server.</text>
+  <text class="c" x="40" y="332" fill="#c0392b">If VTP must stay on, the only defence is discipline that no team sustains &#8212; every switch labelled with its revision, and nothing ever powered on without a wipe.</text>
+  <text class="c" x="40" y="348" fill="#c0392b">Compare the two risks honestly: VTP saves minutes per VLAN, and costs the whole estate once. That trade is settled before the meeting starts.</text>
+</svg>

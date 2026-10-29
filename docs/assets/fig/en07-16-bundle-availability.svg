@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t716 d716">
+
+  <title id="t716">A bundle losing members one at a time: bandwidth falls silently until min-links converts the degradation into a deliberate outage</title>
+  <desc id="d716">A bar chart of aggregate bandwidth as members fail. With eight members the bundle gives eighty gigabits, seven gives seventy, six sixty and five fifty, all shown in red because the bundle is still up while the design assumption is already broken. At four members the bundle reaches min-links, drawn as a boundary, and below four the port channel goes down entirely and traffic follows the backup path. A box on the right lists the availability details: members spread across line cards, optics from the same batch, min-links set to the bandwidth you can accept, fast LACP rate, and the rehashing that follows every member change.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .val{font:700 8px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A bundle does not fail. It gets quieter, which is harder to notice and harder to explain</text>
+  <text class="s" x="24" y="45">Every member lost is bandwidth gone with all links still green in the monitoring tool</text>
+
+  <line x1="50" y1="260" x2="540" y2="260" stroke="#b9c3d2" stroke-width=".8"/>
+  <line x1="50" y1="90" x2="50" y2="260" stroke="#b9c3d2" stroke-width=".8"/>
+  <text class="k" x="46" y="84" text-anchor="end">Gb/s</text>
+
+  <rect x="50" y="116" width="44" height="144" fill="#e2a9a3" stroke="#c0392b" stroke-width=".5"/>
+  <text class="val" x="72" y="110" text-anchor="middle" fill="#c0392b">80</text>
+  <rect x="110" y="134" width="44" height="126" fill="#e2a9a3" stroke="#c0392b" stroke-width=".5"/>
+  <text class="val" x="132" y="128" text-anchor="middle" fill="#c0392b">70</text>
+  <rect x="170" y="152" width="44" height="108" fill="#e2a9a3" stroke="#c0392b" stroke-width=".5"/>
+  <text class="val" x="192" y="146" text-anchor="middle" fill="#c0392b">60</text>
+  <rect x="230" y="170" width="44" height="90" fill="#e2a9a3" stroke="#c0392b" stroke-width=".5"/>
+  <text class="val" x="252" y="164" text-anchor="middle" fill="#c0392b">50</text>
+  <rect x="290" y="188" width="44" height="72" fill="#f0d9b8" stroke="#b8862b" stroke-width=".6"/>
+  <text class="val" x="312" y="182" text-anchor="middle" fill="#b8862b">40</text>
+
+  <rect x="350" y="252" width="44" height="8" fill="#c8d0da"/>
+  <rect x="410" y="252" width="44" height="8" fill="#c8d0da"/>
+  <rect x="470" y="252" width="44" height="8" fill="#c8d0da"/>
+  <text class="w" x="372" y="240" text-anchor="middle" fill="#c0392b">down</text>
+  <text class="w" x="432" y="240" text-anchor="middle" fill="#c0392b">down</text>
+  <text class="w" x="492" y="240" text-anchor="middle" fill="#c0392b">down</text>
+
+  <text class="w" x="72" y="276" text-anchor="middle">8</text>
+  <text class="w" x="132" y="276" text-anchor="middle">7</text>
+  <text class="w" x="192" y="276" text-anchor="middle">6</text>
+  <text class="w" x="252" y="276" text-anchor="middle">5</text>
+  <text class="w" x="312" y="276" text-anchor="middle">4</text>
+  <text class="w" x="372" y="276" text-anchor="middle">3</text>
+  <text class="w" x="432" y="276" text-anchor="middle">2</text>
+  <text class="w" x="492" y="276" text-anchor="middle">1</text>
+  <text class="k" x="296" y="292" text-anchor="middle">MEMBERS STILL UP</text>
+
+  <line x1="340" y1="94" x2="340" y2="266" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="w" x="336" y="106" text-anchor="end" fill="#c0392b">min-links 4</text>
+  <text class="w" x="356" y="106" fill="#0f7f73">bundle goes down, traffic follows the backup path</text>
+
+  <rect x="50" y="92" width="280" height="0" fill="none"/>
+  <path d="M54 96 L330 96" stroke="none"/>
+  <text class="w" x="54" y="106" fill="#c0392b">still up, already below the design assumption</text>
+
+  <line x1="552" y1="72" x2="552" y2="286" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="572" y="80">AVAILABILITY DETAILS THAT DECIDE THE OUTCOME</text>
+  <text class="b" x="572" y="102">Members across line cards</text>
+  <text class="c" x="572" y="114">One card failure should cost one member, not the bundle.</text>
+  <text class="b" x="572" y="138">Optics from the same batch</text>
+  <text class="c" x="572" y="150">Not enforced by any protocol; a bad batch still fails as a batch.</text>
+  <text class="b" x="572" y="174">min-links at the accepted minimum</text>
+  <text class="c" x="572" y="186">Turn silent degradation into one deliberate, visible event.</text>
+  <text class="b" x="572" y="210">Fast LACP rate</text>
+  <text class="c" x="572" y="222">Faster member failure detection, at the cost of more chatter.</text>
+  <text class="b" x="572" y="246">Rehashing on every change</text>
+  <text class="c" x="572" y="258">A member leaving reorders flows; expect a brief spike, not an outage.</text>
+
+  <rect x="24" y="300" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="300" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="320" fill="#c0392b"><tspan style="font-weight:700">The dangerous window is the red part of the chart:</tspan> eight members down to five still shows a healthy bundle in every dashboard, at half the bandwidth the design assumed.</text>
+  <text class="c" x="40" y="336" fill="#c0392b">min-links does not add bandwidth. It converts a long quiet degradation into one event with an alarm, which is all operations can act on.</text>
+  <text class="c" x="40" y="352" fill="#c0392b">Set it to the bandwidth the application really needs, not to the number that lets the bundle stay up.</text>
+
+  <rect x="24" y="378" width="852" height="52" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="40" y="398" fill="#1f4fc0"><tspan style="font-weight:700">Chapter rule:</tspan> every bundle gets min-links, a member spread across cards, and an alarm on the member count.</text>
+  <text class="c" x="40" y="414" fill="#1f4fc0">Three settings, one minute each, and the difference between a designed failure and an unexplained slowdown six months later.</text>
+</svg>

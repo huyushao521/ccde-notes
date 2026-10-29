@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t717 d717">
+
+  <title id="t717">A vPC pair drawn with is peer link, its independent keepalive path and an orphan port, beside the three failures and what each one does</title>
+  <desc id="d717">Two switches joined by a peer link, with a keepalive path running through a separate management network above them. A downstream switch dual-homed to both, forming a port channel, and a second downstream switch single-homed to one member, forming an orphan port. A table beside it gives three failures: peer link down suspends the secondary member's vPC ports while keepalive still works, keepalive down changes nothing because the peer link carries the traffic, and both down produces a split brain where both members act active. A note stresses that suspension is protection, not failure, and that the peer link and keepalive must not share a physical path.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .sw{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Two switches that behave as one, and the three ways that behaviour can break</text>
+  <text class="s" x="24" y="45">Every feature that removes a blocked port adds a link whose failure must be reasoned about separately</text>
+
+  <rect x="176" y="60" width="100" height="18" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="w" x="226" y="73" text-anchor="middle" fill="#6b4fbf">keepalive (L3 / mgmt)</text>
+  <line x1="104" y1="96" x2="104" y2="69" stroke="#6b4fbf" stroke-width=".8" stroke-dasharray="4 2"/>
+  <line x1="104" y1="69" x2="176" y2="69" stroke="#6b4fbf" stroke-width=".8" stroke-dasharray="4 2"/>
+  <line x1="276" y1="69" x2="348" y2="69" stroke="#6b4fbf" stroke-width=".8" stroke-dasharray="4 2"/>
+  <line x1="348" y1="69" x2="348" y2="96" stroke="#6b4fbf" stroke-width=".8" stroke-dasharray="4 2"/>
+
+  <rect x="56" y="96" width="96" height="44" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="104" y="116" text-anchor="middle">SW-1</text>
+  <text class="w" x="104" y="130" text-anchor="middle">vPC primary</text>
+  <rect x="300" y="96" width="96" height="44" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="348" y="116" text-anchor="middle">SW-2</text>
+  <text class="w" x="348" y="130" text-anchor="middle">vPC secondary</text>
+
+  <line x1="152" y1="110" x2="300" y2="110" stroke="#1f4fc0" stroke-width="1.4"/>
+  <line x1="152" y1="126" x2="300" y2="126" stroke="#1f4fc0" stroke-width="1.4"/>
+  <text class="w" x="226" y="104" text-anchor="middle">peer-link (carries all cross traffic)</text>
+
+  <rect x="176" y="238" width="100" height="40" rx="2" fill="#f6f9fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="sw" x="226" y="254" text-anchor="middle">ASW-1</text>
+  <text class="w" x="226" y="268" text-anchor="middle">dual homed</text>
+  <line x1="196" y1="238" x2="120" y2="140" stroke="#0f7f73" stroke-width="1.2"/>
+  <line x1="256" y1="238" x2="332" y2="140" stroke="#0f7f73" stroke-width="1.2"/>
+  <text class="w" x="226" y="228" text-anchor="middle" fill="#0f7f73">vPC port-channel: both links forwarding</text>
+
+  <rect x="30" y="238" width="86" height="40" rx="2" fill="#fff5f4" stroke="#c0392b" stroke-width=".8"/>
+  <text class="sw" x="73" y="254" text-anchor="middle" fill="#c0392b">ASW-B</text>
+  <text class="w" x="73" y="268" text-anchor="middle">single homed</text>
+  <line x1="86" y1="238" x2="96" y2="140" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="4 2"/>
+  <text class="w" x="20" y="292" fill="#c0392b">orphan port: survives only while SW-1 lives</text>
+
+  <text class="w" x="176" y="300">A port-channel that spans both members is a vPC. A link that lands on one member</text>
+  <text class="w" x="176" y="312">only is an orphan, and it inherits that member's fate.</text>
+
+  <line x1="466" y1="56" x2="466" y2="320" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="488" y="64">THREE FAILURES, THREE DIFFERENT ANSWERS</text>
+
+  <rect x="488" y="76" width="388" height="66" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <text class="b" x="502" y="94" fill="#b8862b">1. Peer-link down, keepalive alive</text>
+  <text class="c" x="502" y="110">The secondary suspends its vPC ports, so only one member forwards.</text>
+  <text class="c" x="502" y="124">Traffic survives, bandwidth halves, and the design is temporarily unprotected.</text>
+  <text class="w" x="502" y="136">This is protection working, not a fault to escalate.</text>
+
+  <rect x="488" y="150" width="388" height="66" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="502" y="168" fill="#1f4fc0">2. Keepalive down, peer-link alive</text>
+  <text class="c" x="502" y="184">Nothing changes. The peer link still carries cross traffic and still reports</text>
+  <text class="c" x="502" y="198">that the peer is alive, so no suspension is justified.</text>
+  <text class="w" x="502" y="210">Silent, harmless, and the reason nobody notices for months.</text>
+
+  <rect x="488" y="224" width="388" height="72" rx="3" fill="#fff5f4" stroke="#c0392b" stroke-width=".8"/>
+  <text class="b" x="502" y="242" fill="#c0392b">3. Both down: split brain</text>
+  <text class="c" x="502" y="258">Each member concludes the other is dead, both become active, and both</text>
+  <text class="c" x="502" y="272">answer for the same addresses. Duplicate IP and MAC, then ARP confusion.</text>
+  <text class="w" x="502" y="288" fill="#c0392b">This is the only one that needs an outside opinion: a third detector.</text>
+
+  <rect x="24" y="330" width="852" height="74" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="330" width="4" height="74" fill="#c0392b"/>
+  <text class="c" x="40" y="348" fill="#c0392b"><tspan style="font-weight:700">The engineering question is not "does clustering work", it is "how does it find out it is alone":</tspan> peer link, keepalive, BFD, or an orchestration script.</text>
+  <text class="c" x="40" y="364" fill="#c0392b">Peer link and keepalive on the same physical path fail together, and case 2 in this chapter is precisely that: one digger, one afternoon, one split brain.</text>
+  <text class="c" x="40" y="380" fill="#c0392b">Draw the two paths on a physical diagram before you draw the logical one. If they cross the same duct, the second path is decoration.</text>
+
+  <rect x="24" y="408" width="852" height="50" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="c" x="40" y="428" fill="#0f7f73"><tspan style="font-weight:700">Inventory the orphans before every change:</tspan> a single-homed switch whose uplink sits on the member you are about to reboot goes down quietly,</text>
+  <text class="c" x="40" y="444" fill="#0f7f73">and the change ticket said "no impact". That is not a networking failure; it is an inventory failure.</text>
+</svg>

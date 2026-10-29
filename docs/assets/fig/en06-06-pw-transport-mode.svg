@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t66 d66">
+
+  <title id="t66">VLAN-based versus port-based pseudowire transport, and the STP domains that merge in port-based mode</title>
+  <desc id="d66">Two panels. On the left, VLAN-based transport maps VLAN 10 and VLAN 20 out of one customer port to two different remote PEs, which is cheap and needs a matching VLAN plan at both ends. On the right, port-based transport tunnels the whole port unchanged to one remote site, so BPDUs cross the service too and the two sites' spanning tree domains merge, drawn with a red dashed path from one site's root election to the other. A four-row comparison below covers what crosses the service, the benefit, the risk and when to choose each. A note says the merged spanning tree domain is the classic Layer 2 interconnect failure source.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .vl{font:600 7px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The most important decision in VPWS: does the service see your VLAN tags, or not</text>
+  <text class="s" x="24" y="45">Left is cheap and needs a shared VLAN plan; right is transparent and merges two spanning trees</text>
+
+  <rect x="24" y="64" width="418" height="188" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="38" y="84" fill="#0f7f73">VLAN-based</text>
+  <text class="w" x="132" y="84">tags are looked at, and mapped</text>
+  <circle cx="58" cy="152" r="13" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="ce" x="58" y="155" text-anchor="middle" fill="#0f7f73">CE1</text>
+  <line x1="71" y1="152" x2="150" y2="152" stroke="#586a86" stroke-width=".9"/>
+  <text class="vl" x="96" y="146">one port</text>
+  <rect x="150" y="130" width="70" height="44" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="ce" x="185" y="156" text-anchor="middle" fill="#0f7f73">PE 1</text>
+  <path d="M220 144 L262 116 L300 116" fill="none" stroke="#0f7f73" stroke-width=".8"/>
+  <path d="M220 160 L262 160 L300 160" fill="none" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="vl" x="266" y="112">VLAN 10</text>
+  <text class="vl" x="266" y="156">VLAN 20</text>
+  <rect x="300" y="100" width="126" height="32" rx="3" fill="#ffffff" stroke="#b9d9d4" stroke-width=".7"/>
+  <text class="c" x="310" y="120">remote site A</text>
+  <rect x="300" y="144" width="126" height="32" rx="3" fill="#ffffff" stroke="#b9d9d4" stroke-width=".7"/>
+  <text class="c" x="310" y="164">remote site B</text>
+  <text class="c" x="38" y="200">The customer keeps their IP addressing; one port reaches several remotes.</text>
+  <text class="w" x="38" y="214" fill="#c0392b">Both ends must agree on the VLAN plan, and the carrier may rewrite the tag.</text>
+  <text class="w" x="38" y="232" fill="#c0392b">A VLAN change is a carrier ticket, not a local change.</text>
+
+  <rect x="458" y="64" width="418" height="188" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="472" y="84" fill="#1f4fc0">Port-based</text>
+  <text class="w" x="556" y="84">the whole port goes into the tunnel</text>
+  <circle cx="492" cy="152" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="492" y="155" text-anchor="middle">CE1</text>
+  <line x1="505" y1="149" x2="584" y2="149" stroke="#1f4fc0" stroke-width="2.2"/>
+  <line x1="505" y1="155" x2="584" y2="155" stroke="#1f4fc0" stroke-width="2.2"/>
+  <rect x="584" y="126" width="70" height="52" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="619" y="150" text-anchor="middle">PE 1</text>
+  <text class="w" x="619" y="164" text-anchor="middle">one AC</text>
+  <line x1="654" y1="149" x2="728" y2="149" stroke="#1f4fc0" stroke-width="2.2"/>
+  <line x1="654" y1="155" x2="728" y2="155" stroke="#1f4fc0" stroke-width="2.2"/>
+  <rect x="728" y="104" width="132" height="96" rx="4" fill="#ffffff" stroke="#b9c9e2" stroke-width=".7"/>
+  <text class="c" x="738" y="124">remote site</text>
+  <text class="c" x="738" y="140">CE2 inside</text>
+  <text class="w" x="738" y="156">sees the same BPDUs</text>
+  <text class="w" x="738" y="172">it would see locally</text>
+  <text class="w" x="738" y="188" fill="#c0392b">&#8594; one STP domain</text>
+  <path d="M738 92 L700 92 L700 60" fill="none" stroke="#c0392b" stroke-width=".7" stroke-dasharray="3 3"/>
+  <text class="c" x="472" y="200">Nothing is inspected: tags, BPDUs, non-IP protocols all pass.</text>
+  <text class="w" x="472" y="214" fill="#c0392b">The port is dedicated, so you pay for the idle hours as well.</text>
+  <text class="w" x="472" y="232" fill="#c0392b">Root bridge election can land at the far end, and traffic follows it there.</text>
+
+  <text class="k" x="38" y="276">DIMENSION</text>
+  <text class="k" x="184" y="276">VLAN-BASED</text>
+  <text class="k" x="574" y="276">PORT-BASED</text>
+
+  <rect x="24" y="282" width="852" height="30" fill="#fcfdff"/>
+  <text class="b" x="38" y="301">What crosses</text>
+  <text class="c" x="184" y="301">Chosen VLANs, mapped to different remotes</text>
+  <text class="c" x="574" y="301">Everything, bit for bit, including control frames</text>
+
+  <rect x="24" y="312" width="852" height="30" fill="#f8fafd"/>
+  <text class="b" x="38" y="331">The benefit</text>
+  <text class="c" x="184" y="331">One port serves many sites; billed per circuit</text>
+  <text class="c" x="574" y="331">Full transparency; the customer keeps their own design</text>
+
+  <rect x="24" y="342" width="852" height="30" fill="#fcfdff"/>
+  <text class="b" x="38" y="361" fill="#c0392b">The risk</text>
+  <text class="c" x="184" y="361" fill="#c0392b">VLAN plans must match; carrier-side tag hits you</text>
+  <text class="c" x="574" y="361" fill="#c0392b">Dedicated cost; the two STP domains become one</text>
+
+  <rect x="24" y="372" width="852" height="30" fill="#f8fafd"/>
+  <text class="b" x="38" y="391">Choose it when</text>
+  <text class="c" x="184" y="391">Many small sites, legacy FR/ATM migration</text>
+  <text class="c" x="574" y="391">DCI, trunk interconnect, anything the carrier must not see</text>
+
+  <rect x="24" y="414" width="852" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="414" width="4" height="44" fill="#c0392b"/>
+  <text class="c" x="40" y="433" fill="#c0392b"><tspan style="font-weight:700">Two sites with one spanning tree is the classic Layer 2 interconnect failure.</tspan> A topology change on one side now destabilises the other.</text>
+  <text class="c" x="40" y="449">Decide it explicitly in the design: either keep STP away from the WAN, or filter BPDUs at the CE and accept two separate domains.</text>
+</svg>

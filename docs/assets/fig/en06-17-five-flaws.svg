@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t617 d617">
+
+  <title id="t617">Five recurring transport design flaws, how each one looks in a design review, its consequence and its avoidance</title>
+  <desc id="d617">Five rows. Layer 2 everywhere stretches one broadcast domain over the whole estate. MTU never checked means tunnelled frames are silently dropped. Spanning tree across the WAN merges two failure domains. No control plane for mobility means MAC moves wait for ageing. A vendor feature used as architecture, such as MC-LAG, couples two devices into one risk. Each row gives the symptom, the consequence and the avoidance measure. A note at the bottom says all five share one root: Layer 2 treated as free, when the cheapest reliability upgrade is usually a Layer 3 boundary.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five flaws that keep coming back, and the review question that catches each one</text>
+  <text class="s" x="24" y="45">None of them is a configuration mistake; all five are decisions that were never made out loud</text>
+
+  <text class="k" x="42" y="68">FLAW AND HOW IT LOOKS</text>
+  <text class="k" x="394" y="68">CONSEQUENCE</text>
+  <text class="k" x="644" y="68">HOW TO AVOID IT</text>
+
+  <rect x="24" y="76" width="852" height="60" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <circle cx="34" cy="106" r="7" fill="#1f4fc0"/><text class="n" x="34" y="109" text-anchor="middle">1</text>
+  <text class="b" x="50" y="100">Layer 2 everywhere</text>
+  <text class="w" x="50" y="114">"one VLAN for the whole estate"</text>
+  <text class="c" x="50" y="128">nobody can say where a broadcast stops</text>
+  <text class="c" x="394" y="100">Broadcast and failure domain</text>
+  <text class="c" x="394" y="113">become the same size as</text>
+  <text class="c" x="394" y="126">the business.</text>
+  <text class="c" x="644" y="100">Draw the L3 boundary first;</text>
+  <text class="c" x="644" y="113">extend L2 only for the</text>
+  <text class="c" x="644" y="126">workloads that need it.</text>
+
+  <rect x="24" y="136" width="852" height="60" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="34" cy="166" r="7" fill="#0f7f73"/><text class="n" x="34" y="169" text-anchor="middle">2</text>
+  <text class="b" x="50" y="160">MTU never checked</text>
+  <text class="w" x="50" y="174">"ping is fine, so the path is fine"</text>
+  <text class="c" x="50" y="188">tunnels inside tunnels shrink the frame twice</text>
+  <text class="c" x="394" y="160">Large frames vanish</text>
+  <text class="c" x="394" y="173">mid-path, and only some</text>
+  <text class="c" x="394" y="186">applications notice.</text>
+  <text class="c" x="644" y="160">Measure MTU end to end</text>
+  <text class="c" x="644" y="173">with full-size probes, then</text>
+  <text class="c" x="644" y="186">clamp MSS at the CE.</text>
+
+  <rect x="24" y="196" width="852" height="60" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <circle cx="34" cy="226" r="7" fill="#6b4fbf"/><text class="n" x="34" y="229" text-anchor="middle">3</text>
+  <text class="b" x="50" y="220">Spanning tree across the WAN</text>
+  <text class="w" x="50" y="234">"the service is transparent, so it must be fine"</text>
+  <text class="c" x="50" y="248">a topology change at one site reconverges the other</text>
+  <text class="c" x="394" y="220">A remote fault becomes</text>
+  <text class="c" x="394" y="233">a local outage, and root</text>
+  <text class="c" x="394" y="246">election may move away.</text>
+  <text class="c" x="644" y="220">Filter BPDUs at the CE, or</text>
+  <text class="c" x="644" y="233">accept the merge as a</text>
+  <text class="c" x="644" y="246">written decision.</text>
+
+  <rect x="24" y="256" width="852" height="60" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <circle cx="34" cy="286" r="7" fill="#b8862b"/><text class="n" x="34" y="289" text-anchor="middle">4</text>
+  <text class="b" x="50" y="280">No control plane for mobility</text>
+  <text class="w" x="50" y="294">"it converges in thirty seconds, that is fine"</text>
+  <text class="c" x="50" y="308">migration waits for ageing, so duplicate MACs and black holes appear</text>
+  <text class="c" x="394" y="280">Application sessions</text>
+  <text class="c" x="394" y="293">break, and the complaint</text>
+  <text class="c" x="394" y="306">is not reproducible.</text>
+  <text class="c" x="644" y="280">EVPN Type 2 with the</text>
+  <text class="c" x="644" y="293">mobility sequence, so a</text>
+  <text class="c" x="644" y="306">move is one route update.</text>
+
+  <rect x="24" y="316" width="852" height="60" rx="3" fill="#fff8f7" stroke="#e8c4c0" stroke-width=".7"/>
+  <circle cx="34" cy="346" r="7" fill="#c0392b"/><text class="n" x="34" y="349" text-anchor="middle">5</text>
+  <text class="b" x="50" y="340" fill="#c0392b">A vendor feature used as architecture</text>
+  <text class="w" x="50" y="354">"we run MC-LAG everywhere, it is the standard here"</text>
+  <text class="c" x="50" y="368">two devices become one upgrade unit and one brain split risk</text>
+  <text class="c" x="394" y="340">A software bug or a</text>
+  <text class="c" x="394" y="353">version mismatch takes out</text>
+  <text class="c" x="394" y="366">both sides at once.</text>
+  <text class="c" x="644" y="340">Use standards-based</text>
+  <text class="c" x="644" y="353">all-active (ESI), or accept</text>
+  <text class="c" x="644" y="366">the coupling explicitly.</text>
+
+  <rect x="24" y="388" width="852" height="58" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="388" width="4" height="58" fill="#c0392b"/>
+  <text class="c" x="40" y="408" fill="#c0392b"><tspan style="font-weight:700">All five share one root cause:</tspan> Layer 2 treated as free. It is not &#8212; it costs broadcast domain, convergence time and troubleshooting visibility, all billed in day two.</text>
+  <text class="c" x="40" y="424" fill="#c0392b">The cheapest reliability improvement in a transport design is usually not a faster circuit or a second protocol. It is a Layer 3 boundary placed where the business already divides.</text>
+  <text class="c" x="40" y="440" fill="#c0392b">Review question that finds all five: point at each segment and ask what happens to the rest of the network when it fails.</text>
+</svg>

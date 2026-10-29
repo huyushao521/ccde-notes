@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t711 d711">
+
+  <title id="t711">A VLAN number plan drawn as bands across the identifier space, with six rules and one worked mapping example</title>
+  <desc id="d711">A band from VLAN 1 to 1005 divided into segments: VLAN 1 in red as unusable, 2 to 9 reserved, 10 to 99 data, 100 to 199 voice, 200 to 299 management, 300 to 899 reserved for growth, 900 to 999 for blackholing unused ports, and 1002 to 1005 to be avoided as legacy defaults. Six rules follow: one VLAN one purpose one subnet, size subnets by powers of two with headroom, reserve blocks instead of inserting numbers in the middle, keep management off VLAN 1, keep voice separate, and put unused ports in a blackhole VLAN. A worked example maps VLAN 110 to the third octet of the subnet, and a note explains that the number is an interface contract with the rest of the documentation.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .in{font:700 7px "Segoe UI",sans-serif;fill:#ffffff}
+    .m{font:7.5px "Consolas",monospace;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="448" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A VLAN plan is a numbering scheme for people: the switch does not care, your runbook does</text>
+  <text class="s" x="24" y="45">Numbers are cheap to choose now and expensive to change later &#8212; pick the gaps on purpose</text>
+
+  <rect x="40" y="76" width="46" height="34" rx="2" fill="#c0392b"/>
+  <text class="in" x="63" y="97" text-anchor="middle">1</text>
+  <rect x="86" y="76" width="46" height="34" rx="2" fill="#c8d0da"/>
+  <text class="in" x="109" y="97" text-anchor="middle">2-9</text>
+  <rect x="132" y="76" width="104" height="34" rx="2" fill="#1f4fc0"/>
+  <text class="in" x="184" y="97" text-anchor="middle">10-99</text>
+  <rect x="236" y="76" width="104" height="34" rx="2" fill="#6b4fbf"/>
+  <text class="in" x="288" y="97" text-anchor="middle">100-199</text>
+  <rect x="340" y="76" width="104" height="34" rx="2" fill="#0f7f73"/>
+  <text class="in" x="392" y="97" text-anchor="middle">200-299</text>
+  <rect x="444" y="76" width="140" height="34" rx="2" fill="#e6ebf3" stroke="#b9c3d2" stroke-width=".6"/>
+  <text class="in" x="514" y="97" text-anchor="middle" fill="#4a5a72">reserved</text>
+  <rect x="584" y="76" width="104" height="34" rx="2" fill="#c0392b"/>
+  <text class="in" x="636" y="97" text-anchor="middle">900-999</text>
+  <rect x="688" y="76" width="120" height="34" rx="2" fill="#c8d0da"/>
+  <text class="in" x="748" y="97" text-anchor="middle">1002-1005</text>
+
+  <text class="w" x="63" y="124" text-anchor="middle">never</text>
+  <text class="w" x="109" y="124" text-anchor="middle">reserved</text>
+  <text class="w" x="184" y="124" text-anchor="middle">data</text>
+  <text class="w" x="288" y="124" text-anchor="middle">voice</text>
+  <text class="w" x="392" y="124" text-anchor="middle">management</text>
+  <text class="w" x="514" y="124" text-anchor="middle">growth, in blocks</text>
+  <text class="w" x="636" y="124" text-anchor="middle">blackhole</text>
+  <text class="w" x="748" y="124" text-anchor="middle">avoid</text>
+
+  <text class="b" x="38" y="158">One VLAN, one purpose, one subnet</text>
+  <text class="c" x="38" y="170">The third octet is the VLAN, so the address names its own subnet.</text>
+  <text class="c" x="38" y="182">No VLAN spans two buildings; no subnet spans two VLANs.</text>
+
+  <text class="b" x="38" y="210">Size by powers of two, with headroom</text>
+  <text class="c" x="38" y="222">A /24 holds 254 hosts; provision one that fills 70% of it.</text>
+  <text class="c" x="38" y="234">Growing it later means renumbering every host inside it.</text>
+
+  <text class="b" x="38" y="250">Reserve blocks, never insert in the middle</text>
+  <text class="c" x="38" y="262">Give a new building 60-69, not 15. The gap costs nothing today.</text>
+  <text class="c" x="38" y="274">It prevents a renumbering project three years from now.</text>
+
+  <text class="b" x="458" y="158">Management off VLAN 1</text>
+  <text class="c" x="458" y="170">VLAN 1 is reachable from any user port by default. A dedicated</text>
+  <text class="c" x="458" y="182">management VLAN plus a management ACL is the minimum.</text>
+
+  <text class="b" x="458" y="210">Voice on its own VLAN</text>
+  <text class="c" x="458" y="222">Separate tagging gives QoS trust boundaries and a place to apply</text>
+  <text class="c" x="458" y="234">phone policy, and it survives a PC plugged into the phone port.</text>
+
+  <text class="b" x="458" y="250">Unused ports into a blackhole VLAN</text>
+  <text class="c" x="458" y="262">An unconfigured port sits in VLAN 1 with full reachability. Put it</text>
+  <text class="c" x="458" y="274">in a blackhole VLAN and shut it; a cable then gets you nothing.</text>
+
+
+  <rect x="24" y="292" width="852" height="52" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="38" y="308">WORKED MAPPING</text>
+  <text class="m" x="38" y="326">VLAN 110 &#8594; 10.110.0.0/24     VLAN 11 &#8594; 10.11.0.0/24     VLAN 214 &#8594; 10.214.0.0/24</text>
+  <text class="w" x="38" y="338">In a local VLAN design the same number can be reused per building, because the Layer 3 boundary keeps them apart;</text>
+  <text class="w" x="560" y="338">the subnet is what must be unique.</text>
+
+  <rect x="24" y="356" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="356" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="376" fill="#c0392b"><tspan style="font-weight:700">The number is an interface contract</tspan> with the documentation, the firewall rules, the monitoring labels and the voice team's spreadsheet.</text>
+  <text class="c" x="40" y="392" fill="#c0392b">VLAN 1 is a default, not a decision: everything unassigned lands there, including the port someone patched last Friday and forgot to configure.</text>
+  <text class="c" x="40" y="408" fill="#c0392b">Sixty minutes with a spreadsheet at the start of a project is the cheapest network documentation you will ever produce.</text>
+</svg>

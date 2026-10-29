@@ -28,6 +28,8 @@
 
 ## Chapter Overview: Four Counter-Intuitive Truths About Layer 2 Design · 本章导读：二层设计的四条反直觉认知
 
+<img src="assets/fig/en07-01-four-truths.svg" alt="Four counter-intuitive truths about Layer 2 design" loading="lazy">
+
 ### Counter-Intuitive Truth 1: Layer 2 Has No Concept of "Destination" · 反直觉一：二层网络没有"目的地"这个概念
 
 In a Layer 3 network, which way a packet goes is decided by the **routing table** — a converged, predictable structure with an explicit state for "destination unreachable".
@@ -242,6 +244,8 @@ Nine out of ten Layer 2 design failures come from **getting the order wrong**. T
 
 </div>
 
+<img src="assets/fig/en07-02-five-steps.svg" alt="Five steps of Layer 2 design in the only workable order" loading="lazy">
+
 **Why the order cannot be reversed**: configure HSRP before deciding the STP root and you get "gateway on DSW2, root bridge on DSW1" — exactly the classic mistake in Case 1.
 
 <div class="zh" markdown="1">
@@ -312,6 +316,8 @@ These six are not independent; they are **interlocking**:
 
 </div>
 
+<img src="assets/fig/en07-03-six-technologies.svg" alt="Six Layer 2 technologies and where they interlock" loading="lazy">
+
 ### Spanning Tree Protocol (STP) · 生成树协议
 
 STP is the most mature and most widely used control protocol in classic Layer 2 switched environments, preventing Layer 2 bridging loops by blocking redundant ports so that a single active path remains between any two points.
@@ -342,6 +348,8 @@ STP 是经典二层交换网络环境中最成熟和最常用的控制协议，�
 | **802.1aq (SPB)** | 最短路径桥接 | 用 IS-IS 做二层路由，无阻塞端口 | 已被 EVPN 取代，几乎无新部署 |
 
 </div>
+
+<img src="assets/fig/en07-04-stp-versions.svg" alt="STP versions compared, with a selection box" loading="lazy">
 
 **Quick selection guide**:
 
@@ -414,6 +422,8 @@ RSTP 的收敛（协商驱动）：
 
 </div>
 
+<img src="assets/fig/en07-05-convergence-timeline.svg" alt="802.1D and RSTP convergence drawn on the same time scale" loading="lazy">
+
 #### RSTP Port Roles and States (Useful in Design) · RSTP 的端口角色与状态（设计时用得到）
 
 | Port role | Meaning | Appears when a blocked port exists |
@@ -459,6 +469,8 @@ RSTP 的收敛（协商驱动）：
 **设计洞察**：`Alternate Port` 的数量，就是**你被浪费掉的链路数**。一个双上行的接入交换机，如果两条上行都转发，就应该没有 Alternate Port。
 
 </div>
+
+<img src="assets/fig/en07-06-rstp-roles.svg" alt="RSTP port roles and states on a three-switch topology" loading="lazy">
 
 #### Why Topology Change Notifications (TCN) Cause "Network-Wide Churn" · 拓扑变更（TCN）为什么会导致"全网抖动"
 
@@ -541,6 +553,8 @@ CPU 升高、带宽被泛洪吃掉
 
 </div>
 
+<img src="assets/fig/en07-07-tcn-storm.svg" alt="How a single port flap becomes a network-wide flood" loading="lazy">
+
 #### STP Enhancement Features · STP 增强特性
 
 | Feature | Function | Where to deploy | Failure it prevents |
@@ -574,6 +588,8 @@ CPU 升高、带宽被泛洪吃掉
 > 💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。优点是每个 VLAN 可设自己的根桥做流量分担，缺点是**实例数 = VLAN 数**——1000 个 VLAN 就是 1000 份 BPDU 与 1000 份状态机，CPU 和收敛开销线性上升。这就是 MST 存在的理由。
 
 </div>
+
+<img src="assets/fig/en07-08-stp-guards.svg" alt="STP guards mapped onto the topology they protect" loading="lazy">
 
 #### Production-Grade STP Baseline · 生产级 STP 配置基线
 
@@ -638,6 +654,8 @@ interface range GigabitEthernet1/0/1-48
 ```
 
 </div>
+
+<img src="assets/fig/en07-09-stp-baseline.svg" alt="A production-grade STP baseline in five layers" loading="lazy">
 
 **Three fatal MST details (get them wrong and nothing works)**:
 
@@ -805,6 +823,8 @@ This is **the most important decision in this chapter**; the book passes over it
 
 </div>
 
+<img src="assets/fig/en07-10-e2v-vs-local.svg" alt="End-to-end VLAN versus local VLAN on the same campus" loading="lazy">
+
 > 💡 **Today the answer is almost always the same: local VLANs plus Layer 3 to the access layer.** End-to-end VLANs were a compromise of the flat Layer 2 era; without an explicit requirement, do not go back.
 
 <div class="zh" markdown="1">
@@ -860,6 +880,8 @@ This is **the most important decision in this chapter**; the book passes over it
 | **管理 VLAN** | 单独 VLAN + 独立 VRF/OOB（见第 10 章） | 管理面必须与业务面隔离 |
 
 </div>
+
+<img src="assets/fig/en07-11-vlan-numbering.svg" alt="VLAN numbering bands and the subnet mapping they imply" loading="lazy">
 
 #### Trunk Design Points · Trunk 设计要点
 
@@ -970,6 +992,8 @@ vtp mode transparent                          ! 或 off（不参与 VTP）
 
 </div>
 
+<img src="assets/fig/en07-12-trunk-design.svg" alt="An 802.1Q frame field by field, with trunk design points" loading="lazy">
+
 #### VTP: Why It Is Best Turned Off · VTP：为什么建议关掉
 
 | Mode | Behaviour | Risk |
@@ -1005,6 +1029,8 @@ vtp mode transparent                          ! 或 off（不参与 VTP）
 > 💡 **结论**：VTP 的唯一好处是"少配 VLAN"，代价是"配置错误可以传染"。在现代网络里（VLAN 由自动化下发），它的好处消失了，风险还在。**统一用 transparent 或 off。**
 
 </div>
+
+<img src="assets/fig/en07-13-vtp-risk.svg" alt="VTP revision numbers overwriting a network, and the four modes" loading="lazy">
 
 ### Link Aggregation · 链路聚合
 
@@ -1149,6 +1175,8 @@ One TCP flow (fixed src/dst) always hashes to one member → its ceiling is 10G
 
 </div>
 
+<img src="assets/fig/en07-14-hash-limit.svg" alt="Eight 10G members, one flow, and the bandwidth actually obtained" loading="lazy">
+
 #### LACP and Design Constraints · LACP 与设计约束
 
 | Constraint | Explanation |
@@ -1233,6 +1261,8 @@ interface Port-channel10
 
 </div>
 
+<img src="assets/fig/en07-15-lacp-modes.svg" alt="LACP on, active and passive, and the half-configured bundle" loading="lazy">
+
 #### Link Aggregation Availability Details · 链路聚合的可用性设计细节
 
 | Design point | Approach | Reason |
@@ -1278,6 +1308,8 @@ interface Port-channel10
 > 💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。类似的还有 StackWise（堆叠）、vPC（Nexus）与各厂商的标准 M-LAG——它们解决的是**同一个问题**，只是实现层级不同（见下方横向对比）。
 
 </div>
+
+<img src="assets/fig/en07-16-bundle-availability.svg" alt="Bundle capacity as members fail, and where min-links draws the line" loading="lazy">
 
 ### mLAG / Switch Clustering (Layer 2 Multi-Chassis Technologies) · mLAG / 交换机集群（二层多机箱技术）
 
@@ -1365,6 +1397,8 @@ Strictly, mLAG is the **mechanism** and "switch clustering" is the **effect**. T
 </div>
 
 #### vPC Data Plane and Control Plane (Understand It to Understand Failures) · vPC 的数据面与控制面（理解它才能理解故障）
+
+<img src="assets/fig/en07-17-mlag-anatomy.svg" alt="vPC anatomy: peer link, keepalive, orphan port and three failures" loading="lazy">
 
 ```
         ┌──────── vPC domain (one logical switch) ────────┐
@@ -1491,6 +1525,8 @@ Switch stacking is another form of clustering:
 | **升级时长** | 8 台堆叠升级可能 1 小时以上 | 分批/分区域堆叠，不要把整个园区堆成一个 |
 
 </div>
+
+<img src="assets/fig/en07-18-stack-vs-vpc.svg" alt="Stacking versus clustering across six design dimensions" loading="lazy">
 
 ### First Hop Redundancy Protocols (FHRP) and STP · 首跳冗余协议 (FHRP) 和 STP
 
@@ -1622,6 +1658,8 @@ FHRP 提供首跳三层网关的透明故障转移能力。两台或多台三层
 ```
 
 </div>
+
+<img src="assets/fig/en07-19-fhrp-alignment.svg" alt="Root bridge and active gateway on the same switch versus on different switches" loading="lazy">
 
 **Consequences of misalignment**:
 - Traffic takes an extra hop to reach the active FHRP gateway
@@ -2338,6 +2376,8 @@ Compressing this chapter into a tree you can walk through in a design review:
 > 💡 **决策树的价值**：它把"要不要上 mLAG"这类争论变成两个可验证的问题——**二层域多大、硬需求有没有**。技术选型之争，八成是因为没先问清这两个问题。
 
 </div>
+
+<img src="assets/fig/en07-20-decision-tree.svg" alt="The Layer 2 design decision tree, five questions in order" loading="lazy">
 
 **Post-decision checklist** (each item can kill a proposal):
 

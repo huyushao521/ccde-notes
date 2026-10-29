@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t616 d616">
+
+  <title id="t616">Six transport options plotted by how much control the customer keeps against cost, with the selection criteria beside them</title>
+  <desc id="d616">A scatter plot with the horizontal axis running from no control to full control over the transport, and the vertical axis running from low to high cost per megabit. Dark fibre sits top right with full control and high cost, DWDM wavelength at the top with high cost and high control, MPLS L2VPN in the lower middle with low control and medium high cost, MPLS L3VPN slightly cheaper and equally little control, Internet with SD-WAN on the right with high control and low cost, and 5G or LTE at the lower left with low control and mostly usage based cost. A list beside the plot gives each option the layer it offers and its practical character. A note at the bottom reduces the choice to four business questions about Layer 2 transparency, deterministic latency, cost and elasticity, and simple any-to-any reach.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .pt{font:600 8px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Transport selection is a scorecard, not a contest: control, latency, cost, reach</text>
+  <text class="s" x="24" y="45">The higher and further right a dot sits, the more you pay to keep control of your own packets</text>
+
+  <line x1="76" y1="66" x2="76" y2="350" stroke="#b9c3d2" stroke-width=".8"/>
+  <line x1="70" y1="350" x2="530" y2="350" stroke="#b9c3d2" stroke-width=".8"/>
+  <path d="M530 346 l8 4 l-8 4 z" fill="#b9c3d2"/>
+  <path d="M72 66 l4 -8 l4 8 z" fill="#b9c3d2"/>
+  <text class="k" x="82" y="74">HIGH COST</text>
+  <text class="k" x="82" y="344">LOW COST</text>
+  <text class="k" x="84" y="364">NO CONTROL</text>
+  <text class="k" x="486" y="364">FULL CONTROL</text>
+  <text class="w" x="300" y="378" text-anchor="middle">who operates the path, and who can see inside it</text>
+
+  <line x1="440" y1="93" x2="505" y2="156" stroke="#e2e8f2" stroke-width=".6" stroke-dasharray="2 3"/>
+
+  <circle cx="505" cy="156" r="5" fill="#c0392b"/>
+  <text class="pt" x="497" y="176" text-anchor="end" fill="#c0392b">dark fibre</text>
+  <text class="w" x="497" y="188" text-anchor="end">L1 &#183; lowest latency</text>
+
+  <circle cx="440" cy="93" r="5" fill="#6b4fbf"/>
+  <text class="pt" x="450" y="90" fill="#5a3fa8">DWDM</text>
+  <text class="w" x="450" y="102">L1 &#183; huge bandwidth</text>
+
+  <circle cx="447" cy="291" r="5" fill="#0f7f73"/>
+  <text class="pt" x="457" y="288" fill="#0f7f73">Internet + SD-WAN</text>
+  <text class="w" x="457" y="300">L3 overlay &#183; cheapest, jitter varies</text>
+
+  <circle cx="175" cy="183" r="5" fill="#1f4fc0"/>
+  <text class="pt" x="185" y="180">MPLS L2VPN</text>
+  <text class="w" x="185" y="192">L2 &#183; transparency, no visibility</text>
+
+  <circle cx="203" cy="228" r="5" fill="#1f4fc0"/>
+  <text class="pt" x="213" y="225">MPLS L3VPN</text>
+  <text class="w" x="213" y="237">L3 &#183; the enterprise workhorse</text>
+
+  <circle cx="157" cy="269" r="5" fill="#b8862b"/>
+  <text class="pt" x="167" y="266" fill="#b8862b">5G / LTE</text>
+  <text class="w" x="167" y="278">L2/L3 &#183; usage based</text>
+
+  <line x1="548" y1="66" x2="548" y2="350" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="562" y="72">WHAT EACH ONE IS</text>
+
+  <text class="b" x="562" y="94">Dark fibre</text>
+  <text class="w" x="562" y="106">You light it yourself: optics, protection and capacity are your problem,</text>
+  <text class="w" x="562" y="117">and so is every trench. Right for ultra-low latency and metro data centres.</text>
+
+  <text class="b" x="562" y="140">DWDM wavelength</text>
+  <text class="w" x="562" y="152">A slice of someone else&#8217;s fibre: very high bandwidth over distance,</text>
+  <text class="w" x="562" y="163">few providers, and the price follows the kilometres.</text>
+
+  <text class="b" x="562" y="186">MPLS L2VPN &#183; VPWS / VPLS</text>
+  <text class="w" x="562" y="198">The carrier forwards your frames and you keep the Layer 2 design.</text>
+  <text class="w" x="562" y="209">You cannot see inside the network that carries you.</text>
+
+  <text class="b" x="562" y="232">MPLS L3VPN</text>
+  <text class="w" x="562" y="244">The carrier joins your routing: any-to-any, simple to buy, simple to grow.</text>
+  <text class="w" x="562" y="255">The price is that the carrier participates in your routing decisions.</text>
+
+  <text class="b" x="562" y="278">Internet + SD-WAN</text>
+  <text class="w" x="562" y="290">You encrypt, steer and monitor over paths you do not own.</text>
+  <text class="w" x="562" y="301">Cheap per site, and the quality is whatever the Internet offers that hour.</text>
+
+  <text class="b" x="562" y="324">5G / LTE</text>
+  <text class="w" x="562" y="336">Fast to install and priced by volume: good for backup, temporary sites and IoT.</text>
+
+  <rect x="24" y="388" width="852" height="42" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="388" width="4" height="42" fill="#c0392b"/>
+  <text class="c" x="40" y="406" fill="#c0392b"><tspan style="font-weight:700">Reduce the choice to four questions:</tspan> need one Layer 2 domain or non-IP protocols &#8594; L2VPN or dark fibre. Need deterministic latency &#8594; dark fibre or DWDM.</text>
+  <text class="c" x="40" y="422" fill="#c0392b">Hundreds of sites on a budget &#8594; Internet with SD-WAN. Simple any-to-any &#8594; MPLS L3VPN. If two answers conflict, the business requirement that hurts most wins.</text>
+</svg>

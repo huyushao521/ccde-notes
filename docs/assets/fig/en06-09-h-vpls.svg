@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t69 d69">
+
+  <title id="t69">Hierarchical VPLS: MTUs acting as U-PEs feeding a full mesh of N-PEs, and the pseudowire count it saves</title>
+  <desc id="d69">Left: four customer sites attach to four MTUs, which act as U-PEs, and the MTUs pair up into two N-PEs that are fully meshed between themselves. Right: the count changes from a full mesh of m plus n nodes to n times n minus one over two plus m, illustrated with eight MTUs and four N-PEs, where sixty six pseudowires become fourteen. A note at the bottom lists the three costs of the hierarchy: an MTU becomes a single point, the failure domain grows, and one more layer must be configured and operated.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .mt{font:600 7px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">H-VPLS buys scale by adding a tier: the mesh shrinks to the core, the sites fan into it</text>
+  <text class="s" x="24" y="45">Same twelve sites, one quarter of the pseudowires &#8212; and three new costs that are easy to understate</text>
+
+  <rect x="24" y="64" width="512" height="236" rx="3" fill="#f7fafd" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="38" y="84">CE</text>
+  <text class="k" x="38" y="152">MTU = U-PE</text>
+  <text class="k" x="38" y="240">N-PE</text>
+
+  <circle cx="96" cy="92" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="96" y="95" text-anchor="middle">CE1</text>
+  <circle cx="184" cy="92" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="184" y="95" text-anchor="middle">CE2</text>
+  <circle cx="356" cy="92" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="356" y="95" text-anchor="middle">CE3</text>
+  <circle cx="444" cy="92" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="444" y="95" text-anchor="middle">CE4</text>
+
+  <line x1="96" y1="105" x2="96" y2="136" stroke="#586a86" stroke-width=".8"/>
+  <line x1="184" y1="105" x2="184" y2="136" stroke="#586a86" stroke-width=".8"/>
+  <line x1="356" y1="105" x2="356" y2="136" stroke="#586a86" stroke-width=".8"/>
+  <line x1="444" y1="105" x2="444" y2="136" stroke="#586a86" stroke-width=".8"/>
+
+  <rect x="64" y="136" width="64" height="34" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mt" x="96" y="157" text-anchor="middle">MTU1</text>
+  <rect x="152" y="136" width="64" height="34" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mt" x="184" y="157" text-anchor="middle">MTU2</text>
+  <rect x="324" y="136" width="64" height="34" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mt" x="356" y="157" text-anchor="middle">MTU3</text>
+  <rect x="412" y="136" width="64" height="34" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="mt" x="444" y="157" text-anchor="middle">MTU4</text>
+
+  <path d="M96 170 L150 218" fill="none" stroke="#586a86" stroke-width=".8"/>
+  <path d="M184 170 L178 218" fill="none" stroke="#586a86" stroke-width=".8"/>
+  <path d="M356 170 L388 218" fill="none" stroke="#586a86" stroke-width=".8"/>
+  <path d="M444 170 L416 218" fill="none" stroke="#586a86" stroke-width=".8"/>
+
+  <rect x="124" y="218" width="80" height="40" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="164" y="243" text-anchor="middle">N-PE1</text>
+  <rect x="372" y="218" width="80" height="40" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="412" y="243" text-anchor="middle">N-PE2</text>
+  <line x1="204" y1="238" x2="372" y2="238" stroke="#1f4fc0" stroke-width="1.6"/>
+  <text class="w" x="288" y="232" text-anchor="middle">full mesh, but only here</text>
+  <text class="w" x="288" y="272" text-anchor="middle">sites add one attachment each, not a mesh edge</text>
+
+  <rect x="536" y="64" width="340" height="54" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="550" y="84">flat: (m + n) nodes in a full mesh</text>
+  <text class="c" x="550" y="100" fill="#1f4fc0"><tspan style="font-weight:700">tiered: n (n &#8722; 1) / 2 + m</tspan> &#160;pseudowires</text>
+
+  <text class="w" x="536" y="136">Worked example: m = 8 MTUs, n = 4 N-PEs, so 12 nodes either way</text>
+
+  <text class="c" x="536" y="156">flat mesh of 12</text>
+  <rect x="536" y="162" width="300" height="16" rx="2" fill="#f4c9c4" stroke="#c0392b" stroke-width=".5"/>
+  <text class="w" x="842" y="174">66 PW</text>
+
+  <text class="c" x="536" y="200">two tiers</text>
+  <rect x="536" y="206" width="64" height="16" rx="2" fill="#bfe3de" stroke="#0f7f73" stroke-width=".5"/>
+  <text class="w" x="608" y="218">14 PW: 6 core plus 8 attachments</text>
+
+  <text class="c" x="536" y="244">One quarter of the state for the same sites, and growth per new site</text>
+  <text class="c" x="536" y="257">falls from quadratic to linear &#8212; the only reason the hierarchy exists.</text>
+
+  <rect x="536" y="272" width="340" height="28" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".6"/>
+  <text class="w" x="550" y="290" fill="#c0392b">cheaper on paper; the three costs below are the invoice</text>
+
+  <rect x="24" y="316" width="852" height="58" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="316" width="4" height="58" fill="#c0392b"/>
+  <text class="c" x="40" y="336" fill="#c0392b"><tspan style="font-weight:700">What the hierarchy costs:</tspan> the MTU becomes a single point &#8212; when it fails, every site beneath it is cut off unless it is dual-homed;</text>
+  <text class="c" x="40" y="352">the failure domain grows, so a loop or a spanning tree event at one MTU reaches the whole VPLS domain; and there is one more layer to design,</text>
+  <text class="c" x="40" y="368">configure and troubleshoot on every future change. That is the manageability principle from Chapter 5, priced in day two labour rather than day one capex.</text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t707 d707">
+
+  <title id="t707">Six steps from one laptop waking up to a campus-wide slowdown, with the reasons a topology change spreads and the mitigations that stop it</title>
+  <desc id="d707">A vertical chain of six steps. An access port goes up when a laptop wakes. The switch reports a topology change toward the root. The root sets the topology change bit in its configuration BPDUs. Every switch shortens its MAC ageing timer. Tables empty and traffic is flooded to be relearned. Repeated per port, the whole building feels slow. Two boxes on the right explain why the signal spreads, because a topology change describes the whole topology rather than one segment, and give the mitigations: PortFast on every edge port, monitoring the topology change counter, and treating a flapping port as a design fault.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="424" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">One laptop wakes up, and for thirty-five seconds the whole building is slightly broken</text>
+  <text class="s" x="24" y="45">Nothing in this chain is malfunctioning. Every device is doing exactly what the standard says</text>
+
+  <line x1="46" y1="86" x2="46" y2="300" stroke="#c8d4e6" stroke-width=".8"/>
+  <path d="M42 300 l4 8 l4 -8 z" fill="#c8d4e6"/>
+
+  <circle cx="46" cy="88" r="8" fill="#1f4fc0"/><text class="n" x="46" y="91" text-anchor="middle">1</text>
+  <text class="b" x="64" y="86">An access port comes up</text>
+  <text class="w" x="64" y="98">a laptop wakes, a phone is plugged in, a PC reboots for updates</text>
+
+  <circle cx="46" cy="128" r="8" fill="#1f4fc0"/><text class="n" x="46" y="131" text-anchor="middle">2</text>
+  <text class="b" x="64" y="126">The switch reports a topology change</text>
+  <text class="w" x="64" y="138">a port entering forwarding is a change, so a TCN is sent toward the root</text>
+
+  <circle cx="46" cy="168" r="8" fill="#6b4fbf"/><text class="n" x="46" y="171" text-anchor="middle">3</text>
+  <text class="b" x="64" y="166">The root set the change bit</text>
+  <text class="w" x="64" y="178">its configuration BPDUs now carry the topology change flag, for thirty-five seconds</text>
+
+  <circle cx="46" cy="208" r="8" fill="#6b4fbf"/><text class="n" x="46" y="211" text-anchor="middle">4</text>
+  <text class="b" x="64" y="206">Every switch shortens its ageing timer</text>
+  <text class="w" x="64" y="218">MAC ageing drops from five minutes to the forwarding delay, everywhere at once</text>
+
+  <circle cx="46" cy="248" r="8" fill="#b8862b"/><text class="n" x="46" y="251" text-anchor="middle">5</text>
+  <text class="b" x="64" y="246">Tables empty and traffic is flooded</text>
+  <text class="w" x="64" y="258">known unicast becomes unknown unicast; every switch relearns by flooding</text>
+
+  <circle cx="46" cy="288" r="8" fill="#c0392b"/><text class="n" x="46" y="291" text-anchor="middle">6</text>
+  <text class="b" x="64" y="286" fill="#c0392b">The users call it "the network is slow"</text>
+  <text class="w" x="64" y="298">CPU up, brief loss, ARP honoured more slowly &#8212; and it repeats per port, per hour</text>
+
+  <rect x="580" y="76" width="296" height="112" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="k" x="594" y="92">WHY IT SPREADS</text>
+  <text class="c" x="594" y="112">A topology change is a statement about the</text>
+  <text class="c" x="594" y="124">whole topology, not about one segment.</text>
+  <text class="c" x="594" y="140">No switch can tell which unicast entries</text>
+  <text class="c" x="594" y="152">actually became wrong, so all of them are</text>
+  <text class="c" x="594" y="164">treated as suspect and all of them expire.</text>
+  <text class="w" x="594" y="180" fill="#c0392b">the signal is cheap to send and expensive to receive</text>
+
+  <rect x="580" y="198" width="296" height="112" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="594" y="214">MITIGATION, IN ORDER OF VALUE</text>
+  <text class="c" x="594" y="234"><tspan style="font-weight:700">1.</tspan> PortFast on every edge port: the change</text>
+  <text class="c" x="594" y="246">is never generated in the first place.</text>
+  <text class="c" x="594" y="262"><tspan style="font-weight:700">2.</tspan> Push it by template, not port by port,</text>
+  <text class="c" x="594" y="274">or the one forgotten port stays loud.</text>
+  <text class="c" x="594" y="290"><tspan style="font-weight:700">3.</tspan> Read the counter: topology change</text>
+  <text class="c" x="594" y="302">count per port tells you who is flapping.</text>
+
+  <rect x="24" y="330" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="330" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="350" fill="#c0392b"><tspan style="font-weight:700">A topology change storm is a design problem, not a protocol problem.</tspan> The standard is behaving; the design put hundreds of edge ports under a protocol built for trunks.</text>
+  <text class="c" x="40" y="366" fill="#c0392b">The tell is in the diagnosis: if pings are fine but everything feels slower after a floor of users arrives at nine in the morning, look at the topology change counters before you look at the uplinks.</text>
+  <text class="c" x="40" y="382" fill="#c0392b">The fix costs one template. The alternative &#8212; buying bandwidth to absorb replays &#8212; buys nothing, because the retransmissions are not a capacity problem.</text>
+</svg>

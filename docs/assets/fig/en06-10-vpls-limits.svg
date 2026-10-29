@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 432" width="100%" role="img" aria-labelledby="t610 d610">
+
+  <title id="t610">The four scalability limits of VPLS and the mitigation for each</title>
+  <desc id="d610">Four cards in two columns. MAC learning, where every PE must hold every customer MAC so memory becomes the constraint. Full mesh pseudowires, whose count grows as the square of the PE count. Flooding of unknown unicast, broadcast and ARP, which consumes bandwidth at every site. And the absence of a control plane, where MACs are learned only in the data plane, so convergence is slow. Each card lists its mitigations, with EVPN or PBB appearing in three of the four. A red note at the bottom says the real problem is not performance but the missing control plane: learning by flooding, multihoming by MC-LAG and recovery by re-flooding are all patches applied in the data plane.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="432" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four limits, and only one of them is about bandwidth</text>
+  <text class="s" x="24" y="45">Read the mitigations column: three of the four point at the same answer, and it is not a faster link</text>
+
+  <rect x="24" y="64" width="418" height="118" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <circle cx="34" cy="88" r="7" fill="#1f4fc0"/><text class="n" x="34" y="91" text-anchor="middle">1</text>
+  <text class="b" x="50" y="84" fill="#1f4fc0">MAC learning</text>
+  <text class="c" x="50" y="102">Every PE must hold every customer MAC in the domain.</text>
+  <text class="c" x="50" y="115">At scale it is memory and table churn, not CPU.</text>
+  <text class="k" x="50" y="140">MITIGATION</text>
+  <text class="w" x="122" y="140">cap MACs per VPLS &#183; tune aging &#183; PBB (MAC-in-MAC)</text>
+  <text class="w" x="50" y="160" fill="#c0392b">symptom: silent drops of new MACs once the table is full</text>
+
+  <rect x="458" y="64" width="418" height="118" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="468" cy="88" r="7" fill="#0f7f73"/><text class="n" x="468" y="91" text-anchor="middle">2</text>
+  <text class="b" x="484" y="84" fill="#0f7f73">Full-mesh pseudowires</text>
+  <text class="c" x="484" y="102">The pseudowire count grows as O(n&#178;), and every PE</text>
+  <text class="c" x="484" y="115">carries the configuration for every other PE.</text>
+  <text class="k" x="484" y="140">MITIGATION</text>
+  <text class="w" x="556" y="140">H-VPLS hierarchy &#183; EVPN</text>
+  <text class="w" x="484" y="160" fill="#c0392b">symptom: adding a site becomes a change window</text>
+
+  <rect x="24" y="194" width="418" height="118" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <circle cx="34" cy="218" r="7" fill="#6b4fbf"/><text class="n" x="34" y="221" text-anchor="middle">3</text>
+  <text class="b" x="50" y="214" fill="#5a3fa8">Flooding</text>
+  <text class="c" x="50" y="232">Unknown unicast, broadcast and ARP are flooded to</text>
+  <text class="c" x="50" y="245">every site. One site&#8217;s ARP storm is everyone&#8217;s.</text>
+  <text class="k" x="50" y="270">MITIGATION</text>
+  <text class="w" x="122" y="270">ARP proxy &#183; multicast optimisation &#183; EVPN</text>
+  <text class="w" x="50" y="290" fill="#c0392b">symptom: the complaint is "the network is slow" with no fault</text>
+
+  <rect x="458" y="194" width="418" height="118" rx="3" fill="#fff8f7" stroke="#e8c4c0" stroke-width=".7"/>
+  <circle cx="468" cy="218" r="7" fill="#c0392b"/><text class="n" x="468" y="221" text-anchor="middle">4</text>
+  <text class="b" x="484" y="214" fill="#c0392b">No control plane</text>
+  <text class="c" x="484" y="232">MACs exist only in the data plane, so a failure is</text>
+  <text class="c" x="484" y="245">resolved by ageing, re-flooding and re-learning.</text>
+  <text class="k" x="484" y="270">MITIGATION</text>
+  <text class="w" x="556" y="270">EVPN: advertise MACs in BGP</text>
+  <text class="w" x="484" y="290" fill="#c0392b">symptom: convergence measured in tens of seconds</text>
+
+  <rect x="24" y="326" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="326" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="346" fill="#c0392b"><tspan style="font-weight:700">The CCDE judgement: VPLS&#8217;s problem is not performance, it is the absence of a control plane.</tspan></text>
+  <text class="c" x="40" y="362">Learning by flooding, multihoming by MC-LAG, recovery by re-flooding &#8212; three different symptoms, one root cause, and all three are patches applied in the data plane.</text>
+  <text class="c" x="40" y="374">EVPN exists to move that machinery into the control plane, which is why it keeps returning in later chapters.</text>
+</svg>

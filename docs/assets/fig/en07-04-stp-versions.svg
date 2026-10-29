@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 418" width="100%" role="img" aria-labelledby="t704 d704">
+
+  <title id="t704">Five spanning tree generations compared by convergence, instance model and role, with a selection shortcut</title>
+  <desc id="d704">Five cards along a timeline: 802.1D with thirty to fifty seconds and one tree for all VLANs, 802.1w RSTP with one to three seconds and active proposal and agreement, 802.1s MSTP with instances and multi-vendor support, Cisco Rapid PVST+ with one tree per VLAN, and 802.1aq SPB as a routed Layer 2 alternative later superseded by EVPN. A box below gives the selection shortcut for single vendor, multi-vendor and new build cases, and a note says the real question is not which version but how many blocked ports remain.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .cv{font:700 11px "Segoe UI",sans-serif}
+  </style>
+
+  <rect x="0" y="0" width="900" height="418" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five generations of the same idea: keep blocking less, and stop waiting for timers</text>
+  <text class="s" x="24" y="45">The version matters far less than the number of ports it is still holding down</text>
+
+  <line x1="30" y1="70" x2="866" y2="70" stroke="#c8d4e6" stroke-width=".8"/>
+  <path d="M866 66 l8 4 l-8 4 z" fill="#c8d4e6"/>
+  <text class="k" x="30" y="64">OLDER &#8594; NEWER</text>
+
+  <rect x="24" y="78" width="162" height="170" rx="3" fill="#fdf5f4" stroke="#e0b7b2" stroke-width=".7"/>
+  <text class="k" x="38" y="94">IEEE 802.1D</text>
+  <text class="b" x="38" y="112">STP</text>
+  <text class="cv" x="38" y="132" fill="#c0392b">30&#8211;50 s</text>
+  <line x1="38" y1="140" x2="172" y2="140" stroke="#e8d5d2" stroke-width=".6"/>
+  <text class="c" x="38" y="154">One tree for all VLANs.</text>
+  <text class="w" x="38" y="166">Converges by waiting:</text>
+  <text class="w" x="38" y="178">20 + 15 + 15 seconds.</text>
+  <text class="w" x="38" y="196" fill="#c0392b">Do not build this today.</text>
+
+  <rect x="194" y="78" width="162" height="170" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="208" y="94">IEEE 802.1w</text>
+  <text class="b" x="208" y="112">RSTP</text>
+  <text class="cv" x="208" y="132" fill="#0f7f73">1&#8211;3 s</text>
+  <line x1="208" y1="140" x2="342" y2="140" stroke="#cfe6e3" stroke-width=".6"/>
+  <text class="c" x="208" y="154">Converges by asking:</text>
+  <text class="w" x="208" y="166">proposal and agreement</text>
+  <text class="w" x="208" y="178">instead of a countdown.</text>
+  <text class="w" x="208" y="196" fill="#0f7f73">The modern baseline.</text>
+
+  <rect x="364" y="78" width="162" height="170" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="378" y="94">IEEE 802.1s</text>
+  <text class="b" x="378" y="112">MSTP</text>
+  <text class="cv" x="378" y="132" fill="#0f7f73">1&#8211;3 s</text>
+  <line x1="378" y1="140" x2="512" y2="140" stroke="#cfe6e3" stroke-width=".6"/>
+  <text class="c" x="378" y="154">Instances instead of</text>
+  <text class="w" x="378" y="166">per-VLAN trees: scale</text>
+  <text class="w" x="378" y="178">with VLAN groups.</text>
+  <text class="w" x="378" y="196" fill="#0f7f73">The multi-vendor answer.</text>
+
+  <rect x="534" y="78" width="162" height="170" rx="3" fill="#fdfcf5" stroke="#e2d6b0" stroke-width=".7"/>
+  <text class="k" x="548" y="94">CISCO</text>
+  <text class="b" x="548" y="112">Rapid PVST+</text>
+  <text class="cv" x="548" y="132" fill="#b8862b">1&#8211;3 s</text>
+  <line x1="548" y1="140" x2="682" y2="140" stroke="#eee3c8" stroke-width=".6"/>
+  <text class="c" x="548" y="154">One instance per VLAN:</text>
+  <text class="w" x="548" y="166">the easiest to reason</text>
+  <text class="w" x="548" y="178">about, the heaviest at</text>
+  <text class="w" x="548" y="190">a thousand VLANs.</text>
+  <text class="w" x="548" y="212" fill="#b8862b">Most likely what you run today.</text>
+
+  <rect x="704" y="78" width="172" height="170" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="k" x="718" y="94">IEEE 802.1aq</text>
+  <text class="b" x="718" y="112">SPB</text>
+  <text class="cv" x="718" y="132" fill="#6b4fbf">no blocking</text>
+  <line x1="718" y1="140" x2="862" y2="140" stroke="#ddd6ee" stroke-width=".6"/>
+  <text class="c" x="718" y="154">Runs a link-state</text>
+  <text class="w" x="718" y="166">protocol at Layer 2 and</text>
+  <text class="w" x="718" y="178">forwards on all links.</text>
+  <text class="w" x="718" y="196" fill="#6b4fbf">Superseded by EVPN.</text>
+
+  <rect x="24" y="262" width="852" height="76" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="38" y="280">CHOOSING, IN PRACTICE</text>
+  <text class="c" x="38" y="298"><tspan style="font-weight:700" fill="#1f4fc0">One vendor, existing estate</tspan> &#8594; Rapid PVST+: keep it, but set the root deliberately and stop adding VLANs to it.</text>
+  <text class="c" x="38" y="314"><tspan style="font-weight:700" fill="#1f4fc0">Many vendors, or a thousand VLANs</tspan> &#8594; MST: fewer instances, and one digest that must match on every switch.</text>
+  <text class="c" x="38" y="330"><tspan style="font-weight:700" fill="#1f4fc0">New build</tspan> &#8594; ask whether STP is needed at all: clustered access or routed access removes the blocked ports instead of tuning them.</text>
+
+  <rect x="24" y="348" width="852" height="58" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="348" width="4" height="58" fill="#c0392b"/>
+  <text class="c" x="40" y="368" fill="#c0392b"><tspan style="font-weight:700">The two real decisions are not the version:</tspan> where the root is, and which ports are allowed to be blocked. Everything else is compatibility.</text>
+  <text class="c" x="40" y="384" fill="#c0392b">A well-placed root on 802.1D beats a careless root on RSTP; a converged network with an accidental root is still paying a hop on every packet.</text>
+  <text class="c" x="40" y="400" fill="#c0392b">Version choice buys seconds. Root placement buys the whole path.</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t701 d701">
+
+  <title id="t701">Four counter-intuitive truths about Layer 2 design, each with what it really means and the design action it forces</title>
+  <desc id="d701">Four rows. Layer 2 has no concept of a destination, because forwarding is a lookup or a flood and frames carry no TTL, so a loop never expires by itself. STP is a patch rather than a design, so every generation removed blocked ports rather than tuning them. Failures are silent, arriving as slow or flaky rather than as an alarm. Redundancy is not reliability unless the failure domains are independent, so the review question is about cabinets, conduits, line cards and carrier points of presence. A note at the bottom gives the test: ports still sitting in blocking or alternate state are the backlog.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+    .act{font:7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four truths that make Layer 2 design different from everything you learned about routing</text>
+  <text class="s" x="24" y="45">Each one removes a habit that works perfectly well one layer up</text>
+
+  <text class="k" x="42" y="68">THE TRUTH</text>
+  <text class="k" x="252" y="68">WHAT IT ACTUALLY MEANS</text>
+  <text class="k" x="612" y="68">WHAT TO DO ABOUT IT</text>
+
+  <rect x="24" y="76" width="852" height="64" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <circle cx="34" cy="108" r="7" fill="#1f4fc0"/><text class="n" x="34" y="111" text-anchor="middle">1</text>
+  <text class="b" x="50" y="100">No concept of a destination</text>
+  <text class="w" x="50" y="114">no TTL, no error, no route table</text>
+  <text class="c" x="50" y="128">a frame is switched or flooded, nothing else</text>
+  <text class="c" x="252" y="98">Forwarding is lookup or flood: a known MAC is switched,</text>
+  <text class="c" x="252" y="110">an unknown one is flooded. Flooding is normal behaviour,</text>
+  <text class="c" x="252" y="122">not an error — so a loop never expires by itself.</text>
+  <text class="c" x="252" y="134" fill="#c0392b">Ethernet has no TTL to kill the copy.</text>
+  <text class="act" x="612" y="98">Ask which links STP is cutting out</text>
+  <text class="act" x="612" y="110">of service. That is the price of</text>
+  <text class="act" x="612" y="122">loop-freedom, paid in bandwidth.</text>
+
+  <rect x="24" y="140" width="852" height="64" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="34" cy="172" r="7" fill="#0f7f73"/><text class="n" x="34" y="175" text-anchor="middle">2</text>
+  <text class="b" x="50" y="164">STP is a patch, not a design</text>
+  <text class="w" x="50" y="178">the goal is to leave it nothing to do</text>
+  <text class="c" x="50" y="192">tuning it well is not the achievement</text>
+  <text class="c" x="252" y="162">Every generation removed blocked ports rather than tuning</text>
+  <text class="c" x="252" y="174">them: RSTP, then clustering, then routed access. Blocking</text>
+  <text class="c" x="252" y="186">is the thing to delete, not the thing to optimise.</text>
+  <text class="c" x="252" y="198" fill="#c0392b">A better timer is still a timer.</text>
+  <text class="act" x="612" y="162">For every feature you add, name</text>
+  <text class="act" x="612" y="174">the blocked port or the timer it</text>
+  <text class="act" x="612" y="186">removes. If neither, drop it.</text>
+
+  <rect x="24" y="204" width="852" height="64" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <circle cx="34" cy="236" r="7" fill="#6b4fbf"/><text class="n" x="34" y="239" text-anchor="middle">3</text>
+  <text class="b" x="50" y="228">Failures are silent</text>
+  <text class="w" x="50" y="242">it does not error, it slows down</text>
+  <text class="c" x="50" y="256">"it was fine, then it was not"</text>
+  <text class="c" x="252" y="226">Symptoms arrive as slow, flaky, "works after a refresh",</text>
+  <text class="c" x="252" y="238">or "some machines cannot reach some others". No log line</text>
+  <text class="c" x="252" y="250">ever says loop. A MAC flap is the only witness.</text>
+  <text class="c" x="252" y="262" fill="#c0392b">Acceptance cannot be "it pings".</text>
+  <text class="act" x="612" y="226">Write failure scenarios as tests:</text>
+  <text class="act" x="612" y="238">pull this link, expect this path,</text>
+  <text class="act" x="612" y="250">within this many seconds.</text>
+
+  <rect x="24" y="268" width="852" height="64" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <circle cx="34" cy="300" r="7" fill="#b8862b"/><text class="n" x="34" y="303" text-anchor="middle">4</text>
+  <text class="b" x="50" y="292">Redundancy is not reliability</text>
+  <text class="w" x="50" y="306">unless the failure domains differ</text>
+  <text class="c" x="50" y="320">two boxes can be one single point</text>
+  <text class="c" x="252" y="290">Two devices in one cabinet, two links in one conduit, two</text>
+  <text class="c" x="252" y="302">uplinks on one line card, two circuits in one carrier POP.</text>
+  <text class="c" x="252" y="314">Count failure domains, not boxes on the diagram.</text>
+  <text class="c" x="252" y="326" fill="#c0392b">Cases 2 and 5 are exactly this mistake.</text>
+  <text class="act" x="612" y="290">Every review asks one question:</text>
+  <text class="act" x="612" y="302">are these two failure domains</text>
+  <text class="act" x="612" y="314">independent? If not sure, the</text>
+  <text class="act" x="612" y="326">availability figure is fiction.</text>
+
+  <rect x="24" y="348" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="348" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="368" fill="#c0392b"><tspan style="font-weight:700">The test that needs no meeting:</tspan> count the ports currently sitting in BLK or ALTN. That number is paid-for bandwidth earning nothing.</text>
+  <text class="c" x="40" y="384" fill="#c0392b">It is also the honest measure of how far the design has travelled &#8212; every generation in this chapter exists to push it towards zero.</text>
+  <text class="c" x="40" y="400" fill="#c0392b">If the count is zero, the rest of this chapter is about protecting that state. If it is not, the rest of this chapter is about earning it.</text>
+</svg>

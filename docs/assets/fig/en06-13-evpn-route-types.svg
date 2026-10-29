@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 444" width="100%" role="img" aria-labelledby="t613 d613">
+
+  <title id="t613">The five EVPN route types, what each one carries, and the job it does in the design</title>
+  <desc id="d613">Five rows, one per route type. Type 1 is Ethernet auto-discovery, announcing which ESI a PE owns and used for fast convergence, aliasing and mass withdrawal. Type 2 is the MAC or IP advertisement, the core type that enables ARP proxying and MAC mobility. Type 3 is the inclusive multicast Ethernet tag, which builds the BUM distribution tree. Type 4 is the Ethernet segment route, used for designated forwarder election. Type 5 is the IP prefix route, which lets EVPN carry Layer 3 VPN functions. A memory hook at the bottom reads one discovery, two MAC, three flooding, four election, five prefix, and a note points out that Type 5 is what makes EVPN one control plane for both Layer 2 and Layer 3.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .t{font:700 9px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="444" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five route types, each one answering a different question in the design</text>
+  <text class="s" x="24" y="45">You rarely configure these by name; you do choose them by asking which problem the domain has</text>
+
+  <text class="k" x="112" y="68">NAME</text>
+  <text class="k" x="348" y="68">WHAT IT CARRIES</text>
+  <text class="k" x="654" y="68">WHAT IT IS FOR IN THE DESIGN</text>
+
+  <rect x="24" y="76" width="852" height="48" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="34" y="88" width="24" height="24" rx="2" fill="#1f4fc0"/>
+  <text class="t" x="46" y="105" text-anchor="middle">1</text>
+  <text class="b" x="70" y="98">Ethernet A-D</text>
+  <text class="w" x="70" y="112" fill="#1f4fc0">auto-discovery</text>
+  <text class="c" x="348" y="98">Announces which ESI this PE owns, and per-EVI state</text>
+  <text class="w" x="348" y="112">withdrawn as a batch when the segment goes away</text>
+  <text class="c" x="654" y="98">Fast convergence, aliasing load sharing,</text>
+  <text class="w" x="654" y="112">and mass withdrawal in one update</text>
+
+  <rect x="24" y="124" width="852" height="48" rx="3" fill="#eef5fd" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="34" y="136" width="24" height="24" rx="2" fill="#1f4fc0"/>
+  <text class="t" x="46" y="153" text-anchor="middle">2</text>
+  <text class="b" x="70" y="146">MAC / IP advertisement</text>
+  <text class="w" x="70" y="160" fill="#1f4fc0">the core type</text>
+  <text class="c" x="348" y="146">A MAC, optionally with its IP, plus the next hop</text>
+  <text class="w" x="348" y="160">this is the route that replaces flooding</text>
+  <text class="c" x="654" y="146">ARP proxying and MAC mobility;</text>
+  <text class="w" x="654" y="160">everything you actually buy EVPN for</text>
+
+  <rect x="24" y="172" width="852" height="48" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="34" y="184" width="24" height="24" rx="2" fill="#0f7f73"/>
+  <text class="t" x="46" y="201" text-anchor="middle">3</text>
+  <text class="b" x="70" y="194">Inclusive multicast</text>
+  <text class="w" x="70" y="208" fill="#0f7f73">IMET, per Ethernet tag</text>
+  <text class="c" x="348" y="194">Which PEs want to receive flooded traffic</text>
+  <text class="w" x="348" y="208">for this EVI and this tag</text>
+  <text class="c" x="654" y="194">Builds the BUM distribution tree,</text>
+  <text class="w" x="654" y="208">so floods go where they are wanted</text>
+
+  <rect x="24" y="220" width="852" height="48" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="34" y="232" width="24" height="24" rx="2" fill="#0f7f73"/>
+  <text class="t" x="46" y="249" text-anchor="middle">4</text>
+  <text class="b" x="70" y="242">Ethernet segment</text>
+  <text class="w" x="70" y="256" fill="#0f7f73">per ESI, per PE</text>
+  <text class="c" x="348" y="242">Each PE&#8217;s view of the same multihomed segment</text>
+  <text class="w" x="348" y="256">the input to designated forwarder election</text>
+  <text class="c" x="654" y="242">DF election: exactly one PE forwards</text>
+  <text class="w" x="654" y="256">BUM towards the multihomed CE</text>
+
+  <rect x="24" y="268" width="852" height="48" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <rect x="34" y="280" width="24" height="24" rx="2" fill="#6b4fbf"/>
+  <text class="t" x="46" y="297" text-anchor="middle">5</text>
+  <text class="b" x="70" y="290">IP prefix</text>
+  <text class="w" x="70" y="304" fill="#5a3fa8">L3 in the same plane</text>
+  <text class="c" x="348" y="290">IP prefixes with the usual BGP behaviour</text>
+  <text class="w" x="348" y="304">advertised and withdrawn like L3VPN routes</text>
+  <text class="c" x="654" y="290">Layer 3VPN functions inside EVPN &#8212;</text>
+  <text class="w" x="654" y="304">one control plane for L2 and L3</text>
+
+  <rect x="24" y="330" width="418" height="52" rx="3" fill="#fbfcfe" stroke="#b9c9e2" stroke-width=".7"/>
+  <text class="k" x="38" y="348">MEMORY HOOK</text>
+  <text class="c" x="38" y="366"><tspan style="font-weight:700">1 discovery &#183; 2 MAC &#183; 3 flooding &#183; 4 election &#183; 5 prefix</tspan></text>
+  <text class="w" x="38" y="378">say it once, then read the table only when the design stalls</text>
+
+  <rect x="458" y="330" width="418" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="472" y="350" fill="#c0392b"><tspan style="font-weight:700">Type 5 is the strategic one.</tspan> It means EVPN can do Layer 2 and Layer 3 at once,</text>
+  <text class="c" x="472" y="364" fill="#c0392b">which is the foundation of the single overlay control plane in modern data centres</text>
+  <text class="w" x="472" y="377" fill="#c0392b">and campuses &#8212; the design thread that returns in Chapter 9</text>
+
+  <rect x="24" y="394" width="852" height="38" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="394" width="4" height="38" fill="#c0392b"/>
+  <text class="c" x="40" y="418" fill="#c0392b"><tspan style="font-weight:700">Design reflex:</tspan> a slow-convergence complaint points to Type 1, a flooding complaint to Types 2 and 3, a duplicate-BUM complaint to Type 4, and a migration complaint to Type 2&#8217;s mobility sequence.</text>
+</svg>

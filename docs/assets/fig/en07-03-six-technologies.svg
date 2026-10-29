@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t703 d703">
+
+  <title id="t703">Six Layer 2 technologies, the separate problem each one solves, and the point where each one locks onto the others</title>
+  <desc id="d703">Six rows. STP stops loops by blocking ports and therefore decides every path. VLAN splits broadcast and failure domain and sets the scope STP must compute over. Trunk carries many VLANs on one link and can silently bridge two VLANs through a native VLAN mismatch. Link aggregation adds bandwidth and link redundancy, and because STP sees one logical link it removes a blocked port. Clustering removes STP blocking entirely and moves the single point to the peer link. FHRP provides gateway redundancy and must sit on the same switch as the root bridge. A note at the bottom says VLAN, STP and FHRP are three presentations of one decision: the scope, the path and the exit.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Six technologies, not six topics: each one changes the premises of the others</text>
+  <text class="s" x="24" y="45">Read the third column as the contract each feature signs with the rest of the design</text>
+
+  <text class="k" x="38" y="66">TECHNOLOGY</text>
+  <text class="k" x="200" y="66">THE PROBLEM IT SOLVES, ALONE</text>
+  <text class="k" x="486" y="66">WHERE IT LOCKS ONTO THE OTHERS</text>
+
+  <rect x="24" y="72" width="852" height="42" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="38" y="90">STP</text>
+  <text class="w" x="38" y="103">loop prevention</text>
+  <text class="c" x="200" y="90">Stops loops by blocking ports &#8212; so it decides</text>
+  <text class="c" x="200" y="103">every path anyone will ever use.</text>
+  <text class="c" x="486" y="90">Whatever a VLAN spans is what STP must compute over.</text>
+  <text class="c" x="486" y="103">Enlarge the VLAN and you enlarge the calculation and the blast radius.</text>
+
+  <rect x="24" y="114" width="852" height="42" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="38" y="132">VLAN</text>
+  <text class="w" x="38" y="145">broadcast and failure domain</text>
+  <text class="c" x="200" y="132">Splits one switch into several broadcast domains</text>
+  <text class="c" x="200" y="145">without buying a switch per domain.</text>
+  <text class="c" x="486" y="132">Sets the scope for STP, the subnet plan and the FHRP groups.</text>
+  <text class="c" x="486" y="145">VLAN 1 quietly carries everything nobody assigned.</text>
+
+  <rect x="24" y="156" width="852" height="42" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="38" y="174">Trunk</text>
+  <text class="w" x="38" y="187">many VLANs, one link</text>
+  <text class="c" x="200" y="174">Carries many VLANs between switches over</text>
+  <text class="c" x="200" y="187">one physical interface.</text>
+  <text class="c" x="486" y="174">A native VLAN mismatch bridges two VLANs with no error at all.</text>
+  <text class="c" x="486" y="187">The allowed list decides what can leak where.</text>
+
+  <rect x="24" y="198" width="852" height="42" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="38" y="216">Link aggregation</text>
+  <text class="w" x="38" y="229">bandwidth, link redundancy</text>
+  <text class="c" x="200" y="216">Adds bandwidth and removes single-link failure</text>
+  <text class="c" x="200" y="229">using links you already paid for.</text>
+  <text class="c" x="486" y="216">STP sees one logical link, so it silently removes a blocked port.</text>
+  <text class="c" x="486" y="229">min-links turns a degraded bundle into a deliberate outage.</text>
+
+  <rect x="24" y="240" width="852" height="42" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="38" y="258">Clustering</text>
+  <text class="w" x="38" y="271">vPC, MLAG, stacking</text>
+  <text class="c" x="200" y="258">Removes STP blocking between two switches,</text>
+  <text class="c" x="200" y="271">so both uplinks forward.</text>
+  <text class="c" x="486" y="258">Moves the single point from the link to the peer link,</text>
+  <text class="c" x="486" y="271">and adds a new failure mode that needs its own detection.</text>
+
+  <rect x="24" y="282" width="852" height="42" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="38" y="300">FHRP</text>
+  <text class="w" x="38" y="313">gateway redundancy</text>
+  <text class="c" x="200" y="300">Keeps a default gateway reachable when one</text>
+  <text class="c" x="200" y="313">device or uplink fails.</text>
+  <text class="c" x="486" y="300">Must sit on the same switch as the STP root, or every</text>
+  <text class="c" x="486" y="313">packet crosses the core link and comes back.</text>
+
+  <rect x="24" y="338" width="852" height="64" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="338" width="4" height="64" fill="#c0392b"/>
+  <text class="c" x="40" y="358" fill="#c0392b"><tspan style="font-weight:700">Three of the six are one decision seen from three angles:</tspan> the VLAN sets the scope, STP sets the path, FHRP sets the exit.</text>
+  <text class="c" x="40" y="374" fill="#c0392b">Configured by three people in three change windows, they contradict. Configured as one decision, the rest of this chapter is detail.</text>
+  <text class="c" x="40" y="390" fill="#c0392b">The other three &#8212; trunk, aggregation, clustering &#8212; are the levers that alter what the first three are allowed to assume.</text>
+</svg>

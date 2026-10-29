@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t708 d708">
+
+  <title id="t708">Where each spanning tree protection feature is placed on a campus topology, and the failure each one prevents</title>
+  <desc id="d708">A topology with two distribution switches marked as root primary and secondary, two access switches, a user PC and a user switch plugged into an access port. Annotations place root guard on the downlinks toward access, loop guard and UDLD on the fiber uplinks, PortFast and BPDU guard on the edge ports, and BPDU guard where the user switch would otherwise create a loop. A table beside it lists six features with where each is configured and what it prevents, including BPDU filter which removes protection rather than adding it. A note stresses that PortFast and BPDU guard must be deployed as a pair.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .sw{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .tag{font:700 6.5px "Segoe UI",sans-serif;fill:#ffffff}
+    .lab{font:700 7px "Segoe UI",sans-serif;fill:#c0392b}
+    .lg{font:700 7px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Every guard protects a different direction &#8212; placed on the wrong port, a guard protects nothing</text>
+  <text class="s" x="24" y="45">Placing them is a topology exercise, not a configuration exercise</text>
+
+  <rect x="80" y="86" width="120" height="26" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="140" y="103" text-anchor="middle">DSW-1</text>
+  <rect x="256" y="86" width="120" height="26" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="316" y="103" text-anchor="middle">DSW-2</text>
+  <text class="lab" x="80" y="78">root primary</text>
+  <text class="lab" x="256" y="78" fill="#6b4fbf">root secondary</text>
+
+  <line x1="140" y1="112" x2="105" y2="206" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="316" y1="112" x2="295" y2="206" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="160" y1="219" x2="240" y2="219" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <rect x="50" y="206" width="110" height="26" rx="2" fill="#f6f9fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="sw" x="105" y="223" text-anchor="middle">ASW-A</text>
+  <rect x="240" y="206" width="110" height="26" rx="2" fill="#f6f9fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="sw" x="295" y="223" text-anchor="middle">ASW-B</text>
+
+  <rect x="86" y="146" width="62" height="13" rx="2" fill="#0f7f73"/>
+  <text class="tag" x="117" y="155" text-anchor="middle">ROOT GUARD</text>
+  <rect x="310" y="146" width="62" height="13" rx="2" fill="#0f7f73"/>
+  <text class="tag" x="341" y="155" text-anchor="middle">ROOT GUARD</text>
+  <text class="lg" x="200" y="180">LOOP GUARD + UDLD on both fiber uplinks</text>
+  <path d="M200 184 L176 184 L150 165" fill="none" stroke="#0f7f73" stroke-width=".5"/>
+
+  <line x1="105" y1="232" x2="88" y2="292" stroke="#b9c3d2" stroke-width=".9"/>
+  <line x1="295" y1="232" x2="300" y2="292" stroke="#b9c3d2" stroke-width=".9"/>
+
+  <rect x="34" y="292" width="108" height="24" rx="2" fill="#f4f8fe" stroke="#b9c3d2" stroke-width=".7"/>
+  <text class="sw" x="88" y="308" text-anchor="middle">user PC</text>
+  <rect x="248" y="292" width="104" height="24" rx="2" fill="#fff5f4" stroke="#c0392b" stroke-width=".8"/>
+  <text class="sw" x="300" y="308" text-anchor="middle" fill="#c0392b">user switch</text>
+
+  <rect x="52" y="248" width="106" height="13" rx="2" fill="#1f4fc0"/>
+  <text class="tag" x="105" y="257" text-anchor="middle">PORTFAST + BPDU GUARD</text>
+  <rect x="246" y="248" width="106" height="13" rx="2" fill="#c0392b"/>
+  <text class="tag" x="299" y="257" text-anchor="middle">BPDU GUARD err-disables</text>
+
+  <text class="lab" x="160" y="212">no link in a loop-free U</text>
+  <text class="w" x="34" y="332">The edge port waits 30 s without PortFast,</text>
+  <text class="w" x="34" y="344">and loops without BPDU Guard. Both or neither.</text>
+
+  <text class="w" x="34" y="368" fill="#c0392b">One-way fiber: transmit works, receive is dead.</text>
+  <text class="w" x="34" y="380" fill="#c0392b">The port stays up, BPDUs stop arriving, and after</text>
+  <text class="w" x="34" y="392" fill="#c0392b">Max Age the far side promotes itself &#8212; a loop STP</text>
+  <text class="w" x="34" y="404" fill="#c0392b">never sees. Only Loop Guard and UDLD catch it.</text>
+
+  <line x1="440" y1="70" x2="440" y2="340" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="456" y="72">FEATURE</text>
+  <text class="k" x="576" y="72">WHERE IT GOES</text>
+  <text class="k" x="706" y="72">WHAT IT PREVENTS</text>
+
+  <text class="b" x="456" y="94">PortFast</text>
+  <text class="c" x="576" y="94">edge ports only</text>
+  <text class="c" x="706" y="94">30 s of waiting for a device that</text>
+  <text class="c" x="706" y="106">will never send a BPDU</text>
+
+  <text class="b" x="456" y="130">BPDU Guard</text>
+  <text class="c" x="576" y="130">the same edge ports</text>
+  <text class="c" x="706" y="130">a user switch behind a desk</text>
+  <text class="c" x="706" y="142">creating a loop nobody knows about</text>
+
+  <text class="b" x="456" y="166">Root Guard</text>
+  <text class="c" x="576" y="166">downlinks toward access</text>
+  <text class="c" x="706" y="166">a better-priority switch stealing</text>
+  <text class="c" x="706" y="178">the root and moving every path</text>
+
+  <text class="b" x="456" y="202">Loop Guard</text>
+  <text class="c" x="576" y="202">trunks and fiber uplinks</text>
+  <text class="c" x="706" y="202">a one-way link: port up, BPDUs</text>
+  <text class="c" x="706" y="214">gone, port promoted, loop formed</text>
+
+  <text class="b" x="456" y="238">UDLD aggressive</text>
+  <text class="c" x="576" y="238">the same fiber ports</text>
+  <text class="c" x="706" y="238">the same one-way path, caught one</text>
+  <text class="c" x="706" y="250">layer down, before STP is fooled</text>
+
+  <text class="b" x="456" y="274" fill="#c0392b">BPDU Filter</text>
+  <text class="c" x="576" y="274" fill="#c0392b">almost nowhere</text>
+  <text class="c" x="706" y="274" fill="#c0392b">nothing: it removes protection</text>
+  <text class="c" x="706" y="286" fill="#c0392b">instead of adding it</text>
+
+  <text class="w" x="456" y="310">Two rules cover the table: guards face outward, and edge protection is a pair.</text>
+  <text class="w" x="456" y="322">A trunk port with PortFast and no guard is the classic half-measure.</text>
+
+  <rect x="24" y="344" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="344" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="364" fill="#c0392b"><tspan style="font-weight:700">BPDU Filter is the one feature in this chapter that looks like a guard and is not:</tspan> it stops BPDUs being sent and received, so the port silently becomes a forwarding stub.</text>
+  <text class="c" x="40" y="380" fill="#c0392b">Case 4 in this chapter is what happens when fiber protection is omitted: the port stays up, the BPDUs stop, and STP concludes that the other side has vanished.</text>
+  <text class="c" x="40" y="396" fill="#c0392b">All of these are template decisions. None of them is worth doing port by port, because the port you forget is the one that forms the loop.</text>
+</svg>

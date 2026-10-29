@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t709 d709">
+
+  <title id="t709">A production spanning tree baseline in five layers, beside the three MST details that must match character for character</title>
+  <desc id="d709">Five stacked bars give a baseline: global defaults for mode, loop guard and BPDU guard; explicit root primary and secondary assignments per VLAN group; uplink settings for loop guard, UDLD and explicit cost; edge settings pairing PortFast with BPDU guard and storm control; and the verification commands with topology change counters. A box on the right lists the three MST details that must match exactly, name, revision and instance mapping, notes that a mismatch silently falls back to the common instance with no error logged, and gives the daily digest comparison as the only practical check.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .m{font:7.5px "Consolas",monospace;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="436" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A spanning tree baseline is five layers of defaults, not three hundred lines of per-port intent</text>
+  <text class="s" x="24" y="45">Anything configured port by port will be missing on the port that matters</text>
+
+  <text class="k" x="38" y="70">GLOBAL</text>
+  <rect x="24" y="76" width="496" height="38" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="m" x="38" y="92">spanning-tree mode rapid-pvst</text>
+  <text class="m" x="38" y="106">spanning-tree loopguard default</text>
+  <text class="w" x="252" y="92">the mode sets the floor of what is possible</text>
+  <text class="w" x="252" y="106">defaults protect the ports nobody remembered</text>
+
+  <text class="k" x="38" y="128">ROOT</text>
+  <rect x="24" y="134" width="496" height="38" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="m" x="38" y="150">spanning-tree vlan 10,30 root primary</text>
+  <text class="m" x="38" y="164">spanning-tree vlan 20,40 root secondary</text>
+  <text class="w" x="306" y="150">split VLANs between the two switches,</text>
+  <text class="w" x="306" y="164">so both uplinks carry traffic</text>
+
+  <text class="k" x="38" y="186">UPLINK</text>
+  <rect x="24" y="192" width="496" height="38" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="m" x="38" y="208">guard loop, udld aggressive, explicit cost</text>
+  <text class="w" x="38" y="222">fiber ports only: this is where a one-way link forms a loop STP cannot see</text>
+
+  <text class="k" x="38" y="244">EDGE</text>
+  <rect x="24" y="250" width="496" height="38" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="m" x="38" y="266">switchport portfast + bpduguard, storm-control</text>
+  <text class="w" x="38" y="280">always as a pair, always in the access template, never by hand</text>
+
+  <text class="k" x="38" y="302">PROOF</text>
+  <rect x="24" y="308" width="496" height="38" rx="2" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".6"/>
+  <text class="m" x="38" y="324">show spanning-tree root / summary / detail</text>
+  <text class="w" x="38" y="338">topology change counters per port, alarmed on rate, not on absolute value</text>
+
+  <rect x="540" y="76" width="336" height="150" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="k" x="554" y="92">MST: THREE DETAILS THAT MUST MATCH</text>
+  <text class="c" x="554" y="112"><tspan style="font-weight:700">1.</tspan> region name &#8212; character for character,</text>
+  <text class="c" x="566" y="124">including a trailing space nobody sees.</text>
+  <text class="c" x="554" y="142"><tspan style="font-weight:700">2.</tspan> revision number &#8212; a single digit off</text>
+  <text class="c" x="566" y="154">splits the region in two.</text>
+  <text class="c" x="554" y="172"><tspan style="font-weight:700">3.</tspan> instance-to-VLAN mapping &#8212; differ, and</text>
+  <text class="c" x="566" y="184">the load sharing you designed disappears.</text>
+  <text class="c" x="554" y="204" fill="#c0392b">A split region logs nothing. Every switch simply</text>
+  <text class="c" x="554" y="216" fill="#c0392b">falls back to the common instance and keeps going.</text>
+
+  <rect x="540" y="236" width="336" height="110" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="554" y="252">THE ONLY PRACTICAL CHECK</text>
+  <text class="m" x="554" y="272">show spanning-tree mst configuration digest</text>
+  <text class="w" x="554" y="290">Compare the digest daily, and before and after</text>
+  <text class="w" x="554" y="302">every change. It is one line of evidence that the</text>
+  <text class="w" x="554" y="314">region is still one region, readable in a script.</text>
+  <text class="c" x="554" y="336" fill="#0f7f73">If the digest is not identical, treat the region as broken.</text>
+
+  <rect x="24" y="356" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="356" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="376" fill="#c0392b"><tspan style="font-weight:700">The baseline has three parts and only one of them is configuration:</tspan> a template that carries the intent, a snapshot taken before each change, and an alarm on the counters.</text>
+  <text class="c" x="40" y="392" fill="#c0392b">MST consistency is an implicit contract &#8212; nothing enforces it, nothing reports it, and every switch looks locally correct while the design has quietly stopped working.</text>
+  <text class="c" x="40" y="408" fill="#c0392b">That is why the digest belongs in the daily report rather than in the runbook: it is the only check that fails before the users do.</text>
+</svg>

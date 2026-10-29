@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t706 d706">
+
+  <title id="t706">RSTP port roles and states drawn on a three-switch topology, showing the alternate port as a healthy link carrying nothing</title>
+  <desc id="d706">Three switches: a root bridge above, two access switches below, each with a root port toward the root, and a link between them where one side is designated and the other is alternate and discarding. A comparison beside it lists the four roles, root, designated, alternate and backup, and the three states, discarding, learning and forwarding. A note explains that an alternate port is fully healthy and deliberately idle, and that the count of alternate ports is the bandwidth the design has paid for and not used, which is exactly what clustering exists to remove.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .sw{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .tag{font:700 7px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="424" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Roles describe intent, states describe permission &#8212; and one of them means "healthy but forbidden"</text>
+  <text class="s" x="24" y="45">The alternate port is the whole reason this chapter has a section on clustering</text>
+
+  <rect x="140" y="78" width="120" height="26" rx="2" fill="#1f4fc0"/>
+  <text class="tag" x="200" y="95" text-anchor="middle">ROOT BRIDGE</text>
+
+  <line x1="196" y1="104" x2="126" y2="182" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="204" y1="104" x2="284" y2="182" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="60" y1="182" x2="300" y2="182" stroke="#c0392b" stroke-width="1.1" stroke-dasharray="4 3"/>
+
+  <rect x="60" y="182" width="120" height="26" rx="2" fill="#eef3fb" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="sw" x="120" y="199" text-anchor="middle">SW-A</text>
+  <rect x="240" y="182" width="120" height="26" rx="2" fill="#eef3fb" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="sw" x="300" y="199" text-anchor="middle">SW-B</text>
+
+  <text class="w" x="150" y="140">RP</text>
+  <text class="w" x="216" y="132">DP</text>
+  <text class="w" x="270" y="140">RP</text>
+  <text class="w" x="216" y="156">DP</text>
+
+  <rect x="146" y="170" width="26" height="12" rx="2" fill="#c0392b"/>
+  <text class="tag" x="159" y="179" text-anchor="middle">ALT</text>
+  <rect x="196" y="170" width="24" height="12" rx="2" fill="#0f7f73"/>
+  <text class="tag" x="208" y="179" text-anchor="middle">DP</text>
+
+  <text class="w" x="120" y="228" text-anchor="middle">both uplinks are up</text>
+  <text class="c" x="180" y="248" text-anchor="middle" fill="#c0392b">the dashed link is healthy, paid for, and discarding</text>
+  <text class="w" x="180" y="266" text-anchor="middle">it becomes forwarding the moment the root port dies</text>
+
+  <rect x="180" y="284" width="330" height="30" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="196" y="303" fill="#c0392b">In a triangle, exactly one link per VLAN is wasted like this. Count them.</text>
+
+  <line x1="400" y1="70" x2="400" y2="320" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="420" y="80">PORT ROLES</text>
+  <text class="b" x="420" y="98">Root port</text>
+  <text class="c" x="496" y="98">the best path toward the root, one per switch, forwarding</text>
+  <text class="b" x="420" y="122">Designated port</text>
+  <text class="c" x="522" y="122">the best path toward the segment, one per segment, forwarding</text>
+  <text class="b" x="420" y="146">Alternate port</text>
+  <text class="c" x="516" y="146">another path to the root through a different switch, discarding</text>
+  <text class="b" x="420" y="170">Backup port</text>
+  <text class="c" x="502" y="170">a second path to the same segment on the same switch, discarding</text>
+  <text class="w" x="420" y="188">RSTP keeps alternate and backup ready, so the switchover needs no timer.</text>
+  <text class="w" x="420" y="200" fill="#c0392b">Backup is so rare that seeing one usually means hub or cabling duplication.</text>
+
+  <text class="k" x="420" y="226">PORT STATES</text>
+  <text class="b" x="420" y="244">Discarding</text>
+  <text class="c" x="494" y="244">no learning, no forwarding &#8212; what a blocked port really is</text>
+  <text class="b" x="420" y="268">Learning</text>
+  <text class="c" x="484" y="268">building the MAC table without forwarding, a short lived state</text>
+  <text class="b" x="420" y="292">Forwarding</text>
+  <text class="c" x="492" y="292">learn and forward; only edge ports reach this without waiting</text>
+  <text class="w" x="420" y="310">802.1D had five states. RSTP has three, and two of them are transient.</text>
+
+  <rect x="24" y="330" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="330" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="350" fill="#c0392b"><tspan style="font-weight:700">Every alternate port is a measurement:</tspan> bandwidth you bought, powered up, monitored, and forbidden to carry traffic.</text>
+  <text class="c" x="40" y="366" fill="#c0392b">That count is the business case for clustering, and also its cost: clustering removes the idle port and replaces it with a peer link that must never be split.</text>
+  <text class="c" x="40" y="382" fill="#c0392b">Nothing in this chapter removes the trade &#8212; it only chooses where the failure lives: on the blocked link, or on the peer link.</text>
+</svg>

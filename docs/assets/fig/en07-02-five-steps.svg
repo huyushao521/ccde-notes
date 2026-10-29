@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 418" width="100%" role="img" aria-labelledby="t702 d702">
+
+  <title id="t702">Five decisions in the order they must be made, each with the question it answers and the symptom of getting it wrong</title>
+  <desc id="d702">Five columns in sequence. First the scope of the Layer 2 domain. Second the VLAN and subnet plan. Third the loop-prevention mechanism. Fourth the root bridge and gateway ownership. Fifth the convergence budget and how it will be measured. Each column states the question it answers and the symptom that appears when the decision is made wrongly, ending with a note that the order cannot be reversed because the HSRP active and the STP root describe the same thing: where traffic goes.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .num{font:700 17px "Segoe UI",sans-serif;fill:#c8d4e6}
+    .q{font:7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .bad{font:7.5px "Segoe UI",sans-serif;fill:#c0392b}
+  </style>
+
+  <rect x="0" y="0" width="900" height="418" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five decisions, in the only order that works &#8212; each answer constrains the next</text>
+  <text class="s" x="24" y="45">Skip one and it does not disappear; it gets decided accidentally by whoever configures last</text>
+
+  <line x1="30" y1="66" x2="866" y2="66" stroke="#c8d4e6" stroke-width=".8"/>
+  <path d="M866 62 l8 4 l-8 4 z" fill="#c8d4e6"/>
+  <text class="k" x="30" y="60">THE SEQUENCE</text>
+
+  <rect x="24" y="76" width="162" height="250" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="24" y="76" width="162" height="3" fill="#1f4fc0"/>
+  <text class="num" x="38" y="104">01</text>
+  <text class="b" x="38" y="122">Scope of the Layer 2</text>
+  <text class="b" x="38" y="134">domain</text>
+  <text class="q" x="38" y="156">How far does one VLAN</text>
+  <text class="q" x="38" y="168">reach, and who must</text>
+  <text class="q" x="38" y="180">stay in one subnet?</text>
+  <text class="bad" x="38" y="206">If wrong:</text>
+  <text class="w" x="38" y="220">one loop, a broadcast</text>
+  <text class="w" x="38" y="232">storm or an ARP flood</text>
+  <text class="w" x="38" y="244">takes the whole estate,</text>
+  <text class="w" x="38" y="256">not one floor.</text>
+  <text class="w" x="38" y="278" fill="#1f4fc0">Every switch a VLAN</text>
+  <text class="w" x="38" y="290" fill="#1f4fc0">spans is extra risk.</text>
+
+  <rect x="194" y="76" width="162" height="250" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="194" y="76" width="162" height="3" fill="#1f4fc0"/>
+  <text class="num" x="208" y="104">02</text>
+  <text class="b" x="208" y="122">VLAN and subnet</text>
+  <text class="b" x="208" y="134">plan</text>
+  <text class="q" x="208" y="156">What is each VLAN for,</text>
+  <text class="q" x="208" y="168">how big is each subnet,</text>
+  <text class="q" x="208" y="180">what does it map to?</text>
+  <text class="bad" x="208" y="206">If wrong:</text>
+  <text class="w" x="208" y="220">subnets run out, or the</text>
+  <text class="w" x="208" y="232">address is tied to the</text>
+  <text class="w" x="208" y="244">floor and a VIP cannot</text>
+  <text class="w" x="208" y="256">move between sites.</text>
+  <text class="w" x="208" y="278" fill="#1f4fc0">One VLAN, one subnet,</text>
+  <text class="w" x="208" y="290" fill="#1f4fc0">one purpose, one number.</text>
+
+  <rect x="364" y="76" width="162" height="250" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="364" y="76" width="162" height="3" fill="#0f7f73"/>
+  <text class="num" x="378" y="104">03</text>
+  <text class="b" x="378" y="122">Loop-prevention</text>
+  <text class="b" x="378" y="134">mechanism</text>
+  <text class="q" x="378" y="156">STP, a loop-free U,</text>
+  <text class="q" x="378" y="168">clustering, or routed</text>
+  <text class="q" x="378" y="180">access?</text>
+  <text class="bad" x="378" y="206">If wrong:</text>
+  <text class="w" x="378" y="220">a later design is really</text>
+  <text class="w" x="378" y="232">patching a wrong premise,</text>
+  <text class="w" x="378" y="244">and every patch adds</text>
+  <text class="w" x="378" y="256">a new exception.</text>
+  <text class="w" x="378" y="278" fill="#0f7f73">This is the decision that</text>
+  <text class="w" x="378" y="290" fill="#0f7f73">sets the convergence floor.</text>
+
+  <rect x="534" y="76" width="162" height="250" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <rect x="534" y="76" width="162" height="3" fill="#6b4fbf"/>
+  <text class="num" x="548" y="104">04</text>
+  <text class="b" x="548" y="122">Root bridge and</text>
+  <text class="b" x="548" y="134">gateway ownership</text>
+  <text class="q" x="548" y="156">Which switch owns</text>
+  <text class="q" x="548" y="168">each VLAN for STP,</text>
+  <text class="q" x="548" y="180">and which for FHRP?</text>
+  <text class="bad" x="548" y="206">If wrong:</text>
+  <text class="w" x="548" y="220">traffic crosses the core</text>
+  <text class="w" x="548" y="232">link and comes back &#8212;</text>
+  <text class="w" x="548" y="244">one extra hop, on every</text>
+  <text class="w" x="548" y="256">packet, forever.</text>
+  <text class="w" x="548" y="278" fill="#6b4fbf">Case 1 is this decision</text>
+  <text class="w" x="548" y="290" fill="#6b4fbf">made by accident.</text>
+
+  <rect x="704" y="76" width="172" height="250" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <rect x="704" y="76" width="172" height="3" fill="#b8862b"/>
+  <text class="num" x="718" y="104">05</text>
+  <text class="b" x="718" y="122">Convergence</text>
+  <text class="b" x="718" y="134">budget and proof</text>
+  <text class="q" x="718" y="156">What budget per</text>
+  <text class="q" x="718" y="168">segment, and how will</text>
+  <text class="q" x="718" y="180">it be measured?</text>
+  <text class="bad" x="718" y="206">If wrong:</text>
+  <text class="w" x="718" y="220">acceptance becomes</text>
+  <text class="w" x="718" y="232">"it pings", and the first</text>
+  <text class="w" x="718" y="244">real failure is also the</text>
+  <text class="w" x="718" y="256">first measurement.</text>
+  <text class="w" x="718" y="278" fill="#b8862b">Long pings, recorded,</text>
+  <text class="w" x="718" y="290" fill="#b8862b">are the only evidence.</text>
+
+  <rect x="24" y="338" width="852" height="64" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="338" width="4" height="64" fill="#c0392b"/>
+  <text class="c" x="40" y="358" fill="#c0392b"><tspan style="font-weight:700">The order cannot be reversed,</tspan> because step 4 is not a network decision at all. The HSRP active and the STP root describe the same thing &#8212; where traffic goes &#8212; in two protocols.</text>
+  <text class="c" x="40" y="374" fill="#c0392b">Decide them in one place, on one whiteboard, by one person. Made separately by two teams, they contradict each other silently and nobody notices until a link counter looks odd.</text>
+  <text class="c" x="40" y="390" fill="#c0392b">Steps 1 to 3 set what is possible; step 5 only documents what steps 1 to 4 already decided.</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 456" width="100%" role="img" aria-labelledby="t63 d63">
+
+  <title id="t63">Ethernet Private Line versus Ethernet Virtual Private Line, the port-based and VLAN-based transport models</title>
+  <desc id="d63">Two diagrams. On the left, EPL dedicates the whole port to one EVC, so every frame belongs to the same circuit and no second service can share the port. On the right, EVPL carries VLAN 10, 20 and 30 over one port, each VLAN mapping to a different EVC and possibly a different remote site. Beneath them a five-row comparison covers port utilisation, transparency, suitability, cost and the typical pitfall. A red note at the bottom says the real difference is a single question: is the port dedicated, or do several EVCs share it, and every other difference follows from that.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .vl{font:600 7px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+
+  <rect x="0" y="0" width="900" height="456" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">One question decides everything: is the port dedicated, or do several EVCs share it</text>
+  <text class="s" x="24" y="45">Port-based is transparent and expensive; VLAN-based is cheap and only as transparent as your VLAN plan</text>
+
+  <rect x="24" y="64" width="418" height="132" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="84" fill="#1f4fc0">EPL &#183; port-based</text>
+  <text class="w" x="150" y="84">Ethernet Private Line</text>
+  <circle cx="60" cy="136" r="13" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="60" y="139" text-anchor="middle">CE</text>
+  <line x1="73" y1="136" x2="296" y2="136" stroke="#1f4fc0" stroke-width="2.4"/>
+  <rect x="296" y="114" width="96" height="44" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="344" y="140" text-anchor="middle">PE</text>
+  <text class="w" x="120" y="128">whole port &#183; one EVC</text>
+  <text class="c" x="38" y="186">Every frame on the port belongs to the same circuit. No second service, no VLAN reuse.</text>
+
+  <rect x="458" y="64" width="418" height="132" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="472" y="84" fill="#0f7f73">EVPL &#183; VLAN-based</text>
+  <text class="w" x="594" y="84">Ethernet Virtual Private Line</text>
+  <circle cx="494" cy="136" r="13" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="ce" x="494" y="139" text-anchor="middle" fill="#0f7f73">CE</text>
+  <path d="M507 136 L552 122 L730 122" fill="none" stroke="#0f7f73" stroke-width=".8"/>
+  <path d="M507 136 L552 136 L730 136" fill="none" stroke="#0f7f73" stroke-width=".8"/>
+  <path d="M507 136 L552 150 L730 150" fill="none" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="vl" x="560" y="119">VLAN 10</text>
+  <text class="vl" x="560" y="133">VLAN 20</text>
+  <text class="vl" x="560" y="147">VLAN 30</text>
+  <rect x="730" y="100" width="76" height="64" rx="3" fill="#eafaf7" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="vl" x="768" y="118" text-anchor="middle">PE</text>
+  <text class="w" x="742" y="134">EVC 1 &#8594; A</text>
+  <text class="w" x="742" y="145">EVC 2 &#8594; B</text>
+  <text class="w" x="742" y="156">EVC 3 &#8594; C</text>
+  <text class="c" x="472" y="186">One port, three services, three remotes. The carrier may rewrite the tag on the way.</text>
+
+  <text class="k" x="38" y="214">DIMENSION</text>
+  <text class="k" x="184" y="214">EPL &#183; PORT-BASED</text>
+  <text class="k" x="524" y="214">EVPL &#183; VLAN-BASED</text>
+
+  <rect x="24" y="220" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="243">Port utilisation</text>
+  <text class="c" x="184" y="236">Dedicated to one service</text>
+  <text class="w" x="184" y="249">therefore wasted when idle</text>
+  <text class="c" x="524" y="236">Reused by many EVCs</text>
+  <text class="w" x="524" y="249">therefore saved</text>
+
+  <rect x="24" y="256" width="852" height="36" fill="#f8fafd"/>
+  <text class="b" x="38" y="279">Transparency</text>
+  <text class="c" x="184" y="272">Fully transparent</text>
+  <text class="w" x="184" y="285">customer VLANs and trunks pass unchanged</text>
+  <text class="c" x="524" y="272">Conditional</text>
+  <text class="w" x="524" y="285">VLANs must match; the carrier may rewrite tags</text>
+
+  <rect x="24" y="292" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="315">Suited to</text>
+  <text class="c" x="184" y="308">Trunk interconnect with tags, DCI,</text>
+  <text class="w" x="184" y="321">anything that must be bit-transparent</text>
+  <text class="c" x="524" y="308">Multi-site, multi-service,</text>
+  <text class="w" x="524" y="321">cost-sensitive branch aggregation</text>
+
+  <rect x="24" y="328" width="852" height="36" fill="#f8fafd"/>
+  <text class="b" x="38" y="351">Cost</text>
+  <text class="c" x="184" y="344">High</text>
+  <text class="w" x="184" y="357">the whole port is billed</text>
+  <text class="c" x="524" y="344">Low</text>
+  <text class="w" x="524" y="357">billed per EVC</text>
+
+  <rect x="24" y="364" width="852" height="36" fill="#fffafa"/>
+  <text class="b" x="38" y="387" fill="#c0392b">Typical pitfall</text>
+  <text class="c" x="184" y="380" fill="#c0392b">You pay for an idle port</text>
+  <text class="w" x="184" y="393" fill="#c0392b">and for the protection you never use</text>
+  <text class="c" x="524" y="380" fill="#c0392b">Any VLAN change becomes</text>
+  <text class="w" x="524" y="393" fill="#c0392b">a carrier ticket with a carrier schedule</text>
+
+  <rect x="24" y="412" width="852" height="34" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="412" width="4" height="34" fill="#c0392b"/>
+  <text class="c" x="40" y="433" fill="#c0392b"><tspan style="font-weight:700">Design rule:</tspan> if two sites must exchange tagged frames without the carrier touching them, only EPL will do. If the budget wins, plan the VLANs for both ends and freeze them early.</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 476" width="100%" role="img" aria-labelledby="t65 d65">
+
+  <title id="t65">VPWS pseudowire anatomy: attachment circuits, the pseudowire itself, and the frame a PE puts on the wire</title>
+  <desc id="d65">Top: CE 1 connects to PE 1 over attachment circuit AC 1, a pseudowire runs between the two PEs, and AC 2 connects PE 2 to CE 2. Middle: the frame stack a PE emits, from the outer Layer 2 header through the tunnel label, the VC label and the control word, down to the untouched customer Ethernet payload, with the purpose of each field written alongside. Bottom: the two signalling schools, Martini over LDP with one signalling exchange per pseudowire, and Kompella over BGP with autodiscovery. A note says EVPN later takes the Kompella idea of BGP autodiscovery and develops it fully.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .fl{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="476" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">VPWS pulls an invisible cable between two sites &#8212; here is what that cable is made of</text>
+  <text class="s" x="24" y="45">No MAC learning, no switching: frames go in one AC and come out the other, wrapped in labels</text>
+
+  <circle cx="58" cy="108" r="14" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="58" y="111" text-anchor="middle">CE1</text>
+  <line x1="72" y1="108" x2="120" y2="108" stroke="#586a86" stroke-width=".9"/>
+  <text class="k" x="82" y="100">AC 1</text>
+  <rect x="120" y="86" width="80" height="44" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="160" y="112" text-anchor="middle">PE 1</text>
+
+  <line x1="200" y1="103" x2="470" y2="103" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="200" y1="113" x2="470" y2="113" stroke="#1f4fc0" stroke-width="1.1"/>
+  <text class="k" x="322" y="96" text-anchor="middle">PSEUDOWIRE</text>
+  <text class="w" x="335" y="130" text-anchor="middle">control word + label stack, over the MPLS core</text>
+
+  <rect x="470" y="86" width="80" height="44" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="510" y="112" text-anchor="middle">PE 2</text>
+  <line x1="550" y1="108" x2="598" y2="108" stroke="#586a86" stroke-width=".9"/>
+  <text class="k" x="556" y="100">AC 2</text>
+  <circle cx="612" cy="108" r="14" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="612" y="111" text-anchor="middle">CE2</text>
+
+  <text class="k" x="716" y="100">THE PROMISE</text>
+  <text class="c" x="716" y="114">frames arrive in order,</text>
+  <text class="c" x="716" y="126">unchanged, and nothing else does</text>
+
+  <text class="b" x="24" y="168">What actually goes on the wire &#8212; read from the outside in</text>
+
+  <rect x="210" y="196" width="420" height="22" rx="2" fill="#eef1f6" stroke="#b9c3d2" stroke-width=".6"/>
+  <text class="fl" x="220" y="211">Outer L2 header</text>
+  <text class="c" x="200" y="211" text-anchor="end">the header the core understands</text>
+  <text class="w" x="644" y="211">14 + 4 B</text>
+
+  <rect x="210" y="220" width="390" height="22" rx="2" fill="#e6f0fd" stroke="#b9c9e2" stroke-width=".6"/>
+  <text class="fl" x="220" y="235" fill="#1f4fc0">Tunnel label (LSP)</text>
+  <text class="c" x="200" y="235" text-anchor="end">gets the frame to the far PE, and no further</text>
+  <text class="w" x="612" y="235">4 B</text>
+
+  <rect x="210" y="244" width="360" height="22" rx="2" fill="#dcebfb" stroke="#b9c9e2" stroke-width=".6"/>
+  <text class="fl" x="220" y="259" fill="#1f4fc0">VC label</text>
+  <text class="c" x="200" y="259" text-anchor="end">says which pseudowire this frame belongs to</text>
+  <text class="w" x="582" y="259">4 B</text>
+
+  <rect x="210" y="268" width="330" height="22" rx="2" fill="#fdf6e9" stroke="#e8d5ae" stroke-width=".6"/>
+  <text class="fl" x="220" y="283" fill="#b8862b">Control word</text>
+  <text class="c" x="200" y="283" text-anchor="end">ordering, short-frame padding, fragmentation</text>
+  <text class="w" x="552" y="283">4 B</text>
+
+  <rect x="210" y="292" width="300" height="22" rx="2" fill="#f2fbf9" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="fl" x="220" y="307" fill="#0f7f73">Customer Ethernet payload</text>
+  <text class="c" x="200" y="307" text-anchor="end">the customer frame, bit for bit, never inspected</text>
+  <text class="w" x="522" y="307">&#8804; MTU</text>
+
+  <line x1="196" y1="190" x2="196" y2="320" stroke="#9aa8ba" stroke-width=".6"/>
+  <text class="w" x="210" y="332" fill="#c0392b">Label stack cost: every layer above the payload is MTU you no longer have.</text>
+
+  <text class="b" x="24" y="356">Two signalling schools &#8212; and the one EVPN borrowed from</text>
+
+  <rect x="24" y="366" width="418" height="62" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="384" fill="#1f4fc0">Martini &#183; LDP</text>
+  <text class="c" x="38" y="400">One signalling exchange per pseudowire, LDP sessions between PEs.</text>
+  <text class="w" x="38" y="416">simple, intuitive, the mainstream deployment &#8212; but the PE must know the far end in advance</text>
+
+  <rect x="458" y="366" width="418" height="62" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="472" y="384" fill="#5a3fa8">Kompella &#183; BGP</text>
+  <text class="c" x="472" y="400">BGP carries the pseudowire information, so PEs discover each other.</text>
+  <text class="w" x="472" y="416">scales better, harder to configure &#8212; and the direct ancestor of EVPN</text>
+
+  <rect x="24" y="438" width="852" height="30" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="438" width="4" height="30" fill="#c0392b"/>
+  <text class="c" x="40" y="457" fill="#c0392b"><tspan style="font-weight:700">The split matters later:</tspan> EVPN is Kompella&#8217;s autodiscovery idea taken to its conclusion &#8212; the control plane carries not just the wire, but every MAC behind it.</text>
+</svg>

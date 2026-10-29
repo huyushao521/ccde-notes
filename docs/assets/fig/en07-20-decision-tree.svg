@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 516" width="100%" role="img" aria-labelledby="t720 d720">
+
+  <title id="t720">Five questions walked in order, each with the answer that stops the walk, forming a Layer 2 design decision tree</title>
+  <desc id="d720">A vertical chain of five numbered questions. The first asks whether the Layer 2 domain must span more than one access switch; no ends in a local VLAN on a single switch. The second asks whether Layer 2 is genuinely required; no ends in Layer 3 to the access layer. The third asks whether two uplinks can reach two independent devices; no means accepting single-homing in writing. The fourth asks whether those devices support clustering; no leads to an STP U-shape with the root on the gateway, yes leads to clustering where every uplink forwards but the peer link becomes the single point. The fifth asks whether any daisy chain or single-homed access switch remains; yes means fixing the orphan before tuning timers. An exit box lists what a finished design shows, and a closing note says the tree exists to make design arguments cheap.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .q{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="516" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five questions, in this order, decide almost every Layer 2 design</text>
+  <text class="s" x="24" y="45">Walk from the top; the first question answered "no" usually ends the discussion</text>
+
+  <defs>
+    <marker id="ar720" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#9aa8ba"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="64" width="300" height="46" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="q" x="56" y="84">① Must this Layer 2 domain span</text>
+  <text class="q" x="56" y="98">more than one access switch?</text>
+  <line x1="340" y1="87" x2="368" y2="87" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="348" y="80">no</text>
+  <line x1="190" y1="110" x2="190" y2="128" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="198" y="124">yes</text>
+
+  <rect x="376" y="64" width="500" height="46" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="392" y="82" fill="#0f7f73">No → one access switch, one local VLAN, stop here</text>
+  <text class="c" x="392" y="98" fill="#0f7f73">A single switch cannot form a loop with itself, so STP becomes a formality and convergence is a link event.</text>
+
+  <rect x="40" y="132" width="300" height="58" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="q" x="56" y="152">② Is Layer 2 genuinely required</text>
+  <text class="q" x="56" y="166">(one subnet, non-IP protocol,</text>
+  <text class="q" x="56" y="180">VM migration, legacy system)?</text>
+  <line x1="340" y1="161" x2="368" y2="161" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="344" y="154">no</text>
+  <line x1="190" y1="190" x2="190" y2="206" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="198" y="202">yes</text>
+
+  <rect x="376" y="132" width="500" height="58" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="392" y="150" fill="#0f7f73">No → Layer 3 to the access layer</text>
+  <text class="c" x="392" y="166" fill="#0f7f73">No loop exists, so nothing has to be blocked or tuned. The cheapest convergence is the one you never measure,</text>
+  <text class="c" x="392" y="180" fill="#0f7f73">and the first hop stops being a shared resource two switches have to agree about.</text>
+
+  <rect x="40" y="210" width="300" height="46" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="q" x="56" y="230">③ Can the two uplinks reach two</text>
+  <text class="q" x="56" y="244">independent devices?</text>
+  <line x1="340" y1="233" x2="368" y2="233" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="344" y="226">no</text>
+  <line x1="190" y1="256" x2="190" y2="274" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="198" y="270">yes</text>
+
+  <rect x="376" y="210" width="500" height="46" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <text class="b" x="392" y="228" fill="#b8862b">No → accept single-homing, in writing</text>
+  <text class="c" x="392" y="244" fill="#b8862b">One device, one feed, one rack. A redundant drawing does not create redundant power; record the exposure.</text>
+
+  <rect x="40" y="278" width="300" height="58" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="q" x="56" y="298">④ Do those two devices support</text>
+  <text class="q" x="56" y="312">clustering (vPC, VSS, stacking</text>
+  <text class="q" x="56" y="326">or standard M-LAG)?</text>
+  <line x1="340" y1="307" x2="368" y2="307" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="346" y="300">choose</text>
+  <line x1="190" y1="336" x2="190" y2="352" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="198" y="349">either way</text>
+
+  <rect x="376" y="278" width="500" height="58" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="392" y="296" fill="#1f4fc0">No → STP U-shape: VLANs stay local, uplinks paired, root on the gateway switch</text>
+  <text class="b" x="392" y="312" fill="#0f7f73">Yes → clustering: every uplink forwards, but the peer link becomes the new single point</text>
+  <text class="c" x="392" y="328">Either answer is defensible; only the failure you cannot name is not. Both need root and gateway aligned.</text>
+
+  <rect x="40" y="356" width="300" height="46" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="q" x="56" y="376">⑤ Any daisy chain or single-homed</text>
+  <text class="q" x="56" y="390">access switch left?</text>
+  <line x1="340" y1="379" x2="368" y2="379" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="348" y="372">yes</text>
+  <line x1="190" y1="402" x2="190" y2="416" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#ar720)"/>
+  <text class="w" x="198" y="414">no</text>
+
+  <rect x="376" y="356" width="500" height="46" rx="3" fill="#fff5f4" stroke="#c0392b" stroke-width=".8"/>
+  <text class="b" x="392" y="374" fill="#c0392b">Yes → fix the orphan before tuning a single timer</text>
+  <text class="c" x="392" y="390" fill="#c0392b">It is the failure domain you did not choose. Three chained switches are three reboots of exposure.</text>
+
+  <rect x="40" y="420" width="836" height="34" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="c" x="56" y="434" fill="#0f7f73"><tspan style="font-weight:700">A finished design shows four things:</tspan> every uplink either forwards or is documented as blocked, one switch holds root and gateway per VLAN,</text>
+  <text class="c" x="56" y="446" fill="#0f7f73">the physical independence of any two "redundant" paths is drawn, and the convergence budget is written end to end rather than per protocol.</text>
+
+  <rect x="24" y="464" width="852" height="42" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="464" width="4" height="42" fill="#c0392b"/>
+  <text class="c" x="40" y="482" fill="#c0392b"><tspan style="font-weight:700">The tree exists to make arguments cheap:</tspan> two questions about scope decide whether Layer 2 should span, two about physical independence decide the mechanism.</text>
+  <text class="c" x="40" y="496" fill="#c0392b">Once those four answers are on the whiteboard, the vendor choice is a procurement detail, not a design debate. What remains is configuration and proof.</text>
+</svg>

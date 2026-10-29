@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t64 d64">
+
+  <title id="t64">Carrier Ethernet components: CE, UNI, EVC and NNI, drawn with the responsibility boundary at each UNI</title>
+  <desc id="d64">A horizontal chain from customer A through CE, UNI, PE, an EVC cloud and a second PE, UNI, to customer B. A band above the drawing splits the chain into customer, carrier and customer, and red dashed lines at the two UNIs mark where responsibility changes hands. On the right a separate box shows the NNI, the carrier-to-carrier interface. Below, four cards define UNI, EVC, NNI and the CoS and bandwidth profile. A red note at the bottom says that when a fault appears the first question is whether it sits inside the UNI or outside it, and that the design must place the UNI explicitly and confirm the carrier offers UNI-side loopback testing.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .own{font:700 7px "Segoe UI",sans-serif;fill:#4a5a72;letter-spacing:.6px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="448" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The UNI is not a cable &#8212; it is the line where responsibility for the problem changes hands</text>
+  <text class="s" x="24" y="45">Four components explain the whole service: UNI, EVC, NNI and the bandwidth profile</text>
+
+  <rect x="24" y="60" width="76" height="18" rx="2" fill="#eef4ff" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="own" x="62" y="73" text-anchor="middle">CUSTOMER A</text>
+  <rect x="100" y="60" width="474" height="18" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="own" x="337" y="73" text-anchor="middle" fill="#1f4fc0">CARRIER &#183; the service you bought</text>
+  <rect x="574" y="60" width="74" height="18" rx="2" fill="#eef4ff" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="own" x="611" y="73" text-anchor="middle">CUSTOMER B</text>
+
+  <line x1="100" y1="78" x2="100" y2="248" stroke="#c0392b" stroke-width=".7" stroke-dasharray="4 3"/>
+  <line x1="574" y1="78" x2="574" y2="248" stroke="#c0392b" stroke-width=".7" stroke-dasharray="4 3"/>
+
+  <circle cx="58" cy="178" r="15" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="58" y="181" text-anchor="middle">CE</text>
+  <line x1="58" y1="163" x2="58" y2="150" stroke="#9aa8ba" stroke-width=".6"/>
+  <line x1="100" y1="178" x2="118" y2="178" stroke="#586a86" stroke-width=".9"/>
+
+  <rect x="118" y="154" width="84" height="48" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="160" y="176" text-anchor="middle">PE 1</text>
+  <text class="w" x="160" y="190" text-anchor="middle">AC side</text>
+
+  <line x1="202" y1="178" x2="226" y2="178" stroke="#586a86" stroke-width=".9"/>
+  <rect x="226" y="140" width="210" height="76" rx="34" fill="#f7fafd" stroke="#b9c9e2" stroke-width=".7"/>
+  <text class="ce" x="331" y="168" text-anchor="middle">EVC</text>
+  <text class="w" x="331" y="182" text-anchor="middle">one or more UNIs joined</text>
+  <text class="w" x="331" y="194" text-anchor="middle">802.1Q tags when shared</text>
+
+  <line x1="436" y1="178" x2="470" y2="178" stroke="#586a86" stroke-width=".9"/>
+  <rect x="470" y="154" width="84" height="48" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="512" y="176" text-anchor="middle">PE 2</text>
+  <text class="w" x="512" y="190" text-anchor="middle">AC side</text>
+
+  <line x1="554" y1="178" x2="574" y2="178" stroke="#586a86" stroke-width=".9"/>
+  <line x1="574" y1="178" x2="601" y2="178" stroke="#586a86" stroke-width=".9"/>
+  <circle cx="616" cy="178" r="15" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="616" y="181" text-anchor="middle">CE</text>
+
+  <text class="k" x="96" y="244">UNI</text>
+  <text class="k" x="570" y="244">UNI</text>
+
+  <line x1="512" y1="154" x2="512" y2="122" stroke="#9aa8ba" stroke-width=".6" stroke-dasharray="3 3"/>
+  <line x1="512" y1="122" x2="740" y2="122" stroke="#9aa8ba" stroke-width=".6" stroke-dasharray="3 3"/>
+  <rect x="740" y="96" width="120" height="52" rx="3" fill="#fbfcfe" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="ce" x="800" y="116" text-anchor="middle" fill="#4a5a72">carrier B</text>
+  <text class="w" x="800" y="130" text-anchor="middle">NNI at the border</text>
+  <text class="w" x="800" y="142" text-anchor="middle">SLA ends and restarts</text>
+
+  <rect x="24" y="262" width="204" height="110" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="282" fill="#1f4fc0">UNI</text>
+  <text class="c" x="38" y="300">Physical demarcation and</text>
+  <text class="c" x="38" y="313">port-based ME. Everything</text>
+  <text class="c" x="38" y="326">outside it is the carrier&#8217;s.</text>
+  <text class="w" x="38" y="348" fill="#c0392b">write the exact hand-off</text>
+  <text class="w" x="38" y="360" fill="#c0392b">point into the documents</text>
+
+  <rect x="240" y="262" width="204" height="110" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="254" y="282" fill="#0f7f73">EVC</text>
+  <text class="c" x="254" y="300">Association of two or more</text>
+  <text class="c" x="254" y="313">UNIs confining service frames.</text>
+  <text class="c" x="254" y="326">Shared UNI means EVPL.</text>
+  <text class="w" x="254" y="348" fill="#c0392b">each EVC needs its own</text>
+  <text class="w" x="254" y="360" fill="#c0392b">name, CoS and MTU in the SoW</text>
+
+  <rect x="456" y="262" width="204" height="110" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="470" y="282" fill="#5a3fa8">NNI</text>
+  <text class="c" x="470" y="300">Carrier to carrier interface.</text>
+  <text class="c" x="470" y="313">Only needed when the path</text>
+  <text class="c" x="470" y="326">crosses two providers.</text>
+  <text class="w" x="470" y="348" fill="#c0392b">two SLAs do not add up</text>
+  <text class="w" x="470" y="360" fill="#c0392b">to one end-to-end promise</text>
+
+  <rect x="672" y="262" width="204" height="110" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <text class="b" x="686" y="282" fill="#b8862b">CoS / bandwidth profile</text>
+  <text class="c" x="686" y="300">Queues and bandwidth tiers</text>
+  <text class="c" x="686" y="313">definable per EVC. The only</text>
+  <text class="c" x="686" y="326">way voice outranks backup.</text>
+  <text class="w" x="686" y="348" fill="#c0392b">unused CoS is still billed;</text>
+  <text class="w" x="686" y="360" fill="#c0392b">map it identically at both ends</text>
+
+  <rect x="24" y="388" width="852" height="48" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="388" width="4" height="48" fill="#c0392b"/>
+  <text class="c" x="40" y="408" fill="#c0392b"><tspan style="font-weight:700">First question at 2 a.m.: inside the UNI or outside it?</tspan> If nobody wrote down where the UNI is, the first hour goes to an argument, not a repair.</text>
+  <text class="c" x="40" y="424">Confirm in the contract that the carrier offers UNI-side loopback testing &#8212; it is the only test that proves the boundary without a truck roll.</text>
+</svg>

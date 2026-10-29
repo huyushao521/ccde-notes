@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 444" width="100%" role="img" aria-labelledby="t611 d611">
+
+  <title id="t611">EVPN's core idea: a MAC address becomes a BGP route, and five design consequences that follow from it</title>
+  <desc id="d611">Left panel: in the VPLS world a MAC is learned in the data plane, drawn as a MAC table filled by flooding with an ageing timer beside it, so state is built by traffic and lost when the timer expires. Right panel: in the EVPN world the same MAC is a BGP route card carrying a next hop, an ESI, a mobility sequence number and communities. Below, five consequences follow as direct deductions: MAC movement becomes a route update, flood based learning disappears, route attributes enable traffic engineering and aliasing, BGP multihoming gives all active links without MC-LAG, and a control plane that knows the MACs can answer ARP on their behalf.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .mono{font:7.5px Consolas,monospace;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="444" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Change one assumption and every EVPN advantage becomes a deduction, not a feature list</text>
+  <text class="s" x="24" y="45">A MAC is not a fact about the wire &#8212; in EVPN it is a route with a next hop, attributes and policy</text>
+
+  <rect x="24" y="64" width="406" height="166" rx="3" fill="#fbf9f9" stroke="#e0cfcd" stroke-width=".7"/>
+  <text class="b" x="38" y="84" fill="#c0392b">VPLS world</text>
+  <text class="w" x="122" y="84">a MAC is learned from traffic</text>
+  <rect x="40" y="98" width="190" height="84" rx="2" fill="#ffffff" stroke="#d8c5c3" stroke-width=".6"/>
+  <text class="k" x="50" y="112">MAC TABLE</text>
+  <text class="mono" x="50" y="128">00:11:22 &#8594; port 3</text>
+  <text class="mono" x="50" y="144">00:aa:bb &#8594; pw 12</text>
+  <text class="mono" x="50" y="160">00:cc:dd &#8594; flood</text>
+  <text class="w" x="50" y="174">entries appear only after traffic arrives</text>
+  <path d="M240 138 L286 138" fill="none" stroke="#c0392b" stroke-width=".8"/>
+  <path d="M282 134 l6 4 l-6 4 z" fill="#c0392b"/>
+  <text class="w" x="244" y="130">flood first</text>
+  <circle cx="330" cy="140" r="28" fill="#ffffff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="330" y="137" text-anchor="middle" fill="#c0392b">age</text>
+  <text class="c" x="330" y="149" text-anchor="middle" fill="#c0392b">300 s</text>
+  <text class="c" x="38" y="204">State is built by traffic, aged out by a timer, and rebuilt by flooding.</text>
+  <text class="w" x="38" y="218" fill="#c0392b">nothing in the network knows a MAC before it speaks</text>
+
+  <rect x="470" y="64" width="406" height="166" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="484" y="84" fill="#1f4fc0">EVPN world</text>
+  <text class="w" x="568" y="84">a MAC is advertised</text>
+  <rect x="486" y="94" width="374" height="88" rx="2" fill="#ffffff" stroke="#b9c9e2" stroke-width=".6"/>
+  <text class="k" x="496" y="108">BGP ROUTE &#183; TYPE 2</text>
+  <text class="mono" x="496" y="124">MAC 00:11:22 &#8594; next hop 10.0.0.2 (PE2)</text>
+  <text class="mono" x="496" y="140">ESI 0:1:2 &#183; mobility seq 3 &#183; RT 65000:100</text>
+  <text class="mono" x="496" y="156">encap MPLS or VXLAN &#183; route type carries intent</text>
+  <text class="w" x="496" y="172">a withdraw is as fast as a route update</text>
+  <text class="c" x="484" y="204">State is carried by the control plane, so it can be reasoned about,</text>
+  <text class="c" x="484" y="217">filtered by policy and withdrawn in one message.</text>
+
+  <text class="k" x="38" y="252">CONSEQUENCE</text>
+  <text class="k" x="244" y="252">WHAT IT GIVES THE DESIGN</text>
+
+  <rect x="24" y="258" width="852" height="26" fill="#fcfdff"/>
+  <text class="c" x="38" y="275">A MAC is a route</text>
+  <text class="c" x="244" y="275">VM migration is a route update: convergence in seconds, and no duplicate-MAC alarm</text>
+
+  <rect x="24" y="284" width="852" height="26" fill="#f8fafd"/>
+  <text class="c" x="38" y="301">Routes have next hops</text>
+  <text class="c" x="244" y="301">Flood-based learning disappears; recovery becomes a BGP withdraw, not a re-flood</text>
+
+  <rect x="24" y="310" width="852" height="26" fill="#fcfdff"/>
+  <text class="c" x="38" y="327">Routes have attributes</text>
+  <text class="c" x="244" y="327">Traffic engineering and aliasing: several PEs can share the load for one CE</text>
+
+  <rect x="24" y="336" width="852" height="26" fill="#f8fafd"/>
+  <text class="c" x="38" y="353">BGP already does multihoming</text>
+  <text class="c" x="244" y="353">All-Active multihoming is native &#8212; no MC-LAG, no cross-device coordination</text>
+
+  <rect x="24" y="362" width="852" height="26" fill="#fcfdff"/>
+  <text class="c" x="38" y="379">The control plane knows the MACs</text>
+  <text class="c" x="244" y="379">ARP proxying becomes possible, so BUM traffic drops even before you tune anything</text>
+
+  <rect x="24" y="398" width="852" height="34" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="398" width="4" height="34" fill="#c0392b"/>
+  <text class="c" x="40" y="419" fill="#c0392b"><tspan style="font-weight:700">Every row above is a corollary, not a feature.</tspan> The exam question is rarely "what does EVPN do"; it is "which of these follow from the assumption, and which need extra design work".</text>
+</svg>

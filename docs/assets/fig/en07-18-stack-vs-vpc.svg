@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t718 d718">
+
+  <title id="t718">Stacking against multi-chassis aggregation across six dimensions, ending with where each one belongs</title>
+  <desc id="d718">A six row comparison of stacking and multi-chassis aggregation. Stacking has a single control plane and one configuration, upgrades the whole stack together, shares fate across every member, and depends on the stack cable as a single point. Multi-chassis aggregation keeps two control planes that must be kept consistent, upgrades one member at a time, keeps failure domains independent, and depends on the peer link and keepalive being physically separate. A note recommends stacking for access layers and clustering for core and distribution, and lists the three single points that come with stacking.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Stacking and clustering both remove blocked ports; they differ in what they make inseparable</text>
+  <text class="s" x="24" y="45">One control plane is convenient at the access layer and dangerous under a core</text>
+
+  <text class="k" x="38" y="72">DIMENSION</text>
+  <text class="k" x="200" y="72">STACKING &#183; STACKWISE, VSS</text>
+  <text class="k" x="540" y="72">CLUSTERING &#183; vPC, MLAG</text>
+
+  <text class="b" x="38" y="94">Control plane</text>
+  <text class="c" x="200" y="94">one, with one configuration file</text>
+  <text class="c" x="540" y="94">two, which must be kept in step by discipline</text>
+  <line x1="24" y1="102" x2="876" y2="102" stroke="#f2f5fa" stroke-width=".6"/>
+
+  <text class="b" x="38" y="120">Forwarding</text>
+  <text class="c" x="200" y="120">all uplinks forward, no STP blocking</text>
+  <text class="c" x="540" y="120">all uplinks forward, no STP blocking</text>
+  <line x1="24" y1="128" x2="876" y2="128" stroke="#f2f5fa" stroke-width=".6"/>
+
+  <text class="b" x="38" y="146">Software upgrade</text>
+  <text class="c" x="200" y="146">every member reboots together</text>
+  <text class="c" x="540" y="146">one member at a time, traffic keeps flowing</text>
+  <line x1="24" y1="154" x2="876" y2="154" stroke="#f2f5fa" stroke-width=".6"/>
+
+  <text class="b" x="38" y="172">Failure domain</text>
+  <text class="c" x="200" y="172">shared fate: one bug, one config error, all members</text>
+  <text class="c" x="540" y="172">independent, at the cost of consistency drift</text>
+  <line x1="24" y1="180" x2="876" y2="180" stroke="#f2f5fa" stroke-width=".6"/>
+
+  <text class="b" x="38" y="198">The single point</text>
+  <text class="c" x="200" y="198">the stacking cable: broken, and the stack splits</text>
+  <text class="c" x="540" y="198">peer link and keepalive: separated, or one post</text>
+  <line x1="24" y1="206" x2="876" y2="206" stroke="#f2f5fa" stroke-width=".6"/>
+
+  <text class="b" x="38" y="224">Where it belongs</text>
+  <text class="c" x="200" y="224">access layer, dense port counts, small sites</text>
+  <text class="c" x="540" y="224">core, distribution, data centre leaf pairs</text>
+
+  <rect x="24" y="242" width="414" height="86" rx="3" fill="#fdfcf5" stroke="#e2d6b0" stroke-width=".7"/>
+  <text class="k" x="38" y="258">STACKING'S THREE SINGLE POINTS</text>
+  <text class="c" x="38" y="276"><tspan style="font-weight:700">1.</tspan> the stack cable or ring &#8212; one bad member can break the stack</text>
+  <text class="c" x="38" y="294"><tspan style="font-weight:700">2.</tspan> the master election &#8212; a master failure restarts the control plane</text>
+  <text class="c" x="38" y="312"><tspan style="font-weight:700">3.</tspan> the shared configuration &#8212; one typo reaches every port at once</text>
+
+  <rect x="462" y="242" width="414" height="86" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="476" y="258">CLUSTERING'S THREE DEBTS</text>
+  <text class="c" x="476" y="276"><tspan style="font-weight:700">1.</tspan> two configurations that must agree, checked by nobody</text>
+  <text class="c" x="476" y="294"><tspan style="font-weight:700">2.</tspan> a peer link that carries all cross traffic and all failures</text>
+  <text class="c" x="476" y="312"><tspan style="font-weight:700">3.</tspan> a split brain mode that needs an external detector</text>
+
+  <rect x="24" y="342" width="852" height="72" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="342" width="4" height="72" fill="#c0392b"/>
+  <text class="c" x="40" y="362" fill="#c0392b"><tspan style="font-weight:700">The rule of thumb that survives contact with operations:</tspan> stack where a single management plane saves more than a shared failure costs; cluster where an upgrade window matters.</text>
+  <text class="c" x="40" y="378" fill="#c0392b">Access closets have neither rolling upgrades nor long-running sessions worth protecting, and they have forty ports nobody wants to configure twice.</text>
+  <text class="c" x="40" y="394" fill="#c0392b">A core has both: it has sessions, it has a maintenance window, and it has no appetite for a master election at two in the morning.</text>
+  <text class="c" x="40" y="410" fill="#c0392b" font-style="italic">Both are legitimate; what is not legitimate is choosing one and claiming it has no cost.</text>
+</svg>

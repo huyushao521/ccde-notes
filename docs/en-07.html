@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 7 · about 11637 words</span></div><h1 id="chapter-7-layer-2-technologies-7">Chapter 7: Layer 2 Technologies · 第 7 章：二层技术<a class="anchor" href="#chapter-7-layer-2-technologies-7" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 7 · about 12018 words</span></div><h1 id="chapter-7-layer-2-technologies-7">Chapter 7: Layer 2 Technologies · 第 7 章：二层技术<a class="anchor" href="#chapter-7-layer-2-technologies-7" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 7 (pp. 300–389)</p>
 </blockquote>
@@ -58,6 +58,7 @@
 </div>
 <hr />
 <h2 id="chapter-overview-four-counter-intuitive-truths-about-layer-2-design">Chapter Overview: Four Counter-Intuitive Truths About Layer 2 Design · 本章导读：二层设计的四条反直觉认知<a class="anchor" href="#chapter-overview-four-counter-intuitive-truths-about-layer-2-design" title="Permanent link"></a></h2>
+<p><img src="assets/fig/en07-01-four-truths.svg" alt="Four counter-intuitive truths about Layer 2 design" loading="lazy"></p>
 <h3 id="counter-intuitive-truth-1-layer-2-has-no-concept-of-destination">Counter-Intuitive Truth 1: Layer 2 Has No Concept of "Destination" · 反直觉一：二层网络没有"目的地"这个概念<a class="anchor" href="#counter-intuitive-truth-1-layer-2-has-no-concept-of-destination" title="Permanent link"></a></h3>
 <p>In a Layer 3 network, which way a packet goes is decided by the <strong>routing table</strong> — a converged, predictable structure with an explicit state for "destination unreachable".</p>
 <div class="zh">
@@ -397,6 +398,7 @@
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-02-five-steps.svg" alt="Five steps of Layer 2 design in the only workable order" loading="lazy"></p>
 <p><strong>Why the order cannot be reversed</strong>: configure HSRP before deciding the STP root and you get "gateway on DSW2, root bridge on DSW1" — exactly the classic mistake in Case 1.</p>
 <div class="zh">
 <p><strong>为什么顺序不能反</strong>：先配 HSRP 再想 STP，就会出现"网关在 DSW2、根桥在 DSW1"的经典事故。因为 <strong>HSRP Active 和 STP 根桥描述的是同一件事 —— 流量该往哪走</strong>。分开决策，必然错位。</p>
@@ -514,6 +516,7 @@
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-03-six-technologies.svg" alt="Six Layer 2 technologies and where they interlock" loading="lazy"></p>
 <h3 id="spanning-tree-protocol-stp">Spanning Tree Protocol (STP) · 生成树协议<a class="anchor" href="#spanning-tree-protocol-stp" title="Permanent link"></a></h3>
 <p>STP is the most mature and most widely used control protocol in classic Layer 2 switched environments, preventing Layer 2 bridging loops by blocking redundant ports so that a single active path remains between any two points.</p>
 <div class="zh">
@@ -600,6 +603,7 @@
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-04-stp-versions.svg" alt="STP versions compared, with a selection box" loading="lazy"></p>
 <p><strong>Quick selection guide</strong>:</p>
 <div class="zh">
 <p><strong>选择速查</strong>：</p>
@@ -686,6 +690,7 @@ RSTP 的收敛（协商驱动）：
 <p>💡 <strong>关键区别</strong>：802.1D 是"<strong>等计时器</strong>"，RSTP 是"<strong>问邻居</strong>"。等是死等，问是协商——所以 RSTP 的收敛<strong>不随拓扑规模线性变差</strong>。这才是它"支持大规模部署"的真实原因。</p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-05-convergence-timeline.svg" alt="802.1D and RSTP convergence drawn on the same time scale" loading="lazy"></p>
 <h4 id="rstp-port-roles-and-states-useful-in-design-rstp">RSTP Port Roles and States (Useful in Design) · RSTP 的端口角色与状态（设计时用得到）<a class="anchor" href="#rstp-port-roles-and-states-useful-in-design-rstp" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -827,6 +832,7 @@ RSTP 的收敛（协商驱动）：
 <div class="zh">
 <p><strong>设计洞察</strong>：<code>Alternate Port</code> 的数量，就是<strong>你被浪费掉的链路数</strong>。一个双上行的接入交换机，如果两条上行都转发，就应该没有 Alternate Port。</p>
 </div>
+<p><img src="assets/fig/en07-06-rstp-roles.svg" alt="RSTP port roles and states on a three-switch topology" loading="lazy"></p>
 <h4 id="why-topology-change-notifications-tcn-cause-network-wide-churn-tcn">Why Topology Change Notifications (TCN) Cause "Network-Wide Churn" · 拓扑变更（TCN）为什么会导致"全网抖动"<a class="anchor" href="#why-topology-change-notifications-tcn-cause-network-wide-churn-tcn" title="Permanent link"></a></h4>
 <p>This is the most frequently misjudged link in Layer 2 incidents:</p>
 <div class="zh">
@@ -923,6 +929,7 @@ spanning-tree portfast bpduguard default</code>
 <p><strong>教训</strong>：<strong>PortFast 不是"快 30 秒"的优化，而是"隔离拓扑变更域"的架构手段。</strong> 一个没开 PortFast 的接入端口，就是一颗随时引爆全网的 TCN 炸弹。而没有 BPDU Guard 兜底的 PortFast，是环路风险。<strong>两者必须成对。</strong></p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-07-tcn-storm.svg" alt="How a single port flap becomes a network-wide flood" loading="lazy"></p>
 <h4 id="stp-enhancement-features-stp">STP Enhancement Features · STP 增强特性<a class="anchor" href="#stp-enhancement-features-stp" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -1032,6 +1039,7 @@ spanning-tree portfast bpduguard default</code>
 💡 Cisco 还开发了 PVST+ 和 Rapid PVST+，为每个 VLAN 运行独立的 STP 实例。优点是每个 VLAN 可设自己的根桥做流量分担，缺点是<strong>实例数 = VLAN 数</strong>——1000 个 VLAN 就是 1000 份 BPDU 与 1000 份状态机，CPU 和收敛开销线性上升。这就是 MST 存在的理由。</p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-08-stp-guards.svg" alt="STP guards mapped onto the topology they protect" loading="lazy"></p>
 <h4 id="production-grade-stp-baseline-stp">Production-Grade STP Baseline · 生产级 STP 配置基线<a class="anchor" href="#production-grade-stp-baseline-stp" title="Permanent link"></a></h4>
 <pre><code class="language-cfg">! ── Global: default edge ports + edge protection ──
 spanning-tree portfast default
@@ -1089,6 +1097,7 @@ interface range GigabitEthernet1/0/1-48
  spanning-tree bpduguard enable
 </code></pre>
 </div>
+<p><img src="assets/fig/en07-09-stp-baseline.svg" alt="A production-grade STP baseline in five layers" loading="lazy"></p>
 <p><strong>Three fatal MST details (get them wrong and nothing works)</strong>:</p>
 <div class="zh">
 <p><strong>MST 的三个致命细节（配错就是全网不通）</strong>：</p>
@@ -1394,6 +1403,7 @@ interface range GigabitEthernet1/0/1-48
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-10-e2v-vs-local.svg" alt="End-to-end VLAN versus local VLAN on the same campus" loading="lazy"></p>
 <blockquote>
 <p>💡 <strong>Today the answer is almost always the same: local VLANs plus Layer 3 to the access layer.</strong> End-to-end VLANs were a compromise of the flat Layer 2 era; without an explicit requirement, do not go back.</p>
 </blockquote>
@@ -1533,6 +1543,7 @@ interface range GigabitEthernet1/0/1-48
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-11-vlan-numbering.svg" alt="VLAN numbering bands and the subnet mapping they imply" loading="lazy"></p>
 <h4 id="trunk-design-points-trunk">Trunk Design Points · Trunk 设计要点<a class="anchor" href="#trunk-design-points-trunk" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -1667,6 +1678,7 @@ vtp mode transparent                          ! 或 off（不参与 VTP）
 4. 骨干端口用 <strong>trunk 允许列表模板 + 配置合规检查</strong>，防止手工输入</p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-12-trunk-design.svg" alt="An 802.1Q frame field by field, with trunk design points" loading="lazy"></p>
 <h4 id="vtp-why-it-is-best-turned-off-vtp">VTP: Why It Is Best Turned Off · VTP：为什么建议关掉<a class="anchor" href="#vtp-why-it-is-best-turned-off-vtp" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -1744,6 +1756,7 @@ vtp mode transparent                          ! 或 off（不参与 VTP）
 <p>💡 <strong>结论</strong>：VTP 的唯一好处是"少配 VLAN"，代价是"配置错误可以传染"。在现代网络里（VLAN 由自动化下发），它的好处消失了，风险还在。<strong>统一用 transparent 或 off。</strong></p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-13-vtp-risk.svg" alt="VTP revision numbers overwriting a network, and the four modes" loading="lazy"></p>
 <h3 id="link-aggregation">Link Aggregation · 链路聚合<a class="anchor" href="#link-aggregation" title="Permanent link"></a></h3>
 <p>IEEE 802.3ad, combining multiple physical links into one logical link.</p>
 <div class="zh">
@@ -1961,6 +1974,7 @@ One TCP flow (fixed src/dst) always hashes to one member → its ceiling is 10G
 <li>用 <strong>mLAG 跨设备聚合</strong>，让流量有多个出口路径可选</li>
 </ol>
 </div>
+<p><img src="assets/fig/en07-14-hash-limit.svg" alt="Eight 10G members, one flow, and the bandwidth actually obtained" loading="lazy"></p>
 <h4 id="lacp-and-design-constraints-lacp">LACP and Design Constraints · LACP 与设计约束<a class="anchor" href="#lacp-and-design-constraints-lacp" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -2119,6 +2133,7 @@ interface Port-channel10
 <p>⚠️ <strong><code>mode on</code> 是二层事故的常见来源</strong>：一端配 <code>channel-group 1 mode on</code>，另一端因为漏配而保持两条独立链路。汇聚端把两条当一条转发，非汇聚端的两条链路各自成环 → STP 阻塞一条，但<strong>因为汇聚端的哈希会把同一流送到两条物理口</strong>，可能出现<strong>非汇聚端收到重复帧</strong>（乱序、重传、性能骤降）。<strong>永远用 LACP。</strong></p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-15-lacp-modes.svg" alt="LACP on, active and passive, and the half-configured bundle" loading="lazy"></p>
 <h4 id="link-aggregation-availability-details">Link Aggregation Availability Details · 链路聚合的可用性设计细节<a class="anchor" href="#link-aggregation-availability-details" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -2208,6 +2223,7 @@ interface Port-channel10
 💡 Cisco VSS（虚拟交换系统）将分布交换机对转换为逻辑单台交换机，消除了 STP 和 FHRP 的需求。类似的还有 StackWise（堆叠）、vPC（Nexus）与各厂商的标准 M-LAG——它们解决的是<strong>同一个问题</strong>，只是实现层级不同（见下方横向对比）。</p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-16-bundle-availability.svg" alt="Bundle capacity as members fail, and where min-links draws the line" loading="lazy"></p>
 <h3 id="mlag-switch-clustering-layer-2-multi-chassis-technologies-mlag">mLAG / Switch Clustering (Layer 2 Multi-Chassis Technologies) · mLAG / 交换机集群（二层多机箱技术）<a class="anchor" href="#mlag-switch-clustering-layer-2-multi-chassis-technologies-mlag" title="Permanent link"></a></h3>
 <p>Strictly, mLAG is the <strong>mechanism</strong> and "switch clustering" is the <strong>effect</strong>. They share exactly one goal:</p>
 <div class="zh">
@@ -2372,6 +2388,7 @@ interface Port-channel10
 </table>
 </div>
 <h4 id="vpc-data-plane-and-control-plane-understand-it-to-understand-failures-vpc">vPC Data Plane and Control Plane (Understand It to Understand Failures) · vPC 的数据面与控制面（理解它才能理解故障）<a class="anchor" href="#vpc-data-plane-and-control-plane-understand-it-to-understand-failures-vpc" title="Permanent link"></a></h4>
+<p><img src="assets/fig/en07-17-mlag-anatomy.svg" alt="vPC anatomy: peer link, keepalive, orphan port and three failures" loading="lazy"></p>
 <pre><code>        ┌──────── vPC domain (one logical switch) ────────┐
         │  SW1 ══════ peer-link (control + data) ══════ SW2 │
         │   │ ╲                                ╱ │        │
@@ -2605,6 +2622,7 @@ interface Port-channel10
 </tbody>
 </table>
 </div>
+<p><img src="assets/fig/en07-18-stack-vs-vpc.svg" alt="Stacking versus clustering across six design dimensions" loading="lazy"></p>
 <h3 id="first-hop-redundancy-protocols-fhrp-and-stp-fhrp-stp">First Hop Redundancy Protocols (FHRP) and STP · 首跳冗余协议 (FHRP) 和 STP<a class="anchor" href="#first-hop-redundancy-protocols-fhrp-and-stp-fhrp-stp" title="Permanent link"></a></h3>
 <p>FHRP provides transparent failover of the first-hop Layer 3 gateway. Two or more Layer 3 devices form a group representing one virtual gateway address, so hosts need only one default gateway and survive the failure of one device.</p>
 <div class="zh">
@@ -2797,6 +2815,7 @@ interface Port-channel10
   结果：ASW 上行流量直达本地网关，核心间链路只承载跨 VLAN 与 WAN 流量
 </code></pre>
 </div>
+<p><img src="assets/fig/en07-19-fhrp-alignment.svg" alt="Root bridge and active gateway on the same switch versus on different switches" loading="lazy"></p>
 <p><strong>Consequences of misalignment</strong>:
 - Traffic takes an extra hop to reach the active FHRP gateway
 - The inter-switch link becomes the bottleneck (often above 70% utilization)
@@ -3784,6 +3803,7 @@ while the forward and return paths may still differ (asymmetry, STP reconvergenc
 <p>💡 <strong>决策树的价值</strong>：它把"要不要上 mLAG"这类争论变成两个可验证的问题——<strong>二层域多大、硬需求有没有</strong>。技术选型之争，八成是因为没先问清这两个问题。</p>
 </blockquote>
 </div>
+<p><img src="assets/fig/en07-20-decision-tree.svg" alt="The Layer 2 design decision tree, five questions in order" loading="lazy"></p>
 <p><strong>Post-decision checklist</strong> (each item can kill a proposal):</p>
 <div class="zh">
 <p><strong>决策树走完之后的检查清单</strong>（每一条都能否掉一个方案）：</p>

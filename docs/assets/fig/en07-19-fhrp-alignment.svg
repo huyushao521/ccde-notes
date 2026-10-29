@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 516" width="100%" role="img" aria-labelledby="t719 t719d">
+
+  <title id="t719">The same Layer 2 topology drawn twice, once with the spanning tree root and the active FHRP gateway on different switches and once on the same switch, followed by a table of what changes</title>
+  <desc id="t719d">On the left, DSW1 is the spanning tree root while DSW2 holds the active gateway for the same VLAN, so every northbound packet climbs to DSW1, crosses the inter-switch link to DSW2 and leaves from there; the second access uplink stays in alternate state. On the right, DSW1 is both root and active for VLAN 10 and 30 while DSW2 is both for VLAN 20 and 40, the inter-switch link is a routed link, and both access uplinks forward. A four-row table compares the spare uplink, the path length, the inter-switch link load and what happens on a single failure. A note gives the three habits that keep the two roles together, and a closing line states that a blocked uplink plus a detour is one mistake, not two.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .sw{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="516" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Root bridge and active gateway must be the same switch, or the inter-switch link pays for the difference</text>
+  <text class="s" x="24" y="45">One rule outranks every tuning knob: where traffic wants to go and where traffic leaves are the same decision</text>
+
+  <rect x="24" y="62" width="416" height="230" rx="3" fill="#fff9f8" stroke="#f0cfcb" stroke-width=".7"/>
+  <text class="b" x="40" y="82" fill="#c0392b">MISALIGNED · root on DSW1, active gateway on DSW2</text>
+
+  <rect x="56" y="100" width="120" height="38" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="116" y="118" text-anchor="middle">DSW1</text>
+  <text class="w" x="116" y="130" text-anchor="middle">STP root for VLAN 10</text>
+  <rect x="288" y="100" width="120" height="38" rx="2" fill="#fff5f4" stroke="#c0392b" stroke-width=".9"/>
+  <text class="sw" x="348" y="118" text-anchor="middle" fill="#c0392b">DSW2</text>
+  <text class="w" x="348" y="130" text-anchor="middle">HSRP active for VLAN 10</text>
+
+  <line x1="176" y1="112" x2="288" y2="112" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="176" y1="126" x2="288" y2="126" stroke="#1f4fc0" stroke-width="1.1"/>
+  <line x1="222" y1="112" x2="268" y2="112" stroke="#c0392b" stroke-width="2" marker-end="url(#a719)"/>
+  <defs>
+    <marker id="a719" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text class="w" x="232" y="94" fill="#c0392b">every northbound packet crosses here for nothing</text>
+
+  <rect x="176" y="186" width="110" height="34" rx="2" fill="#f6f9fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="sw" x="231" y="202" text-anchor="middle">ASW</text>
+  <text class="w" x="231" y="214" text-anchor="middle">48 access ports</text>
+  <line x1="200" y1="186" x2="130" y2="138" stroke="#0f7f73" stroke-width="1.2"/>
+  <line x1="262" y1="186" x2="334" y2="138" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text class="w" x="300" y="168" fill="#c0392b">this uplink stays Alternate</text>
+  <text class="w" x="300" y="180" fill="#c0392b">and carries no traffic at all</text>
+
+  <rect x="200" y="246" width="62" height="26" rx="2" fill="#ffffff" stroke="#9aa8ba" stroke-width=".8"/>
+  <text class="w" x="231" y="262" text-anchor="middle" fill="#4a5a72">host</text>
+  <line x1="231" y1="246" x2="231" y2="222" stroke="#7c8b9f" stroke-width=".9"/>
+  <text class="w" x="40" y="282" fill="#c0392b">host → ASW → DSW1 → DSW2: one extra hop, taken by every packet</text>
+
+  <rect x="460" y="62" width="416" height="230" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="476" y="82" fill="#0f7f73">ALIGNED · one switch holds both roles per VLAN</text>
+
+  <rect x="492" y="100" width="150" height="38" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="567" y="118" text-anchor="middle">DSW1</text>
+  <text class="w" x="567" y="130" text-anchor="middle">root + active · VLAN 10, 30</text>
+  <rect x="700" y="100" width="150" height="38" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="sw" x="775" y="118" text-anchor="middle">DSW2</text>
+  <text class="w" x="775" y="130" text-anchor="middle">root + active · VLAN 20, 40</text>
+
+  <line x1="642" y1="119" x2="700" y2="119" stroke="#1f4fc0" stroke-width="1.1"/>
+  <text class="w" x="671" y="96" text-anchor="middle">Layer 3 link</text>
+  <text class="w" x="671" y="146" text-anchor="middle">cross-VLAN and WAN only</text>
+
+  <rect x="590" y="186" width="150" height="34" rx="2" fill="#f6f9fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="sw" x="665" y="202" text-anchor="middle">ASW</text>
+  <text class="w" x="665" y="214" text-anchor="middle">48 access ports</text>
+  <line x1="614" y1="186" x2="548" y2="138" stroke="#0f7f73" stroke-width="1.2"/>
+  <line x1="716" y1="186" x2="786" y2="138" stroke="#0f7f73" stroke-width="1.2"/>
+  <text class="w" x="742" y="168" fill="#0f7f73">both uplinks forwarding</text>
+  <text class="w" x="742" y="180" fill="#0f7f73">no Alternate port exists</text>
+
+  <rect x="634" y="246" width="62" height="26" rx="2" fill="#ffffff" stroke="#9aa8ba" stroke-width=".8"/>
+  <text class="w" x="665" y="262" text-anchor="middle" fill="#4a5a72">host</text>
+  <line x1="665" y1="246" x2="665" y2="222" stroke="#7c8b9f" stroke-width=".9"/>
+  <text class="w" x="476" y="282" fill="#0f7f73">host → ASW → DSW1: local forwarding, one hop, no detour</text>
+
+  <text class="k" x="24" y="316">WHAT ACTUALLY CHANGES WHEN THE TWO ROLES SIT ON ONE SWITCH</text>
+  <line x1="24" y1="324" x2="876" y2="324" stroke="#e6ebf3" stroke-width=".8"/>
+  <text class="w" x="300" y="316" fill="#c0392b">misaligned</text>
+  <text class="w" x="600" y="316" fill="#0f7f73">aligned</text>
+
+  <text class="c" x="24" y="342">The spare access uplink</text>
+  <text class="c" x="300" y="342" fill="#c0392b">sits Alternate, paying for bandwidth nobody uses</text>
+  <text class="c" x="600" y="342" fill="#0f7f73">forwards, so half the access capacity is not idle</text>
+  <line x1="24" y1="350" x2="876" y2="350" stroke="#f0f3f8" stroke-width=".6"/>
+
+  <text class="c" x="24" y="368">Path to the gateway</text>
+  <text class="c" x="300" y="368" fill="#c0392b">one extra hop, on the busiest link in the pair</text>
+  <text class="c" x="600" y="368" fill="#0f7f73">local, one hop, latency does not depend on the peer</text>
+  <line x1="24" y1="376" x2="876" y2="376" stroke="#f0f3f8" stroke-width=".6"/>
+
+  <text class="c" x="24" y="394">Inter-switch link load</text>
+  <text class="c" x="300" y="394" fill="#c0392b">carries all northbound traffic, 70% and climbing</text>
+  <text class="c" x="600" y="394" fill="#0f7f73">cross-VLAN and WAN traffic only, capacity left over</text>
+  <line x1="24" y1="402" x2="876" y2="402" stroke="#f0f3f8" stroke-width=".6"/>
+
+  <text class="c" x="24" y="420">One failure, two mechanisms</text>
+  <text class="c" x="300" y="420" fill="#c0392b">STP reconverges while HSRP fails over, racing each other</text>
+  <text class="c" x="600" y="420" fill="#0f7f73">gateway and root move together, a single event</text>
+  <line x1="24" y1="428" x2="876" y2="428" stroke="#e6ebf3" stroke-width=".8"/>
+
+  <rect x="24" y="438" width="852" height="34" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="c" x="40" y="452" fill="#0f7f73"><tspan style="font-weight:700">Three habits keep the roles together:</tspan> assign root and HSRP priority in the same change ticket; pick the tracking decrement so both move at once;</text>
+  <text class="c" x="40" y="464" fill="#0f7f73">verify per VLAN with show spanning-tree root beside show standby brief, because a per-VLAN mismatch hides in one VLAN only.</text>
+
+  <rect x="24" y="478" width="852" height="30" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="478" width="4" height="30" fill="#c0392b"/>
+  <text class="c" x="40" y="497" fill="#c0392b"><tspan style="font-weight:700">A blocked uplink beside a detour is one mistake, not two:</tspan> fix the pairing, and both symptoms disappear in the same change window.</text>
+</svg>

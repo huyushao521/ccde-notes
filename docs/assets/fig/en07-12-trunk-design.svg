@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t712 d712">
+
+  <title id="t712">A tagged trunk between two switches, the four settings that matter, and the overwrite accident that takes out three hundred phones</title>
+  <desc id="d712">Two switches joined by a tagged trunk, with the VLAN tag fields shown and four VLANs riding the link: native, data, voice and management. Four design points beside it: write down the native VLAN on both ends, build the allowed list with add rather than a bare list, prune transit VLANs but never management, and remember that the VLAN count is the blast radius. A note at the bottom describes the common accident, a bare allowed vlan command that removes voice and management from the trunk and takes out three hundred phones, and the change-control habit of capturing the configuration before and diffing after.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .sw{font:600 8.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .in{font:700 7px "Segoe UI",sans-serif;fill:#ffffff}
+    .m{font:7.5px "Consolas",monospace;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="448" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A trunk is one cable carrying many failure domains, and two settings decide which ones leak</text>
+  <text class="s" x="24" y="45">The tag is not a label, it is a promise about who can reach whom</text>
+
+  <rect x="56" y="86" width="110" height="26" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="sw" x="111" y="103" text-anchor="middle">SW-1</text>
+  <rect x="266" y="86" width="110" height="26" rx="2" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="sw" x="321" y="103" text-anchor="middle">SW-2</text>
+  <line x1="166" y1="96" x2="266" y2="96" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="166" y1="102" x2="266" y2="102" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="w" x="216" y="86" text-anchor="middle">802.1Q trunk</text>
+
+  <rect x="56" y="136" width="320" height="24" rx="2" fill="#f4f8fe" stroke="#b9c3d2" stroke-width=".6"/>
+  <rect x="56" y="136" width="86" height="24" rx="2" fill="#c8d0da"/>
+  <rect x="142" y="136" width="70" height="24" fill="#e2a9a3"/>
+  <rect x="212" y="136" width="44" height="24" fill="#cfc6ea"/>
+  <rect x="256" y="136" width="40" height="24" fill="#bfe3de"/>
+  <rect x="296" y="136" width="80" height="24" fill="#f0d9b8"/>
+  <text class="in" x="99" y="152" text-anchor="middle" fill="#4a5a72">DA &#183; SA</text>
+  <text class="in" x="177" y="152" text-anchor="middle">TPID 8100</text>
+  <text class="in" x="234" y="152" text-anchor="middle">PCP</text>
+  <text class="in" x="276" y="152" text-anchor="middle">DEI</text>
+  <text class="in" x="336" y="152" text-anchor="middle">VID 12 bits</text>
+
+  <text class="w" x="56" y="176">the tag, and the path it implies</text>
+  <text class="w" x="56" y="130">one frame, four fields that decide its VLAN and its priority</text>
+
+  <rect x="56" y="196" width="58" height="18" rx="2" fill="#c8d0da"/>
+  <text class="in" x="85" y="209" text-anchor="middle" fill="#33475f">1 native</text>
+  <rect x="122" y="196" width="58" height="18" rx="2" fill="#1f4fc0"/>
+  <text class="in" x="151" y="209" text-anchor="middle">10 data</text>
+  <rect x="188" y="196" width="62" height="18" rx="2" fill="#6b4fbf"/>
+  <text class="in" x="219" y="209" text-anchor="middle">20 voice</text>
+  <rect x="258" y="196" width="60" height="18" rx="2" fill="#0f7f73"/>
+  <text class="in" x="288" y="209" text-anchor="middle">99 mgmt</text>
+  <text class="w" x="330" y="209">... whatever the list allows</text>
+
+  <text class="c" x="56" y="238" fill="#c0392b">An untagged frame arrives on the native VLAN. If the two ends disagree,</text>
+  <text class="c" x="56" y="250" fill="#c0392b">that frame lands in a VLAN it was never meant to reach, silently.</text>
+
+  <line x1="416" y1="72" x2="416" y2="272" stroke="#eef1f6" stroke-width=".6"/>
+
+  <text class="k" x="440" y="80">FOUR SETTINGS THAT DECIDE EVERYTHING</text>
+
+  <text class="b" x="440" y="102">1. Native VLAN, written on both ends</text>
+  <text class="c" x="440" y="114">A mismatch bridges two VLANs with no error. Set it explicitly, and never</text>
+  <text class="c" x="440" y="126">leave it at the default while the other end has been changed.</text>
+
+  <text class="b" x="440" y="152">2. The allowed list, always with add</text>
+  <text class="c" x="440" y="164">A bare list replaces the whole set: everything you did not repeat is</text>
+  <text class="c" x="440" y="176">removed from the trunk, including VLANs nobody remembered.</text>
+
+  <text class="b" x="440" y="202">3. Prune transit VLANs, never management</text>
+  <text class="c" x="440" y="214">Pruning is bandwidth hygiene. Pruning management is how you lose the</text>
+  <text class="c" x="440" y="226">ability to reach the device you just changed.</text>
+
+  <text class="b" x="440" y="252">4. The VLAN count is the blast radius</text>
+  <text class="c" x="440" y="264">Whatever rides this trunk can be affected by a loop on the other end.</text>
+  <text class="c" x="440" y="276">Fewer VLANs per trunk is a reliability decision, not a housekeeping one.</text>
+
+  <rect x="24" y="292" width="852" height="66" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="292" width="4" height="66" fill="#c0392b"/>
+  <text class="k" x="40" y="308">THE ACCIDENT THIS SECTION EXISTS FOR</text>
+  <text class="m" x="40" y="326" fill="#c0392b">switchport trunk allowed vlan 10,20</text>
+  <text class="c" x="40" y="340">intended as "add 20", executed as "only 10 and 20" &#8212; voice and management removed, three hundred phones drop, and the change ticket is closed as successful.</text>
+  <text class="c" x="40" y="354" fill="#c0392b"><tspan style="font-weight:700">The prevention is a habit, not a command:</tspan> capture the running configuration before the change, diff it after, and put the diff in the ticket.</text>
+
+  <rect x="24" y="368" width="852" height="62" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="40" y="388" fill="#1f4fc0"><tspan style="font-weight:700">A trunk is a contract between two switches that never read the same document.</tspan> Both ends must be configured, both ends must be verified, and neither end knows what the other was told.</text>
+  <text class="c" x="40" y="404" fill="#1f4fc0">That is why trunks belong in templates and in monitoring: a mismatch is invisible in the configuration of either side taken alone.</text>
+  <text class="c" x="40" y="420" fill="#1f4fc0">The check that catches it is a diff between the two ends, run by a script, not by a person at two in the morning.</text>
+</svg>

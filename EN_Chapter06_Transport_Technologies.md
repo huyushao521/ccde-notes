@@ -176,6 +176,11 @@ Service providers that deliver modern Layer 2 Ethernet services (such as metro E
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-01-carrier-ethernet.svg" alt="Five rows, one per MEF attribute of Carrier Ethernet, each with what it means and the concrete design action it forces, ending with service management as the attribute that separates a carrier service from bare fibre or Internet" loading="lazy">
+<figcaption><b>Figure 6-1　Five MEF attributes, and the one question each one forces in a design</b><br><span>图 6-1　五个 MEF 属性，以及每个属性在设计里逼你回答的问题</span></figcaption>
+</figure>
+
 ### Metro Ethernet Service Types · Metro Ethernet 服务类型
 
 | Service type | Topology | Description | Typical thing it replaces |
@@ -201,6 +206,11 @@ Service providers that deliver modern Layer 2 Ethernet services (such as metro E
 > 💡 **E-Tree 是最容易被忽略但很实用的服务**：它天然实现了"叶子之间隔离"，非常适合**视频分发、内容推送、基站回传**这类"一个源、多个接收者"的场景。若用 E-LAN 实现同类需求，必须在客户侧自己做隔离策略。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-02-metro-service-types.svg" alt="E-Line point to point, E-LAN multipoint to multipoint and E-Tree with an isolated root and leaves, each drawn with its topology and what it replaces" loading="lazy">
+<figcaption><b>Figure 6-2　Three service types: the topology is the product, not the bandwidth</b><br><span>图 6-2　三种服务类型：你买的是拓扑，不是带宽</span></figcaption>
+</figure>
 
 ### Metro Ethernet Transport Models · Metro Ethernet 传输模型
 
@@ -268,6 +278,11 @@ CE ──[整口]── PE                     CE ──[VLAN 10]──┐
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-03-epl-vs-evpl.svg" alt="Two diagrams contrasting a dedicated port carrying one EVC with a shared port carrying VLAN 10, 20 and 30 to three different EVCs, followed by a five row comparison of port utilisation, transparency, suitability, cost and the typical pitfall" loading="lazy">
+<figcaption><b>Figure 6-3　EPL and EVPL: one question decides the port, and five differences follow</b><br><span>图 6-3　EPL 与 EVPL：一个问题决定端口，五个差异随之而来</span></figcaption>
+</figure>
+
 ### Metro Ethernet Components · Metro Ethernet 组件
 
 | Component | Definition |
@@ -295,6 +310,11 @@ CE ──[整口]── PE                     CE ──[VLAN 10]──┐
 > ⚠️ **UNI 是责任分界线**：故障发生时，"问题在 UNI 之内（客户责任）还是之外（运营商责任）"决定谁来处理。设计中必须明确 UNI 位置，并确认运营商是否提供 UNI 侧环回测试能力。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-04-uni-evc-nni.svg" alt="A chain from customer A through CE, UNI, PE, an EVC cloud, a second PE and UNI to customer B, with a band above marking the customer and carrier sections and red dashed lines at each UNI, plus four cards defining UNI, EVC, NNI and the CoS profile" loading="lazy">
+<figcaption><b>Figure 6-4　UNI, EVC and NNI: the components, and the line where responsibility changes hands</b><br><span>图 6-4　UNI、EVC 与 NNI：组件，以及责任交接的那条线</span></figcaption>
+</figure>
 
 ---
 
@@ -370,6 +390,11 @@ CE1 ──[接入电路]── PE1 ═══════════════
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-05-pw-encapsulation.svg" alt="Attachment circuits and a pseudowire between two PEs, the frame stack from outer Layer 2 header through tunnel label, VC label and control word to the untouched customer payload, and the Martini and Kompella signalling schools compared" loading="lazy">
+<figcaption><b>Figure 6-5　A pseudowire is a label stack: tunnel label to the far PE, VC label to the circuit, control word for order</b><br><span>图 6-5　伪线就是一个标签栈：外层标签到对端 PE，VC 标签指到电路，控制字保顺序</span></figcaption>
+</figure>
+
 ### PW Transport Connection Models · PW 传输连接模型
 
 | Model | Characteristics | Where it fits |
@@ -430,6 +455,11 @@ CE1 ──[接入电路]── PE1 ═══════════════
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-06-pw-transport-mode.svg" alt="VLAN-based transport carrying VLAN 10 and VLAN 20 from one port to two remote sites, port-based transport tunnelling the whole port to one site so BPDUs cross and both sites share one spanning tree, and a four row comparison of what crosses, the benefit, the risk and when to choose each" loading="lazy">
+<figcaption><b>Figure 6-6　VLAN-based transport maps the tags; port-based transport merges the spanning trees</b><br><span>图 6-6　VLAN 型映射标签，端口型合并生成树</span></figcaption>
+</figure>
+
 ### VPWS Design Checklist · VPWS 设计要点清单
 
 | Consideration | Question | Design action |
@@ -459,6 +489,11 @@ CE1 ──[接入电路]── PE1 ═══════════════
 > ⚠️ **"两个站点 STP 域合并"是二层互联最经典的故障源**：合并后一个站点的拓扑变化会震荡另一个站点，且**根桥选举跨站点**，流量路径不可预期。设计时必须显式决定：**是否让 STP 跨越 WAN**。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-07-vpws-checklist.svg" alt="Five rows covering MTU, failure detection, redundancy, multicast and spanning tree, each with how it fails when ignored and the design action that prevents it" loading="lazy">
+<figcaption><b>Figure 6-7　Five items to settle before signing: MTU, detection, redundancy, multicast, spanning tree</b><br><span>图 6-7　签约前必须定的五件事：MTU、检测、冗余、组播、生成树</span></figcaption>
+</figure>
 
 ---
 
@@ -501,6 +536,11 @@ VPLS 满足通过一个通用二层网络互联多个站点的需求，支持现
 | **MTU (多租户单元)** | 分层模型中的汇聚设备，充当 U-PE 角色 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-08-vpls-full-mesh.svg" alt="Four PEs fully meshed with six pseudowires, the count formula for n PEs with the numbers for four, ten, twenty-five and fifty, and a box explaining split horizon as the rule that a frame from one pseudowire is never forwarded out another" loading="lazy">
+<figcaption><b>Figure 6-8　One switch over geography: the full mesh is mandatory, and split horizon is the only loop protection</b><br><span>图 6-8　跨越地域的一台交换机：全互联是必需，水平分割是唯一的环路保护</span></figcaption>
+</figure>
 
 ### VPLS Control Plane · VPLS 控制平面
 
@@ -662,6 +702,11 @@ So either full mesh (every PE reaches every other directly), or explicit loop pr
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-09-h-vpls.svg" alt="Four customer sites attached to four MTUs feeding two fully meshed N-PEs, the pseudowire count changing from a flat mesh of twelve nodes to six core plus eight attachments, and a note listing the three costs of the hierarchy" loading="lazy">
+<figcaption><b>Figure 6-9　H-VPLS: move the mesh to the core, and pay in single points and failure domains</b><br><span>图 6-9　H-VPLS：把全互联挪到核心，用单点和故障域来付费</span></figcaption>
+</figure>
+
 ### VPLS Scalability Limits · VPLS 可扩展性限制
 
 | Limit | Description | Mitigation |
@@ -689,6 +734,11 @@ So either full mesh (every PE reaches every other directly), or explicit loop pr
 > 💡 **CCDE 的关键判断**：VPLS 的问题**不是性能，而是"缺乏控制平面"**。MAC 学习靠泛洪、多归属靠 MC-LAG、故障恢复靠重新泛洪——都是"数据面打补丁"。EVPN 出现就是为了把这套东西搬到控制平面。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-10-vpls-limits.svg" alt="Four cards covering MAC learning, full mesh pseudowires, flooding and the absence of a control plane, each with its symptom and mitigation, and a note that the root cause is missing control-plane state rather than performance" loading="lazy">
+<figcaption><b>Figure 6-10　Four limits, and only one of them is about bandwidth</b><br><span>图 6-10　四个限制，只有一个跟带宽有关</span></figcaption>
+</figure>
 
 ---
 
@@ -746,6 +796,11 @@ Once you adopt that view, every EVPN advantage follows naturally:
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-11-mac-to-route.svg" alt="Left panel showing a MAC table learned by flooding with an ageing timer, right panel showing the same MAC as a BGP route with next hop, ESI, mobility sequence and communities, and five consequence rows covering route updates, no flood-based learning, route attributes, native multihoming and ARP proxying" loading="lazy">
+<figcaption><b>Figure 6-11　Turn the MAC into a route and five design consequences follow by deduction</b><br><span>图 6-11　把 MAC 变成路由，五条设计推论随之而来</span></figcaption>
+</figure>
+
 ### EVPN versus VPLS · EVPN vs VPLS 对比
 
 | Dimension | VPLS | EVPN |
@@ -771,6 +826,11 @@ Once you adopt that view, every EVPN advantage follows naturally:
 | **故障收敛** | 慢（重新泛洪/重新学习） | 快（BGP 撤消 + A-D 路由） |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-12-evpn-vs-vpls.svg" alt="Seven row comparison of VPLS and EVPN across control plane, MAC learning, flooding, multihoming, scalability, MAC mobility and convergence, with the VPLS column relying on data-plane learning and the EVPN column on BGP advertisement" loading="lazy">
+<figcaption><b>Figure 6-12　VPLS and EVPN differ in one dimension: where the state lives</b><br><span>图 6-12　VPLS 与 EVPN 只差一个维度：状态放在哪里</span></figcaption>
+</figure>
 
 ### EVPN Core Concepts · EVPN 核心概念
 
@@ -830,6 +890,11 @@ Once you adopt that view, every EVPN advantage follows naturally:
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-13-evpn-route-types.svg" alt="Five rows for EVPN route types one to five, Ethernet auto-discovery, MAC or IP advertisement, inclusive multicast, Ethernet segment and IP prefix, each with what it carries and what it is for, plus a memory hook reading one discovery, two MAC, three flooding, four election, five prefix" loading="lazy">
+<figcaption><b>Figure 6-13　Five route types, five different questions in the design</b><br><span>图 6-13　五种路由类型，对应设计里的五个不同问题</span></figcaption>
+</figure>
+
 ### PBB-EVPN
 
 PBB-EVPN combines PBB (Provider Backbone Bridging) with EVPN:
@@ -886,6 +951,11 @@ PBB-EVPN 结合了 PBB (Provider Backbone Bridging) 和 EVPN：
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-14-pbb-evpn.svg" alt="Nested rectangle diagrams comparing plain EVPN, where the customer frame is what the core reads and every core PE learns every customer MAC, with PBB-EVPN, where a carrier header of B-MAC addresses and an I-SID wraps the customer frame, plus a four row comparison and a note on the cost of the extra encapsulation" loading="lazy">
+<figcaption><b>Figure 6-14　PBB-EVPN: hide the customer MACs and the core stops counting them</b><br><span>图 6-14　PBB-EVPN：把客户 MAC 藏起来，核心就不用再数它们</span></figcaption>
+</figure>
+
 ### DCI (Data Center Interconnect) Selection · DCI（数据中心互联）选型
 
 | Scenario | Best choice | Reason |
@@ -905,6 +975,11 @@ PBB-EVPN 结合了 PBB (Provider Backbone Bridging) 和 EVPN：
 | MAC 地址数量极大 | PBB-EVPN | MAC 隐藏 |
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-15-dci-selection.svg" alt="Four scenario rows mapping few data centres to VPLS, many data centres to EVPN or PBB-EVPN, strong MAC mobility to EVPN and an enormous MAC count to PBB-EVPN, each with the reason, and a note that the questions must be asked in order starting with whether Layer 2 extension is needed at all" loading="lazy">
+<figcaption><b>Figure 6-15　DCI selection: count the sites, the interconnect points and the MACs before naming a protocol</b><br><span>图 6-15　DCI 选型：先数站点、互联点和 MAC，再谈协议</span></figcaption>
+</figure>
 
 ---
 
@@ -956,6 +1031,11 @@ The book focuses on carrier L2 services, but real design questions often require
 
 </div>
 
+<figure class="fig">
+<img src="assets/fig/en06-16-transport-comparison.svg" alt="A scatter plot placing dark fibre, DWDM, MPLS L2VPN, MPLS L3VPN, Internet with SD-WAN and 5G or LTE by how much control the customer keeps against the cost per megabit, with a list giving each option its layer and character, and four questions that reduce the choice" loading="lazy">
+<figcaption><b>Figure 6-16　Transport options are a scorecard: control kept against cost paid</b><br><span>图 6-16　传输选项是一张记分卡：你保住多少控制权，付出多少成本</span></figcaption>
+</figure>
+
 ---
 
 ## Extended: Five Classic Design Flaws of Layer 2 Transport · 扩展：二层传输的五大设计缺陷
@@ -987,6 +1067,11 @@ The book focuses on carrier L2 services, but real design questions often require
 > ⚠️ 其中 **"黑洞故障"** 是最容易被忽略的一类故障：物理层/逻辑层显示正常，但流量静默消失。判断关键——**是否存在独立于数据面的检测机制**。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-17-five-flaws.svg" alt="Five rows covering Layer 2 everywhere, MTU never checked, spanning tree across the WAN, no control plane for mobility and a vendor feature used as architecture, each with the symptom, the consequence and the avoidance, and a note that all five treat Layer 2 as free" loading="lazy">
+<figcaption><b>Figure 6-17　Five flaws that return, and the review question that catches each one</b><br><span>图 6-17　五个反复出现的缺陷，以及能抓住它们的评审问题</span></figcaption>
+</figure>
 
 ---
 
@@ -1033,6 +1118,11 @@ EVPN 故障恢复：
 > 💡 **设计含义**：EVPN 把"数据面的不确定性"转成"控制面的确定性"。这也是第 9 章（虚拟化）与第 12 章（自动化）里 EVPN 反复出现的原因——**可编程、可预测**是现代网络的基础。
 
 </div>
+
+<figure class="fig">
+<img src="assets/fig/en06-18-convergence.svg" alt="Two timelines drawn to the same scale, the VPLS bar showing three seconds of detection, thirty seconds of MAC ageing and twelve seconds of re-flooding for about forty-five seconds in total, and the EVPN bar showing about three seconds of BFD, one BGP withdraw and a FIB update, with a bracket marking the difference and three reasons for the speed" loading="lazy">
+<figcaption><b>Figure 6-18　Forty-five seconds against three: what VPLS spends is the forgetting, not the failure</b><br><span>图 6-18　45 秒对 3 秒：VPLS 花掉的时间是在遗忘，不是在故障</span></figcaption>
+</figure>
 
 ---
 

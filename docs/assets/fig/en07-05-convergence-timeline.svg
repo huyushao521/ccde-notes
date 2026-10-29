@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 418" width="100%" role="img" aria-labelledby="t705 d705">
+
+  <title id="t705">Convergence on the same scale: 802.1D counts down three timers for about fifty seconds, RSTP asks and agrees in about three</title>
+  <desc id="d705">Two timelines drawn to the same scale. The 802.1D bar has three segments: Max Age at twenty seconds waiting for a BPDU that will not come, Listening at fifteen seconds discarding, and Learning at fifteen seconds building the table, about fifty seconds in total. The RSTP bar is roughly a fifteenth as long, covering the proposal and agreement exchange in one to three seconds. A box on the right explains why asking wins: timers are designed for the worst case, a countdown cannot run in parallel, and proposal and agreement progress segment by segment. A note at the bottom explains what fifty seconds actually means to a user.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .in{font:700 7.5px "Segoe UI",sans-serif;fill:#ffffff}
+    .big{font:700 11px "Segoe UI",sans-serif}
+  </style>
+
+  <rect x="0" y="0" width="900" height="418" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Two protocols, one scale: waiting for a timer against asking a neighbour</text>
+  <text class="s" x="24" y="45">Both bars start when the link dies. Only one of them is doing something during that time</text>
+
+  <text class="b" x="24" y="86" fill="#c0392b">802.1D</text>
+  <text class="w" x="24" y="98">counts down</text>
+  <line x1="100" y1="134" x2="610" y2="134" stroke="#e2e8f2" stroke-width=".8"/>
+  <rect x="100" y="106" width="204" height="28" rx="2" fill="#e2a9a3" stroke="#c0392b" stroke-width=".5"/>
+  <rect x="304" y="106" width="153" height="28" rx="2" fill="#d98d86" stroke="#c0392b" stroke-width=".5"/>
+  <rect x="457" y="106" width="153" height="28" rx="2" fill="#f0c9c4" stroke="#c0392b" stroke-width=".5"/>
+  <text class="in" x="202" y="124" text-anchor="middle">Max Age: 20 s</text>
+  <text class="in" x="380" y="124" text-anchor="middle">Listening: 15 s</text>
+  <text class="in" x="533" y="124" text-anchor="middle">Learning: 15 s</text>
+  <text class="w" x="100" y="102">a BPDU that never arrives</text>
+  <text class="big" x="616" y="126" fill="#c0392b">50 s</text>
+  <text class="w" x="616" y="138">until forwarding</text>
+
+  <text class="b" x="24" y="186" fill="#0f7f73">RSTP</text>
+  <text class="w" x="24" y="198">asks and agrees</text>
+  <line x1="100" y1="234" x2="610" y2="234" stroke="#e2e8f2" stroke-width=".8"/>
+  <rect x="100" y="206" width="31" height="28" rx="2" fill="#5fb3aa" stroke="#0f7f73" stroke-width=".5"/>
+  <line x1="131" y1="206" x2="131" y2="246" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="big" x="140" y="222" fill="#0f7f73">3 s</text>
+  <text class="w" x="140" y="236">proposal &#183; agreement &#183; forwarding</text>
+  <text class="w" x="100" y="202">the neighbour answers immediately</text>
+
+  <line x1="100" y1="96" x2="100" y2="252" stroke="#9aa8ba" stroke-width=".6" stroke-dasharray="3 3"/>
+  <text class="k" x="88" y="176" text-anchor="end">FAILURE</text>
+
+  <line x1="102" y1="262" x2="608" y2="262" stroke="#c0392b" stroke-width=".6"/>
+  <line x1="102" y1="256" x2="102" y2="268" stroke="#c0392b" stroke-width=".7"/>
+  <line x1="608" y1="256" x2="608" y2="268" stroke="#c0392b" stroke-width=".7"/>
+  <text class="w" x="355" y="278" text-anchor="middle" fill="#c0392b">the twenty-second Max Age is the part that never changes with the version</text>
+
+  <rect x="628" y="86" width="248" height="180" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="642" y="102">WHY ASKING WINS</text>
+  <text class="c" x="642" y="122"><tspan style="font-weight:700">1.</tspan> A timer is sized for the worst case,</text>
+  <text class="c" x="642" y="134">so it is slow everywhere, always.</text>
+  <text class="c" x="642" y="154"><tspan style="font-weight:700">2.</tspan> Countdowns cannot run in parallel;</text>
+  <text class="c" x="642" y="166">exchanges can, segment by segment.</text>
+  <text class="c" x="642" y="186"><tspan style="font-weight:700">3.</tspan> RSTP merges the port states into</text>
+  <text class="c" x="642" y="198">Discarding, Learning, Forwarding &#8212;</text>
+  <text class="c" x="642" y="210">fewer transitions, fewer timers.</text>
+  <text class="c" x="642" y="230"><tspan style="font-weight:700">4.</tspan> Edge ports skip the whole dance,</text>
+  <text class="c" x="642" y="242">which is why PortFast is not cosmetic.</text>
+  <text class="w" x="642" y="258">the protocol got faster by talking, not by hurrying</text>
+
+  <rect x="24" y="286" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="286" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="306" fill="#c0392b"><tspan style="font-weight:700">Fifty seconds is not a number, it is an experience:</tspan> every TCP session dies, every SSH login hangs, and the phone system re-registers.</text>
+  <text class="c" x="40" y="322" fill="#c0392b">It also explains a support ticket that never reproduces: by the time somebody looks, the network has finished converging and looks healthy.</text>
+  <text class="c" x="40" y="338" fill="#c0392b">A one-second budget is achievable; a zero-second one is not. Promise the first and measure it with long pings, as the acceptance section of this chapter does.</text>
+</svg>

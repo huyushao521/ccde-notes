@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 412" width="100%" role="img" aria-labelledby="t614 d614">
+
+  <title id="t614">PBB-EVPN: MAC-in-MAC encapsulation, and what the core PEs have to learn compared with plain EVPN</title>
+  <desc id="d614">Two nested rectangle diagrams. On the left, plain EVPN puts the customer frame, its destination and source MAC and payload, directly inside the outer header the core reads, so every core PE learns every customer MAC. On the right, PBB-EVPN wraps the customer frame inside a carrier header built from B-MAC addresses and an I-SID, so the core only ever learns carrier B-MACs and customer MAC changes never cross the core. A four row table compares the MACs the core must learn, the effect of customer MAC volume, the propagation of customer MAC changes and the scale each option suits. A note says the cost is another encapsulation layer, a smaller MTU and harder troubleshooting, so it is worth it only when MAC scale really is the bottleneck.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .mono{font:7px Consolas,monospace;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="412" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">PBB-EVPN hides the customer MACs inside carrier MACs, so the core stops caring how many there are</text>
+  <text class="s" x="24" y="45">Same BGP control plane; the change is what the outermost header is allowed to expose</text>
+
+  <rect x="24" y="64" width="418" height="132" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="84" fill="#1f4fc0">Plain EVPN</text>
+  <text class="w" x="122" y="84">customer MACs travel in the clear</text>
+  <rect x="38" y="94" width="390" height="76" rx="3" fill="#ffffff" stroke="#b9c9e2" stroke-width=".7"/>
+  <text class="k" x="48" y="110">OUTER HEADER THE CORE READS</text>
+  <rect x="48" y="118" width="252" height="42" rx="2" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="mono" x="56" y="134">C-DA</text>
+  <text class="mono" x="112" y="134">C-SA</text>
+  <text class="mono" x="168" y="134">payload</text>
+  <text class="w" x="56" y="150">the customer frame is the thing being read</text>
+  <text class="w" x="312" y="134" fill="#c0392b">core learns</text>
+  <text class="w" x="312" y="146" fill="#c0392b">every C-MAC</text>
+  <text class="c" x="38" y="186">Customer MAC churn is core table churn, and a MAC move is an update for everyone.</text>
+
+  <rect x="458" y="64" width="418" height="132" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="472" y="84" fill="#0f7f73">PBB-EVPN</text>
+  <text class="w" x="558" y="84">MAC-in-MAC: a carrier frame carries the customer frame</text>
+  <rect x="472" y="94" width="390" height="76" rx="3" fill="#ffffff" stroke="#b9d9d4" stroke-width=".7"/>
+  <text class="k" x="482" y="110">B-DA &#183; B-SA &#183; B-VID &#183; I-SID</text>
+  <rect x="482" y="118" width="238" height="42" rx="2" fill="#eafaf7" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="mono" x="490" y="134">C-DA</text>
+  <text class="mono" x="540" y="134">C-SA</text>
+  <text class="mono" x="590" y="134">payload &#8212; never inspected</text>
+  <rect x="482" y="118" width="238" height="42" rx="2" fill="none" stroke="#0f7f73" stroke-width=".6" stroke-dasharray="3 2"/>
+  <text class="w" x="736" y="134" fill="#0f7f73">core learns</text>
+  <text class="w" x="736" y="146" fill="#0f7f73">only B-MAC</text>
+  <text class="c" x="472" y="186">The BEB at the edge terminates customer MACs; a customer MAC move stops at the edge.</text>
+
+  <text class="k" x="38" y="216">DIMENSION</text>
+  <text class="k" x="330" y="216">PLAIN EVPN</text>
+  <text class="k" x="606" y="216">PBB-EVPN</text>
+
+  <rect x="24" y="222" width="852" height="28" fill="#fcfdff"/>
+  <text class="c" x="38" y="240">MACs core PEs must learn</text>
+  <text class="c" x="330" y="240">Every customer MAC in every EVI</text>
+  <text class="c" x="606" y="240">Only the carrier B-MACs of the BEBs</text>
+
+  <rect x="24" y="250" width="852" height="28" fill="#f8fafd"/>
+  <text class="c" x="38" y="268">Effect of customer MAC count</text>
+  <text class="c" x="330" y="268">Hits core table sizes directly</text>
+  <text class="c" x="606" y="268">Isolated at the edge, invisible to the core</text>
+
+  <rect x="24" y="278" width="852" height="28" fill="#fcfdff"/>
+  <text class="c" x="38" y="296">Customer MAC changes</text>
+  <text class="c" x="330" y="296">Advertised network-wide as routes</text>
+  <text class="c" x="606" y="296">Never cross the core</text>
+
+  <rect x="24" y="306" width="852" height="28" fill="#f8fafd"/>
+  <text class="c" x="38" y="324">Suits</text>
+  <text class="c" x="330" y="324">Medium scale, fine-grained policy per MAC</text>
+  <text class="c" x="606" y="324">Very large scale, MAC explosion, service provider edges</text>
+
+  <rect x="24" y="342" width="852" height="56" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="342" width="4" height="56" fill="#c0392b"/>
+  <text class="c" x="40" y="362" fill="#c0392b"><tspan style="font-weight:700">The cost is real:</tspan> one more encapsulation layer, so the usable MTU shrinks again; more moving parts, so troubleshooting now has two MAC layers to inspect.</text>
+  <text class="c" x="40" y="378">Deploy it when the MAC table is the measured bottleneck &#8212; not because it looks more scalable on a slide. Choosing it otherwise is the over-design trap from Chapter 1.</text>
+  <text class="c" x="40" y="392">Test: can you name the number of customer MACs per EVI today? If not, you are not yet at the point where PBB-EVPN pays for itself.</text>
+</svg>

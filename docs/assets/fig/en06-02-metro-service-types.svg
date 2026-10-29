@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t62 d62">
+
+  <title id="t62">The three Metro Ethernet service types: E-Line, E-LAN and E-Tree, with their topologies and what each replaces</title>
+  <desc id="d62">Three panels side by side. E-Line is point to point between two UNIs and replaces leased lines and Frame Relay or ATM PVCs. E-LAN is multipoint to multipoint where every site reaches every other, and replaces a self-built Layer 2 campus interconnect. E-Tree is a root with leaves where leaves reach only the root and never each other, drawn with a crossed dashed line between the leaves, and it replaces multicast distribution and video source to many receivers. A note at the bottom says E-Tree gives leaf isolation for free, whereas the same requirement on E-LAN forces the customer to build the isolation policy themselves.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .ce{font:600 7px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three service types, three topologies, three different failure domains</text>
+  <text class="s" x="24" y="45">The topology is the product: what you buy is a forwarding relationship, not a bandwidth number</text>
+
+  <rect x="24" y="64" width="272" height="246" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="24" y="64" width="272" height="4" fill="#1f4fc0"/>
+  <text class="b" x="38" y="88" fill="#1f4fc0">E-Line</text>
+  <text class="w" x="38" y="102">point-to-point &#183; two UNIs</text>
+  <rect x="36" y="110" width="248" height="86" rx="2" fill="#fbfdff" stroke="#e2e8f2" stroke-width=".6"/>
+  <circle cx="70" cy="153" r="12" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="70" y="156" text-anchor="middle">CE</text>
+  <circle cx="250" cy="153" r="12" fill="#ffffff" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="ce" x="250" y="156" text-anchor="middle">CE</text>
+  <line x1="82" y1="153" x2="238" y2="153" stroke="#1f4fc0" stroke-width=".9"/>
+  <rect x="132" y="140" width="56" height="26" rx="3" fill="#eaf1fd" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="ce" x="160" y="157" text-anchor="middle">EVC</text>
+  <text class="c" x="38" y="214">A single circuit between two UNIs.</text>
+  <text class="c" x="38" y="227">The example in this chapter is VPWS:</text>
+  <text class="c" x="38" y="240">one invisible cable, no MAC learning.</text>
+  <text class="k" x="38" y="262">REPLACES</text>
+  <text class="w" x="38" y="276">leased line &#183; FR/ATM PVC</text>
+  <text class="w" x="38" y="292" fill="#c0392b">two sites only &#8212; a third needs a second EVC</text>
+
+  <rect x="308" y="64" width="272" height="246" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="308" y="64" width="272" height="4" fill="#0f7f73"/>
+  <text class="b" x="322" y="88" fill="#0f7f73">E-LAN</text>
+  <text class="w" x="322" y="102">multipoint-to-multipoint</text>
+  <rect x="320" y="110" width="248" height="86" rx="2" fill="#fbfdff" stroke="#e2e8f2" stroke-width=".6"/>
+  <circle cx="352" cy="132" r="12" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="ce" x="352" y="135" text-anchor="middle">CE</text>
+  <circle cx="536" cy="132" r="12" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="ce" x="536" y="135" text-anchor="middle">CE</text>
+  <circle cx="444" cy="180" r="12" fill="#ffffff" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="ce" x="444" y="183" text-anchor="middle">CE</text>
+  <line x1="364" y1="132" x2="524" y2="132" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="358" y1="142" x2="436" y2="174" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="530" y1="142" x2="452" y2="174" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="c" x="322" y="214">Any site to any site, one bridge</text>
+  <text class="c" x="322" y="227">domain. The example here is VPLS:</text>
+  <text class="c" x="322" y="240">one LAN spread over geography.</text>
+  <text class="k" x="322" y="262">REPLACES</text>
+  <text class="w" x="322" y="276">self-built L2 campus interconnect</text>
+  <text class="w" x="322" y="292" fill="#c0392b">every broadcast reaches every site</text>
+
+  <rect x="592" y="64" width="272" height="246" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <rect x="592" y="64" width="272" height="4" fill="#6b4fbf"/>
+  <text class="b" x="606" y="88" fill="#5a3fa8">E-Tree</text>
+  <text class="w" x="606" y="102">point-to-multipoint &#183; root and leaves</text>
+  <rect x="604" y="110" width="248" height="86" rx="2" fill="#fbfdff" stroke="#e2e8f2" stroke-width=".6"/>
+  <circle cx="728" cy="130" r="12" fill="#ffffff" stroke="#6b4fbf" stroke-width="1.1"/>
+  <text class="ce" x="728" y="133" text-anchor="middle" fill="#5a3fa8">root</text>
+  <circle cx="654" cy="180" r="12" fill="#ffffff" stroke="#6b4fbf" stroke-width=".9"/>
+  <text class="ce" x="654" y="183" text-anchor="middle" fill="#5a3fa8">CE</text>
+  <circle cx="802" cy="180" r="12" fill="#ffffff" stroke="#6b4fbf" stroke-width=".9"/>
+  <text class="ce" x="802" y="183" text-anchor="middle" fill="#5a3fa8">CE</text>
+  <line x1="722" y1="141" x2="662" y2="171" stroke="#6b4fbf" stroke-width=".8"/>
+  <line x1="734" y1="141" x2="794" y2="171" stroke="#6b4fbf" stroke-width=".8"/>
+  <line x1="666" y1="180" x2="790" y2="180" stroke="#c0392b" stroke-width=".7" stroke-dasharray="3 3"/>
+  <line x1="720" y1="173" x2="736" y2="187" stroke="#c0392b" stroke-width=".9"/>
+  <line x1="736" y1="173" x2="720" y2="187" stroke="#c0392b" stroke-width=".9"/>
+  <text class="c" x="606" y="214">Leaves talk to the root only.</text>
+  <text class="c" x="606" y="227">Leaf to leaf is blocked inside</text>
+  <text class="c" x="606" y="240">the service, like Private VLAN.</text>
+  <text class="k" x="606" y="262">REPLACES</text>
+  <text class="w" x="606" y="276">multicast distribution &#183; video push</text>
+  <text class="w" x="606" y="292" fill="#c0392b">rarely quoted &#8212; ask for it by name</text>
+
+  <rect x="24" y="322" width="852" height="56" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="322" width="4" height="56" fill="#c0392b"/>
+  <text class="c" x="40" y="342" fill="#c0392b"><tspan style="font-weight:700">E-Tree is the most overlooked service in the book, and the most practical.</tspan> Video source to many receivers, content push, cell-site backhaul.</text>
+  <text class="c" x="40" y="358">Built on E-LAN instead, every leaf can reach every leaf, and the customer must invent the isolation policy on their own equipment &#8212; and keep it correct.</text>
+  <text class="c" x="40" y="372">The failure mode is silent: nothing is broken, the isolation simply was never there.</text>
+</svg>

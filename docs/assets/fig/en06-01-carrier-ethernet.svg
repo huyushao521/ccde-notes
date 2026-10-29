@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t61 d61">
+
+  <title id="t61">The five MEF attributes of Carrier Ethernet and what each one changes in a design</title>
+  <desc id="d61">Five rows, one per MEF attribute: standardised services, scalability, reliability, quality of service, and service management. Each row names the attribute, states what it means and states the concrete design action it forces, such as demanding the protection switching time or verifying that the CoS mapping matches at both ends. A red note at the bottom says the fifth attribute is the real line between a carrier service and bare fibre or bare Internet, because without OAM and SLA measurement a broken promise cannot be proved.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five attributes that separate a Carrier Ethernet service from a fast pipe</text>
+  <text class="s" x="24" y="45">Column three is the only column a design can act on: the attribute, the promise, the question you must ask</text>
+
+  <text class="k" x="42" y="62">ATTRIBUTE</text>
+  <text class="k" x="212" y="62">WHAT IT MEANS</text>
+  <text class="k" x="568" y="62">WHAT THE DESIGN MUST DO WITH IT</text>
+
+  <rect x="24" y="68" width="852" height="46" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <circle cx="34" cy="91" r="7" fill="#1f4fc0"/><text class="n" x="34" y="94" text-anchor="middle">1</text>
+  <text class="b" x="50" y="87">Standardised services</text>
+  <text class="w" x="50" y="101">E-Line &#183; E-LAN &#183; E-Tree</text>
+  <text class="c" x="212" y="87">Three named service types, so quotes from</text>
+  <text class="c" x="212" y="100">two carriers can be compared line by line</text>
+  <text class="c" x="568" y="87">Make the quote state the service type and the</text>
+  <text class="c" x="568" y="100">topology. "Ethernet" alone is not a service</text>
+
+  <rect x="24" y="120" width="852" height="46" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="34" cy="143" r="7" fill="#0f7f73"/><text class="n" x="34" y="146" text-anchor="middle">2</text>
+  <text class="b" x="50" y="139">Scalability</text>
+  <text class="w" x="50" y="153">1M to 10G+, many sites</text>
+  <text class="c" x="212" y="139">Bandwidth range and site count grow</text>
+  <text class="c" x="212" y="152">without redesigning the service</text>
+  <text class="c" x="568" y="139">Ask for the per-EVC and per-site ceilings now,</text>
+  <text class="c" x="568" y="152">not at the moment you need site forty</text>
+
+  <rect x="24" y="172" width="852" height="46" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <circle cx="34" cy="195" r="7" fill="#6b4fbf"/><text class="n" x="34" y="198" text-anchor="middle">3</text>
+  <text class="b" x="50" y="191">Reliability</text>
+  <text class="w" x="50" y="205">SLA with protection</text>
+  <text class="c" x="212" y="191">Service level commitments including</text>
+  <text class="c" x="212" y="204">protection switching on failure</text>
+  <text class="c" x="568" y="191">Demand the switching time in milliseconds.</text>
+  <text class="c" x="568" y="204">"Protected" without a number is marketing</text>
+
+  <rect x="24" y="224" width="852" height="46" rx="3" fill="#fefaf3" stroke="#e8d5ae" stroke-width=".7"/>
+  <circle cx="34" cy="247" r="7" fill="#b8862b"/><text class="n" x="34" y="250" text-anchor="middle">4</text>
+  <text class="b" x="50" y="243">Quality of service</text>
+  <text class="w" x="50" y="257">Multiple CoS per frame</text>
+  <text class="c" x="212" y="243">Several classes of service, each markable</text>
+  <text class="c" x="212" y="256">per frame, on one circuit</text>
+  <text class="c" x="568" y="243">Voice and bulk transfer share one circuit &#8212;</text>
+  <text class="c" x="568" y="256">only if both ends use the same CoS mapping</text>
+
+  <rect x="24" y="276" width="852" height="46" rx="3" fill="#fff8f7" stroke="#e8c4c0" stroke-width=".7"/>
+  <circle cx="34" cy="299" r="7" fill="#c0392b"/><text class="n" x="34" y="302" text-anchor="middle">5</text>
+  <text class="b" x="50" y="295">Service management</text>
+  <text class="w" x="50" y="309">OAM, latency, jitter, loss</text>
+  <text class="c" x="212" y="295">The carrier can measure and prove the</text>
+  <text class="c" x="212" y="308">service it sold you</text>
+  <text class="c" x="568" y="295">Write the measurement points and the reporting</text>
+  <text class="c" x="568" y="308">interval into the contract, not into a wish list</text>
+
+  <rect x="24" y="334" width="852" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="334" width="4" height="44" fill="#c0392b"/>
+  <text class="c" x="40" y="352" fill="#c0392b"><tspan style="font-weight:700">Attribute five is the real boundary.</tspan> Bare fibre and bare Internet fail here: the bits arrive, but nobody can prove where or when they were lost.</text>
+  <text class="c" x="40" y="368">Everything else in this list is a capability; attribute five is the evidence that the capability was delivered.</text>
+</svg>

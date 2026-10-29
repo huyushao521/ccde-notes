@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 412" width="100%" role="img" aria-labelledby="t612 d612">
+
+  <title id="t612">Seven row comparison of VPLS and EVPN across control plane, learning, flooding, multihoming, scalability, mobility and convergence</title>
+  <desc id="d612">A seven row table. VPLS builds pseudowires with LDP or RSVP and learns MACs by flooding in the data plane; EVPN uses MP-BGP to carry MAC and IP addresses. VPLS floods unknown unicast and ARP heavily, multihoming is limited to MC-LAG, scalability is medium with quadratic pseudowire counts, MAC mobility is limited and convergence is slow because of re-flooding. EVPN proxies ARP, supports native all-active multihoming with ESI and designated forwarder election, scales on BGP routes with no full mesh, optimises MAC mobility with an extended community and sequence number, and converges through BGP withdraw and Ethernet auto-discovery routes. A note says the two columns differ in one dimension only: where the state lives.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="412" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">VPLS and EVPN differ in one dimension: where the forwarding state lives</text>
+  <text class="s" x="24" y="45">Everything in the right column is a consequence of that single move from the data plane to the control plane</text>
+
+  <text class="k" x="38" y="72">DIMENSION</text>
+  <text class="k" x="224" y="72">VPLS</text>
+  <text class="k" x="540" y="72">EVPN</text>
+  <line x1="212" y1="60" x2="212" y2="344" stroke="#e2e8f2" stroke-width=".6"/>
+  <line x1="524" y1="60" x2="524" y2="344" stroke="#e2e8f2" stroke-width=".6"/>
+
+  <rect x="24" y="78" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="101">Control plane</text>
+  <text class="c" x="224" y="94">LDP or RSVP: builds the wire only</text>
+  <text class="w" x="224" y="107">carries no host information</text>
+  <text class="c" x="540" y="94">MP-BGP: carries MAC and IP</text>
+  <text class="w" x="540" y="107">the same protocol family as L3VPN</text>
+
+  <rect x="24" y="114" width="852" height="36" fill="#f8fafd"/>
+  <text class="b" x="38" y="137">MAC learning</text>
+  <text class="c" x="224" y="130">Data plane, by flooding</text>
+  <text class="w" x="224" y="143">unknown traffic teaches the network</text>
+  <text class="c" x="540" y="130">Control plane, by advertisement</text>
+  <text class="w" x="540" y="143">the network knows before traffic arrives</text>
+
+  <rect x="24" y="150" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="173">Flooding</text>
+  <text class="c" x="224" y="166">High: unknown unicast and ARP</text>
+  <text class="w" x="224" y="179">one site&#8217;s storm reaches every site</text>
+  <text class="c" x="540" y="166">Low: ARP proxying</text>
+  <text class="w" x="540" y="179">BUM is bounded by the IMET tree</text>
+
+  <rect x="24" y="186" width="852" height="36" fill="#f8fafd"/>
+  <text class="b" x="38" y="209">Multihoming</text>
+  <text class="c" x="224" y="202">Limited: MC-LAG with cross-device</text>
+  <text class="w" x="224" y="215">coordination and one active side</text>
+  <text class="c" x="540" y="202">Native All-Active</text>
+  <text class="w" x="540" y="215">ESI plus DF election, every link forwards</text>
+
+  <rect x="24" y="222" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="245">Scalability</text>
+  <text class="c" x="224" y="238">Medium: O(n&#178;) pseudowires,</text>
+  <text class="w" x="224" y="251">plus MAC table pressure on every PE</text>
+  <text class="c" x="540" y="238">High: BGP routes</text>
+  <text class="w" x="540" y="251">no full mesh is required between PEs</text>
+
+  <rect x="24" y="258" width="852" height="36" fill="#f8fafd"/>
+  <text class="b" x="38" y="281">MAC mobility</text>
+  <text class="c" x="224" y="274">Limited: wait for ageing,</text>
+  <text class="w" x="224" y="287">then relearn at the new location</text>
+  <text class="c" x="540" y="274">Optimised: MAC Mobility</text>
+  <text class="w" x="540" y="287">extended community and sequence number</text>
+
+  <rect x="24" y="294" width="852" height="36" fill="#fcfdff"/>
+  <text class="b" x="38" y="317">Failure convergence</text>
+  <text class="c" x="224" y="310">Slow: re-flood and relearn,</text>
+  <text class="w" x="224" y="323">tens of seconds in practice</text>
+  <text class="c" x="540" y="310">Fast: withdraw plus A-D routes</text>
+  <text class="w" x="540" y="323">one update withdraws a whole ESI</text>
+
+  <rect x="24" y="346" width="852" height="48" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="346" width="4" height="48" fill="#c0392b"/>
+  <text class="c" x="40" y="366" fill="#c0392b"><tspan style="font-weight:700">Read the table as one sentence:</tspan> VPLS asks the traffic to describe the topology, EVPN asks the topology to describe itself.</text>
+  <text class="c" x="40" y="382">The first scales with the number of conversations; the second scales with the number of endpoints. That is why the answer changes once a domain passes a few dozen sites.</text>
+</svg>
