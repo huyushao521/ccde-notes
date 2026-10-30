@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1319 d1319">
+  <title id="t1319">The RPF source stack: five tables consulted in priority order, and the leftover static mroute that beats all of them</title>
+  <desc id="d1319">Five stacked rows in priority order. First and highest, a static mroute, which overrides the unicast path and whose danger is a legacy leftover that causes permanent silent RPF failure. Second, MBGP with SAFI 2, allowing multicast to leave by a different exit at the cost of two policy sets. Third, MTR multitopology, which fully separates multicast from unicast but requires per-topology IGP support. Fourth, the unicast RIB, the default, where any unicast change moves multicast with it. Fifth, the default route, whose danger is that a source matching only 0.0.0.0/0 may RPF out of the wrong interface. A right column gives the three typical failure causes - asymmetric unicast and multicast paths, ECMP where only one path receives, and an unreachable BGP next hop - and the three-command drill: show ip rpf, show ip mroute, show ip mroute count.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">RPF asks five tables, in order, and stops at the first match</text>
+  <text class="s" x="24" y="45">Two independent routing policies are already a risk. Five of them stacked is why "the route is there" is not an answer.</text>
+
+  <rect x="24" y="58" width="576" height="52" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="34" y="74">PRIORITY 1</text>
+  <text class="b" x="34" y="92">Static mroute</text>
+  <text class="m" x="150" y="92">ip mroute &lt;src&gt; &lt;mask&gt; &lt;if | nh&gt;</text>
+  <text class="c" x="356" y="80">Emergency override of the unicast path.</text>
+  <text class="x" x="356" y="96">A leftover entry fails silently and forever.</text>
+
+  <rect x="24" y="116" width="576" height="52" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="34" y="132">PRIORITY 2</text>
+  <text class="b" x="34" y="150">MBGP, SAFI 2</text>
+  <text class="m" x="150" y="150">address-family ipv4 multicast</text>
+  <text class="c" x="356" y="138">Multicast takes a different exit than unicast.</text>
+  <text class="c" x="356" y="154">Cost: two policies to keep in step.</text>
+
+  <rect x="24" y="174" width="576" height="52" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="34" y="190">PRIORITY 3</text>
+  <text class="b" x="34" y="208">MTR, multitopology</text>
+  <text class="m" x="150" y="208">topology + ip pim binding</text>
+  <text class="c" x="356" y="196">Full separation of the two topologies.</text>
+  <text class="c" x="356" y="212">Cost: IGP must support per-topology metrics.</text>
+
+  <rect x="24" y="232" width="576" height="52" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="34" y="248">PRIORITY 4</text>
+  <text class="b" x="34" y="266">Unicast RIB</text>
+  <text class="m" x="150" y="266">IGP / BGP / static</text>
+  <text class="c" x="356" y="254">The default answer, and the usual one.</text>
+  <text class="x" x="356" y="270">Any unicast change moves multicast with it.</text>
+
+  <rect x="24" y="290" width="576" height="52" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="34" y="306">PRIORITY 5</text>
+  <text class="b" x="34" y="324">Default route</text>
+  <text class="m" x="150" y="324">0.0.0.0/0</text>
+  <text class="c" x="356" y="312">Fallback when nothing else knows the source.</text>
+  <text class="x" x="356" y="328">RPF may point out of the wrong interface.</text>
+
+  <rect x="616" y="58" width="260" height="150" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="628" y="74">THREE CAUSES OF FAILURE</text>
+  <text class="b" x="628" y="92">1. Asymmetric path</text>
+  <text class="c" x="628" y="106">Unicast prefers A, the stream arrives on B.</text>
+  <text class="c" x="628" y="118">Fix the metric, or pin a static mroute.</text>
+  <text class="b" x="628" y="138">2. ECMP</text>
+  <text class="c" x="628" y="152">Two equal paths, only one receives.</text>
+  <text class="c" x="628" y="164">ip multicast multipath hashes on the source.</text>
+  <text class="b" x="628" y="184">3. BGP next hop unreachable</text>
+  <text class="c" x="628" y="198">The best route is unusable for RPF.</text>
+
+  <rect x="616" y="216" width="260" height="126" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="628" y="232">THE THREE-COMMAND DRILL</text>
+  <text class="m" x="628" y="252">show ip rpf 10.1.1.10</text>
+  <text class="c" x="628" y="266">RPF interface, RPF neighbour, RPF type</text>
+  <text class="m" x="628" y="286">show ip mroute 239.10.1.1</text>
+  <text class="c" x="628" y="300">IFF, OIL, flags, packet counters</text>
+  <text class="m" x="628" y="320">show ip mroute count</text>
+  <text class="c" x="628" y="334">RPF failed counter, the only evidence</text>
+
+  <rect x="24" y="352" width="852" height="92" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="368">WHY THE STACK MATTERS TO A DESIGN</text>
+  <text class="b" x="36" y="388">If you use RPF 2 or 3, write it down</text>
+  <text class="c" x="36" y="404">Two policies mean two place to make the same</text>
+  <text class="c" x="36" y="416">mistake, and only one of them is in the LLD.</text>
+  <text class="b" x="336" y="388">Audit static mroutes quarterly</text>
+  <text class="c" x="336" y="404">They outrank everything and never expire.</text>
+  <text class="c" x="336" y="416">A forgotten one survives two migrations.</text>
+  <text class="b" x="652" y="388">Never accept RPF 5 by accident</text>
+  <text class="c" x="652" y="404">A source that only matches the default route</text>
+  <text class="c" x="652" y="416">will RPF out of the WAN and work by luck.</text>
+</svg>

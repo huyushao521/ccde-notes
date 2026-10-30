@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 10 · about 21037 words</span></div><h1 id="chapter-10-security-10">Chapter 10: Security · 第 10 章：安全<a class="anchor" href="#chapter-10-security-10" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 10 · about 22092 words</span></div><h1 id="chapter-10-security-10">Chapter 10: Security · 第 10 章：安全<a class="anchor" href="#chapter-10-security-10" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 10 (pp. 507–541)</p>
 </blockquote>
@@ -60,7 +60,9 @@
 </div>
 <hr />
 <h2 id="chapter-introduction-four-counter-intuitive-truths-about-security-design">Chapter Introduction: Four Counter-Intuitive Truths About Security Design · 本章导读：安全设计的四条反直觉认知<a class="anchor" href="#chapter-introduction-four-counter-intuitive-truths-about-security-design" title="Permanent link"></a></h2>
+<p><img alt="The four counter-intuitive truths about security design, each with the belief it replaces" src="assets/fig/en10-01-four-truths.svg" /></p>
 <h3 id="counter-intuitive-truth-1-security-is-not-a-zone-it-is-a-relationship-chain">Counter-Intuitive Truth #1: Security Is Not a "Zone", It Is a "Relationship Chain" · 反直觉一：安全不是一个"域"，是一条"关系链"<a class="anchor" href="#counter-intuitive-truth-1-security-is-not-a-zone-it-is-a-relationship-chain" title="Permanent link"></a></h3>
+<p><img alt="A secure zone is the wrong diagram; the trust boundary inventory is the right artifact" src="assets/fig/en10-02-trust-boundary.svg" /></p>
 <p>Beginners draw security architectures by drawing a big box labeled "secure zone" and wrapping it around the core switch. That is wrong. <strong>Security exists only at the point where "two entities with different trust levels interact"</strong> — it is inherently <strong>an edge</strong>, not a <strong>surface</strong>.</p>
 <div class="zh">
 <p>初学者画安全架构，习惯画一个大方框写"安全区"，然后把它套在核心交换机上。这是错的。<strong>安全只在"两个不同信任级别的实体发生交互"的那个点上存在</strong>，它天然是<strong>一条边</strong>，不是一个<strong>面</strong>。</p>
@@ -158,6 +160,7 @@
 <p><strong>设计视角记住这一句</strong>：如果一份安全设计里找不到"信任边界清单"，那它大概率是一堆设备的产品手册拼贴。</p>
 </div>
 <h3 id="counter-intuitive-truth-2-encryption-only-solves-cannot-see-not-cannot-get-in">Counter-Intuitive Truth #2: Encryption Only Solves "Cannot See", Not "Cannot Get In" · 反直觉二：加密只解决"看不见"，不解决"进不来"<a class="anchor" href="#counter-intuitive-truth-2-encryption-only-solves-cannot-see-not-cannot-get-in" title="Permanent link"></a></h3>
+<p><img alt="A fully meshed IPsec network still lets one compromised PC reach every site" src="assets/fig/en10-03-encryption-blindspot.svg" /></p>
 <p>Many people treat a VPN as a security solution. A VPN does only two things: <strong>confidentiality</strong> (a man in the middle cannot see the content) and <strong>authentication</strong> (confirming who the peer is). It does <strong>not</strong> do:</p>
 <div class="zh">
 <p>很多人把 VPN 当成安全方案。VPN 只做两件事：<strong>保密性</strong>（中间人看不见内容）和<strong>身份验证</strong>（确认对端是谁）。它<strong>不</strong>做：</p>
@@ -179,6 +182,7 @@
 <p><strong>这就是"加密隧道 ≠ 安全架构"的根本原因</strong>。一个把所有分支用 IPsec 全互连的企业，如果分支里有一台被入侵的 PC，攻击者照样可以借助这些加密隧道横向移动到全网 —— 你甚至更难发现，因为流量看起来都是合法的加密会话。</p>
 </div>
 <h3 id="counter-intuitive-truth-3-the-cost-of-security-is-not-in-buying-it-is-in-changing-processes">Counter-Intuitive Truth #3: The Cost of Security Is Not in "Buying", It Is in "Changing Processes" · 反直觉三：安全的成本不在"买",在"改流程"<a class="anchor" href="#counter-intuitive-truth-3-the-cost-of-security-is-not-in-buying-it-is-in-changing-processes" title="Permanent link"></a></h3>
+<p><img alt="Where the effort really goes in a security project, and the five questions that make default deny operable" src="assets/fig/en10-04-process-cost.svg" /></p>
 <p>In an 802.1X project, procurement and configuration take about 30% of the effort; the other 70% goes into: <strong>what to do about this printer that does not support 802.1X, what to do when the medical device vendor refuses to cooperate, how visitors get on, how to fall back when the authentication server dies, and who is on duty when things break</strong>.</p>
 <div class="zh">
 <p>一个 802.1X 项目，设备采购和配置大概占 30% 的精力；剩下 70% 花在：<strong>这台打印机不支持 802.1X 怎么办、医疗设备厂商拒绝配合怎么办、访客怎么走、认证服务器挂了怎么降级、出问题谁值班</strong>。</p>
@@ -188,6 +192,7 @@
 <p>CCDE 考的就是这 70%。技术方案再漂亮，<strong>没有降级路径、没有例外流程、没有运维归属</strong>，上线当天就会因为一台老设备被整体回退。</p>
 </div>
 <h3 id="counter-intuitive-truth-4-default-deny-is-easy-to-say-the-hard-part-is-who-owns-the-whitelist">Counter-Intuitive Truth #4: Default Deny Is Easy to Say; the Hard Part Is "Who Owns the Whitelist" · 反直觉四：默认拒绝容易说，难在"谁负责加白名单"<a class="anchor" href="#counter-intuitive-truth-4-default-deny-is-easy-to-say-the-hard-part-is-who-owns-the-whitelist" title="Permanent link"></a></h3>
+<p><img alt="Default deny is a one-line rule; the whitelist behind it is a permanent operating cost with four questions and three failure modes" src="assets/fig/en10-05-whitelist-ownership.svg" /></p>
 <p>"Default deny" is the starting principle of every security design. But implementation runs into an organizational problem: <strong>when a new business goes live, who submits the policy request? Who approves it? How long until it takes effect?</strong></p>
 <div class="zh">
 <p>"默认拒绝"（Default Deny）是所有安全设计的起点原则。但实施时会撞上一个组织问题：<strong>新业务上线时，谁来提策略申请？谁来审批？多久生效？</strong></p>
@@ -257,6 +262,7 @@
 <hr />
 <h2 id="security-design-methodology">Security Design Methodology · 安全设计方法论<a class="anchor" href="#security-design-methodology" title="Permanent link"></a></h2>
 <h3 id="the-four-step-method-from-assets-to-technology">The Four-Step Method: From Assets to Technology · 四步法：从资产到技术<a class="anchor" href="#the-four-step-method-from-assets-to-technology" title="Permanent link"></a></h3>
+<p><img alt="The four-step security method from assets to technology, and the asset classification ladder that sets the budget" src="assets/fig/en10-06-four-step-method.svg" /></p>
 <pre><code>① Asset identification → ② Threat modeling → ③ Trust boundaries and segmentation → ④ Technology selection and validation
 </code></pre>
 <div class="zh">
@@ -417,6 +423,7 @@
 <p><strong>关键洞察</strong>：安全投入应该<strong>按资产级别分配</strong>，而不是<strong>按网段平均分配</strong>。一个 200 人的企业，把 80% 的安全预算花在"给每个办公室装下一代防火墙"，却让工控网和办公网在同一个 VLAN 里 —— 这是典型的资源错配。</p>
 </div>
 <h3 id="threat-models-stride-and-the-attack-surface-stride">Threat Models: STRIDE and the Attack Surface · 威胁模型：STRIDE 与攻击面<a class="anchor" href="#threat-models-stride-and-the-attack-surface-stride" title="Permanent link"></a></h3>
+<p><img alt="STRIDE applied to network infrastructure, with a concrete example and the control that answers each letter" src="assets/fig/en10-07-stride.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -560,6 +567,7 @@
 </table>
 </div>
 <h3 id="the-safe-architecture-model-safe">The SAFE Architecture Model · SAFE 架构模型<a class="anchor" href="#the-safe-architecture-model-safe" title="Permanent link"></a></h3>
+<p><img alt="The SAFE model as a placement grid: network places against the three planes, with the control each cell actually needs" src="assets/fig/en10-08-safe-model.svg" /></p>
 <p>SAFE is Cisco's security architecture reference model. Its value is not "copy it", but that it provides a <strong>vocabulary of zones</strong> so that discussions share common terms.</p>
 <div class="zh">
 <p>SAFE 是 Cisco 的安全架构参考模型。它的价值不是"照抄"，而是提供一套<strong>分区语言</strong>，让讨论有共同词汇。</p>
@@ -688,6 +696,7 @@
 <h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <h3 id="device-security">Device Security · 设备安全<a class="anchor" href="#device-security" title="Permanent link"></a></h3>
 <h4 id="the-three-plane-model-the-coordinate-system-for-hardening">The Three-Plane Model: The Coordinate System for Hardening · 三平面模型：加固的坐标系<a class="anchor" href="#the-three-plane-model-the-coordinate-system-for-hardening" title="Permanent link"></a></h4>
+<p><img alt="The three-plane model: what each plane is, how it is attacked, and why management plane loss is total" src="assets/fig/en10-09-three-planes.svg" /></p>
 <p>A network device has three independent paths, and security discussions must separate them, because <strong>their threats, attackers, and defenses are completely different</strong>:</p>
 <div class="zh">
 <p>网络设备自身有三条独立的通路，安全讨论必须分开谈，因为<strong>它们的威胁、攻击者、防护手段完全不同</strong>：</p>
@@ -763,6 +772,7 @@
 <p>这就是为什么同一个"限速"动作，配在 CoPP（保护控制平面）上的价值，远高于配在接口上的 policing。</p>
 </div>
 <h4 id="hardening-priorities-p0-p1-p2-p0-p1-p2">Hardening Priorities: P0 / P1 / P2 · 加固优先级：P0 / P1 / P2<a class="anchor" href="#hardening-priorities-p0-p1-p2-p0-p1-p2" title="Permanent link"></a></h4>
+<p><img alt="Hardening priorities P0, P1 and P2: what to do first, what it stops, and what to refuse to do at all" src="assets/fig/en10-10-hardening-p0p1p2.svg" /></p>
 <p>Device hardening checklists run to hundreds of items, but no project gives you the time to finish them. <strong>Sort by "attacker cost vs your defense cost"</strong> and do the ones that are "easiest for the attacker and worst in consequence" first:</p>
 <div class="zh">
 <p>设备加固清单动辄上百条，但没有项目会给你做完的时间。<strong>按"攻击者成本 vs 你的防护成本"排序</strong>，优先做那些"攻击者最容易、后果最严重"的：</p>
@@ -934,6 +944,7 @@
 </blockquote>
 </div>
 <h4 id="password-strength-why-type-5-is-no-longer-safe-type-5">Password Strength: Why Type 5 Is No Longer Safe · 密码强度：为什么 type 5 已经不安全<a class="anchor" href="#password-strength-why-type-5-is-no-longer-safe-type-5" title="Permanent link"></a></h4>
+<p><img alt="Password encoding types compared: which are reversible, which survive an offline attack, and what to use in 2026" src="assets/fig/en10-11-password-types.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1085,6 +1096,7 @@ line vty 0 15
 </blockquote>
 </div>
 <h4 id="time-synchronization-the-severely-underrated-security-infrastructure">Time Synchronization: The Severely Underrated Security Infrastructure · 时间同步：被严重低估的安全基础设施<a class="anchor" href="#time-synchronization-the-severely-underrated-security-infrastructure" title="Permanent link"></a></h4>
+<p><img alt="NTP as security infrastructure: six mechanisms that depend on it, and the cascade when it fails" src="assets/fig/en10-12-ntp-cascade.svg" /></p>
 <p>NTP looks unrelated to security, but in reality it underpins four things:</p>
 <div class="zh">
 <p>NTP 看似与安全无关，实际上它支撑了四件事：</p>
@@ -1198,6 +1210,7 @@ ntp access-group peer 20
 </blockquote>
 </div>
 <h4 id="aaa-authentication-authorization-accounting-aaa">AAA: Authentication, Authorization, Accounting · AAA：认证、授权、记账<a class="anchor" href="#aaa-authentication-authorization-accounting-aaa" title="Permanent link"></a></h4>
+<p><img alt="AAA for network devices: the flow, TACACS+ against RADIUS, and the three anti-patterns that undo both" src="assets/fig/en10-13-aaa.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1355,6 +1368,7 @@ ntp access-group peer 20
 </blockquote>
 </div>
 <h4 id="supply-chain-and-image-integrity">Supply Chain and Image Integrity · 供应链与镜像完整性<a class="anchor" href="#supply-chain-and-image-integrity" title="Permanent link"></a></h4>
+<p><img alt="The device lifecycle as an attack surface: procurement, image, boot and configuration, with the check that closes each gap" src="assets/fig/en10-14-supply-chain.svg" /></p>
 <p>This item is rarely mentioned in traditional network design, but it keeps recurring in recent real-world incidents:</p>
 <div class="zh">
 <p>这一项在传统网络设计里很少提，但在近年的真实事件中反复出现：</p>
@@ -1468,6 +1482,7 @@ platform security secure-boot enable
 </blockquote>
 </div>
 <h4 id="management-plane-security">Management Plane Security · 管理平面安全<a class="anchor" href="#management-plane-security" title="Permanent link"></a></h4>
+<p><img alt="Four management architectures in order of resilience, and the access chain that sits on top of whichever one you choose" src="assets/fig/en10-15-mgmt-plane-ladder.svg" /></p>
 <p>The core design question for the management plane is: <strong>how far does an attacker have to go before touching the management path?</strong></p>
 <div class="zh">
 <p>管理平面的核心设计问题是：<strong>攻击者要走到多远才能碰到管理通路？</strong></p>
@@ -1773,6 +1788,7 @@ line vty 0 15
 </blockquote>
 </div>
 <h4 id="control-plane-security">Control Plane Security · 控制平面安全<a class="anchor" href="#control-plane-security" title="Permanent link"></a></h4>
+<p><img alt="Four locks on the CPU door: infrastructure ACL, CoPP, control plane protection and GTSM, each asking a different question" src="assets/fig/en10-17-cpu-door-locks.svg" /></p>
 <p>The control plane is <strong>the source of every forwarding decision</strong>. Its peculiarity is that <strong>an attacker does not need device privileges — injecting one route or one ARP response is enough to change where traffic goes.</strong></p>
 <div class="zh">
 <p>控制平面是<strong>所有转发决策的来源</strong>。它的特殊性在于：<strong>攻击者不需要拿到设备权限，只要能向它注入一条路由或一个 ARP 响应，就能改变流量走向。</strong></p>
@@ -1868,6 +1884,7 @@ line vty 0 15
 </table>
 </div>
 <h5 id="protection-mechanism-1-copp-control-plane-policing">Protection Mechanism 1: CoPP (Control Plane Policing)<a class="anchor" href="#protection-mechanism-1-copp-control-plane-policing" title="Permanent link"></a></h5>
+<p><img alt="The CoPP pipeline from the punt path to the CPU, and why a template tuned for steady state breaks at convergence" src="assets/fig/en10-16-copp-pipeline.svg" /></p>
 <div class="zh">
 <h5 id="coppcontrol-plane-policing">保护机制一：CoPP（Control Plane Policing）<a class="anchor" href="#coppcontrol-plane-policing" title="Permanent link"></a></h5>
 </div>
@@ -2368,6 +2385,7 @@ ip access-list extended iACL
 </blockquote>
 </div>
 <h5 id="protection-mechanism-5-routing-protocol-authentication-and-key-rotation">Protection Mechanism 5: Routing Protocol Authentication and Key Rotation<a class="anchor" href="#protection-mechanism-5-routing-protocol-authentication-and-key-rotation" title="Permanent link"></a></h5>
+<p><img alt="Routing layer protection: authenticated sessions with a key rotation plan, prefix limits, and the policy that stops leakage" src="assets/fig/en10-18-route-auth-maxprefix.svg" /></p>
 <div class="zh">
 <h5 id="_1">保护机制五：路由协议认证与密钥轮换<a class="anchor" href="#_1" title="Permanent link"></a></h5>
 </div>
@@ -2645,6 +2663,7 @@ interface GigabitEthernet0/1
 <p>数据平面的安全手段，本质上只有两类：<strong>过滤（ACL）+ 反欺骗（uRPF / Source Guard）</strong>。它们是"最后一道"，但也是唯一能覆盖"设备不参与决策的流量"的手段。</p>
 </div>
 <h5 id="urpf-unicast-reverse-path-forwarding">uRPF: Unicast Reverse Path Forwarding<a class="anchor" href="#urpf-unicast-reverse-path-forwarding" title="Permanent link"></a></h5>
+<p><img alt="uRPF modes, the topologies each one breaks in, and the silent way it fails" src="assets/fig/en10-19-urpf-modes.svg" /></p>
 <div class="zh">
 <h5 id="urpf">uRPF：单播反向路径转发<a class="anchor" href="#urpf" title="Permanent link"></a></h5>
 </div>
@@ -2783,6 +2802,7 @@ Backbone/peering → loose</code></p>
 </blockquote>
 </div>
 <h5 id="ip-source-guard-and-dhcp-snooping">IP Source Guard and DHCP Snooping<a class="anchor" href="#ip-source-guard-and-dhcp-snooping" title="Permanent link"></a></h5>
+<p><img alt="IP Source Guard depends on a binding table it does not build itself, and three host types that break it" src="assets/fig/en10-20-ipsg-dhcp-snooping.svg" /></p>
 <div class="zh">
 <h5 id="ip-source-guard-dhcp-snooping">IP Source Guard 与 DHCP Snooping<a class="anchor" href="#ip-source-guard-dhcp-snooping" title="Permanent link"></a></h5>
 </div>
@@ -2886,6 +2906,7 @@ ip arp inspection vlan 10-50
 </div>
 <h3 id="layer-2-security">Layer 2 Security · 二层安全<a class="anchor" href="#layer-2-security" title="Permanent link"></a></h3>
 <h4 id="why-layer-2-is-the-last-blind-spot-for-security">Why Layer 2 Is the Last Blind Spot for Security · 为什么二层是安全的"最后盲区"<a class="anchor" href="#why-layer-2-is-the-last-blind-spot-for-security" title="Permanent link"></a></h4>
+<p><img alt="Layer 3 policy needs the traffic to traverse the policy device; traffic inside one VLAN never does, so the VLAN boundary is the smallest security domain" src="assets/fig/en10-21-l2-blind-spot.svg" /></p>
 <p>The Layer 3 security system (firewalls, routing policy, subnet isolation) shares one premise: <strong>traffic must pass through the device where you deployed the policy</strong>. The Layer 2 problem is exactly that <strong>traffic within the same VLAN never passes through any Layer 3 device at all</strong>.</p>
 <div class="zh">
 <p>三层的安全体系（防火墙、路由策略、网段隔离）有一个共同前提：<strong>流量必须经过你部署策略的那个设备</strong>。而二层的问题在于 —— <strong>同一个 VLAN 内的流量，压根不经过任何三层设备</strong>。</p>
@@ -2913,6 +2934,7 @@ ip arp inspection vlan 10-50
 <p><strong>设计层面的结论</strong>：<strong>VLAN 的划分就是最小的安全域边界</strong>。如果一个 VLAN 里有 500 台设备，其中 499 台互不信任，那这个设计在安全上是失败的 —— 你等于把 500 台设备放在同一个"信任域"里。</p>
 </div>
 <h4 id="the-layer-2-attack-chain-from-access-to-lateral-movement">The Layer 2 Attack Chain: From Access to Lateral Movement · 二层攻击链：从接入到横向移动<a class="anchor" href="#the-layer-2-attack-chain-from-access-to-lateral-movement" title="Permanent link"></a></h4>
+<p><img alt="The Layer 2 attack chain in six stages, each with the control that cuts that link" src="assets/fig/en10-22-l2-attack-chain.svg" /></p>
 <p>A real Layer 2 attack is not a single point but a chain:</p>
 <div class="zh">
 <p>真实的二层攻击不是单点，而是一条链：</p>
@@ -3020,7 +3042,9 @@ ip arp inspection vlan 10-50
 <p><strong>关键认知</strong>：这条链上<strong>每一环都可以被单独阻断</strong>，而每一环的成本都很低。反过来，如果一环都没做，那么从"插上网线"到"控制同网段服务器"可能只需要 10 分钟。</p>
 </div>
 <h4 id="defenses-item-by-item">Defenses, Item by Item · 逐项防御<a class="anchor" href="#defenses-item-by-item" title="Permanent link"></a></h4>
+<p><img alt="The eight Layer 2 defenses as one matrix: what each stops, where it is applied and the design gotcha that makes it fail" src="assets/fig/en10-23-l2-defense-matrix.svg" /></p>
 <h5 id="1-stp-attacks-and-bpdu-guard-root-guard">1. STP Attacks and BPDU Guard / Root Guard<a class="anchor" href="#1-stp-attacks-and-bpdu-guard-root-guard" title="Permanent link"></a></h5>
+<p><img alt="Spanning tree attacks and the five guards, with the difference between err-disable, root-inconsistent and a silent drop" src="assets/fig/en10-24-stp-guards.svg" /></p>
 <div class="zh">
 <h5 id="1-stp-bpdu-guard-root-guard">1. STP 攻击与 BPDU Guard / Root Guard<a class="anchor" href="#1-stp-bpdu-guard-root-guard" title="Permanent link"></a></h5>
 </div>
@@ -3181,6 +3205,7 @@ spanning-tree loopguard default
 </blockquote>
 </div>
 <h5 id="2-vlan-hopping">2. VLAN Hopping<a class="anchor" href="#2-vlan-hopping" title="Permanent link"></a></h5>
+<p><img alt="How 802.1Q double tagging crosses a VLAN boundary, why the flight is one-way, and the three settings that close it" src="assets/fig/en10-25-vlan-hopping.svg" /></p>
 <div class="zh">
 <h5 id="2-vlan">2. VLAN 跳跃<a class="anchor" href="#2-vlan" title="Permanent link"></a></h5>
 </div>
@@ -3277,6 +3302,7 @@ interface GigabitEthernet1/0/24
 </blockquote>
 </div>
 <h5 id="3-mac-flooding-and-port-security">3. MAC Flooding and Port Security<a class="anchor" href="#3-mac-flooding-and-port-security" title="Permanent link"></a></h5>
+<p><img alt="MAC flooding turns a switch into a hub, and port security is the counter - with three violation behaviours and two practical traps" src="assets/fig/en10-26-mac-flooding-port-security.svg" /></p>
 <div class="zh">
 <h5 id="3-mac">3. MAC 泛洪与端口安全<a class="anchor" href="#3-mac" title="Permanent link"></a></h5>
 </div>
@@ -3399,6 +3425,7 @@ interface GigabitEthernet1/0/24
 </blockquote>
 </div>
 <h5 id="4-arp-spoofing-and-dai">4. ARP Spoofing and DAI<a class="anchor" href="#4-arp-spoofing-and-dai" title="Permanent link"></a></h5>
+<p><img alt="ARP spoofing, the three checks dynamic ARP inspection performs, and the static-address hole that breaks real deployments" src="assets/fig/en10-27-arp-dai.svg" /></p>
 <div class="zh">
 <h5 id="4-arp-dai">4. ARP 欺骗与 DAI<a class="anchor" href="#4-arp-dai" title="Permanent link"></a></h5>
 </div>
@@ -3629,6 +3656,7 @@ ipv6 nd raguard policy HOST
 </blockquote>
 </div>
 <h5 id="6-8021x-port-level-admission-control">6. 802.1X: Port-Level Admission Control<a class="anchor" href="#6-8021x-port-level-admission-control" title="Permanent link"></a></h5>
+<p><img alt="802.1X in one page: three roles, four methods, four host modes, three deployment modes and the fallback path" src="assets/fig/en10-28-8021x.svg" /></p>
 <div class="zh">
 <h5 id="6-8021x">6. 802.1X：端口级准入<a class="anchor" href="#6-8021x" title="Permanent link"></a></h5>
 </div>
@@ -3993,6 +4021,7 @@ interface GigabitEthernet1/0/6
 </blockquote>
 </div>
 <h5 id="7-private-vlan-port-isolation">7. Private VLAN (Port Isolation)<a class="anchor" href="#7-private-vlan-port-isolation" title="Permanent link"></a></h5>
+<p><img alt="Private VLAN: one primary VLAN split into isolated and community segments behind a promiscuous port, and why it lost to SGT and VXLAN" src="assets/fig/en10-29-pvlan.svg" /></p>
 <div class="zh">
 <h5 id="7-private-vlan">7. Private VLAN（端口隔离）<a class="anchor" href="#7-private-vlan" title="Permanent link"></a></h5>
 </div>
@@ -4131,6 +4160,7 @@ interface GigabitEthernet1/0/6
 </blockquote>
 </div>
 <h5 id="8-macsec-layer-2-encryption">8. MACsec: Layer 2 Encryption<a class="anchor" href="#8-macsec-layer-2-encryption" title="Permanent link"></a></h5>
+<p><img alt="MACsec: hop-by-hop Layer 2 encryption with about thirty-two bytes of overhead, its key agreement, and where IPsec or TLS is the right answer instead" src="assets/fig/en10-30-macsec.svg" /></p>
 <div class="zh">
 <h5 id="8-macsec">8. MACsec：二层加密<a class="anchor" href="#8-macsec" title="Permanent link"></a></h5>
 </div>
@@ -4280,6 +4310,7 @@ interface GigabitEthernet1/0/6
 <p>三层的安全职责与二层不同：<strong>二层管"同一网段谁能看见谁"，三层管"不同网段谁能到哪去"</strong>。三层是策略最丰富、可运维性最好的一层，也是绝大多数企业安全策略的实际落点。</p>
 </div>
 <h4 id="the-four-enforcement-points-of-layer-3-security">The Four Enforcement Points of Layer 3 Security · 三层安全的四个作用点<a class="anchor" href="#the-four-enforcement-points-of-layer-3-security" title="Permanent link"></a></h4>
+<p><img alt="The four enforcement points of Layer 3 security and where each one sits on the packet path" src="assets/fig/en10-31-l3-four-enforcement-points.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -4345,6 +4376,7 @@ interface GigabitEthernet1/0/6
 </table>
 </div>
 <h4 id="where-to-deploy-acls-where-exactly-should-one-policy-live-acl">Where to Deploy ACLs: Where Exactly Should One Policy Live · ACL 部署位置：一条策略应该配在哪<a class="anchor" href="#where-to-deploy-acls-where-exactly-should-one-policy-live-acl" title="Permanent link"></a></h4>
+<p><img alt="One intent, five candidate ACL locations: where the policy should actually live, with advantages, costs and a recommendation for each" src="assets/fig/en10-32-acl-placement.svg" /></p>
 <p>This is a high-frequency CCDE design question. The same intent ("the office network must not reach the finance servers") can be configured in five places:</p>
 <div class="zh">
 <p>这是 CCDE 的高频设计题。同一个意图（"办公网不能访问财务服务器"）可以配在五个地方：</p>
@@ -4638,6 +4670,7 @@ ip access-list extended ACL-OFFICE-TO-FIN
 </table>
 </div>
 <h5 id="rtbh-self-sacrificing-protection-for-a-single-ip">RTBH: "Self-Sacrificing" Protection for a Single IP<a class="anchor" href="#rtbh-self-sacrificing-protection-for-a-single-ip" title="Permanent link"></a></h5>
+<p><img alt="Remotely triggered black hole: how a single host is sacrificed at the network entry, what it costs, and where it sits relative to scrubbing" src="assets/fig/en10-33-rtbh.svg" /></p>
 <div class="zh">
 <h5 id="rtbh-ip">RTBH：一个 IP 的"自杀式"保护<a class="anchor" href="#rtbh-ip" title="Permanent link"></a></h5>
 </div>
@@ -4740,6 +4773,7 @@ route-map RTBH-IN permit 10
 </blockquote>
 </div>
 <h4 id="netflow-telemetry-the-security-searchlight-netflow">NetFlow / Telemetry: The Security Searchlight · NetFlow / 遥测：安全的"探照灯"<a class="anchor" href="#netflow-telemetry-the-security-searchlight-netflow" title="Permanent link"></a></h4>
+<p><img alt="Flow telemetry as the security searchlight: the four questions it answers, the export pipeline, the engineering numbers, and what it cannot do" src="assets/fig/en10-34-netflow.svg" /></p>
 <p>The item most often cut for cost in Layer 3 security is <strong>visibility</strong>. Without flow data you cannot answer:</p>
 <div class="zh">
 <p>三层安全里最容易被省钱省掉的是<strong>可见性</strong>。没有流数据，你无法回答：</p>
@@ -4901,6 +4935,7 @@ route-map RTBH-IN permit 10
 </table>
 </div>
 <h4 id="the-four-technical-layers-of-segmentation">The Four Technical Layers of Segmentation · 分段的四个技术层次<a class="anchor" href="#the-four-technical-layers-of-segmentation" title="Permanent link"></a></h4>
+<p><img alt="The four technical layers of segmentation compared by granularity, isolation strength and scalability, and why the layers stack instead of substituting for each other" src="assets/fig/en10-35-segmentation-layers.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -4986,6 +5021,7 @@ route-map RTBH-IN permit 10
 </table>
 </div>
 <h4 id="sgt-security-group-tag-and-trustsec-sgtsecurity-group-tag-trustsec">SGT (Security Group Tag) and TrustSec · SGT（Security Group Tag）与 TrustSec<a class="anchor" href="#sgt-security-group-tag-and-trustsec-sgtsecurity-group-tag-trustsec" title="Permanent link"></a></h4>
+<p><img alt="Security group tags: identity becomes a label, the label becomes a policy matrix, and the three ways to carry it across the network" src="assets/fig/en10-36-sgt-trustsec.svg" /></p>
 <p><strong>Core idea</strong>: decouple "who can access whom" from <strong>IP addresses</strong> and bind it to <strong>identity tags</strong>. When an endpoint authenticates, ISE assigns an SGT (e.g. employee = 10, guest = 20, printer = 30), and switches/firewalls permit or deny according to the <strong>matrix</strong> between SGTs.</p>
 <div class="zh">
 <p><strong>核心思想</strong>：把"谁能访问谁"从<strong>IP 地址</strong>解耦到<strong>身份标签</strong>。终端认证时由 ISE 分配一个 SGT（如"员工=10、访客=20、打印机=30"），交换机/防火墙按 SGT 之间的<strong>矩阵</strong>放行或拒绝。</p>
@@ -5131,6 +5167,7 @@ SGT   → 授予权限（你能到哪）        ← 授权层
 </blockquote>
 </div>
 <h4 id="the-three-routes-to-data-center-micro-segmentation">The Three Routes to Data Center Micro-Segmentation · 数据中心微分段的三条路线<a class="anchor" href="#the-three-routes-to-data-center-micro-segmentation" title="Permanent link"></a></h4>
+<p><img alt="Three routes to data centre micro-segmentation - fabric, host, and hybrid - and how to choose between them" src="assets/fig/en10-37-dc-microsegmentation.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -5202,6 +5239,7 @@ SGT   → 授予权限（你能到哪）        ← 授权层
 </blockquote>
 </div>
 <h4 id="the-relationship-between-vrfs-and-security-domains-do-not-confuse-them-vrf">The Relationship Between VRFs and Security Domains (Do Not Confuse Them) · VRF 与安全域的关系（别混淆）<a class="anchor" href="#the-relationship-between-vrfs-and-security-domains-do-not-confuse-them-vrf" title="Permanent link"></a></h4>
+<p><img alt="VLAN, VRF, zone and SGT are four different concepts; what each one isolates, and why a VRF is not a security domain" src="assets/fig/en10-38-vrf-vs-security-domain.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -5291,6 +5329,7 @@ SGT   → 授予权限（你能到哪）        ← 授权层
 </div>
 <h3 id="network-overlay-and-remote-access">Network Overlay and Remote Access · 网络覆盖和远程访问<a class="anchor" href="#network-overlay-and-remote-access" title="Permanent link"></a></h3>
 <h4 id="ipsec-five-decisions-you-must-settle-first-ipsec">IPsec: Five Decisions You Must Settle First · IPsec：必须先想清楚的五个选择<a class="anchor" href="#ipsec-five-decisions-you-must-settle-first-ipsec" title="Permanent link"></a></h4>
+<p><img alt="The five IPsec decisions that must be settled before deployment, and the protocol-mode matrix that explains them" src="assets/fig/en10-39-ipsec-five-decisions.svg" /></p>
 <p>IPsec is not a "turn it on and forget it" feature; it has five parameters that must be decided explicitly. <strong>Getting these five wrong usually does not make you "insecure" — it makes the tunnel "not work" or the performance collapse.</strong></p>
 <div class="zh">
 <p>IPsec 不是"打开就好"的功能，它有五个必须显式决策的参数。<strong>这五个决策如果做错，通常不是"不安全"，而是"不通"或"性能崩"</strong>。</p>
@@ -5538,6 +5577,7 @@ crypto ipsec profile IPSEC-PROF
 </code></pre>
 </div>
 <h4 id="mtu-mss-ipsecs-classic-ping-works-but-the-business-does-not-mtu-mssipsec-ping">MTU / MSS: IPsec's Classic "Ping Works but the Business Does Not" · MTU / MSS：IPsec 部署最经典的"能 ping 通但业务不通"<a class="anchor" href="#mtu-mss-ipsecs-classic-ping-works-but-the-business-does-not-mtu-mssipsec-ping" title="Permanent link"></a></h4>
+<p><img alt="Why IPsec breaks large packets: the encapsulation arithmetic, the four symptoms it produces, and the fix order led by MSS clamping" src="assets/fig/en10-40-mtu-mss.svg" /></p>
 <p><strong>Why it is bound to happen</strong>:</p>
 <div class="zh">
 <p><strong>为什么必出问题</strong>：</p>
@@ -5735,6 +5775,7 @@ interface Tunnel0
 </blockquote>
 </div>
 <h4 id="three-architecture-choices-for-site-to-site-vpn-vpn">Three Architecture Choices for Site-to-Site VPN · 站点到站点 VPN 的三种架构选型<a class="anchor" href="#three-architecture-choices-for-site-to-site-vpn-vpn" title="Permanent link"></a></h4>
+<p><img alt="Four site-to-site VPN architectures - traditional point-to-point IPsec, DMVPN, FlexVPN and GET VPN - and the three DMVPN phases that decide where spoke traffic goes" src="assets/fig/en10-41-vpn-architectures.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -6187,6 +6228,7 @@ show ip nhrp                  ! 应出现 type "dynamic" 且 NBMA 为对端公�
 </div>
 <h4 id="remote-access-vpn-vpn">Remote Access VPN · 远程访问 VPN<a class="anchor" href="#remote-access-vpn-vpn" title="Permanent link"></a></h4>
 <h5 id="the-three-access-models">The Three Access Models<a class="anchor" href="#the-three-access-models" title="Permanent link"></a></h5>
+<p><img alt="Full tunnel, split tunnel and clientless remote access compared, and the four real risks that make split tunnelling a policy problem rather than a routing one" src="assets/fig/en10-42-remote-access-models.svg" /></p>
 <div class="zh">
 <h5 id="_3">三种接入模型<a class="anchor" href="#_3" title="Permanent link"></a></h5>
 </div>
@@ -6433,6 +6475,7 @@ ipv4 split-dns &lt;内网域名&gt;
 </blockquote>
 </div>
 <h5 id="ztna-and-sase-an-architectural-change">ZTNA and SASE: An Architectural Change<a class="anchor" href="#ztna-and-sase-an-architectural-change" title="Permanent link"></a></h5>
+<p><img alt="Traditional VPN, ZTNA and SASE compared by access path and trust assumption, with the advantages of ZTNA and the four constraints that slow its migration" src="assets/fig/en10-43-ztna-sase.svg" /></p>
 <div class="zh">
 <h5 id="ztna-sase">ZTNA 与 SASE：架构层面的变化<a class="anchor" href="#ztna-sase" title="Permanent link"></a></h5>
 </div>

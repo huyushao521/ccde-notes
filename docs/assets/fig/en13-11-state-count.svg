@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" role="img" aria-labelledby="t1311 d1311">
+  <title id="t1311">State count, not bandwidth, is the hard limit: three constrained resources and the arithmetic of a 2.5x oversubscription</title>
+  <desc id="d1311">Three constrained resources at the top: mroute entries limited by TCAM or a hash table, where exceeding it means new groups cannot be created while old ones keep working; outgoing interface list length limited by the replication engine, where exceeding it silently drops one branch; and replication bandwidth limited by the fabric, where exceeding it degrades packets. Middle: the estimation formulas - PIM-SM with switchover is (*,G) plus (S,G) and grows with receiver subtrees, SSM is (S,G) with no (*,G), bidirectional is (*,G) only and constant regardless of sources. Bottom: a worked capacity judgement - a platform supporting 32K mroutes with 32 interfaces per entry, against a service of 2,000 groups times 40 branches, equals 80K entries, 2.5 times over. The answer is architectural: MVR aggregation, per-region channel partitioning, SSM to remove (*,G), and bidirectional where necessary.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three resources are limited at the same time</text>
+  <text class="s" x="24" y="45">Bandwidth is the number people plan. State is the number that decides whether the design can exist at all.</text>
+
+  <rect x="24" y="58" width="276" height="126" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="74">RESOURCE 1</text>
+  <text class="b" x="36" y="92">(S,G) / (*,G) entries</text>
+  <text class="c" x="36" y="110">Limit: hardware TCAM, or a software</text>
+  <text class="c" x="36" y="122">hash table on cheaper platforms.</text>
+  <text class="x" x="36" y="144">When exceeded</text>
+  <text class="c" x="36" y="158">New groups cannot be created. Old ones</text>
+  <text class="c" x="36" y="170">keep working: "new channels will not open".</text>
+
+  <rect x="312" y="58" width="276" height="126" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="322" y="74">RESOURCE 2</text>
+  <text class="b" x="322" y="92">Outgoing interface list length</text>
+  <text class="c" x="322" y="110">Limit: the multicast replication engine,</text>
+  <text class="c" x="322" y="122">often 16 or 32 interfaces per entry.</text>
+  <text class="x" x="322" y="144">When exceeded</text>
+  <text class="c" x="322" y="158">Excess interfaces are dropped. One branch</text>
+  <text class="c" x="322" y="170">is silently missing, and only that branch.</text>
+
+  <rect x="600" y="58" width="276" height="126" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="610" y="74">RESOURCE 3</text>
+  <text class="b" x="610" y="92">Replication bandwidth</text>
+  <text class="c" x="610" y="110">Limit: switch fabric or backplane</text>
+  <text class="c" x="610" y="122">capacity for copied traffic.</text>
+  <text class="x" x="610" y="144">When exceeded</text>
+  <text class="c" x="610" y="158">Replication capability drops and packets</text>
+  <text class="c" x="610" y="170">are lost - the classic "it works off-peak".</text>
+
+  <rect x="24" y="196" width="852" height="130" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="212">HOW TO ESTIMATE IT BEFORE YOU BUY ANYTHING</text>
+  <text class="m" x="36" y="232">PIM-SM with SPT switchover:  state = (*,G) + (S,G)   </text>
+  <text class="c" x="240" y="232">grows with receiver subtrees, not receivers: 100 viewers on one LAN = 1 (S,G)</text>
+  <text class="m" x="36" y="252">PIM-SSM:                      state = (S,G) only      </text>
+  <text class="c" x="240" y="252">no (*,G) and no register state, so the RP cannot affect it</text>
+  <text class="m" x="36" y="272">BiDir-PIM:                    state = (*,G) only      </text>
+  <text class="c" x="240" y="272">constant regardless of how many sources publish</text>
+  <text class="c" x="36" y="296">The unit you must write into the design is entries per node, per PIM mode, at peak, plus the OIL width per entry.</text>
+  <text class="c" x="36" y="312">A design that only lists Mbps has not been sized. A design that lists entries has.</text>
+
+  <rect x="24" y="340" width="852" height="130" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="356">A CAPACITY JUDGEMENT, WORKED</text>
+  <text class="b" x="36" y="376">Platform</text>
+  <text class="c" x="36" y="392">32K mroute entries, 32 outgoing</text>
+  <text class="c" x="36" y="404">interfaces per entry.</text>
+  <text class="b" x="36" y="426">Service</text>
+  <text class="c" x="36" y="442">2,000 groups x 40 branches</text>
+  <text class="c" x="36" y="454">on average.</text>
+  <text class="b" x="316" y="376">Arithmetic</text>
+  <text class="m" x="316" y="394">2,000 x 40 = 80,000 entries required</text>
+  <text class="m" x="316" y="412">80,000 / 32,000 = 2.5x over capacity</text>
+  <text class="x" x="316" y="434">Tuning does not close a 2.5x gap.</text>
+  <text class="c" x="316" y="452">The OIL fits (40 &gt; 32 is already close), the</text>
+  <text class="c" x="316" y="464">entries do not. Both must be checked.</text>
+  <text class="b" x="600" y="376">The four architectural answers</text>
+  <text class="c" x="600" y="394">1. MVR aggregation: carry one copy per</text>
+  <text class="c" x="600" y="406">VLAN instead of one per channel.</text>
+  <text class="c" x="600" y="420">2. Partition channels per region.</text>
+  <text class="c" x="600" y="432">3. SSM to remove (*,G) state entirely.</text>
+  <text class="c" x="600" y="444">4. BiDir where many sources publish.</text>
+  <text class="c" x="600" y="462">Each one changes the tree shape, not a knob.</text>
+</svg>

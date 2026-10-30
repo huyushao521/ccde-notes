@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t911 d911">
+  <title id="t911">VPNv4 route reflector design: the six rules that decide whether the control plane survives</title>
+  <desc id="d911">Left: a cluster with two route reflectors and three clients, showing that clients peer only with the reflectors and that the two reflectors must share a cluster ID so loop prevention is consistent. Right: six rules with the reason for each. Rule one, never let a router reflector also act as a PE on a large network, because client load competes with forwarding. Rule two, two reflectors per cluster, in different failure domains. Rule three, one cluster ID per cluster. Rule four, clients must not peer with each other, or the loop-prevention attributes stop being authoritative. Rule five, place reflectors in the core where the IGP cost to all clients is symmetric. Rule six, the reflector changes no attributes, so an outbound policy that strips route targets will break every client at once. A closing note explains that a reflector is a control-plane device and should be sized on routes and sessions, not on bandwidth.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A reflector is a control-plane device; size it in routes and sessions, not in bandwidth</text>
+  <text class="s" x="24" y="45">Six rules, each of which exists because of a failure someone already had</text>
+
+  <rect x="24" y="60" width="380" height="150" rx="3" fill="#f8fbff" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="k" x="36" y="76">ONE CLUSTER, TWO REFLECTORS</text>
+  <rect x="120" y="88" width="76" height="26" rx="2" fill="#f7f5fd" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="r" x="134" y="105">RR-1</text>
+  <rect x="222" y="88" width="76" height="26" rx="2" fill="#f7f5fd" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="r" x="236" y="105">RR-2</text>
+  <text class="w" x="120" y="128">same cluster ID 1.1.1.1</text>
+  <text class="w" x="222" y="128">different failure domain</text>
+
+  <rect x="40" y="166" width="76" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="54" y="183">PE-A</text>
+  <rect x="140" y="166" width="76" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="154" y="183">PE-B</text>
+  <text class="w" x="40" y="160">clients</text>
+  <rect x="240" y="166" width="76" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="254" y="183">PE-C</text>
+  <line x1="140" y1="114" x2="100" y2="166" stroke="#9aa8ba" stroke-width=".6"/>
+  <line x1="170" y1="114" x2="176" y2="166" stroke="#9aa8ba" stroke-width=".6"/>
+  <line x1="240" y1="114" x2="280" y2="166" stroke="#9aa8ba" stroke-width=".6"/>
+  <line x1="258" y1="114" x2="270" y2="166" stroke="#9aa8ba" stroke-width=".6"/>
+  <text class="w" x="36" y="204">Clients peer with both reflectors, never with each other.</text>
+
+  <text class="k" x="432" y="76">THE SIX RULES</text>
+  <rect x="432" y="84" width="444" height="24" rx="1" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".5"/>
+  <text class="c" x="442" y="100" fill="#c0392b"><tspan style="font-weight:700">1. Do not combine RR and PE on a large network.</tspan> Client load competes with forwarding.</text>
+  <rect x="432" y="112" width="444" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="442" y="128"><tspan style="font-weight:700">2. Two reflectors per cluster,</tspan> in separate failure domains, both configured.</text>
+  <rect x="432" y="140" width="444" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="442" y="156"><tspan style="font-weight:700">3. One cluster ID per cluster.</tspan> A mismatch defeats cluster-list loop detection.</text>
+  <rect x="432" y="168" width="444" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="442" y="184"><tspan style="font-weight:700">4. Clients must not peer with each other;</tspan> otherwise the attributes are not authoritative.</text>
+  <rect x="432" y="196" width="444" height="24" rx="1" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="442" y="212"><tspan style="font-weight:700">5. Put reflectors in the core,</tspan> where IGP cost to every client is symmetric.</text>
+  <rect x="432" y="224" width="444" height="24" rx="1" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="c" x="442" y="240" fill="#7a5b18"><tspan style="font-weight:700">6. A reflector rewrites nothing.</tspan> Outbound policy that strips RTs breaks all clients at once.</text>
+
+  <rect x="24" y="262" width="380" height="72" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="36" y="280" fill="#6b4fbf">Loop prevention, as the reflector sees it</text>
+  <text class="c" x="36" y="296" fill="#6b4fbf">Originator ID: the original advertising router.</text>
+  <text class="c" x="36" y="310" fill="#6b4fbf">Cluster list: every cluster the route has passed.</text>
+  <text class="c" x="36" y="324" fill="#6b4fbf">If either says &#8220;been here&#8221;, the route is dropped.</text>
+
+  <rect x="24" y="346" width="852" height="48" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="346" width="4" height="48" fill="#c0392b"/>
+  <text class="c" x="40" y="364" fill="#c0392b"><tspan style="font-weight:700">Sizing check:</tspan> the reflector holds every VPNv4 route for every client, so memory and update generation are the limits, not interface speed.</text>
+  <text class="c" x="40" y="380" fill="#c0392b">Before adding a 40th VRF, compute the route count the reflector will hold. &#8220;It works today&#8221; is not a capacity plan for next quarter.</text>
+</svg>

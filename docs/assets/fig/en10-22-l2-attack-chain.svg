@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1022 d1022">
+  <title id="t1022">The Layer 2 attack chain in six stages, each with the control that cuts that link</title>
+  <desc id="d1022">A six-row table following the attacker from an unmanaged wall port to control of a server on the same subnet. One, physical access: plug in a cable or a switch, defeated by disabling unused ports, port security and 802.1X. Two, topology reconnaissance via CDP, LLDP, BPDU and DTP, defeated by turning those protocols off on access-facing ports. Three, VLAN bypass by double tagging or DTP negotiation, defeated by disabling DTP and moving the native VLAN. Four, root bridge takeover with low-priority BPDUs, defeated by BPDU Guard and Root Guard. Five, man in the middle via ARP, DHCP or IPv6 RA spoofing, defeated by DAI, DHCP snooping and RA Guard. Six, lateral spread by scanning and exploiting peers, defeated by private VLAN, SGT and host protection. A sidebar stresses that every link can be cut independently and cheaply, while an untouched chain takes about ten minutes from cable to server, so the design question is which links you are willing to leave open.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">The Layer 2 attack chain: six links, six independent chances to cut it</text>
+  <text class="s" x="24" y="45">Nothing here needs an exploit. The chain is built from the protocols the access layer runs by default</text>
+
+  <!-- header -->
+  <rect x="24" y="60" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="76">STAGE</text>
+  <text class="th" x="112" y="76">ATTACKER ACTION</text>
+  <text class="th" x="318" y="76">GOAL</text>
+  <text class="th" x="492" y="76">CONTROL THAT CUTS THIS LINK</text>
+
+  <!-- row 1 -->
+  <rect x="24" y="84" width="852" height="34" fill="#ffffff"/>
+  <rect x="24" y="84" width="4" height="34" fill="#c0392b"/>
+  <text class="x" x="40" y="105">①</text>
+  <text class="b" x="112" y="99">Physical access</text>
+  <text class="w" x="112" y="111">plug a cable, or a switch of your own</text>
+  <text class="c" x="318" y="99">Obtain a Layer 2 entry</text>
+  <text class="c" x="318" y="111">point inside the building</text>
+  <text class="c" x="492" y="99">Disable unused ports · port security · 802.1X</text>
+  <text class="w" x="492" y="111">the only stage that is also a physical-security answer</text>
+
+  <!-- row 2 -->
+  <rect x="24" y="118" width="852" height="34" fill="#f7f9fc"/>
+  <rect x="24" y="118" width="4" height="34" fill="#d4644a"/>
+  <text class="x" x="40" y="139">②</text>
+  <text class="b" x="112" y="133">Topology reconnaissance</text>
+  <text class="w" x="112" y="145">collect CDP / LLDP / BPDU / DTP</text>
+  <text class="c" x="318" y="133">Learn VLANs, device</text>
+  <text class="c" x="318" y="145">models, trunk ports</text>
+  <text class="c" x="492" y="133">no CDP/LLDP on access-facing ports · no DTP</text>
+  <text class="w" x="492" y="145">what the attacker cannot enumerate, they must guess</text>
+
+  <!-- row 3 -->
+  <rect x="24" y="152" width="852" height="34" fill="#ffffff"/>
+  <rect x="24" y="152" width="4" height="34" fill="#d4644a"/>
+  <text class="x" x="40" y="173">③</text>
+  <text class="b" x="112" y="167">VLAN bypass</text>
+  <text class="w" x="112" y="179">double tagging, or negotiate a trunk</text>
+  <text class="c" x="318" y="167">Reach a VLAN you</text>
+  <text class="c" x="318" y="179">were never placed in</text>
+  <text class="c" x="492" y="167">switchport nonegotiate · dedicated native VLAN</text>
+  <text class="w" x="492" y="179">never a trunk to an access port, ever</text>
+
+  <!-- row 4 -->
+  <rect x="24" y="186" width="852" height="34" fill="#f7f9fc"/>
+  <rect x="24" y="186" width="4" height="34" fill="#e0a03a"/>
+  <text class="x" x="40" y="207">④</text>
+  <text class="b" x="112" y="201">Root bridge takeover</text>
+  <text class="w" x="112" y="213">announce priority 0, become root</text>
+  <text class="c" x="318" y="201">Force all traffic to</text>
+  <text class="c" x="318" y="213">detour through the attacker</text>
+  <text class="c" x="492" y="201">BPDU Guard on edge · Root Guard downstream</text>
+  <text class="w" x="492" y="213">one err-disables the port, the other keeps it root-inconsistent</text>
+
+  <!-- row 5 -->
+  <rect x="24" y="220" width="852" height="34" fill="#ffffff"/>
+  <rect x="24" y="220" width="4" height="34" fill="#e0a03a"/>
+  <text class="x" x="40" y="241">⑤</text>
+  <text class="b" x="112" y="235">Man in the middle</text>
+  <text class="w" x="112" y="247">ARP spoof · DHCP spoof · IPv6 RA</text>
+  <text class="c" x="318" y="235">Capture credentials</text>
+  <text class="c" x="318" y="247">and session traffic</text>
+  <text class="c" x="492" y="235">DAI · DHCP snooping · IPv6 RA Guard</text>
+  <text class="w" x="492" y="247">all three depend on a binding table - see the IP Source Guard figure</text>
+
+  <!-- row 6 -->
+  <rect x="24" y="254" width="852" height="34" fill="#f7f9fc"/>
+  <rect x="24" y="254" width="4" height="34" fill="#0f7f73"/>
+  <text class="x" x="40" y="275">⑥</text>
+  <text class="b" x="112" y="269">Lateral spread</text>
+  <text class="w" x="112" y="281">scan peers, exploit an old service</text>
+  <text class="c" x="318" y="269">Expand control to the</text>
+  <text class="c" x="318" y="281">rest of the subnet</text>
+  <text class="c" x="492" y="269">private VLAN · SGT/TrustSec · host firewalls</text>
+  <text class="w" x="492" y="281">the only stage where the control is architectural, not a command</text>
+
+  <!-- bottom -->
+  <rect x="24" y="300" width="404" height="112" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="318" fill="#9a7d28">THE TWO SENTENCES THAT MATTER</text>
+  <text class="b" x="36" y="338">Every link is cheap to cut, and they are independent</text>
+  <text class="c" x="36" y="354">Cutting one link forces the attacker to use a louder stage.</text>
+  <text class="c" x="36" y="367">802.1X alone turns stage ① into a credential problem; BPDU</text>
+  <text class="c" x="36" y="380">Guard alone makes stage ④ fail loudly in the log. You do not</text>
+  <text class="c" x="36" y="393">need all six to be perfect - you need to know which are open.</text>
+
+  <rect x="440" y="300" width="436" height="112" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="452" y="318" fill="#b0452f">WHAT AN UNCONTROLLED CHAIN COSTS</text>
+  <text class="x" x="452" y="338">About ten minutes from wall port to a server on the same subnet</text>
+  <g>
+    <rect x="452" y="348" width="96" height="20" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+    <text class="w" x="500" y="362" text-anchor="middle">plug in · 1 min</text>
+    <rect x="554" y="348" width="96" height="20" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+    <text class="w" x="602" y="362" text-anchor="middle">recon · 2 min</text>
+    <rect x="656" y="348" width="100" height="20" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+    <text class="w" x="706" y="362" text-anchor="middle">root or MITM · 3 min</text>
+    <rect x="762" y="348" width="102" height="20" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+    <text class="w" x="813" y="362" text-anchor="middle">scan + exploit · 4 min</text>
+  </g>
+  <text class="c" x="452" y="386">The design question is not "do we enable everything" but "which of these six</text>
+  <text class="c" x="452" y="398">links do we knowingly leave open, and who accepted that risk". Those answers</text>
+  <text class="c" x="452" y="410">belong in the design document, not in the switch configuration.</text>
+
+  <text class="w" x="24" y="430">Note the coupling: stages ⑤ and ⑥ depend on the same binding and segmentation data that stages ①-④ produce - one clean inventory serves all of them.</text>
+</svg>

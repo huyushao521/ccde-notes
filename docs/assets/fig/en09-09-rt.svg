@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t909 d909">
+  <title id="t909">Route targets: the import and export match that decides whether a VPN route enters a VRF</title>
+  <desc id="d909">A decision flow on the left: a VPNv4 route arrives carrying one or more route target attributes; the receiving PE compares them with the import list of each VRF; if any RT intersects, the route is imported into that VRF and the local RD is prefixed; if none matches, the route stays in the VPNv4 table and is never installed, which looks identical to no route at all. A right panel shows the two asymmetries that make RTs a policy tool: several RTs may be attached on export so one route reaches many VRFs, and the import list on each side may differ from its export list, which is how hub-and-spoke and one-way extranet are built. A bottom band gives the three-line table to write for every VRF and the warning that RTs are matched exactly, with no wildcard and no automatic translation.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A route enters a VRF only if its export RT appears in that VRF's import list</text>
+  <text class="s" x="24" y="45">Intersection, not equality: one route can carry several RTs and reach several VRFs</text>
+
+  <text class="k" x="24" y="70">THE IMPORT DECISION</text>
+  <rect x="24" y="78" width="410" height="34" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="36" y="99">Route arrives: RD 65000:1 &#183; 10.1.0.0/16 &#183; <tspan style="font-weight:700">RT 65000:100</tspan></text>
+
+  <path d="M229 112 L229 134" stroke="#9aa8ba" stroke-width=".9" marker-end="url(#a909)"/>
+  <defs><marker id="a909" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#9aa8ba"/></marker></defs>
+
+  <rect x="24" y="138" width="410" height="64" rx="2" fill="#ffffff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="156">VRF RED&#160;&#160;import RT 65000:100 &#8594; <tspan style="fill:#0f7f73;font-weight:700">match: imported</tspan></text>
+  <text class="c" x="36" y="174">VRF BLUE&#160;import RT 65000:200 &#8594; <tspan style="fill:#c0392b;font-weight:700">no match: stays in BGP only</tspan></text>
+  <text class="w" x="36" y="194">A route with no matching import is invisible in every VRF, and the CE simply has no route.</text>
+
+  <rect x="24" y="214" width="410" height="46" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="36" y="232" fill="#7a5b18">Why this looks like a bug and is not</text>
+  <text class="c" x="36" y="248" fill="#7a5b18">The route is in the VPNv4 table, advertised and received. It was never imported. Three tables, three truths.</text>
+
+  <text class="k" x="462" y="70">TWO ASYMMETRIES = THE POLICY TOOL</text>
+  <rect x="462" y="78" width="414" height="96" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="474" y="96" fill="#0f7f73">Many RTs on export</text>
+  <text class="c" x="474" y="112">Attach 65000:100 and 65000:900 to one route &#8594; it reaches</text>
+  <text class="c" x="474" y="125">the customer VRF and the shared-services VRF at once.</text>
+  <text class="c" x="474" y="146" fill="#0f7f73">Import list different from export list</text>
+  <text class="c" x="474" y="162">Hub imports every spoke RT, spokes import only the hub RT.</text>
+
+  <rect x="462" y="186" width="414" height="74" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="474" y="204" fill="#6b4fbf">What this builds, with no extra protocol</text>
+  <text class="c" x="474" y="220">Hub-and-spoke: one export, many imports on the hub.</text>
+  <text class="c" x="474" y="234">One-way extranet: a partner imports only the shared prefix RT.</text>
+  <text class="c" x="474" y="250">Full mesh: every VRF exports and imports one common RT.</text>
+
+  <rect x="24" y="274" width="852" height="62" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="k" x="36" y="292" fill="#c0392b">THE THREE LINES TO WRITE FOR EVERY VRF &#8212; THEN THE DESIGN IS DONE</text>
+  <text class="c" x="36" y="310" fill="#c0392b">RD (unique per VRF per PE) &#183; export RT list (what this site offers) &#183; import RT list (what this site may reach).</text>
+  <text class="c" x="36" y="328" fill="#c0392b">RTs match exactly: no wildcards, no summarization, no automatic translation between two domains. A typo is a silent black hole.</text>
+
+  <rect x="24" y="348" width="852" height="44" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="24" y="348" width="4" height="44" fill="#0f7f73"/>
+  <text class="c" x="40" y="366" fill="#0f7f73"><tspan style="font-weight:700">Design habit that pays for itself:</tspan> treat the RT plan as an addressing plan. Number it by service, not by customer name, and keep one</text>
+  <text class="c" x="40" y="382" fill="#0f7f73">authoritative table. Every extranet request then becomes a table edit, reviewed like a firewall rule, instead of a config change on five PEs.</text>
+</svg>

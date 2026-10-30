@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 490" width="100%" role="img" aria-labelledby="t1326 d1326">
+  <title id="t1326">Anycast-RP: two RPs sharing one loopback address, and the MSDP message that makes the shared address work</title>
+  <desc id="d1326">A four-lane message sequence between the first-hop router, RP-1, RP-2 and the last-hop router, where both RPs carry the same RP address 10.0.0.1. Step one, the FHR sends a PIM Register with the source traffic unicast-encapsulated to RP-1. Step two, RP-1 forwards a source-active message to RP-2 over MSDP on TCP 639. Step three, the receiver's LHR sends a star-comma-group join, which the IGP resolves to the nearest RP, here RP-2. Step four, RP-2 sends a source-specific join toward the source, crossing RP-1 but remaining an ordinary PIM join. Step five, data follows the shortest path tree. A note explains that without MSDP, RP-2 knows the group but not the source, so the tree is built and no data ever arrives - a silent failure. A footer compares three implementations: MSDP-based anycast per RFC 4610, BGP-based anycast, and phantom RP, with the failover budget made of IGP convergence plus SA cache readiness.</desc>
+  <defs>
+    <marker id="a26g" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#7c8b9f"/></marker>
+    <marker id="a26b" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1f4fc0"/></marker>
+    <marker id="a26p" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#6b4fbf"/></marker>
+  </defs>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="490" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Anycast-RP: the address is shared, so the state has to be synchronised by hand</text>
+  <text class="s" x="24" y="45">Both RPs own 10.0.0.1/32. IGP picks the nearest one per receiver - which is precisely why MSDP exists in this design.</text>
+
+  <line x1="110" y1="88" x2="110" y2="330" stroke="#cfd8e6" stroke-width=".7" stroke-dasharray="4 3"/>
+  <line x1="330" y1="88" x2="330" y2="330" stroke="#cfd8e6" stroke-width=".7" stroke-dasharray="4 3"/>
+  <line x1="560" y1="88" x2="560" y2="330" stroke="#cfd8e6" stroke-width=".7" stroke-dasharray="4 3"/>
+  <line x1="790" y1="88" x2="790" y2="330" stroke="#cfd8e6" stroke-width=".7" stroke-dasharray="4 3"/>
+
+  <rect x="46" y="62" width="128" height="26" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="b" x="110" y="79" text-anchor="middle">FHR / source</text>
+  <rect x="266" y="62" width="128" height="26" rx="3" fill="#eef3fd" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="330" y="79" text-anchor="middle">RP-1  10.0.0.1</text>
+  <rect x="496" y="62" width="128" height="26" rx="3" fill="#eef3fd" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="560" y="79" text-anchor="middle">RP-2  10.0.0.1</text>
+  <rect x="726" y="62" width="128" height="26" rx="3" fill="#fbfcfe" stroke="#7c8b9f" stroke-width=".8"/>
+  <text class="b" x="790" y="79" text-anchor="middle">LHR / receiver</text>
+
+  <line x1="110" y1="118" x2="326" y2="118" stroke="#1f4fc0" stroke-width=".8" marker-end="url(#a26b)"/>
+  <text class="r" x="116" y="112">1  Register (traffic unicast-encapsulated)</text>
+
+  <line x1="330" y1="152" x2="556" y2="152" stroke="#6b4fbf" stroke-width=".8" marker-end="url(#a26p)"/>
+  <text class="c" x="336" y="146">2  SA - source active, TCP 639</text>
+  <text class="w" x="336" y="166">"source S is live for group G"</text>
+
+  <line x1="790" y1="196" x2="564" y2="196" stroke="#7c8b9f" stroke-width=".8" marker-end="url(#a26g)"/>
+  <text class="c" x="576" y="190">3  (*,G) Join - IGP walks it to RP-2</text>
+
+  <line x1="560" y1="230" x2="114" y2="230" stroke="#7c8b9f" stroke-width=".8" marker-end="url(#a26g)"/>
+  <text class="c" x="180" y="224">4  (S,G) Join toward the source</text>
+  <text class="w" x="180" y="244">crosses RP-1, but it is only a PIM join - RP-1 is not consulted</text>
+
+  <line x1="110" y1="276" x2="786" y2="276" stroke="#0f7f73" stroke-width=".8" stroke-dasharray="5 3" marker-end="url(#a26g)"/>
+  <text class="g" x="116" y="270">5  data follows the SPT</text>
+
+  <rect x="24" y="300" width="852" height="30" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="36" y="319">Without step 2: RP-2 has the group from the join but has never heard of the source, so it builds a tree that leads nowhere. Every table looks right and no packet arrives.</text>
+
+  <text class="k" x="24" y="352">THREE IMPLEMENTATIONS</text>
+  <rect x="24" y="362" width="270" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="380">MSDP-based (RFC 4610)</text>
+  <text class="w" x="34" y="396">full mesh between the anycast RPs;</text>
+  <text class="w" x="34" y="410">MSDP also carries the SA cache that</text>
+  <text class="w" x="34" y="424">makes failover look instant</text>
+
+  <rect x="306" y="362" width="270" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="316" y="380">BGP-based anycast</text>
+  <text class="w" x="316" y="396">source discovery rides in BGP;</text>
+  <text class="w" x="316" y="410">no MSDP mesh to keep in step,</text>
+  <text class="w" x="316" y="424">but vendor and profile support varies</text>
+
+  <rect x="588" y="362" width="288" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="598" y="380">Phantom RP</text>
+  <text class="w" x="598" y="396">an RP address nobody owns, advertised</text>
+  <text class="w" x="598" y="410">with a floating static route; simple,</text>
+  <text class="w" x="598" y="424">5-30 s of failover, no SA cache</text>
+
+  <rect x="24" y="444" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="465">Failover budget = IGP/BFD detection + routing convergence + first Register from the new RP. Measure it with a real receiver, not with ping - and measure it for a NEW group, which has no cache to help it.</text>
+</svg>

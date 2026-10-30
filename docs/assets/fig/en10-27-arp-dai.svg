@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1027 d1027">
+  <title id="t1027">ARP spoofing, the three checks dynamic ARP inspection performs, and the static-address hole that breaks real deployments</title>
+  <desc id="d1027">Top left: the attack. The attacker continuously announces that the gateway address belongs to its own MAC, so every host's ARP table points the gateway at the attacker and all off-subnet traffic flows through it. Top right: the counter. Dynamic ARP inspection checks each ARP packet against the DHCP snooping binding table and validates three things - source MAC against the Ethernet header, destination MAC, and the sender IP against the binding - on untrusted ports only, with uplinks and server ports explicitly trusted and a rate limit to stop ARP storms from looking like an attack. Middle: five alternatives compared by coverage and limitation - DAI covers the access layer but depends on the binding table and does not cover static addresses, rate limiting treats the symptom, static ARP bindings do not scale, private VLAN and port isolation stop peer traffic but the business may need it, and MACsec encrypts point to point at a cost. Bottom: the hole that takes buildings offline - hosts with static addresses are absent from the binding table, so DAI drops their legitimate ARP, and the fix is a static binding or an ARP access list for those hosts, decided at design time.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar27" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">ARP spoofing is a lie about ownership; DAI is a lookup that checks the deed</text>
+  <text class="s" x="24" y="45">ARP has no authentication at all. The only trustworthy answer to "who owns this address" is a table somebody else already verified</text>
+
+  <!-- Left: attack -->
+  <rect x="24" y="62" width="392" height="180" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="80" fill="#b0452f">THE ATTACK · GRATUITOUS ARP, REPEATED</text>
+
+  <rect x="36" y="90" width="104" height="34" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+  <text class="w" x="88" y="104" text-anchor="middle">Host A</text>
+  <text class="w" x="88" y="116" text-anchor="middle">ARP: gw = ATTACKER</text>
+
+  <rect x="156" y="90" width="104" height="34" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+  <text class="w" x="208" y="104" text-anchor="middle">Host B</text>
+  <text class="w" x="208" y="116" text-anchor="middle">ARP: gw = ATTACKER</text>
+
+  <rect x="276" y="90" width="128" height="34" rx="2" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".9"/>
+  <text class="x" x="340" y="104" text-anchor="middle">Attacker</text>
+  <text class="x" x="340" y="116" text-anchor="middle">"192.168.1.1 is me"</text>
+
+  <line x1="144" y1="126" x2="282" y2="126" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#ar27)"/>
+  <text class="c" x="36" y="146">1 · Attacker broadcasts the lie hundreds of times a minute</text>
+  <text class="c" x="36" y="160">2 · Every host overwrites its gateway entry, no prompt, no log</text>
+  <text class="c" x="36" y="174">3 · All off-subnet traffic now passes through the attacker</text>
+  <rect x="36" y="184" width="368" height="46" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+  <text class="x" x="46" y="200">Why encryption does not save you</text>
+  <text class="c" x="46" y="213">TLS protects the content of each session, but the attacker still learns</text>
+  <text class="c" x="46" y="225">who talks to whom, when, how much - and can drop or delay at will.</text>
+
+  <!-- Right: DAI -->
+  <rect x="428" y="62" width="448" height="180" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="440" y="80" fill="#0f7f73">THE COUNTER · DYNAMIC ARP INSPECTION</text>
+
+  <rect x="440" y="88" width="424" height="46" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="450" y="104">Three validations, all of them worth enabling</text>
+  <text class="c" x="450" y="117">src-mac: ARP sender MAC must match the Ethernet header · dst-mac: target MAC</text>
+  <text class="c" x="450" y="129">must match the target header · ip: sender IP must match the binding table entry</text>
+
+  <rect x="440" y="140" width="206" height="40" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="b" x="450" y="156">Untrusted by default</text>
+  <text class="c" x="450" y="169">Access ports: every ARP is checked</text>
+
+  <rect x="658" y="140" width="206" height="40" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="b" x="668" y="156">Trusted explicitly</text>
+  <text class="c" x="668" y="169">Uplinks, servers, hypervisors</text>
+
+  <text class="c" x="440" y="196"><tspan class="m">ip arp inspection validate src-mac dst-mac ip</tspan></text>
+  <text class="c" x="440" y="209"><tspan class="m">ip arp inspection limit rate 30 burst interval 1</tspan> - rate limit before</text>
+  <text class="c" x="440" y="221">you enable inspection, or a legitimate ARP storm err-disables a whole block</text>
+  <text class="w" x="440" y="234">The dependency is the design point: DAI consumes the DHCP snooping binding table.</text>
+
+  <!-- Alternatives -->
+  <rect x="24" y="252" width="852" height="120" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="270">FIVE OPTIONS, AND WHAT EACH ONE DOES NOT COVER</text>
+
+  <rect x="36" y="278" width="160" height="84" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="g" x="46" y="294">DAI</text>
+  <text class="c" x="46" y="307">Access layer, per VLAN</text>
+  <text class="x" x="46" y="322">Needs the binding table</text>
+  <text class="x" x="46" y="334">Misses static addresses</text>
+  <text class="w" x="46" y="348">the default answer</text>
+
+  <rect x="204" y="278" width="160" height="84" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="214" y="294">DAI + ARP rate limit</text>
+  <text class="c" x="214" y="307">Same coverage as DAI</text>
+  <text class="x" x="214" y="322">Treats the symptom</text>
+  <text class="c" x="214" y="334">Buys time during an</text>
+  <text class="c" x="214" y="346">active incident</text>
+
+  <rect x="372" y="278" width="160" height="84" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="382" y="294">Static ARP binding</text>
+  <text class="c" x="382" y="307">Gateway side, precise</text>
+  <text class="x" x="382" y="322">Does not scale beyond</text>
+  <text class="x" x="382" y="334">a handful of servers</text>
+  <text class="w" x="382" y="348">good for the gateway itself</text>
+
+  <rect x="540" y="278" width="160" height="84" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="550" y="294">PVLAN / isolation</text>
+  <text class="c" x="550" y="307">Ports cannot talk at all</text>
+  <text class="x" x="550" y="322">Business may need peer</text>
+  <text class="x" x="550" y="334">traffic - then it is out</text>
+  <text class="w" x="550" y="348">hotel, DMZ, carrier</text>
+
+  <rect x="708" y="278" width="156" height="84" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="718" y="294">MACsec</text>
+  <text class="c" x="718" y="307">Encrypts the segment</text>
+  <text class="x" x="718" y="322">Hop by hop, hardware</text>
+  <text class="x" x="718" y="334">on both ends, MTU cost</text>
+  <text class="w" x="718" y="348">between buildings</text>
+
+  <!-- Bottom hole -->
+  <rect x="24" y="386" width="852" height="36" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="404">The hole to design for:</text>
+  <text class="c" x="164" y="404">static-address hosts are not in the binding table, so DAI drops their legitimate ARP - and the symptom is "the building works,</text>
+  <text class="c" x="36" y="416">the controllers do not". Fix it with static bindings or an ARP access list at design time, not after commissioning.</text>
+</svg>

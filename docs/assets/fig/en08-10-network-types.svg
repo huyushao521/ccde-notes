@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t810 d810">
+
+  <title id="t810">OSPF network types as a design variable, with the three scenarios where the default is wrong</title>
+  <desc id="d810">Five rows describe the OSPF network types: broadcast elects a DR with ten and forty second timers and suits Ethernet; point-to-point elects no DR, uses ten and forty second timers and suits serial links, point-to-point Ethernet and GRE tunnels; point-to-multipoint elects no DR, uses thirty and one hundred twenty second timers and suits the hub side of a hub-and-spoke; nonbroadcast elects a DR and needs manual neighbour configuration; point-to-multipoint nonbroadcast elects no DR and suits designs without multicast. A lower panel gives three scenarios where the default type is wrong: a multipoint GRE hub where one spoke gets elected DR and spoke-to-spoke traffic detours, which should be point-to-multipoint; two routers directly connected over Ethernet where the DR election is meaningless and costs one extra LSA, which should be point-to-point; and a server SVI where a DR is genuinely needed, so broadcast stays. A note says point-to-point is a zero cost optimisation because it removes the Type 2 LSA and the election.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Network type is a design variable, not something the router detects for you</text>
+  <text class="s" x="24" y="45">The type decides whether a DR is elected, which timer profile applies, and how many LSAs the segment costs</text>
+
+  <text class="k" x="36" y="66">TYPE</text>
+  <text class="k" x="216" y="66">DR / BDR</text>
+  <text class="k" x="300" y="66">HELLO / DEAD</text>
+  <text class="k" x="404" y="66">FITS</text>
+
+  <rect x="24" y="72" width="852" height="34" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="93">Broadcast</text>
+  <text class="c" x="216" y="93">yes</text>
+  <text class="c" x="300" y="93">10 / 40 s</text>
+  <text class="c" x="404" y="93">Ethernet, the default almost everywhere</text>
+
+  <rect x="24" y="110" width="852" height="34" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="131">Point-to-point</text>
+  <text class="c" x="216" y="131">no</text>
+  <text class="c" x="300" y="131">10 / 40 s</text>
+  <text class="c" x="404" y="131">serial links, routed Ethernet between two devices, GRE tunnels</text>
+
+  <rect x="24" y="148" width="852" height="34" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="169">Point-to-multipoint</text>
+  <text class="c" x="216" y="169">no</text>
+  <text class="c" x="300" y="169">30 / 120 s</text>
+  <text class="c" x="404" y="169">NBMA; the hub side of a hub-and-spoke (mGRE, DMVPN)</text>
+
+  <rect x="24" y="186" width="852" height="34" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="207">Nonbroadcast (NBMA)</text>
+  <text class="c" x="216" y="207">yes</text>
+  <text class="c" x="300" y="207">30 / 120 s</text>
+  <text class="c" x="404" y="207">manual neighbour configuration required &#8212; legacy Frame Relay</text>
+
+  <rect x="24" y="224" width="852" height="34" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="245">P2MP nonbroadcast</text>
+  <text class="c" x="216" y="245">no</text>
+  <text class="c" x="300" y="245">30 / 120 s</text>
+  <text class="c" x="404" y="245">hub-and-spoke where multicast is not available</text>
+
+  <text class="k" x="36" y="282">SCENARIO</text>
+  <text class="k" x="300" y="282">WHAT THE DEFAULT DOES WRONG</text>
+  <text class="k" x="652" y="282">CORRECT</text>
+
+  <rect x="24" y="288" width="852" height="36" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".5"/>
+  <text class="b" x="36" y="310">mGRE hub, spokes in one subnet</text>
+  <text class="c" x="300" y="310">Broadcast elects <tspan style="font-weight:700">a spoke</tspan> as DR, so spoke-to-spoke traffic detours through it</text>
+  <text class="c" x="652" y="310">point-to-multipoint on the hub</text>
+
+  <rect x="24" y="328" width="852" height="36" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="b" x="36" y="350">Two routers, routed Ethernet</text>
+  <text class="c" x="300" y="350">DR/BDR election is meaningless and buys one extra Type 2 LSA every change</text>
+  <text class="c" x="652" y="350">point-to-point</text>
+
+  <rect x="24" y="368" width="852" height="36" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="390">SVI serving servers and terminals</text>
+  <text class="c" x="300" y="390">Not wrong at all &#8212; there are many devices on the segment and a DR is the point</text>
+  <text class="c" x="652" y="390">keep broadcast</text>
+
+  <rect x="24" y="412" width="852" height="26" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="40" y="429" fill="#1f4fc0"><tspan style="font-weight:700">Zero-cost optimisation:</tspan> point-to-point removes the Type 2 LSA and the election. Across a few hundred routed interconnections that is a few hundred LSAs and the SPF work they cause.</text>
+</svg>

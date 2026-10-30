@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1025 d1025">
+  <title id="t1025">How 802.1Q double tagging crosses a VLAN boundary, why the flight is one-way, and the three settings that close it</title>
+  <desc id="d1025">Top: a frame drawn field by field as the attacker sends it - destination MAC, source MAC, outer tag of VLAN 999 which is the native VLAN, inner tag of VLAN 20 which is the target, then the payload. Switch one receives it on an access port in VLAN 999, sees its native VLAN and strips the outer tag without inspecting the inner one, then forwards the frame onto the trunk. Switch two sees a frame tagged VLAN 20 and delivers it. The consequence is a one-way jump: the attacker can send into VLAN 20 but replies are routed back to VLAN 999 where the attacker's address does not exist, so this is a stepping stone for one-way injection, not a working MITM. Middle: the two other routes - DTP negotiation, where an access port is talked into becoming a trunk, and a trunk left enabled by mistake during installation. Bottom: three settings and the reasoning - switchport mode access plus nonegotiate on every access port, a dedicated unused native VLAN with no SVI and no access port, and forcing tagging on trunks with dot1q tag native where supported.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <defs>
+    <marker id="ar25" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+    <marker id="ar25r" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">VLAN hopping by double tagging: the outer tag is the one the first switch strips</text>
+  <text class="s" x="24" y="45">The attack only works because the native VLAN arrives untagged in the switch's own logic - so the native VLAN is the whole vulnerability</text>
+
+  <!-- Frame drawing -->
+  <text class="k" x="24" y="70">THE FRAME AS THE ATTACKER SENDS IT</text>
+  <g>
+    <rect x="24" y="78" width="96" height="34" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="72" y="94" text-anchor="middle">Dst MAC</text>
+    <text class="w" x="72" y="106" text-anchor="middle">target host</text>
+
+    <rect x="120" y="78" width="96" height="34" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="168" y="94" text-anchor="middle">Src MAC</text>
+    <text class="w" x="168" y="106" text-anchor="middle">attacker</text>
+
+    <rect x="216" y="78" width="180" height="34" fill="#fdf0ee" stroke="#e0b3aa" stroke-width="1.1"/>
+    <text class="x" x="306" y="94" text-anchor="middle">outer tag · VLAN 999</text>
+    <text class="x" x="306" y="106" text-anchor="middle">= the native VLAN</text>
+
+    <rect x="396" y="78" width="180" height="34" fill="#f7f3fe" stroke="#d6c9f0" stroke-width="1.1"/>
+    <text class="b" x="486" y="94" text-anchor="middle">inner tag · VLAN 20</text>
+    <text class="w" x="486" y="106" text-anchor="middle">the VLAN the attacker wants</text>
+
+    <rect x="576" y="78" width="300" height="34" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+    <text class="w" x="726" y="94" text-anchor="middle">payload, type 0x0800, IP header, ...</text>
+    <text class="w" x="726" y="106" text-anchor="middle">the switch never looks this far</text>
+  </g>
+
+  <!-- Hop path -->
+  <g>
+    <rect x="24" y="130" width="120" height="46" rx="2" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".9"/>
+    <text class="x" x="84" y="148" text-anchor="middle">Attacker</text>
+    <text class="w" x="84" y="162" text-anchor="middle">access port, VLAN 999</text>
+
+    <rect x="192" y="130" width="150" height="46" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".9"/>
+    <text class="b" x="267" y="148" text-anchor="middle">Switch 1</text>
+    <text class="w" x="267" y="162" text-anchor="middle">sees native VLAN, strips outer tag</text>
+
+    <rect x="390" y="130" width="150" height="46" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".9"/>
+    <text class="b" x="465" y="148" text-anchor="middle">Switch 2</text>
+    <text class="w" x="465" y="162" text-anchor="middle">sees VLAN 20 tag, delivers it</text>
+
+    <rect x="588" y="130" width="130" height="46" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".9"/>
+    <text class="b" x="653" y="148" text-anchor="middle">Victim</text>
+    <text class="w" x="653" y="162" text-anchor="middle">VLAN 20 server</text>
+
+    <rect x="726" y="130" width="150" height="46" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".8" stroke-dasharray="3 2"/>
+    <text class="w" x="801" y="148" text-anchor="middle">reply path</text>
+    <text class="x" x="801" y="162" text-anchor="middle">goes back to VLAN 20, not 999</text>
+
+    <line x1="144" y1="153" x2="188" y2="153" stroke="#8a97a8" stroke-width="1.1" marker-end="url(#ar25)"/>
+    <line x1="342" y1="153" x2="386" y2="153" stroke="#8a97a8" stroke-width="1.1" marker-end="url(#ar25)"/>
+    <text class="w" x="364" y="146" text-anchor="middle">trunk</text>
+    <line x1="540" y1="153" x2="584" y2="153" stroke="#8a97a8" stroke-width="1.1" marker-end="url(#ar25)"/>
+    <line x1="718" y1="153" x2="724" y2="153" stroke="#c0392b" stroke-width="1.1" marker-end="url(#ar25r)"/>
+  </g>
+
+  <rect x="24" y="184" width="852" height="40" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="201">Why it is a one-way jump:</text>
+  <text class="c" x="176" y="201">the reply from VLAN 20 is routed or switched back inside VLAN 20, where the attacker has no address. Useful for injecting one-way traffic</text>
+  <text class="c" x="36" y="216">(spoofed management commands, one-shot exploit, DHCP or DNS poisoning), not for a working man in the middle. Design reviews often overstate it - the fix is still mandatory.</text>
+
+  <!-- two other routes -->
+  <rect x="24" y="234" width="414" height="112" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="252">THE OTHER TWO ROUTES INTO ANOTHER VLAN</text>
+  <text class="b" x="36" y="270">DTP negotiation</text>
+  <text class="c" x="36" y="284">The attacker sends DTP frames and the access port is talked into becoming a trunk,</text>
+  <text class="c" x="36" y="296">which hands over every allowed VLAN at once. Fix: <tspan class="m">switchport mode access</tspan> plus</text>
+  <text class="c" x="36" y="308"><tspan class="m">switchport nonegotiate</tspan> on every port that is not deliberately a trunk.</text>
+  <text class="b" x="36" y="326">A trunk left enabled by mistake</text>
+  <text class="c" x="36" y="338">An installation template that pushes <tspan class="m">switchport mode trunk</tspan>. Fix: port templates</text>
+
+  <rect x="450" y="234" width="426" height="112" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="462" y="252" fill="#0f7f73">THE THREE SETTINGS THAT CLOSE IT</text>
+  <text class="g" x="462" y="270">1 · Dedicated native VLAN</text>
+  <text class="c" x="462" y="283"><tspan class="m">switchport trunk native vlan 999</tspan> where 999 has no SVI</text>
+  <text class="c" x="462" y="295">and appears on no access port - so a successful hop</text>
+  <text class="c" x="462" y="307">lands in an empty VLAN with nothing to attack</text>
+  <text class="g" x="462" y="322">2 · Nonegotiate everywhere</text>
+  <text class="g" x="462" y="335">3 · <tspan class="m">vlan dot1q tag native</tspan> where supported</text>
+  <text class="c" x="462" y="343">forces the native VLAN to be tagged, killing the premise</text>
+
+  <text class="w" x="24" y="366">The design test: open the trunk configuration of any production switch and look for a native VLAN that also has an SVI. If it does, the native VLAN is carrying service and the whole mitigation is cosmetic.</text>
+  <text class="w" x="24" y="382">Second test: does any port template still allow DTP to negotiate? That is a one-command fix with a five-year payoff.</text>
+</svg>

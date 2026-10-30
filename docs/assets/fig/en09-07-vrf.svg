@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t907 d907">
+  <title id="t907">A VRF is four objects on one device, and it exists only on the PE</title>
+  <desc id="d907">One PE drawn as a box containing two VRFs, red and blue, each with its own routing table, its own interface set, its own RD and its own RT policy. Four numbered parts explain what a VRF is made of: an independent routing table, the interface list bound to it, an RD that makes its routes globally unique, and RT import and export rules that decide which routes may enter. A right panel shows what a VRF is not: it is not a VLAN, it is not encryption, and it does not exist on the CE or on the P router. A closing note explains that the same physical PE can carry two customers with the same 10.0.0.0/8 prefix and that the isolation holds only because the two tables never meet.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A VRF is four objects, and all four must be right for isolation to hold</text>
+  <text class="s" x="24" y="45">Get any one of them wrong and the symptom looks like a routing bug somewhere else</text>
+
+  <rect x="24" y="60" width="420" height="196" rx="3" fill="#f8fbff" stroke="#c3d5f2" stroke-width=".7"/>
+  <rect x="24" y="60" width="420" height="22" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="76">PE1 &#8212; one box, two customers, one prefix</text>
+
+  <rect x="48" y="96" width="170" height="130" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="60" y="114" fill="#c0392b">VRF RED</text>
+  <text class="c" x="60" y="132">10.0.0.0/8 &#8594; Gi0/1.10</text>
+  <text class="c" x="60" y="145">RD 65000:1</text>
+  <text class="c" x="60" y="158">export RT 65000:1</text>
+  <text class="c" x="60" y="171">import RT 65000:1</text>
+  <text class="w" x="60" y="192">its own table, its own</text>
+  <text class="w" x="60" y="203">adjacencies, its own FIB</text>
+  <text class="w" x="60" y="214">partition</text>
+
+  <rect x="252" y="96" width="170" height="130" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="b" x="264" y="114" fill="#1f4fc0">VRF BLUE</text>
+  <text class="c" x="264" y="132">10.0.0.0/8 &#8594; Gi0/1.20</text>
+  <text class="c" x="264" y="145">RD 65000:2</text>
+  <text class="c" x="264" y="158">export RT 65000:2</text>
+  <text class="c" x="264" y="171">import RT 65000:2</text>
+  <text class="w" x="264" y="192">same prefix, different</text>
+  <text class="w" x="264" y="203">table: they never meet, so</text>
+  <text class="w" x="264" y="214">the overlap is harmless</text>
+
+  <text class="k" x="468" y="76">THE FOUR PARTS</text>
+  <rect x="468" y="84" width="408" height="172" rx="3" fill="#ffffff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="480" y="102"><tspan style="font-weight:700">1. Routing table.</tspan> Independent RIB, and a separate FIB partition.</text>
+  <text class="c" x="480" y="122"><tspan style="font-weight:700">2. Interface membership.</tspan> Each interface belongs to exactly one VRF.</text>
+  <text class="c" x="480" y="142"><tspan style="font-weight:700">3. RD.</tspan> Makes this VRF's prefixes globally unique in VPNv4.</text>
+  <text class="c" x="480" y="162"><tspan style="font-weight:700">4. RT import / export.</tspan> Decides which routes may enter and leave.</text>
+  <text class="w" x="480" y="186">Miss 1: routes leak between customers.</text>
+  <text class="w" x="480" y="200">Miss 2: an interface sits in the global table and answers global routing.</text>
+  <text class="w" x="480" y="214">Miss 3: two VRFs with the same RD collide in the VPNv4 table.</text>
+  <text class="w" x="480" y="228">Miss 4: the route arrives but is not imported, which looks like no route at all.</text>
+  <text class="w" x="480" y="248">The first two fail loudly. The last two fail by silence.</text>
+
+  <rect x="468" y="264" width="408" height="54" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="480" y="282" fill="#c0392b">What a VRF is not</text>
+  <text class="c" x="480" y="298" fill="#c0392b">Not a VLAN (layer 2, one broadcast domain). Not encryption.</text>
+  <text class="c" x="480" y="311" fill="#c0392b">Not present on the CE, and not present on the P router at all.</text>
+
+  <rect x="24" y="268" width="420" height="50" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="36" y="286" fill="#7a5b18">The test that proves it</text>
+  <text class="c" x="36" y="302" fill="#7a5b18">Same prefix in two VRFs, then ping across: it must fail.</text>
+  <text class="c" x="36" y="315" fill="#7a5b18">If it succeeds, one interface is in the wrong table.</text>
+
+  <rect x="24" y="330" width="852" height="54" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <rect x="24" y="330" width="4" height="54" fill="#0f7f73"/>
+  <text class="c" x="40" y="348" fill="#0f7f73"><tspan style="font-weight:700">The mental model worth keeping:</tspan> a VRF is a router inside a router. Everything you know about routing still applies inside it &#8212; adjacencies,</text>
+  <text class="c" x="40" y="364" fill="#0f7f73">metrics, summarization &#8212; and nothing crosses between two VRFs unless a route target explicitly allows it. That &#8220;unless&#8221; is the whole design.</text>
+  <text class="w" x="24" y="390">Operational note: always read the routing table with the VRF name attached. A missing &#8220;vrf&#8221; keyword on the command is the most common false diagnosis in L3VPN support.</text>
+</svg>

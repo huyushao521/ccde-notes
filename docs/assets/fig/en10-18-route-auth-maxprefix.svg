@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 432" width="100%" role="img" aria-labelledby="t1017 d1017">
+  <title id="t1017">Routing layer protection: authenticated sessions with a key rotation plan, prefix limits, and the policy that stops leakage</title>
+  <desc id="d1017">Left: the three phases of a key rotation done without dropping a session. Phase one, the new key is configured alongside the old one on both peers and both are accepted, so sessions stay up. Phase two, the peers are confirmed to be using the new key by looking at the last key id in the neighbour detail output. Phase three, the old key is removed, one peer at a time, with the session verified between each step. Rotating by replacing the key in one step works only if the maintenance window is exactly aligned on both ends - the usual outcome is a session that flaps for a week because someone forgot a peer. Right: the prefix limit ladder for an eBGP session: a warning threshold at eighty percent, a restart threshold at a hundred percent, and a discussion about whether the session should restart at all. A limit that restarts protects the router's memory and takes the customer offline; decide which failure you prefer before configuring it. Bottom: the three layers and what each answers - authentication (is this update from my peer), prefix limits (how much can this peer inject), and policy (which of those prefixes may be used). A footer notes that RPKI origin validation belongs in the third layer: it answers whose prefix it is, not whether the sender is lying about being the peer.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="432" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Authentication, prefix limits and policy answer three different questions</text>
+  <text class="s" x="24" y="45">And a key rotation without a plan is an outage scheduled for the next maintenance window.</text>
+
+  <text class="k" x="34" y="68">KEY ROTATION WITHOUT DROPPING A SESSION</text>
+  <line x1="34" y1="88" x2="536" y2="88" stroke="#dfe6f1" stroke-width=".7"/>
+  <circle cx="70" cy="88" r="4" fill="#1f4fc0"/>
+  <circle cx="280" cy="88" r="4" fill="#1f4fc0"/>
+  <circle cx="480" cy="88" r="4" fill="#1f4fc0"/>
+  <text class="c" x="48" y="108">phase 1</text>
+  <text class="w" x="48" y="122">new key added beside</text>
+  <text class="w" x="48" y="134">the old, both accepted</text>
+  <text class="c" x="256" y="108">phase 2</text>
+  <text class="w" x="256" y="122">verify both peers send</text>
+  <text class="w" x="256" y="134">with the new key id</text>
+  <text class="c" x="456" y="108">phase 3</text>
+  <text class="w" x="456" y="122">remove the old key,</text>
+  <text class="w" x="456" y="134">one peer at a time</text>
+  <text class="x" x="34" y="158">Doing it in one step works only if both ends change in the same minute, and someone always forgets a peer.</text>
+
+  <rect x="24" y="170" width="524" height="76" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="k" x="36" y="188">WHAT EACH LAYER ANSWERS</text>
+  <text class="c" x="36" y="206">authentication: "is this update from my configured peer?" - HMAC, SHA preferred over MD5</text>
+  <text class="c" x="36" y="222">prefix limit: "how many prefixes may this peer inject?" - binds memory and CPU</text>
+  <text class="c" x="36" y="238">policy: "which of those may be used?" - filters, communities, RPKI origin validation</text>
+
+  <rect x="568" y="62" width="308" height="184" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="580" y="80">PREFIX LIMIT LADDER</text>
+  <rect x="580" y="92" width="284" height="22" fill="#e7f2f0" stroke="#bcdcd6" stroke-width=".6"/>
+  <text class="c" x="590" y="107">80%  warning, log and alert</text>
+  <rect x="580" y="118" width="284" height="22" fill="#fdf6e6" stroke="#e4dcc0" stroke-width=".6"/>
+  <text class="c" x="590" y="133">95%  second warning, call the peer</text>
+  <rect x="580" y="144" width="284" height="22" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".6"/>
+  <text class="c" x="590" y="159">100%  restart the session?</text>
+  <text class="x" x="580" y="186">restart protects memory and takes the</text>
+  <text class="x" x="580" y="200">customer offline - decide which failure</text>
+  <text class="x" x="580" y="214">you prefer before configuring it</text>
+  <text class="w" x="580" y="234">many operators prefer shutdown over restart:</text>
+  <text class="w" x="580" y="246">an idle session you can see beats a flapping one</text>
+
+  <rect x="568" y="256" width="308" height="106" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="580" y="274">WHERE RPKI SITS</text>
+  <text class="c" x="580" y="292">it answers "whose prefix is this", not</text>
+  <text class="c" x="580" y="306">"is the sender who it claims to be"</text>
+  <text class="w" x="580" y="326">so it belongs in policy, next to filters,</text>
+  <text class="w" x="580" y="340">and it does nothing for a hijack from</text>
+  <text class="w" x="580" y="354">the legitimate peer's own AS</text>
+
+  <rect x="24" y="262" width="524" height="100" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="280">THE FAILURES THESE PREVENT</text>
+  <text class="c" x="36" y="298">a forged hello or update from a host on the link - authentication</text>
+  <text class="c" x="36" y="314">a misconfigured peer announcing the full table - prefix limit</text>
+  <text class="c" x="36" y="330">your own prefixes leaking out of an unintended exit - policy, outbound</text>
+  <text class="c" x="36" y="346">someone else's prefix accepted as legitimate - RPKI plus filters</text>
+
+  <text class="w" x="24" y="384">Note the direction people forget: outbound policy protects the internet from you, and it is the one a transit provider will ask about first.</text>
+  <text class="w" x="24" y="400">Both authentication and prefix limits are per neighbour, which means the review question is: which neighbours still have neither?</text>
+  <text class="w" x="24" y="416">Test the rotation plan in a lab once. The first real rotation should not be the test.</text>
+</svg>

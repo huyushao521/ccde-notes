@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 434" width="100%" role="img" aria-labelledby="t1013 d1013">
+  <title id="t1013">The device lifecycle as an attack surface: procurement, image, boot and configuration, with the check that closes each gap</title>
+  <desc id="d1013">A four-stage lifecycle across the top. Procurement: counterfeit or grey-market hardware with modified firmware, closed by buying through authorised channels, verifying serial numbers against the vendor, and recording the chain of custody. Image: a firmware file downloaded over TFTP from an unknown mirror, closed by verifying a signed hash before install, storing the reference hash out of band, and refusing unsigned images. Boot: an attacker with physical access interrupts the boot loader and changes the configuration register, closed by secure boot, a console password, physical locks and tamper-evident seals. Configuration: a baseline that reaches production unverified, closed by golden configuration with automated comparison, drift detection, and a rollback path. A side panel shows the three questions to ask a vendor in writing: can we verify the image signature, do you publish hashes and notices for vulnerabilities per release, and what is your end-of-support date for this model. A footer states that the supply chain is not a procurement problem but a lifecycle one - every stage hands something to the next, and an unverified image makes every later control optional.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="434" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The supply chain is a lifecycle, and each stage hands something to the next</text>
+  <text class="s" x="24" y="45">An unverified image makes every control that follows optional - the ACL protects nothing if the ACL engine is not the one you bought.</text>
+
+  <rect x="24" y="64" width="200" height="150" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="82">STAGE 1</text>
+  <text class="b" x="36" y="100">Procurement</text>
+  <text class="w" x="36" y="120">risk: counterfeit or grey-market</text>
+  <text class="w" x="36" y="132">hardware with modified firmware</text>
+  <text class="c" x="36" y="156">check: authorised channel, serial</text>
+  <text class="c" x="36" y="168">verification with the vendor,</text>
+  <text class="c" x="36" y="180">chain of custody recorded</text>
+  <text class="w" x="36" y="202">nobody checks this until an audit</text>
+
+  <rect x="240" y="64" width="200" height="150" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".9"/>
+  <text class="k" x="252" y="82">STAGE 2</text>
+  <text class="b" x="252" y="100">Image</text>
+  <text class="w" x="252" y="120">risk: firmware pulled from an</text>
+  <text class="w" x="252" y="132">unknown mirror, over TFTP</text>
+  <text class="c" x="252" y="156">check: signature verified before</text>
+  <text class="c" x="252" y="168">install, hash compared against a</text>
+  <text class="c" x="252" y="180">reference kept out of band</text>
+  <text class="x" x="252" y="202">this is the highest-value gap</text>
+
+  <rect x="456" y="64" width="200" height="150" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="468" y="82">STAGE 3</text>
+  <text class="b" x="468" y="100">Boot</text>
+  <text class="w" x="468" y="120">risk: physical access breaks the</text>
+  <text class="w" x="468" y="132">boot loader, changes the register</text>
+  <text class="c" x="468" y="156">check: secure boot, console</text>
+  <text class="c" x="468" y="168">password, locked cabinet,</text>
+  <text class="c" x="468" y="180">tamper-evident seals</text>
+  <text class="w" x="468" y="202">a rack in a shared cage is access</text>
+
+  <rect x="672" y="64" width="204" height="150" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="684" y="82">STAGE 4</text>
+  <text class="b" x="684" y="100">Configuration</text>
+  <text class="w" x="684" y="120">risk: a baseline reaches production</text>
+  <text class="w" x="684" y="132">that nobody compared to the design</text>
+  <text class="c" x="684" y="156">check: golden config, automated</text>
+  <text class="c" x="684" y="168">comparison, drift report,</text>
+  <text class="c" x="684" y="180">rollback tested</text>
+  <text class="w" x="684" y="202">"it was configured by hand" is the cause</text>
+
+  <line x1="224" y1="139" x2="240" y2="139" stroke="#c9d8f6" stroke-width="1.2"/>
+  <line x1="440" y1="139" x2="456" y2="139" stroke="#c9d8f6" stroke-width="1.2"/>
+  <line x1="656" y1="139" x2="672" y2="139" stroke="#c9d8f6" stroke-width="1.2"/>
+
+  <text class="k" x="24" y="242">THREE QUESTIONS TO PUT IN THE CONTRACT</text>
+  <rect x="24" y="252" width="270" height="60" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="36" y="272">Can we verify the image signature</text>
+  <text class="c" x="36" y="288">ourselves, with a key we hold?</text>
+  <text class="w" x="36" y="304">not "is it signed", but "can we check"</text>
+
+  <rect x="306" y="252" width="270" height="60" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="318" y="272">Do you publish hashes and a</text>
+  <text class="c" x="318" y="288">security notice per release?</text>
+  <text class="w" x="318" y="304">if not, version tracking is guesswork</text>
+
+  <rect x="588" y="252" width="288" height="60" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="600" y="272">What is the end-of-support date for</text>
+  <text class="c" x="600" y="288">this model, in writing?</text>
+  <text class="w" x="600" y="304">the model you cannot patch is the model you must replace</text>
+
+  <rect x="24" y="326" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="347">The chain has one property worth remembering: each stage trusts the previous one. Break stage two and the remaining three verify nothing.</text>
+
+  <text class="w" x="24" y="378">Practical minimum for most enterprises: images only from an internal mirror, hash checked at install, golden config compared weekly, and device serials reconciled against the purchase record once a year.</text>
+  <text class="w" x="24" y="394">The uncomfortable part: if an attacker has physical access, boot integrity is the only control left, and most enterprise switches ship without it enabled.</text>
+  <text class="w" x="24" y="410">Document the reference hashes somewhere other than the device, or the check is self-referential and worthless.</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 434" width="100%" role="img" aria-labelledby="t1018 d1018">
+  <title id="t1018">uRPF modes, the topologies each one breaks in, and the silent way it fails</title>
+  <desc id="d1018">Left: three modes. Strict mode checks that the source address is reachable through the interface the packet arrived on, which is correct on a single-homed edge and wrong everywhere traffic is asymmetric. Loose mode checks only that the source is reachable somewhere in the routing table, which stops random spoofing but not spoofing of an address inside your own space. Feasible-path or VRF mode checks against a specific table, which is the answer for an MPLS or VRF environment but only if the table is populated correctly. Right: the asymmetric scenario - a site has two providers, the outbound path uses provider A and the return path provider B, so strict mode drops the return traffic because the source is not reachable through B. The symptom is a one-way call, an intermittent failure, or a service that works from one branch and not another, and the drop counter is in show ip traffic rather than in any interface counter anyone looks at. Bottom: the decision rule - strict where single-homed, loose where multihomed, and never enable it on a link you have not traced in both directions. A footer notes that uRPF is a spoofing control, not an authorization control: it does nothing about a host using its own legitimate address.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="434" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">uRPF is a topology check wearing the clothes of a security control</text>
+  <text class="s" x="24" y="45">It fails silently, one direction at a time, and the counter is not on the interface page anyone opens.</text>
+
+  <rect x="24" y="62" width="252" height="132" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="b" x="36" y="80">Strict</text>
+  <text class="w" x="36" y="98">source must be reachable via the</text>
+  <text class="w" x="36" y="110">arriving interface, best route only</text>
+  <text class="c" x="36" y="132">stops: random spoofing completely</text>
+  <text class="x" x="36" y="152">breaks: any asymmetric path, any</text>
+  <text class="x" x="36" y="164">multihoming, any policy routing</text>
+  <text class="w" x="36" y="184">correct on single-homed edges only</text>
+
+  <rect x="288" y="62" width="252" height="132" rx="3" fill="#ffffff" stroke="#b8862b" stroke-width=".8"/>
+  <text class="b" x="300" y="80">Loose</text>
+  <text class="w" x="300" y="98">source must appear somewhere in</text>
+  <text class="w" x="300" y="110">the routing table, any interface</text>
+  <text class="c" x="300" y="132">stops: random and unallocated space</text>
+  <text class="x" x="300" y="152">misses: spoofing of an address that</text>
+  <text class="x" x="300" y="164">does exist inside your own space</text>
+  <text class="w" x="300" y="184">the default for multihomed sites</text>
+
+  <rect x="552" y="62" width="324" height="132" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="564" y="80">Feasible path / VRF-aware</text>
+  <text class="w" x="564" y="98">checks against a specific table rather</text>
+  <text class="w" x="564" y="110">than the global RIB</text>
+  <text class="c" x="564" y="132">stops: spoofing across tenant boundaries</text>
+  <text class="x" x="564" y="152">breaks: silently, when the auxiliary</text>
+  <text class="x" x="564" y="164">table is not populated as designed</text>
+  <text class="w" x="564" y="184">the answer for MPLS and VRF environments</text>
+
+  <text class="k" x="24" y="220">WHY IT FAILS SILENTLY</text>
+  <rect x="24" y="230" width="524" height="112" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <rect x="48" y="250" width="60" height="24" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="w" x="78" y="266" text-anchor="middle">site</text>
+  <line x1="108" y1="262" x2="180" y2="262" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="w" x="144" y="256" text-anchor="middle">out via A</text>
+  <line x1="180" y1="262" x2="180" y2="292" stroke="#7c8b9f" stroke-width=".7"/>
+  <line x1="108" y1="298" x2="180" y2="298" stroke="#c0392b" stroke-width=".9" stroke-dasharray="4 3"/>
+  <text class="x" x="144" y="314" text-anchor="middle">return via B</text>
+  <rect x="180" y="282" width="64" height="24" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="w" x="212" y="298" text-anchor="middle">router B</text>
+  <text class="c" x="264" y="252">B has no route to the source through</text>
+  <text class="c" x="264" y="266">the interface the packet arrived on,</text>
+  <text class="c" x="264" y="280">so strict uRPF drops the return traffic</text>
+  <text class="x" x="264" y="300">one-way audio, intermittent e-mail,</text>
+  <text class="x" x="264" y="314">"works from branch A, not from B"</text>
+  <text class="w" x="264" y="332">the counter lives in show ip traffic, under drops</text>
+
+  <rect x="568" y="206" width="308" height="136" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="580" y="224">BEFORE YOU ENABLE IT</text>
+  <text class="c" x="580" y="244">trace the return path on the actual</text>
+  <text class="c" x="580" y="258">topology, not on the diagram</text>
+  <text class="c" x="580" y="278">check for policy routing, tunnels,</text>
+  <text class="c" x="580" y="292">NAT and load-balanced return paths</text>
+  <text class="c" x="580" y="312">start in a maintenance window with</text>
+  <text class="c" x="580" y="326">the drop counter watched live</text>
+  <text class="w" x="580" y="344">a single missed case looks like an application bug</text>
+
+  <rect x="24" y="356" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="377">Decision rule: strict where single-homed, loose where multihomed, feasible-path only inside a VRF design - and never on a link whose return path you have not traced.</text>
+
+  <text class="w" x="24" y="406">And keep the scope honest: uRPF stops source spoofing. It does nothing about a compromised host using its own legitimate address, which is the more common starting point.</text>
+  <text class="w" x="24" y="424">Where the topology is too messy, the alternative is a source-based ACL or IP source guard at the access layer, not a weaker uRPF mode everywhere.</text>
+</svg>

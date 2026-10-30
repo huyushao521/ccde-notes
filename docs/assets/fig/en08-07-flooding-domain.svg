@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t807 d807">
+
+  <title id="t807">The size of the flooding domain as a quantitative constraint on link-state design</title>
+  <desc id="d807">A curve rising steeply to the right, with four bands marked along the number of routers inside the flooding domain. Under 50 routers the cost per topology change is negligible and a single area is fine. Between 50 and 200 routers the cost becomes visible in CPU peaks and flooding bandwidth, so partitioning should start and the core gets its own area. Between 200 and 500 routers the cost is large, and partitioning, summarization and strict control over LSA generation become mandatory. Above 500 routers the design is likely to hit SPF time and memory limits, and the answer is IS-IS with its TLV extensibility, or letting BGP carry the core. A note underneath lists the three things that actually reduce the cost: fewer routers per domain, fewer topology changes, and fewer routers that must recompute.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Flooding domain size is a number you choose, and it sets the convergence bill</text>
+  <text class="s" x="24" y="45">The cost of one topology change scales with the routers that must hear about it and recompute</text>
+
+  <line x1="70" y1="330" x2="500" y2="330" stroke="#9aa8ba" stroke-width=".7"/>
+  <line x1="70" y1="330" x2="70" y2="70" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="w" x="70" y="344">0</text>
+  <text class="w" x="150" y="344">50</text>
+  <text class="w" x="250" y="344">200</text>
+  <text class="w" x="350" y="344">500</text>
+  <text class="w" x="440" y="344">routers in the area</text>
+  <text class="w" x="24" y="76">cost per</text>
+  <text class="w" x="24" y="88">change</text>
+
+  <rect x="70" y="70" width="80" height="260" fill="#f5fdfa"/>
+  <rect x="150" y="70" width="100" height="260" fill="#fdf9f0"/>
+  <rect x="250" y="70" width="100" height="260" fill="#fdf1ee"/>
+  <rect x="350" y="70" width="150" height="260" fill="#fbe9e7"/>
+
+  <path d="M70 322 L110 318 L150 310 L200 288 L250 262 L300 218 L350 168 L400 104 L450 76" fill="none" stroke="#c0392b" stroke-width="1.4"/>
+
+  <circle cx="110" cy="318" r="2" fill="#0f7f73"/>
+  <circle cx="200" cy="288" r="2" fill="#b8862b"/>
+  <circle cx="300" cy="218" r="2" fill="#b8862b"/>
+  <circle cx="430" cy="88" r="2" fill="#c0392b"/>
+
+  <text class="b" x="76" y="62">&lt; 50</text>
+  <text class="b" x="158" y="62">50&#8211;200</text>
+  <text class="b" x="258" y="62">200&#8211;500</text>
+  <text class="b" x="360" y="62">&gt; 500</text>
+
+  <rect x="516" y="62" width="360" height="66" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="528" y="80">&lt; 50 routers &#183; negligible</text>
+  <text class="c" x="528" y="96">A single area is perfectly viable. Do not build</text>
+  <text class="c" x="528" y="109">hierarchy for a network that does not need it;</text>
+  <text class="c" x="528" y="122">hierarchy has its own running cost.</text>
+
+  <rect x="516" y="136" width="360" height="66" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="528" y="154">50&#8211;200 routers &#183; visible</text>
+  <text class="c" x="528" y="170">CPU peaks and LSA flooding bandwidth start</text>
+  <text class="c" x="528" y="183">to show. Begin partitioning; give the core its</text>
+  <text class="c" x="528" y="196">own area before it is forced on you.</text>
+
+  <rect x="516" y="210" width="360" height="66" rx="2" fill="#fdf1ee" stroke="#e6c3bc" stroke-width=".6"/>
+  <text class="b" x="528" y="228">200&#8211;500 routers &#183; large</text>
+  <text class="c" x="528" y="244">Long SPF runs, slow convergence. Partitioning,</text>
+  <text class="c" x="528" y="257">summarization and strict control over which</text>
+  <text class="c" x="528" y="270">LSAs get generated are now mandatory.</text>
+
+  <rect x="516" y="284" width="360" height="66" rx="2" fill="#fbe9e7" stroke="#dcb0a8" stroke-width=".6"/>
+  <text class="b" x="528" y="302">&#62; 500 routers &#183; at the limit</text>
+  <text class="c" x="528" y="318">Likely to hit SPF time and memory limits. Move</text>
+  <text class="c" x="528" y="331">to IS-IS for TLV extensibility, or let BGP carry</text>
+  <text class="c" x="528" y="344">the core and keep the IGP small.</text>
+
+  <rect x="24" y="362" width="852" height="56" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="362" width="4" height="56" fill="#c0392b"/>
+  <text class="c" x="40" y="380" fill="#c0392b"><tspan style="font-weight:700">Three ways to lower the bill, and only three:</tspan> fewer routers inside the domain (split it), fewer topology changes inside it</text>
+  <text class="c" x="40" y="396" fill="#c0392b">(stop the flapping interfaces from being advertised), and fewer routers that must recompute (interface-level timers and throttling).</text>
+  <text class="c" x="40" y="411" fill="#c0392b">Adding CPU is not on the list, because the next topology change will be faster than the next hardware refresh.</text>
+</svg>

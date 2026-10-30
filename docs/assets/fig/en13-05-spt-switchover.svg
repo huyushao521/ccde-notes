@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1305 d1305">
+  <title id="t1305">SPT switchover on the source side: the path gets shorter and the state count multiplies by the number of receivers</title>
+  <desc id="d1305">Left: before switchover, the source side carries one stream from the first-hop router to the RP, and the RP fans out on the shared tree. One state entry covers every receiver. Right: after switchover each receiver side LHR joins the source directly, so the first-hop router and the PEs around it hold one (S,G) per branch - five branches mean five trees and five times the replication. A middle column lists the levers: spt-threshold infinity keeps traffic on the shared tree, the default threshold of zero switches on the first packet, and a higher threshold switches only for heavy streams. A bottom band names the real cost: memory and hardware replication on the PEs next to the source, not bandwidth in the core.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Switchover trades latency for state, and the state lands on the worst place</text>
+  <text class="s" x="24" y="45">Every receiver that switches pulls its own (S,G) back to the first-hop router. The core carries one copy, the edge replicates N.</text>
+
+  <rect x="24" y="60" width="330" height="230" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="76">SHARED TREE ONLY</text>
+  <text class="b" x="36" y="94">spt-threshold infinity</text>
+  <circle cx="64" cy="132" r="11" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="59" y="135">S</text>
+  <circle cx="150" cy="132" r="13" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="142" y="135">FHR</text>
+  <circle cx="250" cy="132" r="12" fill="#eef3fb" stroke="#1f4fc0" stroke-width=".9"/>
+  <text class="c" x="244" y="135">RP</text>
+  <path d="M75 132 L137 132" stroke="#1f4fc0" stroke-width="1.4" marker-end="url(#c1)"/>
+  <path d="M163 132 L238 132" stroke="#1f4fc0" stroke-width="1.4" marker-end="url(#c1)"/>
+  <path d="M262 132 L300 108 M262 132 L300 132 M262 132 L300 156" stroke="#1f4fc0" stroke-width="1.1"/>
+  <circle cx="308" cy="108" r="7" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <circle cx="308" cy="132" r="7" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <circle cx="308" cy="156" r="7" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="c" x="36" y="184">State on FHR: 1 x (*,G)</text>
+  <text class="g" x="36" y="200">State on PEs near the source: 1</text>
+  <text class="c" x="36" y="220">Path: source -&gt; FHR -&gt; RP -&gt; LHR. Every packet</text>
+  <text class="c" x="36" y="232">may take the longer way through the RP.</text>
+  <text class="c" x="36" y="256">Good when: many small streams, few receivers</text>
+  <text class="c" x="36" y="268">each, or when state is the scarce resource.</text>
+
+  <rect x="368" y="60" width="188" height="230" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="380" y="76">THE LEVER</text>
+  <text class="b" x="380" y="94">One line, three meanings</text>
+  <text class="m" x="380" y="114">spt-threshold infinity</text>
+  <text class="c" x="380" y="128">never switch, one tree per group</text>
+  <text class="m" x="380" y="150">spt-threshold 0  (default)</text>
+  <text class="c" x="380" y="164">switch on the first packet</text>
+  <text class="m" x="380" y="186">spt-threshold 100 kbps</text>
+  <text class="c" x="380" y="200">switch only heavy streams,</text>
+  <text class="c" x="380" y="212">keep chatty low-rate ones shared</text>
+  <text class="c" x="380" y="240">The default is the expensive one.</text>
+  <text class="c" x="380" y="252">For a campus IPTV head-end with</text>
+  <text class="c" x="380" y="264">200 branches, infinity is often the</text>
+  <text class="c" x="380" y="276">right answer, not the lazy one.</text>
+
+  <rect x="572" y="60" width="304" height="230" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="584" y="76">AFTER SWITCHOVER</text>
+  <text class="b" x="584" y="94">One (S,G) per branch</text>
+  <circle cx="612" cy="132" r="11" fill="#fff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="607" y="135">S</text>
+  <circle cx="700" cy="132" r="13" fill="#fff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="692" y="135">FHR</text>
+  <path d="M623 132 L685 132" stroke="#c0392b" stroke-width="1.4" marker-end="url(#c2)"/>
+  <path d="M713 132 L756 96 M713 132 L756 116 M713 132 L756 136 M713 132 L756 156 M713 132 L756 176" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="764" cy="96" r="7" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <circle cx="764" cy="116" r="7" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <circle cx="764" cy="136" r="7" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <circle cx="764" cy="156" r="7" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <circle cx="764" cy="176" r="7" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <text class="x" x="584" y="202">5 branches = 5 trees on the FHR</text>
+  <text class="c" x="584" y="222">Each (S,G) consumes an mroute entry, a hardware</text>
+  <text class="c" x="584" y="234">replication slot, and an OIL of one.</text>
+  <text class="c" x="584" y="256">200 branches x 50 channels = 10,000 (S,G)</text>
+  <text class="c" x="584" y="268">on a single PE. That is the real cost.</text>
+
+  <rect x="24" y="304" width="852" height="106" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="320">WHERE THE COST APPEARS</text>
+  <text class="b" x="36" y="338">Not in the core</text>
+  <text class="c" x="36" y="352">The core still carries one copy to each PE.</text>
+  <text class="b" x="36" y="372">On the PE next to the source</text>
+  <text class="c" x="36" y="386">That box holds every branch's tree and</text>
+  <text class="c" x="36" y="398">replicates into each of them.</text>
+  <text class="b" x="336" y="338">So budget the source-side PE</text>
+  <text class="c" x="336" y="352">Its mroute table and its replication</text>
+  <text class="c" x="336" y="364">capacity are sized by receiver count, not</text>
+  <text class="c" x="336" y="376">by channel count.</text>
+  <text class="b" x="652" y="338">And measure it after the change</text>
+  <text class="c" x="652" y="352">show ip mroute summary, then the same</text>
+  <text class="c" x="652" y="364">number on the hardware: a state count</text>
+  <text class="c" x="652" y="376">that fits in software may not fit in TCAM.</text>
+  <defs>
+    <marker id="c1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1f4fc0"/></marker>
+    <marker id="c2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#c0392b"/></marker>
+  </defs>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t1321 d1321">
+  <title id="t1321">Four PIM modes compared on mechanism, tree shape, state volume and the price each one charges</title>
+  <desc id="d1321">Four rows. PIM-DM is push, flood and prune, with a source tree per source and medium state that must be refreshed by timers; it fits small networks with dense receivers and few sources, and wastes bandwidth. PIM-SM in any-source mode is pull with an RP, a shared tree and shortest-path switchover, with medium to high state because it holds both (*,G) and (S,G); it fits general purpose deployments and pays with RP complexity plus register and switchover overhead. PIM-SSM is a direct (S,G) join with no RP, pure source trees and low state; it fits any deployment where the source is known, and needs IGMPv3 plus an application that knows the source address. Bidirectional PIM keeps only a (*,G) shared tree with no switchover and the lowest state; it fits many-to-many collaboration and pays with designated forwarder elections and traffic forced through the RP. A bottom band restates that state volume, not bandwidth, is what limits scale.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four modes, four bills</text>
+  <text class="s" x="24" y="45">Each row is a complete operating model, not a setting. Switching a network between them is a redesign, not a change window.</text>
+  <text class="k" x="24" y="66">MODE</text>
+  <text class="k" x="150" y="66">MECHANISM</text>
+  <text class="k" x="330" y="66">STATE</text>
+  <text class="k" x="450" y="66">FITS</text>
+  <text class="k" x="672" y="66">BILL</text>
+  <line x1="24" y1="72" x2="876" y2="72" stroke="#dfe6f0" stroke-width=".8"/>
+
+  <rect x="24" y="80" width="852" height="66" rx="2" fill="#fdf7e8"/>
+  <text class="b" x="34" y="102">PIM-DM</text>
+  <text class="c" x="34" y="118">push</text>
+  <text class="c" x="150" y="102">flood, then prune</text>
+  <text class="c" x="150" y="118">periodic re-flooding</text>
+  <text class="c" x="330" y="102">source tree</text>
+  <text class="c" x="330" y="118">per source</text>
+  <rect x="330" y="126" width="60" height="6" rx="3" fill="#e8d6a6"/>
+  <rect x="330" y="126" width="34" height="6" rx="3" fill="#b8862b"/>
+  <text class="c" x="450" y="102">small networks</text>
+  <text class="c" x="450" y="118">dense receivers, few sources</text>
+  <text class="x" x="672" y="102">Flooding waste, timer</text>
+  <text class="x" x="672" y="118">refreshed state. Never</text>
+  <text class="x" x="672" y="134">at scale.</text>
+
+  <rect x="24" y="154" width="852" height="66" rx="2" fill="#f4f8fe"/>
+  <text class="b" x="34" y="176">PIM-SM (ASM)</text>
+  <text class="c" x="34" y="192">pull</text>
+  <text class="c" x="150" y="176">RP, shared tree,</text>
+  <text class="c" x="150" y="192">SPT switchover</text>
+  <text class="c" x="330" y="176">(*,G) + (S,G)</text>
+  <text class="c" x="330" y="192">medium to high</text>
+  <rect x="330" y="200" width="100" height="6" rx="3" fill="#c3d5f2"/>
+  <rect x="330" y="200" width="82" height="6" rx="3" fill="#1f4fc0"/>
+  <text class="c" x="450" y="176">general purpose</text>
+  <text class="c" x="450" y="192">sources not fixed</text>
+  <text class="x" x="672" y="176">RP complexity, register</text>
+  <text class="x" x="672" y="192">and switchover overhead,</text>
+  <text class="x" x="672" y="208">single point of failure.</text>
+
+  <rect x="24" y="228" width="852" height="66" rx="2" fill="#f5fdfa"/>
+  <text class="b" x="34" y="250">PIM-SSM</text>
+  <text class="c" x="34" y="266">pull, direct</text>
+  <text class="c" x="150" y="250">(S,G) join from the</text>
+  <text class="c" x="150" y="266">receiver, no RP</text>
+  <text class="c" x="330" y="250">(S,G) only</text>
+  <text class="c" x="330" y="266">low</text>
+  <rect x="330" y="274" width="100" height="6" rx="3" fill="#bfe3de"/>
+  <rect x="330" y="274" width="40" height="6" rx="3" fill="#0f7f73"/>
+  <text class="c" x="450" y="250">source known in advance</text>
+  <text class="c" x="450" y="266">IPTV, CCTV, market data</text>
+  <text class="x" x="672" y="250">Needs IGMPv3 end to end</text>
+  <text class="x" x="672" y="266">and an application that</text>
+  <text class="x" x="672" y="282">knows the source address.</text>
+
+  <rect x="24" y="302" width="852" height="66" rx="2" fill="#f7f3fe"/>
+  <text class="b" x="34" y="324">BiDir-PIM</text>
+  <text class="c" x="34" y="340">bidirectional</text>
+  <text class="c" x="150" y="324">shared tree only,</text>
+  <text class="c" x="150" y="340">no switchover</text>
+  <text class="c" x="330" y="324">(*,G) only</text>
+  <text class="c" x="330" y="340">lowest, constant</text>
+  <rect x="330" y="348" width="100" height="6" rx="3" fill="#d6c9f0"/>
+  <rect x="330" y="348" width="26" height="6" rx="3" fill="#6b4fbf"/>
+  <text class="c" x="450" y="324">many-to-many real time</text>
+  <text class="c" x="450" y="340">conferencing, collaboration</text>
+  <text class="x" x="672" y="324">DF election, traffic must</text>
+  <text class="x" x="672" y="340">pass the RP, and no SSM</text>
+  <text class="x" x="672" y="356">support at all.</text>
+
+  <rect x="24" y="380" width="852" height="76" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="396">WHAT ACTUALLY LIMITS SCALE</text>
+  <text class="b" x="36" y="414">Not bandwidth: state</text>
+  <text class="c" x="36" y="430">The row with the shortest state bar is not the</text>
+  <text class="c" x="36" y="442">cheapest row - it is the one whose application</text>
+  <text class="c" x="36" y="454">model matches the question you can answer.</text>
+  <text class="b" x="336" y="414">Read the tree column first</text>
+  <text class="c" x="336" y="430">Shared tree means one entry for every receiver;</text>
+  <text class="c" x="336" y="442">source tree means one per receiver branch.</text>
+  <text class="b" x="652" y="414">Mix by group range</text>
+  <text class="c" x="652" y="430">One network usually needs two of these rows,</text>
+  <text class="c" x="652" y="442">separated by address block, not by router.</text>
+</svg>

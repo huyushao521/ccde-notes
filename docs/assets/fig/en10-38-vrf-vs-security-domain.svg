@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1038 d1038">
+  <title id="t1038">VLAN, VRF, zone and SGT are four different concepts; what each one isolates, and why a VRF is not a security domain</title>
+  <desc id="d1038">Top: four concepts in one table. A VLAN or subnet partitions the Layer 2 broadcast domain and gives basic isolation that still needs Layer 3 policy as a supplement. A VRF partitions the routing table and allows overlapping address spaces; with no inter-VRF routing there is no connectivity at all, which makes it strong isolation by absence of a path - but it performs no inspection and produces no log of what it blocked. A firewall zone is a stateful policy boundary, so it isolates with inspection capability. An SGT is an identity tag that authorises independently of addresses. Middle left: the same subnet 10.0.0.0/24 exists inside two VRFs - the red and blue tenants - each router keeping its own table, so the duplicate address is not a conflict because the two worlds never meet. The only way from one to the other is an explicit route leak through a firewall, which is the point where a policy and a log appear. Middle right: three common confusions - treating a VRF as a security domain because it isolates, forgetting that a route leak turns isolation into a silent hole, and assuming a zone exists because a subnet exists. Bottom: the mapping to keep straight - VRF answers where an address space lives, a zone answers what policy applies, an SGT answers who the user is, and only the zone and the SGT produce evidence.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar38" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">VRF, VLAN, zone and SGT are not synonyms for "segment"</text>
+  <text class="s" x="24" y="45">Each one answers a different question, and only two of the four can tell you afterwards what they blocked</text>
+
+  <rect x="24" y="60" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="76">CONCEPT</text>
+  <text class="th" x="170" y="76">WHAT IT ISOLATES</text>
+  <text class="th" x="430" y="76">STRENGTH AND WHAT IT IS NOT</text>
+
+  <rect x="24" y="84" width="852" height="38" fill="#ffffff"/>
+  <text class="b" x="40" y="107">VLAN / subnet</text>
+  <text class="c" x="170" y="107">The Layer 2 broadcast domain</text>
+  <text class="c" x="430" y="107">Basic isolation; still needs a Layer 3 policy above it. Not a policy at all - it only decides who can hear whom.</text>
+
+  <rect x="24" y="122" width="852" height="38" fill="#f7f9fc"/>
+  <text class="b" x="40" y="145">VRF</text>
+  <text class="c" x="170" y="145">The routing table - address spaces may overlap</text>
+  <text class="c" x="430" y="145">Strong isolation by absence of a path. Not inspection: it blocks by having no route, so there is nothing to log.</text>
+
+  <rect x="24" y="160" width="852" height="38" fill="#ffffff"/>
+  <text class="b" x="40" y="183">Zone (firewall)</text>
+  <text class="c" x="170" y="183">The policy boundary, with session state</text>
+  <text class="c" x="430" y="183">Isolation with inspection, logging and visibility. Not an address construct - a zone can contain many subnets.</text>
+
+  <rect x="24" y="198" width="852" height="38" fill="#f7f9fc"/>
+  <text class="b" x="40" y="221">SGT</text>
+  <text class="c" x="170" y="221">Nothing - it labels identity</text>
+  <text class="c" x="430" y="221">Authorisation independent of address. Not inspection either: a compromised host keeps its tag and its permissions.</text>
+
+  <!-- Overlapping VRF -->
+  <rect x="24" y="248" width="470" height="126" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="266">THE SAME SUBNET IN TWO WORLDS</text>
+
+  <rect x="36" y="276" width="150" height="86" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="x" x="111" y="292" text-anchor="middle">VRF RED</text>
+  <text class="c" x="111" y="308" text-anchor="middle">10.0.0.0/24</text>
+  <text class="w" x="111" y="322" text-anchor="middle">own routing table</text>
+  <text class="w" x="111" y="336" text-anchor="middle">own default route</text>
+  <text class="w" x="111" y="350" text-anchor="middle">no neighbour sees it</text>
+
+  <rect x="206" y="276" width="150" height="86" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="281" y="292" text-anchor="middle">VRF BLUE</text>
+  <text class="c" x="281" y="308" text-anchor="middle">10.0.0.0/24</text>
+  <text class="w" x="281" y="322" text-anchor="middle">identical addresses,</text>
+  <text class="w" x="281" y="336" text-anchor="middle">no conflict - because</text>
+  <text class="w" x="281" y="350" text-anchor="middle">the tables never meet</text>
+
+  <rect x="376" y="288" width="106" height="62" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8" stroke-dasharray="3 2"/>
+  <text class="w" x="429" y="304" text-anchor="middle">the only bridge:</text>
+  <text class="x" x="429" y="318" text-anchor="middle">route leak</text>
+  <text class="w" x="429" y="332" text-anchor="middle">through a firewall</text>
+
+  <line x1="186" y1="318" x2="374" y2="318" stroke="#8a97a8" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#ar38)"/>
+  <path d="M376,336 C330,368 200,368 190,362" fill="none" stroke="#8a97a8" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <!-- Confusions -->
+  <rect x="508" y="248" width="368" height="126" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="520" y="266" fill="#b0452f">THREE CONFUSIONS THAT COST REAL MONEY</text>
+  <text class="x" x="520" y="286">1 · "The VRFs are separate, so it is segmented."</text>
+  <text class="c" x="520" y="299">True until someone adds a route leak for a project. Now two tenants</text>
+  <text class="c" x="520" y="311">share a path, and no log records the decision.</text>
+  <text class="x" x="520" y="329">2 · "A route leak is just one line."</text>
+  <text class="c" x="520" y="342">It is a permanent policy decision with no expiry and no audit trail.</text>
+  <text class="x" x="520" y="360">3 · "There is a subnet, so there is a zone."</text>
+
+  <rect x="24" y="386" width="852" height="38" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="36" y="404">Keep the mapping straight:</text>
+  <text class="c" x="196" y="404">VRF = where the address space lives · zone = what policy applies · SGT = who the user is. Only the zone and the SGT</text>
+  <text class="c" x="36" y="417">produce evidence afterwards; a VRF that blocks by having no route leaves you with nothing to show an auditor.</text>
+
+  <text class="w" x="24" y="436">Design note: write the VRF-to-zone table into the design document. Nine times out of ten the argument in an incident is not about the policy but about which of these four concepts somebody assumed.</text>
+</svg>

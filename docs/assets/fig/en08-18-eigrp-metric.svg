@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t818 d818">
+
+  <title id="t818">The EIGRP composite metric: minimum bandwidth plus summed delay, and why one slow hop decides the whole path</title>
+  <desc id="d818">The classic formula is shown as 256 times the quantity ten to the seventh divided by the minimum bandwidth in kilobits per second, plus the sum of delays divided by ten. Bandwidth is taken as a minimum along the path, while delay is summed, so a single slow hop caps the metric for the whole path. A worked example shows a four hop path of 100G, 100G, 100M and 100G; the total delay is small but the minimum bandwidth is 100 Mbps, so the path is scored as a 100 Mbps path and loses to a three hop all-1G path even though it is far faster in reality. Wide metrics are explained as a 64 bit extension with a larger scale factor, needed above 10 Gbps because the classic 32 bit metric saturates. A closing note gives the design consequence: in a mixed bandwidth network the composite metric is dominated by the slowest link, so traffic engineering needs delay tuning or explicit policy rather than bandwidth.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">EIGRP metric = minimum bandwidth plus summed delay, scaled by 256</text>
+  <text class="s" x="24" y="45">One term takes the minimum and the other adds &#8212; that asymmetry is the whole behaviour of the protocol</text>
+
+  <rect x="24" y="60" width="520" height="66" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="78">THE CLASSIC FORMULA</text>
+  <text class="r" x="36" y="100" style="font-size:10px">metric = 256 &#215; [ ( 10&#8311; / <tspan style="fill:#c0392b">min bandwidth (kbps)</tspan> ) + ( <tspan style="fill:#0f7f73">sum of delay (tens of &#181;s)</tspan> ) ]</text>
+  <text class="w" x="36" y="118">bandwidth takes the MINIMUM along the path &#183; delay takes the SUM</text>
+
+  <text class="k" x="560" y="78">WIDE METRICS</text>
+  <rect x="560" y="84" width="316" height="42" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="c" x="572" y="100">64-bit with a larger scale factor, needed once links exceed</text>
+  <text class="c" x="572" y="113">10 Gbps &#8212; the classic 32-bit value saturates and ties.</text>
+
+  <text class="k" x="24" y="150">A PATH THAT LOOKS FAST AND SCORES SLOW</text>
+
+  <rect x="24" y="158" width="520" height="96" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+
+  <rect x="44" y="186" width="72" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="54" y="203">R1</text>
+  <rect x="152" y="186" width="72" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="162" y="203">R2</text>
+  <rect x="260" y="186" width="72" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="270" y="203">R3</text>
+  <rect x="368" y="186" width="72" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="378" y="203">R4</text>
+  <rect x="452" y="186" width="72" height="26" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="462" y="203">R5</text>
+
+  <line x1="116" y1="199" x2="152" y2="199" stroke="#1f4fc0" stroke-width="1.2"/>
+  <text class="w" x="118" y="193">100G</text>
+  <line x1="224" y1="199" x2="260" y2="199" stroke="#1f4fc0" stroke-width="1.2"/>
+  <text class="w" x="226" y="193">100G</text>
+  <line x1="332" y1="199" x2="368" y2="199" stroke="#c0392b" stroke-width="1.6"/>
+  <text class="w" x="334" y="193" fill="#c0392b">100M</text>
+  <line x1="440" y1="199" x2="452" y2="199" stroke="#1f4fc0" stroke-width="1.2"/>
+  <text class="w" x="416" y="215" fill="#1a2233">last hop 100G</text>
+
+  <text class="c" x="44" y="232">Delay is tiny and the hop count is small, so this looks like the best path.</text>
+  <text class="c" x="44" y="246" fill="#c0392b">But the minimum bandwidth is 100 Mbps, so the whole path is scored as 100 Mbps.</text>
+
+  <rect x="560" y="158" width="316" height="96" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="572" y="176" fill="#c0392b">The comparison that surprises people</text>
+  <text class="c" x="572" y="192">Path A: 4 hops, 100G / 100G / 100M / 100G</text>
+  <text class="c" x="572" y="205">Path B: 3 hops, 1G / 1G / 1G</text>
+  <text class="c" x="572" y="222" fill="#c0392b">EIGRP prefers <tspan style="font-weight:700">path B</tspan>: A is capped at 100 Mbps.</text>
+  <text class="c" x="572" y="238" fill="#c0392b">In reality A is about 1000&#215; faster for bulk flow, but the</text>
+  <text class="c" x="572" y="249" fill="#c0392b">composite metric cannot express that &#8212; by design.</text>
+
+  <text class="k" x="24" y="280">WHAT TO DO ABOUT IT</text>
+  <rect x="24" y="288" width="852" height="60" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="c" x="36" y="306" fill="#7a5b18"><tspan style="font-weight:700">1. Do not use a composite metric as a proxy for capacity.</tspan> It answers &#8220;which path is less constrained&#8221;, not &#8220;which path has more room right now&#8221;.</text>
+  <text class="c" x="36" y="322" fill="#7a5b18"><tspan style="font-weight:700">2. Tune delay when the intent is path preference.</tspan> Delay sums, so it behaves like an additive cost and is the honest knob.</text>
+  <text class="c" x="36" y="338" fill="#7a5b18"><tspan style="font-weight:700">3. Use wide metrics above 10 Gbps,</tspan> or the value saturates and distinct paths start comparing equal.</text>
+
+  <rect x="24" y="360" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="360" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="378" fill="#c0392b"><tspan style="font-weight:700">The consequence for a mixed-bandwidth network:</tspan> the composite metric is dominated by the slowest link, so a single 100 Mbps WAN hop</text>
+  <text class="c" x="40" y="394" fill="#c0392b">makes an otherwise 100G path unattractive. If the business intent is &#8220;prefer the fast path&#8221;, the metric cannot express it, and the design needs</text>
+  <text class="c" x="40" y="410" fill="#c0392b">an explicit policy layer (delay tuning, offset lists, or route-map based preference) rather than a hope that the formula will do it.</text>
+</svg>

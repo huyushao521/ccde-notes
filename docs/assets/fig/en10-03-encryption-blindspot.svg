@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 428" width="100%" role="img" aria-labelledby="t1003 d1003">
+  <title id="t1003">A fully meshed IPsec network still lets one compromised PC reach every site</title>
+  <desc id="d1003">Left: three sites joined in a full IPsec mesh. A compromised PC behind site A opens an ordinary TCP session to a file share in site B and to a database in site C. Every packet is encrypted, every peer is authenticated, and the firewall sees only tunnel endpoints, so nothing in the path has a reason to object. Right: what IPsec does give - confidentiality on the wire, peer authentication, integrity, replay protection. What it does not give - authorization of the user, content inspection, control of lateral movement, logging of which internal host talked to which, or any awareness that the endpoint is already owned. A footer states that encryption answers cannot-see, access control answers cannot-get-in, and the two are frequently confused in the same design paragraph.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="428" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">"We have IPsec everywhere" answers a question nobody in the incident call is asking</text>
+  <text class="s" x="24" y="45">The tunnel is doing exactly what it was designed to do while the breach spreads through it.</text>
+
+  <rect x="24" y="60" width="452" height="290" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="78">FULL MESH, ALL TUNNELS UP, ALL PEERS AUTHENTICATED</text>
+
+  <rect x="48" y="96" width="120" height="46" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="108" y="114" text-anchor="middle">Site A</text>
+  <text class="w" x="108" y="130" text-anchor="middle">HQ / data centre</text>
+
+  <rect x="330" y="96" width="120" height="46" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="390" y="114" text-anchor="middle">Site B</text>
+  <text class="w" x="390" y="130" text-anchor="middle">file share</text>
+
+  <rect x="330" y="240" width="120" height="46" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="390" y="258" text-anchor="middle">Site C</text>
+  <text class="w" x="390" y="274" text-anchor="middle">database</text>
+
+  <line x1="168" y1="112" x2="330" y2="112" stroke="#0f7f73" stroke-width="1"/>
+  <text class="w" x="249" y="106" text-anchor="middle">IPsec</text>
+  <line x1="168" y1="132" x2="330" y2="256" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="w" x="230" y="200" text-anchor="middle">IPsec</text>
+  <line x1="390" y1="142" x2="390" y2="240" stroke="#0f7f73" stroke-width="1"/>
+  <text class="w" x="420" y="196" text-anchor="middle">IPsec</text>
+
+  <rect x="48" y="196" width="120" height="34" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".8"/>
+  <text class="x" x="108" y="211" text-anchor="middle">owned PC</text>
+  <text class="x" x="108" y="223" text-anchor="middle">(user credentials)</text>
+  <line x1="108" y1="196" x2="108" y2="146" stroke="#7c8b9f" stroke-width=".7" stroke-dasharray="2 2"/>
+
+  <text class="c" x="36" y="256">The session from the owned PC is an ordinary TCP</text>
+  <text class="c" x="36" y="270">connection. It gets a tunnel, an authenticated peer</text>
+  <text class="c" x="36" y="284">and confidentiality - all of which are true and</text>
+  <text class="c" x="36" y="298">all of which are irrelevant to stopping it.</text>
+  <text class="x" x="36" y="322">The path sees tunnel endpoints, never hosts.</text>
+  <text class="w" x="36" y="338">No control point has a reason to object.</text>
+
+  <rect x="492" y="60" width="384" height="136" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="k" x="504" y="78">WHAT ENCRYPTION DOES GIVE</text>
+  <text class="c" x="504" y="98">confidentiality on the wire</text>
+  <text class="c" x="504" y="114">peer authentication at tunnel setup</text>
+  <text class="c" x="504" y="130">integrity and replay protection</text>
+  <text class="c" x="504" y="146">a safe path across an untrusted network</text>
+  <text class="w" x="504" y="170">all four are about the transport, not the person</text>
+  <text class="w" x="504" y="186">and none of them survive "the endpoint is owned"</text>
+
+  <rect x="492" y="208" width="384" height="142" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="504" y="226">WHAT IT DOES NOT GIVE</text>
+  <text class="c" x="504" y="246">authorization: may this user reach that host</text>
+  <text class="c" x="504" y="262">content inspection: what is inside the tunnel</text>
+  <text class="c" x="504" y="278">lateral movement control: A to B to C chaining</text>
+  <text class="c" x="504" y="294">per-host logging: which internal pair talked</text>
+  <text class="c" x="504" y="310">endpoint health: is the sender already owned</text>
+  <text class="x" x="504" y="332">"cannot see" is solved. "cannot get in" is not.</text>
+
+  <rect x="24" y="364" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="385">Test before deployment: name the control that answers "this authenticated user must not reach that server". If the answer is "the VPN", there is no control.</text>
+</svg>

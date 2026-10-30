@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t1026 d1026">
+  <title id="t1026">MAC flooding turns a switch into a hub, and port security is the counter - with three violation behaviours and two practical traps</title>
+  <desc id="d1026">Left: the three-step mechanism. One, the attacker sends frames with random source MAC addresses at a high rate. Two, the CAM table fills and the real entries age out, so the switch no longer knows which port owns which address. Three, every unknown unicast is flooded to every port in the VLAN, which is exactly what a hub does, and the attacker captures the whole VLAN. Middle: port security as configured - switchport port-security, a maximum of two addresses for one phone plus one PC, a violation behaviour and an aging time. Right: the three violation behaviours compared - protect drops silently with no log and should not be used, restrict drops and raises an SNMP or syslog event and is the recommended default, shutdown err-disables the port which suits high-security zones but costs a manual recovery each time. Bottom: two traps. Setting the maximum too low breaks users who swap docks or plug in a phone plus a PC, and random MAC addresses on modern laptops change the count by themselves. And once 802.1X exists, admission control already covers the main flooding scenario, so port security is mainly a device-count limit and the two must agree on order and on the voice VLAN whitelist.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar26" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">MAC flooding: make the switch forget, and it behaves like a hub</text>
+  <text class="s" x="24" y="45">No exploit is involved - the CAM table is a finite resource, and unknown unicast is flooded by design</text>
+
+  <!-- Left: mechanism -->
+  <rect x="24" y="62" width="392" height="216" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="80" fill="#b0452f">THE MECHANISM IN THREE STEPS</text>
+
+  <text class="x" x="36" y="100">① Fill it</text>
+  <text class="c" x="36" y="113">Frames with random source MACs, sent fast enough that aging cannot keep up</text>
+
+  <!-- cam table sketch -->
+  <rect x="36" y="122" width="176" height="86" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".8"/>
+  <text class="w" x="44" y="136">CAM · VLAN 20</text>
+  <g>
+    <rect x="44" y="142" width="160" height="11" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".4"/>
+    <text class="w" x="48" y="151">00:1a:2b:3c:4d:5e → Gi1/0/5</text>
+    <rect x="44" y="153" width="160" height="11" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".4"/>
+    <text class="w" x="48" y="162">aa:11:bb:22:cc:33 → Gi1/0/9</text>
+    <rect x="44" y="164" width="160" height="11" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".4"/>
+    <text class="w" x="48" y="173">de:ad:be:ef:00:01 → Gi1/0/7</text>
+    <rect x="44" y="175" width="160" height="11" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".4"/>
+    <text class="w" x="48" y="184">de:ad:be:ef:00:02 → Gi1/0/7</text>
+    <rect x="44" y="186" width="160" height="11" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".4"/>
+    <text class="w" x="48" y="195">de:ad:be:ef:00:03 → Gi1/0/7</text>
+  </g>
+  <text class="w" x="222" y="140">thousands of</text>
+  <text class="w" x="222" y="152">attacker MACs</text>
+  <text class="w" x="222" y="164">push the real</text>
+  <text class="w" x="222" y="176">entries out</text>
+  <text class="x" x="222" y="194">table full</text>
+
+  <text class="x" x="36" y="226">② Then unknown unicast floods</text>
+  <text class="c" x="36" y="239">Every frame for an address the switch no longer knows goes to every port in</text>
+  <text class="c" x="36" y="251">VLAN 20 - including the attacker's. That is a hub, implemented accidentally.</text>
+
+  <text class="x" x="36" y="268">③ Sniff the VLAN</text>
+
+  <!-- Right: port security -->
+  <rect x="428" y="62" width="448" height="216" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="440" y="80">THE COUNTER · PORT SECURITY</text>
+  <rect x="440" y="88" width="424" height="58" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="m" x="450" y="103" xml:space="preserve">switchport port-security</text>
+  <text class="m" x="450" y="116" xml:space="preserve">switchport port-security maximum 2         ! one phone + one PC</text>
+  <text class="m" x="450" y="129" xml:space="preserve">switchport port-security violation restrict</text>
+  <text class="m" x="450" y="142" xml:space="preserve">switchport port-security aging time 60</text>
+
+  <rect x="440" y="154" width="424" height="20" fill="#2b3446"/>
+  <text class="th" x="450" y="168">VIOLATION MODE</text>
+  <text class="th" x="560" y="168">WHAT HAPPENS</text>
+  <text class="th" x="716" y="168">USE IT WHEN</text>
+
+  <rect x="440" y="174" width="424" height="26" fill="#ffffff"/>
+  <text class="x" x="450" y="191">protect</text>
+  <text class="c" x="560" y="191">silent drop, no log, no counter you watch</text>
+  <text class="c" x="716" y="191">almost never - you cannot detect it</text>
+
+  <rect x="440" y="200" width="424" height="26" fill="#eef7f5"/>
+  <text class="g" x="450" y="217">restrict</text>
+  <text class="c" x="560" y="217">drop plus SNMP trap / syslog, port stays up</text>
+  <text class="c" x="716" y="217">the default choice for user ports</text>
+
+  <rect x="440" y="226" width="424" height="26" fill="#ffffff"/>
+  <text class="b" x="450" y="243">shutdown</text>
+  <text class="c" x="560" y="243">err-disable the port until someone clears it</text>
+  <text class="c" x="716" y="243">high-security zones with on-call staff</text>
+
+  <text class="c" x="440" y="268">Choose by asking who is awake at 02:00: <tspan class="m">restrict</tspan> produces a log line,</text>
+  <text class="c" x="440" y="280"><tspan class="m">shutdown</tspan> produces a support call. Both stop the attack; only one stops the business.</text>
+
+  <!-- Bottom: two traps -->
+  <rect x="24" y="290" width="852" height="112" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="308" fill="#9a7d28">TWO TRAPS THAT SHOW UP IN EVERY REAL DEPLOYMENT</text>
+  <g>
+    <rect x="36" y="318" width="408" height="68" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="x" x="46" y="334">1 · maximum set too low</text>
+    <text class="c" x="46" y="348">Users swap USB-C docks, move cables and plug an IP phone plus a PC into</text>
+    <text class="c" x="46" y="360">one port. Worse, Windows, macOS and iOS enable random MAC addresses by</text>
+    <text class="c" x="46" y="372">default, so the count changes without the user doing anything at all.</text>
+  </g>
+  <g>
+    <rect x="456" y="318" width="408" height="68" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="x" x="466" y="334">2 · port security versus 802.1X</text>
+    <text class="c" x="466" y="348">Once admission control exists, "no port access before authentication"</text>
+    <text class="c" x="466" y="360">already covers the flooding scenario. What port security still adds is a</text>
+    <text class="c" x="466" y="372">device count per port - so keep the two consistent on order and voice VLAN.</text>
+  </g>
+
+  <text class="w" x="24" y="418">Design note: the CAM table is per-VLAN and per-line-card. On a large stack the symptom of flooding is not "one port is odd" but "sudden broadcast-like load everywhere in one VLAN".</text>
+</svg>

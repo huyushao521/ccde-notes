@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 416" width="100%" role="img" aria-labelledby="t913 d913">
+  <title id="t913">The three OSPF PE-CE mechanisms: the DN bit, the domain ID and the sham link</title>
+  <desc id="d913">Topology of CE1, PE1, the MPLS core, PE2 and CE2 with a backdoor link between the two CEs. Three numbered problems are marked along the path. Problem one, a type-3 summary originating in the core is re-injected into OSPF at the other side and can loop, solved by the DN bit which marks routes that already came from a PE. Problem two, when two PEs use different domain IDs the DN bit is honoured inconsistently and routes oscillate, so the domain ID must match across the whole VPN. Problem three, the backdoor link is preferred only in the wrong direction: OSPF prefers intra-area over inter-area, so the backdoor route to a remote site can beat the VPN path, and the sham link advertises the remote prefix as intra-area to make the comparison fair. A right panel gives the three prerequisites for a sham link: matching area, matching authentication and a loopback to loopback tunnel.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="416" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">OSPF across an L3VPN needs three mechanisms because OSPF trusts topology it cannot see</text>
+  <text class="s" x="24" y="45">DN bit stops loops, domain ID keeps that decision consistent, sham link fixes the priority inversion</text>
+
+  <rect x="28" y="62" width="86" height="28" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="52" y="80">CE1</text>
+  <rect x="150" y="62" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="174" y="80">PE1</text>
+  <rect x="270" y="62" width="120" height="28" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="304" y="80">MPLS core</text>
+  <rect x="424" y="62" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="448" y="80">PE2</text>
+  <rect x="546" y="62" width="86" height="28" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="570" y="80">CE2</text>
+
+  <line x1="114" y1="76" x2="150" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="236" y1="76" x2="270" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="390" y1="76" x2="424" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="510" y1="76" x2="546" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+
+  <path d="M71 90 Q71 140 589 140 Q589 90 589 90" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="w" x="292" y="156" fill="#c0392b">backdoor link between the two CEs</text>
+
+  <text class="k" x="24" y="184">THE THREE PROBLEMS, IN THE ORDER THEY BITE</text>
+
+  <rect x="24" y="192" width="272" height="96" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="36" y="210" fill="#c0392b">1. Re-injection loop</text>
+  <text class="c" x="36" y="228" fill="#c0392b">A summary learned from the core comes back</text>
+  <text class="c" x="36" y="241" fill="#c0392b">into OSPF at the far PE and can circle.</text>
+  <text class="c" x="36" y="260" fill="#c0392b">Fix: <tspan style="font-weight:700">DN bit</tspan> marks routes already carried</text>
+  <text class="c" x="36" y="273" fill="#c0392b">by a PE, and those are never re-advertised.</text>
+
+  <rect x="312" y="192" width="272" height="96" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="324" y="210" fill="#7a5b18">2. Domain ID mismatch</text>
+  <text class="c" x="324" y="228" fill="#7a5b18">Each PE sets a domain ID; the DN bit is only</text>
+  <text class="c" x="324" y="241" fill="#7a5b18">honoured for its own domain. If two PEs in</text>
+  <text class="c" x="324" y="260" fill="#7a5b18">one VPN disagree, routes oscillate.</text>
+  <text class="c" x="324" y="273" fill="#7a5b18">Fix: one domain ID per VPN, no exceptions.</text>
+
+  <rect x="600" y="192" width="276" height="96" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="612" y="210" fill="#1f4fc0">3. Priority inversion</text>
+  <text class="c" x="612" y="228" fill="#1f4fc0">OSPF prefers intra-area &gt; inter-area &gt; external,</text>
+  <text class="c" x="612" y="241" fill="#1f4fc0">so the backdoor intra-area path can beat the</text>
+  <text class="c" x="612" y="260" fill="#1f4fc0">VPN path regardless of cost.</text>
+  <text class="c" x="612" y="273" fill="#1f4fc0">Fix: <tspan style="font-weight:700">sham link</tspan> makes the VPN path look intra-area.</text>
+
+  <rect x="24" y="304" width="420" height="74" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="322" fill="#0f7f73">A sham link needs three things to come up</text>
+  <text class="c" x="36" y="340" fill="#0f7f73">1. Both endpoints in the same OSPF area.</text>
+  <text class="c" x="36" y="354" fill="#0f7f73">2. Matching authentication, or it stays down.</text>
+  <text class="c" x="36" y="368" fill="#0f7f73">3. A loopback-to-loopback path through the MPLS VPN, not through the core IGP.</text>
+
+  <rect x="460" y="304" width="416" height="74" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="472" y="322">The honest alternative</text>
+  <text class="c" x="472" y="340">If the backdoor exists for resilience, an eBGP PE-CE design removes all three problems at</text>
+  <text class="c" x="472" y="354">once, because BGP compares equal metrics across domains by design. Use OSPF at the</text>
+  <text class="c" x="472" y="368">PE-CE only when the customer's operations require it.</text>
+
+  <rect x="24" y="386" width="852" height="24" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".6"/>
+  <text class="w" x="36" y="402" fill="#c0392b">Verification: read the OSPF database on both PEs, confirm the remote prefix carries the DN bit and the same domain ID, then check which path the SPF actually installed.</text>
+</svg>

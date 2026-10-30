@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t901 d901">
+  <title id="t901">The three threads of network virtualization and the three debts each one creates</title>
+  <desc id="d901">Three columns. Address space reuse: overlapping 10.0.0.0/8 across customers, implemented by VRF with RD and RT, the VXLAN VNI, and the SD-WAN service VPN. Identity separate from location: a VM keeps its IP after migration, implemented by LISP, EVPN and the SD-Access fabric. Control separate from forwarding: every device computes its own path, implemented by SDN controllers, vSmart and DNA Center. A bottom band lists the three debts: encapsulation costing MTU, more control plane protocols, and a controller that becomes core infrastructure.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three threads, and every technology is one of them</text>
+  <text class="s" x="24" y="45">Name the thread first; the acronym follows from it</text>
+
+  <rect x="24" y="60" width="272" height="150" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="78">THREAD 1</text>
+  <text class="b" x="36" y="96">Address space reuse</text>
+  <text class="c" x="36" y="114">Customers all use 10.0.0.0/8. They must</text>
+  <text class="c" x="36" y="127">coexist on one physical network without</text>
+  <text class="c" x="36" y="140">seeing each other's addresses.</text>
+  <rect x="36" y="152" width="112" height="19" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="46" y="165">VRF + RD / RT</text>
+  <rect x="156" y="152" width="72" height="19" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="166" y="165">VXLAN VNI</text>
+  <rect x="36" y="178" width="112" height="19" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="46" y="191">SD-WAN service VPN</text>
+
+  <rect x="312" y="60" width="272" height="150" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="324" y="78">THREAD 2</text>
+  <text class="b" x="324" y="96">Identity apart from location</text>
+  <text class="c" x="324" y="114">A VM keeps its IP after migration, but its</text>
+  <text class="c" x="324" y="127">attachment point moved, so the address</text>
+  <text class="c" x="324" y="140">must stop encoding the place.</text>
+  <rect x="324" y="152" width="56" height="19" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="334" y="165">LISP</text>
+  <rect x="388" y="152" width="56" height="19" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="398" y="165">EVPN</text>
+  <rect x="452" y="152" width="104" height="19" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="462" y="165">SD-Access fabric</text>
+  <text class="w" x="324" y="191">A mapping table replaces the prefix-means-place assumption.</text>
+
+  <rect x="600" y="60" width="276" height="150" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="k" x="612" y="78">THREAD 3</text>
+  <text class="b" x="612" y="96">Control apart from forwarding</text>
+  <text class="c" x="612" y="114">Every device configures and computes on</text>
+  <text class="c" x="612" y="127">its own, so one end-to-end intent becomes</text>
+  <text class="c" x="612" y="140">N hand-translated configurations.</text>
+  <rect x="612" y="152" width="76" height="19" rx="2" fill="#fff" stroke="#6b4fbf" stroke-width=".6"/>
+  <text class="r" x="622" y="165">SDN controller</text>
+  <rect x="696" y="152" width="72" height="19" rx="2" fill="#fff" stroke="#6b4fbf" stroke-width=".6"/>
+  <text class="r" x="706" y="165">vSmart</text>
+  <rect x="612" y="178" width="86" height="19" rx="2" fill="#fff" stroke="#6b4fbf" stroke-width=".6"/>
+  <text class="r" x="622" y="191">DNA Center</text>
+  <text class="w" x="704" y="191">Forwarding stays distributed.</text>
+
+  <text class="k" x="24" y="234">THE PRICE &#8212; THREE DEBTS, ALWAYS ALL THREE</text>
+
+  <rect x="24" y="242" width="272" height="66" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="36" y="260" fill="#c0392b">Debt 1 &#183; Encapsulation</text>
+  <text class="c" x="36" y="276" fill="#c0392b">A header is added, so the usable MTU</text>
+  <text class="c" x="36" y="289" fill="#c0392b">shrinks. Plan it per segment up front.</text>
+
+  <rect x="312" y="242" width="272" height="66" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="324" y="260" fill="#7a5b18">Debt 2 &#183; Control plane</text>
+  <text class="c" x="324" y="276" fill="#7a5b18">MP-BGP, LDP, RSVP, OMP, LISP &#8212; each</text>
+  <text class="c" x="324" y="289" fill="#7a5b18">with its own convergence behaviour.</text>
+
+  <rect x="600" y="242" width="276" height="66" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="612" y="260">Debt 3 &#183; Operational layer</text>
+  <text class="c" x="612" y="276">The controller is now core infrastructure:</text>
+  <text class="c" x="612" y="289">patch it, back it up, renew its certificates.</text>
+
+  <rect x="24" y="320" width="852" height="60" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="320" width="4" height="60" fill="#c0392b"/>
+  <text class="c" x="40" y="338" fill="#c0392b"><tspan style="font-weight:700">The design view:</tspan> virtualization decouples the physical topology from the service topology. Everything above is the invoice for that decoupling.</text>
+  <text class="c" x="40" y="354" fill="#c0392b">The question is never &#8220;can it be configured&#8221;; it is &#8220;which of these three debts can this organisation carry, and does the business case pay for it&#8221;.</text>
+  <text class="c" x="40" y="370" fill="#c0392b">A design that ignores the invoice is not a design, it is a purchase order.</text>
+</svg>

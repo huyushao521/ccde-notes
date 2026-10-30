@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1308 d1308">
+  <title id="t1308">Four elections that people confuse: IGMP querier, PIM DR, assert winner and bidirectional DF</title>
+  <desc id="d1308">A two by two grid. Querier: Layer 2 election, lowest IP address in the subnet wins, decides whether the snooping table is refreshed; wrong querier means the table ages out. PIM DR: Layer 3 election on a multi-access LAN, highest priority then highest IP wins, decides who sends joins and registers for the whole segment; two DRs or a wrong DR means duplicate or missing registers. Assert winner: per (S,G), compared on metric and then administrative distance, decides which of two parallel paths forwards onto the shared LAN, and the loser prunes. Bidirectional DF: per group, elected toward the RP, one DF per RP per LAN, decides who forwards downstream and who sends the join upstream. No election ever involves all four at once, which is why the wrong one gets blamed.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four elections, four different questions</text>
+  <text class="s" x="24" y="45">"Who is the DR" and "who is the querier" are not the same question, and neither of them is the assert winner.</text>
+
+  <rect x="24" y="60" width="418" height="164" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="76">1. IGMP QUERIER</text>
+  <text class="b" x="36" y="94">Layer 2, per subnet</text>
+  <text class="c" x="36" y="112">Elected by: lowest IP address on the segment.</text>
+  <text class="c" x="36" y="128">Decides: who sends the periodic general query</text>
+  <text class="c" x="36" y="140">that refreshes the snooping table.</text>
+  <text class="m" x="36" y="160">ip igmp snooping querier &lt;SVI address&gt;</text>
+  <text class="x" x="36" y="182">Wrong or missing: the table ages out at 260 s,</text>
+  <text class="x" x="36" y="194">video freezes periodically. No PIM involved.</text>
+  <text class="c" x="36" y="212">Note: this is not a PIM election. It exists even</text>
+  <text class="c" x="36" y="222">in a VLAN with no router at all.</text>
+
+  <rect x="458" y="60" width="418" height="164" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="470" y="76">2. PIM DR</text>
+  <text class="b" x="470" y="94">Layer 3, per multi-access LAN</text>
+  <text class="c" x="470" y="112">Elected by: highest priority, then highest IP.</text>
+  <text class="c" x="470" y="128">Decides: who sends joins, prunes and registers</text>
+  <text class="c" x="470" y="140">on behalf of the whole segment.</text>
+  <text class="m" x="470" y="160">ip pim dr-priority 100</text>
+  <text class="x" x="470" y="182">Wrong DR: a suboptimal first hop, or a register</text>
+  <text class="x" x="470" y="194">that never happens because the DR is not the</text>
+  <text class="x" x="470" y="206">RPF neighbour of the source.</text>
+  <text class="c" x="470" y="224">On point-to-point links there is no election: the</text>
+  <text class="c" x="470" y="234">only neighbour is the DR.</text>
+
+  <rect x="24" y="238" width="418" height="164" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="36" y="254">3. ASSERT WINNER</text>
+  <text class="b" x="36" y="272">Per (S,G) or per (*,G), on one LAN</text>
+  <text class="c" x="36" y="290">Elected by: lowest metric to the source, then</text>
+  <text class="c" x="36" y="302">lowest administrative distance.</text>
+  <text class="c" x="36" y="318">Decides: which of two routers forwards the</text>
+  <text class="c" x="36" y="330">stream onto the shared segment. The loser</text>
+  <text class="c" x="36" y="342">prunes its own OIL for that (S,G).</text>
+  <text class="g" x="36" y="364">Purpose: prevents duplicate packets on a LAN</text>
+  <text class="g" x="36" y="376">when both routers have the stream.</text>
+  <text class="c" x="36" y="394">Symptom of a stuck assert: duplicated packets</text>
+  <text class="c" x="36" y="404">on a shared segment, invisible at Layer 3.</text>
+
+  <rect x="458" y="238" width="418" height="164" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="470" y="254">4. BIDIRECTIONAL DF</text>
+  <text class="b" x="470" y="272">Per group, per RP, on one LAN</text>
+  <text class="c" x="470" y="290">Elected by: lowest metric toward the RP, then</text>
+  <text class="c" x="470" y="302">highest IP as tie-break.</text>
+  <text class="c" x="470" y="318">Decides: who forwards downstream traffic and</text>
+  <text class="c" x="470" y="330">who sends the (*,G) join toward the RP.</text>
+  <text class="g" x="470" y="352">One DF per RP per LAN, so a segment can have</text>
+  <text class="g" x="470" y="364">several DFs for several RPs.</text>
+  <text class="x" x="470" y="386">Symptom of two DFs: duplicated downstream</text>
+  <text class="x" x="470" y="398">traffic and multicast storms on the segment.</text>
+
+  <rect x="24" y="416" width="852" height="36" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="36" y="438">Ask which election before you ask which router: querier is Layer 2, DR is Layer 3, assert is per (S,G), DF is bidirectional-only. The commands that show them are also different.</text>
+</svg>

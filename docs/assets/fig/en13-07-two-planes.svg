@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1307 d1307">
+  <title id="t1307">A correct mroute only proves the control plane: the data plane needs replication resources of its own</title>
+  <desc id="d1307">Left panel: the control plane holds the (S,G) entry, the incoming interface and the outgoing interface list, all visible in show ip mroute and all correct. Right panel: the data plane needs a hardware entry per replication, TCAM space, and per-line-card replication capacity, none of which appear in the control plane view. A middle band lists the four places the two planes disagree: TCAM exhausted so the entry stays software-switched, one line card with an older microcode, an outgoing interface list wider than the replication engine supports, and a policer that drops silently. A bottom band gives the three commands that separate the planes.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Two planes, two answers to "is it working"</text>
+  <text class="s" x="24" y="45">Multicast forwarding is state plus hardware. The state can be perfect while the hardware quietly refuses to hold it.</text>
+
+  <rect x="24" y="60" width="404" height="150" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="76">CONTROL PLANE</text>
+  <text class="b" x="36" y="94">show ip mroute says everything is fine</text>
+  <text class="m" x="36" y="114">(10.1.1.10, 239.10.1.1), 00:42:11/00:03:12, flags: T</text>
+  <text class="m" x="36" y="126">  Incoming interface: GigabitEthernet0/1, RPF nbr 10.0.0.2</text>
+  <text class="m" x="36" y="138">  Outgoing interface list:</text>
+  <text class="m" x="36" y="150">    GigabitEthernet0/2, Forward, 00:42:11/00:03:12</text>
+  <text class="m" x="36" y="162">    GigabitEthernet0/3, Forward, 00:42:11/00:03:12</text>
+  <text class="c" x="36" y="182">The entry exists, RPF is correct, the OIL is right.</text>
+  <text class="c" x="36" y="194">Not one line of this output proves a packet left.</text>
+
+  <rect x="448" y="60" width="428" height="150" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="460" y="76">DATA PLANE</text>
+  <text class="b" x="460" y="94">What the entry actually needs</text>
+  <text class="c" x="460" y="114">1. A hardware (S,G) entry, not just a software one</text>
+  <text class="c" x="460" y="128">2. A replication slot per outgoing interface</text>
+  <text class="c" x="460" y="142">3. TCAM space in the region reserved for multicast</text>
+  <text class="c" x="460" y="156">4. Enough fabric bandwidth to copy the packet N times</text>
+  <text class="c" x="460" y="176">Miss any of the four and the traffic falls back to slow</text>
+  <text class="c" x="460" y="188">path or is dropped, with the control plane unchanged.</text>
+
+  <rect x="24" y="224" width="852" height="128" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="240">FOUR PLACES THE TWO PLANES DISAGREE</text>
+  <text class="b" x="36" y="258">TCAM exhausted</text>
+  <text class="c" x="36" y="272">Entry 8,193 works, entry 8,194 is software</text>
+  <text class="c" x="36" y="284">switched and cannot keep up. Symptom: the</text>
+  <text class="c" x="36" y="296">newest channel is the one that stutters.</text>
+  <text class="b" x="36" y="316">Mixed line cards</text>
+  <text class="c" x="36" y="330">One card on older microcode has a lower</text>
+  <text class="c" x="36" y="342">replication limit. Symptom: one floor fails.</text>
+  <text class="b" x="316" y="258">OIL wider than the engine</text>
+  <text class="c" x="316" y="272">Some platforms cap the fan-out per entry</text>
+  <text class="c" x="316" y="284">(for example 16 or 32 copies). Symptom:</text>
+  <text class="c" x="316" y="296">large branches lose a few ports, silently.</text>
+  <text class="b" x="316" y="316">A policer on the path</text>
+  <text class="c" x="316" y="330">A copy drops at a rate limit that counted only</text>
+  <text class="c" x="316" y="342">unicast. Symptom: quality drops at peak only.</text>
+  <text class="b" x="652" y="258">So compare the two</text>
+  <text class="m" x="652" y="276">show ip mroute count</text>
+  <text class="m" x="652" y="292">show platform hardware ... mroute</text>
+  <text class="m" x="652" y="308">show interface ... | i rate</text>
+  <text class="c" x="652" y="330">Software count minus hardware count is</text>
+  <text class="c" x="652" y="342">the number of entries quietly failing.</text>
+
+  <rect x="24" y="364" width="852" height="48" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="384">Acceptance rule</text>
+  <text class="c" x="36" y="400">Never accept "the mroute is there" as proof of delivery. Prove it with an egress counter on the last hop, at the busiest minute of the day.</text>
+</svg>

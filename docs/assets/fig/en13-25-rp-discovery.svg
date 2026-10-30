@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 466" width="100%" role="img" aria-labelledby="t1325 d1325">
+  <title id="t1325">Comparing four RP discovery methods: static, Auto-RP, BSR and Anycast-RP with MSDP</title>
+  <desc id="d1325">Four rows in a comparison table. Static RP: standard, configured by hand on every router, no protocol overhead, but every change is a network-wide edit and there is no automatic redundancy. Auto-RP: Cisco proprietary, candidate RPs announce to 224.0.1.39 and mapping agents publish to 224.0.1.40, needs sparse-dense-mode flooding. BSR: RFC 5059, candidate RPs unicast to the BSR which floods the RP set hop by hop on 224.0.0.13, standard and multi-vendor but slower and needs BSR election tuning. Anycast-RP plus MSDP: several RPs share one loopback address and synchronise source-active state over MSDP, giving load sharing and fast failover at the cost of a full MSDP mesh. Each row is rated on standardisation, control overhead, convergence and automatic redundancy. A footer states the biggest trap: when a static RP list maps different groups to different RPs, the mapping must be identical on every router, otherwise some receivers join the wrong RP and the fault looks like some people can watch and some cannot.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="466" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four ways to learn who the RP is, and what each one costs you later</text>
+  <text class="s" x="24" y="45">Pick by standardisation and by failure behaviour. "It converges" is not the same as "it fails cleanly".</text>
+
+  <text class="k" x="34" y="68">METHOD</text>
+  <text class="k" x="248" y="68">MECHANISM</text>
+  <text class="k" x="500" y="68">STANDARD</text>
+  <text class="k" x="566" y="68">OVERHEAD</text>
+  <text class="k" x="646" y="68">CONVERGENCE</text>
+  <text class="k" x="738" y="68">REDUNDANCY</text>
+  <line x1="24" y1="76" x2="876" y2="76" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="24" y="86" width="852" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="86" width="3" height="66" fill="#7c8b9f"/>
+  <text class="b" x="34" y="106">Static RP</text>
+  <text class="w" x="34" y="122">small, stable topology</text>
+  <text class="m" x="248" y="106">ip pim rp-address A.B.C.D</text>
+  <text class="w" x="248" y="122">hand written on every router</text>
+  <text class="g" x="500" y="106">standard</text>
+  <text class="g" x="566" y="106">none</text>
+  <text class="c" x="646" y="106">manual</text>
+  <text class="x" x="738" y="106">none</text>
+  <text class="w" x="738" y="122">a change is a network-wide edit</text>
+
+  <rect x="24" y="158" width="852" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="158" width="3" height="66" fill="#b8862b"/>
+  <text class="b" x="34" y="178">Auto-RP</text>
+  <text class="w" x="34" y="194">all-Cisco networks</text>
+  <text class="m" x="248" y="178">224.0.1.39 &gt; 224.0.1.40</text>
+  <text class="w" x="248" y="194">C-RP announce, MA publish</text>
+  <text class="x" x="500" y="178">proprietary</text>
+  <text class="x" x="566" y="178">dense flood</text>
+  <text class="g" x="646" y="178">fast</text>
+  <text class="g" x="738" y="178">automatic</text>
+  <text class="w" x="738" y="194">needs sparse-dense-mode</text>
+
+  <rect x="24" y="230" width="852" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="230" width="3" height="66" fill="#1f4fc0"/>
+  <text class="b" x="34" y="250">BSR</text>
+  <text class="w" x="34" y="266">multi-vendor</text>
+  <text class="m" x="248" y="250">224.0.0.13 RP-Set</text>
+  <text class="w" x="248" y="266">C-RP unicast to BSR, hop by hop</text>
+  <text class="g" x="500" y="250">RFC 5059</text>
+  <text class="c" x="566" y="250">moderate</text>
+  <text class="x" x="646" y="250">slower</text>
+  <text class="g" x="738" y="250">automatic</text>
+  <text class="w" x="738" y="266">BSR election needs tuning</text>
+
+  <rect x="24" y="302" width="852" height="66" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <rect x="24" y="302" width="3" height="66" fill="#6b4fbf"/>
+  <text class="b" x="34" y="322">Anycast-RP + MSDP</text>
+  <text class="w" x="34" y="338">large, HA required</text>
+  <text class="m" x="248" y="322">one /32 on every RP</text>
+  <text class="w" x="248" y="338">MSDP TCP 639 syncs (S,G)</text>
+  <text class="g" x="500" y="322">standard</text>
+  <text class="c" x="566" y="322">MSDP mesh</text>
+  <text class="g" x="646" y="322">fast</text>
+  <text class="g" x="738" y="322">built in</text>
+  <text class="x" x="738" y="338">full mesh is mandatory</text>
+
+  <rect x="24" y="380" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="401">The trap with several RPs: if a static RP list points different groups at different RPs, that mapping must be byte-identical on every router -</text>
+  <text class="c" x="36" y="412">one device that maps differently produces "some receivers joined the wrong RP", which reads in the ticket as "half the people can watch".</text>
+
+  <text class="w" x="24" y="432">Reading the table: there is no row that wins everywhere. Static wins on determinism, BSR on portability, Anycast on failure behaviour - and the failure behaviour is the column that gets tested at 2am.</text>
+  <text class="w" x="24" y="448">Scale rule of thumb: one campus, one RP plus an Anycast backup. Multi-site WAN, one Anycast pair per region so registrations stay local. Large enterprise, split RPs per business domain so video and market data cannot hurt each other.</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1318 d1318">
+  <title id="t1318">Two ways to stop per-VLAN PIM explosion: MVR replicates one multicast VLAN into user VLANs, PIM snooping prunes router ports on a shared segment</title>
+  <desc id="d1318">Left: the problem - a source in VLAN 100 and users in VLAN 200, 300 and 400, which the traditional answer solves by configuring PIM in every VLAN. Middle: MVR moves the stream once into a multicast VLAN and replicates it into the user VLANs, translating each user's IGMP join into a subscription on the multicast VLAN; one configuration instead of four, but receive-only and heavily vendor dependent. Right: PIM snooping solves a different problem - ten routers sharing one Layer 2 segment exchange PIM hellos, and without snooping every router receives every stream; with snooping the switch only forwards to ports where a PIM neighbour actually joined. A bottom band gives the selection rule: MVR for many user VLANs with receive-only IPTV, PIM snooping for many routers on a shared segment, and neither for a routed access layer.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Two Layer 2 aggregation problems, two features</text>
+  <text class="s" x="24" y="45">MVR is about too many user VLANs. PIM snooping is about too many routers on one segment. They are not alternatives.</text>
+
+  <rect x="24" y="58" width="256" height="176" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="74">THE PROBLEM</text>
+  <text class="b" x="36" y="92">One source, many user VLANs</text>
+  <rect x="36" y="104" width="60" height="22" rx="2" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <text class="c" x="42" y="119">VLAN 100</text>
+  <text class="c" x="104" y="119">source</text>
+  <rect x="36" y="134" width="60" height="22" rx="2" fill="#fff" stroke="#c0392b" stroke-width=".6"/>
+  <text class="c" x="42" y="149">VLAN 200</text>
+  <text class="c" x="36" y="172">VLAN 300</text>
+  <text class="c" x="36" y="188">VLAN 400</text>
+  <text class="x" x="36" y="212">Traditional answer: PIM in every VLAN.</text>
+  <text class="c" x="36" y="226">Four configurations, four chances to differ.</text>
+
+  <rect x="296" y="58" width="290" height="176" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="308" y="74">MVR</text>
+  <text class="b" x="308" y="92">Replicate one VLAN into many</text>
+  <rect x="308" y="104" width="100" height="22" rx="2" fill="#e9f6f4" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="314" y="119">multicast VLAN</text>
+  <path d="M412 115 L436 115" stroke="#0f7f73" stroke-width=".8"/>
+  <path d="M436 115 L452 103 M436 115 L452 115 M436 115 L452 127" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="458" y="107">user VLAN 200</text>
+  <text class="c" x="458" y="119">user VLAN 300</text>
+  <text class="c" x="458" y="131">user VLAN 400</text>
+  <text class="c" x="308" y="152">A user joins inside its own VLAN; the switch</text>
+  <text class="c" x="308" y="164">translates that into a subscription on the</text>
+  <text class="c" x="308" y="176">multicast VLAN.</text>
+  <text class="g" x="308" y="196">One stream, one place to configure.</text>
+  <text class="x" x="308" y="212">Receive-only. Vendor behaviour differs.</text>
+  <text class="c" x="308" y="226">Test channel change on the exact model.</text>
+
+  <rect x="600" y="58" width="276" height="176" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="612" y="74">PIM SNOOPING</text>
+  <text class="b" x="612" y="92">Ten routers on one segment</text>
+  <rect x="612" y="104" width="252" height="60" rx="2" fill="#fff" stroke="#d6c9f0" stroke-width=".6"/>
+  <text class="c" x="620" y="120">R1 R2 R3 R4 R5 R6 R7 R8 R9 R10</text>
+  <text class="c" x="620" y="138">all on one Layer 2 VLAN</text>
+  <text class="c" x="620" y="154">Without snooping: every stream goes</text>
+  <text class="c" x="620" y="166">to all ten router ports.</text>
+  <text class="c" x="612" y="188">With snooping: the switch reads PIM</text>
+  <text class="c" x="612" y="200">hellos and joins, and forwards only to</text>
+  <text class="c" x="612" y="212">ports that asked.</text>
+  <text class="x" x="612" y="230">Platform support is not universal. Verify.</text>
+
+  <rect x="24" y="250" width="852" height="112" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="266">HOW TO CHOOSE</text>
+  <text class="b" x="36" y="286">Many user VLANs, receive only</text>
+  <text class="c" x="36" y="302">MVR. One multicast VLAN, one configuration,</text>
+  <text class="c" x="36" y="314">user VLANs unchanged.</text>
+  <text class="b" x="336" y="286">Many routers on one segment</text>
+  <text class="c" x="336" y="302">PIM snooping. Keeps the fabric from carrying</text>
+  <text class="c" x="336" y="314">every stream to every router.</text>
+  <text class="b" x="652" y="286">Routed access layer</text>
+  <text class="c" x="652" y="302">Neither. One router per VLAN, no shared</text>
+  <text class="c" x="652" y="314">segment, no aggregation problem.</text>
+  <text class="c" x="36" y="340">Both features move the problem rather than solving it: the real question is why many VLANs or many routers share one broadcast domain.</text>
+  <text class="c" x="36" y="354">If the answer is "history", the design debt is in the addressing plan, not in the switch configuration.</text>
+
+  <rect x="24" y="372" width="852" height="56" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="b" x="36" y="392">Test on the model, not on the datasheet</text>
+  <text class="c" x="36" y="410">MVR and PIM snooping are the two features where vendor documents promise more than the code does. Channel-change time and per-port group limits must be measured on the exact hardware in the LLD.</text>
+</svg>

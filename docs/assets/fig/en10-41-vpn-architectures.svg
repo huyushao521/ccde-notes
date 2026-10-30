@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t1041 d1041">
+  <title id="t1041">Four site-to-site VPN architectures - traditional point-to-point IPsec, DMVPN, FlexVPN and GET VPN - and the three DMVPN phases that decide where spoke traffic goes</title>
+  <desc id="d1041">Top: four architecture cards. Traditional point-to-point IPsec uses a full mesh or hub and spoke with static configuration, one tunnel per pair, so scalability is poor because N sites need N squared or N configurations, and it fits fewer than ten sites with a stable topology. DMVPN pairs multipoint GRE with NHRP so the hub is configured once and tunnels are built dynamically per pair, which suits a medium or large WAN that needs direct spoke-to-spoke paths. FlexVPN is a unified IKEv2 framework that builds tunnels dynamically and unifies site to site with remote access, which suits new builds with the most complete feature set. GET VPN encrypts with a group key and no tunnels at all, so overhead on an existing carrier MPLS is almost zero, which suits a private WAN where encryption is wanted without a tunnel overlay. Bottom: the three DMVPN phases drawn over the same hub and three spokes. In phase one every spoke reaches every other spoke through the hub, so the hub forwards all spoke-to-spoke traffic. In phase two spokes build direct tunnels between themselves on the same subnet, and the hub only registers and resolves NHRP. In phase three spokes still send traffic directly but use the hub address as the next hop, which lets the hub summarise routes while the data path stays direct. A footer gives the selection rule: static tunnels under ten sites, DMVPN when spoke-to-spoke matters and the estate is growing, FlexVPN for greenfield, and GET VPN when the transport is already private.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar41" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">Site-to-site VPN: the topology you choose decides your configuration count for the next five years</text>
+  <text class="s" x="24" y="45">Static tunnels scale as N², dynamic tunnels scale as N — and that single difference is what the four architectures below are really about</text>
+
+  <!-- Four cards -->
+  <rect x="24" y="60" width="204" height="150" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">① POINT-TO-POINT IPSEC</text>
+  <text class="b" x="36" y="98">full mesh or hub-spoke, static</text>
+  <text class="c" x="36" y="116">One tunnel per pair, built by hand.</text>
+  <text class="c" x="36" y="128">Add a site and you edit every peer.</text>
+  <text class="x" x="36" y="148">N sites → N² (or N) configs</text>
+  <text class="c" x="36" y="166">Fits: fewer than 10 sites,</text>
+  <text class="c" x="36" y="178">stable topology, few changes</text>
+  <text class="w" x="36" y="196">The design debt is in the change</text>
+  <text class="w" x="36" y="204">window, not in the bandwidth</text>
+
+  <rect x="240" y="60" width="204" height="150" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="252" y="78" fill="#0f7f73">② DMVPN</text>
+  <text class="b" x="252" y="98">mGRE + NHRP, dynamic</text>
+  <text class="c" x="252" y="116">Hub configured once; spokes register</text>
+  <text class="c" x="252" y="128">and resolve each other on demand.</text>
+  <text class="g" x="252" y="148">Scales as N, and spoke-to-spoke</text>
+  <text class="g" x="252" y="160">traffic can go direct</text>
+  <text class="c" x="252" y="178">Fits: medium to large WAN where</text>
+  <text class="c" x="252" y="190">branch-to-branch matters</text>
+  <text class="w" x="252" y="204">The mainstream enterprise answer</text>
+
+  <rect x="456" y="60" width="204" height="150" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="468" y="78" fill="#5b4a86">③ FLEXVPN</text>
+  <text class="b" x="468" y="98">unified IKEv2 framework</text>
+  <text class="c" x="468" y="116">One framework for site to site and</text>
+  <text class="c" x="468" y="128">for remote access, dynamic per pair.</text>
+  <text class="g" x="468" y="148">Most complete feature set, and</text>
+  <text class="g" x="468" y="160">one place to debug</text>
+  <text class="c" x="468" y="178">Fits: new builds where you can</text>
+  <text class="c" x="468" y="190">choose the framework up front</text>
+  <text class="w" x="468" y="204">Adoption is the constraint, not</text>
+
+  <rect x="672" y="60" width="204" height="150" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="684" y="78" fill="#9a7d28">④ GET VPN</text>
+  <text class="b" x="684" y="98">group key, no tunnels</text>
+  <text class="c" x="684" y="116">Traffic is encrypted, not encapsulated,</text>
+  <text class="c" x="684" y="128">so the routing stays exactly as it was.</text>
+  <text class="g" x="684" y="148">Near-zero overhead on private</text>
+  <text class="g" x="684" y="160">transport - the big win</text>
+  <text class="c" x="684" y="178">Fits: an existing MPLS or private</text>
+  <text class="c" y="190" x="684">WAN where you want only encryption</text>
+  <text class="x" x="684" y="204">Never on the public Internet: any-to-any</text>
+
+  <!-- DMVPN phases -->
+  <text class="k" x="24" y="230">DMVPN · THE THREE PHASES, DRAWN ON THE SAME HUB AND THREE SPOKES</text>
+
+  <rect x="24" y="238" width="276" height="150" rx="3" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="36" y="256">Phase 1 - everything via the hub</text>
+  <g>
+    <circle cx="162" cy="288" r="17" fill="#2b3446"/>
+    <text class="w" x="162" y="292" text-anchor="middle" fill="#ffffff">HUB</text>
+    <circle cx="70" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="70" y="339" text-anchor="middle">spoke</text>
+    <circle cx="162" cy="352" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="162" y="355" text-anchor="middle">spoke</text>
+    <circle cx="254" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="254" y="339" text-anchor="middle">spoke</text>
+    <line x1="82" y1="326" x2="150" y2="298" stroke="#c0392b" stroke-width="1" marker-end="url(#ar41)"/>
+    <line x1="242" y1="326" x2="174" y2="298" stroke="#c0392b" stroke-width="1" marker-end="url(#ar41)"/>
+    <line x1="162" y1="305" x2="162" y2="336" stroke="#c0392b" stroke-width="1" marker-end="url(#ar41)"/>
+  </g>
+  <text class="x" x="36" y="378">Spoke-to-spoke traffic always crosses the hub</text>
+
+  <rect x="312" y="238" width="276" height="150" rx="3" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="324" y="256">Phase 2 - direct spoke-to-spoke</text>
+  <g>
+    <circle cx="450" cy="288" r="17" fill="#2b3446"/>
+    <text class="w" x="450" y="292" text-anchor="middle" fill="#ffffff">HUB</text>
+    <circle cx="358" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="358" y="339" text-anchor="middle">spoke</text>
+    <circle cx="450" cy="352" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="450" y="355" text-anchor="middle">spoke</text>
+    <circle cx="542" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="542" y="339" text-anchor="middle">spoke</text>
+    <line x1="370" y1="326" x2="438" y2="298" stroke="#8a97a8" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#ar41)"/>
+    <line x1="530" y1="326" x2="462" y2="298" stroke="#8a97a8" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#ar41)"/>
+    <line x1="371" y1="332" x2="529" y2="332" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#ar41)"/>
+  </g>
+  <text class="g" x="324" y="378">Hub only registers and resolves NHRP</text>
+
+  <rect x="600" y="238" width="276" height="150" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="612" y="256">Phase 3 - direct, with the hub as next hop</text>
+  <g>
+    <circle cx="738" cy="288" r="17" fill="#2b3446"/>
+    <text class="w" x="738" y="292" text-anchor="middle" fill="#ffffff">HUB</text>
+    <circle cx="646" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="646" y="339" text-anchor="middle">spoke</text>
+    <circle cx="738" cy="352" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="738" y="355" text-anchor="middle">spoke</text>
+    <circle cx="830" cy="336" r="15" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="830" y="339" text-anchor="middle">spoke</text>
+    <line x1="660" y1="332" x2="816" y2="332" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#ar41)"/>
+    <text class="w" x="738" y="326" text-anchor="middle">data direct · route inherited from hub</text>
+  </g>
+  <text class="g" x="612" y="378">Supports spoke summarisation at the hub</text>
+
+  <rect x="24" y="400" width="852" height="30" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="419">Selection rule:</text>
+  <text class="c" x="122" y="419">static tunnels under ten sites · DMVPN when spoke-to-spoke matters and the estate grows · FlexVPN greenfield · GET VPN only when the transport is already private.</text>
+
+  <text class="w" x="24" y="452">Phase 2 versus 3 in one line: both give direct data paths, but only phase 3 lets the hub summarise - which is the difference between a WAN that scales and one that floods every spoke with every branch prefix.</text>
+</svg>

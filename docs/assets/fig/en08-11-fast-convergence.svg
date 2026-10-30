@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 462" width="100%" role="img" aria-labelledby="t811 d811">
+
+  <title id="t811">Shrinking the Hello timer versus enabling BFD, and the four tiers of a convergent response</title>
+  <desc id="d811">Left panel compares two ways to detect failure faster. Shrinking Hello and dead timers reaches about one second and three seconds, costs CPU on every neighbour, has a high false-failover rate and is only for very simple environments. BFD reaches fifty to three hundred milliseconds, is very light because it has its own fast path, has a low false-failover rate, needs both ends configured, and is the production recommendation. Right panel shows four tiers of a convergent response by time scale: milliseconds for link detection, hundreds of milliseconds for local repair with fast reroute or backup paths, seconds for IGP SPF recomputation, and tens of seconds for BGP and policy recomputation. A warning strip names the common bad combination: one second Hello, three second dead timer, no SPF throttling, so every optic flap becomes a full SPF run.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="462" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Detection is not convergence: they are measured in different units and paid for differently</text>
+  <text class="s" x="24" y="45">The goal is recovery in the shortest time without letting one flap shake the whole area</text>
+
+  <text class="k" x="24" y="68">SHRINK HELLO / DEAD</text>
+  <text class="k" x="298" y="68">TURN ON BFD</text>
+  <text class="k" x="24" y="92">DIMENSION</text>
+
+  <rect x="24" y="98" width="852" height="30" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="117">Detection speed</text>
+  <text class="c" x="298" y="117">1 s / 3 s, and below that the risk grows fast</text>
+  <text class="c" x="600" y="117">50&#8211;300 ms</text>
+
+  <rect x="24" y="132" width="852" height="30" rx="2" fill="#fdf1ee" stroke="#e6c3bc" stroke-width=".5"/>
+  <text class="c" x="36" y="151">CPU cost</text>
+  <text class="c" x="298" y="151" fill="#c0392b">every neighbour processes Hellos faster, for ever</text>
+  <text class="c" x="600" y="151">BFD packets are tiny and run on their own fast path</text>
+
+  <rect x="24" y="166" width="852" height="30" rx="2" fill="#fdf1ee" stroke="#e6c3bc" stroke-width=".5"/>
+  <text class="c" x="36" y="185">False failover</text>
+  <text class="c" x="298" y="185" fill="#c0392b">high &#8212; a busy CPU simply misses Hellos</text>
+  <text class="c" x="600" y="185">low &#8212; BFD has its own detection logic</text>
+
+  <rect x="24" y="200" width="852" height="30" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="219">Configuration cost</text>
+  <text class="c" x="298" y="219">one command</text>
+  <text class="c" x="600" y="219">both ends must support it and be paired correctly</text>
+
+  <rect x="24" y="234" width="852" height="30" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="36" y="253" fill="#0f7f73"><tspan style="font-weight:700">Verdict</tspan></text>
+  <text class="c" x="298" y="253" fill="#0f7f73">only in very simple environments</text>
+  <text class="c" x="600" y="253" fill="#0f7f73"><tspan style="font-weight:700">the production default</tspan></text>
+
+  <text class="k" x="24" y="290">TIERED RESPONSE &#8212; EACH TIER ABSORBS WHAT THE ONE ABOVE CANNOT</text>
+
+  <rect x="24" y="296" width="204" height="62" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="314">Milliseconds</text>
+  <text class="c" x="36" y="330">Fast detection only: BFD,</text>
+  <text class="c" x="36" y="343">physical layer alarms.</text>
+  <text class="c" x="36" y="356">Detect &#8212; do not recompute yet.</text>
+
+  <rect x="240" y="296" width="204" height="62" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="252" y="314">Hundreds of ms</text>
+  <text class="c" x="252" y="330">Local repair: FRR, TI-LFA,</text>
+  <text class="c" x="252" y="343">pre-computed backup paths.</text>
+  <text class="c" x="252" y="356">Switch nearby, not network-wide.</text>
+
+  <rect x="456" y="296" width="204" height="62" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="468" y="314">Seconds</text>
+  <text class="c" x="468" y="330">IGP SPF recomputation, with</text>
+  <text class="c" x="468" y="343">throttling at 50 / 200 / 5000 ms.</text>
+  <text class="c" x="468" y="356">Happens only if tiers 1 and 2 fail.</text>
+
+  <rect x="672" y="296" width="204" height="62" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="684" y="314">Tens of seconds</text>
+  <text class="c" x="684" y="330">BGP and routing policy</text>
+  <text class="c" x="684" y="343">recomputation.</text>
+  <text class="c" x="684" y="356">Macro path adjustment, by design.</text>
+
+  <rect x="24" y="372" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="372" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="390" fill="#c0392b"><tspan style="font-weight:700">The combination to refuse in a design review:</tspan> Hello 1 s, dead 3 s, and no SPF throttle anywhere. An optic flap becomes</text>
+  <text class="c" x="40" y="406" fill="#c0392b">neighbour down &#8594; SPF run &#8594; neighbour up &#8594; SPF run, until the CPU is saturated and everything is slower than before.</text>
+  <text class="c" x="40" y="420" fill="#c0392b">Fast detection without flap suppression does not reduce the outage; it amplifies the noise that causes it.</text>
+
+  <text class="w" x="24" y="444">Rest of the toolkit: incremental SPF where supported, partial route calculation which updates the table without rebuilding the tree, and LSA arrival suppression to cap how often a Type 1 can be regenerated.</text>
+</svg>

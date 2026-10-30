@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t1033 d1033">
+  <title id="t1033">Remotely triggered black hole: how a single host is sacrificed at the network entry, what it costs, and where it sits relative to scrubbing</title>
+  <desc id="d1033">Top: the mechanism in four steps. A server is under a volumetric attack; a trigger - flow data, a threshold, or a person - decides to act; the operator advertises the host's /32 with the RTBH community and no-export so the route stays inside the autonomous system; every edge router matches the community and rewrites the next hop to a static route pointing at null0, so the packet is dropped at the first router it reaches and the internal links and the server itself are protected. Middle left: the price - the same address is now unreachable for legitimate users too, which is self-inflicted damage, so the decision needs a named owner and a written definition of "business can be sacrificed briefly". Middle right: when it fits and when it does not - a severe attack on a single address or subnet fits; a wide address range or a business that cannot be interrupted does not. Bottom: the escalation ladder - cloud scrubbing with anycast diversion first, on-premises scrubbing second, per-IP black hole third, per-subnet black hole only as an explicit last resort with a timer. A design with black holing but no scrubbing converts every denial of service problem into "shut the business down".</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar33" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+    <marker id="ar33x" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">RTBH: make one address disappear from routing so the attack dies at the front door</text>
+  <text class="s" x="24" y="45">The traffic is dropped at the first router it reaches, which protects the links and the server - at the cost of the service itself</text>
+
+  <!-- Mechanism -->
+  <rect x="24" y="60" width="852" height="122" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">FOUR STEPS, ALL OF THEM CONFIGURATION YOU CAN PREPARE IN ADVANCE</text>
+
+  <rect x="36" y="88" width="186" height="46" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="x" x="46" y="104">① Attack on 192.0.2.1</text>
+  <text class="c" x="46" y="117">Volumetric, and the uplink is already</text>
+  <text class="c" x="46" y="127">saturated before anyone notices</text>
+
+  <rect x="240" y="88" width="186" height="46" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="250" y="104">② Trigger</text>
+  <text class="c" x="250" y="117">Flow threshold, scrubbing centre,</text>
+  <text class="c" x="250" y="127">or a human on an approved runbook</text>
+
+  <rect x="444" y="88" width="196" height="46" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="454" y="104">③ Announce the /32</text>
+  <text class="c" x="454" y="117">With the RTBH community and</text>
+  <text class="c" x="454" y="127"><tspan class="m">no-export</tspan> so it stays inside the AS</text>
+
+  <rect x="658" y="88" width="206" height="46" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="g" x="668" y="104">④ Every edge drops it</text>
+  <text class="c" x="668" y="117">Route map matches the community,</text>
+  <text class="c" x="668" y="127">next hop is rewritten to a null0 route</text>
+
+  <line x1="226" y1="111" x2="236" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar33)"/>
+  <line x1="430" y1="111" x2="440" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar33)"/>
+  <line x1="644" y1="111" x2="654" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar33)"/>
+
+  <text class="w" x="36" y="152"><tspan class="m">ip route 192.0.2.1 255.255.255.255 Null0</tspan> plus <tspan class="m">route-map RTBH-IN: match community RTBH → set ip next-hop 192.0.2.1</tspan></text>
+  <text class="w" x="36" y="166">The static route is a config artefact, not a policy: it exists only so the rewritten next hop has somewhere to point. Nothing else may use that address.</text>
+
+  <!-- Price -->
+  <rect x="24" y="192" width="414" height="106" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="210" fill="#b0452f">THE PRICE · THE ADDRESS GOES DARK FOR EVERYONE</text>
+  <text class="c" x="36" y="228">Legitimate users are dropped by the same rule as the attacker. There is no</text>
+  <text class="c" x="36" y="241">"attack-only" version of this tool - that is what scrubbing is for.</text>
+  <text class="b" x="36" y="262">So the design needs three things in writing:</text>
+  <text class="c" x="36" y="275">a named owner who may trigger it · a definition of "this service may be</text>
+  <text class="c" x="36" y="288">sacrificed briefly" per business system · a timer and a review after it fires</text>
+
+  <!-- Fit -->
+  <rect x="450" y="192" width="426" height="106" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="462" y="210" fill="#9a7d28">WHEN IT FITS, WHEN IT DOES NOT</text>
+  <text class="g" x="462" y="228">Fits: a severe attack on one address or one small subnet</text>
+  <text class="c" x="462" y="241">where the business can be offline for minutes to hours</text>
+  <text class="x" x="462" y="260">Does not fit: an attack spread over a wide range (you cannot</text>
+  <text class="x" x="462" y="273">null-route half the estate), or a service that must not stop</text>
+  <text class="c" x="462" y="291">Better: scrubbing centre drops only the attack; cloud scrubbing diverts by anycast</text>
+
+  <!-- Ladder -->
+  <rect x="24" y="310" width="852" height="100" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="328">THE ESCALATION LADDER · ALWAYS IN THIS ORDER</text>
+
+  <rect x="36" y="336" width="188" height="46" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="g" x="46" y="352">1 · Cloud / anycast scrubbing</text>
+  <text class="c" x="46" y="365">Attack absorbed upstream; users keep</text>
+  <text class="c" x="46" y="377">working. Needs a contract, not a config</text>
+
+  <line x1="228" y1="359" x2="240" y2="359" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar33)"/>
+
+  <rect x="244" y="336" width="188" height="46" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="g" x="254" y="352">2 · On-prem scrubbing</text>
+  <text class="c" x="254" y="365">Divert and clean, then reinject.</text>
+  <text class="c" x="254" y="377">Needs capacity and a divert design</text>
+
+  <line x1="436" y1="359" x2="448" y2="359" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar33)"/>
+
+  <rect x="452" y="336" width="188" height="46" rx="2" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="x" x="462" y="352">3 · RTBH per host</text>
+  <text class="c" x="462" y="365">Sacrifice one address. Blast radius</text>
+  <text class="c" x="462" y="377">known, timer required</text>
+
+  <line x1="644" y1="359" x2="656" y2="359" stroke="#c0392b" stroke-width="1" marker-end="url(#ar33x)"/>
+
+  <rect x="660" y="336" width="204" height="46" rx="2" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".8"/>
+  <text class="x" x="670" y="352">4 · RTBH per subnet</text>
+  <text class="c" x="670" y="365">Last resort, explicit approval,</text>
+  <text class="c" x="670" y="377">and a review even if it worked</text>
+
+  <rect x="24" y="418" width="852" height="24" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="434">Design judgement:</text>
+  <text class="c" x="150" y="434">a design with RTBH but no scrubbing turns every denial of service into "shut down the business". RTBH is the safety net, never the plan.</text>
+</svg>

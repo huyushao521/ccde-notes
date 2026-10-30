@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1320 d1320">
+  <title id="t1320">Forwarding mode decision flow: three questions that end in SSM, bidirectional PIM, PIM-DM or PIM-SM</title>
+  <desc id="d1320">The flow starts with one question: does the application need any source to be able to send? If the source is fixed or known, the answer is SSM, with SSM mapping if terminals only support IGMPv2. If any source may send, ask whether it is many-to-many and needs optimal paths: several people speaking in real time leads to bidirectional PIM. Otherwise ask whether receivers are extremely dense at small scale, which allows PIM-DM in small networks only, and everything else uses PIM-SM with RP redundancy treated as mandatory. A side panel shows that one network can mix modes by group range: 232/8 for SSM, 239.10/16 for PIM-SM, 239.20/16 for bidirectional.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Step two as a flow, not a preference</text>
+  <text class="s" x="24" y="45">Every question is about the application. None of them is about which protocol the team knows best.</text>
+
+  <rect x="24" y="60" width="248" height="56" rx="3" fill="#fff" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="36" y="80">Does the application need</text>
+  <text class="b" x="36" y="94">"any source may send"?</text>
+  <text class="w" x="36" y="108">Q1</text>
+
+  <path d="M272 88 L336 88" stroke="#1f4fc0" stroke-width=".8" marker-end="url(#e1)"/>
+  <text class="c" x="278" y="82">No  (source fixed / known)</text>
+  <rect x="340" y="60" width="216" height="56" rx="3" fill="#f5fdfa" stroke="#0f7f73" stroke-width="1"/>
+  <text class="g" x="352" y="80">SSM</text>
+  <text class="c" x="352" y="96">232/8, IGMPv3, no RP, no (*,G)</text>
+  <text class="c" x="352" y="108">IGMPv2 terminals only: SSM mapping</text>
+
+  <path d="M148 116 L148 152 L336 152" stroke="#1f4fc0" stroke-width=".8" fill="none" marker-end="url(#e1)"/>
+  <text class="c" x="156" y="146">Yes</text>
+  <rect x="340" y="124" width="216" height="56" rx="3" fill="#fff" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="352" y="144">Many-to-many, and does it</text>
+  <text class="b" x="352" y="158">need optimal paths?</text>
+  <text class="w" x="352" y="172">Q2</text>
+
+  <path d="M556 152 L620 152" stroke="#6b4fbf" stroke-width=".8" marker-end="url(#e2)"/>
+  <text class="c" x="562" y="146">Yes, several speaking at once</text>
+  <rect x="624" y="124" width="252" height="56" rx="3" fill="#f7f3fe" stroke="#6b4fbf" stroke-width="1"/>
+  <text class="g" x="636" y="144">BiDir-PIM</text>
+  <text class="c" x="636" y="160">One (*,G) per group, state independent</text>
+  <text class="c" x="636" y="172">of source count. DF election per RP.</text>
+
+  <path d="M448 180 L448 216 L336 216" stroke="#1f4fc0" stroke-width=".8" fill="none" marker-end="url(#e1)"/>
+  <text class="c" x="452" y="210">No</text>
+  <rect x="24" y="188" width="306" height="56" rx="3" fill="#fff" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="36" y="208">Receivers extremely dense,</text>
+  <text class="b" x="36" y="222">and the network is small?</text>
+  <text class="w" x="36" y="236">Q3</text>
+
+  <path d="M330 216 L386 216" stroke="#b8862b" stroke-width=".8" marker-end="url(#e3)"/>
+  <text class="c" x="332" y="210">Yes</text>
+  <rect x="390" y="188" width="200" height="56" rx="3" fill="#fdf7e8" stroke="#b8862b" stroke-width=".8"/>
+  <text class="b" x="402" y="208">PIM-DM</text>
+  <text class="c" x="402" y="224">Flood and prune, push model.</text>
+  <text class="x" x="402" y="236">Small networks only: state is per (S,G) everywhere.</text>
+
+  <path d="M177 244 L177 280 L336 280" stroke="#1f4fc0" stroke-width=".8" fill="none" marker-end="url(#e1)"/>
+  <text class="c" x="184" y="274">No</text>
+  <rect x="340" y="252" width="336" height="56" rx="3" fill="#eef3fb" stroke="#1f4fc0" stroke-width="1"/>
+  <text class="g" x="352" y="272">PIM-SM, RP redundancy mandatory</text>
+  <text class="c" x="352" y="288">Shared tree in, SPT out. If you cannot afford an RP failure,</text>
+  <text class="c" x="352" y="300">you cannot afford a single RP.</text>
+
+  <rect x="700" y="196" width="176" height="112" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="710" y="212">ONE NETWORK, MIXED</text>
+  <text class="m" x="710" y="230">232/8      SSM</text>
+  <text class="m" x="710" y="248">239.10/16  PIM-SM</text>
+  <text class="m" x="710" y="266">239.20/16  BiDir</text>
+  <text class="c" x="710" y="288">Mode follows the group range,</text>
+  <text class="c" x="710" y="300">not the router or the site.</text>
+
+  <rect x="24" y="326" width="852" height="98" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="342">THE TWO MISTAKES THIS FLOW PREVENTS</text>
+  <text class="b" x="36" y="362">"We will just use PIM-SM everywhere"</text>
+  <text class="c" x="36" y="378">It works on paper and fails at the second</text>
+  <text class="c" x="36" y="390">all-hands: one RP becomes the state, path</text>
+  <text class="c" x="36" y="402">and failure centre for every channel.</text>
+  <text class="b" x="420" y="362">"We will just use SSM everywhere"</text>
+  <text class="c" x="420" y="378">It fails where the receiver genuinely cannot</text>
+  <text class="c" x="420" y="390">know the sender: conferencing, any-source</text>
+  <text class="c" x="420" y="402">collaboration, and multi-publisher data.</text>
+  <text class="b" x="682" y="362">Ask the application</text>
+  <text class="c" x="682" y="378">Both shortcuts come from choosing a</text>
+  <text class="c" x="682" y="390">protocol before writing down who sends</text>
+  <text class="c" x="682" y="402">and who receives.</text>
+  <defs>
+    <marker id="e1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1f4fc0"/></marker>
+    <marker id="e2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#6b4fbf"/></marker>
+    <marker id="e3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#b8862b"/></marker>
+  </defs>
+</svg>

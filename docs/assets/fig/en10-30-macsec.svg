@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 484" width="100%" role="img" aria-labelledby="t1030 d1030">
+  <title id="t1030">MACsec: hop-by-hop Layer 2 encryption with about thirty-two bytes of overhead, its key agreement, and where IPsec or TLS is the right answer instead</title>
+  <desc id="d1030">Top: the frame. A plain Ethernet frame becomes a MACsec frame by inserting a SecTAG of eight to sixteen bytes after the source MAC and appending a sixteen byte integrity check value, which is roughly thirty-two bytes of overhead - so the link MTU has to grow or large packets are fragmented or dropped. Middle left: key agreement. 802.1X EAP-TLS authenticates the two ends and derives a connectivity association key, MKA negotiates and rotates the secure association key, and each direction is encrypted separately. The encryption is hop by hop, not end to end: every switch on the path decrypts and re-encrypts, so it protects the wire, not the payload. Middle right: the decision table - fiber between buildings, metro Ethernet and data centre interconnect choose MACsec for line rate and low overhead; a site-to-site link across the Internet must use IPsec because MACsec cannot cross a routed network; server to switch in a high-security zone uses MACsec with a capable NIC; and true end-to-end protection across many hops needs application-layer TLS, which MACsec cannot provide. Bottom: four constraints - both ends need hardware support, the MTU must be raised, packet captures reveal nothing so the link looks simply dead, and a software implementation can cut throughput to a third.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar30" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">MACsec (802.1AE): encrypt the wire, not the conversation</text>
+  <text class="s" x="24" y="45">The problem it solves is a fiber in a riser, a shared data hall, or bare fiber leased from a carrier - someone can physically tap it</text>
+
+  <!-- Frame -->
+  <text class="k" x="24" y="68">THE FRAME · WHERE THE THIRTY-TWO BYTES GO</text>
+  <g>
+    <rect x="24" y="76" width="80" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="64" y="93" text-anchor="middle">Dst MAC</text>
+    <rect x="104" y="76" width="80" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="144" y="93" text-anchor="middle">Src MAC</text>
+    <rect x="184" y="76" width="252" height="26" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+    <text class="w" x="310" y="93" text-anchor="middle">payload · the original IP header is preserved</text>
+  </g>
+  <text class="w" x="24" y="116">plain Ethernet frame</text>
+
+  <g>
+    <rect x="24" y="124" width="80" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="64" y="141" text-anchor="middle">Dst MAC</text>
+    <rect x="104" y="124" width="80" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="144" y="141" text-anchor="middle">Src MAC</text>
+    <rect x="184" y="124" width="120" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width="1"/>
+    <text class="x" x="244" y="141" text-anchor="middle">SecTAG 8-16 B</text>
+    <rect x="304" y="124" width="132" height="26" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+    <text class="w" x="370" y="141" text-anchor="middle">encrypted payload</text>
+    <rect x="436" y="124" width="80" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width="1"/>
+    <text class="x" x="476" y="141" text-anchor="middle">ICV 16 B</text>
+  </g>
+  <text class="w" x="24" y="164">MACsec frame · +32 bytes → the link MTU must grow, or large packets fragment or drop</text>
+
+  <!-- Keys -->
+  <rect x="528" y="66" width="348" height="106" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="540" y="84" fill="#5b4a86">KEYS · EAP-TLS IS THE ROOT</text>
+  <rect x="540" y="92" width="100" height="30" rx="2" fill="#ffffff" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="w" x="590" y="111" text-anchor="middle">802.1X auth</text>
+  <line x1="640" y1="107" x2="664" y2="107" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar30)"/>
+  <rect x="668" y="92" width="88" height="30" rx="2" fill="#ffffff" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="w" x="712" y="111" text-anchor="middle">CAK</text>
+  <line x1="756" y1="107" x2="774" y2="107" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar30)"/>
+  <rect x="778" y="92" width="86" height="30" rx="2" fill="#ffffff" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="w" x="821" y="111" text-anchor="middle">MKA → SAK</text>
+  <text class="c" x="540" y="140">MKA rotates the SAK without breaking the link; each</text>
+  <text class="c" x="540" y="152">direction has its own key and its own replay window.</text>
+  <text class="w" x="540" y="164">No EAP-TLS, no MACsec - pre-shared CAK is the shortcut</text>
+
+  <!-- Hop by hop -->
+  <rect x="528" y="180" width="348" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="540" y="198" fill="#b0452f">HOP BY HOP, NOT END TO END</text>
+  <g>
+    <rect x="540" y="206" width="46" height="24" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+    <text class="w" x="563" y="222" text-anchor="middle">SW-A</text>
+    <rect x="600" y="206" width="46" height="24" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+    <text class="w" x="623" y="222" text-anchor="middle">SW-B</text>
+    <rect x="660" y="206" width="46" height="24" rx="2" fill="#ffffff" stroke="#e0b3aa" stroke-width=".7"/>
+    <text class="w" x="683" y="222" text-anchor="middle">SW-C</text>
+    <line x1="586" y1="218" x2="596" y2="218" stroke="#c0392b" stroke-width="1.2"/>
+    <line x1="646" y1="218" x2="656" y2="218" stroke="#c0392b" stroke-width="1.2"/>
+    <text class="c" x="720" y="222" text-anchor="middle">decrypt + re-encrypt</text>
+  </g>
+  <text class="c" x="540" y="242">Every switch on the path sees the payload. MACsec protects the cable.</text>
+
+  <!-- Decision matrix -->
+  <rect x="24" y="180" width="490" height="168" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="198">DECISION · MACSEC, IPSEC OR TLS</text>
+  <rect x="36" y="206" width="466" height="20" fill="#2b3446"/>
+  <text class="th" x="44" y="220">SCENARIO</text>
+  <text class="th" x="290" y="220">CHOICE</text>
+  <text class="th" x="396" y="220">WHY</text>
+
+  <rect x="36" y="226" width="466" height="24" fill="#ffffff"/>
+  <text class="c" x="44" y="242">Fiber between buildings, metro E, DCI</text>
+  <text class="g" x="290" y="242">MACsec</text>
+  <text class="w" x="396" y="242">line rate, ~32 B</text>
+
+  <rect x="36" y="250" width="466" height="24" fill="#ffffff"/>
+  <text class="c" x="44" y="266">Site to site across the Internet</text>
+  <text class="b" x="290" y="266">IPsec</text>
+  <text class="w" x="396" y="266">MACsec cannot cross a router</text>
+
+  <rect x="36" y="274" width="466" height="24" fill="#ffffff"/>
+  <text class="c" x="44" y="290">Server to switch, high-security zone</text>
+  <text class="g" x="290" y="290">MACsec</text>
+  <text class="w" x="396" y="290">needs a capable NIC</text>
+
+  <rect x="36" y="298" width="466" height="24" fill="#ffffff"/>
+  <text class="c" x="44" y="314">True end-to-end across many hops</text>
+  <text class="b" x="290" y="314">TLS / application</text>
+  <text class="w" x="396" y="314">MACsec stops at each hop</text>
+
+  <text class="w" x="36" y="336">Pick by the failure you are defending against: a tap on a cable (MACsec), a</text>
+  <text class="w" x="36" y="345">hostile path across the Internet (IPsec), or a hostile intermediary forever (TLS).</text>
+
+  <!-- Constraints -->
+  <rect x="24" y="358" width="852" height="92" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="376" fill="#0f7f73">FOUR CONSTRAINTS THAT DECIDE THE PROJECT</text>
+  <g>
+    <rect x="36" y="384" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="46" y="400">Both ends, or nothing</text>
+    <text class="c" x="46" y="414">Mix in an old line card and the link</text>
+    <text class="c" x="46" y="426">either falls back to cleartext or</text>
+    <text class="w" x="46" y="436">refuses to come up at all</text>
+  </g>
+  <g>
+    <rect x="240" y="384" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="250" y="400">MTU has to move</text>
+    <text class="c" x="250" y="414">+32 bytes per frame; forget it and</text>
+    <text class="c" x="250" y="426">you get the classic "ping works,</text>
+    <text class="w" x="250" y="436">the application hangs"</text>
+  </g>
+  <g>
+    <rect x="444" y="384" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="454" y="400">Blind troubleshooting</text>
+    <text class="c" x="454" y="414">Captures show nothing; when MKA</text>
+    <text class="c" x="454" y="426">misbehaves the link just looks</text>
+    <text class="w" x="454" y="436">down, with almost no errors</text>
+  </g>
+  <g>
+    <rect x="648" y="384" width="216" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="658" y="400">Check the ASIC, not the datasheet</text>
+    <text class="c" x="658" y="414">Software MACsec can take</text>
+    <text class="c" x="658" y="426">throughput to a third - test before</text>
+    <text class="w" x="658" y="436">you promise line rate</text>
+  </g>
+
+  <text class="w" x="24" y="474">In a design document MACsec appears as a line item with a hidden cost: every link it touches needs an MTU decision and an owner who understands why captures look empty.</text>
+</svg>

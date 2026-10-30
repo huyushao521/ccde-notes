@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 386" width="100%" role="img" aria-labelledby="t917 d917">
+  <title id="t917">Three keys for BGP as PE-CE: as-override, allowas-in and site of origin, and when each applies</title>
+  <desc id="d917">Three columns, each named for the symptom it solves. Column one, as-override: the customer edge rejects a route because it sees its own AS number in the AS path; the provider edge rewrites the AS path before advertising so the loop check passes, at the cost of losing that loop evidence. Column two, allowas-in: the customer edge is allowed to accept its own AS number up to a configured count, which keeps the path intact and moves the decision to the customer side. Column three, site of origin: a dual-homed site would learn its own prefix back through the provider; the community marks the origin site so the re-injection is dropped. A bottom band states the selection rule: use as-override only when the provider controls both ends, allowas-in when the customer does, and always pair either with site of origin at sites that have a backdoor.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="386" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three keys, three different symptoms &#8212; applying the wrong one hides a loop instead of stopping it</text>
+  <text class="s" x="24" y="45">All three exist because a customer's AS number must survive a provider it does not control</text>
+
+  <rect x="24" y="60" width="272" height="180" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="78">KEY 1</text>
+  <text class="b" x="36" y="96" fill="#1f4fc0">as-override</text>
+  <text class="c" x="36" y="116">Symptom: the CE rejects a route it should</text>
+  <text class="c" x="36" y="129">accept, because its own AS is in the path.</text>
+  <text class="c" x="36" y="152">The PE rewrites the AS path before sending,</text>
+  <text class="c" x="36" y="165">replacing the customer's AS with its own.</text>
+  <text class="c" x="36" y="188" fill="#c0392b">Cost: the loop evidence is erased. A real</text>
+  <text class="c" x="36" y="201" fill="#c0392b">loop will no longer be detected here.</text>
+  <text class="w" x="36" y="228">Configured on the PE, applies to all sites</text>
+  <text class="w" x="36" y="239">behind that PE.</text>
+
+  <rect x="312" y="60" width="272" height="180" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="324" y="78">KEY 2</text>
+  <text class="b" x="324" y="96" fill="#0f7f73">allowas-in</text>
+  <text class="c" x="324" y="116">Symptom: the same rejection, but the fix is</text>
+  <text class="c" x="324" y="129">allowed on the customer side instead.</text>
+  <text class="c" x="324" y="152">The CE accepts its own AS up to N times, so</text>
+  <text class="c" x="324" y="165">the path is preserved and the decision is local.</text>
+  <text class="c" x="324" y="188" fill="#0f7f73">Cost: the customer must configure it, and the</text>
+  <text class="c" x="324" y="201" fill="#0f7f73">count must be justified, not guessed.</text>
+  <text class="w" x="324" y="228">Configured on the CE. Better when the two</text>
+  <text class="w" x="324" y="239">sides belong to different organisations.</text>
+
+  <rect x="600" y="60" width="276" height="180" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <text class="k" x="612" y="78">KEY 3</text>
+  <text class="b" x="612" y="96" fill="#7a5b18">site of origin</text>
+  <text class="c" x="612" y="116">Symptom: a dual-homed site learns its own</text>
+  <text class="c" x="612" y="129">prefix back through the provider.</text>
+  <text class="c" x="612" y="152">The community marks where the route started,</text>
+  <text class="c" x="612" y="165">so the site drops what it just sent.</text>
+  <text class="c" x="612" y="188" fill="#7a5b18">Cost: one more attribute to plan per site, and</text>
+  <text class="c" x="612" y="201" fill="#7a5b18">a duplicate value silently breaks reachability.</text>
+  <text class="w" x="612" y="228">Required whenever a backdoor exists &#8212; with</text>
+  <text class="w" x="612" y="239">or without the other two keys.</text>
+
+  <rect x="24" y="252" width="852" height="52" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="b" x="36" y="270">The rule of thumb</text>
+  <text class="c" x="36" y="288">Provider controls both ends of the session &#8594; as-override is simpler. Customer owns the CE &#8594; allowas-in moves the change to the party that owns it.</text>
+  <text class="c" x="36" y="300">Either way, add site of origin at any site with a second path, or the loop returns through the backdoor instead of the provider.</text>
+
+  <rect x="24" y="312" width="852" height="72" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="312" width="4" height="72" fill="#c0392b"/>
+  <text class="c" x="40" y="330" fill="#c0392b"><tspan style="font-weight:700">The failure this prevents:</tspan> a dual-homed site's backdoor link carries its own prefix back into the VPN. The two copies compete, EIGRP metrics climb,</text>
+  <text class="c" x="40" y="346" fill="#c0392b">and traffic ping-pongs between the provider and the backdoor. Every few minutes the path changes, latency doubles, and the graph shows nothing</text>
+  <text class="c" x="40" y="362" fill="#c0392b">wrong because no interface ever went down. This is what as-override and allowas-in alone cannot fix, and what site of origin exists for.</text>
+  <text class="c" x="40" y="378" fill="#c0392b">Sequence for a new dual-homed site: SoO first, then the AS path tool. Never the other way round.</text>
+</svg>

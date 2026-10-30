@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 438" width="100%" role="img" aria-labelledby="t1005 d1005">
+  <title id="t1005">Default deny is a one-line rule; the whitelist behind it is a permanent operating cost with four questions and three failure modes</title>
+  <desc id="d1005">Three panels. Left, the easy half: default deny is written once - a deny-all rule plus explicit permits - and it takes one afternoon. Middle, the hard half, four governance questions nobody puts in the design document: who submits a request, who approves it and against what business justification, how many minutes until the permit is live when the business is down, and who removes the rule when the project that needed it ends. Right, three failure modes when no owner exists: the list only grows, so after eighteen months it is a flat network with paperwork; the emergency bypass becomes the permanent path; and after a staff change nobody dares delete a rule because nobody knows what it protects. Bottom band: four patterns that make the whitelist survivable - a request portal so the ticket is the policy, expiry dates on every permit, a monthly diff review that names stale rules, and one documented emergency path with a timer and an owner.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+
+  <text class="h" x="24" y="28">Truth #4: the deny-all rule is one afternoon; the whitelist is an operating cost forever</text>
+  <text class="s" x="24" y="45">The design document ends at "default deny". The network does not - every permitted flow has an owner, a reason, an expiry and a reviewer</text>
+
+  <!-- Left: easy half -->
+  <rect x="24" y="62" width="252" height="188" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="80">THE EASY HALF · WRITTEN ONCE</text>
+  <text class="b" x="36" y="100">What the standard says</text>
+  <rect x="36" y="110" width="228" height="52" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="m" x="46" y="126" xml:space="preserve">deny ip any any          ! the default</text>
+  <text class="m" x="46" y="140" xml:space="preserve">permit tcp 10.1.0.0/16 host 10.9.9.9 eq 443</text>
+  <text class="w" x="46" y="154">one line, reviewed once, copied to twenty devices</text>
+  <text class="c" x="36" y="182">Effort: one afternoon · Owner: whoever wrote it ·</text>
+  <text class="c" x="36" y="195">Change rate: near zero · Risk: near zero</text>
+  <text class="c" x="36" y="216">This half is a configuration task. It can be</text>
+  <text class="c" x="36" y="229">finished, signed off and forgotten - which is</text>
+  <text class="c" x="36" y="242">exactly why it is the half people design.</text>
+
+  <!-- Middle: four questions -->
+  <rect x="288" y="62" width="286" height="188" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="300" y="80" fill="#b0452f">THE HARD HALF · RUN FOREVER</text>
+  <text class="b" x="300" y="100">Four questions the design doc never asks</text>
+  <g>
+    <circle cx="308" cy="118" r="7" fill="#c0392b"/>
+    <text class="w" x="308" y="121" text-anchor="middle" fill="#ffffff">1</text>
+    <text class="b" x="322" y="121">Who submits?</text>
+    <text class="c" x="322" y="133">The application owner, in writing - not a phone call</text>
+    <text class="w" x="322" y="144">at 22:00 to the on-call engineer</text>
+  </g>
+  <g>
+    <circle cx="308" cy="164" r="7" fill="#c0392b"/>
+    <text class="w" x="308" y="167" text-anchor="middle" fill="#ffffff">2</text>
+    <text class="b" x="322" y="167">Who approves, against what?</text>
+    <text class="c" x="322" y="179">A named approver with a business justification - and a</text>
+    <text class="w" x="322" y="190">security reviewer who can say no and be backed</text>
+  </g>
+  <g>
+    <circle cx="308" cy="210" r="7" fill="#c0392b"/>
+    <text class="w" x="308" y="213" text-anchor="middle" fill="#ffffff">3</text>
+    <text class="b" x="322" y="213">How long until it is live?</text>
+    <text class="c" x="322" y="225">A number, in minutes. If the answer is "two weeks", the</text>
+    <text class="w" x="322" y="236">shadow path through the old firewall is already built</text>
+  </g>
+  <g>
+    <circle cx="336" cy="248" r="0" fill="none"/>
+  </g>
+  <g>
+    <circle cx="308" cy="253" r="7" fill="#c0392b"/>
+    <text class="w" x="308" y="256" text-anchor="middle" fill="#ffffff">4</text>
+    <text class="b" x="322" y="256">Who removes it?</text>
+    <text class="c" x="322" y="268">Someone, on a date. "Temporary" without an expiry is a</text>
+    <text class="w" x="322" y="279">permanent rule with a reassuring label</text>
+  </g>
+
+  <!-- Right: three failure modes -->
+  <rect x="588" y="62" width="288" height="188" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="600" y="80" fill="#9a7d28">WHEN NOBODY OWNS IT</text>
+  <text class="b" x="600" y="100">Three failure modes, all observed</text>
+
+  <rect x="600" y="110" width="264" height="40" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="x" x="610" y="124">1 · The list only grows</text>
+  <text class="c" x="610" y="137">18 months later the "segmented" network has 40 any-any</text>
+  <text class="c" x="610" y="147">rules - it is a flat network wearing paperwork</text>
+
+  <rect x="600" y="156" width="264" height="40" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="x" x="610" y="170">2 · The bypass becomes the path</text>
+  <text class="c" x="610" y="183">The emergency rule opened during an incident is never</text>
+  <text class="c" x="610" y="193">removed, so the design's real policy is the bypass</text>
+
+  <rect x="600" y="202" width="264" height="40" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="x" x="610" y="216">3 · Nobody dares delete</text>
+  <text class="c" x="610" y="229">After a staff change every rule is "possibly needed",</text>
+  <text class="c" x="610" y="239">so the audit produces a list, not a decision</text>
+
+  <!-- Bottom: patterns -->
+  <rect x="24" y="264" width="852" height="96" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="282">FOUR PATTERNS THAT MAKE THE WHITELIST SURVIVABLE</text>
+  <g>
+    <rect x="36" y="292" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="g" x="46" y="308">Request portal</text>
+    <text class="c" x="46" y="321">The ticket <tspan class="m">is</tspan> the policy object:</text>
+    <text class="c" x="46" y="332">requester, approver, flow, expiry.</text>
+    <text class="w" x="46" y="343">Nothing gets configured off-ticket</text>
+
+    <rect x="246" y="292" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="g" x="256" y="308">Expiry on every permit</text>
+    <text class="c" x="256" y="321">Default 90 days, renewable; the</text>
+    <text class="c" x="256" y="332">device or the orchestration layer</text>
+    <text class="w" x="256" y="343">enforces it, not the human</text>
+
+    <rect x="456" y="292" width="196" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="g" x="466" y="308">Monthly diff review</text>
+    <text class="c" x="466" y="321">Compare this month's policy with</text>
+    <text class="c" x="466" y="332">last month's, name every delta,</text>
+    <text class="w" x="466" y="343">ask one question per new rule</text>
+
+    <rect x="666" y="292" width="198" height="56" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="g" x="676" y="308">One timed emergency path</text>
+    <text class="c" x="676" y="321">Pre-approved, logged, auto-reverts</text>
+    <text class="c" x="676" y="332">in 4 hours, and the on-call has to</text>
+    <text class="w" x="676" y="343">open a review ticket when it fires</text>
+  </g>
+
+  <rect x="24" y="372" width="852" height="40" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="36" y="390">Design question to put in the document:</text>
+  <text class="c" x="170" y="390">"Who is the owner of the whitelist, and what is the median time from request to permitted flow?"</text>
+  <text class="w" x="36" y="404">If the design has no name and no number here, the segmentation exists on the diagram only - the operational network will route around it.</text>
+</svg>

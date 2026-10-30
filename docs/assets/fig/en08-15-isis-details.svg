@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t815 d815">
+
+  <title id="t815">IS-IS specifics that matter in design: NET addressing, levels, wide metrics, and the four traps</title>
+  <desc id="d815">Left panel explains the NET, the network entity title that names an IS-IS router: the area identifier, the system identifier which is normally derived from the loopback or MAC address, and the N-selector which is always zero. A second block explains levels: level-1 is intra-area, level-2 is the backbone, a level-1-2 router is the boundary, and the attached bit is how level-1 routers learn they can leave the area. A third block explains metrics: narrow metrics cap at 63 per link and 1023 in total, wide metrics use 24 bits and are required for segment routing, and all routers must agree on which one is in use. A right panel lists four traps: a duplicate system ID on two routers silently breaks the database; mismatched level configuration stops adjacency with no obvious error; metric style mismatch prevents wide metric advertisement; and the overload bit is used to keep traffic away from a router during a maintenance window, so seeing it set is not automatically a fault.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">IS-IS in four objects: the NET, the level, the LSP and the metric style</text>
+  <text class="s" x="24" y="45">Every IS-IS troubleshooting session reduces to one of these four &#8212; learn them as objects, not as commands</text>
+
+  <text class="k" x="24" y="66">THE NET &#8212; WHAT NAMES A ROUTER</text>
+
+  <rect x="24" y="74" width="440" height="58" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <rect x="36" y="86" width="118" height="34" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="48" y="101">49.0001</text>
+  <text class="w" x="48" y="113">area ID</text>
+
+  <rect x="160" y="86" width="164" height="34" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="172" y="101">1921.6800.1001</text>
+  <text class="w" x="172" y="113">system ID (from loopback)</text>
+
+  <rect x="330" y="86" width="120" height="34" rx="2" fill="#ffffff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="342" y="101">00</text>
+  <text class="w" x="342" y="113">N-selector, always 00</text>
+
+  <text class="c" x="36" y="128">49 &#183; 0001 &#183; 1921.6800.1001 &#183; 00 &#8212; one string, read left to right: area, identity, service.</text>
+
+  <text class="k" x="24" y="150">LEVELS</text>
+  <rect x="24" y="158" width="216" height="52" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="176">Level 1 &#8212; intra-area</text>
+  <text class="c" x="36" y="192">Knows only its own area. Reaches</text>
+  <text class="c" x="36" y="203">everything else through the nearest L1-2.</text>
+
+  <rect x="248" y="158" width="216" height="52" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="260" y="176">Level 2 &#8212; backbone</text>
+  <text class="c" x="260" y="192">The contiguous backbone. It must</text>
+  <text class="c" x="260" y="203">stay connected without a separate area.</text>
+
+  <text class="c" x="36" y="228">The attached bit is how a level-1 router learns &#8220;there is a way out of here&#8221;, and it is what installs the default route.</text>
+
+  <text class="k" x="24" y="250">METRICS</text>
+  <rect x="24" y="258" width="440" height="52" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="c" x="36" y="276"><tspan style="font-weight:700">Narrow:</tspan> 6 bits per link (max 63), 10 bits path total (max 1023). Historic, still the default on some platforms.</text>
+  <text class="c" x="36" y="292"><tspan style="font-weight:700">Wide:</tspan> 24 bits, needed for traffic engineering and segment routing &#8212; and every router must agree which style is in use.</text>
+
+  <text class="k" x="492" y="66">FOUR TRAPS THAT LOOK LIKE PROTOCOL BUGS</text>
+
+  <rect x="492" y="74" width="384" height="60" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="504" y="92" fill="#c0392b">1. Duplicate system ID</text>
+  <text class="c" x="504" y="108">Two routers sharing a system ID produce one corrupt</text>
+  <text class="c" x="504" y="121">database. The symptom is a missing router in the SPF tree.</text>
+
+  <rect x="492" y="140" width="384" height="60" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="504" y="158" fill="#c0392b">2. Level mismatch</text>
+  <text class="c" x="504" y="174">One side level-1, the other level-2: no adjacency, and</text>
+  <text class="c" x="504" y="187">often no error that points at the level.</text>
+
+  <rect x="492" y="206" width="384" height="60" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="504" y="224" fill="#7a5b18">3. Metric style mismatch</text>
+  <text class="c" x="504" y="240">Wide metric configured on one side only: the adjacency</text>
+  <text class="c" x="504" y="253">comes up, but the cost is not what either side expects.</text>
+
+  <rect x="492" y="272" width="384" height="60" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="504" y="290" fill="#0f7f73">4. The overload bit</text>
+  <text class="c" x="504" y="306">Set on purpose during maintenance to steer traffic away.</text>
+  <text class="c" x="504" y="319">Seeing it set is not automatically a fault &#8212; check the change record.</text>
+
+  <rect x="24" y="332" width="852" height="56" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="332" width="4" height="56" fill="#c0392b"/>
+  <text class="c" x="40" y="350" fill="#c0392b"><tspan style="font-weight:700">What IS-IS buys you:</tspan> because it runs directly on layer 2, it keeps working while IP is being repaired &#8212; the adjacency never went down,</text>
+  <text class="c" x="40" y="366" fill="#c0392b">so convergence does not stack on top of an IP failure. That property, not the TLV design, is why transport networks standardised on it.</text>
+
+  <text class="w" x="24" y="406">Acceptance check: record the NET, the level and the metric style for every router in the design document, then verify them from the device. These three values</text>
+  <text class="w" x="24" y="419">are configuration, not negotiation &#8212; nothing will correct a mismatch for you.</text>
+</svg>

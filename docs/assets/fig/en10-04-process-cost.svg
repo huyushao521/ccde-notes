@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 438" width="100%" role="img" aria-labelledby="t1004 d1004">
+  <title id="t1004">Where the effort really goes in a security project, and the five questions that make default deny operable</title>
+  <desc id="d1004">Top: a bar split 30 percent buy and configure against 70 percent process change. The 70 percent is broken into the items that actually consume the schedule: the printer that cannot authenticate, the medical device vendor who refuses to cooperate, visitor and contractor access, the fallback path for when the authentication server is unreachable, and the question of who is on call at two in the morning. Middle: the whitelist ownership flow in five steps, each with a named owner and a time budget - business submits with a business case, security approves or rejects within two days, network implements within one day, the rule is registered with an expiry date, and the owner reviews and removes it when the project ends. Bottom: the two failure modes, an approval queue so long that teams route around the firewall, and rules with no expiry date that accumulate until nobody can read the policy.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="438" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The budget line is 30 percent. The schedule line is 70 percent, and it is not IT's to control.</text>
+  <text class="s" x="24" y="45">This is why security projects that were "technically complete in week two" ship in month seven.</text>
+
+  <rect x="24" y="62" width="252" height="22" fill="#1f4fc0"/>
+  <text x="44" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">30%  buy, configure, test</text>
+  <rect x="276" y="62" width="600" height="22" fill="#b8862b"/>
+  <text x="296" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">70%  process, exceptions, people</text>
+
+  <rect x="24" y="96" width="190" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="114">The printer</text>
+  <text class="w" x="34" y="130">no 802.1X supplicant, no</text>
+  <text class="w" x="34" y="142">upgrade path, no budget</text>
+  <text class="x" x="34" y="156">becomes a permanent exception</text>
+
+  <rect x="226" y="96" width="190" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="236" y="114">The vendor device</text>
+  <text class="w" x="236" y="130">medical, industrial, lab -</text>
+  <text class="w" x="236" y="142">"we do not support that"</text>
+  <text class="x" x="236" y="156">and you cannot replace it</text>
+
+  <rect x="428" y="96" width="190" height="66" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="438" y="114">Visitors and contractors</text>
+  <text class="w" x="438" y="130">a third population with</text>
+  <text class="w" x="438" y="142">no directory account</text>
+  <text class="x" x="438" y="156">sponsor, expiry, quarantine</text>
+
+  <rect x="630" y="96" width="246" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="640" y="114">The fallback, and the pager</text>
+  <text class="w" x="640" y="130">what happens when the auth server is down,</text>
+  <text class="w" x="640" y="142">and who answers at 02:00 when it is</text>
+  <text class="x" x="640" y="156">"fail open" is a decision, not an accident</text>
+
+  <text class="k" x="24" y="192">DEFAULT DENY IS OPERABLE ONLY IF THESE FIVE ARE ANSWERED</text>
+
+  <rect x="24" y="202" width="164" height="88" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="34" y="220">1  Submit</text>
+  <text class="w" x="34" y="238">business owner, with the</text>
+  <text class="w" x="34" y="250">flow and the business case</text>
+  <text class="w" x="34" y="268">owner: the requester</text>
+  <text class="c" x="34" y="284">no case, no rule</text>
+
+  <rect x="196" y="202" width="164" height="88" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="206" y="220">2  Approve</text>
+  <text class="w" x="206" y="238">security decides, within a</text>
+  <text class="w" x="206" y="250">published service level</text>
+  <text class="w" x="206" y="268">owner: security team</text>
+  <text class="c" x="206" y="284">two days, or teams route around you</text>
+
+  <rect x="368" y="202" width="164" height="88" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="378" y="220">3  Implement</text>
+  <text class="w" x="378" y="238">one change window, one</text>
+  <text class="w" x="378" y="250">ticket, one verification</text>
+  <text class="w" x="378" y="268">owner: network team</text>
+  <text class="c" x="378" y="284">and a log entry tying rule to ticket</text>
+
+  <rect x="540" y="202" width="164" height="88" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="550" y="220">4  Register</text>
+  <text class="w" x="550" y="238">every rule carries an</text>
+  <text class="w" x="550" y="250">expiry date at creation</text>
+  <text class="w" x="550" y="268">owner: security</text>
+  <text class="c" x="550" y="284">a rule without expiry is forever</text>
+
+  <rect x="712" y="202" width="164" height="88" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="722" y="220">5  Remove</text>
+  <text class="w" x="722" y="238">when the project ends, the</text>
+  <text class="w" x="722" y="250">rule goes - not "expires"</text>
+  <text class="w" x="722" y="268">owner: the business</text>
+  <text class="c" x="722" y="284">review on a fixed calendar</text>
+
+  <rect x="24" y="302" width="852" height="46" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="b" x="36" y="320">Two ways the process dies</text>
+  <text class="c" x="120" y="320">an approval queue so slow that teams build a tunnel to somewhere else - the policy is intact and unenforced</text>
+  <text class="c" x="36" y="338">and rules nobody dares delete: after three years, the whitelist is a list of former projects and nobody can tell a business need from an archaeology find.</text>
+
+  <rect x="24" y="360" width="852" height="1" fill="#dfe6f1"/>
+  <text class="c" x="24" y="382">The design document should contain the approval service level and the expiry policy alongside the firewall specification. One without the other is unenforceable in practice.</text>
+  <text class="w" x="24" y="400">Measure it: the median time from submit to working flow, and the number of rules older than their owning project. Both numbers predict whether the policy survives.</text>
+  <text class="w" x="24" y="418">A security control that the business cannot obtain legally will be obtained illegally, with a 4G modem and a personal hotspot.</text>
+</svg>

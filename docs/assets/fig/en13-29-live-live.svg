@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" role="img" aria-labelledby="t1329 d1329">
+  <title id="t1329">Live-Live dual-active multicast: two groups, two independent paths, and a receiver that merges them</title>
+  <desc id="d1329">Top: one source sends the same content twice to two different group addresses, 239.10.1.1 and 239.10.1.2, over two disjoint paths through different routers and different optical transport. The receiver joins both groups and de-duplicates by RTP sequence number, so a failure on either path is invisible rather than recovered. Five requirements are listed: physically non-overlapping paths, independent RPs when sparse mode is used, one unique group per leg, receivers that can join both, and aligned clocks or sequence numbers so the two streams are comparable. Middle: the implementation layers - application-level dual send, SMPTE ST 2022-7 seamless protection switching which de-duplicates and merges by sequence number for zero-loss switching, and dual-NIC receivers. Bottom: the failure mode that destroys the whole design, two paths that are logically independent but physically shared, drawn through the same duct or the same optical transport, where one digger cuts both. A fit matrix rates market data highest, broadcast TV high, conferencing low and CCTV lowest.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Live-Live: you do not converge faster, you make the failure irrelevant</text>
+  <text class="s" x="24" y="45">Two groups, two paths, one picture. The receiver never waits for a protocol to notice anything.</text>
+
+  <rect x="24" y="62" width="96" height="40" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="72" y="80" text-anchor="middle">Source</text>
+  <text class="w" x="72" y="94" text-anchor="middle">same content, twice</text>
+
+  <rect x="24" y="116" width="96" height="22" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="m" x="72" y="131" text-anchor="middle">239.10.1.1</text>
+  <rect x="24" y="144" width="96" height="22" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="m" x="72" y="159" text-anchor="middle">239.10.1.2</text>
+
+  <line x1="120" y1="127" x2="196" y2="112" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="196" y1="112" x2="290" y2="112" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="290" y1="112" x2="392" y2="100" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="392" y1="100" x2="500" y2="112" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="500" y1="112" x2="600" y2="120" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="120" y1="155" x2="196" y2="176" stroke="#6b4fbf" stroke-width=".9"/>
+  <line x1="196" y1="176" x2="290" y2="176" stroke="#6b4fbf" stroke-width=".9"/>
+  <line x1="290" y1="176" x2="392" y2="192" stroke="#6b4fbf" stroke-width=".9"/>
+  <line x1="392" y1="192" x2="500" y2="176" stroke="#6b4fbf" stroke-width=".9"/>
+  <line x1="500" y1="176" x2="600" y2="164" stroke="#6b4fbf" stroke-width=".9"/>
+
+  <circle cx="196" cy="112" r="3" fill="#1f4fc0"/>
+  <circle cx="392" cy="100" r="3" fill="#1f4fc0"/>
+  <circle cx="196" cy="176" r="3" fill="#6b4fbf"/>
+  <circle cx="392" cy="192" r="3" fill="#6b4fbf"/>
+  <text class="w" x="398" y="88">path A: different fibre, different transport, different RP</text>
+  <text class="w" x="398" y="214">path B: the other fibre - and it must be a different duct</text>
+
+  <rect x="600" y="62" width="130" height="52" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="b" x="665" y="80" text-anchor="middle">Receiver</text>
+  <text class="w" x="665" y="94" text-anchor="middle">joins both groups</text>
+  <text class="w" x="665" y="106" text-anchor="middle">merges by sequence</text>
+  <rect x="600" y="128" width="130" height="52" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="k" x="612" y="146">WHY IT WORKS</text>
+  <text class="w" x="612" y="160">loss on one leg is a loss of</text>
+  <text class="w" x="612" y="172">nothing: the other copy of</text>
+  <text class="w" x="612" y="186">the same RTP packet already arrived</text>
+
+  <rect x="750" y="62" width="126" height="118" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="k" x="762" y="80">REQUIREMENTS</text>
+  <text class="c" x="762" y="96">1  two physical paths</text>
+  <text class="c" x="762" y="110">2  independent RPs</text>
+  <text class="c" x="762" y="124">3  one group per leg</text>
+  <text class="c" x="762" y="138">4  multi-join receivers</text>
+  <text class="c" x="762" y="152">5  aligned clocks</text>
+  <text class="c" x="762" y="166">6  capacity x2 budgeted</text>
+
+  <rect x="24" y="232" width="852" height="34" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="b" x="36" y="253">The failure mode that voids the design:</text>
+  <text class="c" x="176" y="253">two paths that are logically independent but physically shared - same duct, same optical transport, same trench.</text>
+
+  <text class="k" x="24" y="288">IMPLEMENTATION LAYERS</text>
+  <text class="k" x="24" y="352">FIT BY SERVICE</text>
+
+  <rect x="24" y="296" width="270" height="46" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="312">Application dual send</text>
+  <text class="w" x="34" y="328">network agnostic, receiver must be modified,</text>
+  <text class="w" x="34" y="338">switching is not guaranteed seamless</text>
+
+  <rect x="306" y="296" width="270" height="46" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".7"/>
+  <text class="b" x="316" y="312">SMPTE ST 2022-7</text>
+  <text class="w" x="316" y="328">de-duplicate and merge by RTP sequence,</text>
+  <text class="w" x="316" y="338">zero-loss switching - the industry answer</text>
+
+  <rect x="588" y="296" width="288" height="46" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="598" y="312">Dual NIC / dual decoder</text>
+  <text class="w" x="598" y="328">no protocol change at all, but it doubles the</text>
+  <text class="w" x="598" y="338">terminal cost and the address plan</text>
+
+  <rect x="24" y="362" width="852" height="42" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="c" x="36" y="380">Market data (ms, zero loss) *****     Broadcast TV / live sport *****     Enterprise conferencing **   (SSM plus QoS is enough)     CCTV *   (recording can backfill)</text>
+  <text class="w" x="36" y="396">The stars are not about importance. They are about what a single lost packet costs, compared with what a second path costs.</text>
+
+  <rect x="24" y="416" width="852" height="46" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="435">Design rule: draw the physical route, not the logical topology. A Live-Live diagram that shows two links between the same pair of boxes proves nothing -</text>
+  <text class="c" x="36" y="450">the question is whether they enter the building through the same trench, and that fact lives with facilities, not with the network team.</text>
+</svg>

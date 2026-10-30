@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 386" width="100%" role="img" aria-labelledby="t919 d919">
+  <title id="t919">One-way extranet and shared services: making reachability deliberately asymmetric without new hardware</title>
+  <desc id="d919">Left panel shows a one-way extranet between a customer VRF and a partner VRF. The customer exports a shared-services route target and the partner imports only that target, so the partner can reach the named prefixes while the customer learns nothing from the partner. An arrow marks the direction of the import, which is the whole mechanism. Right panel shows a shared-services VRF serving several customer VRFs: each customer imports the services target, and the services VRF imports every customer target so it can reply. A note explains that the return path is what makes services work, and that it must be limited to the services prefixes. A bottom band lists the three checks for any extranet design: who initiates, which direction needs a return path, and what stops the partner from reaching anything else.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="386" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Extranet is RT direction, not a new device and not a new cable</text>
+  <text class="s" x="24" y="45">The import list is the firewall rule; the export list is what you offer</text>
+
+  <rect x="24" y="60" width="420" height="170" rx="3" fill="#f8fbff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#1f4fc0">One-way extranet</text>
+
+  <rect x="48" y="96" width="130" height="54" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="w" x="60" y="114">VRF customer</text>
+  <text class="c" x="60" y="130">export 100 + 900</text>
+  <text class="c" x="60" y="144">import 100</text>
+
+  <rect x="270" y="96" width="130" height="54" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="w" x="282" y="114">VRF partner</text>
+  <text class="c" x="282" y="130">export 200</text>
+  <text class="c" x="282" y="144" fill="#0f7f73">import 900 only</text>
+
+  <line x1="178" y1="123" x2="270" y2="123" stroke="#0f7f73" stroke-width="1"/>
+  <text class="w" x="192" y="117" fill="#0f7f73">900 &#8594;</text>
+  <line x1="270" y1="138" x2="178" y2="138" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="w" x="196" y="152" fill="#c0392b">200: not imported</text>
+
+  <text class="c" x="48" y="174">The partner reaches the shared prefixes and nothing else.</text>
+  <text class="c" x="48" y="190">The customer learns nothing from the partner in return.</text>
+  <text class="w" x="48" y="212">One import line, and the business relationship is encoded.</text>
+
+  <rect x="460" y="60" width="416" height="170" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="472" y="78" fill="#0f7f73">Shared services</text>
+
+  <rect x="640" y="94" width="120" height="50" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="w" x="652" y="112">VRF services</text>
+  <text class="c" x="652" y="128">export 900</text>
+  <text class="c" x="652" y="140">import 100 + 200</text>
+
+  <rect x="490" y="92" width="110" height="34" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="c" x="500" y="108">VRF A</text>
+  <text class="c" x="500" y="120">import 900</text>
+  <rect x="490" y="146" width="110" height="34" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="c" x="500" y="162">VRF B</text>
+  <text class="c" x="500" y="174">import 900</text>
+
+  <line x1="600" y1="109" x2="640" y2="112" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="640" y1="126" x2="600" y2="120" stroke="#0f7f73" stroke-width=".8" stroke-dasharray="3 3"/>
+  <line x1="600" y1="163" x2="640" y2="130" stroke="#0f7f73" stroke-width=".8"/>
+
+  <text class="c" x="472" y="198">Each customer imports the services target; the services</text>
+  <text class="c" x="472" y="212">VRF imports every customer target, so it can reply.</text>
+
+  <rect x="24" y="240" width="852" height="50" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="258"><tspan style="font-weight:700">The catch:</tspan> a server replies to whoever connects, so the services VRF needs the return path. Limit what it imports to the customer prefixes it serves, and</text>
+  <text class="c" x="36" y="276">remember that this makes the services VRF a possible transit point between customers if its import list is ever widened &#8220;to fix a quick problem&#8221;.</text>
+
+  <rect x="24" y="300" width="852" height="84" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="300" width="4" height="84" fill="#c0392b"/>
+  <text class="c" x="40" y="318" fill="#c0392b"><tspan style="font-weight:700">Three questions before any extranet change:</tspan></text>
+  <text class="c" x="40" y="336" fill="#c0392b">1. Who initiates the session? The initiator needs a route out, the responder needs a route back &#8212; one import line each, not one shared line.</text>
+  <text class="c" x="40" y="352" fill="#c0392b">2. Which prefixes exactly? Importing a whole VRF &#8220;because it is easier&#8221; is how a partner gains a path to every branch you own.</text>
+  <text class="c" x="40" y="368" fill="#c0392b">3. What stops them going further? The RT only controls entry; routing and ACLs inside the VRF must control onward reachability.</text>
+</svg>

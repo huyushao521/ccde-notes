@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t912 d912">
+  <title id="t912">Inter-AS L3VPN options A, B and C: which router holds the VRF, which holds the VPN routes, and what each costs</title>
+  <desc id="d912">Three rows, one per option, each showing the ASBR to ASBR relationship and four facts: VRFs on the ASBR, whether VPNv4 is carried across the boundary, the session count and the operational cost. Option A keeps back-to-back VRFs on the two ASBRs, so no VPN route crosses the AS boundary; it is the easiest to explain and the hardest to scale, since each VPN needs a subinterface and a session on the boundary. Option B carries VPNv4 between the ASBRs, so no per-VRF subinterface is needed, but the ASBR must hold VPN routes and labels for every VPN and is the scaling bottleneck. Option C keeps VPN routes only on the PEs and reflectors, with the ASBR forwarding labelled packets and exchanging labelled IPv4 routes or using a multi-hop session; it scales best and is the hardest to troubleshoot. A bottom band gives the decision rule by number of VRFs and by the trust boundary between the two providers.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Inter-AS: three options, and the trade is always the same one</text>
+  <text class="s" x="24" y="45">A pushes complexity to the boundary, B pushes it onto the ASBR, C pushes it into the design</text>
+
+  <rect x="24" y="60" width="852" height="88" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#0f7f73">Option A &#183; back-to-back VRF on the ASBRs</text>
+  <rect x="120" y="92" width="66" height="24" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="w" x="132" y="108">ASBR-1</text>
+  <rect x="200" y="92" width="66" height="24" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="w" x="212" y="108">ASBR-2</text>
+  <line x1="186" y1="104" x2="200" y2="104" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="w" x="150" y="132">one subinterface + one session per VPN</text>
+  <text class="c" x="300" y="98">+ nothing crosses the boundary that a normal router cannot understand</text>
+  <text class="c" x="300" y="112">+ easiest to explain to a partner, easiest to debug</text>
+  <text class="c" x="300" y="132" fill="#c0392b">&#8722; session and subinterface count grows with VPNs, not with sites</text>
+
+  <rect x="24" y="156" width="852" height="88" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="174" fill="#1f4fc0">Option B &#183; MP-eBGP VPNv4 between the ASBRs</text>
+  <rect x="120" y="188" width="66" height="24" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="w" x="132" y="204">ASBR-1</text>
+  <rect x="200" y="188" width="66" height="24" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="w" x="212" y="204">ASBR-2</text>
+  <line x1="186" y1="200" x2="200" y2="200" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="w" x="150" y="228">one MP-BGP session carries every VPN</text>
+  <text class="c" x="300" y="194">+ no per-VPN subinterface on the boundary</text>
+  <text class="c" x="300" y="208">+ any number of VRFs over a single session</text>
+  <text class="c" x="300" y="228" fill="#c0392b">&#8722; the ASBR holds every VPN route and label: it becomes the scaling limit</text>
+
+  <rect x="24" y="252" width="852" height="88" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="36" y="270" fill="#6b4fbf">Option C &#183; multi-hop MP-eBGP between PEs, ASBR forwards labels only</text>
+  <rect x="120" y="284" width="66" height="24" rx="2" fill="#fff" stroke="#6b4fbf" stroke-width=".6"/>
+  <text class="w" x="132" y="300">ASBR-1</text>
+  <rect x="200" y="284" width="66" height="24" rx="2" fill="#fff" stroke="#6b4fbf" stroke-width=".6"/>
+  <text class="w" x="212" y="300">ASBR-2</text>
+  <line x1="186" y1="296" x2="200" y2="296" stroke="#6b4fbf" stroke-width=".8" stroke-dasharray="3 3"/>
+  <text class="w" x="150" y="324">labelled packets only, no VPN routes here</text>
+  <text class="c" x="300" y="290">+ VPN routes stay on PEs and reflectors: scales furthest</text>
+  <text class="c" x="300" y="304">+ ASBR carries labelled IPv4 under a route-reflector design</text>
+  <text class="c" x="300" y="324" fill="#c0392b">&#8722; two label layers, next-hop-unchanged and RR policy must all be right; hardest to debug</text>
+
+  <rect x="24" y="350" width="852" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="350" width="4" height="44" fill="#c0392b"/>
+  <text class="c" x="40" y="368" fill="#c0392b"><tspan style="font-weight:700">Decision rule:</tspan> a handful of VRFs and an untrusted partner boundary &#8594; A. One provider, many VRFs, one operational team &#8594; B.</text>
+  <text class="c" x="40" y="384" fill="#c0392b">Two large providers or a carrier core with hundreds of VPNs &#8594; C, and budget the engineering time for it.</text>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1303 d1303">
+  <title id="t1303">Layer 2 amplification: what happens to one stream with no snooping, with snooping but no querier, and with a full baseline</title>
+  <desc id="d1303">Three panels. Without IGMP snooping the switch treats the group MAC as unknown and floods one 5 Mbps stream to all 500 access ports, 2.5 Gbps of traffic nobody requested, worst of all over Wi-Fi where multicast is sent at the lowest rate. With snooping but no querier the table ages out every 260 seconds and video breaks periodically even though the configuration looks right. With snooping, a querier, mrouter ports and an mrouter identification method, each stream reaches only the ports that joined. A bottom band notes that Layer 2 failure is more common than Layer 3 failure because the switch has no RPF check to save it.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">One stream, three Layer 2 outcomes</text>
+  <text class="s" x="24" y="45">A switch forwards on MAC. An unknown group MAC is flooded, and multicast is always an unknown MAC to a dumb bridge.</text>
+
+  <rect x="24" y="60" width="276" height="222" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="34" y="76">NO SNOOPING</text>
+  <text class="b" x="34" y="94">Flood the whole VLAN</text>
+  <rect x="34" y="104" width="256" height="96" rx="2" fill="#fff" stroke="#eec7bf" stroke-width=".7"/>
+  <circle cx="58" cy="126" r="9" fill="#fdf0ee" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="54" y="129">S</text>
+  <path d="M67 126 L96 126" stroke="#c0392b" stroke-width=".8"/>
+  <path d="M100 126 L136 108 M100 126 L136 126 M100 126 L136 144" stroke="#c0392b" stroke-width=".7"/>
+  <path d="M140 108 L186 96 M140 108 L186 108 M140 108 L186 120" stroke="#c0392b" stroke-width=".6"/>
+  <path d="M140 126 L186 132 M140 126 L186 144 M140 126 L186 156" stroke="#c0392b" stroke-width=".6"/>
+  <path d="M140 144 L186 168 M140 144 L186 180 M140 144 L186 192" stroke="#c0392b" stroke-width=".6"/>
+  <text class="x" x="192" y="100">500 ports</text>
+  <text class="x" x="192" y="112">all receive it</text>
+  <text class="c" x="192" y="136">hosts filter</text>
+  <text class="c" x="192" y="148">in software</text>
+  <text class="c" x="192" y="172">CPU burns</text>
+  <text class="c" x="192" y="184">airtime burns</text>
+  <text class="c" x="34" y="218">5 Mbps x 500 ports = </text>
+  <text class="x" x="132" y="218">2.5 Gbps</text>
+  <text class="c" x="34" y="232">of traffic that nobody asked for.</text>
+  <text class="c" x="34" y="252">Over Wi-Fi it is worse: multicast is</text>
+  <text class="c" x="34" y="264">sent at the lowest basic rate.</text>
+
+  <rect x="312" y="60" width="276" height="222" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="322" y="76">SNOOPING, NO QUERIER</text>
+  <text class="b" x="322" y="94">The table ages out and comes back</text>
+  <rect x="322" y="104" width="256" height="96" rx="2" fill="#fff" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="c" x="334" y="122">t = 0</text>
+  <text class="c" x="380" y="122">join seen, entry created, video fine</text>
+  <text class="c" x="334" y="142">t = 260 s</text>
+  <text class="c" x="380" y="142">no query, entry expires</text>
+  <text class="c" x="334" y="162">t = 261 s</text>
+  <text class="c" x="380" y="162">stream floods again or stops</text>
+  <text class="c" x="334" y="182">t = 300 s</text>
+  <text class="c" x="380" y="182">host re-reports, it recovers</text>
+  <text class="c" x="322" y="218">Symptom: "it works, then freezes for a</text>
+  <text class="c" x="322" y="230">few seconds, then works again", with no</text>
+  <text class="c" x="322" y="242">configuration change in between.</text>
+  <text class="c" x="322" y="262">Fix: ip igmp snooping querier with the SVI</text>
+  <text class="c" x="322" y="274">address of that VLAN, on every access VLAN.</text>
+
+  <rect x="600" y="60" width="276" height="222" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="610" y="76">FULL BASELINE</text>
+  <text class="b" x="610" y="94">One stream, one path per branch</text>
+  <rect x="610" y="104" width="256" height="96" rx="2" fill="#fff" stroke="#bfe3de" stroke-width=".7"/>
+  <circle cx="634" cy="126" r="9" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="630" y="129">S</text>
+  <path d="M643 126 L672 126" stroke="#0f7f73" stroke-width=".8"/>
+  <path d="M676 126 L712 108 M676 126 L712 126 M676 126 L712 144" stroke="#0f7f73" stroke-width=".7"/>
+  <path d="M716 108 L762 108" stroke="#0f7f73" stroke-width="1"/>
+  <path d="M716 126 L762 126" stroke="#9aa8ba" stroke-width=".6" stroke-dasharray="2 2"/>
+  <path d="M716 144 L762 144" stroke="#9aa8ba" stroke-width=".6" stroke-dasharray="2 2"/>
+  <text class="g" x="768" y="112">joined</text>
+  <text class="c" x="768" y="130">not joined</text>
+  <text class="c" x="768" y="148">not joined</text>
+  <text class="c" x="610" y="218">Four things must all be true:</text>
+  <text class="c" x="610" y="234">snooping on, querier present, mrouter port</text>
+  <text class="c" x="610" y="246">known, and per-port group limits set.</text>
+  <text class="c" x="610" y="266">Leave one out and you get a different,</text>
+  <text class="c" x="610" y="278">equally confusing symptom.</text>
+
+  <rect x="24" y="296" width="852" height="106" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="312">WHY LAYER 2 BREAKS MORE OFTEN THAN LAYER 3</text>
+  <text class="b" x="36" y="330">Layer 3 has a built-in sanity check</text>
+  <text class="c" x="36" y="344">RPF drops the wrong packet at the door.</text>
+  <text class="b" x="36" y="364">Layer 2 has none</text>
+  <text class="c" x="36" y="378">A bridge has no concept of a source tree:</text>
+  <text class="c" x="36" y="390">it only knows MAC addresses and ports.</text>
+  <text class="b" x="336" y="330">The failure looks like the network</text>
+  <text class="c" x="336" y="344">Users report "the video is bad", not "the</text>
+  <text class="c" x="336" y="356">snooping table is empty". Nothing in the</text>
+  <text class="c" x="336" y="368">Layer 3 counters moves at all.</text>
+  <text class="b" x="652" y="330">So make it explicit in the LLD</text>
+  <text class="c" x="652" y="344">Per access VLAN: snooping on, querier</text>
+  <text class="c" x="652" y="356">address, mrouter method, group limit,</text>
+  <text class="c" x="652" y="368">fast-leave policy. Five values, no defaults.</text>
+</svg>

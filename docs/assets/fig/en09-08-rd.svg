@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t908 d908">
+  <title id="t908">The route distinguisher: how eight bytes turn IPv4 into VPNv4, and why it must be unique per PE</title>
+  <desc id="d908">Upper panel shows the conversion: an IPv4 prefix of four bytes gains an eight-byte route distinguisher in front to become a twelve-byte VPNv4 prefix, so two customers with the identical 10.1.0.0/16 produce two different VPNv4 routes. Middle panel gives three allocation models: type 0 with a two-byte AS number and four-byte number, type 1 with a four-byte IP address and two-byte number, and type 2 with a four-byte AS and two-byte number. Lower panel shows the multihoming case: a dual-homed site advertised by two PEs which use the same RD produces one VPNv4 prefix with two paths, so only one is selected; with a unique RD per PE the two become distinct prefixes and both can be installed, which is what makes active-active multihoming possible. A closing note states the rule: RD identifies the advertising router, not the customer.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Eight bytes in front of the prefix: the only thing preventing a global address collision</text>
+  <text class="s" x="24" y="45">RD makes routes unique; RT decides who may use them. Confusing the two is the most common L3VPN error</text>
+
+  <text class="k" x="24" y="70">IPv4 BECOMES VPNv4 BY PREPENDING THE RD</text>
+
+  <rect x="24" y="80" width="120" height="30" rx="1" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="c" x="40" y="99">10.1.0.0/16</text>
+  <text class="w" x="24" y="126">4 bytes &#183; not unique in the world</text>
+
+  <text class="w" x="152" y="99">+</text>
+
+  <rect x="176" y="80" width="140" height="30" rx="1" fill="#fdf9f0" stroke="#c99a2e" stroke-width=".8"/>
+  <text class="c" x="192" y="99">RD 65000:1</text>
+  <text class="w" x="176" y="126">8 bytes &#183; unique per VRF or per PE</text>
+
+  <text class="w" x="324" y="99">=</text>
+
+  <rect x="348" y="80" width="240" height="30" rx="1" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="c" x="366" y="99">65000:1 &#183; 10.1.0.0/16</text>
+  <text class="w" x="348" y="126">12 bytes &#183; globally unique VPNv4 route</text>
+
+  <rect x="612" y="76" width="264" height="58" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="c" x="624" y="94" fill="#0f7f73">Two customers, the same 10.1.0.0/16, two</text>
+  <text class="c" x="624" y="107" fill="#0f7f73">different RDs &#8594; two distinct routes in</text>
+  <text class="c" x="624" y="120" fill="#0f7f73">BGP. Without the RD the second would</text>
+
+  <text class="k" x="24" y="164">THREE FORMATS, ALL EIGHT BYTES</text>
+  <rect x="24" y="172" width="410" height="96" rx="2" fill="#ffffff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="190"><tspan style="font-weight:700">Type 0:</tspan> 2-byte AS : 4-byte number &#8594; 65000:1</text>
+  <text class="c" x="36" y="208"><tspan style="font-weight:700">Type 1:</tspan> 4-byte IP : 2-byte number &#8594; 192.0.2.1:1</text>
+  <text class="c" x="36" y="226"><tspan style="font-weight:700">Type 2:</tspan> 4-byte AS : 2-byte number &#8594; 4200000001:1</text>
+  <text class="w" x="36" y="248">Type 1 uses the loopback address, so it is stable if the AS number changes.</text>
+  <text class="w" x="36" y="261">Whichever you choose, write it down per VRF: a duplicate RD is silent until it is not.</text>
+
+  <text class="k" x="446" y="164">WHY UNIQUENESS PER PE MATTERS: MULTIHOMING</text>
+  <rect x="446" y="172" width="430" height="96" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="c" x="458" y="190" fill="#c0392b"><tspan style="font-weight:700">Same RD on both PEs:</tspan> both advertise 65000:1 10.1.0.0/16.</text>
+  <text class="c" x="458" y="204" fill="#c0392b">BGP sees one prefix with two paths &#8594; best-path picks one.</text>
+  <text class="c" x="458" y="218" fill="#c0392b">The second link carries nothing. Not a bug, just maths.</text>
+  <text class="c" x="458" y="238" fill="#0f7f73"><tspan style="font-weight:700">Unique RD per PE:</tspan> 65000:1 and 65000:2 &#8594; two routes.</text>
+  <text class="c" x="458" y="252" fill="#0f7f73">Both install, so active-active multihoming and per-flow hashing work.</text>
+
+  <rect x="24" y="284" width="852" height="48" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="302"><tspan style="font-weight:700">The rule:</tspan> an RD represents the advertising PE (or VRF on that PE), not the customer. A customer-facing identifier belongs in the RT, where policy can read it.</text>
+  <text class="c" x="36" y="320"><tspan style="font-weight:700">Practical default:</tspan> one RD per VRF per PE, derived from the PE loopback, and recorded in the VRF table of the design document alongside the RTs.</text>
+
+  <rect x="24" y="342" width="852" height="44" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <rect x="24" y="342" width="4" height="44" fill="#b8862b"/>
+  <text class="c" x="40" y="360" fill="#7a5b18"><tspan style="font-weight:700">Failure signature to memorise:</tspan> a prefix from the wrong customer appears in a VRF. The RD was reused across two customers, so one route</text>
+  <text class="c" x="40" y="376" fill="#7a5b18">overwrote the other and the surviving one was imported by an RT that happened to match. RD first, RT second, always in that order.</text>
+</svg>

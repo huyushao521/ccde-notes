@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 566" width="100%" role="img" aria-labelledby="t1028 d1028">
+  <title id="t1028">802.1X in one page: three roles, four methods, four host modes, three deployment modes and the fallback path</title>
+  <desc id="d1028">Top: the roles. The supplicant on the endpoint provides credentials, the authenticator on the switch or access point controls the port state and relays EAP, and the RADIUS server validates and returns authorization attributes. Before authentication the port sits in an isolation VLAN with DHCP, DNS and a remediation server; after success it is moved to the corporate VLAN, optionally with a downloadable ACL and an SGT, and the voice domain authenticates separately. Middle left: four methods - EAP-TLS with mutual certificates is the strongest and needs PKI, PEAP-MSCHAPv2 is the common compromise and is vulnerable to offline password cracking and evil twin access points, EAP-FAST or TEAP is a middle path, and MAB uses a forgeable MAC and exists only for devices that cannot run a supplicant. Middle right: four host modes - multi-auth authenticates each MAC independently and is the weakest, multi-domain gives one data and one voice domain and is the usual choice for a phone with a PC behind it, multi-host lets the first authentication open the port for everything behind it and is not recommended, and single-host allows exactly one MAC. Lower: three deployment modes in sequence - monitor for one to three months to discover what does not support 802.1X, low impact where unauthenticated traffic reaches only a restricted VLAN, and closed where unauthenticated means no connectivity. Bottom: four lessons - automate the MAC whitelist from DHCP or IPAM, measure authentication latency and not only reachability, design the RADIUS-down fallback before go-live, and give exceptional devices a restricted VLAN as a home.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar28" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+    <marker id="ar28g" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">802.1X: the only control that moves "can I connect" from the cable to an identity</text>
+  <text class="s" x="24" y="45">Three roles, four methods, four host modes, three deployment modes - and one fallback nobody designs until RADIUS is down</text>
+
+  <!-- Roles -->
+  <rect x="24" y="60" width="852" height="130" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">THREE ROLES, TWO PROTOCOLS</text>
+
+  <rect x="36" y="88" width="200" height="52" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="46" y="104">Supplicant · endpoint</text>
+  <text class="c" x="46" y="117">Holds the credential: certificate or</text>
+  <text class="c" x="46" y="129">username/password. Cannot open the port</text>
+
+  <rect x="350" y="88" width="200" height="52" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="360" y="104">Authenticator · switch / AP</text>
+  <text class="c" x="360" y="117">Controls the port, relays EAP, applies</text>
+  <text class="c" x="360" y="129">the authorization result to the session</text>
+
+  <rect x="664" y="88" width="200" height="52" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="674" y="104">Server · RADIUS / ISE</text>
+  <text class="c" x="674" y="117">Validates, then returns VLAN, dACL, SGT,</text>
+  <text class="c" x="674" y="129">session timeout and re-auth timer</text>
+
+  <line x1="236" y1="114" x2="346" y2="114" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar28)"/>
+  <text class="w" x="291" y="107" text-anchor="middle">EAPOL · layer 2</text>
+  <line x1="346" y1="126" x2="240" y2="126" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar28)" stroke-dasharray="3 2"/>
+  <line x1="550" y1="114" x2="660" y2="114" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar28)"/>
+  <text class="w" x="605" y="107" text-anchor="middle">RADIUS · over IP</text>
+  <line x1="660" y1="126" x2="554" y2="126" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar28)" stroke-dasharray="3 2"/>
+
+  <rect x="36" y="148" width="400" height="34" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="x" x="46" y="163">Before: port in an isolation VLAN</text>
+  <text class="c" x="46" y="176">DHCP, DNS and a remediation server - nothing else</text>
+
+  <line x1="440" y1="165" x2="466" y2="165" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar28g)"/>
+  <text class="w" x="453" y="158" text-anchor="middle">auth</text>
+
+  <rect x="470" y="148" width="394" height="34" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="480" y="163">After: corporate VLAN + dACL + SGT</text>
+  <text class="c" x="480" y="176">The authorization result, not the port, becomes the policy</text>
+
+  <!-- Methods -->
+  <rect x="24" y="200" width="440" height="158" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="36" y="218" fill="#5b4a86">METHOD CHOICE · WHAT YOU ARE TRUSTING</text>
+
+  <rect x="36" y="226" width="416" height="20" fill="#2b3446"/>
+  <text class="th" x="44" y="240">METHOD</text>
+  <text class="th" x="140" y="240">CREDENTIAL</text>
+  <text class="th" x="250" y="240">WEAKNESS</text>
+
+  <rect x="36" y="246" width="416" height="26" fill="#ffffff"/>
+  <text class="g" x="44" y="263">EAP-TLS</text>
+  <text class="c" x="140" y="257">mutual certificates</text>
+  <text class="c" x="140" y="269">needs PKI + enrolment</text>
+  <text class="c" x="250" y="263">no secret to steal · corporate devices</text>
+
+  <rect x="36" y="272" width="416" height="26" fill="#ffffff"/>
+  <text class="b" x="44" y="289">PEAP-MSCHAPv2</text>
+  <text class="c" x="140" y="283">password, server cert</text>
+  <text class="c" x="250" y="283">offline cracking, evil twin AP</text>
+  <text class="c" x="250" y="295">the usual compromise · employee BYOD</text>
+
+  <rect x="36" y="298" width="416" height="26" fill="#ffffff"/>
+  <text class="b" x="44" y="315">EAP-FAST / TEAP</text>
+  <text class="c" x="140" y="309">password + tunnel</text>
+  <text class="c" x="140" y="321">PAC provisioning</text>
+  <text class="c" x="250" y="315">when tunnel binding is required</text>
+
+  <rect x="36" y="324" width="416" height="26" fill="#ffffff"/>
+  <text class="x" x="44" y="341">MAB</text>
+  <text class="c" x="140" y="335">MAC address only</text>
+  <text class="c" x="140" y="347">MAC is trivially forged</text>
+  <text class="c" x="250" y="341">only for devices with no supplicant</text>
+
+  <!-- Host modes -->
+  <rect x="476" y="200" width="400" height="158" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="488" y="218">HOST MODE · HOW MANY IDENTITIES PER PORT</text>
+
+  <rect x="488" y="226" width="376" height="20" fill="#2b3446"/>
+  <text class="th" x="496" y="240">MODE</text>
+  <text class="th" x="588" y="240">ALLOWS</text>
+  <text class="th" x="700" y="240">VERDICT</text>
+
+  <rect x="488" y="246" width="376" height="26" fill="#ffffff"/>
+  <text class="b" x="496" y="263">multi-auth</text>
+  <text class="c" x="588" y="263">each MAC authenticates alone</text>
+  <text class="c" x="700" y="263">weakest - a hub of identities</text>
+
+  <rect x="488" y="272" width="376" height="26" fill="#eef7f5"/>
+  <text class="g" x="496" y="289">multi-domain</text>
+  <text class="c" x="588" y="289">one data + one voice domain</text>
+  <text class="c" x="700" y="289">the usual choice: phone + PC</text>
+
+  <rect x="488" y="298" width="376" height="26" fill="#ffffff"/>
+  <text class="x" x="496" y="315">multi-host</text>
+  <text class="c" x="588" y="315">first auth opens everything</text>
+  <text class="c" x="700" y="315">not recommended at all</text>
+
+  <rect x="488" y="324" width="376" height="26" fill="#ffffff"/>
+  <text class="b" x="496" y="341">single-host</text>
+  <text class="c" x="588" y="341">exactly one MAC</text>
+  <text class="c" x="700" y="341">single-occupancy positions</text>
+
+  <!-- Deployment modes -->
+  <rect x="24" y="368" width="852" height="96" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="386" fill="#0f7f73">DEPLOYMENT MODES · A SEQUENCE, NOT A CHOICE</text>
+
+  <rect x="36" y="394" width="256" height="58" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="46" y="410">1 · Monitor - 1 to 3 months</text>
+  <text class="c" x="46" y="424">Logs only, nothing is blocked. This is how you</text>
+  <text class="c" x="46" y="436">discover the 1,200 devices that do not support it</text>
+  <text class="w" x="46" y="447">skip this phase and they discover you instead</text>
+
+  <line x1="296" y1="423" x2="316" y2="423" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar28g)"/>
+
+  <rect x="320" y="394" width="256" height="58" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="330" y="410">2 · Low impact</text>
+  <text class="c" x="330" y="424">Unauthenticated traffic lands in a restricted VLAN</text>
+  <text class="c" x="330" y="436">with DHCP, DNS and the remediation server</text>
+  <text class="w" x="330" y="447">users keep working, the exception has a home</text>
+
+  <line x1="580" y1="423" x2="600" y2="423" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar28g)"/>
+
+  <rect x="604" y="394" width="260" height="58" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="614" y="410">3 · Closed</text>
+  <text class="c" x="614" y="424">No authentication, no connectivity. The end state,</text>
+  <text class="c" x="614" y="436">and the one that needs the fallback designed first</text>
+  <text class="w" x="614" y="447">RADIUS down must not mean building down</text>
+
+  <!-- Lessons -->
+  <rect x="24" y="474" width="852" height="76" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="492" fill="#9a7d28">FOUR LESSONS FROM THE 300 PRINTERS THAT WENT OFFLINE ON DAY ONE</text>
+  <g>
+    <rect x="36" y="500" width="196" height="42" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="b" x="46" y="516">Whitelists rot</text>
+    <text class="c" x="46" y="530">Generate MAB from DHCP/IPAM;</text>
+    <text class="w" x="46" y="539">a hand-kept list is wrong in 6 months</text>
+  </g>
+  <g>
+    <rect x="246" y="500" width="196" height="42" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="b" x="256" y="516">Latency is a feature</text>
+    <text class="c" x="256" y="530">30 s of dot1x before MAB fallback</text>
+    <text class="w" x="256" y="539">looks like "the network is broken"</text>
+  </g>
+  <g>
+    <rect x="456" y="500" width="196" height="42" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="b" x="466" y="516">Design the fallback</text>
+    <text class="c" x="466" y="530">authentication critical, or a</text>
+    <text class="w" x="466" y="539">time-limited open mode with a ticket</text>
+  </g>
+  <g>
+    <rect x="666" y="500" width="198" height="42" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="b" x="676" y="516">Exceptions need a home</text>
+    <text class="c" x="676" y="530">Not "whitelist", not "nothing" -</text>
+    <text class="w" x="676" y="539">a restricted VLAN that fits them</text>
+  </g>
+
+  <text class="w" x="24" y="562">Admission control is a process design with a protocol attached: the protocol is the easy half, and the 300 printers are the rest of it.</text>
+</svg>

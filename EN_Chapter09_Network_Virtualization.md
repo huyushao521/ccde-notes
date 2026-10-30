@@ -26,6 +26,8 @@
 
 ## Chapter Introduction: What Exactly Is Being Virtualized · 本章导读：虚拟化到底在虚拟化什么
 
+![Three virtualization threads and the three debts each one creates](assets/fig/en09-01-three-threads.svg)
+
 Many people memorize "network virtualization" as a string of acronyms (MPLS, VRF, VXLAN, SD-WAN) and end up more confused the more they study. In reality there are only **three main threads**, and every technology is a different implementation of those three:
 
 <div class="zh" markdown="1">
@@ -110,6 +112,8 @@ For the **enterprise side**, the value of MPLS is not "label forwarding is faste
 
 ### MPLS Architecture Components · MPLS 架构组件
 
+![CE, PE and P: who knows what, and the three isolation boundaries](assets/fig/en09-02-ce-pe-p.svg)
+
 | Component | Definition | Function |
 |------|------|------|
 | **CE (customer edge)** | Customer-side device | Connects to the PE and exchanges routes |
@@ -135,6 +139,8 @@ For the **enterprise side**, the value of MPLS is not "label forwarding is faste
 </div>
 
 ### MPLS Forwarding Plane · MPLS 转发平面
+
+![The label stack hop by hop, with the LIB and LFIB behind it](assets/fig/en09-03-label-path.svg)
 
 | Label type | Function | Where it is pushed |
 |---------|------|---------|
@@ -163,6 +169,8 @@ CE1 → PE1 [压入 VPN 标签 + 传输标签] → P1 [交换传输标签] → P
 </div>
 
 #### Bit-Level Structure of the Label Stack (Needed for Troubleshooting) · 标签栈的位级结构（排障时要用到）
+
+![The 32-bit label field by field, and the two reserved labels](assets/fig/en09-04-label-bits.svg)
 
 Every label is **4 bytes (32 bits)**:
 
@@ -210,6 +218,8 @@ The two reserved labels you will use most:
 
 #### The PHP Design Trade-off · PHP 的设计取舍
 
+![PHP as a trade-off between one label operation and QoS visibility](assets/fig/en09-05-php-tradeoff.svg)
+
 | Choice | Benefit | Cost |
 |------|------|------|
 | **Enable PHP (implicit null)** | The egress PE saves one label lookup; the last core hop saves one label operation | The egress PE cannot see the EXP bits, so it cannot use MPLS QoS for congestion management on the last segment |
@@ -254,6 +264,8 @@ Two-step troubleshooting: `show mpls ldp bindings` (the LIB — how labels were 
 
 ### Label Distribution Protocols: Three Approaches · 标签分配协议：三种做法
 
+![Four ways to distribute labels: LDP, RSVP-TE, BGP, segment routing](assets/fig/en09-06-label-distribution.svg)
+
 | Protocol | Who assigns labels | Characteristics | Where it fits |
 |------|-----------|------|------|
 | **LDP** | Follows the IGP and assigns a label to every IGP prefix | Simplest; solves "reachability" but not "constraints" | Carrier cores, basic L3VPN |
@@ -285,6 +297,8 @@ Two-step troubleshooting: `show mpls ldp bindings` (the LIB — how labels were 
 ## MPLS Control Plane Components · MPLS 控制平面组件
 
 ### 1. VRF (Virtual Routing and Forwarding) · VRF (虚拟路由转发)
+
+![A VRF is four objects on one device, and it exists only on the PE](assets/fig/en09-07-vrf.svg)
 
 A VRF is the primary mechanism for maintaining routing isolation at Layer 3 device level. Each PE maintains a separate routing and forwarding instance for every VRF of every customer.
 
@@ -323,6 +337,8 @@ The most easily overlooked design point: **a VRF is a per-hop concept, not an en
 </div>
 
 ### 2. RD (Route Distinguisher) · RD (Route Distinguisher, 路由区分符)
+
+![How eight bytes of RD turn IPv4 into VPNv4, and why it must be unique per PE](assets/fig/en09-08-rd.svg)
 
 | Item | Content |
 |------|-----|
@@ -382,6 +398,8 @@ Why does multihoming need a "unique RD per PE"? Because when the same site adver
 
 ### 3. RT (Route Target) · RT (Route Target, 路由目标)
 
+![Route target import and export: the match that decides whether a route enters a VRF](assets/fig/en09-09-rt.svg)
+
 | Item | Content |
 |------|-----|
 | **Purpose** | Controls which VRFs import/export VPN routes |
@@ -415,6 +433,8 @@ A single VRF can have **multiple import RTs and multiple export RTs** — this i
 </div>
 
 ### 4. MP-BGP (Multiprotocol BGP) · MP-BGP (多协议 BGP)
+
+![Anatomy of a VPNv4 route: the NLRI fields and the attributes that carry policy](assets/fig/en09-10-vpnv4-route.svg)
 
 MP-BGP uses the VPNv4/VPNv6 address families to exchange VPN routes between PEs:
 
@@ -458,6 +478,8 @@ MP-BGP 使用 VPNv4/VPNv6 地址族在 PE 之间交换 VPN 路由：
 
 ### 5. VPNv4 Route Reflection Design (Guaranteed in Real Projects) · VPNv4 的路由反射设计（真实项目必考）
 
+![VPNv4 route reflector design: six rules and the loop-prevention mechanisms](assets/fig/en09-11-rr-design.svg)
+
 As the number of PEs grows, the number of full-mesh VPNv4 iBGP sessions grows as N(N−1)/2. Fifty PEs means 1,225 sessions — unacceptable. VPNv4 therefore requires **RRs (route reflectors)**.
 
 <div class="zh" markdown="1">
@@ -497,6 +519,8 @@ PE 数量一多，VPNv4 的 full mesh iBGP 会话数按 N(N-1)/2 增长。50 个
 </div>
 
 #### The Three Inter-AS VPN Options · Inter-AS VPN 的三种选项
+
+![Inter-AS options A, B and C: where the VRF and the VPN routes live](assets/fig/en09-12-interas.svg)
 
 | Option | Approach | Advantages | Disadvantages |
 |------|------|------|------|
@@ -546,6 +570,8 @@ PE 数量一多，VPNv4 的 full mesh iBGP 会话数按 N(N-1)/2 增长。50 个
 
 ### Special Handling of OSPF as PE-CE · OSPF 作为 PE-CE 的特殊处理
 
+![The three OSPF PE-CE mechanisms: DN bit, domain ID and sham link](assets/fig/en09-13-ospf-pec.svg)
+
 | Mechanism | Function |
 |------|------|
 | **DN bit (down bit)** | Prevents routes learned from MPLS from being redistributed back into MPLS (loop prevention) |
@@ -563,6 +589,8 @@ PE 数量一多，VPNv4 的 full mesh iBGP 会话数按 N(N-1)/2 增长。50 个
 </div>
 
 #### How the DN Bit Works (You Must Understand It at This Level) · DN 位的工作机制（必须理解到这一层）
+
+![How the DN bit stops a re-injection loop, and what a domain ID mismatch does](assets/fig/en09-14-dn-bit.svg)
 
 1. When a PE **redistributes a VPN route learned from BGP into OSPF** (as a Type 3 summary or a Type 5 external LSA), it **sets the DN bit** in the LSA's Options field
 2. When another PE receives an LSA with the DN bit set on a VRF interface, it **refuses to install it in the OSPF database and does not redistribute it back into BGP**
@@ -585,6 +613,8 @@ PE 数量一多，VPNv4 的 full mesh iBGP 会话数按 N(N-1)/2 增长。50 个
 </div>
 
 #### The Design Significance of the Sham Link · Sham Link 的设计意义
+
+![Why a backdoor link beats the VPN path, and how a sham link restores parity](assets/fig/en09-15-sham-link.svg)
 
 By default, routes learned through MPLS look like **inter-area (Type 3) or external (Type 5)** to the CE, while routes learned over a backdoor link are **intra-area (Type 1/2)**. OSPF's preference order is **intra > inter > external**, so the **backdoor link always wins** — even if it is a 10M microwave link while MPLS is a 1G fiber.
 
@@ -632,6 +662,8 @@ Preconditions (all three are mandatory): the two sham-link endpoints (/32) are *
 
 ### EIGRP SoO (Site of Origin)
 
+![Site of origin: the community that stops a site learning its own prefix back](assets/fig/en09-16-soo.svg)
+
 > ⚠️ When a site has both an MPLS VPN link and a backdoor link, EIGRP SoO prevents routing loops and route racing.
 
 <div class="zh" markdown="1">
@@ -657,6 +689,8 @@ Going a step further, EIGRP also has a **cost community** mechanism, used to for
 </div>
 
 ### The Three Keys for BGP as PE-CE · BGP 作为 PE-CE 的三把钥匙
+
+![BGP as PE-CE: as-override, allowas-in and site of origin side by side](assets/fig/en09-17-bgp-keys.svg)
 
 | Scenario | Problem | Solution |
 |------|------|------|
@@ -705,6 +739,8 @@ Going a step further, EIGRP also has a **cost community** mechanism, used to for
 </div>
 
 ### How to Design RTs Without Going Wrong (the Core Methodology) · RT 怎么设计才不出错（核心方法论）
+
+![The three RT topologies written out as import and export tables](assets/fig/en09-18-rt-design.svg)
 
 **Remember one rule: whether a route gets through depends only on "whether the receiver's import RT includes the export RT attached by the sender".** It has nothing to do with the RD, with which PE, or with the topology.
 
@@ -826,6 +862,8 @@ Two options, each with a cost:
 
 ### Extranet and Shared Services · Extranet 与共享服务
 
+![One-way extranet and shared services without new hardware](assets/fig/en09-19-extranet.svg)
+
 | Model | RT design | Typical use |
 |------|--------|---------|
 | **Shared services VRF** | The service VRF exports `65000:999`; every business VRF imports `65000:999`; the service VRF imports each business's RT (one-way or two-way) | Shared DNS/DHCP/NTP, shared data center servers |
@@ -851,6 +889,8 @@ Two options, each with a cost:
 </div>
 
 ### Route Summarization Is the Key to L3VPN Scalability · 路由汇总是 L3VPN 可扩展性的关键
+
+![Summarization as the only real scalability lever, and where to apply it](assets/fig/en09-20-summarization.svg)
 
 Every VRF on a PE must hold a complete routing table. Number of sites × routes per site = FIB pressure on the PE.
 
@@ -898,6 +938,8 @@ PE 上每个 VRF 都要保存一份完整路由表。站点数 × 每站点路�
 
 ### The Three Structural Flaws of VPLS (Why It Is Not Recommended for New Builds) · VPLS 的三个结构性缺陷（为什么不推荐新建）
 
+![The three structural flaws of VPLS, and where VPWS, VPLS and EVPN belong](assets/fig/en09-21-vpls-flaws.svg)
+
 1. **MAC learning relies on data-plane flooding**: unknown unicast, broadcast, and multicast (BUM) are all flooded, so at scale the core bandwidth is eaten by flooding
 2. **Full-mesh pseudowires**: N sites require N(N−1)/2 PWs, so the number of PWs on a PE grows with the square of the site count
 3. **Multihoming is difficult**: when a site is dual-homed to two PEs, **one link must be blocked** (loop prevention), so active/active is impossible and convergence depends on STP timers
@@ -911,6 +953,8 @@ PE 上每个 VRF 都要保存一份完整路由表。站点数 × 每站点路�
 </div>
 
 ### Why EVPN Replaces VPLS · EVPN 为什么取代 VPLS
+
+![EVPN against VPLS on five dimensions, and the five route types](assets/fig/en09-22-evpn.svg)
 
 | Dimension | VPLS | EVPN |
 |------|------|------|
@@ -973,6 +1017,8 @@ PE 上每个 VRF 都要保存一份完整路由表。站点数 × 每站点路�
 ## MPLS Traffic Engineering (MPLS TE) and Alternatives · MPLS 流量工程 (MPLS TE) 与替代路线
 
 ### Why TE Is Needed · 为什么需要 TE
+
+![Why traffic engineering exists, what it buys, and what it costs](assets/fig/en09-23-te.svg)
 
 The IGP's shortest path algorithm (SPF) looks only at topology, never at bandwidth. The classic **10:1 bandwidth mismatch**: a 1G link and a 10G link are equal (same cost), so SPF splits traffic 50/50 — the 1G link is instantly congested while the 10G link sits empty.
 
@@ -1067,6 +1113,8 @@ IGP 的最短路径算法（SPF）只看拓扑，不看带宽。经典的 **10:1
 </div>
 
 ### Extra Overhead of Common Encapsulations · 常见封装的额外开销
+
+![Encapsulation overhead by method, and the three ways to handle the MTU debt](assets/fig/en09-24-mtu.svg)
 
 | Encapsulation | Extra overhead (bytes) | Notes |
 |------|----------------|------|

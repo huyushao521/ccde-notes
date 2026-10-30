@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1037 d1037">
+  <title id="t1037">Three routes to data centre micro-segmentation - fabric, host, and hybrid - and how to choose between them</title>
+  <desc id="d1037">Top: the traffic argument. Most east-west traffic never leaves the data centre, so if the security budget went into north-south egress firewalls while the inside of the data centre is one large VLAN, the real exposure sits exactly where nothing is watching. Middle: three routes. The network side enforces policy in the fabric with EPG and ACI or VXLAN security groups, which suits new data centres and private cloud but binds the design to one vendor architecture and carries a high migration cost. The host side enforces policy in the operating system kernel through an agent, eBPF or a container CNI, which suits virtualisation and container-heavy estates and hybrid cloud, but requires agents and covers neither bare metal nor network devices. The hybrid route - coarse segmentation at the east-west entry in the fabric, fine segmentation inside the host - is the most realistic answer and costs a mapping between two policy systems. Bottom: the three questions that decide it - is there bare metal or appliances that cannot run an agent; who owns the policy, the network team or the application team; and when one intent has two sources of truth, which system wins. A closing note says the hybrid route only works if the two policy systems have a documented precedence rule, otherwise incident response starts by guessing which layer blocked the flow.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">The data centre: most of the traffic never crosses the firewall you bought</text>
+  <text class="s" x="24" y="45">East-west inside the fabric is the bulk of the volume, and it is also where lateral movement lives</text>
+
+  <!-- Traffic argument -->
+  <rect x="24" y="60" width="852" height="72" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="78" fill="#9a7d28">WHERE THE VOLUME ACTUALLY GOES</text>
+  <rect x="36" y="86" width="596" height="20" rx="2" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".6"/>
+  <text class="x" x="334" y="100" text-anchor="middle">east-west inside the data centre - server to server, pod to pod, VM to VM</text>
+  <rect x="636" y="86" width="130" height="20" rx="2" fill="#d8ece7" stroke="#a9cfc6" stroke-width=".6"/>
+  <text class="g" x="701" y="100" text-anchor="middle">north-south</text>
+  <rect x="770" y="86" width="94" height="20" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="w" x="817" y="100" text-anchor="middle">internet</text>
+  <text class="c" x="36" y="124">If the investment is all in the small green bar while the red bar is one large VLAN, the exposure is exactly where nothing is watching.</text>
+
+  <!-- Three routes -->
+  <rect x="24" y="146" width="276" height="184" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="164">ROUTE 1 · NETWORK SIDE</text>
+  <text class="b" x="36" y="184">EPG / ACI · VXLAN + security groups</text>
+  <text class="c" x="36" y="200">Policy enforced in the fabric, in front of</text>
+  <text class="c" x="36" y="212">the workload, independent of the OS</text>
+  <text class="g" x="36" y="232">Fits: new data centres, private cloud,</text>
+  <text class="g" x="36" y="244">a greenfield fabric decision</text>
+  <text class="x" x="36" y="264">Cost: bound to one vendor architecture,</text>
+  <text class="x" x="36" y="276">high migration cost, needs a fabric team</text>
+  <text class="w" x="36" y="298">Contract question: what happens to policy</text>
+  <text class="w" x="36" y="310">when we leave this architecture?</text>
+  <text class="w" x="36" y="322">Answer it before signing, not after.</text>
+
+  <rect x="312" y="146" width="276" height="184" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="324" y="164" fill="#5b4a86">ROUTE 2 · HOST SIDE</text>
+  <text class="b" x="324" y="184">agent · eBPF · container CNI</text>
+  <text class="c" x="324" y="200">Policy enforced in the kernel, next to the</text>
+  <text class="c" x="324" y="212">process, following the workload anywhere</text>
+  <text class="g" x="324" y="232">Fits: virtualisation and container dense,</text>
+  <text class="g" x="324" y="244">hybrid and multi-cloud estates</text>
+  <text class="x" x="324" y="264">Cost: an agent on every host; covers</text>
+  <text class="x" x="324" y="276">neither bare metal nor network devices</text>
+  <text class="w" x="324" y="298">The uncovered bare-metal box is usually the</text>
+  <text class="w" x="324" y="310">database that matters most - plan a</text>
+  <text class="w" x="324" y="322">network-side island around it</text>
+
+  <rect x="600" y="146" width="276" height="184" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="612" y="164" fill="#0f7f73">ROUTE 3 · HYBRID</text>
+  <text class="b" x="612" y="184">coarse in the fabric, fine in the host</text>
+  <text class="c" x="612" y="200">East-west entry point segmented by the</text>
+  <text class="c" x="612" y="212">network; inside the host the policy is fine</text>
+  <text class="g" x="612" y="232">Fits: almost every real migration - it</text>
+  <text class="g" x="612" y="244">lets the network and platform teams move</text>
+  <text class="g" x="612" y="256">at their own pace</text>
+  <text class="x" x="612" y="276">Cost: a mapping between two policy</text>
+  <text class="x" x="612" y="288">systems, and a precedence rule nobody</text>
+  <text class="x" x="612" y="300">wants to write</text>
+  <text class="w" x="612" y="320">Write the precedence rule anyway.</text>
+
+  <!-- Decision -->
+  <rect x="24" y="342" width="852" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="360" fill="#b0452f">THREE QUESTIONS THAT DECIDE WHICH ROUTE YOU ARE ACTUALLY ON</text>
+  <g>
+    <circle cx="44" cy="378" r="6.5" fill="#c0392b"/>
+    <text class="w" x="44" y="381" text-anchor="middle" fill="#ffffff">1</text>
+    <text class="c" x="58" y="381">Is there bare metal or an appliance that cannot run an agent? Then the network side must cover it.</text>
+  </g>
+  <g>
+    <circle cx="44" cy="396" r="6.5" fill="#c0392b"/>
+    <text class="w" x="44" y="399" text-anchor="middle" fill="#ffffff">2</text>
+    <text class="c" x="58" y="399">Who owns the intent - the network team or the application team? Ownership follows the change process.</text>
+  </g>
+  <g>
+    <circle cx="456" cy="378" r="6.5" fill="#c0392b"/>
+    <text class="w" x="456" y="381" text-anchor="middle" fill="#ffffff">3</text>
+    <text class="c" x="470" y="381">When both layers can block a flow, which one wins? Undocumented, this is the first hour of every incident.</text>
+  </g>
+
+  <text class="w" x="24" y="428">The hybrid route is not a compromise - it is the only route that admits the two teams deploy at different speeds. What it must not be is undocumented.</text>
+</svg>

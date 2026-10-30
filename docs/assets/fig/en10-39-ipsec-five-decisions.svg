@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t1039 d1039">
+  <title id="t1039">The five IPsec decisions that must be settled before deployment, and the protocol-mode matrix that explains them</title>
+  <desc id="d1039">Top: five decision cards. One, protocol - AH, ESP or both - with ESP recommended because AH neither encrypts nor passes NAT, leaving almost no scenario for it. Two, mode - transport or tunnel - with tunnel recommended for site to site, since transport only fits host to host with no NAT in between. Three, IKE version - IKEv1 or IKEv2 - with IKEv2 recommended for MOBIKE support, fewer round trips and clearer error codes. Four, crypto suite - DES, 3DES, AES-CBC or AES-GCM - with AES-256-GCM recommended because it encrypts and authenticates in one pass with better performance. Five, PFS on or off with a DH group of at least fourteen - PFS must be on, because a leaked master key otherwise decrypts historical traffic. Bottom: the combination matrix. AH transport and AH tunnel authenticate without encrypting, keep the original IP header and cannot pass NAT, so they have almost no use. ESP transport encrypts, authenticates, keeps the original header and passes NAT only with NAT-T, which fits host to host on top of GRE or L2TP. ESP tunnel encrypts, authenticates, replaces the original header and passes NAT with NAT-T, which makes it the only mainstream choice for site to site and remote access. The footer notes that getting these five wrong usually produces a tunnel that does not come up or a performance collapse rather than an insecure tunnel.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">IPsec: five decisions, and getting them wrong usually means "it does not work", not "it is insecure"</text>
+  <text class="s" x="24" y="45">Settle all five in the design document. Half of them settled at the CLI on a Friday evening is how tunnels get rebuilt twice</text>
+
+  <!-- five cards -->
+  <rect x="24" y="60" width="160" height="152" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="34" y="78" fill="#0f7f73">① PROTOCOL</text>
+  <text class="w" x="34" y="96">AH · ESP · AH+ESP</text>
+  <text class="g" x="34" y="116">→ ESP</text>
+  <text class="c" x="34" y="134">AH does not encrypt</text>
+  <text class="c" x="34" y="146">and does not pass NAT.</text>
+  <text class="c" x="34" y="158">There is almost no</text>
+  <text class="c" x="34" y="170">scenario left for it.</text>
+  <text class="w" x="34" y="192">Legacy-only decision</text>
+
+  <rect x="192" y="60" width="160" height="152" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="202" y="78" fill="#0f7f73">② MODE</text>
+  <text class="w" x="202" y="96">transport · tunnel</text>
+  <text class="g" x="202" y="116">→ tunnel</text>
+  <text class="c" x="202" y="134">Transport only fits host</text>
+  <text class="c" x="202" y="146">to host with no NAT in</text>
+  <text class="c" x="202" y="158">between - which is the</text>
+  <text class="c" x="202" y="170">rare case, not the rule.</text>
+  <text class="w" x="202" y="192">Site to site: always tunnel</text>
+
+  <rect x="360" y="60" width="160" height="152" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="370" y="78" fill="#0f7f73">③ IKE VERSION</text>
+  <text class="w" x="370" y="96">IKEv1 · IKEv2</text>
+  <text class="g" x="370" y="116">→ IKEv2</text>
+  <text class="c" x="370" y="134">MOBIKE, fewer round</text>
+  <text class="c" x="370" y="146">trips, clearer error</text>
+  <text class="c" x="370" y="158">codes and real identity</text>
+  <text class="c" x="370" y="170">options.</text>
+  <text class="w" x="370" y="192">Faster to debug matters</text>
+
+  <rect x="528" y="60" width="160" height="152" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="538" y="78" fill="#0f7f73">④ CRYPTO SUITE</text>
+  <text class="w" x="538" y="96">DES · 3DES · CBC · GCM</text>
+  <text class="g" x="538" y="116">→ AES-256-GCM</text>
+  <text class="c" x="538" y="134">GCM encrypts and</text>
+  <text class="c" x="538" y="146">authenticates in one</text>
+  <text class="c" x="538" y="158">pass, and is faster than</text>
+  <text class="c" x="538" y="170">CBC plus HMAC.</text>
+  <text class="w" x="538" y="192">CBC + SHA-256 if needed</text>
+
+  <rect x="696" y="60" width="180" height="152" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="706" y="78" fill="#b0452f">⑤ PFS</text>
+  <text class="w" x="706" y="96">on · off</text>
+  <text class="g" x="706" y="116">→ on, DH group ≥ 14</text>
+  <text class="c" x="706" y="134">With PFS off, one</text>
+  <text class="c" x="706" y="146">leaked master key</text>
+  <text class="c" x="706" y="158">decrypts historical</text>
+  <text class="c" x="706" y="170">traffic, retroactively.</text>
+  <text class="x" x="706" y="192">The one nobody rechecks</text>
+
+  <!-- matrix -->
+  <rect x="24" y="222" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="238">COMBINATION</text>
+  <text class="th" x="220" y="238">ENCRYPTS</text>
+  <text class="th" x="320" y="238">AUTHENTICATES</text>
+  <text class="th" x="444" y="238">ORIGINAL IP HEADER</text>
+  <text class="th" x="600" y="238">PASSES NAT</text>
+  <text class="th" x="700" y="238">USE</text>
+
+  <rect x="24" y="246" width="852" height="34" fill="#ffffff"/>
+  <text class="b" x="40" y="267">AH transport</text>
+  <text class="x" x="220" y="267">no</text>
+  <text class="g" x="320" y="267">yes</text>
+  <text class="g" x="444" y="267">kept</text>
+  <text class="x" x="600" y="267">no</text>
+  <text class="w" x="700" y="267">almost none (historical)</text>
+
+  <rect x="24" y="280" width="852" height="34" fill="#f7f9fc"/>
+  <text class="b" x="40" y="301">AH tunnel</text>
+  <text class="x" x="220" y="301">no</text>
+  <text class="g" x="320" y="301">yes</text>
+  <text class="g" x="444" y="301">kept</text>
+  <text class="x" x="600" y="301">no</text>
+  <text class="w" x="700" y="301">almost none</text>
+
+  <rect x="24" y="314" width="852" height="34" fill="#ffffff"/>
+  <text class="b" x="40" y="335">ESP transport</text>
+  <text class="g" x="220" y="335">yes</text>
+  <text class="g" x="320" y="335">yes</text>
+  <text class="g" x="444" y="335">kept</text>
+  <text class="c" x="600" y="335">NAT-T only</text>
+  <text class="c" x="700" y="335">host to host over GRE / L2TP</text>
+
+  <rect x="24" y="348" width="852" height="34" fill="#eef7f5"/>
+  <text class="b" x="40" y="369">ESP tunnel</text>
+  <text class="g" x="220" y="369">yes</text>
+  <text class="g" x="320" y="369">yes</text>
+  <text class="c" x="444" y="369">replaced</text>
+  <text class="g" x="600" y="369">yes, with NAT-T</text>
+  <text class="g" x="700" y="369">site to site and remote access</text>
+
+  <rect x="24" y="392" width="852" height="30" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="411">Read the table this way:</text>
+  <text class="c" x="176" y="411">the last row is the only mainstream choice, and every other row exists to explain why the argument is already over.</text>
+
+  <text class="w" x="24" y="436">Deployment note: the parameters must match on both ends, including the DH group. Mismatched PFS settings are the most common cause of a tunnel that rekeys every few minutes and never stays up.</text>
+</svg>

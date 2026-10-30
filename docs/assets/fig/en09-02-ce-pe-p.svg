@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="100%" role="img" aria-labelledby="t902 d902">
+  <title id="t902">CE, PE and P: who knows what, and the three isolation boundaries in an L3VPN</title>
+  <desc id="d902">Topology of CE1, PE1, two P routers, PE2, CE2 with a table underneath naming what each role holds. The CE exchanges routes and has no VRF at all. The PE holds VRFs, exchanges VPN routes and pushes and pops labels. The P router switches transport labels only and never sees a customer route. A right-hand panel lists the three isolation boundaries: on the CE side by physical interface or subinterface, on the PE side by VRF and route target, and in the P network by nothing at all, since P routers do not know VRFs exist. A closing note says routing policy, ACLs and QoS classification must all be completed at the PE boundary, because inside the core there is nothing of the customer to anchor on.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="420" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three roles, three levels of knowledge &#8212; and the isolation only happens at one of them</text>
+  <text class="s" x="24" y="45">If you remember one thing: the P router has never heard of your VPN</text>
+
+  <rect x="32" y="70" width="86" height="30" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="54" y="89">CE1</text>
+  <rect x="152" y="70" width="92" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="176" y="89">PE1</text>
+  <rect x="290" y="70" width="70" height="30" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="314" y="89">P1</text>
+  <rect x="398" y="70" width="70" height="30" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="422" y="89">P2</text>
+  <rect x="506" y="70" width="92" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="530" y="89">PE2</text>
+  <rect x="636" y="70" width="86" height="30" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="658" y="89">CE2</text>
+
+  <line x1="118" y1="85" x2="152" y2="85" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="244" y1="85" x2="290" y2="85" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="360" y1="85" x2="398" y2="85" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="468" y1="85" x2="506" y2="85" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="598" y1="85" x2="636" y2="85" stroke="#9aa8ba" stroke-width=".9"/>
+
+  <text class="w" x="126" y="79">route</text>
+  <text class="w" x="252" y="79">label</text>
+  <text class="w" x="364" y="79">swap</text>
+  <text class="w" x="472" y="79">swap</text>
+  <text class="w" x="602" y="79">pop</text>
+
+  <rect x="32" y="118" width="240" height="72" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="44" y="136">CE &#8212; customer edge</text>
+  <text class="c" x="44" y="152">Has <tspan style="font-weight:700">no VRF at all</tspan>. Exchanges routes</text>
+  <text class="c" x="44" y="165">with the PE and knows nothing about</text>
+  <text class="c" x="44" y="178">labels, RTs or the provider core.</text>
+
+  <rect x="290" y="118" width="308" height="72" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="302" y="136">PE &#8212; provider edge (the only device that matters)</text>
+  <text class="c" x="302" y="152">Holds one VRF per customer per site, exchanges VPNv4</text>
+  <text class="c" x="302" y="165">routes with other PEs, and pushes or pops both labels.</text>
+  <text class="c" x="302" y="178">All policy lives here, because it is the last place it can.</text>
+
+  <rect x="616" y="118" width="252" height="72" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="628" y="136">P &#8212; provider node</text>
+  <text class="c" x="628" y="152">Swaps transport labels only. Holds no</text>
+  <text class="c" x="628" y="165">VPN routes and does not know VRFs</text>
+  <text class="c" x="628" y="178">exist. Cheapest, fastest, blindest.</text>
+
+  <text class="k" x="24" y="216">WHERE ISOLATION ACTUALLY COMES FROM</text>
+  <rect x="24" y="224" width="420" height="86" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="242"><tspan style="font-weight:700">CE side:</tspan> physical interface or subinterface, or VRF-Lite on the CE itself.</text>
+  <text class="c" x="36" y="260"><tspan style="font-weight:700">PE side:</tspan> VRF plus route targets. This is the only hop where the</text>
+  <text class="c" x="36" y="273">customer's identity is carried as a decision.</text>
+  <text class="c" x="36" y="291"><tspan style="font-weight:700">P network:</tspan> nothing. Isolation is a property of the edges; the core</text>
+  <text class="c" x="36" y="304">is deliberately ignorant, which is what makes it scale.</text>
+
+  <rect x="460" y="224" width="408" height="86" rx="3" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="472" y="242" fill="#c0392b">The consequence nobody plans for</text>
+  <text class="c" x="472" y="260" fill="#c0392b">Routing policy, ACLs and QoS classification must be finished</text>
+  <text class="c" x="472" y="273" fill="#c0392b">at the PE boundary. Once the packet is inside the core there is</text>
+  <text class="c" x="472" y="286" fill="#c0392b">no customer anchor left: the P router cannot match on your</text>
+  <text class="c" x="472" y="299" fill="#c0392b">prefixes, your VRFs or your applications.</text>
+
+  <rect x="24" y="326" width="852" height="52" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <rect x="24" y="326" width="4" height="52" fill="#b8862b"/>
+  <text class="c" x="40" y="344" fill="#7a5b18"><tspan style="font-weight:700">Design check:</tspan> for every policy you intend to enforce, name the device that executes it. If the answer is &#8220;the core&#8221;, the policy does not exist.</text>
+  <text class="c" x="40" y="360" fill="#7a5b18">This is also why a carrier-managed PE is a governance decision, not a technical one: whoever owns the PE owns your policy point.</text>
+  <text class="w" x="24" y="396">Troubleshooting order: CE routing table (did the route arrive) &#8594; PE VRF table (did the RT match) &#8594; VPNv4 table (was it advertised) &#8594; LFIB (is there a label path).</text>
+</svg>

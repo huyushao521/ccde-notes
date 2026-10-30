@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t817 d817">
+
+  <title id="t817">How an EIGRP query spreads when there is no feasible successor, and the four ways to bound it</title>
+  <desc id="d817">A topology on the left shows a failed link at the edge, a query fanning out hop by hop because no router along the path holds a feasible successor, and the stuck-in-active timer at three minutes after which the adjacency is torn down and rebuilt. A timeline on the right shows the four phases: the link fails, the router goes active and queries all remaining neighbours, each neighbour that also lacks a feasible successor propagates the query, and after three minutes without a reply the neighbour relationship is reset, which makes the outage much larger than the original link failure. Four bounding tools are listed: stub routing so the branch never receives queries; summarization so a query is answered at the boundary rather than propagating; query filtering with distribute lists; and a clear rule about which routers may be transit. The closing note says the design objective is not faster queries but fewer of them.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">With no feasible successor, one dead link becomes a network-wide question</text>
+  <text class="s" x="24" y="45">The design goal is not faster queries. It is fewer of them, and shorter distances for the ones that happen</text>
+
+  <rect x="24" y="58" width="404" height="212" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="k" x="36" y="74">THE QUERY FAN-OUT</text>
+
+  <rect x="44" y="96" width="86" height="28" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="r" x="56" y="114" fill="#c0392b">Edge-1</text>
+  <rect x="176" y="96" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="188" y="114">Dist-1</text>
+  <rect x="308" y="96" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="320" y="114">Core-1</text>
+  <rect x="176" y="176" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="188" y="194">Core-2</text>
+  <rect x="308" y="176" width="86" height="28" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".6"/>
+  <text class="r" x="320" y="194">Branch-7</text>
+
+  <line x1="130" y1="110" x2="176" y2="110" stroke="#c0392b" stroke-width="1.2"/>
+  <text class="w" x="132" y="104" fill="#c0392b">link down</text>
+  <line x1="262" y1="110" x2="308" y2="110" stroke="#1f4fc0" stroke-width=".8"/>
+  <line x1="219" y1="124" x2="219" y2="176" stroke="#1f4fc0" stroke-width=".8"/>
+  <line x1="262" y1="190" x2="308" y2="190" stroke="#1f4fc0" stroke-width=".8"/>
+  <line x1="308" y1="124" x2="330" y2="176" stroke="#1f4fc0" stroke-width=".8" stroke-dasharray="3 3"/>
+
+  <text class="c" x="44" y="152">1. The link fails; the router runs out of successors and goes active.</text>
+  <text class="c" x="44" y="166">2. It queries <tspan style="font-weight:700">every</tspan> remaining neighbour.</text>
+  <text class="c" x="44" y="180">3. Each neighbour with no feasible successor propagates the query.</text>
+  <text class="c" x="44" y="194">4. Every one of them waits, holding routes in active state.</text>
+  <text class="c" x="44" y="212" fill="#c0392b">5. No reply within 3 minutes &#8594; adjacency reset. Routes that</text>
+  <text class="c" x="44" y="225" fill="#c0392b">were never in question disappear. The outage is now much</text>
+  <text class="c" x="44" y="238" fill="#c0392b">larger than the link that actually failed.</text>
+  <text class="c" x="44" y="258">The mechanism is bounded by the topology, not by the timer.</text>
+
+  <text class="k" x="448" y="74">FOUR WAYS TO BOUND THE QUERY DOMAIN</text>
+
+  <rect x="448" y="82" width="428" height="46" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="460" y="100" fill="#0f7f73">1. Stub routing</text>
+  <text class="c" x="460" y="116">The branch announces its own prefixes and never receives queries. Use it on every leaf site.</text>
+
+  <rect x="448" y="134" width="428" height="46" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="460" y="152" fill="#0f7f73">2. Summarization</text>
+  <text class="c" x="460" y="168">A query for a prefix inside the summary is answered at the boundary, and stops there.</text>
+
+  <rect x="448" y="186" width="428" height="46" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="460" y="204" fill="#7a5b18">3. Query filtering</text>
+  <text class="c" x="460" y="220">A distribute list decides which queries may pass. Effective, but it must be documented.</text>
+
+  <rect x="448" y="238" width="428" height="46" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="460" y="256">4. A transit rule</text>
+  <text class="c" x="460" y="272">Write down which routers may be transit for which prefixes, and configure the rest as stubs.</text>
+
+  <rect x="24" y="286" width="852" height="70" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="286" width="4" height="70" fill="#c0392b"/>
+  <text class="c" x="40" y="304" fill="#c0392b"><tspan style="font-weight:700">The failure mode this chapter exists to prevent:</tspan> 200 branches, none configured as stub, no summarization at the aggregation layer.</text>
+  <text class="c" x="40" y="320" fill="#c0392b">One access switch reboots, one query has no feasible successor, and the query reaches every branch. For three minutes, routes across the</text>
+  <text class="c" x="40" y="336" fill="#c0392b">whole network sit in active state. When people describe &#8220;the network goes down when any site restarts&#8221;, this is the mechanism.</text>
+
+  <text class="w" x="24" y="376">Design rule to write into the document: a distance-vector protocol is only as scalable as its query boundaries. Draw the query domain on the same</text>
+  <text class="w" x="24" y="389">diagram as the addressing plan, because it is the same boundary. Stub at the leaves, summarization at the aggregation layer, and no route that</text>
+  <text class="w" x="24" y="402">depends on a query travelling more than one hop.</text>
+  <text class="w" x="24" y="422">Verification: shut an interface on a branch, and count how many routers enter active state. The number should be one. If it is not, the query domain was never designed.</text>
+</svg>

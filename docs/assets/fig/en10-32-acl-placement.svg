@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t1032 d1032">
+  <title id="t1032">One intent, five candidate ACL locations: where the policy should actually live, with advantages, costs and a recommendation for each</title>
+  <desc id="d1032">Left: a topology with five numbered candidate points for the same intent, "the office network must not reach the finance servers" - one, a port ACL on the source access switch; two, the source subnet's Layer 3 gateway SVI or subinterface; three, between core and aggregation; four, a firewall between zones; five, the destination server's host firewall or micro-segmentation. Right: the trade-offs. The port ACL blocks earliest and saves bandwidth but scatters policy across many devices, is hard to audit and consumes TCAM, so it is for very specific cases only. The source gateway is centralized and close to the source and is the common choice, but it cannot control traffic inside the subnet. Between core and aggregation is centralized but puts heavy TCAM pressure on core devices and couples policy to topology, so use it with care. The firewall brings stateful inspection, logging and visibility at the cost of latency, a single point and a traffic detour, and is the recommended answer across trust domains. A host firewall or micro-segmentation is the most precise and matches business ownership but needs host side cooperation, and is the first choice in the data centre. Bottom: three principles - coarse policy at domain boundaries and fine policy close to endpoints; each policy should take effect in exactly one place, or troubleshooting degenerates into "I changed it here and it still fails"; and stateless ACLs only do coarse filtering, so anything needing state, application identification or logging must be a stateful device. A closing note warns that without lifecycle management an ACL becomes eight hundred lines in three years and ACL generation should be automated.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar32" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">"Office must not reach the finance servers" - five places to write it, one right place to own it</text>
+  <text class="s" x="24" y="45">The intent is a sentence; the placement is an architecture decision that decides who can change it, audit it and debug it</text>
+
+  <!-- Topology -->
+  <rect x="24" y="60" width="440" height="234" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">FIVE CANDIDATE POINTS ON ONE PATH</text>
+
+  <rect x="36" y="150" width="66" height="34" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="w" x="69" y="171" text-anchor="middle">Office PC</text>
+
+  <rect x="118" y="150" width="72" height="34" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".9"/>
+  <text class="w" x="154" y="164" text-anchor="middle">Access sw</text>
+  <text class="g" x="154" y="177" text-anchor="middle">① port ACL</text>
+
+  <rect x="206" y="150" width="72" height="34" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".9"/>
+  <text class="w" x="242" y="164" text-anchor="middle">L3 gateway</text>
+  <text class="g" x="242" y="177" text-anchor="middle">② SVI ACL</text>
+
+  <rect x="294" y="150" width="72" height="34" rx="2" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".9"/>
+  <text class="w" x="330" y="164" text-anchor="middle">Core</text>
+  <text class="x" x="330" y="177" text-anchor="middle">③ inter-core</text>
+
+  <rect x="382" y="140" width="66" height="54" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".9"/>
+  <text class="w" x="415" y="160" text-anchor="middle">Firewall</text>
+  <text class="g" x="415" y="174" text-anchor="middle">④ zone</text>
+  <text class="g" x="415" y="186" text-anchor="middle">policy</text>
+
+  <line x1="102" y1="167" x2="114" y2="167" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar32)"/>
+  <line x1="190" y1="167" x2="202" y2="167" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar32)"/>
+  <line x1="278" y1="167" x2="290" y2="167" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar32)"/>
+  <line x1="366" y1="167" x2="378" y2="167" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar32)"/>
+
+  <rect x="330" y="220" width="118" height="34" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".9"/>
+  <text class="w" x="389" y="234" text-anchor="middle">Finance server</text>
+  <text class="g" x="389" y="247" text-anchor="middle">⑤ host firewall</text>
+  <line x1="415" y1="194" x2="400" y2="216" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar32)"/>
+
+  <text class="c" x="36" y="212">① blocks earliest, saves bandwidth, but scatters policy</text>
+  <text class="c" x="36" y="226">② the usual compromise: centralized, close to the source</text>
+  <text class="c" x="36" y="240">③ one config covers many subnets - and couples policy to topology</text>
+  <text class="c" x="36" y="254">④ stateful, logged, visible - but traffic must detour</text>
+  <text class="c" x="36" y="268">⑤ most precise, owned by the business - needs host cooperation</text>
+  <text class="w" x="36" y="286">The same intent can be enforced in all five at once, which is how "I changed it and nothing happened" begins.</text>
+
+  <!-- Table -->
+  <rect x="476" y="60" width="400" height="234" rx="3" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <rect x="476" y="60" width="400" height="22" fill="#2b3446"/>
+  <text class="th" x="484" y="75">LOCATION</text>
+  <text class="th" x="600" y="75">COST / LIMIT</text>
+  <text class="th" x="790" y="75">VERDICT</text>
+
+  <rect x="476" y="82" width="400" height="42" fill="#f7f9fc"/>
+  <text class="b" x="484" y="96">① Source port ACL</text>
+  <text class="w" x="484" y="108">saves bandwidth</text>
+  <text class="c" x="600" y="96">many devices, scattered,</text>
+  <text class="c" x="600" y="108">TCAM per port, hard audit</text>
+  <text class="c" x="790" y="96">very specific</text>
+  <text class="c" x="790" y="108">cases only</text>
+
+  <rect x="476" y="124" width="400" height="42" fill="#eef7f5"/>
+  <text class="b" x="484" y="138">② Source SVI / sub-if</text>
+  <text class="w" x="484" y="150">central and near source</text>
+  <text class="c" x="600" y="138">cannot see intra-subnet</text>
+  <text class="c" x="600" y="150">traffic at all</text>
+  <text class="g" x="790" y="138">★ the common</text>
+  <text class="g" x="790" y="150">choice</text>
+
+  <rect x="476" y="166" width="400" height="42" fill="#f7f9fc"/>
+  <text class="b" x="484" y="180">③ Core / aggregation</text>
+  <text class="w" x="484" y="192">one config, many subnets</text>
+  <text class="c" x="600" y="180">TCAM pressure on the core,</text>
+  <text class="c" x="600" y="192">policy welded to topology</text>
+  <text class="x" x="790" y="180">use with care</text>
+
+  <rect x="476" y="208" width="400" height="42" fill="#eef7f5"/>
+  <text class="b" x="484" y="222">④ Firewall between zones</text>
+  <text class="w" x="484" y="234">stateful, logged, visible</text>
+  <text class="c" x="600" y="222">latency, single point,</text>
+  <text class="c" x="600" y="234">traffic must detour</text>
+  <text class="g" x="790" y="222">★★ across trust</text>
+  <text class="g" x="790" y="234">domains</text>
+
+  <rect x="476" y="250" width="400" height="42" fill="#eef7f5"/>
+  <text class="b" x="484" y="264">⑤ Host / micro-segment</text>
+  <text class="w" x="484" y="276">most precise, business owned</text>
+  <text class="c" x="600" y="264">needs an agent or host</text>
+  <text class="c" x="600" y="276">cooperation</text>
+  <text class="g" x="790" y="264">★★ first choice</text>
+  <text class="g" x="790" y="276">in the data centre</text>
+
+  <!-- Principles -->
+  <rect x="24" y="304" width="852" height="106" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="322" fill="#0f7f73">THREE PRINCIPLES THAT SETTLE MOST ARGUMENTS</text>
+  <g>
+    <rect x="36" y="332" width="270" height="66" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="46" y="348">Coarse at boundaries, fine at edges</text>
+    <text class="c" x="46" y="362">Firewalls and inter-VRF policy express</text>
+    <text class="c" x="46" y="374">"zones". Ports and hosts express</text>
+    <text class="c" x="46" y="386">"this application, this user". Do not</text>
+  </g>
+  <g>
+    <rect x="316" y="332" width="270" height="66" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="326" y="348">One intent, one enforcement point</text>
+    <text class="c" x="326" y="362">Duplicate policy turns every incident</text>
+    <text class="c" x="326" y="374">into a hunt for the second blocker.</text>
+    <text class="c" x="326" y="386">Document where each intent lives.</text>
+  </g>
+  <g>
+    <rect x="596" y="332" width="268" height="66" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+    <text class="b" x="606" y="348">Stateless ACLs only coarse-filter</text>
+    <text class="c" x="606" y="362">Session state, application identity</text>
+    <text class="c" x="606" y="374">and logging require a stateful device -</text>
+    <text class="c" x="606" y="386">an ACL cannot log what it cannot see.</text>
+  </g>
+
+  <rect x="24" y="418" width="852" height="30" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="437">Governance:</text>
+  <text class="c" x="112" y="437">without lifecycle management an ACL becomes 800 lines in three years and nobody dares delete a line. Generate ACLs from a policy system or a change ticket - hand-written ACLs are technical debt with a firewall attached.</text>
+</svg>

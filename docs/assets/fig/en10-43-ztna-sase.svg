@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t1043 d1043">
+  <title id="t1043">Traditional VPN, ZTNA and SASE compared by access path and trust assumption, with the advantages of ZTNA and the four constraints that slow its migration</title>
+  <desc id="d1043">Top: three access paths. Traditional VPN takes the endpoint into a gateway and lands it inside the internal network at network-level access, so the trust assumption is that authentication grants a trusted position, and once connected the whole internal network can be scanned. ZTNA takes the endpoint to a broker and then to a specific application at application-level access, trusting nothing and authorising every access separately, so the user never sees internal addressing and cannot scan laterally. SASE routes the endpoint to the nearest point of presence that combines SD-WAN with cloud security, keeping the same never-trust assumption and adding inspection close to the user, which moves security capability into the cloud and merges it with network access. Middle left: the three structural advantages of ZTNA - no network exposure because only applications are published and users get no internal routes; fine-grained permission per application, per identity and per device posture; and auditability because every application access is recorded rather than one tunnel being open for eight hours. Middle right: the four migration constraints - application remediation for non-HTTP protocols such as RDP, SMB and database clients that need connector support; performance because traffic transits a cloud point of presence and latency must be assessed; a hybrid period of two to three years where VPN and ZTNA run in parallel, requiring unified identity and policy; and a cost model change from buying appliances to per-user subscription, which requires recalculating the total cost of ownership. Bottom: a note that the migration is governed by the application inventory, not by the client software, and that the parallel period is where most programmes fail.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar43" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+    <marker id="ar43x" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">ZTNA is not a better VPN - it is a different unit of access</text>
+  <text class="s" x="24" y="45">A VPN authorises a network position. ZTNA authorises an application session. Everything else follows from that</text>
+
+  <!-- Traditional -->
+  <rect x="24" y="60" width="276" height="140" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="78" fill="#b0452f">TRADITIONAL VPN · NETWORK-LEVEL</text>
+  <rect x="36" y="88" width="54" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="63" y="102" text-anchor="middle">user</text>
+  <line x1="92" y1="99" x2="116" y2="99" stroke="#c0392b" stroke-width="1.2" marker-end="url(#ar43x)"/>
+  <rect x="120" y="88" width="60" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="150" y="102" text-anchor="middle">gateway</text>
+  <line x1="182" y1="99" x2="206" y2="99" stroke="#c0392b" stroke-width="1.2" marker-end="url(#ar43x)"/>
+  <rect x="210" y="88" width="78" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="249" y="102" text-anchor="middle">internal network</text>
+  <line x1="249" y1="110" x2="249" y2="124" stroke="#c0392b" stroke-width="1"/>
+  <line x1="200" y1="124" x2="290" y2="124" stroke="#c0392b" stroke-width="1"/>
+  <text class="x" x="249" y="138" text-anchor="middle">every host, reachable</text>
+
+  <text class="c" x="36" y="158">Trust assumption: authenticated means trusted position.</text>
+  <text class="x" x="36" y="176">Result: one compromised laptop can scan the whole estate.</text>
+  <text class="w" x="36" y="192">Lateral movement is the design, not the accident</text>
+
+  <!-- ZTNA -->
+  <rect x="312" y="60" width="276" height="140" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="324" y="78" fill="#0f7f73">ZTNA · APPLICATION-LEVEL</text>
+  <rect x="324" y="88" width="54" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="351" y="102" text-anchor="middle">user</text>
+  <line x1="380" y1="99" x2="404" y2="99" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar43)"/>
+  <rect x="408" y="88" width="56" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="436" y="102" text-anchor="middle">broker</text>
+  <line x1="466" y1="99" x2="490" y2="99" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar43)"/>
+  <rect x="494" y="88" width="82" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="535" y="102" text-anchor="middle">app A only</text>
+  <line x1="436" y1="112" x2="436" y2="128" stroke="#8a97a8" stroke-width=".9" stroke-dasharray="3 2"/>
+  <text class="w" x="436" y="140" text-anchor="middle">app B, C invisible</text>
+
+  <text class="c" x="324" y="158">Trust assumption: nothing - each access is authorised again.</text>
+  <text class="g" x="324" y="176">Result: no internal routes, so scanning has no subject.</text>
+  <text class="w" x="324" y="192">Exposure follows the application list, not the subnet</text>
+
+  <!-- SASE -->
+  <rect x="600" y="60" width="276" height="140" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="612" y="78" fill="#5b4a86">SASE · ZTNA + INSPECTION AT THE EDGE</text>
+  <rect x="612" y="88" width="54" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="639" y="102" text-anchor="middle">user</text>
+  <line x1="668" y1="99" x2="692" y2="99" stroke="#5b4a86" stroke-width="1.2" marker-end="url(#ar43)"/>
+  <rect x="696" y="88" width="76" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="734" y="102" text-anchor="middle">nearest PoP</text>
+  <line x1="774" y1="99" x2="798" y2="99" stroke="#5b4a86" stroke-width="1.2" marker-end="url(#ar43)"/>
+  <rect x="802" y="88" width="62" height="22" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="833" y="102" text-anchor="middle">app / web</text>
+  <text class="w" x="734" y="124" text-anchor="middle">SD-WAN + security stack, in one hop</text>
+
+  <text class="c" x="612" y="144">Trust assumption: same as ZTNA, plus inspection</text>
+  <text class="c" x="612" y="158">near the user instead of at headquarters.</text>
+  <text class="g" x="612" y="176">Result: policy follows the user, not the building.</text>
+  <text class="x" x="612" y="192">Cost: latency through a shared PoP, and a vendor exit plan</text>
+
+  <!-- Advantages -->
+  <rect x="24" y="212" width="420" height="164" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="230">THREE STRUCTURAL ADVANTAGES OF ZTNA OVER VPN</text>
+
+  <g>
+    <circle cx="42" cy="248" r="6.5" fill="#0f7f73"/>
+    <text class="w" x="42" y="251" text-anchor="middle" fill="#ffffff">1</text>
+    <text class="b" x="56" y="251">No network exposure</text>
+    <text class="c" x="56" y="264">Only applications are published, users receive no internal routes,</text>
+    <text class="c" x="56" y="276">and scanning has nothing to discover even if the laptop is owned.</text>
+  </g>
+  <g>
+    <circle cx="42" cy="296" r="6.5" fill="#0f7f73"/>
+    <text class="w" x="42" y="299" text-anchor="middle" fill="#ffffff">2</text>
+    <text class="b" x="56" y="299">Fine-grained permission</text>
+    <text class="c" x="56" y="312">Per application, per identity and per device posture - not "logged in",</text>
+    <text class="c" x="56" y="324">but "this user, this device state, this application, this session".</text>
+  </g>
+  <g>
+    <circle cx="42" cy="344" r="6.5" fill="#0f7f73"/>
+    <text class="w" x="42" y="347" text-anchor="middle" fill="#ffffff">3</text>
+    <text class="b" x="56" y="347">Auditable</text>
+    <text class="c" x="56" y="360">Every application access is a record. A VPN gives you one log line:</text>
+        <text class="c" x="56" y="372">"a tunnel was open for eight hours" - which answers nothing.</text>
+  </g>
+
+  <!-- Constraints -->
+  <rect x="456" y="212" width="420" height="164" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="468" y="230" fill="#9a7d28">FOUR CONSTRAINTS THAT SLOW THE MIGRATION</text>
+  <text class="c" x="468" y="250"><tspan class="b">Application remediation</tspan> - non-HTTP protocols (RDP, SMB,</text>
+  <text class="c" x="468" y="262">database clients, legacy client-server) need connector support</text>
+  <text class="c" x="468" y="282"><tspan class="b">Performance</tspan> - traffic transits a cloud PoP; measure latency,</text>
+  <text class="c" x="468" y="294">and be ready to keep a dedicated path for critical applications</text>
+  <text class="c" x="468" y="314"><tspan class="b">Hybrid period</tspan> - typically 2-3 years of VPN and ZTNA in</text>
+  <text class="c" x="468" y="326">parallel, which requires unified identity and unified policy</text>
+  <text class="c" x="468" y="346"><tspan class="b">Cost model</tspan> - from buying appliances to per-user subscription,</text>
+
+  <rect x="24" y="388" width="852" height="30" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="407">Migration is governed by the application inventory,</text>
+  <text class="c" x="330" y="407">not by the client software: enumerate every application, classify it as web or non-web, and the order of migration writes itself.</text>
+
+  <text class="w" x="24" y="438">Where programmes fail: not in the proof of concept, but in year two, when the VPN still exists for the twelve applications nobody would fund, and two policy systems now disagree.</text>
+</svg>

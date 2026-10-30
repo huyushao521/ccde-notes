@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t813 d813">
+
+  <title id="t813">Summarization: where it is configured, why it must be paired with a null0 route, and what it costs</title>
+  <desc id="d813">A topology shows two areas, each with an ABR, the ABR summarising one area block into the backbone and the other ABR receiving the summary. Three rules are given: summarise at the boundary that owns the detail, meaning the ABR for inter-area prefixes and the ASBR for external ones; make the summary the longest match for nothing, because detail always wins over summary; and pair it with a null0 route so that dropped traffic is dropped visibly. A second panel explains the null0 logic in three states: all member prefixes up, so the summary is advertised and traffic follows detail; one member down, so the summary stays up and the traffic is silently discarded inside the area; and every member down, so the null0 keeps the summary alive and the traffic is dropped at the boundary where the fault actually is. A right panel lists the five costs of summarization: loss of visibility, loss of traffic engineering granularity, summary flaps move more traffic, aggregation errors become network-wide, and troubleshooting shifts inside the area.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Summarization is a trade of visibility for scale, and the trade is only safe with a null0</text>
+  <text class="s" x="24" y="45">A summary without null0 is a design flaw: it promises reachability the network cannot deliver</text>
+
+  <text class="k" x="24" y="66">WHERE IT IS CONFIGURED</text>
+
+  <rect x="24" y="74" width="440" height="118" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <rect x="150" y="86" width="190" height="26" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="r" x="162" y="103">Backbone (area 0)</text>
+
+  <rect x="46" y="140" width="150" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="58" y="159">ABR-1 &#183; area 10 range</text>
+  <rect x="292" y="140" width="150" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="304" y="159">ABR-2 &#183; area 20 range</text>
+
+  <line x1="121" y1="140" x2="180" y2="112" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="367" y1="140" x2="310" y2="112" stroke="#1f4fc0" stroke-width=".9"/>
+  <line x1="196" y1="155" x2="292" y2="155" stroke="#0f7f73" stroke-width="1"/>
+  <text class="w" x="204" y="150" fill="#0f7f73">one summary each way</text>
+
+  <text class="w" x="46" y="132">10.10.0.0/16 block, owned here</text>
+  <text class="w" x="292" y="132">200 /24s &#8594; 1 prefix</text>
+
+  <text class="c" x="36" y="186">Summarise at the boundary that <tspan style="font-weight:700">owns</tspan> the detail: ABR for</text>
+  <text class="w" x="36" y="197">inter-area, ASBR for external. Never summarise in the middle.</text>
+
+  <rect x="480" y="74" width="396" height="118" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="492" y="92">The three rules</text>
+  <text class="c" x="492" y="110">1. A summary must never be the longest match for anything.</text>
+  <text class="c" x="492" y="126">2. Detail always wins &#8212; that is what makes it safe.</text>
+  <text class="c" x="492" y="142">3. Pair every summary with <tspan style="font-weight:700">null0</tspan>, so what cannot be</text>
+  <text class="c" x="492" y="155">delivered is dropped at the boundary, not inside an area.</text>
+  <text class="c" x="492" y="174" fill="#0f7f73">Without null0, the summary lives on a null route nobody owns.</text>
+
+  <text class="k" x="24" y="212">WHAT null0 CHANGES, IN THREE STATES</text>
+
+  <rect x="24" y="220" width="276" height="86" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="238">All members up</text>
+  <text class="c" x="36" y="254">Summary advertised, detail exists,</text>
+  <text class="c" x="36" y="267">traffic follows the detail entries.</text>
+  <text class="c" x="36" y="284">The null0 is never used &#8212; it is a</text>
+  <text class="c" x="36" y="297">statement of intent, not a path.</text>
+
+  <rect x="312" y="220" width="276" height="86" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="324" y="238" fill="#c0392b">One member down, no null0</text>
+  <text class="c" x="324" y="254" fill="#c0392b">The summary stays up as long as any</text>
+  <text class="c" x="324" y="267" fill="#c0392b">member survives. Traffic still enters</text>
+  <text class="c" x="324" y="280" fill="#c0392b">and is dropped deep inside the area.</text>
+  <text class="c" x="324" y="296" fill="#c0392b">The fault is invisible from the core.</text>
+
+  <rect x="600" y="220" width="276" height="86" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="612" y="238">Same state, with null0</text>
+  <text class="c" x="612" y="254">Traffic for the dead /24 hits the</text>
+  <text class="c" x="612" y="267">boundary and is dropped there, where</text>
+  <text class="c" x="612" y="280">the counters prove it is that prefix.</text>
+  <text class="c" x="612" y="296">Same outage, but now it is diagnosable.</text>
+
+  <text class="k" x="24" y="328">FIVE COSTS OF SUMMARIZATION &#8212; LIST THEM IN THE DESIGN DOCUMENT OR DO NOT CONFIGURE IT</text>
+
+  <rect x="24" y="336" width="852" height="76" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="c" x="36" y="354">1. <tspan style="font-weight:700">Visibility:</tspan> the core no longer knows whether a specific /24 exists &#8212; &#8220;show ip route&#8221; on a core router answers a smaller question than you think.</text>
+  <text class="c" x="36" y="370">2. <tspan style="font-weight:700">Granularity:</tspan> you cannot traffic-engineer an individual prefix, only the whole block. Per-site policy needs detail at the policy point.</text>
+  <text class="c" x="36" y="386">3. <tspan style="font-weight:700">Blast radius:</tspan> a summary flap moves all member traffic, where a detail flap moved one subnet.</text>
+  <text class="c" x="36" y="402">4. <tspan style="font-weight:700">Aggregation error:</tspan> a wrong mask or an overlap becomes a network-wide black hole instead of a local one.</text>
+
+  <text class="w" x="24" y="430">5. Troubleshooting shifts inside the area: the person with the ticket sees a core that says the destination is reachable, because at the summary level it is.</text>
+</svg>

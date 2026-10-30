@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 478" width="100%" role="img" aria-labelledby="t1332 d1332">
+  <title id="t1332">Reading mroute flags: fifteen letters, and the four combinations that answer most tickets</title>
+  <desc id="d1332">Fifteen mroute flags in a grid of three columns. S sparse, D dense, C connected with a local IGMP receiver, L local member, J join SPT with the source tree being built, T the SPT bit set meaning data uses the shortest path tree, P pruned, R on the shared RP tree, F register in progress on the first hop router, s inside the SSM range, B bidirectional tree, X joined through a proxy, I source specific, m created by an MSDP source-active message which is proof that MSDP worked, and E extranet or cross-VRF. Bottom: four combinations read as sentences - a star-comma-group with C but no source entry means receivers exist and the source is silent; SJC on the star entry with JT on the source entry is a healthy sparse mode session with a completed SPT switchover; a source entry carrying only P with no outgoing interface is pruned, which is normal; and a source entry whose incoming interface is Null is an RPF failure, which is never normal.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .f{font:700 11px "Consolas",monospace;fill:#1f4fc0}
+  </style>
+  <rect x="0" y="0" width="900" height="478" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Fifteen letters that tell you more than any log</text>
+  <text class="s" x="24" y="45">The flags are not decoration: they say which tree the entry is on, who asked for it, and whether the data plane agreed.</text>
+
+  <rect x="24" y="60" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="38" y="88">S</text>
+  <text class="b" x="60" y="78">Sparse</text>
+  <text class="w" x="60" y="92">this group runs sparse mode</text>
+
+  <rect x="306" y="60" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="320" y="88">D</text>
+  <text class="b" x="342" y="78">Dense</text>
+  <text class="w" x="342" y="92">D where SM was intended = wrong mode</text>
+
+  <rect x="588" y="60" width="288" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="602" y="88">C</text>
+  <text class="b" x="624" y="78">Connected</text>
+  <text class="w" x="624" y="92">a local host subscribed via IGMP</text>
+
+  <rect x="24" y="108" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="38" y="136">L</text>
+  <text class="b" x="60" y="126">Local</text>
+  <text class="w" x="60" y="140">this router is the member itself</text>
+
+  <rect x="306" y="108" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="320" y="136">J</text>
+  <text class="b" x="342" y="126">Join SPT</text>
+  <text class="w" x="342" y="140">source tree is being built - it switched</text>
+
+  <rect x="588" y="108" width="288" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="602" y="136">T</text>
+  <text class="b" x="624" y="126">SPT-bit set</text>
+  <text class="w" x="624" y="140">data has actually arrived from the SPT</text>
+
+  <rect x="24" y="156" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="38" y="184">P</text>
+  <text class="b" x="60" y="174">Pruned</text>
+  <text class="w" x="60" y="188">P with an empty OIL = nobody wants it</text>
+
+  <rect x="306" y="156" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="320" y="184">R</text>
+  <text class="b" x="342" y="174">RP-tree</text>
+  <text class="w" x="342" y="188">still on the shared tree, no SPT yet</text>
+
+  <rect x="588" y="156" width="288" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="602" y="184">F</text>
+  <text class="b" x="624" y="174">Register</text>
+  <text class="w" x="624" y="188">F on the FHR = registration in progress</text>
+
+  <rect x="24" y="204" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="38" y="232">s</text>
+  <text class="b" x="60" y="222">SSM</text>
+  <text class="w" x="60" y="236">the group is inside the SSM range</text>
+
+  <rect x="306" y="204" width="270" height="44" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="f" x="320" y="232">B</text>
+  <text class="b" x="342" y="222">Bidir</text>
+  <text class="w" x="342" y="236">bidirectional shared tree, no (S,G)</text>
+
+  <rect x="588" y="204" width="288" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="602" y="232">X</text>
+  <text class="b" x="624" y="222">Proxy Join</text>
+  <text class="w" x="624" y="236">joined through an IGMP proxy, e.g. a firewall</text>
+
+  <rect x="24" y="252" width="270" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="38" y="280">I</text>
+  <text class="b" x="60" y="270">Source specific</text>
+  <text class="w" x="60" y="284">a proper (S,G) entry, not a wildcard</text>
+
+  <rect x="306" y="252" width="270" height="44" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".7"/>
+  <text class="f" x="320" y="280">m</text>
+  <text class="b" x="342" y="270">MSDP created</text>
+  <text class="w" x="342" y="284">an SA built it - proof MSDP worked</text>
+
+  <rect x="588" y="252" width="288" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="f" x="602" y="280">E</text>
+  <text class="b" x="624" y="270">Extranet</text>
+  <text class="w" x="624" y="284">cross-VRF multicast, often forgotten</text>
+
+  <text class="k" x="24" y="320">FOUR COMBINATIONS, READ AS SENTENCES</text>
+
+  <rect x="24" y="330" width="206" height="86" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="m" x="34" y="348">(*,G) C, no (S,G)</text>
+  <text class="c" x="34" y="366">Receivers exist, the source is</text>
+  <text class="c" x="34" y="380">silent or never registered.</text>
+  <text class="x" x="34" y="398">Look at the source, not the network.</text>
+
+  <rect x="242" y="330" width="206" height="86" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".7"/>
+  <text class="m" x="252" y="348">(*,G) SJC + (S,G) JT</text>
+  <text class="c" x="252" y="366">Sparse mode, local receiver,</text>
+  <text class="c" x="252" y="380">SPT switchover completed.</text>
+  <text class="g" x="252" y="398">This is what healthy looks like.</text>
+
+  <rect x="460" y="330" width="206" height="86" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="m" x="470" y="348">(S,G) only P, empty OIL</text>
+  <text class="c" x="470" y="366">The source is sending and</text>
+  <text class="c" x="470" y="380">nobody has asked for it.</text>
+  <text class="g" x="470" y="398">Normal - prune is working.</text>
+
+  <rect x="678" y="330" width="198" height="86" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="m" x="688" y="348">(S,G) IIF = Null</text>
+  <text class="c" x="688" y="366">No RPF path to the source,</text>
+  <text class="c" x="688" y="380">so packets are dropped silently.</text>
+  <text class="x" x="688" y="398">Never normal. Fix routing.</text>
+
+  <rect x="24" y="428" width="852" height="40" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="446">Read them in order: is there a star entry, is there a source entry, does the source entry have an incoming interface, does the OIL contain the downstream.</text>
+  <text class="c" x="36" y="459">Each question is one flag, and each answer removes half of the remaining tree.</text>
+</svg>

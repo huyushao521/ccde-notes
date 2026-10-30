@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t1011 d1011">
+  <title id="t1011">NTP as security infrastructure: six mechanisms that depend on it, and the cascade when it fails</title>
+  <desc id="d1011">Left: one time source feeding six consumers, each with the symptom of a wrong clock. Authentication logs become useless for correlation, and the incident timeline cannot be reconstructed. Certificate validation fails in both directions - a clock behind the validity window gives not yet valid, a clock ahead gives expired - which breaks IPsec, 802.1X and HTTPS management. TACACS+ accounting records the wrong time, so command attribution in an investigation collapses. Two-factor tokens drift and reject valid codes, so people start asking for exceptions. Log correlation across devices is impossible and the first hour of every incident is spent reconciling timestamps. Backup and change windows overlap or run twice. Right: the cascade - NTP unreachable, clocks drift a few minutes, certificates fail, IPsec tunnels drop and supplicants fail to authenticate, the team disables certificate validation or moves to a longer validity window, and the control that was supposed to authenticate peers is now switched off permanently. Bottom: five design rules - at least two sources with different paths, an internal stratum hierarchy rather than every device polling the internet, NTP authentication or at least an ACL, monitoring of the offset itself as a health metric, and a documented fallback that is not the local hardware clock.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Time is authentication infrastructure. When it drifts, the controls fail open.</text>
+  <text class="s" x="24" y="45">Nobody calls NTP important until certificates start rejecting the peers that were fine yesterday.</text>
+
+  <rect x="24" y="62" width="112" height="34" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".9"/>
+  <text class="b" x="80" y="83" text-anchor="middle">NTP source</text>
+  <text class="w" x="80" y="110">two, on different paths</text>
+  <line x1="136" y1="79" x2="176" y2="79" stroke="#c9d8f6" stroke-width="1"/>
+  <line x1="176" y1="79" x2="176" y2="322" stroke="#c9d8f6" stroke-width="1"/>
+
+  <line x1="176" y1="94" x2="206" y2="94" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="82" width="286" height="38" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="216" y="97">Authentication logs</text>
+  <text class="w" x="216" y="111">the timeline cannot be reconstructed</text>
+
+  <line x1="176" y1="142" x2="206" y2="142" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="130" width="286" height="38" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="216" y="145">Certificates / IPsec / 802.1X</text>
+  <text class="x" x="216" y="159">behind = not yet valid, ahead = expired</text>
+
+  <line x1="176" y1="190" x2="206" y2="190" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="178" width="286" height="38" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="216" y="193">TACACS+ accounting</text>
+  <text class="w" x="216" y="207">"who changed the ACL at 02:00" loses its answer</text>
+
+  <line x1="176" y1="238" x2="206" y2="238" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="226" width="286" height="38" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="216" y="241">Two-factor tokens</text>
+  <text class="w" x="216" y="255">codes rejected, so exceptions get granted</text>
+
+  <line x1="176" y1="286" x2="206" y2="286" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="274" width="286" height="38" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="216" y="289">Cross-device correlation</text>
+  <text class="w" x="216" y="303">the first hour of an incident is spent on timestamps</text>
+
+  <line x1="176" y1="322" x2="206" y2="322" stroke="#c9d8f6" stroke-width=".8"/>
+  <rect x="206" y="310" width="286" height="38" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="216" y="325">Backup and change windows</text>
+  <text class="w" x="216" y="339">run twice, or overlap and corrupt each other</text>
+
+  <text class="k" x="524" y="62">THE CASCADE</text>
+  <rect x="524" y="72" width="352" height="34" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="c" x="534" y="93">1  NTP unreachable, local clock drifts minutes</text>
+  <line x1="700" y1="106" x2="700" y2="112" stroke="#c0392b" stroke-width=".9"/>
+  <rect x="524" y="112" width="352" height="34" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="534" y="133">2  certificates fall outside their validity window</text>
+  <line x1="700" y1="146" x2="700" y2="152" stroke="#c0392b" stroke-width=".9"/>
+  <rect x="524" y="152" width="352" height="34" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="534" y="173">3  IPsec drops, supplicants fail, HTTPS is refused</text>
+  <line x1="700" y1="186" x2="700" y2="192" stroke="#c0392b" stroke-width=".9"/>
+  <rect x="524" y="192" width="352" height="34" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="534" y="213">4  someone disables validation "to restore service"</text>
+  <line x1="700" y1="226" x2="700" y2="232" stroke="#c0392b" stroke-width="1"/>
+  <rect x="524" y="232" width="352" height="34" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width="1"/>
+  <text class="x" x="534" y="253">5  the control is now permanently switched off</text>
+
+  <text class="c" x="524" y="292">Step four is the real damage. The technology failure</text>
+  <text class="c" x="524" y="306">is recoverable in an hour; the human workaround is</text>
+  <text class="c" x="524" y="320">recoverable only with a second project.</text>
+  <text class="w" x="524" y="342">That is why the fallback plan is part of the NTP</text>
+  <text class="w" x="524" y="356">design, not part of the incident response.</text>
+
+  <text class="k" x="24" y="378">FIVE DESIGN RULES</text>
+  <text class="c" x="24" y="394">two sources on different paths   ·   an internal stratum hierarchy, not every device polling the internet   ·   authentication or an ACL on the NTP server</text>
+  <text class="c" x="24" y="408">offset monitored as a health metric, with an alarm   ·   a documented fallback that is not "use the local hardware clock"</text>
+
+  <rect x="24" y="414" width="852" height="24" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="w" x="36" y="430">Check it in a review: ask what the maximum clock offset in the estate is. If nobody knows, the estate has no time source worth the name.</text>
+</svg>

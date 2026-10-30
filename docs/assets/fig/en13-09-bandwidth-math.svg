@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1309 d1309">
+  <title id="t1309">Multicast bandwidth arithmetic: stream times branches times one plus redundancy, measured where the copies are made</title>
+  <desc id="d1309">The formula at the top: budget equals stream bit rate times branches times one plus the redundancy factor, plus headroom. Three panels show where the multiplication happens. In the Layer 3 core one packet on one link serves every downstream branch, so core cost is the stream rate per link joining the tree. On a Layer 2 access switch the packet is copied per port, so 8 Mbps times 24 ports is 192 Mbps of egress. On the WAN only sites that joined receive a copy, so two sites out of two hundred cost two copies. A worked example follows: 8 Mbps, 24 branches, live-live 1+1 and 30 percent headroom gives 499 Mbps of reserved capacity, against a naive 8 Mbps plan - a 62x underestimate.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 11px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Capacity is not the stream bit rate</text>
+  <text class="s" x="24" y="45">Multiply at the copy points. Then add redundancy. Then add headroom. Anything less is a guess that fails at the first big event.</text>
+
+  <rect x="24" y="58" width="852" height="46" rx="3" fill="#eef3fb" stroke="#c3d5f2" stroke-width=".8"/>
+  <text class="n" x="42" y="79">budget  =  stream rate  x  branches  x  (1 + redundancy)  x  (1 + headroom)</text>
+  <text class="w" x="42" y="95">"branches" means copy points, not viewers: a Layer 3 node copies once per outgoing link, a Layer 2 switch once per outgoing port.</text>
+
+  <rect x="24" y="114" width="268" height="150" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="130">IN THE L3 CORE</text>
+  <text class="b" x="36" y="148">One copy per link on the tree</text>
+  <path d="M48 176 L96 176" stroke="#0f7f73" stroke-width="2"/>
+  <path d="M104 176 L140 160 M104 176 L140 192" stroke="#0f7f73" stroke-width="1.2"/>
+  <text class="c" x="150" y="164">8 Mbps</text>
+  <text class="c" x="150" y="196">8 Mbps</text>
+  <text class="c" x="36" y="220">The core carries the stream once per</text>
+  <text class="c" x="36" y="232">direction, no matter how many receivers</text>
+  <text class="c" x="36" y="244">sit behind the next hop.</text>
+  <text class="g" x="36" y="258">Core cost = stream x links in the tree</text>
+
+  <rect x="316" y="114" width="268" height="150" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="328" y="130">ON A L2 ACCESS SWITCH</text>
+  <text class="b" x="328" y="148">One copy per port, always</text>
+  <path d="M340 176 L378 176" stroke="#c0392b" stroke-width="2"/>
+  <path d="M382 176 L410 160 M382 176 L410 170 M382 176 L410 180 M382 176 L410 192" stroke="#c0392b" stroke-width="1"/>
+  <text class="c" x="418" y="164">24 ports</text>
+  <text class="c" x="418" y="176">each 8 Mbps</text>
+  <text class="c" x="418" y="188">= 192 Mbps</text>
+  <text class="c" x="328" y="218">The uplink is fine and the access port</text>
+  <text class="c" x="328" y="230">overflows. This is where most "bandwidth</text>
+  <text class="c" x="328" y="242">problems" actually are.</text>
+  <text class="x" x="328" y="258">Cost = stream x ports that joined</text>
+
+  <rect x="608" y="114" width="268" height="150" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="620" y="130">ON THE WAN</text>
+  <text class="b" x="620" y="148">Only sites that joined pay</text>
+  <path d="M632 176 L668 176" stroke="#6b4fbf" stroke-width="2"/>
+  <path d="M672 176 L700 164 M672 176 L700 188" stroke="#6b4fbf" stroke-width="1"/>
+  <text class="c" x="708" y="168">2 of 200 sites</text>
+  <text class="c" x="708" y="180">= 2 copies</text>
+  <text class="c" x="620" y="218">Multicast saves WAN bandwidth only for</text>
+  <text class="c" x="620" y="230">the sites with no receiver. A site with one</text>
+  <text class="c" x="620" y="242">viewer costs the same as unicast.</text>
+  <text class="g" x="620" y="258">Cost = stream x sites that joined</text>
+
+  <rect x="24" y="278" width="852" height="128" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="294">WORKED EXAMPLE: ONE 8 MBPS CHANNEL, 24 BRANCHES, LIVE-LIVE PROTECTION, 30% HEADROOM</text>
+  <text class="b" x="36" y="314">Naive plan</text>
+  <text class="c" x="36" y="330">8 Mbps, because that is what the</text>
+  <text class="c" x="36" y="342">encoder says it produces.</text>
+  <text class="c" x="36" y="362">Result: the first all-hands event</text>
+  <text class="c" x="36" y="374">saturates a branch uplink and the</text>
+  <text class="c" x="36" y="386">post-mortem says "multicast is slow".</text>
+
+  <text class="b" x="316" y="314">The arithmetic</text>
+  <text class="m" x="316" y="332">8 Mbps x 24 branches        = 192 Mbps</text>
+  <text class="m" x="316" y="348">x (1 + 1) live-live          = 384 Mbps</text>
+  <text class="m" x="316" y="364">x (1 + 0.30) headroom      = 499 Mbps</text>
+  <text class="c" x="316" y="384">Reserve 500 Mbps per branch uplink, then</text>
+  <text class="c" x="316" y="396">check the access port, which needs 8 x 24 = 192.</text>
+
+  <text class="b" x="652" y="314">The 62x gap</text>
+  <text class="c" x="652" y="330">499 / 8 = 62. The difference between</text>
+  <text class="c" x="652" y="342">the encoder rate and the reservation</text>
+  <text class="c" x="652" y="354">is where multicast designs fail.</text>
+  <text class="c" x="652" y="376">Write both numbers into the LLD, and</text>
+  <text class="c" x="652" y="388">state which one the QoS policy polices.</text>
+
+  <rect x="24" y="416" width="852" height="36" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="36" y="438">Multicast saves bandwidth on links with no receivers. It never saves bandwidth on a link with many: those are exactly the links where replication multiplies.</text>
+</svg>

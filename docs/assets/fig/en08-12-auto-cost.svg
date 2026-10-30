@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t812 d812">
+
+  <title id="t812">The default OSPF cost formula, why it breaks above one gigabit, and how a wrong reference bandwidth creates asymmetric paths</title>
+  <desc id="d812">Two cost tables side by side. With the default reference bandwidth of one hundred megabits, costs are 1 for a hundred megabit link, 1 for one gigabit, 1 for ten gigabit and 1 for one hundred gigabit, so every link is equal and the metric cannot tell them apart. With a one hundred gigabit reference, the same links cost 1000, 100, 10 and 1, which preserves the real ratio. Below, a topology showing the asymmetry an inconsistent reference bandwidth produces: a ten gigabit link and a one gigabit link between the same two routers, where one router uses the default reference and computes cost 1 for both while the other uses a one hundred gigabit reference and computes 10 and 100, so the forward and return paths differ and troubleshooting traces a path that does not exist in reverse. A closing note gives the design rule: choose the reference so the slowest link in the network is not 1, and set it identically everywhere.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Cost = reference bandwidth / interface bandwidth. Above 1 Gbps, the default stops working</text>
+  <text class="s" x="24" y="45">The default reference is 100 Mbps, and the result of the division is truncated to an integer &#8212; which is where the trouble starts</text>
+
+  <text class="k" x="24" y="68">DEFAULT REFERENCE 100 Mbps</text>
+  <text class="k" x="300" y="68">REFERENCE 100 Gbps (auto-cost reference-bandwidth 100000)</text>
+
+  <text class="w" x="36" y="88">LINK</text>
+  <text class="w" x="170" y="88">COST</text>
+  <text class="w" x="312" y="88">LINK</text>
+  <text class="w" x="450" y="88">COST</text>
+
+  <rect x="24" y="94" width="252" height="104" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="c" x="36" y="112">100 Mbps</text><text class="c" x="170" y="112">1</text>
+  <text class="c" x="36" y="130">1 Gbps</text><text class="c" x="170" y="130">1</text>
+  <text class="c" x="36" y="148">10 Gbps</text><text class="c" x="170" y="148">1</text>
+  <text class="c" x="36" y="166">100 Gbps</text><text class="c" x="170" y="166">1</text>
+  <text class="w" x="36" y="186" fill="#c0392b">Every link is equal &#8594; the metric is blind</text>
+
+  <rect x="300" y="94" width="276" height="104" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="c" x="312" y="112">100 Mbps</text><text class="c" x="450" y="112">1000</text>
+  <text class="c" x="312" y="130">1 Gbps</text><text class="c" x="450" y="130">100</text>
+  <text class="c" x="312" y="148">10 Gbps</text><text class="c" x="450" y="148">10</text>
+  <text class="c" x="312" y="166">100 Gbps</text><text class="c" x="450" y="166">1</text>
+  <text class="w" x="312" y="186" fill="#0f7f73">Ratio preserved &#8594; the metric means something</text>
+
+  <text class="k" x="24" y="224">WHAT AN INCONSISTENT REFERENCE LOOKS LIKE</text>
+
+  <rect x="24" y="232" width="440" height="104" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <rect x="50" y="256" width="90" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="62" y="275">R1</text>
+  <text class="w" x="54" y="298">default reference</text>
+  <rect x="330" y="256" width="90" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="342" y="275">R2</text>
+  <text class="w" x="334" y="298">reference 100G</text>
+
+  <line x1="140" y1="265" x2="330" y2="265" stroke="#1f4fc0" stroke-width="1.2"/>
+  <text class="w" x="196" y="259">10G link &#183; R1 sees cost 1, R2 sees cost 10</text>
+  <line x1="140" y1="281" x2="330" y2="281" stroke="#9aa8ba" stroke-width=".8" stroke-dasharray="4 3"/>
+  <text class="w" x="196" y="294">1G link &#183; R1 sees cost 1, R2 sees cost 100</text>
+  <text class="c" x="36" y="322" fill="#c0392b">Forward and return paths diverge. A traceroute shows a path</text>
+  <text class="c" x="36" y="334" fill="#c0392b">that does not exist in reverse &#8212; and nobody believes the output.</text>
+
+  <rect x="480" y="232" width="396" height="104" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="492" y="250" fill="#7a5b18">Design rule for the metric</text>
+  <text class="c" x="492" y="266">Choose the reference so that the <tspan style="font-weight:700">slowest link in the network</tspan></text>
+  <text class="c" x="492" y="279">does not come out as 1. If the slowest link is 100 Mbps, a 100 Gbps</text>
+  <text class="c" x="492" y="292">reference gives it 1000 and leaves 1000 units of resolution above it.</text>
+  <text class="c" x="492" y="308">Then set it <tspan style="font-weight:700">identically on every router</tspan>, and record the value in</text>
+  <text class="c" x="492" y="321">the design document &#8212; because the value is now part of the topology.</text>
+
+  <rect x="24" y="350" width="852" height="54" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="350" width="4" height="54" fill="#c0392b"/>
+  <text class="c" x="40" y="368" fill="#c0392b"><tspan style="font-weight:700">The consequence that shows up in operations:</tspan> the metric is no longer what you think you configured. Cost is recomputed from the</text>
+  <text class="c" x="40" y="384" fill="#c0392b">interface bandwidth by every router locally, so the path is decided by what each router believes its links are &#8212; and by the reference</text>
+  <text class="c" x="40" y="400" fill="#c0392b">bandwidth it happens to be running. Two routers, two beliefs, one asymmetric network.</text>
+
+  <text class="w" x="24" y="424">Proof to ask for in acceptance: for every link in the topology diagram, print the cost on both ends and compare. A mismatch is not a documentation issue; it is a routing issue.</text>
+</svg>

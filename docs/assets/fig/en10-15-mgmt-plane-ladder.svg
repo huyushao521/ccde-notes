@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1014 d1014">
+  <title id="t1014">Four management architectures in order of resilience, and the access chain that sits on top of whichever one you choose</title>
+  <desc id="d1014">Four rungs, worst to best. Rung one: management in-band on a production VLAN, reachable from the user subnet - simplest to build, and it fails exactly when production fails, which is the moment you need it. Rung two: in-band with a management ACL - the blast radius shrinks to a named set of sources, but the path still shares fate with the traffic it manages. Rung three: a management VRF or a dedicated management VLAN with its own routing - the fate is separated at layer 3, though it often rides the same physical links and the same power. Rung four: fully out-of-band through a separate console or terminal server network - independent of production routing, independent of production power where possible, and the only rung that still works when the thing you are managing has failed. Right: the access chain that applies to every rung - a bastion host, two factors, per-command authorization, session recording, and a rate-limited ACL on the management interface. Bottom: the two questions that decide the rung - what is the budget, and what is the recovery objective for a device that is unreachable. A footer notes that rung one is chosen in about 80 percent of the networks that later describe a management outage as a surprise.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+  <rect x="0" y="0" width="900" height="436" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Management access fails at the worst possible moment, unless it was designed not to</text>
+  <text class="s" x="24" y="45">Every rung is defensible. What is not defensible is not knowing which rung you are on.</text>
+
+  <rect x="24" y="62" width="500" height="52" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".9"/>
+  <text class="b" x="36" y="80">RUNG 1  Management in-band, reachable from the user subnet</text>
+  <text class="c" x="36" y="96">cheapest to build, and it fails exactly when production fails - the moment you need it</text>
+  <text class="x" x="36" y="108">any host on the LAN can reach the device's own door</text>
+
+  <rect x="24" y="120" width="500" height="52" rx="3" fill="#ffffff" stroke="#b8862b" stroke-width=".9"/>
+  <text class="b" x="36" y="138">RUNG 2  In-band with a management ACL</text>
+  <text class="c" x="36" y="154">blast radius shrinks to a named set of sources; the path still shares fate with the traffic it manages</text>
+  <text class="w" x="36" y="166">loses to a routing failure, an overloaded link, or a full CPU</text>
+
+  <rect x="24" y="178" width="500" height="52" rx="3" fill="#ffffff" stroke="#c9d8f6" stroke-width=".9"/>
+  <text class="b" x="36" y="196">RUNG 3  Management VRF or dedicated management VLAN</text>
+  <text class="c" x="36" y="212">fate separated at layer 3, with its own routing table and often its own addressing</text>
+  <text class="w" x="36" y="224">still rides the same physical links and the same power feed</text>
+
+  <rect x="24" y="236" width="500" height="52" rx="3" fill="#eef7f5" stroke="#0f7f73" stroke-width=".9"/>
+  <text class="b" x="36" y="254">RUNG 4  Fully out-of-band: console server on a separate network</text>
+  <text class="c" x="36" y="270">independent of production routing and, ideally, of production power</text>
+  <text class="g" x="36" y="282">the only rung that still works when the device itself has failed</text>
+
+  <text class="k" x="544" y="78">THE ACCESS CHAIN (on any rung)</text>
+  <rect x="544" y="88" width="332" height="200" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="556" y="108">1  bastion host - no direct engineer to device sessions</text>
+  <text class="c" x="556" y="130">2  two factors, with the second not being SMS</text>
+  <text class="c" x="556" y="152">3  per-command authorization from TACACS+</text>
+  <text class="c" x="556" y="174">4  session recording for privileged access</text>
+  <text class="c" x="556" y="196">5  rate-limited mgmt ACL, logging drops</text>
+  <text class="c" x="556" y="218">6  break-glass in a sealed envelope, alarmed on use</text>
+  <text class="w" x="556" y="244">The chain is identical on all four rungs: the rung</text>
+  <text class="w" x="556" y="258">decides resilience, the chain decides who gets in.</text>
+  <text class="w" x="556" y="276">Mixing them up is how a hardened rung 1 stays one</text>
+  <text class="w" x="556" y="288">password away from total loss.</text>
+
+  <text class="k" x="24" y="316">TWO QUESTIONS THAT PICK THE RUNG</text>
+  <rect x="24" y="326" width="252" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="36" y="344">What is the budget, including</text>
+  <text class="c" x="36" y="358">the console server and its cabling?</text>
+  <text class="w" x="36" y="370">it is smaller than one outage</text>
+
+  <rect x="288" y="326" width="272" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="300" y="344">What is the recovery objective for</text>
+  <text class="c" x="300" y="358">a device nobody can reach?</text>
+  <text class="w" x="300" y="370">a truck roll is four hours, at best</text>
+
+  <rect x="572" y="326" width="304" height="50" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="w" x="584" y="344">A middle path worth naming: out-of-band for the core</text>
+  <text class="w" x="584" y="358">and edge only, management VRF for access. It covers</text>
+  <text class="w" x="584" y="370">the devices whose loss actually stops the business.</text>
+
+  <text class="w" x="24" y="400">The test that settles an argument in a review: unplug the production uplink from the core, then try to log in. Whatever you can still reach is your real management architecture.</text>
+  <text class="w" x="24" y="418">Second test: take away the engineer's own laptop and the jump host, and see whether a documented path remains. If not, the design has one credential and one device as its foundation.</text>
+</svg>

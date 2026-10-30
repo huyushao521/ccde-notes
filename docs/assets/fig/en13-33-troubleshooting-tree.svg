@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t1333 d1333">
+  <title id="t1333">The multicast troubleshooting decision tree as six ordered questions, each with the check and the branch that stops the search</title>
+  <desc id="d1333">Six questions in fixed order, each paired with the command that answers it and the branch that ends the investigation. One: did the receiver join, checked with show ip igmp groups on the last hop router and show ip igmp snooping groups on the switch; if there is no entry, capture the IGMP report and check the host, the IGMP version and the ACL. Two: is there multicast state, checked with show ip mroute; a missing star entry means the join never went upstream or the RP is unreachable, and a star entry without a source entry means the source never registered. Three: is RPF correct, checked with show ip rpf; if the RPF interface differs from the real ingress, look at unicast routes, static mroutes, MBGP and ECMP. Four: did the traffic arrive, checked with mroute counts and interface counters; if not, walk upstream hop by hop or use mtrace. Five: is the outgoing interface list right, checked for the downstream interface and the Forward flag; a prune means the downstream never sent a join or a prune override was lost. Six: is the data plane forwarding, checked for exhausted multicast entries or replication resources, layer 2 forwarding by mirror capture, and MTU, fragmentation or QoS drops. A footer explains why the order matters: starting in the middle wastes the information that the earlier answers would have given.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Six questions, always in this order - the last one is never the first one</text>
+  <text class="s" x="24" y="45">The tree is a runbook, not a diagram. Each row is a command, and a branch that ends the search.</text>
+
+  <text class="k" x="34" y="70">QUESTION</text>
+  <text class="k" x="330" y="70">CHECK</text>
+  <text class="k" x="600" y="70">IF IT FAILS</text>
+  <line x1="24" y1="78" x2="876" y2="78" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="24" y="86" width="284" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="105">1  Did the receiver join?</text>
+  <text class="w" x="36" y="122">host, access switch, IGMP version</text>
+  <text class="m" x="326" y="100">show ip igmp groups G</text>
+  <text class="m" x="326" y="114">show ip igmp snooping groups</text>
+  <text class="c" x="600" y="100">no entry: capture the IGMP Report.</text>
+  <text class="c" x="600" y="114">host, version, or an ACL killed it.</text>
+
+  <rect x="24" y="146" width="284" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="165">2  Is there state on the LHR?</text>
+  <text class="w" x="36" y="182">star entry and source entry are different</text>
+  <text class="m" x="326" y="160">show ip mroute G</text>
+  <text class="m" x="326" y="174">show ip mroute count</text>
+  <text class="c" x="600" y="160">no (*,G): join never sent, or RP</text>
+  <text class="c" x="600" y="174">unreachable. (*,G) only: no Register.</text>
+
+  <rect x="24" y="206" width="284" height="50" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="36" y="225">3  Is RPF correct?</text>
+  <text class="w" x="36" y="242">compare RPF interface with real ingress</text>
+  <text class="m" x="326" y="220">show ip rpf S</text>
+  <text class="m" x="326" y="234">show ip route S</text>
+  <text class="x" x="600" y="220">mismatch: unicast route, static</text>
+  <text class="x" x="600" y="234">mroute, MBGP, or ECMP asymmetry.</text>
+
+  <rect x="24" y="266" width="284" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="285">4  Did the traffic arrive?</text>
+  <text class="w" x="36" y="302">counters climbing at the ingress</text>
+  <text class="m" x="326" y="280">show ip mroute count</text>
+  <text class="m" x="326" y="294">mtrace S G</text>
+  <text class="c" x="600" y="280">flat counters: the tree is fine and</text>
+  <text class="c" x="600" y="294">empty. Walk up, hop by hop.</text>
+
+  <rect x="24" y="326" width="284" height="50" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="345">5  Is the OIL right?</text>
+  <text class="w" x="36" y="362">downstream present, flag Forward</text>
+  <text class="m" x="326" y="340">show ip mroute G</text>
+  <text class="m" x="326" y="354">show ip pim neighbor</text>
+  <text class="c" x="600" y="340">pruned: downstream never joined,</text>
+  <text class="c" x="600" y="354">or a prune override was lost.</text>
+
+  <rect x="24" y="386" width="284" height="50" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="36" y="405">6  Is the data plane forwarding?</text>
+  <text class="w" x="36" y="422">hardware, layer 2, MTU, QoS</text>
+  <text class="m" x="326" y="400">show platform ... mcast</text>
+  <text class="m" x="326" y="414">monitor session + capture</text>
+  <text class="c" x="600" y="400">entries or replication exhausted,</text>
+  <text class="c" x="600" y="414">no L2 forward, or output drops.</text>
+
+  <rect x="24" y="448" width="852" height="44" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="466">Why the order is not negotiable: each answer eliminates half the remaining tree. Starting at RPF because it "usually is RPF" throws away the three facts</text>
+  <text class="c" x="36" y="480">that the first two commands would have given you - and that is how a fifteen-minute fix becomes an all-night call.</text>
+</svg>

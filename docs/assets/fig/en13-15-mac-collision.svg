@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1315 d1315">
+  <title id="t1315">The 32 to 1 collision: why two different groups can share one MAC address and one switch port can receive the wrong channel</title>
+  <desc id="d1315">Top: the mapping takes 01:00:5e plus the low 23 bits of the IPv4 group address, so 9 bits - the top bit of the second octet plus the entire first octet - are lost. A worked example shows 239.1.1.1 and 239.129.1.1 both mapping to 01:00:5e:01:01:01, because 129 differs from 1 only in the dropped bit. Bottom left: what actually happens on the wire - both groups arrive at a host that asked for one, and only the IP layer of the host filters the extra traffic, so the VLAN and every access port carry both. Bottom middle: the three places the collision bites - the snooping table where one entry serves two groups, the access port where a 4 Mbps stream becomes 8 Mbps, and the ACL audit that cannot tell the two apart. Bottom right: the defence - allocate with the script, check per VLAN, and never rely on MAC-level separation.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Nine bits are dropped, so thirty-two groups share one MAC</text>
+  <text class="s" x="24" y="45">The switch forwards on MAC. Whatever the IP layer does afterwards, the wire already carried the wrong stream.</text>
+
+  <rect x="24" y="58" width="852" height="118" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="74">THE MAPPING</text>
+  <text class="m" x="36" y="94">01:00:5e</text>
+  <text class="c" x="96" y="94">+</text>
+  <text class="m" x="112" y="94">low 23 bits of the group address</text>
+  <text class="c" x="290" y="94">= 48-bit destination MAC</text>
+  <text class="x" x="36" y="116">Dropped: the top bit of the second octet, and the whole first octet (239 or 232 makes no difference to the MAC).</text>
+
+  <text class="b" x="36" y="140">239.1.1.1</text>
+  <text class="c" x="120" y="140">second octet 0000 0001</text>
+  <text class="c" x="250" y="140">-&gt;</text>
+  <text class="m" x="270" y="140">01:00:5e:01:01:01</text>
+  <text class="b" x="36" y="160">239.129.1.1</text>
+  <text class="c" x="120" y="160">second octet 1000 0001 - same low 7 bits</text>
+  <text class="c" x="250" y="160">-&gt;</text>
+  <text class="m" x="270" y="160">01:00:5e:01:01:01</text>
+  <text class="x" x="440" y="140">Two different channels, one MAC.</text>
+  <text class="c" x="440" y="160">32 groups per MAC, in every combination.</text>
+
+  <rect x="24" y="190" width="404" height="112" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="206">WHAT HAPPENS ON THE WIRE</text>
+  <circle cx="52" cy="236" r="9" fill="#fff" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="48" y="239">H</text>
+  <path d="M61 236 L92 236" stroke="#c0392b" stroke-width=".8"/>
+  <path d="M96 236 L128 224 M96 236 L128 236 M96 236 L128 248" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="134" y="228">239.1.1.1</text>
+  <text class="c" x="134" y="240">239.129.1.1</text>
+  <text class="c" x="134" y="252">both delivered</text>
+  <text class="c" x="36" y="272">The host asked for one group and receives two.</text>
+  <text class="c" x="36" y="284">Its IP stack filters the extra one, so users see</text>
+  <text class="c" x="36" y="296">nothing - but the port and the uplink carried double.</text>
+
+  <rect x="448" y="190" width="428" height="112" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="460" y="206">THREE PLACES IT BITES</text>
+  <text class="b" x="460" y="224">1. The snooping table</text>
+  <text class="c" x="460" y="238">One MAC entry serves two groups: a join for one</text>
+  <text class="c" x="460" y="250">keeps the other flowing.</text>
+  <text class="b" x="460" y="268">2. The access port</text>
+  <text class="c" x="460" y="282">4 Mbps becomes 8 Mbps on every port with a viewer.</text>
+  <text class="b" x="460" y="298">3. The audit</text>
+  <text class="c" x="460" y="312">A group-level check cannot tell the two apart:</text>
+  <text class="c" x="460" y="324">only the MAC-level script can.</text>
+
+  <rect x="24" y="316" width="852" height="108" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="332">THE DEFENCE, IN ORDER</text>
+  <text class="b" x="36" y="352">Allocate with the script</text>
+  <text class="c" x="36" y="368">Compute the MAC for every proposed group</text>
+  <text class="c" x="36" y="380">and refuse the allocation on a duplicate.</text>
+  <text class="b" x="316" y="352">Check per VLAN, not globally</text>
+  <text class="c" x="316" y="368">Two colliding groups in different VLANs are</text>
+  <text class="c" x="316" y="380">harmless. In one VLAN they are an outage.</text>
+  <text class="b" x="600" y="352">Never use MAC separation</text>
+  <text class="c" x="600" y="368">Do not design around the collision, design it</text>
+  <text class="c" x="600" y="380">out: one group per MAC within a VLAN.</text>
+  <text class="c" x="36" y="404">IPv6 with 33:33 plus 32 bits removes this problem entirely, and replaces it with scope confusion: FF05 forwarded between sites, FF02 used as a service group.</text>
+</svg>

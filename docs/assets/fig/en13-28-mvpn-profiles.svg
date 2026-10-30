@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 486" width="100%" role="img" aria-labelledby="t1328 d1328">
+  <title id="t1328">MVPN profiles and the bandwidth arithmetic of default MDT versus data MDT</title>
+  <desc id="d1328">Left: five MVPN profiles compared. Rosen GRE with PIM between PEs, medium complexity and good compatibility. Rosen mLDP profile 1 using a point-to-multipoint LSP as the MDT, the modern mainstream. Rosen RSVP-TE P2MP profile 2, used when traffic engineering is required. Partitioned MDT profile 3, for very large scale with reduced PE full mesh. BGP auto-discovery profile 14 with selective trees, used by modern carriers. Right: the arithmetic that decides whether data MDT is optional. With 100 PEs and one 50 Mbps group, a default MDT only design replicates to 99 PEs, which is 4.95 Gbps of mostly useless traffic; a data MDT limited to the 4 PEs that really have receivers carries 200 Mbps. Bottom: the three concepts to keep apart - default MDT or I-PMSI carries everything including low bitrate, data MDT or S-PMSI carries only high bitrate groups to interested PEs, and the PE runs PIM or IGMP proxy toward the CE so the CE never needs to know about MPLS.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="486" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">MVPN: five profiles, and one arithmetic that decides whether they work</text>
+  <text class="s" x="24" y="45">An MPLS L3VPN carries no multicast until you deploy one of these. The profile is the easy choice; the MDT sizing is the one that hurts.</text>
+
+  <text class="k" x="34" y="66">PROFILE</text>
+  <text class="k" x="196" y="66">MDT / ENCAPSULATION</text>
+  <text class="k" x="396" y="66">CONTROL PLANE</text>
+  <text class="k" x="524" y="66">FIT</text>
+  <line x1="24" y1="74" x2="540" y2="74" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="24" y="84" width="516" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="102">Rosen, GRE</text>
+  <text class="c" x="196" y="102">GRE tunnel, PIM between PEs</text>
+  <text class="c" x="396" y="102">PIM</text>
+  <text class="w" x="524" y="102">legacy, compatible</text>
+  <text class="w" x="34" y="118">the oldest option, and the one that still appears in brownfield networks</text>
+
+  <rect x="24" y="134" width="516" height="44" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".7"/>
+  <text class="b" x="34" y="152">Rosen mLDP, P1</text>
+  <text class="c" x="196" y="152">P2MP LSP as the MDT</text>
+  <text class="c" x="396" y="152">BGP MVPN + mLDP</text>
+  <text class="g" x="524" y="152">modern mainstream</text>
+  <text class="w" x="34" y="168">labels instead of tunnel headers: no GRE overhead, no PIM in the core</text>
+
+  <rect x="24" y="184" width="516" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="202">Rosen RSVP-TE, P2</text>
+  <text class="c" x="196" y="202">RSVP-TE P2MP LSP</text>
+  <text class="c" x="396" y="202">BGP MVPN + RSVP-TE</text>
+  <text class="x" x="524" y="202">high complexity</text>
+  <text class="w" x="34" y="218">only when multicast needs traffic engineering or bandwidth reservation</text>
+
+  <rect x="24" y="234" width="516" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="252">Partitioned MDT, P3</text>
+  <text class="c" x="196" y="252">several MDT partitions</text>
+  <text class="c" x="396" y="252">BGP MVPN</text>
+  <text class="x" x="524" y="252">very large scale</text>
+  <text class="w" x="34" y="268">breaks the every-PE-in-every-MDT problem when the PE count is in the hundreds</text>
+
+  <rect x="24" y="284" width="516" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="302">BGP A-D, P14</text>
+  <text class="c" x="196" y="302">A-D routes + S-PMSI</text>
+  <text class="c" x="396" y="302">BGP MVPN only</text>
+  <text class="w" x="524" y="302">modern carrier</text>
+  <text class="w" x="34" y="318">selective trees chosen by the PE, not by a static profile definition</text>
+
+  <rect x="556" y="58" width="320" height="272" rx="4" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="k" x="568" y="76">THE ARITHMETIC</text>
+  <text class="b" x="568" y="96">100 PEs, one group at 50 Mbps</text>
+  <line x1="568" y1="106" x2="864" y2="106" stroke="#eaeff7" stroke-width=".7"/>
+  <text class="c" x="568" y="124">Default MDT only</text>
+  <text class="m" x="568" y="140">50 Mbps x 99 PEs</text>
+  <text class="x" x="568" y="158">= 4.95 Gbps of useless traffic</text>
+  <text class="w" x="568" y="172">95 of those PEs have no receivers at all</text>
+  <line x1="568" y1="184" x2="864" y2="184" stroke="#eaeff7" stroke-width=".7"/>
+  <text class="c" x="568" y="202">Default MDT + Data MDT</text>
+  <text class="m" x="568" y="218">50 Mbps x 4 PEs</text>
+  <text class="g" x="568" y="236">= 200 Mbps</text>
+  <text class="w" x="568" y="250">the tree follows the receivers, not the PE count</text>
+  <line x1="568" y1="262" x2="864" y2="262" stroke="#eaeff7" stroke-width=".7"/>
+  <text class="c" x="568" y="280">Difference on the carrier backbone</text>
+  <text class="r" x="568" y="298">24x - before any protection or headroom</text>
+  <text class="w" x="568" y="314">this is a bandwidth bill, not a configuration detail</text>
+
+  <rect x="24" y="338" width="270" height="82" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".7"/>
+  <text class="k" x="36" y="356">DEFAULT MDT (I-PMSI)</text>
+  <text class="w" x="36" y="374">every PE joins, every group crosses,</text>
+  <text class="w" x="36" y="388">including the low-bitrate ones that</text>
+  <text class="w" x="36" y="402">are perfectly fine to flood</text>
+
+  <rect x="306" y="338" width="270" height="82" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="318" y="356">DATA MDT (S-PMSI)</text>
+  <text class="w" x="318" y="374">only the PEs with receivers join,</text>
+  <text class="w" x="318" y="388">which is why it must be enabled -</text>
+  <text class="w" x="318" y="402">it is a requirement, not a tuning knob</text>
+
+  <rect x="588" y="338" width="288" height="82" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="k" x="600" y="356">PE ROLE / RP PLACEMENT</text>
+  <text class="w" x="600" y="374">PIM or IGMP proxy toward the CE,</text>
+  <text class="w" x="600" y="388">MDT toward the other PEs. The RP</text>
+  <text class="w" x="600" y="402">sits on the CE (autonomy) or the PE (transparency)</text>
+
+  <rect x="24" y="432" width="852" height="44" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="451">Acceptance test that finds this early: send one 50 Mbps group between two VRFs whose receivers are in one site only, then look at the egress counters of a PE that has no receiver.</text>
+  <text class="c" x="36" y="466">If that PE shows the full stream, data MDT is not working - and nobody will notice until the first all-hands webcast fills the backbone.</text>
+</svg>

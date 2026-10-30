@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t905 d905">
+  <title id="t905">PHP as a trade-off between one label operation and end-to-end QoS visibility</title>
+  <desc id="d905">Two parallel paths compared. With PHP enabled, the penultimate hop pops the transport label, the egress PE receives a bare IP packet, saves a lookup, and loses the EXP bits, so MPLS-based queueing cannot be applied on the last segment and traceroute shows an address that is not the egress interface. With PHP disabled and an explicit null configured, the penultimate hop hands over label 0, the egress PE keeps EXP for queue scheduling and traceroute shows the real last address, at the cost of one extra label operation and a possible carrier policy that forbids the change. A bottom band states the three questions to ask the carrier before committing to end-to-end QoS.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">PHP is not a switch; it is a trade between one lookup and one QoS guarantee</text>
+  <text class="s" x="24" y="45">The same physical path behaves differently for voice depending on this single decision</text>
+
+  <rect x="24" y="60" width="852" height="24" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="77" fill="#0f7f73">PHP ENABLED &#183; implicit null (label 3)</text>
+
+  <rect x="24" y="90" width="90" height="26" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="42" y="107">P (n-1)</text>
+  <rect x="150" y="90" width="90" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="172" y="107">PE (egress)</text>
+  <rect x="276" y="90" width="150" height="26" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="c" x="288" y="107">receives plain IP</text>
+
+  <line x1="114" y1="103" x2="150" y2="103" stroke="#0f7f73" stroke-width="1"/>
+  <text class="w" x="118" y="96" fill="#0f7f73">pops label</text>
+
+  <text class="c" x="440" y="96">+ saves one label operation and one lookup on the egress</text>
+  <text class="c" x="440" y="110">+ the last core hop does less work</text>
+  <text class="c" x="440" y="128" fill="#c0392b">&#8722; EXP is gone: the egress cannot queue on MPLS class</text>
+  <text class="c" x="440" y="141" fill="#c0392b">&#8722; traceroute shows an address that is not the egress interface</text>
+
+  <rect x="24" y="152" width="852" height="24" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="169" fill="#1f4fc0">PHP DISABLED &#183; explicit null (label 0)</text>
+
+  <rect x="24" y="182" width="90" height="26" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="42" y="199">P (n-1)</text>
+  <rect x="150" y="182" width="90" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="172" y="199">PE (egress)</text>
+  <rect x="276" y="182" width="150" height="26" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="c" x="288" y="199">receives label 0 + EXP</text>
+
+  <line x1="114" y1="195" x2="150" y2="195" stroke="#1f4fc0" stroke-width="1"/>
+  <text class="w" x="112" y="188" fill="#1f4fc0">swap to 0</text>
+
+  <text class="c" x="440" y="188">+ the egress PE keeps EXP and can schedule the last segment</text>
+  <text class="c" x="440" y="202">+ traceroute reveals the real last hop</text>
+  <text class="c" x="440" y="220" fill="#7a5b18">&#8722; one extra label operation and lookup per packet</text>
+  <text class="c" x="440" y="233" fill="#7a5b18">&#8722; many carriers will not let a customer change this</text>
+
+  <rect x="24" y="252" width="852" height="86" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="252" width="4" height="86" fill="#c0392b"/>
+  <text class="c" x="40" y="270" fill="#c0392b"><tspan style="font-weight:700">Ask the carrier these three things, in writing, before you promise end-to-end QoS:</tspan></text>
+  <text class="c" x="40" y="290" fill="#c0392b">1. Is the last hop implicit null or explicit null, and is it the same for every class of service (and after a maintenance window)?</text>
+  <text class="c" x="40" y="308" fill="#c0392b">2. How does my DSCP map to the carrier's EXP or TC values, and is the mapping preserved across the core?</text>
+  <text class="c" x="40" y="326" fill="#c0392b">3. If EXP is discarded at the last hop, what is the carrier's guarantee for the final segment &#8212; a queue, a policer, or nothing?</text>
+
+  <text class="w" x="24" y="364">Verification you can run yourself: send a marked flow and read the egress counters per class. If the class counter does not move, the marking never reached the queue &#8212;</text>
+  <text class="w" x="24" y="377">and the answer is in this figure, not in the bandwidth graph everyone was staring at.</text>
+</svg>

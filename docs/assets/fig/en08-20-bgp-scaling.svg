@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 462" width="100%" role="img" aria-labelledby="t820 d820">
+
+  <title id="t820">Why an iBGP full mesh does not scale, and the three structures that replace it</title>
+  <desc id="d820">Left panel shows five routers each connected to all four others, labelled as ten sessions in total, with the note that iBGP requires a full mesh because a route learned from an iBGP peer is never re-advertised to another iBGP peer. A table gives the growth of session count: five routers need ten sessions, ten need forty-five, twenty need one hundred ninety, fifty need one thousand two hundred twenty-five, and one hundred need four thousand nine hundred fifty. The middle panel explains the route reflector: one router becomes the reflector, clients peer only with it, the reflector reflects routes between clients, and originator ID and cluster list are the two loop-prevention attributes added. The right panel compares a confederation, which splits one autonomous system into sub-autonomous systems with eBGP-like behaviour inside, and peer groups, which reduce configuration but not session count. A closing note says a full mesh is fine below roughly ten routers, which is why small designs survive with it and large designs never do.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="462" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">iBGP needs a full mesh, and a full mesh is a quadratic bill</text>
+  <text class="s" x="24" y="45">The rule that creates the bill: a route learned from an iBGP peer is never re-advertised to another iBGP peer</text>
+
+  <rect x="24" y="58" width="250" height="176" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="k" x="36" y="74">FULL MESH, 5 ROUTERS</text>
+
+  <circle cx="72" cy="112" r="9" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="196" cy="112" r="9" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="72" cy="196" r="9" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="196" cy="196" r="9" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="134" cy="154" r="9" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+
+  <line x1="81" y1="112" x2="187" y2="112" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="81" y1="196" x2="187" y2="196" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="72" y1="121" x2="72" y2="187" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="196" y1="121" x2="196" y2="187" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="78" y1="106" x2="128" y2="150" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="190" y1="106" x2="140" y2="150" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="78" y1="202" x2="128" y2="158" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="190" y1="202" x2="140" y2="158" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="81" y1="118" x2="187" y2="190" stroke="#9aa8ba" stroke-width=".5"/>
+  <line x1="81" y1="190" x2="187" y2="118" stroke="#9aa8ba" stroke-width=".5"/>
+
+  <text class="c" x="36" y="222">10 sessions for 5 routers &#183; every router needs a route to</text>
+  <text class="c" x="36" y="228">every other router before it can peer</text>
+
+  <text class="k" x="292" y="74">SESSION COUNT &#183; N(N&#8722;1)/2</text>
+  <rect x="292" y="82" width="180" height="152" rx="2" fill="#ffffff" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="w" x="304" y="98">ROUTERS</text><text class="w" x="404" y="98">SESSIONS</text>
+  <text class="c" x="304" y="116">5</text><text class="c" x="404" y="116">10</text>
+  <text class="c" x="304" y="134">10</text><text class="c" x="404" y="134">45</text>
+  <text class="c" x="304" y="152">20</text><text class="c" x="404" y="152">190</text>
+  <text class="c" x="304" y="170">50</text><text class="c" x="404" y="170">1 225</text>
+  <text class="c" x="304" y="188" fill="#c0392b">100</text><text class="c" x="404" y="188" fill="#c0392b">4 950</text>
+  <text class="c" x="304" y="206">Each session is a TCP connection, a</text>
+  <text class="c" x="304" y="219">policy, and a copy of every update.</text>
+
+  <text class="k" x="492" y="74">ROUTE REFLECTOR</text>
+  <rect x="492" y="82" width="384" height="152" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+
+  <rect x="512" y="100" width="86" height="28" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="526" y="118">RR</text>
+  <rect x="512" y="168" width="86" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="524" y="185">client-1</text>
+  <rect x="632" y="168" width="86" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="644" y="185">client-2</text>
+  <rect x="752" y="168" width="86" height="26" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="764" y="185">client-3</text>
+
+  <line x1="555" y1="128" x2="555" y2="168" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="590" y1="114" x2="632" y2="168" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="598" y1="114" x2="752" y2="168" stroke="#0f7f73" stroke-width=".8"/>
+
+  <text class="c" x="624" y="108">Clients peer only with the RR.</text>
+  <text class="c" x="624" y="121">The RR reflects between them &#8212; sessions</text>
+  <text class="c" x="624" y="134">become N instead of N(N&#8722;1)/2.</text>
+  <text class="c" x="512" y="150" fill="#0f7f73">Loop prevention: <tspan style="font-weight:700">originator ID</tspan> and <tspan style="font-weight:700">cluster list</tspan>.</text>
+  <text class="c" x="512" y="218">Two RRs in one cluster give redundancy; the cluster ID must match.</text>
+
+  <rect x="24" y="244" width="852" height="96" rx="3" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="k" x="36" y="262">THE OTHER TWO STRUCTURES, AND WHAT THEY ACTUALLY FIX</text>
+  <text class="c" x="36" y="282"><tspan style="font-weight:700">Confederation:</tspan> split one AS into sub-AS numbers with eBGP-like behaviour inside, and a full mesh is needed only inside each sub-AS.</text>
+  <text class="w" x="36" y="296">Fixes session count at a cost: AS_PATH looks strange, and the design has to be explained to every external peer.</text>
+  <text class="c" x="36" y="314"><tspan style="font-weight:700">Peer group:</tspan> one policy applied to many neighbours. Fixes configuration volume and update generation, not the session count.</text>
+  <text class="w" x="36" y="328">Useful in every design. It does not replace the reflector; it makes the reflector configurable.</text>
+
+  <rect x="24" y="350" width="852" height="56" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="350" width="4" height="56" fill="#c0392b"/>
+  <text class="c" x="40" y="368" fill="#c0392b"><tspan style="font-weight:700">Where the knee is:</tspan> a full mesh is perfectly workable below roughly ten routers, which is exactly why small designs keep it and never notice.</text>
+  <text class="c" x="40" y="384" fill="#c0392b">Above that the operational cost is not the sessions &#8212; it is that every new router needs a change on every existing router, and every policy needs N&#8722;1</text>
+  <text class="c" x="40" y="400" fill="#c0392b">consistent edits. Design the reflector in from the start; retrofitting it into a live full mesh is a change window nobody enjoys.</text>
+
+  <text class="w" x="24" y="428">Sizing note for the design document: the reflector concentrates the update load, so place it where CPU and memory are cheapest, and always use at least two</text>
+  <text class="w" x="24" y="441">for redundancy. Clients must never also peer with each other, or the loop-prevention attributes stop being the thing keeping the domain sane.</text>
+</svg>

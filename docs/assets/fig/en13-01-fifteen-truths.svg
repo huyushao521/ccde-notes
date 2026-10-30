@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t1301 d1301">
+  <title id="t1301">Fifteen counter-intuitive truths about multicast design, each with the mechanism and the number behind it</title>
+  <desc id="d1301">A three by five grid of cards. Each card states one truth: reverse check of the source, a broadcast domain problem, the RP as a single point, SPT switchover is not free, SSM as the modern default, no retransmission, scarce addresses, control and data plane decoupled, unidirectional trees, four different roles, bandwidth multiplication, silent failures, state count as the bottleneck, playing versus playing the right path, and rate limiting plus boundaries as the last defence. A bottom band notes that each truth is a line item in the design document.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+  </style>
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Fifteen truths, fifteen design checks</text>
+  <text class="s" x="24" y="45">If a design document answers all fifteen, multicast will not surprise you in acceptance</text>
+
+  <rect x="24" y="62" width="276" height="66" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="34" y="76">01</text>
+  <text class="b" x="34" y="90">No destination lookup, only source check</text>
+  <text class="c" x="34" y="104">Ingress interface must equal the path to the</text>
+  <text class="c" x="34" y="116">source. 90% of "no video" dies at show ip rpf.</text>
+
+  <rect x="312" y="62" width="276" height="66" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="322" y="76">02</text>
+  <text class="b" x="322" y="90">It is a broadcast domain problem</text>
+  <text class="c" x="322" y="104">Without snooping a 5 Mbps stream x 500 access</text>
+  <text class="c" x="322" y="116">ports = 2.5 Gbps of traffic nobody asked for.</text>
+
+  <rect x="600" y="62" width="276" height="66" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="610" y="76">03</text>
+  <text class="b" x="610" y="90">The RP is a single point plus state centre</text>
+  <text class="c" x="610" y="104">Established (S,G) keep forwarding when it dies,</text>
+  <text class="c" x="610" y="116">but no new join and no new register succeeds.</text>
+
+  <rect x="24" y="135" width="276" height="66" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="34" y="149">04</text>
+  <text class="b" x="34" y="163">SPT switchover is not free</text>
+  <text class="c" x="34" y="177">Default behaviour: one (S,G) per receiver branch</text>
+  <text class="c" x="34" y="189">on the source side. spt-threshold infinity is a lever.</text>
+
+  <rect x="312" y="135" width="276" height="66" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="322" y="149">05</text>
+  <text class="b" x="322" y="163">SSM is the modern default answer</text>
+  <text class="c" x="322" y="177">All the complexity comes from not knowing the</text>
+  <text class="c" x="322" y="189">source. 232/8 + IGMPv3 removes the RP entirely.</text>
+
+  <rect x="600" y="135" width="276" height="66" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="610" y="149">06</text>
+  <text class="b" x="610" y="163">No retransmission, no congestion control</text>
+  <text class="c" x="610" y="177">A lost packet is lost for good. It relies on a</text>
+  <text class="c" x="610" y="189">congestion-free path, a stable tree, a clean L2.</text>
+
+  <rect x="24" y="208" width="276" height="66" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="34" y="222">07</text>
+  <text class="b" x="34" y="236">Addresses are a scarce resource</text>
+  <text class="c" x="34" y="250">32 IP groups collapse onto 1 MAC. Plan 239/8</text>
+  <text class="c" x="34" y="262">like 10/8: site block, service block, index.</text>
+
+  <rect x="312" y="208" width="276" height="66" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="322" y="222">08</text>
+  <text class="b" x="322" y="236">Control plane and data plane are independent</text>
+  <text class="c" x="322" y="250">A correct mroute proves nothing about the hardware:</text>
+  <text class="c" x="322" y="262">replication resources, TCAM, unprogrammed line cards.</text>
+
+  <rect x="600" y="208" width="276" height="66" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="610" y="222">09</text>
+  <text class="b" x="610" y="236">Multicast is unidirectional</text>
+  <text class="c" x="610" y="250">Only a receiver join builds tree state. The source</text>
+  <text class="c" x="610" y="262">cannot create a tree, and cannot tear one down.</text>
+
+  <rect x="24" y="281" width="276" height="66" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="34" y="295">10</text>
+  <text class="b" x="34" y="309">Four roles, four different meanings</text>
+  <text class="c" x="34" y="323">Querier (lowest IP), DR (highest priority/IP),</text>
+  <text class="c" x="34" y="335">Assert winner (per S,G), DF (per group, toward RP).</text>
+
+  <rect x="312" y="281" width="276" height="66" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="322" y="295">11</text>
+  <text class="b" x="322" y="309">Bandwidth is not the stream bandwidth</text>
+  <text class="c" x="322" y="323">Stream x branches x (1 + redundancy). Layer 2 does</text>
+  <text class="c" x="322" y="335">not amplify in L3 but does per port: 8 x 24 = 192 Mbps.</text>
+
+  <rect x="600" y="281" width="276" height="66" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="610" y="295">12</text>
+  <text class="b" x="610" y="309">Failures are silent</text>
+  <text class="c" x="610" y="323">No ICMP, no syslog, no retransmission. Only active</text>
+  <text class="c" x="610" y="335">observation at five layers finds them.</text>
+
+  <rect x="24" y="354" width="276" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="34" y="368">13</text>
+  <text class="b" x="34" y="382">State count, not bandwidth, is the bottleneck</text>
+  <text class="c" x="34" y="396">SM = (*,G) + (S,G); SSM = (S,G); BiDir = (*,G).</text>
+  <text class="c" x="34" y="408">32K entries against an 80K requirement fails.</text>
+
+  <rect x="312" y="354" width="276" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="322" y="368">14</text>
+  <text class="b" x="322" y="382">"It plays" is not "it plays the right path"</text>
+  <text class="c" x="322" y="396">A wrong tree still delivers pixels, 20 ms late and</text>
+  <text class="c" x="322" y="408">one fibre short. Acceptance must test the shape.</text>
+
+  <rect x="600" y="354" width="276" height="66" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="610" y="368">15</text>
+  <text class="b" x="610" y="382">Rate limiting and boundaries, not trust</text>
+  <text class="c" x="610" y="396">One 1 Mbps source can fill 100 gigabit links.</text>
+  <text class="c" x="610" y="408">Every boundary needs a rate and a scope.</text>
+
+  <rect x="24" y="430" width="852" height="44" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="b" x="36" y="450">Read the list as a checklist, not as theory</text>
+  <text class="c" x="36" y="464">Each truth has an addressable artefact: an RPF table, a snooping baseline, an RP redundancy plan, a state budget, a rate limit, an acceptance test.</text>
+</svg>

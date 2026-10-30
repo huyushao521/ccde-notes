@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1007 d1007">
+  <title id="t1007">The SAFE model as a placement grid: network places against the three planes, with the control each cell actually needs</title>
+  <desc id="d1007">A grid. Rows are places in the network: branch, WAN and core, internet edge, data centre, cloud and remote access. Columns are the management, control and data planes. Each cell names the capability that belongs there. Branch management: local credential fallback plus image signing; branch control: none, it has no routing protocol of its own; branch data: 802.1X plus port security plus segmentation. WAN and core management: out-of-band or management VRF; control: CoPP, routing authentication, prefix limits; data: uRPF plus MPLS or segment isolation. Internet edge management: strictly out-of-band; control: iACL plus BGP TTL security plus maximum prefix; data: firewall, DDoS scrubbing, NAT. Data centre management: bastion plus jump host; control: CoPP plus fabric authentication; data: micro-segmentation plus east-west inspection. Cloud management: identity-based access plus no long-lived keys; control: security groups plus route table intent; data: workload identity plus encryption. Remote access management: separate authentication path; control: n/a; data: ZTNA plus device posture. A footer states the value of the model is that it forces a cell to be either filled or explicitly accepted as empty.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+  <rect x="0" y="0" width="900" height="436" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">SAFE is a placement grid, not a product list</text>
+  <text class="s" x="24" y="45">Every cell must be filled or explicitly accepted as empty - that is the whole method.</text>
+
+  <rect x="24" y="60" width="150" height="26" fill="#1a2233"/>
+  <text x="34" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">PLACE</text>
+  <rect x="174" y="60" width="234" height="26" fill="#3b4657"/>
+  <text x="184" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">MANAGEMENT PLANE</text>
+  <rect x="408" y="60" width="234" height="26" fill="#3b4657"/>
+  <text x="418" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">CONTROL PLANE</text>
+  <rect x="642" y="60" width="234" height="26" fill="#3b4657"/>
+  <text x="652" y="77" font="600 8.5px 'Segoe UI',sans-serif" fill="#ffffff">DATA PLANE</text>
+
+  <rect x="24" y="86" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="104">Branch</text>
+  <text class="w" x="34" y="119">small, unattended</text>
+  <rect x="174" y="86" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="184" y="104">local credential fallback, signed image,</text>
+  <text class="c" x="184" y="118">zero-touch provisioning with a trust anchor</text>
+  <rect x="408" y="86" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="418" y="104">nothing to protect - and that is the point:</text>
+  <text class="c" x="418" y="118">no routing adjacency, no state to attack</text>
+  <rect x="642" y="86" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="104">802.1X or MAB, port security,</text>
+  <text class="c" x="652" y="118">VLAN-per-function isolation</text>
+
+  <rect x="24" y="126" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="144">WAN and core</text>
+  <text class="w" x="34" y="159">the transport</text>
+  <rect x="174" y="126" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="184" y="144">out-of-band console or a management VRF,</text>
+  <text class="c" x="184" y="158">never the production path</text>
+  <rect x="408" y="126" width="234" height="40" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".6"/>
+  <text class="c" x="418" y="144">CoPP, routing authentication, TTL security,</text>
+  <text class="c" x="418" y="158">maximum prefix - the most attacked plane</text>
+  <rect x="642" y="126" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="144">uRPF, MPLS or VRF separation,</text>
+  <text class="c" x="652" y="158">no transit between domains</text>
+
+  <rect x="24" y="166" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="184">Internet edge</text>
+  <text class="w" x="34" y="199">exposed by definition</text>
+  <rect x="174" y="166" width="234" height="40" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".6"/>
+  <text class="c" x="184" y="184">strict out-of-band, no internet-reachable</text>
+  <text class="c" x="184" y="198">management address at all</text>
+  <rect x="408" y="166" width="234" height="40" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".6"/>
+  <text class="c" x="418" y="184">iACL, BGP TTL security, maximum prefix,</text>
+  <text class="c" x="418" y="198">uRPF towards the provider</text>
+  <rect x="642" y="166" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="184">stateful firewall, scrubbing, NAT,</text>
+  <text class="c" x="652" y="198">the DMZ rule that allows nothing back in</text>
+
+  <rect x="24" y="206" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="224">Data centre</text>
+  <text class="w" x="34" y="239">east-west traffic</text>
+  <rect x="174" y="206" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="184" y="224">bastion host, per-command accounting,</text>
+  <text class="c" x="184" y="238">no direct engineer-to-switch sessions</text>
+  <rect x="408" y="206" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="418" y="224">CoPP, fabric authentication,</text>
+  <text class="c" x="418" y="238">control plane isolation per tenant</text>
+  <rect x="642" y="206" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="224">micro-segmentation, east-west inspection,</text>
+  <text class="c" x="652" y="238">the place where lateral movement is stopped</text>
+
+  <rect x="24" y="246" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="264">Cloud</text>
+  <text class="w" x="34" y="279">not yours to patch</text>
+  <rect x="174" y="246" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="184" y="264">identity-based access, no long-lived keys,</text>
+  <text class="c" x="184" y="278">audit trail owned by you, not the provider</text>
+  <rect x="408" y="246" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="418" y="264">security groups, route-table intent,</text>
+  <text class="c" x="418" y="278">guardrails as code, not as a runbook</text>
+  <rect x="642" y="246" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="264">workload identity, encryption at rest,</text>
+  <text class="c" x="652" y="278">private endpoints instead of public IPs</text>
+
+  <rect x="24" y="286" width="150" height="40" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".6"/>
+  <text class="b" x="34" y="304">Remote access</text>
+  <text class="w" x="34" y="319">outside the perimeter</text>
+  <rect x="174" y="286" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="184" y="304">a separate authentication path - the VPN</text>
+  <text class="c" x="184" y="318">must not be the only door to its own logs</text>
+  <rect x="408" y="286" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="418" y="304">no routing adjacency from the client side,</text>
+  <text class="c" x="418" y="318">no split tunnel to a production prefix</text>
+  <rect x="642" y="286" width="234" height="40" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="652" y="304">ZTNA, device posture, per-application</text>
+  <text class="c" x="652" y="318">authorization instead of network access</text>
+
+  <rect x="24" y="344" width="852" height="32" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="364">The empty cell is the useful one: branch has no control plane of its own to attack, and saying so out loud prevents three unnecessary controls.</text>
+  <text class="w" x="24" y="394">How to use it in a review: put the grid on one slide, ask the room to fill every cell in five minutes, and let the blanks argue for themselves.</text>
+  <text class="w" x="24" y="410">The grid also stops the opposite failure - buying DDoS scrubbing for a branch that has a 20 Mbps circuit and no public address.</text>
+  <text class="w" x="24" y="426">SAFE is a taxonomy, not a certification: the value is coverage and the conversation about what is deliberately absent.</text>
+</svg>

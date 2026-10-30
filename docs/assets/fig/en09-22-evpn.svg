@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 404" width="100%" role="img" aria-labelledby="t922 d922">
+  <title id="t922">EVPN against VPLS on five dimensions, and the five route types that do the work</title>
+  <desc id="d922">Left panel compares EVPN with VPLS on five rows: how MAC addresses are learned, the pseudowire or tunnel model, multihoming, broadcast handling and design effort. EVPN learns MACs from BGP, uses an ingress replication or multicast tunnel list rather than a full mesh of pseudowires, supports active-active multihoming, and confines broadcast to registered endpoints; the cost is more design work and a control plane that must be operated. Right panel lists the five EVPN route types: type 1 ethernet auto-discovery per segment, type 2 MAC and IP advertisement which is the workhorse, type 3 inclusive multicast for broadcast and unknown unicast, type 4 ethernet segment for multihoming, and type 5 IP prefix for layer-3 integration. A note explains that type 2 and type 5 are the two an enterprise engineer will actually read, and that type 3 is what replaces flooding.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="404" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">EVPN is VPLS with the learning moved from the data plane to BGP</text>
+  <text class="s" x="24" y="45">Every improvement follows from that one change; the five route types are its vocabulary</text>
+
+  <text class="k" x="24" y="70">FIVE DIMENSIONS</text>
+  <rect x="24" y="78" width="410" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="94"><tspan style="font-weight:700">MAC learning:</tspan> VPLS floods and learns from data &#8594; EVPN advertises MACs in BGP</text>
+  <rect x="24" y="106" width="410" height="24" rx="1" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="36" y="122"><tspan style="font-weight:700">Transport:</tspan> VPLS full mesh of pseudowires &#8594; EVPN ingress replication or multicast</text>
+  <rect x="24" y="134" width="410" height="24" rx="1" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="36" y="150"><tspan style="font-weight:700">Multihoming:</tspan> VPLS blocks one link &#8594; EVPN active-active with per-flow hashing</text>
+  <rect x="24" y="162" width="410" height="24" rx="1" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="178"><tspan style="font-weight:700">Broadcast:</tspan> VPLS to every site &#8594; EVPN to the registered endpoints only</text>
+  <rect x="24" y="190" width="410" height="24" rx="1" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="c" x="36" y="206" fill="#7a5b18"><tspan style="font-weight:700">Effort:</tspan> VPLS easy to start &#8594; EVPN needs a control plane you must operate</text>
+
+  <text class="k" x="24" y="244">COST SIDE, STATED PLAINLY</text>
+  <rect x="24" y="252" width="410" height="56" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="c" x="36" y="270" fill="#c0392b">One more BGP address family, one more set of route types, and a</text>
+  <text class="c" x="36" y="284" fill="#c0392b">team that must understand type 2 and type 5 output to troubleshoot.</text>
+  <text class="c" x="36" y="298" fill="#c0392b">An EVPN fault looks like &#8220;the MAC is not in BGP&#8221;, not like a cable.</text>
+
+  <text class="k" x="462" y="70">THE FIVE ROUTE TYPES</text>
+  <rect x="462" y="78" width="414" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="474" y="94"><tspan style="font-weight:700">Type 1</tspan> &#183; ethernet auto-discovery: which segment is where, per ESI</text>
+  <rect x="462" y="106" width="414" height="38" rx="1" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="474" y="122" fill="#1f4fc0"><tspan style="font-weight:700">Type 2</tspan> &#183; MAC / IP advertisement: the workhorse. Carries the</text>
+  <text class="c" x="474" y="136" fill="#1f4fc0">MAC, the VNI, the next hop and the label or VNI to use.</text>
+  <rect x="462" y="148" width="414" height="38" rx="1" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="474" y="164" fill="#0f7f73"><tspan style="font-weight:700">Type 3</tspan> &#183; inclusive multicast: the tunnel list for broadcast and</text>
+  <text class="c" x="474" y="178" fill="#0f7f73">unknown unicast. This is what replaces flooding.</text>
+  <rect x="462" y="190" width="414" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="474" y="206"><tspan style="font-weight:700">Type 4</tspan> &#183; ethernet segment: which VTEPs serve a multihomed site</text>
+  <rect x="462" y="218" width="414" height="24" rx="1" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="c" x="474" y="234" fill="#7a5b18"><tspan style="font-weight:700">Type 5</tspan> &#183; IP prefix route: layer-3 integration, prefix plus VNI</text>
+
+  <rect x="462" y="252" width="414" height="56" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="474" y="270">An enterprise engineer reads <tspan style="font-weight:700">type 2</tspan> for layer-2 reachability and</text>
+  <text class="c" x="474" y="284"><tspan style="font-weight:700">type 5</tspan> for layer-3 reachability. Type 3 is the one that explains why</text>
+  <text class="c" x="474" y="298">broadcast no longer reaches that site that was removed last week.</text>
+
+  <rect x="24" y="326" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="326" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="344" fill="#c0392b"><tspan style="font-weight:700">The judgement:</tspan> EVPN does not make layer 2 better; it makes layer 2 visible. That is worth a control plane in a fabric with hundreds of switches and</text>
+  <text class="c" x="40" y="360" fill="#c0392b">worth very little in a five-site VPLS that has worked for years. Decide on the number of sites and the need for active-active, not on the acronym.</text>
+  <text class="w" x="24" y="394">Migration note: an EVPN and a VPLS domain can coexist during a transition, but a bridge between them re-introduces the flooding you were removing. Plan the cut, not the interworking.</text>
+</svg>

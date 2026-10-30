@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t916 d916">
+  <title id="t916">Site of origin: the BGP community that stops a dual-homed site learning its own prefix back</title>
+  <desc id="d916">A topology with site 1 dual-homed to PE1 and PE2 through EIGRP, a backdoor path through the customer network, and the MPLS VPN in between. Four steps mark the mechanism. When PE1 redistributes EIGRP into MP-BGP it attaches a site-of-origin extended community with the value of site 1. The route travels through the VPN. When PE2 redistributes MP-BGP back into EIGRP, it compares the route's SoO with the local site identifier and refuses to install it because they match. The result is that the site never learns its own prefix back through the provider. A note contrasts this with a route tag, which only survives inside one protocol. A lower panel explains cost community as the companion mechanism that preserves the original EIGRP metric so the redistribution does not distort path selection.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Site of origin answers one question: did this route come from here?</text>
+  <text class="s" x="24" y="45">It is the only loop-prevention tool that survives the translation between two protocols</text>
+
+  <rect x="30" y="62" width="94" height="28" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="48" y="80">Site 1</text>
+  <rect x="160" y="62" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="184" y="80">PE1</text>
+  <rect x="290" y="62" width="130" height="28" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="326" y="80">MPLS VPN</text>
+  <rect x="460" y="62" width="86" height="28" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="484" y="80">PE2</text>
+  <rect x="590" y="62" width="94" height="28" rx="2" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".7"/>
+  <text class="r" x="612" y="80">Site 1 too</text>
+
+  <line x1="124" y1="76" x2="160" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="246" y1="76" x2="290" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="420" y1="76" x2="460" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <line x1="546" y1="76" x2="590" y2="76" stroke="#9aa8ba" stroke-width=".9"/>
+  <path d="M77 90 Q77 122 637 122 Q637 90 637 90" fill="none" stroke="#c0392b" stroke-width=".9" stroke-dasharray="4 3"/>
+  <text class="w" x="300" y="136" fill="#c0392b">the customer's own backdoor between the two halves of site 1</text>
+
+  <rect x="24" y="152" width="852" height="24" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="169" fill="#0f7f73">THE FOUR STEPS</text>
+
+  <rect x="24" y="184" width="200" height="60" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="36" y="202">1. PE1 redistributes EIGRP</text>
+  <text class="c" x="36" y="216">into MP-BGP.</text>
+  <text class="c" x="36" y="234" fill="#0f7f73">It attaches SoO 65000:1</text>
+
+  <rect x="240" y="184" width="200" height="60" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="252" y="202">2. The route crosses</text>
+  <text class="c" x="252" y="216">the VPN like any other.</text>
+  <text class="c" x="252" y="234" fill="#0f7f73">SoO is an extended community</text>
+
+  <rect x="456" y="184" width="200" height="60" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="468" y="202">3. PE2 redistributes BGP</text>
+  <text class="c" x="468" y="216">into EIGRP for its sites.</text>
+  <text class="c" x="468" y="234" fill="#0f7f73">It compares SoO with its own</text>
+
+  <rect x="672" y="184" width="204" height="60" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="c" x="684" y="202" fill="#c0392b">4. Site identifier matches</text>
+  <text class="c" x="684" y="216" fill="#c0392b">65000:1, so the route is</text>
+  <text class="c" x="684" y="234" fill="#c0392b" style="font-weight:700">dropped, not re-injected.</text>
+
+  <rect x="24" y="258" width="410" height="70" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="36" y="276" fill="#7a5b18">Why not use a route tag?</text>
+  <text class="c" x="36" y="294" fill="#7a5b18">A tag exists inside one protocol. Redistribution into BGP and back out again</text>
+  <text class="c" x="36" y="308" fill="#7a5b18">does not carry it unless you map it by hand at every boundary.</text>
+  <text class="c" x="36" y="322" fill="#7a5b18">SoO rides the BGP update itself, so every PE sees it for free.</text>
+
+  <rect x="450" y="258" width="426" height="70" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="462" y="276" fill="#1f4fc0">The companion: cost community</text>
+  <text class="c" x="462" y="294" fill="#1f4fc0">Redistribution resets the EIGRP metric unless the original is carried along.</text>
+  <text class="c" x="462" y="308" fill="#1f4fc0">Cost community preserves it as an attribute, so the receiving site still ranks</text>
+  <text class="c" x="462" y="322" fill="#1f4fc0">paths by the customer's own notion of cost rather than by a seed value.</text>
+
+  <rect x="24" y="342" width="852" height="42" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="342" width="4" height="42" fill="#c0392b"/>
+  <text class="c" x="40" y="360" fill="#c0392b"><tspan style="font-weight:700">Design note:</tspan> SoO is set per site, not per VRF. Two halves of one site share the same identifier on purpose &#8212; that is what makes the backdoor</text>
+  <text class="c" x="40" y="376" fill="#c0392b">safe. If two different sites are given the same value, they will refuse to learn each other's routes, and the symptom is a silent missing prefix.</text>
+</svg>

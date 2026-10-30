@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1031 d1031">
+  <title id="t1031">The four enforcement points of Layer 3 security and where each one sits on the packet path</title>
+  <desc id="d1031">A packet path from endpoint through the access switch, the distribution gateway, the core and the edge, with four numbered interception points above it. Point one, identity to address mapping: 802.1X authorization attributes become a VLAN, an SGT or a downloadable ACL, which blocks unauthenticated or low-privilege access at the first hop. Point two, routing layer control: routing policy, prefix filtering, protocol authentication and VRF isolation block routes that should not be learned or were forged. Point three, filtering along the forwarding path: interface ACLs, zoned firewalls and inter-VRF ACLs block cross-subnet access that is not allowed. Point four, abnormal traffic handling: NetFlow, flow sampling, RTBH and QoS handle denial of service, scanning and anomalous outbound connections. Below, four cards give the means and what each blocks, and a footer explains why the four are complementary rather than alternatives: identity cannot stop a forged route, route policy cannot stop an authorized user, an ACL cannot see a scanning pattern, and NetFlow cannot block anything.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+
+  <text class="h" x="24" y="28">Layer 3 security has four enforcement points, and they do not overlap</text>
+  <text class="s" x="24" y="45">One controls who may appear, one controls what may be known, one controls what may pass, one deals with what is already abnormal</text>
+
+  <!-- Packet path -->
+  <rect x="24" y="60" width="852" height="94" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">THE PATH A PACKET TAKES, AND WHO SPEAKS AT EACH HOP</text>
+
+  <rect x="36" y="88" width="122" height="42" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="w" x="97" y="104" text-anchor="middle">Endpoint</text>
+  <text class="w" x="97" y="118" text-anchor="middle">supplicant</text>
+
+  <rect x="182" y="88" width="140" height="42" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".9"/>
+  <text class="b" x="252" y="104" text-anchor="middle">Access switch</text>
+  <text class="g" x="252" y="118" text-anchor="middle">① identity</text>
+
+  <rect x="346" y="88" width="150" height="42" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".9"/>
+  <text class="b" x="421" y="104" text-anchor="middle">L3 gateway / DC</text>
+  <text class="g" x="421" y="118" text-anchor="middle">② routing control</text>
+
+  <rect x="520" y="88" width="150" height="42" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".9"/>
+  <text class="b" x="595" y="104" text-anchor="middle">Firewall / edge</text>
+  <text class="g" x="595" y="118" text-anchor="middle">③ filtering</text>
+
+  <rect x="694" y="88" width="170" height="42" rx="2" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".9"/>
+  <text class="b" x="779" y="104" text-anchor="middle">Collector / edge policy</text>
+  <text class="g" x="779" y="118" text-anchor="middle">④ abnormal traffic</text>
+
+  <line x1="158" y1="109" x2="178" y2="109" stroke="#8a97a8" stroke-width="1"/>
+  <line x1="322" y1="109" x2="342" y2="109" stroke="#8a97a8" stroke-width="1"/>
+  <line x1="496" y1="109" x2="516" y2="109" stroke="#8a97a8" stroke-width="1"/>
+  <line x1="670" y1="109" x2="690" y2="109" stroke="#8a97a8" stroke-width="1"/>
+  <text class="w" x="36" y="146">Note the direction of the question each point answers: "who are you", "what may you know", "what may you reach", "what is happening right now".</text>
+
+  <!-- Four cards -->
+  <rect x="24" y="166" width="204" height="196" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="184" fill="#0f7f73">① IDENTITY → ADDRESS</text>
+  <text class="b" x="36" y="204">Means</text>
+  <text class="c" x="36" y="217">802.1X authorization attributes</text>
+  <text class="c" x="36" y="229">→ VLAN, SGT, dACL, QoS</text>
+  <text class="c" x="36" y="241">MAB for devices with no supplicant</text>
+  <text class="b" x="36" y="262">Blocks</text>
+  <text class="c" x="36" y="275">Unauthenticated access and the</text>
+  <text class="c" x="36" y="287">low-privilege user who is technically</text>
+  <text class="c" x="36" y="299">authorized but should not reach the</text>
+  <text class="c" x="36" y="311">finance subnet</text>
+  <text class="b" x="36" y="332">Fails when</text>
+  <text class="x" x="36" y="345">the topology has no 802.1X, or the</text>
+  <text class="x" x="36" y="357">device authenticates and then spoofs</text>
+
+  <rect x="240" y="166" width="204" height="196" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="252" y="184" fill="#5b4a86">② ROUTING CONTROL</text>
+  <text class="b" x="252" y="204">Means</text>
+  <text class="c" x="252" y="217">Routing policy and prefix filters</text>
+  <text class="c" x="252" y="229">Protocol authentication, key rotation</text>
+  <text class="c" x="252" y="241">max-prefix, RPKI, VRF isolation</text>
+  <text class="b" x="252" y="262">Blocks</text>
+  <text class="c" x="252" y="275">Routes that should not be learned,</text>
+  <text class="c" x="252" y="287">forged routes, and the prefix that</text>
+  <text class="c" x="252" y="299">quietly attracts half the internet</text>
+  <text class="c" x="252" y="311">because a neighbour believed it</text>
+  <text class="b" x="252" y="332">Fails when</text>
+  <text class="x" x="252" y="345">authentication is static and never</text>
+  <text class="x" x="252" y="357">rotated, or filters are copy-paste</text>
+
+  <rect x="456" y="166" width="204" height="196" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="468" y="184" fill="#b0452f">③ FORWARDING FILTER</text>
+  <text class="b" x="468" y="204">Means</text>
+  <text class="c" x="468" y="217">Interface ACLs, zoned firewalls,</text>
+  <text class="c" x="468" y="229">inter-VRF ACLs, zone-based policy</text>
+  <text class="c" x="468" y="241">Stateless coarse, stateful fine</text>
+  <text class="b" x="468" y="262">Blocks</text>
+  <text class="c" x="468" y="275">Cross-subnet access that is not</text>
+  <text class="c" x="468" y="287">allowed - the classic "can reach"</text>
+  <text class="c" x="468" y="299">question, decided per flow and</text>
+  <text class="c" x="468" y="311">logged for the auditor</text>
+  <text class="b" x="468" y="332">Fails when</text>
+  <text class="x" x="468" y="345">the same intent is configured in two</text>
+  <text class="x" x="468" y="357">places and nobody knows which bites</text>
+
+  <rect x="672" y="166" width="204" height="196" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="684" y="184" fill="#9a7d28">④ ABNORMAL TRAFFIC</text>
+  <text class="b" x="684" y="204">Means</text>
+  <text class="c" x="684" y="217">NetFlow / IPFIX / telemetry</text>
+  <text class="c" x="684" y="229">RTBH, QoS and rate policy</text>
+  <text class="c" x="684" y="241">Scrubbing where it is affordable</text>
+  <text class="b" x="684" y="262">Handles</text>
+  <text class="c" x="684" y="275">Denial of service, scanning, the</text>
+  <text class="c" x="684" y="287">host that suddenly talks to a rare</text>
+  <text class="c" x="684" y="299">country at 03:00 - the things a</text>
+  <text class="c" x="684" y="311">permit line cannot express</text>
+  <text class="b" x="684" y="332">Fails when</text>
+  <text class="x" x="684" y="345">there is no collector, no baseline,</text>
+  <text class="x" x="684" y="357">and nobody on call to read it</text>
+
+  <!-- Footer -->
+  <rect x="24" y="374" width="852" height="56" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="392">Why they are complementary:</text>
+  <text class="c" x="196" y="392">identity cannot stop a forged route · route policy cannot stop an authorized user · an ACL cannot recognise a scanning pattern</text>
+  <text class="c" x="36" y="408">· telemetry cannot block anything on its own. A design that argues "we have a firewall, so Layer 3 is covered" has three of the four points missing.</text>
+  <text class="w" x="36" y="422">Test each threat in the threat model against all four columns; an empty column is a named risk, not an omission nobody noticed.</text>
+</svg>

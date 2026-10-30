@@ -28,6 +28,8 @@
 
 ## Chapter Introduction: Five Counter-Intuitive Truths About Layer 3 Design · 本章导读：三层设计的五条反直觉认知
 
+![Five counter-intuitive truths about Layer 3 design, with the mechanism behind each](assets/fig/en08-01-five-truths.svg)
+
 ### Counter-Intuitive Truth #1: Your Carefully Designed BGP Policy Can Be Silently Overridden by an IGP Metric · 反直觉一：你精心设计的 BGP 策略，会被 IGP 度量悄悄推翻
 
 BGP path selection has 13 criteria, and the first six look precise enough — Weight, Local Preference, locally originated, AS_PATH, Origin, MED. Engineers usually build a complete design on those six, then discover during acceptance testing that "**nothing I change makes any difference**".
@@ -312,6 +314,8 @@ Single-protocol network: 1 path, 1 set of policies, 1 troubleshooting approach. 
 
 ## Layer 3 Design Methodology: Six Steps in Order · 三层设计方法论：六步定序
 
+![The six steps of Layer 3 design, and what each one locks in](assets/fig/en08-02-six-steps.svg)
+
 | Step | What must be decided | Consequence of getting it wrong |
 |------|---------|-----------|
 | **① Addressing plan and summarizability** | Does every area/site get a contiguous address block? | Not summarizable → the routing table explodes and every later design decision becomes damage control |
@@ -398,6 +402,8 @@ The main goal of a routing protocol is to act as the delivery mechanism that rou
 
 #### From RIB to FIB: Four Mechanisms You Must Understand · 从 RIB 到 FIB：必须理解的四个机制
 
+![RIB to FIB: longest match, administrative distance, metric and recursion](assets/fig/en08-03-rib-to-fib.svg)
+
 | Mechanism | Meaning | Design impact |
 |------|------|---------|
 | **Longest match** | When several entries match, the one with the longest mask wins | A summary route always yields to a more specific route; the default route always comes last |
@@ -468,6 +474,8 @@ The main goal of a routing protocol is to act as the delivery mechanism that rou
 
 #### Classification of Routing Protocols · 路由协议的分类
 
+![Three routing protocol families and what each one distributes](assets/fig/en08-04-protocol-classification.svg)
+
 | Category | Protocols | Mechanism | Source of scalability |
 |------|------|------|------------|
 | **Link state** | OSPF, IS-IS | Flood the topology → each node runs SPF | Hierarchy (areas/levels + summarization) |
@@ -505,6 +513,8 @@ Link-state routing protocols use the Dijkstra shortest path first (SPF) algorith
 </div>
 
 ### The Link-State Database (LSDB) Build Process · 链路状态数据库 (LSDB) 构建过程
+
+![Building the link-state database in five steps, and the three corollaries](assets/fig/en08-05-lsdb-build.svg)
 
 | Step | Action | Key point |
 |------|------|--------|
@@ -551,6 +561,8 @@ Link-state routing protocols use the Dijkstra shortest path first (SPF) algorith
 </div>
 
 ### Link-State Design in Hub-and-Spoke Topologies · Hub-and-Spoke 拓扑中的链路状态设计
+
+![Summarization in a hub-and-spoke link-state network makes a branch transit](assets/fig/en08-06-hub-spoke-loop.svg)
 
 Hub-and-spoke (star) topologies are extremely common in retail and branch networks. Using a link-state protocol in them raises three structural problems:
 
@@ -645,6 +657,8 @@ Hub-and-Spoke（星型）在零售、分支网络中极为常见。用链路状�
 </div>
 
 ### The Size of the Flooding Domain: An Underestimated Quantitative Constraint · 泛洪域的规模：一个被低估的量化约束
+
+![Flooding domain size against the cost of one topology change](assets/fig/en08-07-flooding-domain.svg)
 
 The scalability of a link-state protocol is fundamentally determined by **the number of routers inside the flooding domain**:
 
@@ -742,6 +756,8 @@ interface GigabitEthernet1/0/1
 
 ### OSPF LSA Types · OSPF LSA 类型
 
+![OSPF LSA types by generator, scope and design consequence](assets/fig/en08-08-lsa-types.svg)
+
 | LSA type | Name | Generator | Scope | Design implication |
 |---------|------|--------|---------|---------|
 | Type 1 | Router LSA | Every router | Within the area | Describes "who I am connected to, at what cost"; **an interface flap generates a new LSA** |
@@ -775,6 +791,8 @@ interface GigabitEthernet1/0/1
 </div>
 
 ### OSPF Area Types · OSPF 区域类型
+
+![OSPF area types and the decision path for choosing one](assets/fig/en08-09-area-types.svg)
 
 | Area type | Characteristics | Allowed LSAs | Where it is used |
 |---------|------|-----------|--------|
@@ -908,6 +926,8 @@ Does this site need to know the details of external routes?
 
 ### OSPF Network Types · OSPF 网络类型
 
+![OSPF network types and the three scenarios where the default is wrong](assets/fig/en08-10-network-types.svg)
+
 | Network type | DR/BDR election | Hello/Dead | Suitable for |
 |---------|------------|-----------|---------|
 | **Broadcast** | Yes | 10 / 40 s | Ethernet (default) |
@@ -1000,6 +1020,8 @@ interface Tunnel0
 
 ### OSPF Fast Convergence Techniques · OSPF 快速收敛技术
 
+![Shrinking Hello timers versus BFD, and the four tiers of a convergent response](assets/fig/en08-11-fast-convergence.svg)
+
 | Technique | Description | Design recommendation |
 |------|------|---------|
 | **SPF delay and throttling** | Controls how often SPF runs, avoiding frequent computation | Mandatory, e.g. `50 200 5000` |
@@ -1061,6 +1083,8 @@ interface Tunnel0
 </div>
 
 ### OSPF Metric Design: `auto-cost` Must Be a Network-Wide Decision · OSPF 度量设计：`auto-cost` 必须是全网一致的决策
+
+![OSPF cost formula: default reference bandwidth versus a 100G reference](assets/fig/en08-12-auto-cost.svg)
 
 OSPF's default cost is `reference bandwidth / interface bandwidth`, with the reference bandwidth defaulting to **100 Mbps**. That creates a serious historical problem:
 
@@ -1168,6 +1192,8 @@ router ospf 1
 
 ### OSPF Summarization · OSPF 汇总
 
+![Summarization with null0, and the three states it changes](assets/fig/en08-13-summarization.svg)
+
 | Summary type | Where it is configured | Command | Description |
 |---------|---------|------|------|
 | **Inter-area summary** | ABR | `area X range <prefix> <mask>` | Summarizes the details of an area before advertising them to other areas |
@@ -1260,6 +1286,8 @@ IS-IS 是另一个链路状态协议，与 OSPF 在概念上高度相似，但�
 
 ### OSPF vs IS-IS · OSPF 与 IS-IS 的对比
 
+![OSPF and IS-IS compared on the seven dimensions that decide it](assets/fig/en08-14-ospf-vs-isis.svg)
+
 | Dimension | OSPF | IS-IS | Design implication |
 |------|------|-------|---------|
 | **Encapsulation layer** | Above IP (protocol number 89) | **Runs directly on Layer 2** (CLNS) | IS-IS can form neighbors without IP reachability (**it may survive while IP is under attack**); but it is also harder to run across non-transparent networks |
@@ -1285,6 +1313,8 @@ IS-IS 是另一个链路状态协议，与 OSPF 在概念上高度相似，但�
 </div>
 
 ### Key IS-IS Design Details · IS-IS 的关键设计细节
+
+![IS-IS specifics: NET, levels, metric styles and four traps](assets/fig/en08-15-isis-details.svg)
 
 | Detail | Description | Common mistake |
 |------|------|---------|
@@ -1402,6 +1432,8 @@ EIGRP 是 Cisco 的高级距离矢量（混合型）协议，核心是 **DUAL（
 
 ### The Four Tables and Three Terms of EIGRP · EIGRP 的四张表与三个术语
 
+![EIGRP three tables and the feasible successor inequality](assets/fig/en08-16-eigrp-tables.svg)
+
 | Table | Contents |
 |----|------|
 | **Neighbor table** | Who my EIGRP neighbors are, their state, and hold time |
@@ -1465,6 +1497,8 @@ EIGRP 是 Cisco 的高级距离矢量（混合型）协议，核心是 **DUAL（
 </div>
 
 ### The Query Domain: The Part of EIGRP That Most Needs Design · Query 域：EIGRP 最需要设计的部分
+
+![How an EIGRP query spreads, and the four ways to bound it](assets/fig/en08-17-eigrp-query.svg)
 
 When a path fails and there is **no feasible successor**, the router enters the **Active** state and sends a **Query** to all neighbors: "do you have a route to X?" If a neighbor does not, it queries its own neighbors — **this is query diffusion**.
 
@@ -1608,6 +1642,8 @@ router eigrp CAMPUS
 
 ### EIGRP Metrics and "Why It Does Not Route by Bandwidth" · EIGRP 度量与"为什么它不按带宽选路"
 
+![The EIGRP composite metric and one slow hop capping a fast path](assets/fig/en08-18-eigrp-metric.svg)
+
 The classic EIGRP composite metric:
 
 <div class="zh" markdown="1">
@@ -1748,6 +1784,8 @@ SPF 认为等价 → 负载分担 50/50
 </div>
 
 ### The Four Layers of Path Control · 路径控制的四个层次
+
+![Four layers of path control, and equal cost hiding a ten to one gap](assets/fig/en08-19-path-control.svg)
 
 | Layer | Tool | Granularity | Visibility |
 |------|------|------|--------|
@@ -1993,6 +2031,8 @@ BGP 是**路径矢量**协议，运行在 TCP 179 之上。它与 IGP 的根本�
 
 ### BGP Scalability Options · BGP 可扩展性选项
 
+![iBGP full mesh growth and the route reflector alternative](assets/fig/en08-20-bgp-scaling.svg)
+
 #### Route Reflector (RR) · 路由反射器
 
 | Concept | Description |
@@ -2190,6 +2230,8 @@ router bgp 65000
 </div>
 
 ### The BGP Best Path Selection Process (the 13 Criteria in Detail) · BGP 选路过程（13 条判据详解）
+
+![BGP best path: twelve criteria in order, with criterion eight highlighted](assets/fig/en08-21-bgp-bestpath.svg)
 
 BGP picks the best path out of several candidates by comparing the following criteria **one by one in order, stopping at the first difference**:
 
@@ -2569,6 +2611,8 @@ router bgp 65000
 
 ### Why Redistribution Is the Easiest Part of a Design to Lose Control Of · 为什么重分发是"设计里最容易失控的部分"
 
+![What redistribution loses, and the tag pattern that prevents feedback](assets/fig/en08-22-redistribution.svg)
+
 Redistribution "translates" the routes of one protocol into another. The trouble comes from three things:
 
 <div class="zh" markdown="1">
@@ -2819,6 +2863,8 @@ router bgp 65000
 
 ### Protocol Selection Matrix · 协议选择矩阵
 
+![Protocol selection matrix by requirement](assets/fig/en08-23-protocol-matrix.svg)
+
 | Network layer | Recommended protocol | Reason |
 |---------|---------|------|
 | **Campus access/distribution** | OSPF or EIGRP (single area/small area) | Small scale, simplicity required |
@@ -2868,6 +2914,8 @@ router bgp 65000
 </div>
 
 ### Routing Design Acceptance Checklist · 路由设计的验收清单
+
+![Eight-item acceptance checklist with the evidence required for each](assets/fig/en08-24-acceptance.svg)
 
 | # | Check item | Verification method |
 |---|--------|---------|

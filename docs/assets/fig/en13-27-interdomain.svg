@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t1327 d1327">
+  <title id="t1327">Cross-domain multicast: four approaches, from single domain to SSM between enterprises and carriers</title>
+  <desc id="d1327">Four stacked approaches with complexity rising. Single domain: everything solved inside one PIM domain, lowest complexity. MSDP across domains: ASM, domains exchange source-active messages and each builds its own tree, medium to high complexity, traditional carrier-provided multicast. MBGP plus MSDP: MBGP supplies the multicast RPF path while MSDP supplies source discovery, highest complexity, used when multicast needs a path separate from unicast. SSM across domains: no RP and no MSDP, only source-prefix reachability from ordinary BGP unicast, lowest complexity and the recommended option. A right column shows what has to be true for each option to work. A footer explains why inter-domain multicast is hard: RPF requires the source to be reachable by a multicast route, and there is no global source discovery mechanism, so every approach is a way of manufacturing that knowledge.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Crossing a domain boundary: four answers, ordered by what they cost you</text>
+  <text class="s" x="24" y="45">Every one of them is really a way of answering the same question - how does the far side learn that a source exists?</text>
+
+  <text class="k" x="34" y="68">APPROACH</text>
+  <text class="k" x="250" y="68">WHAT IT SOLVES</text>
+  <text class="k" x="570" y="68">COMPLEXITY</text>
+  <text class="k" x="680" y="68">WHAT MUST BE TRUE</text>
+  <line x1="24" y1="76" x2="876" y2="76" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="24" y="86" width="852" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="86" width="3" height="72" fill="#0f7f73"/>
+  <text class="b" x="34" y="106">Single domain</text>
+  <text class="w" x="34" y="122">no crossing at all</text>
+  <text class="c" x="250" y="106">One PIM domain, one RP set, one address plan.</text>
+  <text class="w" x="250" y="120">If a design "needs" this to be two domains,</text>
+  <text class="w" x="250" y="134">the boundary was drawn in the wrong place.</text>
+  <text class="g" x="570" y="106">low</text>
+  <text class="w" x="680" y="106">nothing extra</text>
+
+  <rect x="24" y="164" width="852" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="164" width="3" height="72" fill="#b8862b"/>
+  <text class="b" x="34" y="184">MSDP, ASM across</text>
+  <text class="w" x="34" y="200">source discovery</text>
+  <text class="c" x="250" y="184">Each domain keeps its own RP and its own tree;</text>
+  <text class="w" x="250" y="198">SAs are exchanged so RP-B learns RP-A's sources.</text>
+  <text class="w" x="250" y="212">Source discovery, not path control.</text>
+  <text class="c" x="570" y="184">medium-high</text>
+  <text class="w" x="680" y="184">MSDP peers up,</text>
+  <text class="w" x="680" y="198">SA filter agreed,</text>
+  <text class="w" x="680" y="212">RPF per domain</text>
+
+  <rect x="24" y="242" width="852" height="72" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <rect x="24" y="242" width="3" height="72" fill="#c0392b"/>
+  <text class="b" x="34" y="262">MBGP + MSDP</text>
+  <text class="w" x="34" y="278">discovery and path</text>
+  <text class="c" x="250" y="262">MBGP (SAFI 2) makes multicast RPF follow a</text>
+  <text class="w" x="250" y="276">different path than unicast; MSDP still finds sources.</text>
+  <text class="w" x="250" y="290">Two policies that must stay in step, forever.</text>
+  <text class="x" x="570" y="262">high</text>
+  <text class="w" x="680" y="262">separate multicast</text>
+  <text class="w" x="680" y="276">topology really is</text>
+  <text class="w" x="680" y="290">required by the SLA</text>
+
+  <rect x="24" y="320" width="852" height="72" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".7"/>
+  <rect x="24" y="320" width="3" height="72" fill="#0f7f73"/>
+  <text class="b" x="34" y="340">SSM across domains</text>
+  <text class="w" x="34" y="356">the recommended default</text>
+  <text class="c" x="250" y="340">No RP and no MSDP: the receiver already names</text>
+  <text class="w" x="250" y="354">the source, so only source-prefix reachability matters.</text>
+  <text class="w" x="250" y="368">Ordinary BGP unicast is enough.</text>
+  <text class="g" x="570" y="340">low</text>
+  <text class="w" x="680" y="340">IGMPv3/MLDv2</text>
+  <text class="w" x="680" y="354">end to end, and a</text>
+  <text class="w" x="680" y="368">planned 232/8 range</text>
+
+  <rect x="24" y="404" width="852" height="50" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="b" x="36" y="422">Why this is genuinely hard, and not just unfamiliar</text>
+  <text class="c" x="36" y="437">RPF accepts a packet only if the source is reachable through the incoming interface. Between domains there is no shared RP and no global "who is sending" registry -</text>
+  <text class="c" x="36" y="448">so ASM needs MSDP to invent one, MBGP to bend the path, and SSM to remove the need entirely. Notice the trend: the newest option is also the simplest one.</text>
+</svg>

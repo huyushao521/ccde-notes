@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t906 d906">
+  <title id="t906">Four ways to distribute labels: LDP, RSVP-TE, BGP and segment routing</title>
+  <desc id="d906">Four columns, each answering who assigns the label, what problem it solves and where it fits. LDP assigns labels for each IGP prefix, follows the shortest path and cannot do traffic engineering; it is the default transport. RSVP-TE signals a path and reserves bandwidth, so it can steer traffic and protect it explicitly, at the cost of per-flow state on every router. BGP assigns the VPN label per VRF, and this is what makes L3VPN possible. Segment routing distributes labels as a range inside the IGP itself, needs no per-flow state, and is displacing LDP and RSVP in carrier cores. A bottom band gives the current default recommendation: LDP for transport, BGP for service, and segment routing when a new core is being built.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four label distributors, four different questions answered</text>
+  <text class="s" x="24" y="45">Do not ask &#8220;which protocol&#8221;; ask &#8220;what am I trying to place under control&#8221;</text>
+
+  <rect x="24" y="60" width="202" height="150" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="78">LDP</text>
+  <text class="b" x="36" y="96">Labels per IGP prefix</text>
+  <text class="c" x="36" y="114">Follows whatever the IGP chose.</text>
+  <text class="c" x="36" y="127">Assign, advertise, swap, done.</text>
+  <text class="c" x="36" y="148" fill="#c0392b">Cannot do traffic engineering:</text>
+  <text class="c" x="36" y="161" fill="#c0392b">the path is the shortest path.</text>
+  <text class="w" x="36" y="186">The default transport. Low state,</text>
+  <text class="w" x="36" y="197">no reservations, no surprises.</text>
+
+  <rect x="234" y="60" width="202" height="150" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <text class="k" x="246" y="78">RSVP-TE</text>
+  <text class="b" x="246" y="96">Signals a path and a reservation</text>
+  <text class="c" x="246" y="114">CSPF picks the path from the</text>
+  <text class="c" x="246" y="127">traffic-engineering database.</text>
+  <text class="c" x="246" y="148" fill="#c0392b">State per tunnel on every router</text>
+  <text class="c" x="246" y="161" fill="#c0392b">along the path: the scaling limit.</text>
+  <text class="w" x="246" y="186">Use when a small number of flows</text>
+  <text class="w" x="246" y="197">must be steered and protected.</text>
+
+  <rect x="444" y="60" width="202" height="150" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="456" y="78">BGP (MP-BGP)</text>
+  <text class="b" x="456" y="96">Labels per VRF, per route</text>
+  <text class="c" x="456" y="114">The VPN label travels with the</text>
+  <text class="c" x="456" y="127">VPNv4 route as an attribute.</text>
+  <text class="c" x="456" y="148">This is the label that identifies</text>
+  <text class="c" x="456" y="161">the customer, not the road.</text>
+  <text class="w" x="456" y="186">Without it there is no L3VPN,</text>
+  <text class="w" x="456" y="197">only a labelled core.</text>
+
+  <rect x="654" y="60" width="222" height="150" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="k" x="666" y="78">Segment routing</text>
+  <text class="b" x="666" y="96">Labels as an IGP index range</text>
+  <text class="c" x="666" y="114">Each node gets a label; the</text>
+  <text class="c" x="666" y="127">source lists the path as a stack.</text>
+  <text class="c" x="666" y="148" fill="#0f7f73">No per-flow state in the core,</text>
+  <text class="c" x="666" y="161" fill="#0f7f73">so TE stops being a scaling problem.</text>
+  <text class="w" x="666" y="186">Where new cores are built, this is</text>
+  <text class="w" x="666" y="197">replacing LDP and RSVP-TE.</text>
+
+  <text class="k" x="24" y="238">HOW THEY COMBINE IN A REAL NETWORK</text>
+  <rect x="24" y="246" width="852" height="52" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="264"><tspan style="font-weight:700">Transport layer:</tspan> LDP (or segment routing) gives every PE a label path to every other PE. It knows nothing about customers and never should.</text>
+  <text class="c" x="36" y="282"><tspan style="font-weight:700">Service layer:</tspan> MP-BGP advertises VPNv4 routes, each carrying its own VPN label and its route targets. This is where customer identity lives.</text>
+
+  <rect x="24" y="310" width="852" height="74" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="310" width="4" height="74" fill="#c0392b"/>
+  <text class="c" x="40" y="328" fill="#c0392b"><tspan style="font-weight:700">The layering rule that prevents most L3VPN outages:</tspan> never let the transport layer depend on the service layer, and never let a service</text>
+  <text class="c" x="40" y="344" fill="#c0392b">decision leak into transport. LDP following the IGP is a feature: it means one failure is repaired once, by the IGP, not twice by two protocols</text>
+  <text class="c" x="40" y="360" fill="#c0392b">with different timers. When someone proposes redistributing VPN routes into the underlay &#8220;to make it simpler&#8221;, that is the failure being designed in.</text>
+  <text class="w" x="24" y="394">Lab check: break the IGP adjacency between two P routers and confirm the LSP reroutes without any BGP session changing state.</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t1323 d1323">
+  <title id="t1323">Five SSM details that must be decided before the deployment: the group range, SSM mapping, IGMPv3 lite and URD, the resulting mroute table, and why SSM crosses domains easily</title>
+  <desc id="d1323">Five numbered blocks. One: the SSM range can be changed from 232/8 but should not be, because the range must be identical on every router and every host stack. Two: SSM mapping has a static table, a DNS-based source, and an anycast or URL-based source, and it is a migration tool rather than a design. Three: IGMPv3 lite and URD let the application itself ask for a source without a full IGMPv3 stack on the host. Four: the resulting mroute table has only (S,G) entries, no (*,G), no RP, no register, and no shared tree, which is why an RP outage cannot affect it. Five: SSM crosses domains easily because no RP state has to be shared and no MSDP mesh is needed - only the source address has to be reachable. A bottom band states the single hard prerequisite: IGMPv3 or MLDv2 on every access layer, otherwise the join falls back to (*,G) and the RP returns.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">SSM removes the RP and inherits five obligations</text>
+  <text class="s" x="24" y="45">Each of the five is a decision someone must sign; none of them is a default that will be right by accident.</text>
+
+  <rect x="24" y="58" width="273" height="152" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="74">DETAIL 1</text>
+  <text class="b" x="36" y="92">The range can move, but should not</text>
+  <text class="c" x="36" y="110">232/8 is the interoperability boundary: host</text>
+  <text class="c" x="36" y="122">stacks, OS defaults and other vendors all</text>
+  <text class="c" x="36" y="134">assume it.</text>
+  <text class="c" x="36" y="154">Change it and every router, every host and</text>
+  <text class="c" x="36" y="166">every document must change together.</text>
+  <text class="c" x="36" y="186">A custom range buys nothing but a scoped</text>
+  <text class="c" x="36" y="198">audit problem.</text>
+
+  <rect x="313" y="58" width="273" height="152" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="325" y="74">DETAIL 2</text>
+  <text class="b" x="325" y="92">SSM mapping has three sources</text>
+  <text class="c" x="325" y="110">Static table: group to source, by hand.</text>
+  <text class="c" x="325" y="128">DNS: group to source through a name.</text>
+  <text class="c" x="325" y="146">URL or controller: the application tells the</text>
+  <text class="c" x="325" y="158">network who the source is.</text>
+  <text class="x" x="325" y="180">Mapping is a migration tool for IGMPv2</text>
+  <text class="x" x="325" y="192">hosts, not an architecture. It hides the</text>
+  <text class="x" x="325" y="204">fact that your hosts cannot do SSM.</text>
+
+  <rect x="602" y="58" width="274" height="152" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="614" y="74">DETAIL 3</text>
+  <text class="b" x="614" y="92">IGMPv3 lite and URD</text>
+  <text class="c" x="614" y="110">The application, not the OS stack, sends the</text>
+  <text class="c" x="614" y="122">source-specific request. Useful with set-top</text>
+  <text class="c" x="614" y="134">boxes and appliances that will never be</text>
+  <text class="c" x="614" y="146">upgraded.</text>
+  <text class="c" x="614" y="168">Cost: the application owns group membership,</text>
+  <text class="c" x="614" y="180">so a crashed app leaks a join.</text>
+  <text class="c" x="614" y="200">Decide who owns the join before you deploy.</text>
+
+  <rect x="24" y="222" width="414" height="140" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="238">DETAIL 4</text>
+  <text class="b" x="36" y="256">What the mroute table looks like</text>
+  <text class="m" x="36" y="276">(10.1.1.10, 239.1.1.1), flags: T</text>
+  <text class="c" x="36" y="290">One entry. No (*,G) beside it.</text>
+  <text class="c" x="36" y="310">No RP in the path, no register state, no</text>
+  <text class="c" x="36" y="322">shared tree, no switchover event.</text>
+  <text class="g" x="36" y="342">An RP outage cannot touch this entry.</text>
+  <text class="c" x="36" y="354">That is the operational argument for SSM.</text>
+
+  <rect x="462" y="222" width="414" height="140" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="474" y="238">DETAIL 5</text>
+  <text class="b" x="474" y="256">Why SSM crosses domains easily</text>
+  <text class="c" x="474" y="276">No RP state has to be shared, so no MSDP</text>
+  <text class="c" x="474" y="288">mesh and no rendezvous agreement between</text>
+  <text class="c" x="474" y="300">domains.</text>
+  <text class="c" x="474" y="320">Only two things must be true: the source</text>
+  <text class="c" x="474" y="332">address is reachable, and 232/8 is routed.</text>
+  <text class="g" x="474" y="352">Cross-domain becomes a routing problem,</text>
+  <text class="g" x="474" y="364">not a multicast-protocol problem.</text>
+
+  <rect x="24" y="374" width="852" height="76" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="390">THE ONE HARD PREREQUISITE</text>
+  <text class="b" x="36" y="408">IGMPv3 or MLDv2 on every access layer</text>
+  <text class="c" x="36" y="424">One IGMPv2 hop turns the join into (*,G), the RP comes back into the path, and the state model you designed for disappears.</text>
+  <text class="c" x="36" y="440">Verify it by command, per VLAN, before rollout: the version is visible in the snooping table and in the mroute flags.</text>
+</svg>

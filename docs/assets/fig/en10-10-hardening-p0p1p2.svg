@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 442" width="100%" role="img" aria-labelledby="t1009 d1009">
+  <title id="t1009">Hardening priorities P0, P1 and P2: what to do first, what it stops, and what to refuse to do at all</title>
+  <desc id="d1009">Three columns of priority. P0, do it this week, eight items: no management address reachable from the internet, SSH only with telnet and HTTP disabled, unique local credentials plus TACACS, SNMPv3 or nothing, out-of-band or management VRF, NTP working, config backup automated and off-device, console and aux ports protected. Each one prevents a complete-device compromise or an unrecoverable situation, and together they fit in a week per site. P1, do it this quarter: CoPP baseline, routing protocol authentication, uRPF where the topology allows, DHCP snooping and dynamic ARP inspection on access, port security and BPDU guard, storm control, logging to a central collector. These reduce blast radius and stop the common access-layer attacks. P2, do it when the design settles: role-based command authorization, MACsec on select links, control plane protection tuning, per-class QoS verification, and any control whose value depends on another control already being in place. A footer lists what not to do at all: a second local account "for emergencies" that is never rotated, a shared admin password across a hundred devices, and a management VLAN that reaches every device from the user subnet.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+  </style>
+  <rect x="0" y="0" width="900" height="442" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Hardening is a queue, not a checklist</text>
+  <text class="s" x="24" y="45">P0 prevents total loss and fits in a week. Everything else can wait its turn without changing the risk much.</text>
+
+  <rect x="24" y="60" width="288" height="286" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".9"/>
+  <text class="k" x="36" y="78">P0   THIS WEEK</text>
+  <text class="b" x="36" y="96">Stops total device compromise</text>
+  <text class="c" x="36" y="118">1   no management address reachable from the internet</text>
+  <text class="c" x="36" y="136">2   SSH only, telnet and HTTP disabled</text>
+  <text class="c" x="36" y="154">3   unique local credential plus central TACACS</text>
+  <text class="c" x="36" y="172">4   SNMPv3 authPriv, or no SNMP at all</text>
+  <text class="c" x="36" y="190">5   out-of-band access or a management VRF</text>
+  <text class="c" x="36" y="208">6   NTP working and monitored</text>
+  <text class="c" x="36" y="226">7   config backup automatic, stored off-device</text>
+  <text class="c" x="36" y="244">8   console and aux ports physically protected</text>
+  <text class="x" x="36" y="270">Each item alone can end in "the device is</text>
+  <text class="x" x="36" y="284">no longer yours" - that is the test for P0.</text>
+  <text class="w" x="36" y="306">effort: about a week per site, mostly scripting</text>
+  <text class="w" x="36" y="322">and a maintenance window, not procurement</text>
+
+  <rect x="324" y="60" width="288" height="286" rx="3" fill="#ffffff" stroke="#b8862b" stroke-width=".9"/>
+  <text class="k" x="336" y="78">P1   THIS QUARTER</text>
+  <text class="b" x="336" y="96">Reduces blast radius and stops the common attacks</text>
+  <text class="c" x="336" y="118">CoPP baseline with per-class rates</text>
+  <text class="c" x="336" y="136">routing protocol authentication, key rotation plan</text>
+  <text class="c" x="336" y="154">uRPF where the topology is clean enough</text>
+  <text class="c" x="336" y="172">DHCP snooping plus dynamic ARP inspection</text>
+  <text class="c" x="336" y="190">port security, BPDU guard, root guard</text>
+  <text class="c" x="336" y="208">storm control on access ports</text>
+  <text class="c" x="336" y="226">logging to a collector that is not the device</text>
+  <text class="c" x="336" y="244">802.1X where the endpoints permit it</text>
+  <text class="g" x="336" y="270">These change how far an attacker gets once</text>
+  <text class="g" x="336" y="284">inside - the risk reduction is large but the</text>
+  <text class="g" x="336" y="298">failure mode is "one segment" not "all of it".</text>
+  <text class="w" x="336" y="322">effort: a quarter, and it needs a test lab</text>
+
+  <rect x="624" y="60" width="252" height="286" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="636" y="78">P2   WHEN THE DESIGN SETTLES</text>
+  <text class="b" x="636" y="96">Value depends on P1 existing</text>
+  <text class="c" x="636" y="118">role-based command authorization</text>
+  <text class="c" x="636" y="136">MACsec on selected links</text>
+  <text class="c" x="636" y="154">CPPr fine tuning per sub-interface</text>
+  <text class="c" x="636" y="172">per-class QoS verification</text>
+  <text class="c" x="636" y="190">telemetry and anomaly baselines</text>
+  <text class="c" x="636" y="208">control plane protection for IPv6 too</text>
+  <text class="w" x="636" y="236">Doing these first is not harmful, it is</text>
+  <text class="w" x="636" y="250">simply wasted: MACsec on a port whose</text>
+  <text class="w" x="636" y="264">device password is "cisco" protects</text>
+  <text class="w" x="636" y="278">the wrong thing.</text>
+
+  <rect x="24" y="358" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="b" x="36" y="379">Do not do these at all:</text>
+  <text class="c" x="150" y="379">a shared admin password across a hundred devices, a second local account "for emergencies" that is never rotated, a management VLAN that is reachable from the user subnet.</text>
+
+  <text class="w" x="24" y="414">The queue matters because security teams are always short of time: doing P2 while P0 is open is the most common way to spend a year and stay exposed.</text>
+  <text class="w" x="24" y="430">Measure P0 completion as a percentage per site, published monthly. It is the one hardening metric that a manager can act on.</text>
+</svg>

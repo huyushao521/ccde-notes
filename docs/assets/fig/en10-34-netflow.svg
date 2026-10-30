@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t1034 d1034">
+  <title id="t1034">Flow telemetry as the security searchlight: the four questions it answers, the export pipeline, the engineering numbers, and what it cannot do</title>
+  <desc id="d1034">Left: the four questions only flow data answers - which internal hosts talk to suspicious external addresses, meaning they may already be compromised; which hosts are scanning laterally, meaning they may be infected; who is consuming the egress bandwidth, denial of service or business; and did the policy take effect, which is answered by the hit counters on the deny entries. Middle: the pipeline from devices exporting sampled flow records over UDP to a collector that stores them, an analyser that keeps a baseline and detects anomalies, and an action - alert, black hole, or a policy change. Right: the engineering numbers that decide whether the project survives - sampling of one in a thousand on high-speed links so that the collector is not overwhelmed, an active timeout of about five minutes and an inactive timeout of fifteen seconds, and retention split between raw flows for a week or a month and aggregates for a year. Bottom: what flow data cannot do - it has no payload, so it cannot see content or file names; no domain names, so it cannot tell you the site, only the address; no blocking, so it needs a separate enforcement path; and for encrypted traffic it still yields volume, timing and peer relationships, which is often enough for detection and never enough for proof.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar34" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">Flow telemetry: the cheapest security control nobody budgets for</text>
+  <text class="s" x="24" y="45">Firewalls and ACLs decide what may happen. Flow data is the only thing that tells you what is happening right now</text>
+
+  <!-- Four questions -->
+  <rect x="24" y="60" width="336" height="196" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">FOUR QUESTIONS THAT HAVE NO OTHER ANSWER</text>
+
+  <g>
+    <circle cx="44" cy="96" r="6.5" fill="#2b3446"/>
+    <text class="w" x="44" y="99" text-anchor="middle" fill="#ffffff">1</text>
+    <text class="c" x="58" y="99">Which internal hosts talk to suspicious</text>
+    <text class="c" x="58" y="111">external addresses - are we already owned?</text>
+  </g>
+  <g>
+    <circle cx="44" cy="132" r="6.5" fill="#2b3446"/>
+    <text class="w" x="44" y="135" text-anchor="middle" fill="#ffffff">2</text>
+    <text class="c" x="58" y="135">Which hosts scan their peers - where is</text>
+    <text class="c" x="58" y="147">the infected laptop?</text>
+  </g>
+  <g>
+    <circle cx="44" cy="168" r="6.5" fill="#2b3446"/>
+    <text class="w" x="44" y="171" text-anchor="middle" fill="#ffffff">3</text>
+    <text class="c" x="58" y="171">Who consumes the egress bandwidth -</text>
+    <text class="c" x="58" y="183">an attack, or the business?</text>
+  </g>
+  <g>
+    <circle cx="44" cy="204" r="6.5" fill="#2b3446"/>
+    <text class="w" x="44" y="207" text-anchor="middle" fill="#ffffff">4</text>
+    <text class="c" x="58" y="207">Did the policy take effect - what do the</text>
+    <text class="c" x="58" y="219">deny counters actually say?</text>
+  </g>
+  <text class="w" x="36" y="244">Without flow data every one of these becomes a packet capture session</text>
+  <text class="w" x="36" y="252">on a single link, at the speed of the slowest engineer awake.</text>
+
+  <!-- Pipeline -->
+  <rect x="376" y="60" width="500" height="196" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="388" y="78" fill="#0f7f73">THE PIPELINE · EXPORT, STORE, BASELINE, ACT</text>
+
+  <rect x="388" y="88" width="106" height="44" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="398" y="104">Devices</text>
+  <text class="c" x="398" y="117">routers, switches,</text>
+  <text class="c" x="398" y="127">firewalls, cloud VPC</text>
+
+  <rect x="514" y="88" width="106" height="44" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="524" y="104">Exporter</text>
+  <text class="c" x="524" y="117">sampled records,</text>
+  <text class="c" x="524" y="127">UDP - no delivery</text>
+
+  <rect x="640" y="88" width="106" height="44" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="650" y="104">Collector</text>
+  <text class="c" x="650" y="117">deduplicate, store,</text>
+  <text class="c" x="650" y="127">retention policy</text>
+
+  <rect x="766" y="88" width="98" height="44" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="776" y="104">Analyser</text>
+  <text class="c" x="776" y="117">baseline + rules,</text>
+  <text class="c" x="776" y="127">then alert</text>
+
+  <line x1="494" y1="110" x2="510" y2="110" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar34)"/>
+  <line x1="620" y1="110" x2="636" y2="110" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar34)"/>
+  <line x1="746" y1="110" x2="762" y2="110" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar34)"/>
+
+  <text class="c" x="388" y="156">The last arrow is the one that gets forgotten: an alert nobody acts on is expensive</text>
+  <text class="c" x="388" y="169">telemetry. Wire the analyser to something that can do work - a ticket, an automation,</text>
+  <text class="c" x="388" y="182">or a black hole trigger with a named approver.</text>
+
+  <rect x="388" y="192" width="232" height="52" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="x" x="398" y="208">A design smell</text>
+  <text class="c" x="398" y="221">Collector deployed, retention 24 hours,</text>
+  <text class="c" x="398" y="233">no baseline. It answers none of the four</text>
+
+  <rect x="632" y="192" width="232" height="52" rx="2" fill="#ffffff" stroke="#bfe0d9" stroke-width=".7"/>
+  <text class="g" x="642" y="208">A design that works</text>
+  <text class="c" x="642" y="221">90 days of raw flows, weekly reports of the</text>
+  <text class="c" x="642" y="233">top talkers, one alert per suspicious peer</text>
+
+  <!-- Numbers -->
+  <rect x="24" y="268" width="424" height="98" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="286" fill="#9a7d28">THE NUMBERS THAT DECIDE THE PROJECT</text>
+  <text class="c" x="36" y="304"><tspan class="m">sampling 1:1000</tspan> on 100G links - full flow there saturates any collector</text>
+  <text class="c" x="36" y="319"><tspan class="m">active timeout 300 s</tspan> · <tspan class="m">inactive timeout 15 s</tspan> - shorter means volume, longer</text>
+  <text class="c" x="36" y="331">means you cannot see short scans at all</text>
+  <text class="c" x="36" y="346">Retention: 7-30 days raw for investigation, 12 months aggregates for trends</text>
+  <text class="w" x="36" y="360">Ask for the record-per-second estimate before you buy storage, not after</text>
+
+  <!-- Cannot -->
+  <rect x="460" y="268" width="416" height="98" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="472" y="286" fill="#b0452f">WHAT FLOW DATA CANNOT DO</text>
+  <text class="x" x="472" y="304">No payload - no content, no file name, no command</text>
+  <text class="x" x="472" y="319">No domain name - the address only, not the site</text>
+  <text class="x" x="472" y="334">No blocking - enforcement is a separate path</text>
+  <text class="c" x="472" y="349">Encrypted traffic still gives volume, timing and peer relationships, which is</text>
+  <text class="c" x="472" y="360">enough for detection and never enough for proof on its own</text>
+
+  <rect x="24" y="378" width="852" height="30" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="397">Design rule:</text>
+  <text class="c" x="122" y="397">every enforcement point should export counters, and every deny rule should be readable as a number. A control you cannot measure is a control you cannot defend in a review.</text>
+
+  <text class="w" x="24" y="438">Cost note: the licence, not the bandwidth, is usually the real constraint - decide the retention and the sampling rate before the vendor shortlist, because both are negotiable and neither is retrofittable.</text>
+</svg>

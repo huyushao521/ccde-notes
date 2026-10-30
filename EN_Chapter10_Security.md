@@ -30,7 +30,13 @@
 
 ## Chapter Introduction: Four Counter-Intuitive Truths About Security Design · 本章导读：安全设计的四条反直觉认知
 
+![The four counter-intuitive truths about security design, each with the belief it replaces](assets/fig/en10-01-four-truths.svg)
+
+
 ### Counter-Intuitive Truth #1: Security Is Not a "Zone", It Is a "Relationship Chain" · 反直觉一：安全不是一个"域"，是一条"关系链"
+
+![A secure zone is the wrong diagram; the trust boundary inventory is the right artifact](assets/fig/en10-02-trust-boundary.svg)
+
 
 Beginners draw security architectures by drawing a big box labeled "secure zone" and wrapping it around the core switch. That is wrong. **Security exists only at the point where "two entities with different trust levels interact"** — it is inherently **an edge**, not a **surface**.
 
@@ -80,6 +86,9 @@ So the first step in security design is not choosing equipment, it is **listing 
 
 ### Counter-Intuitive Truth #2: Encryption Only Solves "Cannot See", Not "Cannot Get In" · 反直觉二：加密只解决"看不见"，不解决"进不来"
 
+![A fully meshed IPsec network still lets one compromised PC reach every site](assets/fig/en10-03-encryption-blindspot.svg)
+
+
 Many people treat a VPN as a security solution. A VPN does only two things: **confidentiality** (a man in the middle cannot see the content) and **authentication** (confirming who the peer is). It does **not** do:
 
 <div class="zh" markdown="1">
@@ -110,6 +119,9 @@ Many people treat a VPN as a security solution. A VPN does only two things: **co
 
 ### Counter-Intuitive Truth #3: The Cost of Security Is Not in "Buying", It Is in "Changing Processes" · 反直觉三：安全的成本不在"买",在"改流程"
 
+![Where the effort really goes in a security project, and the five questions that make default deny operable](assets/fig/en10-04-process-cost.svg)
+
+
 In an 802.1X project, procurement and configuration take about 30% of the effort; the other 70% goes into: **what to do about this printer that does not support 802.1X, what to do when the medical device vendor refuses to cooperate, how visitors get on, how to fall back when the authentication server dies, and who is on duty when things break**.
 
 <div class="zh" markdown="1">
@@ -127,6 +139,9 @@ CCDE 考的就是这 70%。技术方案再漂亮，**没有降级路径、没有
 </div>
 
 ### Counter-Intuitive Truth #4: Default Deny Is Easy to Say; the Hard Part Is "Who Owns the Whitelist" · 反直觉四：默认拒绝容易说，难在"谁负责加白名单"
+
+![Default deny is a one-line rule; the whitelist behind it is a permanent operating cost with four questions and three failure modes](assets/fig/en10-05-whitelist-ownership.svg)
+
 
 "Default deny" is the starting principle of every security design. But implementation runs into an organizational problem: **when a new business goes live, who submits the policy request? Who approves it? How long until it takes effect?**
 
@@ -165,6 +180,9 @@ CCDE 考的就是这 70%。技术方案再漂亮，**没有降级路径、没有
 ## Security Design Methodology · 安全设计方法论
 
 ### The Four-Step Method: From Assets to Technology · 四步法：从资产到技术
+
+![The four-step security method from assets to technology, and the asset classification ladder that sets the budget](assets/fig/en10-06-four-step-method.svg)
+
 
 ```
 ① Asset identification → ② Threat modeling → ③ Trust boundaries and segmentation → ④ Technology selection and validation
@@ -226,6 +244,9 @@ CCDE 考的就是这 70%。技术方案再漂亮，**没有降级路径、没有
 
 ### Threat Models: STRIDE and the Attack Surface · 威胁模型：STRIDE 与攻击面
 
+![STRIDE applied to network infrastructure, with a concrete example and the control that answers each letter](assets/fig/en10-07-stride.svg)
+
+
 | Threat type | Meaning | Corresponding network defense |
 |---------|------|----------------|
 | **S**poofing | Impersonating another identity | 802.1X, IPsec, DHCP snooping, uRPF, routing authentication |
@@ -273,6 +294,9 @@ CCDE 考的就是这 70%。技术方案再漂亮，**没有降级路径、没有
 </div>
 
 ### The SAFE Architecture Model · SAFE 架构模型
+
+![The SAFE model as a placement grid: network places against the three planes, with the control each cell actually needs](assets/fig/en10-08-safe-model.svg)
+
 
 SAFE is Cisco's security architecture reference model. Its value is not "copy it", but that it provides a **vocabulary of zones** so that discussions share common terms.
 
@@ -336,6 +360,9 @@ SAFE 是 Cisco 的安全架构参考模型。它的价值不是"照抄"，而是
 
 #### The Three-Plane Model: The Coordinate System for Hardening · 三平面模型：加固的坐标系
 
+![The three-plane model: what each plane is, how it is attacked, and why management plane loss is total](assets/fig/en10-09-three-planes.svg)
+
+
 A network device has three independent paths, and security discussions must separate them, because **their threats, attackers, and defenses are completely different**:
 
 <div class="zh" markdown="1">
@@ -377,6 +404,9 @@ That is why the same "rate limiting" action is worth far more when applied as Co
 </div>
 
 #### Hardening Priorities: P0 / P1 / P2 · 加固优先级：P0 / P1 / P2
+
+![Hardening priorities P0, P1 and P2: what to do first, what it stops, and what to refuse to do at all](assets/fig/en10-10-hardening-p0p1p2.svg)
+
 
 Device hardening checklists run to hundreds of items, but no project gives you the time to finish them. **Sort by "attacker cost vs your defense cost"** and do the ones that are "easiest for the attacker and worst in consequence" first:
 
@@ -427,6 +457,9 @@ Device hardening checklists run to hundreds of items, but no project gives you t
 </div>
 
 #### Password Strength: Why Type 5 Is No Longer Safe · 密码强度：为什么 type 5 已经不安全
+
+![Password encoding types compared: which are reversible, which survive an offline attack, and what to use in 2026](assets/fig/en10-11-password-types.svg)
+
 
 | Type | Algorithm | Reversible? | Actual strength | Recommendation |
 |------|------|--------|---------|------|
@@ -499,6 +532,9 @@ line vty 0 15
 </div>
 
 #### Time Synchronization: The Severely Underrated Security Infrastructure · 时间同步：被严重低估的安全基础设施
+
+![NTP as security infrastructure: six mechanisms that depend on it, and the cascade when it fails](assets/fig/en10-12-ntp-cascade.svg)
+
 
 NTP looks unrelated to security, but in reality it underpins four things:
 
@@ -592,6 +628,9 @@ NTP 看似与安全无关，实际上它支撑了四件事：
 
 #### AAA: Authentication, Authorization, Accounting · AAA：认证、授权、记账
 
+![AAA for network devices: the flow, TACACS+ against RADIUS, and the three anti-patterns that undo both](assets/fig/en10-13-aaa.svg)
+
+
 | Component | Function | Key design questions |
 |------|------|------------|
 | **Authentication** | Who you are | Local accounts or centralized? Two-factor? What is the fallback policy? |
@@ -665,6 +704,9 @@ NTP 看似与安全无关，实际上它支撑了四件事：
 </div>
 
 #### Supply Chain and Image Integrity · 供应链与镜像完整性
+
+![The device lifecycle as an attack surface: procurement, image, boot and configuration, with the check that closes each gap](assets/fig/en10-14-supply-chain.svg)
+
 
 This item is rarely mentioned in traditional network design, but it keeps recurring in recent real-world incidents:
 
@@ -751,6 +793,9 @@ platform security secure-boot enable
 </div>
 
 #### Management Plane Security · 管理平面安全
+
+![Four management architectures in order of resilience, and the access chain that sits on top of whichever one you choose](assets/fig/en10-15-mgmt-plane-ladder.svg)
+
 
 The core design question for the management plane is: **how far does an attacker have to go before touching the management path?**
 
@@ -932,6 +977,9 @@ line vty 0 15
 
 #### Control Plane Security · 控制平面安全
 
+![Four locks on the CPU door: infrastructure ACL, CoPP, control plane protection and GTSM, each asking a different question](assets/fig/en10-17-cpu-door-locks.svg)
+
+
 The control plane is **the source of every forwarding decision**. Its peculiarity is that **an attacker does not need device privileges — injecting one route or one ARP response is enough to change where traffic goes.**
 
 <div class="zh" markdown="1">
@@ -969,6 +1017,9 @@ The control plane is **the source of every forwarding decision**. Its peculiarit
 </div>
 
 ##### Protection Mechanism 1: CoPP (Control Plane Policing)
+
+![The CoPP pipeline from the punt path to the CPU, and why a template tuned for steady state breaks at convergence](assets/fig/en10-16-copp-pipeline.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -1364,6 +1415,9 @@ router bgp 65000
 
 ##### Protection Mechanism 5: Routing Protocol Authentication and Key Rotation
 
+![Routing layer protection: authenticated sessions with a key rotation plan, prefix limits, and the policy that stops leakage](assets/fig/en10-18-route-auth-maxprefix.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### 保护机制五：路由协议认证与密钥轮换
@@ -1520,6 +1574,9 @@ Data plane security measures are really only two categories: **filtering (ACLs)*
 
 ##### uRPF: Unicast Reverse Path Forwarding
 
+![uRPF modes, the topologies each one breaks in, and the silent way it fails](assets/fig/en10-19-urpf-modes.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### uRPF：单播反向路径转发
@@ -1636,6 +1693,9 @@ interface GigabitEthernet0/3
 
 ##### IP Source Guard and DHCP Snooping
 
+![IP Source Guard depends on a binding table it does not build itself, and three host types that break it](assets/fig/en10-20-ipsg-dhcp-snooping.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### IP Source Guard 与 DHCP Snooping
@@ -1716,6 +1776,9 @@ ip arp inspection vlan 10-50
 
 #### Why Layer 2 Is the Last Blind Spot for Security · 为什么二层是安全的"最后盲区"
 
+![Layer 3 policy needs the traffic to traverse the policy device; traffic inside one VLAN never does, so the VLAN boundary is the smallest security domain](assets/fig/en10-21-l2-blind-spot.svg)
+
+
 The Layer 3 security system (firewalls, routing policy, subnet isolation) shares one premise: **traffic must pass through the device where you deployed the policy**. The Layer 2 problem is exactly that **traffic within the same VLAN never passes through any Layer 3 device at all**.
 
 <div class="zh" markdown="1">
@@ -1762,6 +1825,9 @@ The Layer 3 security system (firewalls, routing policy, subnet isolation) shares
 
 #### The Layer 2 Attack Chain: From Access to Lateral Movement · 二层攻击链：从接入到横向移动
 
+![The Layer 2 attack chain in six stages, each with the control that cuts that link](assets/fig/en10-22-l2-attack-chain.svg)
+
+
 A real Layer 2 attack is not a single point but a chain:
 
 <div class="zh" markdown="1">
@@ -1802,7 +1868,13 @@ A real Layer 2 attack is not a single point but a chain:
 
 #### Defenses, Item by Item · 逐项防御
 
+![The eight Layer 2 defenses as one matrix: what each stops, where it is applied and the design gotcha that makes it fail](assets/fig/en10-23-l2-defense-matrix.svg)
+
+
 ##### 1. STP Attacks and BPDU Guard / Root Guard
+
+![Spanning tree attacks and the five guards, with the difference between err-disable, root-inconsistent and a silent drop](assets/fig/en10-24-stp-guards.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -1892,6 +1964,9 @@ spanning-tree loopguard default
 
 ##### 2. VLAN Hopping
 
+![How 802.1Q double tagging crosses a VLAN boundary, why the flight is one-way, and the three settings that close it](assets/fig/en10-25-vlan-hopping.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### 2. VLAN 跳跃
@@ -1959,6 +2034,9 @@ interface GigabitEthernet1/0/24
 </div>
 
 ##### 3. MAC Flooding and Port Security
+
+![MAC flooding turns a switch into a hub, and port security is the counter - with three violation behaviours and two practical traps](assets/fig/en10-26-mac-flooding-port-security.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -2035,6 +2113,9 @@ interface GigabitEthernet1/0/5
 </div>
 
 ##### 4. ARP Spoofing and DAI
+
+![ARP spoofing, the three checks dynamic ARP inspection performs, and the static-address hole that breaks real deployments](assets/fig/en10-27-arp-dai.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -2199,6 +2280,9 @@ interface GigabitEthernet1/0/10
 </div>
 
 ##### 6. 802.1X: Port-Level Admission Control
+
+![802.1X in one page: three roles, four methods, four host modes, three deployment modes and the fallback path](assets/fig/en10-28-8021x.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -2412,6 +2496,9 @@ interface GigabitEthernet1/0/6
 
 ##### 7. Private VLAN (Port Isolation)
 
+![Private VLAN: one primary VLAN split into isolated and community segments behind a promiscuous port, and why it lost to SGT and VXLAN](assets/fig/en10-29-pvlan.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### 7. Private VLAN（端口隔离）
@@ -2497,6 +2584,9 @@ interface GigabitEthernet1/0/6
 </div>
 
 ##### 8. MACsec: Layer 2 Encryption
+
+![MACsec: hop-by-hop Layer 2 encryption with about thirty-two bytes of overhead, its key agreement, and where IPsec or TLS is the right answer instead](assets/fig/en10-30-macsec.svg)
+
 
 <div class="zh" markdown="1">
 
@@ -2586,6 +2676,9 @@ Layer 3 security responsibilities differ from Layer 2: **Layer 2 governs "who ca
 
 #### The Four Enforcement Points of Layer 3 Security · 三层安全的四个作用点
 
+![The four enforcement points of Layer 3 security and where each one sits on the packet path](assets/fig/en10-31-l3-four-enforcement-points.svg)
+
+
 | Enforcement point | Means | What it blocks |
 |--------|------|--------|
 | **Filtering along the forwarding path** | Interface ACLs / zoned firewalls / inter-VRF ACLs | Cross-subnet access that is not allowed |
@@ -2605,6 +2698,9 @@ Layer 3 security responsibilities differ from Layer 2: **Layer 2 governs "who ca
 </div>
 
 #### Where to Deploy ACLs: Where Exactly Should One Policy Live · ACL 部署位置：一条策略应该配在哪
+
+![One intent, five candidate ACL locations: where the policy should actually live, with advantages, costs and a recommendation for each](assets/fig/en10-32-acl-placement.svg)
+
 
 This is a high-frequency CCDE design question. The same intent ("the office network must not reach the finance servers") can be configured in five places:
 
@@ -2734,6 +2830,9 @@ ip access-list extended ACL-OFFICE-TO-FIN
 
 ##### RTBH: "Self-Sacrificing" Protection for a Single IP
 
+![Remotely triggered black hole: how a single host is sacrificed at the network entry, what it costs, and where it sits relative to scrubbing](assets/fig/en10-33-rtbh.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### RTBH：一个 IP 的"自杀式"保护
@@ -2807,6 +2906,9 @@ route-map RTBH-IN permit 10
 </div>
 
 #### NetFlow / Telemetry: The Security Searchlight · NetFlow / 遥测：安全的"探照灯"
+
+![Flow telemetry as the security searchlight: the four questions it answers, the export pipeline, the engineering numbers, and what it cannot do](assets/fig/en10-34-netflow.svg)
+
 
 The item most often cut for cost in Layer 3 security is **visibility**. Without flow data you cannot answer:
 
@@ -2888,6 +2990,9 @@ Every security control faces a cost constraint: **more checkpoints means more se
 
 #### The Four Technical Layers of Segmentation · 分段的四个技术层次
 
+![The four technical layers of segmentation compared by granularity, isolation strength and scalability, and why the layers stack instead of substituting for each other](assets/fig/en10-35-segmentation-layers.svg)
+
+
 | Layer | Technology | Granularity | Isolation strength | Scalability |
 |------|------|------|---------|---------|
 | **Physical isolation** | Separate devices/cables | Highest | Strongest | Poor (expensive) |
@@ -2907,6 +3012,9 @@ Every security control faces a cost constraint: **more checkpoints means more se
 </div>
 
 #### SGT (Security Group Tag) and TrustSec · SGT（Security Group Tag）与 TrustSec
+
+![Security group tags: identity becomes a label, the label becomes a policy matrix, and the three ways to carry it across the network](assets/fig/en10-36-sgt-trustsec.svg)
+
 
 **Core idea**: decouple "who can access whom" from **IP addresses** and bind it to **identity tags**. When an endpoint authenticates, ISE assigns an SGT (e.g. employee = 10, guest = 20, printer = 30), and switches/firewalls permit or deny according to the **matrix** between SGTs.
 
@@ -2994,6 +3102,9 @@ Every security control faces a cost constraint: **more checkpoints means more se
 
 #### The Three Routes to Data Center Micro-Segmentation · 数据中心微分段的三条路线
 
+![Three routes to data centre micro-segmentation - fabric, host, and hybrid - and how to choose between them](assets/fig/en10-37-dc-microsegmentation.svg)
+
+
 | Route | Mechanism | When it fits | Cost |
 |------|------|------|------|
 | **Network side (EPG/ACI, VXLAN + security groups)** | Policy enforced in the fabric | New DCs, private cloud | Strongly tied to a vendor architecture; high migration cost |
@@ -3019,6 +3130,9 @@ Every security control faces a cost constraint: **more checkpoints means more se
 </div>
 
 #### The Relationship Between VRFs and Security Domains (Do Not Confuse Them) · VRF 与安全域的关系（别混淆）
+
+![VLAN, VRF, zone and SGT are four different concepts; what each one isolates, and why a VRF is not a security domain](assets/fig/en10-38-vrf-vs-security-domain.svg)
+
 
 | Concept | Purpose | Relationship to security |
 |------|------|------------|
@@ -3076,6 +3190,9 @@ Every security control faces a cost constraint: **more checkpoints means more se
 ### Network Overlay and Remote Access · 网络覆盖和远程访问
 
 #### IPsec: Five Decisions You Must Settle First · IPsec：必须先想清楚的五个选择
+
+![The five IPsec decisions that must be settled before deployment, and the protocol-mode matrix that explains them](assets/fig/en10-39-ipsec-five-decisions.svg)
+
 
 IPsec is not a "turn it on and forget it" feature; it has five parameters that must be decided explicitly. **Getting these five wrong usually does not make you "insecure" — it makes the tunnel "not work" or the performance collapse.**
 
@@ -3196,6 +3313,9 @@ crypto ipsec profile IPSEC-PROF
 </div>
 
 #### MTU / MSS: IPsec's Classic "Ping Works but the Business Does Not" · MTU / MSS：IPsec 部署最经典的"能 ping 通但业务不通"
+
+![Why IPsec breaks large packets: the encapsulation arithmetic, the four symptoms it produces, and the fix order led by MSS clamping](assets/fig/en10-40-mtu-mss.svg)
+
 
 **Why it is bound to happen**:
 
@@ -3336,6 +3456,9 @@ interface Tunnel0
 </div>
 
 #### Three Architecture Choices for Site-to-Site VPN · 站点到站点 VPN 的三种架构选型
+
+![Four site-to-site VPN architectures - traditional point-to-point IPsec, DMVPN, FlexVPN and GET VPN - and the three DMVPN phases that decide where spoke traffic goes](assets/fig/en10-41-vpn-architectures.svg)
+
 
 | Architecture | Topology | Encryption | Scalability | Fit |
 |------|------|------|--------|------|
@@ -3563,6 +3686,9 @@ interface Tunnel0
 
 ##### The Three Access Models
 
+![Full tunnel, split tunnel and clientless remote access compared, and the four real risks that make split tunnelling a policy problem rather than a routing one](assets/fig/en10-42-remote-access-models.svg)
+
+
 <div class="zh" markdown="1">
 
 ##### 三种接入模型
@@ -3672,6 +3798,9 @@ ipv4 split-dns <内网域名>
 </div>
 
 ##### ZTNA and SASE: An Architectural Change
+
+![Traditional VPN, ZTNA and SASE compared by access path and trust assumption, with the advantages of ZTNA and the four constraints that slow its migration](assets/fig/en10-43-ztna-sase.svg)
+
 
 <div class="zh" markdown="1">
 

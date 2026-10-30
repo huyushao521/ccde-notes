@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" width="100%" role="img" aria-labelledby="t921 d921">
+  <title id="t921">The three structural flaws of VPLS, and where VPWS, VPLS and EVPN each belong</title>
+  <desc id="d921">Upper panel: three VPLS flaws. Flaw one, learning by flooding, because MAC addresses are learned from data with no control plane, so every unknown unicast or broadcast is flooded to every site. Flaw two, full mesh of pseudowires, so N sites need N times N minus one over two pseudowires and every new site touches every existing one. Flaw three, no standard active-active multihoming, so a dual-homed site blocks one link and wastes it, and failover depends on timers. Lower panel: three services placed by use. VPWS is a point-to-point virtual wire for one circuit. VPLS is a multipoint virtual switch for a layer-2 broadcast domain. EVPN is the same layer-2 service with a BGP control plane and a MAC and IP routing table, so it fixes all three flaws at once. A closing note says the choice is not about which is newer but about whether the customer needs multipoint and whether the provider needs active-active.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="392" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">VPLS is not a bad design; it is a design with three properties nobody wanted to pay for</text>
+  <text class="s" x="24" y="45">All three come from one root cause: a layer-2 service with no control plane</text>
+
+  <rect x="24" y="60" width="272" height="130" rx="3" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#c0392b">Flaw 1 &#183; Learning by flooding</text>
+  <text class="c" x="36" y="98" fill="#c0392b">MACs are learned from data. Unknown</text>
+  <text class="c" x="36" y="112" fill="#c0392b">unicast and broadcast go to every site.</text>
+  <text class="c" x="36" y="134" fill="#c0392b">Consequence: a broadcast storm at one</text>
+  <text class="c" x="36" y="148" fill="#c0392b">branch reaches all of them.</text>
+  <text class="w" x="36" y="172">No mechanism to ask &#8220;where is this MAC&#8221;</text>
+
+  <rect x="312" y="60" width="272" height="130" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <text class="b" x="324" y="78" fill="#7a5b18">Flaw 2 &#183; Pseudowire full mesh</text>
+  <text class="c" x="324" y="98" fill="#7a5b18">N sites need N(N&#8722;1)/2 pseudowires.</text>
+  <text class="c" x="324" y="112" fill="#7a5b18">A new site is a change on every old site.</text>
+  <text class="c" x="324" y="134" fill="#7a5b18">Consequence: 50 sites is already 1 225</text>
+  <text class="c" x="324" y="148" fill="#7a5b18">signalled circuits to maintain.</text>
+  <text class="w" x="324" y="172">The same quadratic bill as an iBGP full mesh</text>
+
+  <rect x="600" y="60" width="276" height="130" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="612" y="78" fill="#6b4fbf">Flaw 3 &#183; No active-active multihoming</text>
+  <text class="c" x="612" y="98" fill="#6b4fbf">A dual-homed site must block one link;</text>
+  <text class="c" x="612" y="112" fill="#6b4fbf">the standby carries nothing.</text>
+  <text class="c" x="612" y="134" fill="#6b4fbf">Consequence: half the purchased capacity</text>
+  <text class="c" x="612" y="148" fill="#6b4fbf">is idle, and failover waits for a timer.</text>
+  <text class="w" x="612" y="172">No standard way to use both links at once</text>
+
+  <text class="k" x="24" y="212">THE THREE SERVICES, PLACED BY USE</text>
+  <rect x="24" y="220" width="272" height="88" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="238" fill="#1f4fc0">VPWS &#8212; virtual wire</text>
+  <text class="c" x="36" y="256">One point-to-point circuit, carried intact.</text>
+  <text class="c" x="36" y="270">Use for a single legacy link, a leased line</text>
+  <text class="c" x="36" y="284">replacement, or a non-IP protocol.</text>
+  <text class="w" x="36" y="302">Simplest to reason about: two ends, no learning.</text>
+
+  <rect x="312" y="220" width="272" height="88" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="324" y="238" fill="#7a5b18">VPLS &#8212; virtual switch</text>
+  <text class="c" x="324" y="256">A multipoint layer-2 domain across sites.</text>
+  <text class="c" x="324" y="270">Use when a customer needs one broadcast</text>
+  <text class="c" x="324" y="284">domain and cannot be moved to layer 3.</text>
+  <text class="w" x="324" y="302">Carries all three flaws above, by design.</text>
+
+  <rect x="600" y="220" width="276" height="88" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="612" y="238" fill="#0f7f73">EVPN &#8212; the same service, with a control plane</text>
+  <text class="c" x="612" y="256">Multipoint layer 2, but MACs are advertised</text>
+  <text class="c" x="612" y="270">by BGP instead of being flooded for, and</text>
+  <text class="c" x="612" y="284">multihoming is active-active per flow.</text>
+  <text class="w" x="612" y="302">Same customer requirement, none of the three flaws.</text>
+
+  <rect x="24" y="322" width="852" height="54" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="322" width="4" height="54" fill="#c0392b"/>
+  <text class="c" x="40" y="340" fill="#c0392b"><tspan style="font-weight:700">How to choose without an argument:</tspan> does the customer need multipoint at layer 2? If not, VPWS is cheaper and simpler. If yes, is a dual-homed</text>
+  <text class="c" x="40" y="356" fill="#c0392b">site required, or will there be more than a handful of sites? Then EVPN, because VPLS will charge you twice for the same service.</text>
+  <text class="c" x="40" y="370" fill="#c0392b">Choose VPLS only when the platforms do not support EVPN and the site count is small enough that all three flaws stay theoretical.</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t809 d809">
+
+  <title id="t809">OSPF area types, which LSAs each admits, and the decision path for choosing one</title>
+  <desc id="d809">Six rows: backbone area 0 admits every LSA type and must stay contiguous; normal area admits everything; stub area refuses Type 5 external routes and uses a default route instead, admitting types 1, 2 and 3; totally stub admits only types 1 and 2 and is the common spoke optimisation; NSSA refuses Type 5 but allows Type 7 so the site can still import local external routes; totally NSSA additionally refuses Type 3. A right-hand decision box walks through the choice: does the site need to know external detail, no means stub or totally stub, yes means NSSA or totally NSSA, and then does it need other areas' detail, no means take the totally variant. A warning strip lists three hard constraints: the area cannot be area 0, it cannot contain an ASBR, and every router in the area must be configured identically or no adjacency forms.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Area types are filters, and the filter is defined by which LSAs are admitted</text>
+  <text class="s" x="24" y="45">Pick the area type from the number of exits at the site &#8212; not from which one shrinks the table the most</text>
+
+  <text class="k" x="36" y="66">AREA TYPE</text>
+  <text class="k" x="184" y="66">ADMITS</text>
+  <text class="k" x="290" y="66">WHERE IT FITS</text>
+
+  <rect x="24" y="72" width="440" height="38" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".5"/>
+  <text class="b" x="36" y="88">Backbone (area 0)</text>
+  <text class="w" x="36" y="100">must be contiguous</text>
+  <text class="c" x="184" y="95">all types</text>
+  <text class="c" x="290" y="95">carries every inter-area path</text>
+
+  <rect x="24" y="114" width="440" height="34" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="135">Normal area</text>
+  <text class="c" x="184" y="135">all types</text>
+  <text class="c" x="290" y="135">ordinary office and data centre areas</text>
+
+  <rect x="24" y="152" width="440" height="34" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="173">Stub</text>
+  <text class="c" x="184" y="173">1, 2, 3</text>
+  <text class="c" x="290" y="173">branch and edge sites, one exit only</text>
+
+  <rect x="24" y="190" width="440" height="34" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="211">Totally stub</text>
+  <text class="c" x="184" y="211">1, 2</text>
+  <text class="c" x="290" y="211">spoke sites &#8212; the most common optimisation</text>
+
+  <rect x="24" y="228" width="440" height="34" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="b" x="36" y="249">NSSA</text>
+  <text class="c" x="184" y="249">1, 2, 3, 7</text>
+  <text class="c" x="290" y="249">edge sites that must import local externals</text>
+
+  <rect x="24" y="266" width="440" height="34" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="b" x="36" y="287">Totally NSSA</text>
+  <text class="c" x="184" y="287">1, 2, 7</text>
+  <text class="c" x="290" y="287">edge site with a local exit and a small table</text>
+
+  <text class="k" x="480" y="66">HOW TO CHOOSE, IN TWO QUESTIONS</text>
+
+  <rect x="480" y="72" width="396" height="30" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="c" x="492" y="91">Does this site need the detail of external routes?</text>
+
+  <rect x="496" y="110" width="170" height="52" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="r" x="508" y="126">No &#8212; everything exits</text>
+  <text class="r" x="508" y="138">through headquarters</text>
+  <text class="c" x="508" y="153">&#8594; Stub / Totally Stub</text>
+
+  <rect x="690" y="110" width="170" height="52" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="r" x="702" y="126">Yes &#8212; local Internet</text>
+  <text class="r" x="702" y="138">exit or local externals</text>
+  <text class="c" x="702" y="153">&#8594; NSSA / Totally NSSA</text>
+
+  <text class="c" x="492" y="182">And then: does it need other areas' detail?</text>
+  <text class="c" x="492" y="198">No &#8594; take the Totally variant (smallest table).</text>
+  <text class="c" x="492" y="214">Yes &#8594; plain Stub or plain NSSA.</text>
+
+  <rect x="480" y="228" width="396" height="72" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="b" x="492" y="246" fill="#c0392b">Three hard constraints on a stub area</text>
+  <text class="c" x="492" y="262">1. It cannot be area 0.</text>
+  <text class="c" x="492" y="275">2. It cannot contain an ASBR, so redistribution is silently ignored.</text>
+  <text class="c" x="492" y="288">3. Every router in the area must be configured as stub, or no adjacency forms.</text>
+
+  <rect x="24" y="312" width="852" height="66" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="312" width="4" height="66" fill="#c0392b"/>
+  <text class="c" x="40" y="330" fill="#c0392b"><tspan style="font-weight:700">The silent failure to test for:</tspan> a site with a local Internet backup is configured as stub. redistribute static is accepted on the</text>
+  <text class="c" x="40" y="346" fill="#c0392b">command line and ignored by the process, so the backup default route never enters OSPF. The routing table shrinks, acceptance passes,</text>
+  <text class="c" x="40" y="362" fill="#c0392b">and the site goes dark the first time the primary link fails. Test the failure, not the configuration line.</text>
+
+  <text class="w" x="24" y="396">Rule that prevents the whole class of problem: the area type must match the number of exits at the site. One exit &#8594; stub. More than one exit,</text>
+  <text class="w" x="24" y="409">including a local Internet path &#8594; NSSA. Every redundancy design needs its own fault-injection case, tested with the primary link down.</text>
+  <text class="w" x="24" y="426">Also verify what actually landed in the table, because a redistributed route that is silently dropped looks exactly like a route that was never needed.</text>
+</svg>

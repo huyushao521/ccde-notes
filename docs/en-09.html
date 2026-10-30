@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 9 · about 10386 words</span></div><h1 id="chapter-9-network-virtualization-9">Chapter 9: Network Virtualization · 第 9 章：网络虚拟化<a class="anchor" href="#chapter-9-network-virtualization-9" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 9 · about 10806 words</span></div><h1 id="chapter-9-network-virtualization-9">Chapter 9: Network Virtualization · 第 9 章：网络虚拟化<a class="anchor" href="#chapter-9-network-virtualization-9" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 9 (pp. 434–506)</p>
 </blockquote>
@@ -56,6 +56,7 @@
 </div>
 <hr />
 <h2 id="chapter-introduction-what-exactly-is-being-virtualized">Chapter Introduction: What Exactly Is Being Virtualized · 本章导读：虚拟化到底在虚拟化什么<a class="anchor" href="#chapter-introduction-what-exactly-is-being-virtualized" title="Permanent link"></a></h2>
+<p><img alt="Three virtualization threads and the three debts each one creates" src="assets/fig/en09-01-three-threads.svg" /></p>
 <p>Many people memorize "network virtualization" as a string of acronyms (MPLS, VRF, VXLAN, SD-WAN) and end up more confused the more they study. In reality there are only <strong>three main threads</strong>, and every technology is a different implementation of those three:</p>
 <div class="zh">
 <p>很多人把"网络虚拟化"记成一串缩写（MPLS、VRF、VXLAN、SD-WAN），结果越背越乱。它其实只有<strong>三条主线</strong>，所有技术都是这三条主线的不同实现：</p>
@@ -154,6 +155,7 @@
 </ol>
 </div>
 <h3 id="mpls-architecture-components-mpls">MPLS Architecture Components · MPLS 架构组件<a class="anchor" href="#mpls-architecture-components-mpls" title="Permanent link"></a></h3>
+<p><img alt="CE, PE and P: who knows what, and the three isolation boundaries" src="assets/fig/en09-02-ce-pe-p.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -213,6 +215,7 @@
 <p><strong>关键认知</strong>：P 路由器<strong>看不到客户的 IP 路由</strong>，它只交换传输标签。这带来一个设计上的重要后果 —— <strong>你的路由策略、ACL、QoS 分类，全部要在 PE 边界做完</strong>，进去以后就没有你的锚点了。</p>
 </div>
 <h3 id="mpls-forwarding-plane-mpls">MPLS Forwarding Plane · MPLS 转发平面<a class="anchor" href="#mpls-forwarding-plane-mpls" title="Permanent link"></a></h3>
+<p><img alt="The label stack hop by hop, with the LIB and LFIB behind it" src="assets/fig/en09-03-label-path.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -264,6 +267,7 @@
 </code></pre>
 </div>
 <h4 id="bit-level-structure-of-the-label-stack-needed-for-troubleshooting">Bit-Level Structure of the Label Stack (Needed for Troubleshooting) · 标签栈的位级结构（排障时要用到）<a class="anchor" href="#bit-level-structure-of-the-label-stack-needed-for-troubleshooting" title="Permanent link"></a></h4>
+<p><img alt="The 32-bit label field by field, and the two reserved labels" src="assets/fig/en09-04-label-bits.svg" /></p>
 <p>Every label is <strong>4 bytes (32 bits)</strong>:</p>
 <div class="zh">
 <p>每个标签占 <strong>4 字节（32 bit）</strong>：</p>
@@ -347,6 +351,7 @@
 </ul>
 </div>
 <h4 id="the-php-design-trade-off-php">The PHP Design Trade-off · PHP 的设计取舍<a class="anchor" href="#the-php-design-trade-off-php" title="Permanent link"></a></h4>
+<p><img alt="PHP as a trade-off between one label operation and QoS visibility" src="assets/fig/en09-05-php-tradeoff.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -415,6 +420,7 @@
 <p>排障两步走：<code>show mpls ldp bindings</code>（LIB，看标签怎么分的）→ <code>show mpls forwarding-table</code>（LFIB，看包实际怎么转）。</p>
 </div>
 <h3 id="label-distribution-protocols-three-approaches">Label Distribution Protocols: Three Approaches · 标签分配协议：三种做法<a class="anchor" href="#label-distribution-protocols-three-approaches" title="Permanent link"></a></h3>
+<p><img alt="Four ways to distribute labels: LDP, RSVP-TE, BGP, segment routing" src="assets/fig/en09-06-label-distribution.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -496,6 +502,7 @@
 <hr />
 <h2 id="mpls-control-plane-components-mpls">MPLS Control Plane Components · MPLS 控制平面组件<a class="anchor" href="#mpls-control-plane-components-mpls" title="Permanent link"></a></h2>
 <h3 id="1-vrf-virtual-routing-and-forwarding-vrf">1. VRF (Virtual Routing and Forwarding) · VRF (虚拟路由转发)<a class="anchor" href="#1-vrf-virtual-routing-and-forwarding-vrf" title="Permanent link"></a></h3>
+<p><img alt="A VRF is four objects on one device, and it exists only on the PE" src="assets/fig/en09-07-vrf.svg" /></p>
 <p>A VRF is the primary mechanism for maintaining routing isolation at Layer 3 device level. Each PE maintains a separate routing and forwarding instance for every VRF of every customer.</p>
 <div class="zh">
 <p>VRF 是在三层设备级别维护路由隔离的主要机制。每个 PE 为每个客户的每个 VRF 维护独立的路由和转发实例。</p>
@@ -521,6 +528,7 @@
 </ul>
 </div>
 <h3 id="2-rd-route-distinguisher-rd-route-distinguisher">2. RD (Route Distinguisher) · RD (Route Distinguisher, 路由区分符)<a class="anchor" href="#2-rd-route-distinguisher-rd-route-distinguisher" title="Permanent link"></a></h3>
+<p><img alt="How eight bytes of RD turn IPv4 into VPNv4, and why it must be unique per PE" src="assets/fig/en09-08-rd.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -634,6 +642,7 @@
 <p>为什么多归属需要"每 PE 唯一 RD"？因为同一个站点从两个 PE 通告同一前缀时，如果两个 PE 用<strong>同一个 RD</strong>，生成的 VPNv4 前缀完全一样，BGP 会认为是<strong>同一条路由的两个副本</strong>，只能选一条（且默认不装两条到同一邻居）。用不同 RD 后生成两条不同的 VPNv4 前缀，PE 才能在 VRF 里保留两条路径做 ECMP 或快速切换。</p>
 </div>
 <h3 id="3-rt-route-target-rt-route-target">3. RT (Route Target) · RT (Route Target, 路由目标)<a class="anchor" href="#3-rt-route-target-rt-route-target" title="Permanent link"></a></h3>
+<p><img alt="Route target import and export: the match that decides whether a route enters a VRF" src="assets/fig/en09-09-rt.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -693,6 +702,7 @@
 </blockquote>
 </div>
 <h3 id="4-mp-bgp-multiprotocol-bgp-mp-bgp-bgp">4. MP-BGP (Multiprotocol BGP) · MP-BGP (多协议 BGP)<a class="anchor" href="#4-mp-bgp-multiprotocol-bgp-mp-bgp-bgp" title="Permanent link"></a></h3>
+<p><img alt="Anatomy of a VPNv4 route: the NLRI fields and the attributes that carry policy" src="assets/fig/en09-10-vpnv4-route.svg" /></p>
 <p>MP-BGP uses the VPNv4/VPNv6 address families to exchange VPN routes between PEs:</p>
 <div class="zh">
 <p>MP-BGP 使用 VPNv4/VPNv6 地址族在 PE 之间交换 VPN 路由：</p>
@@ -720,6 +730,7 @@
 </code></pre>
 </div>
 <h3 id="5-vpnv4-route-reflection-design-guaranteed-in-real-projects-vpnv4">5. VPNv4 Route Reflection Design (Guaranteed in Real Projects) · VPNv4 的路由反射设计（真实项目必考）<a class="anchor" href="#5-vpnv4-route-reflection-design-guaranteed-in-real-projects-vpnv4" title="Permanent link"></a></h3>
+<p><img alt="VPNv4 route reflector design: six rules and the loop-prevention mechanisms" src="assets/fig/en09-11-rr-design.svg" /></p>
 <p>As the number of PEs grows, the number of full-mesh VPNv4 iBGP sessions grows as N(N−1)/2. Fifty PEs means 1,225 sessions — unacceptable. VPNv4 therefore requires <strong>RRs (route reflectors)</strong>.</p>
 <div class="zh">
 <p>PE 数量一多，VPNv4 的 full mesh iBGP 会话数按 N(N-1)/2 增长。50 个 PE 就是 1225 条会话 —— 不可接受。所以 VPNv4 必须用 <strong>RR（Route Reflector）</strong>。</p>
@@ -817,6 +828,7 @@
 </blockquote>
 </div>
 <h4 id="the-three-inter-as-vpn-options-inter-as-vpn">The Three Inter-AS VPN Options · Inter-AS VPN 的三种选项<a class="anchor" href="#the-three-inter-as-vpn-options-inter-as-vpn" title="Permanent link"></a></h4>
+<p><img alt="Inter-AS options A, B and C: where the VRF and the VPN routes live" src="assets/fig/en09-12-interas.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -950,6 +962,7 @@
 <p><strong>选择逻辑</strong>：CE 是客户自己管的设备 → 用客户已有的协议（通常是 OSPF/EIGRP/BGP）；客户不想暴露内部路由 → 用静态 + 默认路由；站点数很多且需要精细策略 → 用 BGP。</p>
 </div>
 <h3 id="special-handling-of-ospf-as-pe-ce-ospf-pe-ce">Special Handling of OSPF as PE-CE · OSPF 作为 PE-CE 的特殊处理<a class="anchor" href="#special-handling-of-ospf-as-pe-ce-ospf-pe-ce" title="Permanent link"></a></h3>
+<p><img alt="The three OSPF PE-CE mechanisms: DN bit, domain ID and sham link" src="assets/fig/en09-13-ospf-pec.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -997,6 +1010,7 @@
 </table>
 </div>
 <h4 id="how-the-dn-bit-works-you-must-understand-it-at-this-level-dn">How the DN Bit Works (You Must Understand It at This Level) · DN 位的工作机制（必须理解到这一层）<a class="anchor" href="#how-the-dn-bit-works-you-must-understand-it-at-this-level-dn" title="Permanent link"></a></h4>
+<p><img alt="How the DN bit stops a re-injection loop, and what a domain ID mismatch does" src="assets/fig/en09-14-dn-bit.svg" /></p>
 <ol>
 <li>When a PE <strong>redistributes a VPN route learned from BGP into OSPF</strong> (as a Type 3 summary or a Type 5 external LSA), it <strong>sets the DN bit</strong> in the LSA's Options field</li>
 <li>When another PE receives an LSA with the DN bit set on a VRF interface, it <strong>refuses to install it in the OSPF database and does not redistribute it back into BGP</strong></li>
@@ -1018,6 +1032,7 @@
 </blockquote>
 </div>
 <h4 id="the-design-significance-of-the-sham-link-sham-link">The Design Significance of the Sham Link · Sham Link 的设计意义<a class="anchor" href="#the-design-significance-of-the-sham-link-sham-link" title="Permanent link"></a></h4>
+<p><img alt="Why a backdoor link beats the VPN path, and how a sham link restores parity" src="assets/fig/en09-15-sham-link.svg" /></p>
 <p>By default, routes learned through MPLS look like <strong>inter-area (Type 3) or external (Type 5)</strong> to the CE, while routes learned over a backdoor link are <strong>intra-area (Type 1/2)</strong>. OSPF's preference order is <strong>intra &gt; inter &gt; external</strong>, so the <strong>backdoor link always wins</strong> — even if it is a 10M microwave link while MPLS is a 1G fiber.</p>
 <div class="zh">
 <p>默认情况下，MPLS 学到的路由在 CE 看来是 <strong>Inter-Area（Type 3）或 External（Type 5）</strong>，而通过后门链路学到的是 <strong>Intra-Area（Type 1/2）</strong>。OSPF 的优先级是 <strong>Intra &gt; Inter &gt; External</strong>，所以<strong>后门链路永远赢</strong> —— 哪怕它是一条 10M 的微波链路，而 MPLS 是 1G 光纤。</p>
@@ -1045,6 +1060,7 @@ router ospf 1 vrf CUSTOMER
 <p>前置条件（三条缺一不可）：两个 sham-link 端点 /32 <strong>通过 MP-BGP 互相可达</strong>、位于<strong>同一 OSPF area</strong>、两端 <strong>Domain ID 一致</strong>。</p>
 </div>
 <h3 id="eigrp-soo-site-of-origin">EIGRP SoO (Site of Origin)<a class="anchor" href="#eigrp-soo-site-of-origin" title="Permanent link"></a></h3>
+<p><img alt="Site of origin: the community that stops a site learning its own prefix back" src="assets/fig/en09-16-soo.svg" /></p>
 <blockquote>
 <p>⚠️ When a site has both an MPLS VPN link and a backdoor link, EIGRP SoO prevents routing loops and route racing.</p>
 </blockquote>
@@ -1062,6 +1078,7 @@ router ospf 1 vrf CUSTOMER
 <p>再进一步，EIGRP 还有一个 <strong>cost community</strong> 机制，用于在"后门链路更近但更差"的场景下强制优选 MPLS 路径（与 OSPF 的 sham-link 目的相同，手段不同）。</p>
 </div>
 <h3 id="the-three-keys-for-bgp-as-pe-ce-bgp-pe-ce">The Three Keys for BGP as PE-CE · BGP 作为 PE-CE 的三把钥匙<a class="anchor" href="#the-three-keys-for-bgp-as-pe-ce-bgp-pe-ce" title="Permanent link"></a></h3>
+<p><img alt="BGP as PE-CE: as-override, allowas-in and site of origin side by side" src="assets/fig/en09-17-bgp-keys.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1187,6 +1204,7 @@ router ospf 1 vrf CUSTOMER
 </table>
 </div>
 <h3 id="how-to-design-rts-without-going-wrong-the-core-methodology-rt">How to Design RTs Without Going Wrong (the Core Methodology) · RT 怎么设计才不出错（核心方法论）<a class="anchor" href="#how-to-design-rts-without-going-wrong-the-core-methodology-rt" title="Permanent link"></a></h3>
+<p><img alt="The three RT topologies written out as import and export tables" src="assets/fig/en09-18-rt-design.svg" /></p>
 <p><strong>Remember one rule: whether a route gets through depends only on "whether the receiver's import RT includes the export RT attached by the sender".</strong> It has nothing to do with the RD, with which PE, or with the topology.</p>
 <div class="zh">
 <p><strong>记住一条规则：路由能不能过去，只取决于"接收方的 import RT 是否包含发送方附加的 export RT"。</strong> 与 RD、与 PE、与拓扑完全无关。</p>
@@ -1301,6 +1319,7 @@ vrf definition CORP
 </blockquote>
 </div>
 <h3 id="extranet-and-shared-services-extranet">Extranet and Shared Services · Extranet 与共享服务<a class="anchor" href="#extranet-and-shared-services-extranet" title="Permanent link"></a></h3>
+<p><img alt="One-way extranet and shared services without new hardware" src="assets/fig/en09-19-extranet.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1364,6 +1383,7 @@ vrf definition CORP
 </blockquote>
 </div>
 <h3 id="route-summarization-is-the-key-to-l3vpn-scalability-l3vpn">Route Summarization Is the Key to L3VPN Scalability · 路由汇总是 L3VPN 可扩展性的关键<a class="anchor" href="#route-summarization-is-the-key-to-l3vpn-scalability-l3vpn" title="Permanent link"></a></h3>
+<p><img alt="Summarization as the only real scalability lever, and where to apply it" src="assets/fig/en09-20-summarization.svg" /></p>
 <p>Every VRF on a PE must hold a complete routing table. Number of sites × routes per site = FIB pressure on the PE.</p>
 <div class="zh">
 <p>PE 上每个 VRF 都要保存一份完整路由表。站点数 × 每站点路由数 = PE 的 FIB 压力。</p>
@@ -1471,6 +1491,7 @@ vrf definition CORP
 </table>
 </div>
 <h3 id="the-three-structural-flaws-of-vpls-why-it-is-not-recommended-for-new-builds-vpls">The Three Structural Flaws of VPLS (Why It Is Not Recommended for New Builds) · VPLS 的三个结构性缺陷（为什么不推荐新建）<a class="anchor" href="#the-three-structural-flaws-of-vpls-why-it-is-not-recommended-for-new-builds-vpls" title="Permanent link"></a></h3>
+<p><img alt="The three structural flaws of VPLS, and where VPWS, VPLS and EVPN belong" src="assets/fig/en09-21-vpls-flaws.svg" /></p>
 <ol>
 <li><strong>MAC learning relies on data-plane flooding</strong>: unknown unicast, broadcast, and multicast (BUM) are all flooded, so at scale the core bandwidth is eaten by flooding</li>
 <li><strong>Full-mesh pseudowires</strong>: N sites require N(N−1)/2 PWs, so the number of PWs on a PE grows with the square of the site count</li>
@@ -1484,6 +1505,7 @@ vrf definition CORP
 </ol>
 </div>
 <h3 id="why-evpn-replaces-vpls-evpn-vpls">Why EVPN Replaces VPLS · EVPN 为什么取代 VPLS<a class="anchor" href="#why-evpn-replaces-vpls-evpn-vpls" title="Permanent link"></a></h3>
+<p><img alt="EVPN against VPLS on five dimensions, and the five route types" src="assets/fig/en09-22-evpn.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1647,6 +1669,7 @@ vrf definition CORP
 <hr />
 <h2 id="mpls-traffic-engineering-mpls-te-and-alternatives-mpls-mpls-te">MPLS Traffic Engineering (MPLS TE) and Alternatives · MPLS 流量工程 (MPLS TE) 与替代路线<a class="anchor" href="#mpls-traffic-engineering-mpls-te-and-alternatives-mpls-mpls-te" title="Permanent link"></a></h2>
 <h3 id="why-te-is-needed-te">Why TE Is Needed · 为什么需要 TE<a class="anchor" href="#why-te-is-needed-te" title="Permanent link"></a></h3>
+<p><img alt="Why traffic engineering exists, what it buys, and what it costs" src="assets/fig/en09-23-te.svg" /></p>
 <p>The IGP's shortest path algorithm (SPF) looks only at topology, never at bandwidth. The classic <strong>10:1 bandwidth mismatch</strong>: a 1G link and a 10G link are equal (same cost), so SPF splits traffic 50/50 — the 1G link is instantly congested while the 10G link sits empty.</p>
 <div class="zh">
 <p>IGP 的最短路径算法（SPF）只看拓扑，不看带宽。经典的 <strong>10:1 带宽不匹配</strong>：一条 1G 链路和一条 10G 链路等价（cost 相同），SPF 把流量对半分 —— 1G 那条瞬间拥塞，10G 那条空着。</p>
@@ -1844,6 +1867,7 @@ vrf definition CORP
 <p><strong>所有虚拟化技术都会加封包头。</strong> 设计时如果不预留 MTU，上线后必然出现"能 ping 通、能打开网页、但传大文件失败/SSH 卡死"的诡异故障 —— 因为 PMTUD 依赖 ICMP，而 ICMP 在生产网里常年被 ACL 拦掉。</p>
 </div>
 <h3 id="extra-overhead-of-common-encapsulations">Extra Overhead of Common Encapsulations · 常见封装的额外开销<a class="anchor" href="#extra-overhead-of-common-encapsulations" title="Permanent link"></a></h3>
+<p><img alt="Encapsulation overhead by method, and the three ways to handle the MTU debt" src="assets/fig/en09-24-mtu.svg" /></p>
 <table>
 <thead>
 <tr>

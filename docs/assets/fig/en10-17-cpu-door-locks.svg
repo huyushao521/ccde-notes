@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 434" width="100%" role="img" aria-labelledby="t1016 d1016">
+  <title id="t1016">Four locks on the CPU door: infrastructure ACL, CoPP, control plane protection and GTSM, each asking a different question</title>
+  <desc id="d1016">Left: four layers, each with the question it asks. The infrastructure ACL asks whether this source should be able to reach any device address at all, and drops the answer at the interface before the packet costs anything. CoPP asks how much of this class the CPU should accept per second. Control plane protection asks which kind of punt traffic it is - host, transit, exception or CEF exception - and applies a different policy to each, which CoPP cannot do. GTSM asks how far away the sender can be: a BGP packet claiming TTL 255 from a neighbour three hops away arrives with TTL 252, so a TTL-255 check drops spoofed sessions before authentication is even consulted. Right: the GTSM arithmetic - a legitimate neighbour sends with TTL 255 and each hop decrements, so the receiver configures a minimum of 255 minus the known hop count; a remote attacker's packet arrives with a much lower TTL and is discarded. Bottom: the order to build them - iACL first because it is stateless and cheap, CoPP second with generous routing class, CPPr third once the punt profile is known, GTSM last and only on eBGP where hop count is stable. A footer warns that all four protect the CPU, and none of them replaces authentication: they decide who gets to knock, not who is let in.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" height="434" width="900" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four locks, four different questions - they are not alternatives to each other</text>
+  <text class="s" x="24" y="45">CoPP without an iACL still lets the flood arrive. GTSM without authentication still trusts a nearby forger.</text>
+
+  <rect x="24" y="62" width="524" height="56" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="80">1  Infrastructure ACL (iACL / rACL)</text>
+  <text class="c" x="36" y="96">"should this source reach any device address at all?" - dropped at the interface, before it costs anything</text>
+  <text class="w" x="36" y="110">stateless, cheap, and the only layer that reduces the volume arriving</text>
+
+  <rect x="24" y="126" width="524" height="56" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="36" y="144">2  CoPP (control plane policing)</text>
+  <text class="c" x="36" y="160">"how much of this class per second may the CPU accept?" - volume control, per class</text>
+  <text class="w" x="36" y="174">cannot tell a flood from a full-table update: the classifier sees protocol, not intent</text>
+
+  <rect x="24" y="190" width="524" height="56" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="36" y="208">3  Control plane protection (CPPr)</text>
+  <text class="c" x="36" y="224">"which kind of punt is this - host, transit, exception, CEF exception?" - different policy per kind</text>
+  <text class="w" x="36" y="238">finer than CoPP: transit traffic to the device is not the same as traffic through it</text>
+
+  <rect x="24" y="254" width="524" height="56" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="b" x="36" y="272">4  GTSM / TTL security (RFC 5082)</text>
+  <text class="c" x="36" y="288">"how far away can the sender be?" - a real neighbour cannot be behind fifteen hops</text>
+  <text class="g" x="36" y="302">drops a spoofed session before authentication is even consulted</text>
+
+  <rect x="568" y="62" width="308" height="120" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="580" y="80">GTSM ARITHMETIC</text>
+  <text class="m" x="580" y="100">neighbour sends TTL 255</text>
+  <text class="m" x="580" y="116">3 hops -> arrives TTL 252</text>
+  <text class="m" x="580" y="132">config: minimum TTL 252</text>
+  <text class="c" x="580" y="152">a remote attacker arrives at TTL 240</text>
+  <text class="x" x="580" y="168">and is discarded at the interface</text>
+
+  <rect x="568" y="192" width="308" height="118" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="580" y="210">WHERE GTSM BREAKS</text>
+  <text class="w" x="580" y="230">multihop eBGP with variable path lengths</text>
+  <text class="w" x="580" y="244">route reflectors behind asymmetric paths</text>
+  <text class="w" x="580" y="258">traffic engineering that changes hop count</text>
+  <text class="c" x="580" y="280">use it where the hop count is stable -</text>
+  <text class="c" x="580" y="294">directly connected eBGP, mostly</text>
+
+  <rect x="24" y="324" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="345">Build order: iACL, then CoPP with a generous routing class, then CPPr once the punt profile is measured, then GTSM only where hop count is stable.</text>
+
+  <text class="w" x="24" y="378">All four protect capacity. None of them authenticates anything: they decide who may knock, and authentication decides who is let in.</text>
+  <text class="w" x="24" y="394">The practical failure to avoid: a full CoPP/CPPr policy applied in one window on a Sunday, discovered at the next convergence, two weeks later.</text>
+  <text class="w" x="24" y="410">Keep every control plane policy versioned, with the acceptance test written next to it: "full table update, session stays up, CPU under 60 percent".</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 490" width="100%" role="img" aria-labelledby="t1331 d1331">
+  <title id="t1331">Multicast convergence budget: interruption time by failure type, and the service requirement that each one has to meet</title>
+  <desc id="d1331">Eight failure types with detection mechanism, interruption time and whether recovery is automatic. Link down is detected by interface state or BFD in under a second and interrupts for one to five seconds. PIM neighbour failure relies on the Hello holdtime of 105 seconds by default, so a device reboot costs 105 seconds or more. An anycast RP failure is detected by IGP and BFD and recovers in one to three seconds if an SA cache exists. A single RP failure never recovers for new groups. A phantom RP recovers in five to thirty seconds. A unidirectional link is never detected automatically and remains a persistent failure. Layer 2 snooping table expiry causes a cyclic interruption every 260 seconds. SPT switchover costs milliseconds to hundreds of milliseconds. Bottom: allowed interruption per service - enterprise video 30 seconds, IPTV 2 seconds for channel change and 10 seconds for failure, market data zero, conferencing 5 seconds - with the one-line conclusion that fast convergence solves second-level problems but never the imperceptible requirement.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="490" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Who notices the failure, and how long they notice it for</text>
+  <text class="s" x="24" y="45">Bars are ordered by interruption, not by frequency. The two rows that end in "never" are the ones most often left out of the design.</text>
+
+  <text class="k" x="34" y="66">FAILURE</text>
+  <text class="k" x="230" y="66">DETECTION</text>
+  <text class="k" x="430" y="66">INTERRUPTION</text>
+  <text class="k" x="790" y="66">AUTOMATIC?</text>
+  <line x1="24" y1="74" x2="876" y2="74" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <text class="c" x="34" y="94">SPT switchover</text>
+  <text class="w" x="230" y="94">triggered by the LHR</text>
+  <rect x="430" y="86" width="12" height="10" fill="#0f7f73"/>
+  <text class="c" x="448" y="94">ms to hundreds of ms</text>
+  <text class="g" x="790" y="94">yes</text>
+
+  <text class="c" x="34" y="118">Link down</text>
+  <text class="w" x="230" y="118">interface down or BFD</text>
+  <rect x="430" y="110" width="30" height="10" fill="#0f7f73"/>
+  <text class="c" x="466" y="118">1 - 5 s</text>
+  <text class="g" x="790" y="118">yes</text>
+
+  <text class="c" x="34" y="142">RP failure, anycast</text>
+  <text class="w" x="230" y="142">IGP plus BFD</text>
+  <rect x="430" y="134" width="24" height="10" fill="#0f7f73"/>
+  <text class="c" x="460" y="142">1 - 3 s with SA cache</text>
+  <text class="g" x="790" y="142">yes</text>
+
+  <text class="c" x="34" y="166">RP failure, phantom</text>
+  <text class="w" x="230" y="166">IGP convergence</text>
+  <rect x="430" y="158" width="62" height="10" fill="#b8862b"/>
+  <text class="c" x="498" y="166">5 - 30 s</text>
+  <text class="g" x="790" y="166">yes</text>
+
+  <text class="c" x="34" y="190">PIM neighbour down</text>
+  <text class="w" x="230" y="190">Hello holdtime, 105 s default</text>
+  <rect x="430" y="182" width="196" height="10" fill="#c0392b"/>
+  <text class="c" x="632" y="190">105 s or more</text>
+  <text class="g" x="790" y="190">yes, but slowly</text>
+
+  <text class="c" x="34" y="214">Snooping table expiry</text>
+  <text class="w" x="230" y="214">nothing - the Querier rebuilds it</text>
+  <rect x="430" y="206" width="222" height="10" fill="#b8862b"/>
+  <text class="c" x="658" y="214">cyclic, every 260 s</text>
+  <text class="x" x="790" y="214">not detected</text>
+
+  <text class="c" x="34" y="238">RP failure, single RP</text>
+  <text class="w" x="230" y="238">nothing to detect it with</text>
+  <rect x="430" y="230" width="236" height="10" fill="#f3d4ce" stroke="#c0392b" stroke-width=".6"/>
+  <text class="x" x="672" y="238">permanent, for new groups</text>
+  <text class="x" x="790" y="238">no</text>
+
+  <text class="c" x="34" y="262">Unidirectional link</text>
+  <text class="w" x="230" y="262">needs BFD or a protocol to see it</text>
+  <rect x="430" y="254" width="236" height="10" fill="#f3d4ce" stroke="#c0392b" stroke-width=".6"/>
+  <text class="x" x="672" y="262">persistent, silently</text>
+  <text class="x" x="790" y="262">no</text>
+
+  <text class="k" x="24" y="292">WHAT THE SERVICE ACTUALLY ALLOWS</text>
+
+  <rect x="24" y="302" width="206" height="70" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="34" y="320">Enterprise video</text>
+  <text class="r" x="34" y="338">30 s</text>
+  <text class="w" x="34" y="354">fast IGP convergence with BFD,</text>
+  <text class="w" x="34" y="365">plus a snooping Querier</text>
+
+  <rect x="242" y="302" width="206" height="70" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="252" y="320">IPTV</text>
+  <text class="r" x="252" y="338">2 s zap / 10 s failure</text>
+  <text class="w" x="252" y="354">SSM, FCC, fast convergence</text>
+  <text class="w" x="252" y="365">and RP redundancy</text>
+
+  <rect x="460" y="302" width="206" height="70" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="b" x="470" y="320">Market data</text>
+  <text class="x" x="470" y="338">0, imperceptible</text>
+  <text class="w" x="470" y="354">Live-Live with ST 2022-7</text>
+  <text class="w" x="470" y="365">and strict QoS</text>
+
+  <rect x="678" y="302" width="198" height="70" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="b" x="688" y="320">Conferencing</text>
+  <text class="r" x="688" y="338">5 s</text>
+  <text class="w" x="688" y="354">BiDir, FHRP-aware PIM,</text>
+  <text class="w" x="688" y="365">and QoS</text>
+
+  <rect x="24" y="386" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="b" x="36" y="407">"Fast convergence" solves second-level problems. It cannot solve "imperceptible". Imperceptible only comes from redundancy and parallel paths.</text>
+
+  <text class="w" x="24" y="440">Read the two red rows again: a single RP and a unidirectional link have no automatic recovery at all, and neither produces an alarm on its own.</text>
+  <text class="w" x="24" y="456">They are also the two failures that customers report as "it was working yesterday" - which is why they belong in the design review, not the incident call.</text>
+  <text class="w" x="24" y="472">Budget the 105 s PIM row too: a device reboot is not a link flap, and any SLA written against "link down" numbers will be missed by two orders of magnitude.</text>
+</svg>

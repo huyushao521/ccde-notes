@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1024 d1024">
+  <title id="t1024">Spanning tree attacks and the five guards, with the difference between err-disable, root-inconsistent and a silent drop</title>
+  <desc id="d1024">Left: two attacks. Root bridge takeover - plug in a switch configured with priority zero for the VLAN and win the election, which sends all traffic through the attacker: a man in the middle plus a performance collapse. BPDU flooding - send BPDUs at a high rate until the CPU is exhausted and the topology churns. A small sketch shows the attacker's low-priority BPDUs displacing the real root. Right: five controls in a table. PortFast skips listening and learning for endpoints and has no security value. BPDU Guard err-disables the port on any received BPDU and needs manual recovery or an errdisable timer. Root Guard rejects superior BPDUs and puts the port into root-inconsistent, recovering by itself. Loop Guard stops a blocked port from moving to forwarding when a unidirectional link silences BPDUs. BPDU Filter stops sending and receiving BPDUs and is dangerous except toward a carrier. Bottom: the semantic difference - err-disable is an administrative down that a human must clear, root-inconsistent is a temporary block that clears itself, and a filter simply makes the port deaf.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar24" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">Spanning tree is the cheapest way to become the man in the middle</text>
+  <text class="s" x="24" y="45">The election is won by whoever announces the lowest priority. An unmanaged port is an invitation to announce zero</text>
+
+  <!-- Left: attacks -->
+  <rect x="24" y="62" width="414" height="238" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="80" fill="#b0452f">TWO ATTACKS, BOTH BUILT ON THE ELECTION</text>
+
+  <rect x="36" y="90" width="390" height="60" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="x" x="46" y="106">① Root bridge takeover</text>
+  <text class="c" x="46" y="120"><tspan class="m">spanning-tree vlan 10 priority 0</tspan> on a switch with a cable into an unmanaged port</text>
+  <text class="c" x="46" y="133">The attacker becomes root, so every inter-switch flow detours through it: MITM and a</text>
+  <text class="c" x="46" y="144">bandwidth collapse on a 1G/10G link at the same time</text>
+
+  <rect x="36" y="156" width="390" height="44" rx="2" fill="#ffffff" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="x" x="46" y="172">② BPDU flooding</text>
+  <text class="c" x="46" y="186">Thousands of BPDUs per second: CPU exhaustion plus continuous STP churn, which</text>
+  <text class="c" x="46" y="196">is a denial of service on the whole Layer 2 domain, not just the attacker's port</text>
+
+  <!-- mini topology -->
+  <g>
+    <rect x="46" y="212" width="86" height="34" rx="2" fill="#d8ece7" stroke="#a9cfc6" stroke-width=".8"/>
+    <text class="w" x="89" y="226" text-anchor="middle">Core (real root)</text>
+    <text class="w" x="89" y="238" text-anchor="middle">priority 4096</text>
+
+    <rect x="196" y="212" width="86" height="34" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="239" y="226" text-anchor="middle">Distribution</text>
+    <text class="w" x="239" y="238" text-anchor="middle">priority 8192</text>
+
+    <rect x="340" y="212" width="86" height="34" rx="2" fill="#f3d9d4" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="383" y="226" text-anchor="middle">Attacker</text>
+    <text class="x" x="383" y="238" text-anchor="middle">priority 0</text>
+
+    <line x1="132" y1="229" x2="194" y2="229" stroke="#8a97a8" stroke-width="1"/>
+    <line x1="282" y1="229" x2="338" y2="229" stroke="#8a97a8" stroke-width="1"/>
+    <path d="M383,208 C383,190 130,190 92,206" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#ar24)"/>
+    <text class="x" x="240" y="200" text-anchor="middle">after the election: traffic detours here</text>
+  </g>
+
+  <!-- Right: five guards -->
+  <rect x="450" y="62" width="426" height="238" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="462" y="80">FIVE CONTROLS AND WHAT THEY ACTUALLY DO</text>
+
+  <rect x="462" y="88" width="402" height="20" fill="#2b3446"/>
+  <text class="th" x="470" y="102">CONTROL</text>
+  <text class="th" x="556" y="102">WHERE</text>
+  <text class="th" x="672" y="102">ON VIOLATION</text>
+
+  <rect x="462" y="108" width="402" height="34" fill="#ffffff"/>
+  <text class="b" x="470" y="122">PortFast</text>
+  <text class="c" x="470" y="134">no security value</text>
+  <text class="c" x="556" y="122">endpoint ports</text>
+  <text class="c" x="556" y="134">skips 30 s of learning</text>
+  <text class="c" x="672" y="122">nothing - it only speeds up</text>
+  <text class="c" x="672" y="134">convergence for a device that</text>
+
+  <rect x="462" y="142" width="402" height="34" fill="#f7f9fc"/>
+  <text class="b" x="470" y="156">BPDU Guard</text>
+  <text class="c" x="470" y="168">with PortFast</text>
+  <text class="c" x="556" y="156">endpoint ports</text>
+  <text class="c" x="556" y="168">an endpoint never speaks STP</text>
+  <text class="c" x="672" y="156">err-disable, and a human or an</text>
+  <text class="c" x="672" y="168">errdisable timer must clear it</text>
+
+  <rect x="462" y="176" width="402" height="34" fill="#ffffff"/>
+  <text class="b" x="470" y="190">Root Guard</text>
+  <text class="c" x="470" y="202">not a loop guard</text>
+  <text class="c" x="556" y="190">ports toward downstream</text>
+  <text class="c" x="556" y="202">switches or other domains</text>
+  <text class="c" x="672" y="190">port becomes root-inconsistent</text>
+  <text class="c" x="672" y="202">and recovers by itself</text>
+
+  <rect x="462" y="210" width="402" height="34" fill="#f7f9fc"/>
+  <text class="b" x="470" y="224">Loop Guard</text>
+  <text class="c" x="470" y="236">unidirectional links</text>
+  <text class="c" x="556" y="224">blocked ports and</text>
+  <text class="c" x="556" y="236">fiber ports</text>
+  <text class="c" x="672" y="224">stops a port entering forwarding</text>
+  <text class="c" x="672" y="236">when BPDUs silently stop</text>
+
+  <rect x="462" y="244" width="402" height="34" fill="#ffffff"/>
+  <text class="b" x="470" y="258">BPDU Filter</text>
+  <text class="c" x="470" y="270">dangerous by default</text>
+  <text class="c" x="556" y="258">very few cases -</text>
+  <text class="c" x="556" y="270">a carrier handoff</text>
+  <text class="c" x="672" y="258">stops sending and receiving BPDUs;</text>
+  <text class="c" x="672" y="270">misused it silently builds a loop</text>
+
+  <!-- Bottom: semantics -->
+  <rect x="24" y="312" width="852" height="92" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="36" y="330" fill="#9a7d28">THE DISTINCTION THE DESIGN REVIEW ACTUALLY TESTS</text>
+  <g>
+    <rect x="36" y="340" width="264" height="54" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="x" x="46" y="356">err-disable</text>
+    <text class="c" x="46" y="369">administrative down. The port stays dead until</text>
+    <text class="c" x="46" y="382">someone or a timer clears it. Loud and safe,</text>
+    <text class="c" x="46" y="391">but it needs an operations answer</text>
+  </g>
+  <g>
+    <rect x="310" y="340" width="264" height="54" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="g" x="320" y="356">root-inconsistent</text>
+    <text class="c" x="320" y="369">traffic-blocking but self-healing: as soon as</text>
+    <text class="c" x="320" y="382">the superior BPDUs stop arriving the port</text>
+    <text class="c" x="320" y="391">returns to normal forwarding with no ticket</text>
+  </g>
+  <g>
+    <rect x="584" y="340" width="280" height="54" rx="2" fill="#ffffff" stroke="#e4dcc0" stroke-width=".7"/>
+    <text class="b" x="594" y="356">BPDU Filter makes it deaf</text>
+    <text class="c" x="594" y="369">The port neither hears nor announces topology,</text>
+    <text class="c" x="594" y="382">so the loop it creates is invisible until it is</text>
+    <text class="c" x="594" y="391">a broadcast storm at 03:00</text>
+  </g>
+
+  <text class="w" x="24" y="422">Deployment rule: BPDU Guard and Root Guard are not alternatives - one protects the edge from endpoints, the other protects the topology from other switches.</text>
+</svg>

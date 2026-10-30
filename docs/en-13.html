@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 13 · about 42431 words</span></div><h1 id="chapter-13-multicast-design-13">Chapter 13: Multicast Design · 第 13 章：组播设计<a class="anchor" href="#chapter-13-multicast-design-13" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 13 · about 42953 words</span></div><h1 id="chapter-13-multicast-design-13">Chapter 13: Multicast Design · 第 13 章：组播设计<a class="anchor" href="#chapter-13-multicast-design-13" title="Permanent link"></a></h1>
 <blockquote>
 <p>CCDE 400-007 Official Cert Guide — Chinese translation and deep-dive notes | original pages 589–625</p>
 </blockquote>
@@ -64,11 +64,13 @@
 </div>
 <hr />
 <h2 id="chapter-introduction-fifteen-counterintuitive-truths-about-multicast-design">Chapter Introduction: Fifteen Counterintuitive Truths About Multicast Design · 本章导读：组播设计的十五个反直觉认知<a class="anchor" href="#chapter-introduction-fifteen-counterintuitive-truths-about-multicast-design" title="Permanent link"></a></h2>
+<p><img alt="The fifteen truths at a glance, grouped into path, control plane, capacity and trust" src="assets/fig/en13-01-fifteen-truths.svg" /></p>
 <p>Multicast is the field where "the shortest configuration produces the longest outage". One line of <code>ip pim sparse-mode</code> plus one RP address makes it "run", yet production incidents routinely last hours, because multicast forwarding <strong>does not follow unicast intuition</strong>.</p>
 <div class="zh">
 <p>组播是网络设计里"配置最短、事故最长"的领域。一条 <code>ip pim sparse-mode</code> 加一个 RP 地址就能"跑起来"，但生产事故往往持续数小时，因为组播的转发路径<strong>不遵循单播直觉</strong>。</p>
 </div>
 <h3 id="1-multicast-has-no-destination-based-routing-only-reverse-check-of-the-source">1. Multicast has no "destination-based routing", only "reverse check of the source" · 组播没有"目的地址选路"，只有"源的反向检查"<a class="anchor" href="#1-multicast-has-no-destination-based-routing-only-reverse-check-of-the-source" title="Permanent link"></a></h3>
+<p><img alt="Unicast forwards toward a destination; multicast forwards away from a verified source" src="assets/fig/en13-02-rpf-inverted.svg" /></p>
 <p>Unicast forwarding looks at the <strong>destination</strong> and takes the longest match. Multicast forwarding looks at the <strong>source</strong>: the router checks "did this packet arrive on the <strong>optimal interface toward the source</strong>?" — that is <strong>RPF (Reverse Path Forwarding)</strong>.</p>
 <div class="zh">
 <p>单播转发看<strong>目的地址</strong>，走最长匹配。组播转发看<strong>源地址</strong>：路由器检查"这个组播包是从<strong>通向源的最优接口</strong>进来的吗？"—— 这就是 <strong>RPF（Reverse Path Forwarding）</strong>。</p>
@@ -98,6 +100,7 @@
 </blockquote>
 </div>
 <h3 id="2-multicast-is-a-broadcast-domain-problem-not-just-a-routing-problem">2. Multicast is a "broadcast domain problem", not just a "routing problem" · 组播是"广播域问题"，不只是"路由问题"<a class="anchor" href="#2-multicast-is-a-broadcast-domain-problem-not-just-a-routing-problem" title="Permanent link"></a></h3>
+<p><img alt="How one unpruned multicast group multiplies across a broadcast domain" src="assets/fig/en13-03-broadcast-domain.svg" /></p>
 <p>Multicast frames are sent at Layer 2 using multicast MAC addresses. Without <strong>IGMP Snooping</strong>, a switch treats them as broadcast and <strong>floods them across the whole VLAN</strong> — a 4 Mbps video stream gets pushed to 500 ports.</p>
 <div class="zh">
 <p>组播帧在二层用组播 MAC 发送。如果交换机没有 <strong>IGMP Snooping</strong>，它会把组播帧当成广播<strong>泛洪到整个 VLAN</strong> —— 一个 4 Mbps 的视频流会推给 500 个端口。</p>
@@ -111,6 +114,7 @@
 <p><strong>结论：组播设计必须同时设计三层（PIM/RP）和二层（Snooping/Querier/Mrouter）。</strong> 只做三层，事故在接入层。</p>
 </div>
 <h3 id="3-the-rp-is-not-an-optional-component-in-pim-sm-it-is-a-single-point-plus-the-state-centre-rp-pim-sm">3. The RP is not an "optional component"; in PIM-SM it is "a single point plus the state centre" · RP 不是"可选组件"，在 PIM-SM 里它是"单点 + 状态中心"<a class="anchor" href="#3-the-rp-is-not-an-optional-component-in-pim-sm-it-is-a-single-point-plus-the-state-centre-rp-pim-sm" title="Permanent link"></a></h3>
+<p><img alt="The RP's three jobs and what fails when it is a single box" src="assets/fig/en13-04-rp-single-point.svg" /></p>
 <p>In PIM-SM every (*,G) state converges toward the RP. When the RP dies:
 - Established (S,G) shortest-path trees <strong>keep forwarding</strong> (because they already switched to the SPT)
 - But <strong>new receivers cannot join</strong> and <strong>new sources cannot register</strong></p>
@@ -124,6 +128,7 @@
 <p>所以<strong>"RP 挂了业务没断"是一个危险的假象</strong> —— 它只说明当前会话还在，下一次有人打开频道就全断。RP 必须做冗余（Anycast-RP + MSDP，或 BSR + 多 C-RP）。</p>
 </div>
 <h3 id="4-the-default-spt-switchover-is-not-always-a-good-thing-spt">4. The default SPT switchover is not always a good thing · 默认的 SPT 切换不总是好事<a class="anchor" href="#4-the-default-spt-switchover-is-not-always-a-good-thing-spt" title="Permanent link"></a></h3>
+<p><img alt="SPT switchover: what it buys and where the cost lands" src="assets/fig/en13-05-spt-switchover.svg" /></p>
 <p>PIM-SM by default switches from the shared tree (RPT) to the <strong>shortest-path tree (SPT)</strong> once a receiver gets the first packet. Latency is optimal, at the cost of:
 - <strong>N copies of (S,G) state at the source side</strong> (one path per receiver branch)
 - Source-side links possibly carrying multiple copies (if the RP sits badly)
@@ -139,6 +144,7 @@
 <p>某些场景（如源与 RP 很近、频道极多）应保留共享树，用 <code>ip pim spt-threshold infinity</code>。<strong>这是一个真实的取舍，不是"默认最好"。</strong></p>
 </div>
 <h3 id="5-ssm-is-the-modern-default-answer-ssm">5. SSM is the modern default answer · SSM 才是现代组播的默认答案<a class="anchor" href="#5-ssm-is-the-modern-default-answer-ssm" title="Permanent link"></a></h3>
+<p><img alt="Why SSM is the modern default answer" src="assets/fig/en13-06-ssm-default.svg" /></p>
 <p>Almost all of PIM-SM's complexity (RP, registration, shared tree, SPT switchover, MSDP) comes from "<strong>not knowing where the source is</strong>". Yet in reality the vast majority of enterprise multicast (IPTV, video conferencing, market-data push, CCTV) <strong>has known, fixed sources</strong>.</p>
 <div class="zh">
 <p>PIM-SM 的复杂性（RP、注册、共享树、SPT 切换、MSDP）几乎全部来自"<strong>不知道源在哪</strong>"。而现实中绝大多数企业组播（IPTV、视频会议、行情推送、监控）<strong>源是已知的、固定的</strong>。</p>
@@ -178,6 +184,7 @@
 <p><strong>正确做法：像规划 IP 子网一样规划组播地址块</strong>（按业务/区域/应用划分），并把映射关系写进文档。否则你会在某天发现"打开会议室电视，另一个楼层的监控录像被推过来了"。</p>
 </div>
 <h3 id="8-the-multicast-control-plane-and-data-plane-are-two-completely-independent-states">8. The multicast "control plane" and "data plane" are two completely independent states · 组播的"控制面"与"数据面"是两套完全独立的状态<a class="anchor" href="#8-the-multicast-control-plane-and-data-plane-are-two-completely-independent-states" title="Permanent link"></a></h3>
+<p><img alt="Control plane and data plane as two independent states that must both be right" src="assets/fig/en13-07-two-planes.svg" /></p>
 <p>In unicast, "the routing table is right, therefore forwarding is right". In multicast <strong>the two can be fully decoupled</strong>:</p>
 <div class="zh">
 <p>单播里"路由表对了，转发就对了"。组播里<strong>两者可以完全脱钩</strong>：</p>
@@ -344,6 +351,7 @@
 <p>这三个问题能把"组播故障"的排查范围从"整张网"缩到"某一段"。</p>
 </div>
 <h3 id="10-dr-querier-assert-winner-and-df-are-four-different-roles-drquerierassert-winnerdf">10. DR, Querier, Assert Winner and DF are four <strong>different</strong> roles · DR、Querier、Assert Winner、DF 是四个<strong>不同</strong>的角色<a class="anchor" href="#10-dr-querier-assert-winner-and-df-are-four-different-roles-drquerierassert-winnerdf" title="Permanent link"></a></h3>
+<p><img alt="DR, Querier, Assert winner and DF: four elections, four scopes, four tie-breakers" src="assets/fig/en13-08-four-roles.svg" /></p>
 <p>This is the favourite confusion of CCDE multiple-choice questions and a frequent source of real outages:</p>
 <div class="zh">
 <p>这是 CCDE 选择题最爱混淆的点，也是真实故障的高发点：</p>
@@ -459,6 +467,7 @@
 </blockquote>
 </div>
 <h3 id="11-multicast-bandwidth-is-not-stream-bandwidth-but-stream-bandwidth-number-of-branches-1-redundancy-factor-1">11. Multicast "bandwidth" is not "stream bandwidth" but "stream bandwidth × number of branches × (1 + redundancy factor)" · 组播的"带宽"不是"流带宽"，而是"流带宽 × 分支数 × (1 + 冗余系数)"<a class="anchor" href="#11-multicast-bandwidth-is-not-stream-bandwidth-but-stream-bandwidth-number-of-branches-1-redundancy-factor-1" title="Permanent link"></a></h3>
+<p><img alt="Multicast bandwidth: stream rate times branches, redundancy and headroom" src="assets/fig/en13-09-bandwidth-math.svg" /></p>
 <p>This is where capacity planning is most often miscalculated. Unicast bandwidth is one end-to-end path; multicast bandwidth must be counted on every edge of the tree.</p>
 <div class="zh">
 <p>这是容量规划里最容易算错的地方。单播的带宽是"端到端一条"，组播的带宽是"树边上每一段都要算"。</p>
@@ -592,6 +601,7 @@ AP 上组播开销 = 组播帧大小 × 每秒帧数 × 最低基础速率对应
 </blockquote>
 </div>
 <h3 id="12-multicast-failure-modes-are-silent-no-icmp-no-syslog-no-retransmission-icmp-syslog">12. Multicast failure modes are silent: no ICMP, no syslog, no retransmission · 组播的故障模式是"沉默的"：没有 ICMP、没有 syslog、没有重传<a class="anchor" href="#12-multicast-failure-modes-are-silent-no-icmp-no-syslog-no-retransmission-icmp-syslog" title="Permanent link"></a></h3>
+<p><img alt="Silent failure modes and the five observability layers that make them visible" src="assets/fig/en13-10-silent-failures.svg" /></p>
 <p>The feedback loop of the unicast world is entirely missing in multicast:</p>
 <div class="zh">
 <p>单播世界的"反馈闭环"在组播里全部缺失：</p>
@@ -765,6 +775,7 @@ AP 上组播开销 = 组播帧大小 × 每秒帧数 × 最低基础速率对应
 <p><strong>只有四层同时具备，组播才算"可运维"。</strong> 只有业务层探针的网络，故障时只能知道"坏了"；只有协议层的网络，故障时只能知道"表在"。</p>
 </div>
 <h3 id="13-the-real-bottleneck-in-multicast-design-is-state-count-not-bandwidth">13. The real bottleneck in multicast design is state count, not bandwidth · 组播设计真正的瓶颈是"状态数量"，不是"带宽"<a class="anchor" href="#13-the-real-bottleneck-in-multicast-design-is-state-count-not-bandwidth" title="Permanent link"></a></h3>
+<p><img alt="State count as the real capacity limit, not link bandwidth" src="assets/fig/en13-11-state-count.svg" /></p>
 <p>This determines the shape of every large-scale multicast design. <strong>Router and switch multicast state capacity is a hard limit</strong>, and it is limited in <strong>three resource dimensions at once</strong>:</p>
 <div class="zh">
 <p>这一点决定了所有大规模组播设计的形态。<strong>路由器/交换机的组播状态容量是硬上限</strong>，而且是<strong>三类资源同时受限</strong>：</p>
@@ -1081,6 +1092,7 @@ R1# mtrace 10.1.1.1 232.1.1.1 10.20.0.50   ! 从接收者追到源，逐跳看�
 </div>
 <hr />
 <h2 id="multicast-design-methodology-seven-steps">Multicast Design Methodology (Seven Steps) · 组播设计方法论（七步）<a class="anchor" href="#multicast-design-methodology-seven-steps" title="Permanent link"></a></h2>
+<p><img alt="The seven design steps and the artifact each one must produce" src="assets/fig/en13-12-seven-steps.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2056,6 +2068,7 @@ interface Gi1/0/1
 <hr />
 <h2 id="multicast-fundamentals">Multicast Fundamentals · 组播基础<a class="anchor" href="#multicast-fundamentals" title="Permanent link"></a></h2>
 <h3 id="multicast-address-ranges-your-first-land-deed-in-the-design">Multicast Address Ranges (your first "land deed" in the design) · 组播地址范围（设计的第一份"土地证"）<a class="anchor" href="#multicast-address-ranges-your-first-land-deed-in-the-design" title="Permanent link"></a></h3>
+<p><img alt="Six multicast address ranges and the behaviour each one implies" src="assets/fig/en13-13-address-ranges.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2251,6 +2264,8 @@ interface Gi1/0/1
 </table>
 </div>
 <h3 id="multicast-address-planning-write-executable-rules">Multicast Address Planning (write executable rules) · 组播地址规划（写出可执行的规则）<a class="anchor" href="#multicast-address-planning-write-executable-rules" title="Permanent link"></a></h3>
+<p><img alt="An address plan as an allocation tree, with three hard rules and three checks" src="assets/fig/en13-14-address-plan.svg" /></p>
+<p><img alt="The 32:1 MAC address collision and the guards that keep it harmless" src="assets/fig/en13-15-mac-collision.svg" /></p>
 <p>One of the most common enterprise multicast incidents is "addresses grabbed at random", which becomes unauditable after a few years. Plan along these lines (directly usable in a design document):</p>
 <div class="zh">
 <p>企业里最常见的组播事故之一是"地址随手取"，几年后无法审计。建议按下面的规则规划（可直接放进设计文档）：</p>
@@ -2474,6 +2489,7 @@ IP 组播地址 239.1.2.3
 </table>
 </div>
 <h3 id="the-four-key-igmp-snooping-mechanisms-igmp-snooping">The Four Key IGMP Snooping Mechanisms · IGMP Snooping 的四个关键机制<a class="anchor" href="#the-four-key-igmp-snooping-mechanisms-igmp-snooping" title="Permanent link"></a></h3>
+<p><img alt="The four IGMP snooping mechanisms and the symptom each one produces when missing" src="assets/fig/en13-16-igmp-snooping.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2563,6 +2579,7 @@ IP 组播地址 239.1.2.3
 </blockquote>
 </div>
 <h3 id="igmp-version-comparison-igmp">IGMP Version Comparison · IGMP 版本对比<a class="anchor" href="#igmp-version-comparison-igmp" title="Permanent link"></a></h3>
+<p><img alt="IGMPv1, v2 and v3 compared on queries, leave and source filtering" src="assets/fig/en13-17-igmp-versions.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2698,6 +2715,7 @@ IP 组播地址 239.1.2.3
 - 或关闭主机侧的报告抑制（部分操作系统可配）</p>
 </div>
 <h3 id="pim-snooping-vs-igmp-snooping">PIM Snooping vs IGMP Snooping<a class="anchor" href="#pim-snooping-vs-igmp-snooping" title="Permanent link"></a></h3>
+<p><img alt="MVR and PIM snooping: what each one moves rather than solves" src="assets/fig/en13-18-mvr-pim-snooping.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -3699,6 +3717,7 @@ interface Vlan200
 <hr />
 <h2 id="layer-3-multicast-routing">Layer 3 Multicast Routing · 三层组播路由<a class="anchor" href="#layer-3-multicast-routing" title="Permanent link"></a></h2>
 <h3 id="rpf-reverse-path-forwarding-the-only-criterion-for-multicast-forwarding-rpf">RPF (Reverse Path Forwarding): the only criterion for multicast forwarding · RPF（反向路径转发）：组播转发的唯一判据<a class="anchor" href="#rpf-reverse-path-forwarding-the-only-criterion-for-multicast-forwarding-rpf" title="Permanent link"></a></h3>
+<p><img alt="The five-level RPF source stack and the three commands that read it" src="assets/fig/en13-19-rpf-stack.svg" /></p>
 <blockquote>
 <p>RPF is the core concept of multicast routing. On receiving a multicast packet, the router <strong>checks the source address</strong> — it forwards only if the incoming interface is the "optimal path interface toward the source", otherwise it <strong>drops the packet silently</strong>.</p>
 </blockquote>
@@ -4635,6 +4654,8 @@ B 听到 Prune → 立即发 Join 覆盖（Prune Override，约 3 秒内）
 <p><strong>关闭 Join 抑制的场景</strong>：几乎所有场景都不该关。但在"上游平台组播表项限制"很紧时，抑制能减少上游压力 —— 所以<strong>抑制默认开启是好的</strong>，出问题时不要先关它。</p>
 </div>
 <h3 id="pim-mode-selection-the-core-design-decision-pim">PIM Mode Selection (the core design decision) · PIM 模式选择（设计决策的核心）<a class="anchor" href="#pim-mode-selection-the-core-design-decision-pim" title="Permanent link"></a></h3>
+<p><img alt="Choosing a PIM mode: the decision path from group count to address range" src="assets/fig/en13-20-mode-decision.svg" /></p>
+<p><img alt="The four PIM modes compared on state, tree shape and RP dependence" src="assets/fig/en13-21-pim-modes.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -4762,6 +4783,7 @@ B 听到 Prune → 立即发 Join 覆盖（Prune Override，约 3 秒内）
 <p><strong>一条重要经验</strong>：<strong>企业里 80% 的组播需求可以用 SSM 解决</strong>。之所以很多网络还在用 PIM-SM，是因为"历史原因 + 应用只支持 IGMPv2"。新项目应优先推动应用侧支持 SSM 或使用 SSM Mapping。</p>
 </div>
 <h3 id="the-complete-pim-sm-workflow-including-the-role-of-each-message-pim-sm">The Complete PIM-SM Workflow (including the role of each message) · PIM-SM 完整工作流程（含每个报文的作用）<a class="anchor" href="#the-complete-pim-sm-workflow-including-the-role-of-each-message-pim-sm" title="Permanent link"></a></h3>
+<p><img alt="PIM-SM in four phases and twelve messages" src="assets/fig/en13-22-pim-sm-flow.svg" /></p>
 <pre><code>[Phase 1: receiver joins (shared tree)]
 1. the receiver sends an IGMP Report (joining 239.1.1.1)
 2. the last-hop router (LHR) creates (*, G) state and sends a PIM (*, G) Join toward the RP
@@ -5321,6 +5343,7 @@ access-list 1 permit 232.1.1.0 0.0.0.255
 </table>
 </div>
 <h3 id="ssm-in-depth-five-details-that-must-be-clarified-ssm">SSM in Depth: Five Details That Must Be Clarified · SSM 深入：五个必须澄清的细节<a class="anchor" href="#ssm-in-depth-five-details-that-must-be-clarified-ssm" title="Permanent link"></a></h3>
+<p><img alt="Five details of SSM that must be decided before rollout" src="assets/fig/en13-23-ssm-details.svg" /></p>
 <h4 id="detail-1-the-ssm-group-range-can-be-changed-but-should-not-be-1ssm">Detail 1: the SSM group range can be changed, but should not be · 细节 1：SSM 的组范围可以改，但不该改<a class="anchor" href="#detail-1-the-ssm-group-range-can-be-changed-but-should-not-be-1ssm" title="Permanent link"></a></h4>
 <p>The standard specifies <strong>232.0.0.0/8</strong> (IPv4) / <strong>FF3x::/32</strong> (IPv6) for SSM. Devices usually have a default SSM range, which can be changed:</p>
 <div class="zh">
@@ -5603,6 +5626,7 @@ Not needed:
 <p><strong>这是"减少跨域依赖"的教科书案例</strong>：把"控制面协议交互"降级为"只要单播路由通"，跨域失败点从 5 个降到 1 个。</p>
 </div>
 <h3 id="bidir-pim-in-depth-df-election-and-the-state-model-bidir-pim-df">BiDir-PIM in Depth: DF Election and the State Model · BiDir-PIM 深入：DF 选举与状态模型<a class="anchor" href="#bidir-pim-in-depth-df-election-and-the-state-model-bidir-pim-df" title="Permanent link"></a></h3>
+<p><img alt="BiDir: one shared tree at the RP and a DF election that is per group and directional" src="assets/fig/en13-24-bidir-df.svg" /></p>
 <h4 id="the-bidir-tree-model-bidir">The BiDir tree model · BiDir 的树模型<a class="anchor" href="#the-bidir-tree-model-bidir" title="Permanent link"></a></h4>
 <pre><code>                RP (root of the bidirectional shared tree)
                 ▲
@@ -6123,6 +6147,7 @@ PIM-SM 状态量 ≈ (*,G) + 实际转发分支
 <hr />
 <h2 id="rp-design-and-rp-discovery-rp-rp">RP Design and RP Discovery · RP 设计与 RP 发现<a class="anchor" href="#rp-design-and-rp-discovery-rp-rp" title="Permanent link"></a></h2>
 <h3 id="comparing-the-four-rp-discovery-methods-rp">Comparing the Four RP Discovery Methods · 四种 RP 发现方式对比<a class="anchor" href="#comparing-the-four-rp-discovery-methods-rp" title="Permanent link"></a></h3>
+<p><img alt="Four RP discovery methods and what each costs later" src="assets/fig/en13-25-rp-discovery.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -6371,6 +6396,7 @@ PIM-SM 状态量 ≈ (*,G) + 实际转发分支
 </blockquote>
 </div>
 <h3 id="how-anycast-rp-works-and-why-msdp-is-required-anycast-rp-msdp">How Anycast-RP Works (and why MSDP is required) · Anycast-RP 的工作机制（含 MSDP 的必要性）<a class="anchor" href="#how-anycast-rp-works-and-why-msdp-is-required-anycast-rp-msdp" title="Permanent link"></a></h3>
+<p><img alt="Anycast-RP: shared address, synchronised state, and why MSDP is mandatory" src="assets/fig/en13-26-anycast-msdp.svg" /></p>
 <pre><code>        RP-1 (RP address 10.0.0.1, router-id 1.1.1.1)
               │  MSDP peer (TCP 639)
               │
@@ -7739,6 +7765,7 @@ ip msdp sa-limit 203.0.113.1 5000            ! 防 SA 泛洪打爆内存
 </table>
 </div>
 <h3 id="the-four-approaches-to-cross-domain-multicast">The Four Approaches to Cross-Domain Multicast · 跨域组播的四种方案<a class="anchor" href="#the-four-approaches-to-cross-domain-multicast" title="Permanent link"></a></h3>
+<p><img alt="Four ways to cross a domain boundary, ordered by cost" src="assets/fig/en13-27-interdomain.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -8483,6 +8510,7 @@ On the same router:
 </blockquote>
 </div>
 <h3 id="multicast-vpn-mvpn-choosing-among-five-profiles-vpnmvpn-profile">Multicast VPN (MVPN): Choosing Among Five Profiles · 组播 VPN（MVPN）：五种 profile 的选择<a class="anchor" href="#multicast-vpn-mvpn-choosing-among-five-profiles-vpnmvpn-profile" title="Permanent link"></a></h3>
+<p><img alt="MVPN profiles and the default-MDT versus data-MDT arithmetic" src="assets/fig/en13-28-mvpn-profiles.svg" /></p>
 <p>MPLS L3VPN does <strong>not forward multicast by default</strong> (PEs only exchange unicast VRF routes). To carry multicast across MPLS you must deploy MVPN.</p>
 <div class="zh">
 <p>MPLS L3VPN 默认<strong>不转发组播</strong>（PE 之间只有单播 VRF 路由）。要让组播穿越 MPLS，必须部署 MVPN。</p>
@@ -9029,6 +9057,7 @@ vrf definition CUST-A
 <hr />
 <h2 id="advanced-multicast-design">Advanced Multicast Design · 高级组播设计<a class="anchor" href="#advanced-multicast-design" title="Permanent link"></a></h2>
 <h3 id="live-live-dual-active-multicast-live-live">Live-Live (Dual-Active Multicast) · Live-Live（双活组播）<a class="anchor" href="#live-live-dual-active-multicast-live-live" title="Permanent link"></a></h3>
+<p><img alt="Live-Live: two groups, two physical paths, one merged stream" src="assets/fig/en13-29-live-live.svg" /></p>
 <p><strong>Goal</strong>: when one path fails the receiver <strong>notices nothing</strong> (no dropped frames, no re-join).</p>
 <div class="zh">
 <p><strong>目标</strong>：一条路径故障时，接收者<strong>无感知</strong>（不丢帧、不重新加入）。</p>
@@ -9367,6 +9396,7 @@ Live-Live 后故障概率：P2 = P1 × P(两条路径同时故障)
 </blockquote>
 </div>
 <h3 id="qos-design-for-multicast-end-to-end-one-missing-segment-and-it-fails-qos">QoS Design for Multicast (end to end; one missing segment and it fails) · 组播的 QoS 设计（端到端，缺一段就失效）<a class="anchor" href="#qos-design-for-multicast-end-to-end-one-missing-segment-and-it-fails-qos" title="Permanent link"></a></h3>
+<p><img alt="The five-stage multicast QoS chain and the weakest-link rule" src="assets/fig/en13-30-qos-layers.svg" /></p>
 <p><strong>Multicast QoS is harder than unicast because</strong>:</p>
 <div class="zh">
 <p><strong>组播的 QoS 比单播更难，原因</strong>：</p>
@@ -9876,6 +9906,7 @@ ip access-list standard SRC-ONLY
 </blockquote>
 </div>
 <h3 id="multicast-convergence-and-switchover-design-a-time-budget-table">Multicast Convergence and Switchover Design (a time budget table) · 组播的收敛与切换设计（时间预算表）<a class="anchor" href="#multicast-convergence-and-switchover-design-a-time-budget-table" title="Permanent link"></a></h3>
+<p><img alt="Convergence budget by failure type versus the interruption each service allows" src="assets/fig/en13-31-convergence-budget.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -10332,6 +10363,7 @@ ip access-list standard SRC-ONLY
 <hr />
 <h2 id="operations-and-verification-an-inseparable-part-of-multicast-design">Operations and Verification (an inseparable part of multicast design) · 运维与验证（组播设计不可分割的一部分）<a class="anchor" href="#operations-and-verification-an-inseparable-part-of-multicast-design" title="Permanent link"></a></h2>
 <h3 id="reading-the-mroute-flags-the-first-language-of-troubleshooting-mroute">Reading the mroute Flags (the first language of troubleshooting) · mroute 标志位完整解读（排障的第一门语言）<a class="anchor" href="#reading-the-mroute-flags-the-first-language-of-troubleshooting-mroute" title="Permanent link"></a></h3>
+<p><img alt="Fifteen mroute flags and the four combinations worth memorising" src="assets/fig/en13-32-mroute-flags.svg" /></p>
 <pre><code>R1# show ip mroute 239.10.1.1
 (*, 239.10.1.1), 00:10:23/00:02:47, RP 10.0.0.1, flags: SJC
   Incoming interface: GigabitEthernet0/1, RPF nbr 10.0.0.2
@@ -10629,6 +10661,7 @@ ip access-list standard SRC-ONLY
 </table>
 </div>
 <h3 id="the-multicast-troubleshooting-decision-tree-turn-it-straight-into-a-runbook-runbook">The Multicast Troubleshooting Decision Tree (turn it straight into a runbook) · 组播排障的决策树（可直接做成 Runbook）<a class="anchor" href="#the-multicast-troubleshooting-decision-tree-turn-it-straight-into-a-runbook-runbook" title="Permanent link"></a></h3>
+<p><img alt="The six-question troubleshooting tree as a runbook" src="assets/fig/en13-33-troubleshooting-tree.svg" /></p>
 <pre><code>【Symptom: the receiver gets no multicast】
 │
 ├─ ① Did the receiver join the group?

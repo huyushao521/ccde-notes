@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1313 d1313">
+  <title id="t1313">The multicast address land deed: six ranges, their forwarding behaviour, and the two an enterprise actually uses</title>
+  <desc id="d1313">Six rows. Link-local control 224.0.0.0/24 is TTL 1 and never forwarded, so it must never be allocated to services. Global 224.0.1.0 to 231.255.255.255 is routable but rarely used inside enterprises. SSM 232.0.0.0/8 is routable with source-specific joins and is the block modern enterprises should prefer. GLOP 233.0.0.0/8 allocates globally by AS number. Administrative scope 239.0.0.0/8 is the RFC1918 equivalent and the main enterprise block. Single-hop 239.255.0.0/16 is for intra-site use. A side note contrasts IPv4 mapping 01:00:5E plus 23 bits with 32 to 1 overlap against IPv6 33:33 plus 32 bits with no practical overlap, and warns that scope confusion replaces collision as the IPv6 failure mode.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Address ranges are a contract, not a convention</text>
+  <text class="s" x="24" y="45">Two of these six blocks will carry your whole service. The other four exist so those two do not collide with something else.</text>
+  <text class="k" x="24" y="66">RANGE</text>
+  <text class="k" x="200" y="66">BEHAVIOUR</text>
+  <text class="k" x="420" y="66">USE</text>
+  <text class="k" x="640" y="66">DESIGN NOTE</text>
+  <line x1="24" y1="72" x2="876" y2="72" stroke="#dfe6f0" stroke-width=".8"/>
+
+  <rect x="24" y="80" width="852" height="44" rx="2" fill="#fdf0ee"/>
+  <text class="b" x="34" y="100">224.0.0.0/24</text>
+  <text class="c" x="34" y="116">link-local control</text>
+  <text class="c" x="200" y="100">TTL = 1, routers do not forward</text>
+  <text class="c" x="420" y="100">PIM, OSPF, IGMP, HSRP themselves</text>
+  <text class="x" x="640" y="100">Never allocate a service group here.</text>
+  <text class="c" x="640" y="116">224.0.0.13 and 224.0.0.22 must stay reachable.</text>
+
+  <rect x="24" y="128" width="852" height="44" rx="2" fill="#f7f9fc"/>
+  <text class="b" x="34" y="148">224.0.1.0 - 231.255.255.255</text>
+  <text class="c" x="34" y="164">global, ASM</text>
+  <text class="c" x="200" y="148">routable, any-source join</text>
+  <text class="c" x="420" y="148">traditional internet multicast</text>
+  <text class="c" x="640" y="148">Rarely used inside an enterprise:</text>
+  <text class="c" x="640" y="164">no ownership, no RP agreement.</text>
+
+  <rect x="24" y="176" width="852" height="44" rx="2" fill="#f5fdfa"/>
+  <text class="b" x="34" y="196">232.0.0.0/8</text>
+  <text class="c" x="34" y="212">SSM</text>
+  <text class="c" x="200" y="196">routable, (S,G) joins only</text>
+  <text class="c" x="420" y="196">IPTV, video distribution, market data</text>
+  <text class="g" x="640" y="196">The block modern enterprises should</text>
+  <text class="g" x="640" y="212">prefer. No RP, no (*,G), no register.</text>
+
+  <rect x="24" y="224" width="852" height="44" rx="2" fill="#f7f9fc"/>
+  <text class="b" x="34" y="244">233.0.0.0/8</text>
+  <text class="c" x="34" y="260">GLOP</text>
+  <text class="c" x="200" y="244">routable</text>
+  <text class="c" x="420" y="244">global allocation by AS number</text>
+  <text class="c" x="640" y="244">233.&lt;AS high&gt;.&lt;AS low&gt;.x/24.</text>
+  <text class="c" x="640" y="260">Only for cross-domain operation.</text>
+
+  <rect x="24" y="272" width="852" height="44" rx="2" fill="#eef3fb"/>
+  <text class="b" x="34" y="292">239.0.0.0/8</text>
+  <text class="c" x="34" y="308">administrative scope</text>
+  <text class="c" x="200" y="292">routable inside the domain only</text>
+  <text class="c" x="420" y="292">enterprise internal multicast</text>
+  <text class="g" x="640" y="292">The RFC1918 equivalent, and the main</text>
+  <text class="g" x="640" y="308">enterprise block. Plan it like 10/8.</text>
+
+  <rect x="24" y="320" width="852" height="44" rx="2" fill="#f7f9fc"/>
+  <text class="b" x="34" y="340">239.255.0.0/16</text>
+  <text class="c" x="34" y="356">single-hop / local</text>
+  <text class="c" x="200" y="340">intra-domain</text>
+  <text class="c" x="420" y="340">intra-site use</text>
+  <text class="c" x="640" y="340">Carve per site once you have more</text>
+  <text class="c" x="640" y="356">than one building.</text>
+
+  <rect x="24" y="374" width="852" height="50" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="390">IPv4 VERSUS IPv6</text>
+  <text class="m" x="36" y="406">IPv4: 01:00:5E + low 23 bits, 32:1 overlap</text>
+  <text class="m" x="330" y="406">IPv6: 33:33 + low 32 bits, no practical overlap</text>
+  <text class="c" x="36" y="420">IPv6 removes the collision problem and replaces it with scope confusion: FF05 forwarded across sites, FF02 configured as a service group.</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t1036 d1036">
+  <title id="t1036">Security group tags: identity becomes a label, the label becomes a policy matrix, and the three ways to carry it across the network</title>
+  <desc id="d1036">Top: the flow. The endpoint authenticates, the policy server assigns a tag - employee ten, guest twenty, printer thirty, server forty - and the tag travels with the traffic either inline as a command field in the Ethernet frame, synchronised by SXP, or mapped statically by IP. The enforcement point - switch, firewall or fabric - looks up the source tag against the destination tag in one matrix and permits or denies. Middle left: a four by four matrix where employee to server is allowed on the application port, guest to everything except the internet is denied, printer to printer is allowed and printer to server is allowed only on the print protocol, and server to server is denied by default. Middle right: the three implementation methods and their limits. Inline tagging needs hardware support and the tag is lost across a Layer 3 boundary. SXP synchronises IP to tag mappings but has a learning delay and breaks when DHCP reassigns an address. Static mapping is simple and needs maintenance whenever an address changes. Bottom: the layered relationship - 802.1X confirms identity, SGT grants permission, the firewall and IPS inspect content, and micro-segmentation prevents lateral movement - with a warning that SGT performs authorisation only and no inspection, so a compromised endpoint wearing an employee tag still reaches everything an employee may reach.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar36" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">SGT: stop writing policies about addresses, write them about identity</text>
+  <text class="s" x="24" y="45">An address changes when the user moves; a tag does not. The whole benefit and the whole cost come from that one substitution</text>
+
+  <!-- Flow -->
+  <rect x="24" y="60" width="852" height="112" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="36" y="78">THE FLOW · AUTHENTICATE, TAG, CARRY, ENFORCE</text>
+
+  <rect x="36" y="88" width="140" height="46" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="46" y="104">Endpoint</text>
+  <text class="c" x="46" y="117">authenticates via</text>
+  <text class="c" x="46" y="127">802.1X or MAB</text>
+
+  <rect x="196" y="88" width="150" height="46" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="206" y="104">Policy server</text>
+  <text class="c" x="206" y="117">assigns the tag:</text>
+  <text class="c" x="206" y="127">employee 10, guest 20, ...</text>
+
+  <rect x="366" y="88" width="180" height="46" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="376" y="104">Carry the tag</text>
+  <text class="c" x="376" y="117">inline CMD field · SXP mapping</text>
+  <text class="c" x="376" y="127">· static IP-to-tag</text>
+
+  <rect x="566" y="88" width="140" height="46" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="576" y="104">Enforcement</text>
+  <text class="c" x="576" y="117">switch / firewall /</text>
+  <text class="c" x="576" y="127">fabric reads the matrix</text>
+
+  <rect x="726" y="88" width="138" height="46" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="b" x="736" y="104">Result</text>
+  <text class="c" x="736" y="117">permit or deny, and</text>
+  <text class="c" x="736" y="127">the same answer everywhere</text>
+
+  <line x1="176" y1="111" x2="192" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar36)"/>
+  <line x1="346" y1="111" x2="362" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar36)"/>
+  <line x1="546" y1="111" x2="562" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar36)"/>
+  <line x1="706" y1="111" x2="722" y2="111" stroke="#8a97a8" stroke-width="1" marker-end="url(#ar36)"/>
+
+  <text class="w" x="36" y="156">The tag is a 16-bit value carried inside the Ethernet frame. Because it is Layer 2 metadata, it is</text>
+  <text class="w" x="36" y="166">preserved across a switch and lost across a router - which is exactly why SXP and static mapping exist.</text>
+
+  <!-- Matrix -->
+  <rect x="24" y="182" width="404" height="148" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="200" fill="#0f7f73">ONE MATRIX, NOT N ACLS PER DEVICE</text>
+
+  <rect x="36" y="208" width="380" height="20" fill="#2b3446"/>
+  <text class="th" x="44" y="222">SRC ↓ / DST →</text>
+  <text class="th" x="150" y="222">Employee 10</text>
+  <text class="th" x="238" y="222">Guest 20</text>
+  <text class="th" x="316" y="222">Printer 30</text>
+  <text class="th" x="392" y="222">Server 40</text>
+
+  <rect x="36" y="228" width="380" height="22" fill="#ffffff"/>
+  <text class="w" x="44" y="243">Employee 10</text>
+  <text class="g" x="150" y="243">allow</text>
+  <text class="x" x="238" y="243">deny</text>
+  <text class="g" x="316" y="243">allow</text>
+  <text class="g" x="392" y="243">allow :443</text>
+
+  <rect x="36" y="250" width="380" height="22" fill="#f7f9fc"/>
+  <text class="w" x="44" y="265">Guest 20</text>
+  <text class="x" x="150" y="265">deny</text>
+  <text class="x" x="238" y="265">deny</text>
+  <text class="g" x="316" y="265">allow</text>
+  <text class="x" x="392" y="265">deny</text>
+
+  <rect x="36" y="272" width="380" height="22" fill="#ffffff"/>
+  <text class="w" x="44" y="287">Printer 30</text>
+  <text class="x" x="150" y="287">deny</text>
+  <text class="x" x="238" y="287">deny</text>
+  <text class="g" x="316" y="287">allow</text>
+  <text class="g" x="392" y="287">allow :631</text>
+
+  <rect x="36" y="294" width="380" height="22" fill="#f7f9fc"/>
+  <text class="w" x="44" y="309">Server 40</text>
+  <text class="x" x="150" y="309">deny</text>
+  <text class="x" x="238" y="309">deny</text>
+  <text class="x" x="316" y="309">deny</text>
+  <text class="x" x="392" y="309">deny</text>
+
+  <text class="w" x="36" y="326">Four tags give sixteen decisions in one place, and the file survives every re-addressing project.</text>
+
+  <!-- Methods -->
+  <rect x="440" y="182" width="436" height="148" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="452" y="200">THREE WAYS TO CARRY THE TAG</text>
+
+  <rect x="452" y="208" width="412" height="36" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="462" y="223">Inline tagging (CMD in the frame)</text>
+  <text class="c" x="462" y="236">Coverage: the Layer 2 domain. Needs hardware on every hop, and the tag dies at the router.</text>
+
+  <rect x="452" y="250" width="412" height="36" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="462" y="265">SXP (exchange IP-to-tag mappings)</text>
+  <text class="c" x="462" y="278">Coverage: across devices without inline support. Learning delay, and DHCP reuse of an</text>
+
+  <rect x="452" y="292" width="412" height="36" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="b" x="462" y="307">Static mapping (IP or subnet → tag)</text>
+  <text class="c" x="462" y="320">Coverage: servers and fixed devices. Free to start, and a maintenance cost at every</text>
+
+  <text class="w" x="452" y="338">The practical stack is all three: inline in the campus, SXP where the hardware is old, static for servers.</text>
+
+  <!-- Layered relationship -->
+  <rect x="24" y="340" width="404" height="86" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="358" fill="#b0452f">"SGT REPLACES THE FIREWALL" - THE USUAL MISTAKE</text>
+  <text class="c" x="36" y="376">SGT <tspan class="b">authorises</tspan> (may this tag reach that tag). It does not <tspan class="b">inspect</tspan>.</text>
+  <text class="c" x="36" y="390">A compromised endpoint wearing the employee tag still reaches everything an</text>
+  <text class="c" x="36" y="403">employee may reach - the matrix happily permits the attack.</text>
+  <text class="w" x="36" y="418">Authorisation without inspection is half a control.</text>
+
+  <rect x="440" y="340" width="436" height="86" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="452" y="358">THE FOUR LAYERS, IN ORDER</text>
+  <text class="c" x="452" y="376">802.1X <tspan class="w">→</tspan> who you are <tspan class="w">·</tspan> SGT <tspan class="w">→</tspan> where you may go</text>
+  <text class="c" x="452" y="390">Firewall / IPS <tspan class="w">→</tspan> what you bring in <tspan class="w">·</tspan> micro-segmentation <tspan class="w">→</tspan> where you spread</text>
+  <text class="g" x="452" y="408">No layer replaces another; compressing all four into "we deployed SGT"</text>
+  <text class="g" x="452" y="420">means authorisation was done and inspection was skipped</text>
+
+  <text class="w" x="24" y="444">Orchestration test: adding one application should mean one matrix edit. If it still means ACLs on nine devices, the tag layer was bought but not adopted.</text>
+</svg>

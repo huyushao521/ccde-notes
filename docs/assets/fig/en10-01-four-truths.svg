@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t1001 d1001">
+  <title id="t1001">The four counter-intuitive truths about security design, each with the belief it replaces</title>
+  <desc id="d1001">Four cards. One: security is not a zone but a relationship chain - it exists only at the point where two entities with different trust levels interact, so the first deliverable is a trust boundary inventory, not a device list. Two: encryption solves cannot-see, not cannot-get-in - a VPN gives confidentiality and peer authentication but no authorization, no content inspection and no lateral movement control, so a fully meshed IPsec network still lets one compromised PC move sideways. Three: the cost of security is not in buying but in changing processes - in an 802.1X project procurement and configuration take about 30 percent and the other 70 percent goes to the printer that does not support it, the medical vendor that refuses to cooperate, visitor access, the fallback when the authentication server dies, and who is on call. Four: default deny is easy to say, the hard part is who owns the whitelist - who submits, who approves, how long until it takes effect, and who removes it when the business is gone. A footer states that a design without a trust boundary inventory is a collage of product brochures.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four truths that invalidate the usual security diagram</text>
+  <text class="s" x="24" y="45">Each card carries the belief it replaces - that is the part people argue with, not the technology.</text>
+
+  <rect x="24" y="62" width="414" height="152" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="k" x="36" y="80">TRUTH 1</text>
+  <text class="b" x="36" y="98">Security is an edge, not a surface</text>
+  <text class="w" x="36" y="116">the belief: draw a box called "secure zone" around the core</text>
+  <text class="c" x="36" y="136">Security exists only where two entities with different</text>
+  <text class="c" x="36" y="150">trust levels interact. It is a line between them, and</text>
+  <text class="c" x="36" y="164">a box drawn on a diagram enforces nothing.</text>
+  <text class="g" x="36" y="186">Deliverable: the list of flows crossing each boundary</text>
+  <text class="w" x="36" y="200">no boundary inventory = a collage of product brochures</text>
+
+  <rect x="462" y="62" width="414" height="152" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="474" y="80">TRUTH 2</text>
+  <text class="b" x="474" y="98">Encryption hides, it does not admit</text>
+  <text class="w" x="474" y="116">the belief: "we have IPsec everywhere, so we are secure"</text>
+  <text class="c" x="474" y="136">A VPN gives confidentiality and peer authentication.</text>
+  <text class="c" x="474" y="150">It does not authorize, does not inspect content, and</text>
+  <text class="c" x="474" y="164">does not stop lateral movement inside the tunnel.</text>
+  <text class="x" x="474" y="186">One compromised PC moves through the whole mesh</text>
+  <text class="w" x="474" y="200">and every packet looks like a legitimate encrypted session</text>
+
+  <rect x="24" y="226" width="414" height="152" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="244">TRUTH 3</text>
+  <text class="b" x="36" y="262">The cost is process, not hardware</text>
+  <text class="w" x="36" y="280">the belief: buy the platform, configure it, done</text>
+  <text class="c" x="36" y="300">In an 802.1X project, procurement plus configuration is</text>
+  <text class="c" x="36" y="314">about 30 percent. The other 70 is the printer that cannot</text>
+  <text class="c" x="36" y="328">authenticate and the vendor who will not cooperate.</text>
+  <rect x="36" y="340" width="120" height="10" fill="#1f4fc0"/>
+  <rect x="156" y="340" width="270" height="10" fill="#b8862b"/>
+  <text class="w" x="36" y="366">30%: buy and configure</text>
+  <text class="w" x="156" y="366">70%: exceptions, fallback, on-call</text>
+
+  <rect x="462" y="226" width="414" height="152" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="474" y="244">TRUTH 4</text>
+  <text class="b" x="474" y="262">Default deny needs an owner</text>
+  <text class="w" x="474" y="280">the belief: "just default deny everything"</text>
+  <text class="c" x="474" y="300">Who submits the request when a new business goes live?</text>
+  <text class="c" x="474" y="314">Who approves it, how fast, and who deletes the rule when</text>
+  <text class="c" x="474" y="328">the project is over? Unanswered, default deny is bypassed</text>
+  <text class="c" x="474" y="342">by shadow rules and the policy dies of its own exceptions.</text>
+  <text class="x" x="474" y="364">A rule with no expiry date is a rule forever</text>
+
+  <rect x="24" y="394" width="852" height="42" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="412">The four truths share one consequence: the deliverable of a security design is a set of relationships and processes, not a rack diagram.</text>
+  <text class="c" x="36" y="427">Every time a design document jumps straight to "we will deploy a firewall", one of these four is being skipped.</text>
+</svg>

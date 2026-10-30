@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t806 d806">
+
+  <title id="t806">Why summarization in a hub-and-spoke link-state network lets a branch become transit, and the three fixes</title>
+  <desc id="d806">Left side is the topology: Spoke-A connects to Hub-1, Hub-1 to Hub-2 over the core, Hub-2 to Spoke-B, and a backup circuit exists between Spoke-A and Spoke-B. Right side is the failure chain in four steps: Hub-1 summarizes spoke routes into the Spoke-A area, Spoke-A now has only the summary and sends everything to Hub-1, Hub-1 computes that reaching Spoke-B via Spoke-A is cheaper because the backup link is in the topology, and traffic bounces between Spoke-A and Hub-1 until it dies. Below, three fixes: make the spoke stub or totally stub so it holds only a default route, keep an unsummarized link between the ABRs so detail is exchanged at the boundary, or filter the summaries the spoke should not receive. A closing note says the spoke must be a pure leaf.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A summary that is correct for the core can make a branch become transit</text>
+  <text class="s" x="24" y="45">The loop is not a protocol bug: SPF only sees cost, and the summary removed the detail it needed</text>
+
+  <rect x="24" y="58" width="400" height="230" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="k" x="36" y="74">TOPOLOGY</text>
+
+  <rect x="150" y="86" width="120" height="34" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="164" y="101">Hub-1</text>
+  <text class="w" x="164" y="113">ABR, summarizes spokes</text>
+
+  <rect x="290" y="86" width="120" height="34" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="304" y="101">Hub-2</text>
+  <text class="w" x="304" y="113">ABR, core side</text>
+
+  <line x1="270" y1="103" x2="290" y2="103" stroke="#1f4fc0" stroke-width="1.4"/>
+  <text class="w" x="252" y="132">core link</text>
+
+  <rect x="40" y="170" width="120" height="34" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="54" y="185">Spoke-A</text>
+  <text class="w" x="54" y="197">area 10, summary only</text>
+
+  <rect x="320" y="170" width="120" height="34" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="334" y="185">Spoke-B</text>
+  <text class="w" x="334" y="197">area 20</text>
+
+  <line x1="100" y1="170" x2="163" y2="120" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="380" y1="170" x2="350" y2="120" stroke="#0f7f73" stroke-width=".8"/>
+  <line x1="160" y1="187" x2="320" y2="187" stroke="#c0392b" stroke-width=".8" stroke-dasharray="4 3"/>
+  <text class="w" x="196" y="182" fill="#c0392b">backup circuit that SPF can see</text>
+
+  <text class="c" x="36" y="228">The backup link is the trap. It is legitimate redundancy for data,</text>
+  <text class="c" x="36" y="241">but it is also an edge inside the area topology &#8212; so Hub-1</text>
+  <text class="c" x="36" y="254">computes &#8220;to reach Spoke-B, go through Spoke-A&#8221;.</text>
+  <text class="c" x="36" y="272">Spoke-A cannot disagree: after summarization it holds only</text>
+  <text class="c" x="36" y="285">10.20.0.0/16 via Hub-1, so it sends everything back.</text>
+
+  <text class="k" x="448" y="74">THE FAILURE CHAIN</text>
+
+  <rect x="448" y="82" width="428" height="34" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="c" x="460" y="96"><tspan style="font-weight:700">1.</tspan> Hub-1 summarizes all spoke /24s into 10.20.0.0/16 and advertises it into area 10.</text>
+  <text class="c" x="460" y="109">Spoke-A's table shrinks from 800 routes to 1. The project is declared a success.</text>
+
+  <rect x="448" y="120" width="428" height="34" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="c" x="460" y="134"><tspan style="font-weight:700">2.</tspan> Spoke-A wants Spoke-B: only the summary matches, next hop Hub-1.</text>
+  <text class="c" x="460" y="147">Correct so far &#8212; Hub-1 forwards onward and the packet arrives.</text>
+
+  <rect x="448" y="158" width="428" height="34" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="c" x="460" y="172"><tspan style="font-weight:700">3.</tspan> Hub-1 runs SPF: Spoke-B is reachable via Spoke-A over the backup circuit,</text>
+  <text class="c" x="460" y="185">and that cost is lower than the core path. The detail it needs was never advertised.</text>
+
+  <rect x="448" y="196" width="428" height="34" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="c" x="460" y="210" fill="#c0392b"><tspan style="font-weight:700">4.</tspan> Hub-1 hands the packet back to Spoke-A. Spoke-A has one route: to Hub-1.</text>
+  <text class="c" x="460" y="223" fill="#c0392b">The packet bounces until TTL expires. Every engineer blames the protocol.</text>
+
+  <text class="k" x="448" y="252">WHY THE SUMMARY CAUSED IT</text>
+  <text class="c" x="448" y="266">Summarization removed the detail that would have told Hub-1</text>
+  <text class="c" x="448" y="279">&#8220;Spoke-A is not on the path to Spoke-B&#8221;. Spoke-A's own table is now</text>
+  <text class="c" x="448" y="292">too coarse to break the tie, so both ends believe the other is closer.</text>
+
+  <rect x="24" y="300" width="852" height="86" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="38" y="318">THREE FIXES &#8212; PICK ONE PER SITE, NOT ONE PER NETWORK</text>
+  <text class="c" x="38" y="336"><tspan style="font-weight:700">Fix 1 &#8212; make the spoke a pure leaf:</tspan> stub or totally stub, so it holds a default route and takes no transit decision at all.</text>
+  <text class="c" x="38" y="352"><tspan style="font-weight:700">Fix 2 &#8212; keep an unsummarized link between the ABRs:</tspan> detail crosses the boundary where it is needed, and nowhere else.</text>
+  <text class="c" x="38" y="368"><tspan style="font-weight:700">Fix 3 &#8212; filter what the spoke receives:</tspan> a distribute-list that drops summaries the site should never have had.</text>
+
+  <rect x="24" y="396" width="852" height="44" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="396" width="4" height="44" fill="#c0392b"/>
+  <text class="c" x="40" y="414" fill="#c0392b"><tspan style="font-weight:700">The practical rule:</tspan> when hub-and-spoke runs a link-state protocol, the spoke must be a pure leaf &#8212; exactly one egress route and no transit decision.</text>
+  <text class="c" x="40" y="430" fill="#c0392b">Any design that lets a spoke &#8220;choose a path&#8221; buys you suboptimal routing, and eventually buys you a loop.</text>
+</svg>

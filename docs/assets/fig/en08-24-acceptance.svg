@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t824 d824">
+
+  <title id="t824">The eight-item acceptance checklist for Layer 3 design, with the proof required for each item</title>
+  <desc id="d824">Eight numbered checklist rows, each giving the item and the evidence that satisfies it. One, adjacency on both ends, proven by the neighbour state on both routers rather than one. Two, identical databases, proven by comparing link-state counts and checksums across the area. Three, symmetric link cost, proven by printing the cost on both ends of every link in the diagram. Four, summaries paired with a null0 route, proven by looking up the summary prefix and finding null0 among the entries. Five, redistribution direction, tag and seed metric written down and verified in both domains. Six, failure actually tested, proven by shutting every link and measuring recovery against the target. Seven, the convergence budget implemented, with detection, throttling and summarization all matching the document. Eight, documentation matching the device for values that are configuration rather than negotiation. A closing note says acceptance must be performed by someone who did not build the network, because the builder already believes it works.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8.5px "Segoe UI",sans-serif;fill:#6b7a90}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Eight items to prove before the design is called finished</text>
+  <text class="s" x="24" y="45">Each row has an item and the evidence; a configuration that exists is not evidence</text>
+
+  <text class="k" x="48" y="68">ITEM</text>
+  <text class="k" x="330" y="68">EVIDENCE THAT SATISFIES IT</text>
+
+  <rect x="24" y="74" width="852" height="38" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="n" x="34" y="97">1</text>
+  <text class="c" x="48" y="92">Adjacency on <tspan style="font-weight:700">both</tspan> ends</text>
+  <text class="c" x="330" y="92">Neighbour state read on both routers. One end full and the other not is the single</text>
+  <text class="c" x="330" y="105">most common false pass in every technology in this chapter.</text>
+
+  <rect x="24" y="118" width="852" height="38" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="n" x="34" y="141">2</text>
+  <text class="c" x="48" y="136">Identical databases</text>
+  <text class="c" x="330" y="136">LSA or LSP count and checksum compared across the area. A difference means two</text>
+  <text class="c" x="330" y="149">topologies exist, and forwarding will follow the disagreement.</text>
+
+  <rect x="24" y="162" width="852" height="38" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="n" x="34" y="185">3</text>
+  <text class="c" x="48" y="180">Symmetric cost per link</text>
+  <text class="c" x="330" y="180">Cost printed on both ends of every link in the topology diagram. A mismatch is a</text>
+  <text class="c" x="330" y="193">reference bandwidth or an override problem, and it produces asymmetric paths.</text>
+
+  <rect x="24" y="206" width="852" height="38" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="n" x="34" y="229">4</text>
+  <text class="c" x="48" y="224">Every summary has null0</text>
+  <text class="c" x="330" y="224">Look up each summary prefix and confirm null0 appears among the entries. Without</text>
+  <text class="c" x="330" y="237">it, a dead member subnet is a silent black hole inside the area.</text>
+
+  <rect x="24" y="250" width="852" height="38" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="n" x="34" y="273">5</text>
+  <text class="c" x="48" y="268">Redistribution is written down</text>
+  <text class="c" x="330" y="268">Direction, tag, seed metric and filter listed per boundary, then verified from both</text>
+  <text class="c" x="330" y="281">domains. An undocumented boundary is an outage waiting for a change window.</text>
+
+  <rect x="24" y="294" width="852" height="38" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".5"/>
+  <text class="n" x="34" y="317" fill="#c0392b">6</text>
+  <text class="c" x="48" y="312" fill="#c0392b">Failure tested, not configured</text>
+  <text class="c" x="330" y="312" fill="#c0392b">Every link shut, every process restarted, recovery measured against the target. A path</text>
+  <text class="c" x="330" y="325" fill="#c0392b">design that has never failed over is a hypothesis.</text>
+
+  <rect x="24" y="338" width="852" height="38" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".5"/>
+  <text class="n" x="34" y="361" fill="#c0392b">7</text>
+  <text class="c" x="48" y="356" fill="#c0392b">Convergence budget implemented</text>
+  <text class="c" x="330" y="356" fill="#c0392b">Detection, throttling, summarization and hierarchy all match the numbers in the</text>
+  <text class="c" x="330" y="369" fill="#c0392b">document. If there is no number in the document, there is no budget.</text>
+
+  <rect x="24" y="382" width="852" height="38" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".5"/>
+  <text class="n" x="34" y="405">8</text>
+  <text class="c" x="48" y="400">Documentation equals device</text>
+  <text class="c" x="330" y="400">For values that are configuration rather than negotiation: IS-IS NET, level and metric</text>
+  <text class="c" x="330" y="413">style, OSPF reference bandwidth, area types. Nothing corrects these for you.</text>
+
+  <rect x="24" y="428" width="852" height="34" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="428" width="4" height="34" fill="#c0392b"/>
+  <text class="c" x="40" y="442" fill="#c0392b"><tspan style="font-weight:700">Who runs the acceptance:</tspan> someone who did not build the network. The builder already believes it works &#8212;</text>
+  <text class="c" x="40" y="456" fill="#c0392b">and belief is exactly the thing these eight items exist to replace with evidence.</text>
+</svg>

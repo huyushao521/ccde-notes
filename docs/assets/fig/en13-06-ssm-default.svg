@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1306 d1306">
+  <title id="t1306">Why SSM is the modern default: the whole complexity of PIM-SM exists because the source is unknown</title>
+  <desc id="d1306">A decision flow at the top: do receivers know the source address in advance? If yes, use SSM in 232/8 with IGMPv3 - no RP, no shared tree, no register, state is (S,G) only. If no, one of two ASM cases applies: many senders with many receivers use bidirectional PIM with a single (*,G) per group, and a few senders with a large audience use PIM-SM with an RP. Below, four deployment patterns are matched to the answer: an IPTV head-end with fixed encoder addresses goes SSM, a trading floor with a fixed feed list goes SSM, a video conference with anyone as sender stays ASM, and market data fan-out from many publishers uses bidirectional PIM. A bottom band lists the price of SSM: the application must know the source, IGMPv3 must be end to end, and 232/8 must be reachable on every hop.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The real question is not "which protocol". It is "does the receiver know the source"</text>
+  <text class="s" x="24" y="45">Answer yes and the RP, the shared tree, the register and half the failure modes disappear from the design.</text>
+
+  <rect x="24" y="58" width="230" height="58" rx="3" fill="#fff" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="38" y="78">Does the receiver know</text>
+  <text class="b" x="38" y="92">the source address?</text>
+  <text class="w" x="38" y="106">before it sends the join</text>
+  <path d="M254 87 L302 87" stroke="#1f4fc0" stroke-width=".8" marker-end="url(#d1)"/>
+  <path d="M254 87 L254 150 L302 150" stroke="#1f4fc0" stroke-width=".8" fill="none" marker-end="url(#d1)"/>
+
+  <rect x="306" y="56" width="270" height="60" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".8"/>
+  <text class="g" x="318" y="74">YES  ->  SSM</text>
+  <text class="c" x="318" y="90">232/8, IGMPv3 include mode, (S,G) only.</text>
+  <text class="c" x="318" y="104">No RP, no register, no shared tree, no switchover.</text>
+
+  <rect x="306" y="126" width="270" height="60" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".8"/>
+  <text class="b" x="318" y="144">NO  ->  ASM, then pick the shape</text>
+  <text class="c" x="318" y="160">Many senders, many receivers: bidirectional PIM.</text>
+  <text class="c" x="318" y="174">Few senders, large audience: PIM-SM with an RP.</text>
+
+  <text class="c" x="600" y="76">The RP is a workaround for "I do not know</text>
+  <text class="c" x="600" y="88">who is sending". If you do know, you are</text>
+  <text class="c" x="600" y="100">paying for a workaround you do not need.</text>
+  <text class="c" x="600" y="120">This single question removes more design</text>
+  <text class="c" x="600" y="132">risk than any tuning knob in PIM.</text>
+  <text class="m" x="600" y="154">ip pim ssm default   /   ssm range 232/8</text>
+
+  <text class="k" x="24" y="212">FOUR REAL DEPLOYMENTS, FOUR ANSWERS</text>
+  <rect x="24" y="222" width="204" height="80" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="36" y="240">IPTV head-end</text>
+  <text class="c" x="36" y="256">Encoder addresses are fixed and</text>
+  <text class="c" x="36" y="268">documented. Receivers are STBs</text>
+  <text class="c" x="36" y="280">with a channel list.</text>
+  <text class="g" x="36" y="296">SSM, no RP at all</text>
+
+  <rect x="240" y="222" width="204" height="80" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="252" y="240">Trading floor</text>
+  <text class="c" x="252" y="256">Each feed has one publisher and</text>
+  <text class="c" x="252" y="268">a fixed distribution list.</text>
+  <text class="c" x="252" y="280">Latency budget is milliseconds.</text>
+  <text class="g" x="252" y="296">SSM, plus PIM on the LAN</text>
+
+  <rect x="456" y="222" width="204" height="80" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="b" x="468" y="240">Video conference</text>
+  <text class="c" x="468" y="256">Anyone can be a sender, and the</text>
+  <text class="c" x="468" y="268">receiver cannot know who in</text>
+  <text class="c" x="468" y="280">advance.</text>
+  <text class="x" x="468" y="296">ASM or application-level MCU</text>
+
+  <rect x="672" y="222" width="204" height="80" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="b" x="684" y="240">Market data fan-out</text>
+  <text class="c" x="684" y="256">Many publishers, many consumers,</text>
+  <text class="c" x="684" y="268">no fixed pairing, tree shape is</text>
+  <text class="c" x="684" y="280">nearly symmetric.</text>
+  <text class="g" x="684" y="296">BiDir-PIM, one (*,G)</text>
+
+  <rect x="24" y="316" width="852" height="94" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="332">WHAT SSM COSTS YOU</text>
+  <text class="b" x="36" y="350">The application must know the source</text>
+  <text class="c" x="36" y="364">A channel list, a manifest, a discovery service.</text>
+  <text class="c" x="36" y="376">If it cannot, SSM mapping is a patch, not a design.</text>
+  <text class="b" x="336" y="350">IGMPv3 must run end to end</text>
+  <text class="c" x="336" y="364">One IGMPv2 hop downgrades the join to (*,G)</text>
+  <text class="c" x="336" y="376">and the RP comes back into your life.</text>
+  <text class="b" x="652" y="350">232/8 must be routed everywhere</text>
+  <text class="c" x="652" y="364">Missing it on one hop is a black hole with</text>
+  <text class="c" x="652" y="376">no error message, exactly like a missing RP.</text>
+  <defs>
+    <marker id="d1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1f4fc0"/></marker>
+  </defs>
+</svg>

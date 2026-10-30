@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" role="img" aria-labelledby="t1312 d1312">
+  <title id="t1312">The seven-step multicast design methodology, with the artefact each step must produce and the mistake it prevents</title>
+  <desc id="d1312">Seven rows, each carrying a step, its output artefact and the common mistake. Application profile produces an application list and a model classification, and prevents designing many-to-many as single-source. Forwarding mode produces the PIM mode per application class, and prevents using one PIM-SM with a single RP for everything. Address planning produces an allocation table, and prevents grabbing addresses with no documentation. RP design produces the RP topology and redundancy scheme, and prevents a single RP placed by office politics. Layer 2 design produces an access-layer configuration baseline, and prevents configuring Layer 3 only while Layer 2 floods. Inter-domain and boundaries produce an inter-domain scheme, and prevent letting PIM through with no policy. Verification produces an acceptance checklist and monitoring baseline, and prevents testing that it plays rather than that the tree is right.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Seven steps, seven artefacts</text>
+  <text class="s" x="24" y="45">If a step has no artefact, it did not happen. The right column is what each missing artefact costs later.</text>
+  <text class="k" x="24" y="66">STEP</text>
+  <text class="k" x="360" y="66">OUTPUT THAT MUST EXIST</text>
+  <text class="k" x="652" y="66">THE MISTAKE IT PREVENTS</text>
+  <line x1="24" y1="72" x2="876" y2="72" stroke="#dfe6f0" stroke-width=".8"/>
+
+  <rect x="24" y="80" width="852" height="50" rx="2" fill="#f4f8fe"/>
+  <text class="b" x="34" y="100">1  Application profile</text>
+  <text class="c" x="34" y="116">single or multiple sources, receivers, real time, bitrate</text>
+  <text class="c" x="360" y="100">Application list + model classification</text>
+  <text class="c" x="360" y="116">(one-to-many / many-to-many / link-local)</text>
+  <text class="c" x="652" y="100">Designing many-to-many as single-source,</text>
+  <text class="c" x="652" y="116">then discovering it in load testing</text>
+
+  <rect x="24" y="136" width="852" height="50" rx="2" fill="#f5fdfa"/>
+  <text class="b" x="34" y="156">2  Forwarding mode</text>
+  <text class="c" x="34" y="172">SSM / PIM-SM / BiDir / PIM-DM</text>
+  <text class="c" x="360" y="156">PIM mode per application class</text>
+  <text class="c" x="360" y="172">plus the group range that maps to it</text>
+  <text class="c" x="652" y="156">One PIM-SM with a single RP for</text>
+  <text class="c" x="652" y="172">everything, including 2,000 channels</text>
+
+  <rect x="24" y="192" width="852" height="50" rx="2" fill="#f4f8fe"/>
+  <text class="b" x="34" y="212">3  Address planning</text>
+  <text class="c" x="34" y="228">blocks, collisions, documentation</text>
+  <text class="c" x="360" y="212">Address allocation table</text>
+  <text class="c" x="360" y="228">site / service / index, with owners</text>
+  <text class="c" x="652" y="212">Addresses taken at random, 32:1 MAC</text>
+  <text class="c" x="652" y="228">collisions nobody can trace</text>
+
+  <rect x="24" y="248" width="852" height="50" rx="2" fill="#f5fdfa"/>
+  <text class="b" x="34" y="268">4  RP design (SM only)</text>
+  <text class="c" x="34" y="284">count, placement, redundancy, discovery</text>
+  <text class="c" x="360" y="268">RP topology + redundancy scheme</text>
+  <text class="c" x="360" y="284">+ failover time budget</text>
+  <text class="c" x="652" y="268">A single RP, placed where the last</text>
+  <text class="c" x="652" y="284">office move happened to leave it</text>
+
+  <rect x="24" y="304" width="852" height="50" rx="2" fill="#f4f8fe"/>
+  <text class="b" x="34" y="324">5  Layer 2 design</text>
+  <text class="c" x="34" y="340">snooping, querier, mrouter, MVR</text>
+  <text class="c" x="360" y="324">Access-layer configuration baseline</text>
+  <text class="c" x="360" y="340">one template, applied to every VLAN</text>
+  <text class="c" x="652" y="324">Layer 3 designed perfectly while</text>
+  <text class="c" x="652" y="340">every access switch floods</text>
+
+  <rect x="24" y="360" width="852" height="50" rx="2" fill="#f5fdfa"/>
+  <text class="b" x="34" y="380">6  Inter-domain and boundaries</text>
+  <text class="c" x="34" y="396">MSDP / MBGP / firewall / proxy</text>
+  <text class="c" x="360" y="380">Inter-domain scheme + boundary policy</text>
+  <text class="c" x="360" y="396">which groups may cross, and how</text>
+  <text class="c" x="652" y="380">PIM allowed across a trust boundary</text>
+  <text class="c" x="652" y="396">with no policy at all</text>
+
+  <rect x="24" y="416" width="852" height="50" rx="2" fill="#f4f8fe"/>
+  <text class="b" x="34" y="436">7  Verification and operations</text>
+  <text class="c" x="34" y="452">mroute, tree shape, loss monitoring</text>
+  <text class="c" x="360" y="436">Acceptance checklist + monitoring baseline</text>
+  <text class="c" x="360" y="452">with thresholds and owners</text>
+  <text class="c" x="652" y="436">Accepting "it plays" as proof, and</text>
+  <text class="c" x="652" y="452">never checking the tree shape</text>
+</svg>

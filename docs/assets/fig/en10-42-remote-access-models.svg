@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 456" width="100%" role="img" aria-labelledby="t1042 d1042">
+  <title id="t1042">Full tunnel, split tunnel and clientless remote access compared, and the four real risks that make split tunnelling a policy problem rather than a routing one</title>
+  <desc id="d1042">Top: three access models, each drawn as a path. Full tunnel sends all traffic through the enterprise, which gives the highest controllability because everything can be inspected, costs user experience because domestic browsing slows and video stutters, and fits highly sensitive roles and compliance requirements. Split tunnel sends only enterprise traffic over the VPN: the experience is good, controllability is medium because public traffic is uncontrolled and the endpoint may be infected, and it is the common practice. Clientless SSL VPN runs in a browser with no client, gives a good experience but low control because only published web applications are reachable, and fits partners, BYOD and temporary access. Middle: the four real risks of split tunnelling with their mitigations. The compromised endpoint becomes a pivot - mitigate with endpoint detection and compliance checks, and split by application rather than by address. DNS leaks because DNS goes local under split tunnel - send internal domains to the VPN resolver and keep public domains local. IPv6 bypasses the tunnel entirely when only IPv4 is tunnelled - handle IPv6 too, or disable it on the endpoint. Policy is bypassed when users can reach internal resources outside the tunnel list - keep ACLs on the tunnel side. Bottom: the warning that the split include list is a routing convenience and never a security control, because the enforcement has to sit on the headend.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar42" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#8a97a8"/>
+    </marker>
+    <marker id="ar42x" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">Remote access: the model decides who can be inspected, and the user decides the model</text>
+  <text class="s" x="24" y="45">Every organisation ends up at split tunnel. The design question is what you did about the endpoint before you got there</text>
+
+  <!-- Full tunnel -->
+  <rect x="24" y="60" width="276" height="152" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="78" fill="#0f7f73">FULL TUNNEL</text>
+  <text class="b" x="36" y="96">all traffic goes through the enterprise</text>
+
+  <rect x="40" y="106" width="60" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="70" y="121" text-anchor="middle">user</text>
+  <line x1="102" y1="118" x2="150" y2="118" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar42)"/>
+  <rect x="154" y="106" width="66" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="187" y="121" text-anchor="middle">headend</text>
+  <line x1="222" y1="118" x2="252" y2="118" stroke="#0f7f73" stroke-width="1.2" marker-end="url(#ar42)"/>
+  <rect x="236" y="106" width="52" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="262" y="121" text-anchor="middle">internet</text>
+
+  <text class="g" x="36" y="152">Control: highest - every packet can be inspected</text>
+  <text class="x" x="36" y="168">Experience: worst - local browsing slows, video stutters</text>
+  <text class="c" x="36" y="186">Fits: highly sensitive roles, regulated staff,</text>
+  <text class="c" x="36" y="198">short-lived high-trust sessions</text>
+
+  <!-- Split tunnel -->
+  <rect x="312" y="60" width="276" height="152" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="k" x="324" y="78" fill="#9a7d28">SPLIT TUNNEL</text>
+  <text class="b" x="324" y="96">only enterprise traffic enters the VPN</text>
+
+  <rect x="328" y="106" width="58" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="357" y="121" text-anchor="middle">user</text>
+  <line x1="388" y1="118" x2="428" y2="118" stroke="#9a7d28" stroke-width="1.2" marker-end="url(#ar42)"/>
+  <rect x="432" y="106" width="62" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="463" y="121" text-anchor="middle">headend</text>
+  <line x1="388" y1="140" x2="440" y2="140" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#ar42x)"/>
+  <text class="x" x="446" y="143">public Internet,</text>
+  <text class="x" x="446" y="152">uninspected</text>
+
+  <text class="g" x="324" y="166">Experience: good - this is why it always wins</text>
+  <text class="c" x="324" y="184">Control: medium - public traffic is outside policy,</text>
+  <text class="c" x="324" y="196">and the endpoint may already be infected</text>
+  <text class="w" x="324" y="208">The trade you are actually making</text>
+
+  <!-- Clientless -->
+  <rect x="600" y="60" width="276" height="152" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="612" y="78" fill="#5b4a86">CLIENTLESS · SSL VPN PORTAL</text>
+  <text class="b" x="612" y="96">a browser, no client installed</text>
+
+  <rect x="616" y="106" width="70" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="651" y="121" text-anchor="middle">browser</text>
+  <line x1="688" y1="118" x2="728" y2="118" stroke="#5b4a86" stroke-width="1.2" marker-end="url(#ar42)"/>
+  <rect x="732" y="106" width="64" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="764" y="121" text-anchor="middle">portal</text>
+  <line x1="798" y1="118" x2="826" y2="118" stroke="#5b4a86" stroke-width="1.2" marker-end="url(#ar42)"/>
+  <rect x="812" y="106" width="52" height="24" rx="2" fill="#ffffff" stroke="#dbe3ee" stroke-width=".7"/>
+  <text class="w" x="838" y="121" text-anchor="middle">web app</text>
+
+  <text class="g" x="612" y="152">Experience: best - nothing to install, nothing to</text>
+  <text class="g" x="612" y="164">keep patched on a partner laptop</text>
+  <text class="x" x="612" y="182">Control: lowest - only published web apps are</text>
+  <text class="x" x="612" y="194">reachable, and only through the portal's session</text>
+  <text class="c" x="612" y="208">Fits: partners, BYOD, temporary access</text>
+
+  <!-- Risks -->
+  <rect x="24" y="226" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="242">SPLIT-TUNNEL RISK</text>
+  <text class="th" x="290" y="242">WHAT HAPPENS</text>
+  <text class="th" x="620" y="242">MITIGATION THAT ACTUALLY WORKS</text>
+
+  <rect x="24" y="250" width="852" height="30" fill="#ffffff"/>
+  <text class="x" x="40" y="269">The endpoint becomes a pivot</text>
+  <text class="c" x="290" y="269">A user browses a malicious site while connected</text>
+  <text class="g" x="620" y="269">Endpoint detection and compliance checks; split by application, not by address</text>
+
+  <rect x="24" y="280" width="852" height="30" fill="#f7f9fc"/>
+  <text class="x" x="40" y="299">DNS leakage</text>
+  <text class="c" x="290" y="299">DNS goes local, so internal names fail or queries leak</text>
+  <text class="g" x="620" y="299">Send internal domains to the VPN resolver; public domains stay local</text>
+
+  <rect x="24" y="310" width="852" height="30" fill="#ffffff"/>
+  <text class="x" x="40" y="329">IPv6 bypasses the tunnel</text>
+  <text class="c" x="290" y="329">Only IPv4 is tunnelled; IPv6 reaches the Internet directly</text>
+  <text class="g" x="620" y="329">Tunnel IPv6 as well, or disable it on the endpoint - pick one deliberately</text>
+
+  <rect x="24" y="340" width="852" height="30" fill="#f7f9fc"/>
+  <text class="x" x="40" y="359">Policy bypass inside the network</text>
+  <text class="c" x="290" y="359">Users reach internal resources that are not on the split list</text>
+  <text class="g" x="620" y="359">Keep ACLs on the tunnel side - never let the split list be the control</text>
+
+  <rect x="24" y="380" width="852" height="26" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="36" y="397">The sentence to keep:</text>
+  <text class="c" x="164" y="397">split-include is a routing convenience. It tells the client which packets to send where; it does not decide what is allowed. Enforcement must sit on the headend.</text>
+
+  <rect x="24" y="412" width="852" height="26" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="36" y="429">Practical note:</text>
+  <text class="c" x="136" y="429">if the split list must be "any" to make an application work, the application has an addressing or name-resolution problem, not a VPN problem - fix that instead.</text>
+
+  <text class="w" x="24" y="450">Test before rollout: from an IPv6-capable home line, check that internal resources are unreachable when the tunnel is down, and that public traffic really does leave uninspected rather than silently through the tunnel.</text>
+</svg>

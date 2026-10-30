@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1316 d1316">
+  <title id="t1316">IGMP snooping is four mechanisms, not one checkbox: table, querier, mrouter port and per-port limits</title>
+  <desc id="d1316">Four panels. The snooping table records group and port and is built from snooped reports; without it the switch floods. The querier sends periodic general queries so entries stay alive; without it entries age out and video breaks every few minutes, the most common access-layer multicast fault on a pure Layer 2 VLAN with no router. The mrouter port tells the switch where the real multicast router is, either static, learned from PIM hellos, or from IGMP queries; miss it and traffic dies at the uplink. Per-port limits and fast-leave decide what happens when a host leaves: fast-leave removes the port on the leave without a last-member query, and a group limit per port stops one host from joining thousands of groups. A bottom band states the baseline that must be applied to every access VLAN.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four mechanisms, four different failure symptoms</text>
+  <text class="s" x="24" y="45">"Snooping is enabled" is not a baseline. Each of the four fails in its own recognisable way.</text>
+
+  <rect x="24" y="58" width="414" height="140" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="74">1. THE SNOOPING TABLE</text>
+  <text class="b" x="36" y="92">Group plus port plus VLAN</text>
+  <text class="c" x="36" y="110">Built by reading IGMP reports in flight. No table</text>
+  <text class="c" x="36" y="122">entry, no filtering: the group is flooded.</text>
+  <text class="m" x="36" y="142">show ip igmp snooping groups</text>
+  <text class="c" x="36" y="164">Fails as: whole-VLAN flooding, uplinks saturated,</text>
+  <text class="c" x="36" y="176">wireless clients starved of airtime.</text>
+
+  <rect x="462" y="58" width="414" height="140" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="474" y="74">2. THE QUERIER</text>
+  <text class="b" x="474" y="92">Sends the periodic general query</text>
+  <text class="c" x="474" y="110">Entries are refreshed by queries. With no router in</text>
+  <text class="c" x="474" y="122">the VLAN there is no querier, so entries age out.</text>
+  <text class="m" x="474" y="142">ip igmp snooping querier &lt;SVI address&gt;</text>
+  <text class="x" x="474" y="164">Fails as: works, freezes for a few seconds every few</text>
+  <text class="x" x="474" y="176">minutes, recovers on its own. The classic ticket.</text>
+
+  <rect x="24" y="214" width="414" height="140" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="230">3. THE MROUTER PORT</text>
+  <text class="b" x="36" y="248">Where the real multicast router lives</text>
+  <text class="c" x="36" y="266">Learned three ways: static configuration, PIM</text>
+  <text class="c" x="36" y="278">hello snooping, or the source of IGMP queries.</text>
+  <text class="m" x="36" y="298">ip igmp snooping mrouter interface Gi0/1</text>
+  <text class="c" x="36" y="320">Fails as: one host joins, the switch filters, and</text>
+  <text class="c" x="36" y="332">nothing arrives because the uplink was pruned too.</text>
+
+  <rect x="462" y="214" width="414" height="140" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="474" y="230">4. FAST-LEAVE AND PER-PORT LIMITS</text>
+  <text class="b" x="474" y="248">What happens when a host leaves</text>
+  <text class="c" x="474" y="266">Without fast-leave the switch queries the segment</text>
+  <text class="c" x="474" y="278">before pruning, so a zap waits for the query cycle.</text>
+  <text class="c" x="474" y="298">A per-port group limit stops one host from joining</text>
+  <text class="c" x="474" y="310">thousands of groups and filling the table alone.</text>
+  <text class="m" x="474" y="330">ip igmp snooping limit groups 50</text>
+  <text class="c" x="474" y="348">Fails as: slow channel change, or a table exhausted</text>
+
+  <rect x="24" y="368" width="852" height="80" rx="3" fill="#eef3fb" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="384">THE BASELINE, PER ACCESS VLAN</text>
+  <text class="c" x="36" y="402">snooping on  +  querier with the SVI address  +  mrouter method named  +  fast-leave where hosts zap  +  a group limit per port  +  a querier timer that matches the router's</text>
+  <text class="c" x="36" y="420">Six values. A template that sets five of them is not a template, it is a future incident with a name.</text>
+  <text class="c" x="36" y="438">Apply it in the provisioning system, not by hand: hand-applied baselines drift within two quarters.</text>
+</svg>

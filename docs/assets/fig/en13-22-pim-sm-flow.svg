@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" role="img" aria-labelledby="t1322 d1322">
+  <title id="t1322">The complete PIM-SM workflow in four phases and twelve steps, with the message that does the work at each step</title>
+  <desc id="d1322">Four phases stacked vertically. Phase one, the receiver joins: the receiver sends an IGMP report, the last-hop router creates (*,G) and sends a PIM (*,G) join toward the RP, and the join travels hop by hop building the shared tree. Phase two, source registration: the source starts sending, the first-hop router encapsulates packets in PIM Register unicast messages to the RP, the RP decapsulates and forwards down the shared tree while joining the source tree, then sends Register-Stop once the source tree exists. Phase three, shortest-path switchover: after the first packet the last-hop router sends an (S,G) join toward the source, then an (S,G) rpt-prune to the RP, and traffic follows the shortest path. Phase four, leaving: the receiver sends a leave, the last-hop router sends a group-specific query, and if nobody answers it prunes hop by hop. A bottom band notes that only phase two is unique to any-source multicast, and that SSM has none of it.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Twelve steps, four phases, one asymmetry</text>
+  <text class="s" x="24" y="45">Receivers build the tree; sources only announce themselves. Everything else follows from that.</text>
+
+  <rect x="24" y="58" width="852" height="92" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="74">PHASE 1 - THE RECEIVER JOINS (SHARED TREE)</text>
+  <text class="m" x="36" y="94">1  receiver -&gt; IGMP Report 239.1.1.1</text>
+  <text class="c" x="290" y="94">the last hop now knows someone wants the group</text>
+  <text class="m" x="36" y="112">2  LHR -&gt; RP  PIM (*,G) Join</text>
+  <text class="c" x="290" y="112">builds (*,G) state; the RP address comes from the RP mapping</text>
+  <text class="m" x="36" y="130">3  hop by hop toward the RP</text>
+  <text class="c" x="290" y="130">each router on the way installs (*,G) and one OIL entry</text>
+  <text class="c" x="36" y="144">This is the only phase that ever runs when nobody is sending: a receiver can join a silent group and wait.</text>
+
+  <rect x="24" y="158" width="852" height="112" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="174">PHASE 2 - THE SOURCE REGISTERS (UNICAST WRAPPING)</text>
+  <text class="m" x="36" y="194">4  source starts sending</text>
+  <text class="c" x="290" y="194">the FHR has no state yet: the packet would be dropped at RPF</text>
+  <text class="m" x="36" y="212">5  FHR -&gt; RP  PIM Register (unicast)</text>
+  <text class="c" x="290" y="212">the multicast packet is encapsulated inside a unicast PIM message</text>
+  <text class="m" x="36" y="230">6  RP decapsulates, forwards down (*,G),</text>
+  <text class="c" x="290" y="230">and sends (S,G) Join toward the source to pull the real tree</text>
+  <text class="m" x="36" y="248">7  RP -&gt; FHR  Register-Stop</text>
+  <text class="c" x="290" y="248">sent once the source tree exists; the encapsulation ends</text>
+  <text class="x" x="36" y="264">If step 7 never arrives you get a register storm: the RP is receiving a copy of every packet forever.</text>
+
+  <rect x="24" y="278" width="852" height="92" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="294">PHASE 3 - SHORTEST-PATH SWITCHOVER (DEFAULT BEHAVIOUR)</text>
+  <text class="m" x="36" y="314">8  LHR -&gt; source  (S,G) Join</text>
+  <text class="c" x="290" y="314">triggered by the first packet, not by a timer or a threshold</text>
+  <text class="m" x="36" y="332">9  LHR -&gt; RP  (S,G) rpt-prune</text>
+  <text class="c" x="290" y="332">cuts the shared-tree branch so traffic does not arrive twice</text>
+  <text class="m" x="36" y="350">10 traffic now runs source -&gt; LHR -&gt; receiver</text>
+  <text class="c" x="290" y="350">shorter path, but one (S,G) per branch on the source side</text>
+
+  <rect x="24" y="378" width="852" height="82" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="36" y="394">PHASE 4 - LEAVING (THE ONLY PART THAT IS LAYER 2 AWARE)</text>
+  <text class="m" x="36" y="414">11 receiver -&gt; IGMP Leave</text>
+  <text class="c" x="290" y="414">the LHR sends a group-specific query and waits for an answer</text>
+  <text class="m" x="36" y="432">12 no answer -&gt; PIM Prune hop by hop</text>
+  <text class="c" x="290" y="432">routers with no remaining OIL entry drop the state entirely</text>
+  <text class="c" x="36" y="450">A silent leave (host disappears without sending) waits for the group timer instead: this is why IGMP timers matter to multicast routing.</text>
+
+</svg>

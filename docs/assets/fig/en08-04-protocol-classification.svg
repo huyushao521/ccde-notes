@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t804 d804">
+
+  <title id="t804">Three routing protocol families compared by mechanism, source of scalability and blind spot</title>
+  <desc id="d804">Three columns. Link state, OSPF and IS-IS: flood the topology, every node runs SPF, scalability comes from hierarchy and summarization, and the blind spot is that every topology change is flooded across the area. Path vector, BGP: propagates paths rather than topology, scalability comes from policy control and trusting only neighbours, and the blind spot is that convergence follows policy, not topology. Distance vector and hybrid, RIP and EIGRP: propagates my distance to X, scalability comes from summarization and controlling the query scope, and the blind spot is that each router cannot see why the neighbour said that distance. A note at the bottom says link state buys fault localisation with flooding, distance vector buys quiet neighbours with blindness.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+  </style>
+
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three families, three different things being distributed</text>
+  <text class="s" x="24" y="45">Ask &#8220;what is actually being sent to the neighbour?&#8221; and the classification stops being memorisation</text>
+
+  <rect x="24" y="60" width="276" height="300" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="38" y="80">Link state &#183; OSPF, IS-IS</text>
+  <text class="w" x="38" y="93">distributes: the topology</text>
+
+  <text class="k" x="38" y="116">MECHANISM</text>
+  <text class="c" x="38" y="130">Flood link state advertisements</text>
+  <text class="c" x="38" y="143">until every router in the area holds</text>
+  <text class="c" x="38" y="156">an identical database; each router</text>
+  <text class="c" x="38" y="169">then runs SPF rooted at itself.</text>
+
+  <text class="k" x="38" y="192">SCALABILITY FROM</text>
+  <text class="c" x="38" y="206">Hierarchy: areas or levels,</text>
+  <text class="c" x="38" y="219">plus summarization at the border.</text>
+
+  <text class="k" x="38" y="242">YOU GET</text>
+  <text class="c" x="38" y="256">Strong fault localisation &#8212; you</text>
+  <text class="c" x="38" y="269">can see the topology, not just a</text>
+  <text class="c" x="38" y="282">distance. Loop-free by design.</text>
+
+  <text class="k" x="38" y="305">BLIND SPOT</text>
+  <text class="c" x="38" y="319">Every change floods the whole</text>
+  <text class="c" x="38" y="332">area and every router recomputes.</text>
+  <text class="c" x="38" y="345">Cost is the only path knob you own.</text>
+
+  <rect x="312" y="60" width="276" height="300" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="326" y="80">Path vector &#183; BGP</text>
+  <text class="w" x="326" y="93">distributes: paths, not topology</text>
+
+  <text class="k" x="326" y="116">MECHANISM</text>
+  <text class="c" x="326" y="130">Announces reachability plus the</text>
+  <text class="c" x="326" y="143">AS_PATH it travelled. Traffic to a</text>
+  <text class="c" x="326" y="156">prefix only if a neighbour said so.</text>
+  <text class="c" x="326" y="169">Trust is explicitly bounded.</text>
+
+  <text class="k" x="326" y="192">SCALABILITY FROM</text>
+  <text class="c" x="326" y="206">Policy, plus the assumption that</text>
+  <text class="c" x="326" y="219">only directly connected peers talk.</text>
+
+  <text class="k" x="326" y="242">YOU GET</text>
+  <text class="c" x="326" y="256">A dozen attributes &#8212; the only way</text>
+  <text class="c" x="326" y="269">to express &#8220;better&#8221; when it means</text>
+  <text class="c" x="326" y="282">business, not hop count.</text>
+
+  <text class="k" x="326" y="305">BLIND SPOT</text>
+  <text class="c" x="326" y="319">It converges to the path you asked</text>
+  <text class="c" x="326" y="332">for, not to the path the topology can</text>
+  <text class="c" x="326" y="345">carry. Ten-second convergence is normal.</text>
+
+  <rect x="600" y="60" width="276" height="300" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="614" y="80">Distance vector &#183; RIP, EIGRP</text>
+  <text class="w" x="614" y="93">distributes: &#8220;my distance to X&#8221;</text>
+
+  <text class="k" x="614" y="116">MECHANISM</text>
+  <text class="c" x="614" y="130">Each router tells neighbours its</text>
+  <text class="c" x="614" y="143">own distance, and learns nothing</text>
+  <text class="c" x="614" y="156">about why that distance was chosen.</text>
+  <text class="c" x="614" y="169">EIGRP adds DUAL to guarantee no loops.</text>
+
+  <text class="k" x="614" y="192">SCALABILITY FROM</text>
+  <text class="c" x="614" y="206">Summarization plus control of the</text>
+  <text class="c" x="614" y="219">query scope &#8212; not from the topology.</text>
+
+  <text class="k" x="614" y="242">YOU GET</text>
+  <text class="c" x="614" y="256">Very fast repair: with a feasible</text>
+  <text class="c" x="614" y="269">successor the switch is local and</text>
+  <text class="c" x="614" y="282">needs no protocol interaction at all.</text>
+
+  <text class="k" x="614" y="305">BLIND SPOT</text>
+  <text class="c" x="614" y="319">No topology view, so localisation is</text>
+  <text class="c" x="614" y="332">weak; without a feasible successor a</text>
+  <text class="c" x="614" y="345">query can spread across the network.</text>
+
+  <rect x="24" y="372" width="852" height="46" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <rect x="24" y="372" width="4" height="46" fill="#b8862b"/>
+  <text class="c" x="40" y="390" fill="#7a5b18"><tspan style="font-weight:700">One sentence to separate them:</tspan> in a link-state protocol every router knows the whole topology and computes paths itself;</text>
+  <text class="c" x="40" y="406" fill="#7a5b18">in a distance-vector protocol every router only knows the distance its neighbour told it, and never asks why.</text>
+</svg>

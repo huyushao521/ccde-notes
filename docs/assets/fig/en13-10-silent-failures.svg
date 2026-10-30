@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1310 d1310">
+  <title id="t1310">Multicast failures are silent: five observation layers and the only evidence that actually proves delivery</title>
+  <desc id="d1310">Left: the reason failures are invisible - there is no ICMP unreachable because the packet is valid, no syslog because nothing errors, no retransmission because the transport is UDP, so the only trace is a missing packet at the far end. Right: a five-layer stack of evidence, from the application down: RTP or MPEG loss and jitter from the receiver, interface and queue counters on the path, mroute state and packet counts in the control plane, hardware replication entries in the data plane, and the IGMP snooping table at Layer 2. A bottom band lists the three active tests that beat passive monitoring: a synthetic join from a probe in every segment, mtrace from receiver to source, and a scheduled egress counter collection at peak.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Nothing reports a multicast failure. Everything must be observed.</text>
+  <text class="s" x="24" y="45">Unicast breaks loudly and multicast breaks quietly: the packet is valid IPv4 and the protocol has no error path.</text>
+
+  <rect x="24" y="60" width="330" height="196" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="76">WHY NOTHING TELLS YOU</text>
+  <text class="b" x="36" y="94">No ICMP unreachable</text>
+  <text class="c" x="36" y="110">The packet is well formed and the group is</text>
+  <text class="c" x="36" y="122">routable. There is simply no tree, so it is</text>
+  <text class="c" x="36" y="134">dropped at the RPF check.</text>
+  <text class="b" x="36" y="154">No syslog, no SNMP trap</text>
+  <text class="c" x="36" y="170">Dropping a multicast packet is normal</text>
+  <text class="c" x="36" y="182">operation, not an error condition worth</text>
+  <text class="c" x="36" y="194">a log entry. Nobody can alert on it.</text>
+  <text class="b" x="36" y="214">No retransmission</text>
+  <text class="c" x="36" y="230">UDP has no recovery. The encoder keeps</text>
+  <text class="c" x="36" y="242">sending into a tree that no longer exists.</text>
+
+  <rect x="374" y="60" width="502" height="196" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="386" y="76">FIVE LAYERS OF EVIDENCE, TOP DOWN</text>
+  <rect x="386" y="86" width="478" height="28" rx="2" fill="#fff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="396" y="104">5  Application   RTP/MPEG loss, jitter, MOS, frozen picture counter</text>
+  <rect x="400" y="120" width="464" height="28" rx="2" fill="#fff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="410" y="138">4  Transport   interface counters, queue drops, policer drops</text>
+  <rect x="414" y="154" width="450" height="28" rx="2" fill="#fff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="424" y="172">3  Control plane   (S,G) exists, RPF correct, OIL correct, packet count rising</text>
+  <rect x="428" y="188" width="436" height="28" rx="2" fill="#fff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="438" y="206">2  Data plane   hardware entry present, replication slots free, TCAM count</text>
+  <rect x="442" y="222" width="422" height="26" rx="2" fill="#fff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="452" y="239">1  Layer 2   snooping group entry, mrouter port, querier alive</text>
+  <text class="c" x="386" y="252">Each layer can be green while the one below fails. That is the whole problem.</text>
+
+  <rect x="24" y="272" width="852" height="132" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="36" y="288">THREE ACTIVE TESTS THAT BEAT PASSIVE MONITORING</text>
+  <text class="b" x="36" y="308">Synthetic join per segment</text>
+  <text class="c" x="36" y="324">A probe in every VLAN joins the channel</text>
+  <text class="c" x="36" y="336">and reports loss. It is the only way to</text>
+  <text class="c" x="36" y="348">know a small segment is broken.</text>
+  <text class="m" x="36" y="368">join -&gt; 5 s of RTP -&gt; loss % -&gt; alert</text>
+  <text class="b" x="316" y="308">mtrace end to end</text>
+  <text class="c" x="316" y="324">Walks the actual tree hop by hop and</text>
+  <text class="c" x="316" y="336">reports where the last packet was seen.</text>
+  <text class="c" x="316" y="348">The only tool that shows the path, not</text>
+  <text class="c" x="316" y="360">the intention.</text>
+  <text class="m" x="316" y="380">mtrace 239.10.1.1 10.1.1.10</text>
+  <text class="b" x="652" y="308">Peak-hour counters</text>
+  <text class="c" x="652" y="324">Collect egress byte and packet counters</text>
+  <text class="c" x="652" y="336">at the busiest 15 minutes, not at 09:00</text>
+  <text class="c" x="652" y="348">when only four people are watching.</text>
+  <text class="c" x="652" y="368">Two numbers per hop: what should leave,</text>
+  <text class="c" x="652" y="380">what did leave.</text>
+
+  <rect x="24" y="416" width="852" height="36" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="c" x="36" y="438">Write the observation plan into the design: which layer, which command, which threshold, who is paged. Silent failures only stay small when monitoring is designed before the rollout.</text>
+</svg>

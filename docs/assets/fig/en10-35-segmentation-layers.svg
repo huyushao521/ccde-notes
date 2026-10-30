@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 428" width="100%" role="img" aria-labelledby="t1035 d1035">
+  <title id="t1035">The four technical layers of segmentation compared by granularity, isolation strength and scalability, and why the layers stack instead of substituting for each other</title>
+  <desc id="d1035">Four columns, ordered from coarsest to finest. Physical isolation uses separate devices and cables, has the highest granularity and the strongest isolation, and scales worst because it is expensive. Logical isolation uses VLAN, subnet and VRF: the granularity is the subnet, isolation is strong because no route means no reachability, and it scales well. Stateful inspection adds firewall zones and inter-VRF firewalls, giving subnet-pair granularity, strong isolation that is controllable and auditable, and medium scalability because the firewall becomes the performance bottleneck. Identity-level isolation uses SGT and TrustSec or micro-segmentation with EPG and security groups, reaching user, host and application granularity with strong fine-grained isolation and good scalability because the policy is centralised in one matrix. A cost axis below shows the trade-off: the left side is expensive and simple to reason about, the right side is cheap per endpoint and hard to audit. A footer states the design rule - the layers are cumulative, the realistic target is logical isolation plus stateful inspection at trust boundaries plus identity-level isolation for the few flows that matter, and no layer replaces another.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">Segmentation has four technical layers - and the design question is which two you need</text>
+  <text class="s" x="24" y="45">Moving right buys granularity and policy centralisation; moving left buys certainty and simplicity. Nobody buys all four everywhere</text>
+
+  <rect x="24" y="60" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="76">LAYER</text>
+  <text class="th" x="196" y="76">TECHNOLOGY</text>
+  <text class="th" x="430" y="76">GRANULARITY</text>
+  <text class="th" x="560" y="76">ISOLATION STRENGTH</text>
+  <text class="th" x="716" y="76">SCALABILITY</text>
+
+  <!-- L1 -->
+  <rect x="24" y="84" width="852" height="72" fill="#ffffff"/>
+  <rect x="24" y="84" width="4" height="72" fill="#c0392b"/>
+  <text class="b" x="40" y="104">1 · Physical</text>
+  <text class="w" x="40" y="118">separate devices,</text>
+  <text class="w" x="40" y="130">separate cables, air gap</text>
+  <text class="c" x="196" y="104">Distinct switches, routers</text>
+  <text class="c" x="196" y="118">and cable paths per domain;</text>
+  <text class="c" x="196" y="130">physically cannot share a link</text>
+  <text class="c" x="430" y="104">Highest -</text>
+  <text class="c" x="430" y="118">a whole device</text>
+  <text class="g" x="560" y="104">Strongest: no shared</text>
+  <text class="g" x="560" y="118">component to misconfigure</text>
+  <text class="x" x="716" y="104">Poor - cost per port,</text>
+  <text class="x" y="118" x="716">racks, power, fiber</text>
+
+  <!-- L2 -->
+  <rect x="24" y="156" width="852" height="72" fill="#f7f9fc"/>
+  <rect x="24" y="156" width="4" height="72" fill="#d4644a"/>
+  <text class="b" x="40" y="176">2 · Logical (L2/L3)</text>
+  <text class="w" x="40" y="190">VLAN + subnet</text>
+  <text class="w" x="40" y="202">+ VRF</text>
+  <text class="c" x="196" y="176">Broadcast domain per VLAN,</text>
+  <text class="c" x="196" y="190">routing table per VRF; VRFs</text>
+  <text class="c" x="196" y="202">may even overlap addresses</text>
+  <text class="c" x="430" y="176">Subnet</text>
+  <text class="g" x="560" y="176">Strong - with no inter-VRF</text>
+  <text class="g" x="560" y="190">routing there is no path at all</text>
+  <text class="g" x="716" y="176">Good - the workhorse</text>
+  <text class="g" x="716" y="190">of every design</text>
+
+  <!-- L3 -->
+  <rect x="24" y="228" width="852" height="72" fill="#ffffff"/>
+  <rect x="24" y="228" width="4" height="72" fill="#e0a03a"/>
+  <text class="b" x="40" y="248">3 · Stateful inspection</text>
+  <text class="w" x="40" y="262">firewall zones,</text>
+  <text class="w" x="40" y="274">inter-VRF firewall</text>
+  <text class="c" x="196" y="248">Zone pairs, security policies</text>
+  <text class="c" x="196" y="262">with session state, logging</text>
+  <text class="c" x="196" y="274">and application awareness</text>
+  <text class="c" x="430" y="248">Subnet pair,</text>
+  <text class="c" x="430" y="262">sometimes application</text>
+  <text class="g" x="560" y="248">Strong - controllable</text>
+  <text class="g" x="560" y="262">and auditable: it logs</text>
+  <text class="x" x="716" y="248">Medium - the firewall is</text>
+  <text class="x" x="716" y="262">the bottleneck and a detour</text>
+
+  <!-- L4 -->
+  <rect x="24" y="300" width="852" height="72" fill="#f7f9fc"/>
+  <rect x="24" y="300" width="4" height="72" fill="#0f7f73"/>
+  <text class="b" x="40" y="320">4 · Identity-level</text>
+  <text class="w" x="40" y="334">SGT / TrustSec,</text>
+  <text class="w" x="40" y="346">micro-segmentation (EPG)</text>
+  <text class="c" x="196" y="320">Tag assigned at 802.1X or by</text>
+  <text class="c" x="196" y="334">the platform; policy is a matrix</text>
+  <text class="c" x="196" y="346">between tags, not addresses</text>
+  <text class="c" x="430" y="320">User, host,</text>
+  <text class="c" x="430" y="334">application</text>
+  <text class="g" x="560" y="320">Strong and fine -</text>
+  <text class="g" x="560" y="334">policy follows identity,</text>
+  <text class="g" x="560" y="346">not the address it happens to hold</text>
+  <text class="g" x="716" y="320">Good - one matrix,</text>
+  <text class="g" x="716" y="334">centrally orchestrated</text>
+
+  <!-- Axis -->
+  <rect x="24" y="384" width="852" height="38" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="w" x="36" y="400">cheap to reason about · expensive per endpoint</text>
+  <line x1="36" y1="410" x2="864" y2="410" stroke="#c9d8f6" stroke-width="1.5"/>
+  <text class="w" x="864" y="400" text-anchor="end">cheap per endpoint · hard to audit by hand</text>
+  <text class="w" x="450" y="422" text-anchor="middle">the design target is usually layer 2 everywhere, layer 3 at trust boundaries, layer 4 for the few flows that matter</text>
+</svg>

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t1023 d1023">
+  <title id="t1023">The eight Layer 2 defenses as one matrix: what each stops, where it is applied and the design gotcha that makes it fail</title>
+  <desc id="d1023">Eight rows. BPDU Guard, Root Guard and Loop Guard stop root takeover and BPDU flooding and are applied to edge or downstream ports, with the gotcha that BPDU Guard err-disables the port while Root Guard only puts it in root-inconsistent and recovers by itself. Disabling DTP and moving the native VLAN to an unused VLAN stops VLAN hopping and belongs on every access port and trunk, with the gotcha that the native VLAN must carry no service and have no SVI. Port security stops MAC flooding and CAM overflow on access ports, but the sticky table and the MAB whitelist must be maintained by the same system. Dynamic ARP inspection stops ARP spoofing and depends entirely on the DHCP snooping binding table. DHCP snooping and IP Source Guard stop rogue DHCP servers and source address spoofing, but static hosts need static bindings. IPv6 RA Guard stops rogue router advertisements and is the one everyone forgets because IPv6 is unmanaged. 802.1X with MAB is the only control that moves admission from the physical layer to identity, and the gotchas are method choice, host mode and the fallback when RADIUS is down. Private VLAN and MACsec cover lateral movement inside a VLAN and link eavesdropping respectively, at the cost of configuration complexity and about thirty-two bytes of MTU. A footer lists the four cheapest controls.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">Eight Layer 2 controls on one page: what each buys, where it goes, and how it fails</text>
+  <text class="s" x="24" y="45">Read the fourth column first - almost every "we enabled it" incident is a gotcha from that column, not a missing command</text>
+
+  <rect x="24" y="60" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="38" y="76">CONTROL</text>
+  <text class="th" x="176" y="76">STOPS</text>
+  <text class="th" x="356" y="76">WHERE IT IS APPLIED</text>
+  <text class="th" x="534" y="76">THE GOTCHA THAT MAKES IT USELESS</text>
+
+  <!-- 1 -->
+  <rect x="24" y="84" width="852" height="40" fill="#ffffff"/>
+  <rect x="24" y="84" width="4" height="40" fill="#c0392b"/>
+  <text class="b" x="38" y="100">BPDU Guard</text>
+  <text class="b" x="38" y="112">Root Guard · Loop Guard</text>
+  <text class="c" x="176" y="100">Root bridge takeover,</text>
+  <text class="c" x="176" y="112">BPDU flooding, unidirectional links</text>
+  <text class="c" x="356" y="100">Edge ports (BPDU Guard)</text>
+  <text class="c" x="356" y="112">Downstream switch ports (Root Guard)</text>
+  <text class="c" x="534" y="100">BPDU Guard err-disables and needs a human to recover;</text>
+  <text class="c" x="534" y="112">Root Guard only becomes root-inconsistent and self-heals</text>
+
+  <!-- 2 -->
+  <rect x="24" y="124" width="852" height="40" fill="#f7f9fc"/>
+  <rect x="24" y="124" width="4" height="40" fill="#c0392b"/>
+  <text class="b" x="38" y="140">nonegotiate +</text>
+  <text class="b" x="38" y="152">dedicated native VLAN</text>
+  <text class="c" x="176" y="140">VLAN hopping: DTP negotiation</text>
+  <text class="c" x="176" y="152">and 802.1Q double tagging</text>
+  <text class="c" x="356" y="140">Every access port and</text>
+  <text class="c" x="356" y="152">every trunk, no exception</text>
+  <text class="c" x="534" y="140">The native VLAN must carry no traffic at all: no SVI, no</text>
+  <text class="c" x="534" y="152">access port. Otherwise a successful hop lands in live VLAN</text>
+
+  <!-- 3 -->
+  <rect x="24" y="164" width="852" height="40" fill="#ffffff"/>
+  <rect x="24" y="164" width="4" height="40" fill="#d4644a"/>
+  <text class="b" x="38" y="180">Port security</text>
+  <text class="c" x="38" y="192">max-MAC · sticky · violation</text>
+  <text class="c" x="176" y="180">MAC flooding and CAM table</text>
+  <text class="c" x="176" y="192">overflow, which turns the VLAN into a hub</text>
+  <text class="c" x="356" y="180">Access ports only -</text>
+  <text class="c" x="356" y="192">never uplinks or trunks</text>
+  <text class="c" x="534" y="180">The sticky table becomes a second MAC whitelist. If MAB</text>
+  <text class="c" x="534" y="192">exists too, both must be generated from the same source</text>
+
+  <!-- 4 -->
+  <rect x="24" y="204" width="852" height="40" fill="#f7f9fc"/>
+  <rect x="24" y="204" width="4" height="40" fill="#e0a03a"/>
+  <text class="b" x="38" y="220">DAI</text>
+  <text class="c" x="38" y="232">dynamic ARP inspection</text>
+  <text class="c" x="176" y="220">ARP spoofing and the</text>
+  <text class="c" x="176" y="232">man in the middle that follows it</text>
+  <text class="c" x="356" y="220">Access VLANs, trusted</text>
+  <text class="c" x="356" y="232">uplink configured explicitly</text>
+  <text class="c" x="534" y="220">It checks ARP against the DHCP snooping binding table, so</text>
+  <text class="c" x="534" y="232">an empty table means either everything passes or everything drops</text>
+
+  <!-- 5 -->
+  <rect x="24" y="244" width="852" height="40" fill="#ffffff"/>
+  <rect x="24" y="244" width="4" height="40" fill="#e0a03a"/>
+  <text class="b" x="38" y="260">DHCP snooping</text>
+  <text class="b" x="38" y="272">IP Source Guard</text>
+  <text class="c" x="176" y="260">Rogue DHCP servers; source</text>
+  <text class="c" x="176" y="272">address spoofing on the access port</text>
+  <text class="c" x="356" y="260">Client-facing ports untrusted,</text>
+  <text class="c" x="356" y="272">server/uplink ports trusted</text>
+  <text class="c" x="534" y="260">Static hosts are dropped until a static binding exists -</text>
+  <text class="c" x="534" y="272">printers and building controllers are the usual casualties</text>
+
+  <!-- 6 -->
+  <rect x="24" y="284" width="852" height="40" fill="#f7f9fc"/>
+  <rect x="24" y="284" width="4" height="40" fill="#e0a03a"/>
+  <text class="b" x="38" y="300">IPv6 RA Guard</text>
+  <text class="c" x="176" y="300">Rogue router advertisements</text>
+  <text class="c" x="176" y="312">that silently become the default gateway</text>
+  <text class="c" x="356" y="300">Access ports in dual-stack</text>
+  <text class="c" x="356" y="312">and IPv6-enabled segments</text>
+  <text class="c" x="534" y="300">The forgotten control: teams say "we are not running IPv6"</text>
+  <text class="c" x="534" y="312">while every Windows host has a link-local address and listens</text>
+
+  <!-- 7 -->
+  <rect x="24" y="324" width="852" height="40" fill="#ffffff"/>
+  <rect x="24" y="324" width="4" height="40" fill="#0f7f73"/>
+  <text class="b" x="38" y="340">802.1X</text>
+  <text class="b" x="38" y="352">with MAB fallback</text>
+  <text class="c" x="176" y="340">Any unauthorized device on</text>
+  <text class="c" x="176" y="352">the port - the only identity-based control</text>
+  <text class="c" x="356" y="340">Every user-facing port;</text>
+  <text class="c" x="356" y="352">MAB for devices without a supplicant</text>
+  <text class="c" x="534" y="340">Three decisions decide success: method (EAP-TLS vs PEAP vs</text>
+  <text class="c" x="534" y="352">MAB), host mode, and the fallback when RADIUS is unreachable</text>
+
+  <!-- 8 -->
+  <rect x="24" y="364" width="852" height="40" fill="#f7f9fc"/>
+  <rect x="24" y="364" width="4" height="40" fill="#0f7f73"/>
+  <text class="b" x="38" y="380">Private VLAN</text>
+  <text class="b" x="38" y="392">MACsec</text>
+  <text class="c" x="176" y="380">Lateral movement inside one VLAN;</text>
+  <text class="c" x="176" y="392">physical eavesdropping on a link</text>
+  <text class="c" x="356" y="380">PVLAN in one L2 domain, MACsec on</text>
+  <text class="c" x="356" y="392">point-to-point links with capable hardware</text>
+  <text class="c" x="534" y="380">PVLAN does not exist inside VXLAN/EVPN; MACsec adds ~32</text>
+  <text class="c" x="534" y="392">bytes, so MTU and both ends' hardware must be checked first</text>
+
+  <!-- footer -->
+  <rect x="24" y="412" width="852" height="32" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="b" x="36" y="432">The four that cost almost nothing:</text>
+  <text class="c" x="188" y="432">shut unused ports · <tspan class="m">nonegotiate</tspan> + native VLAN 999 · BPDU Guard on every edge port · DHCP snooping on every access port. Do these before designing anything clever.</text>
+</svg>

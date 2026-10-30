@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="100%" role="img" aria-labelledby="t920 d920">
+  <title id="t920">Why summarization is the only real scalability lever in an L3VPN, and the three ways to apply it</title>
+  <desc id="d920">Left panel: a scaling arithmetic. Eight hundred branches with four prefixes each is three thousand two hundred routes per VRF, so twenty VRFs is sixty four thousand VPN routes held by every PE and every route reflector. A summary reduces the branch contribution to a handful of prefixes, which multiplies out to a manageable number. Right panel lists the three places a summary can be applied: at the PE-CE boundary with a static route to null0, inside the VRF with an aggregate that is advertised into MP-BGP, and at the route reflector if it is used as a summarization point. Each row gives the benefit and the risk. A bottom note explains that the null0 route is what makes the summary safe, and that a summary without it becomes a black hole for any member prefix that disappears.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="380" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Every PE and every reflector holds every route: that is the bill summarization reduces</text>
+  <text class="s" x="24" y="45">The arithmetic is dull, and it is the only argument that survives a budget meeting</text>
+
+  <rect x="24" y="60" width="420" height="150" rx="3" fill="#f8fbff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#1f4fc0">Without summarization</text>
+  <text class="c" x="36" y="98">800 branches &#215; 4 prefixes = <tspan style="font-weight:700">3 200 routes per VRF</tspan></text>
+  <text class="c" x="36" y="116">20 VRFs &#215; 3 200 = <tspan style="font-weight:700">64 000 VPNv4 routes</tspan></text>
+  <text class="c" x="36" y="134">&#215; every PE and every reflector that keeps a full table</text>
+  <text class="c" x="36" y="158" fill="#c0392b">Each additional site costs memory, update generation and</text>
+  <text class="c" x="36" y="172" fill="#c0392b">convergence time on devices that never see its traffic.</text>
+  <text class="w" x="36" y="196">This is why an L3VPN that worked at 50 sites becomes</text>
+  <text class="w" x="36" y="207">unmanageable at 500 without anyone changing the design.</text>
+
+  <rect x="460" y="60" width="416" height="150" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="472" y="78" fill="#0f7f73">With summary per region</text>
+  <text class="c" x="472" y="98">800 branches &#8594; 20 regions &#215; 1 summary = <tspan style="font-weight:700">20 routes</tspan></text>
+  <text class="c" x="472" y="116">20 VRFs &#215; 20 = <tspan style="font-weight:700">400 VPNv4 routes</tspan> in the core</text>
+  <text class="c" x="472" y="134">The detail stays at the regional PE, where it is needed.</text>
+  <text class="c" x="472" y="158" fill="#0f7f73">Failure scope also shrinks: a branch going down changes</text>
+  <text class="c" x="472" y="172" fill="#0f7f73">nothing in the core, because no core route depended on it.</text>
+  <text class="w" x="472" y="196">Cost: the summary is now the unit of reachability, so a</text>
+  <text class="w" x="472" y="207">regional mistake hides a whole region from everyone else.</text>
+
+  <text class="k" x="24" y="240">THREE PLACES TO APPLY IT</text>
+  <rect x="24" y="248" width="852" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="264"><tspan style="font-weight:700">1. At the PE-CE boundary:</tspan> a static summary plus a discard route towards null0, redistributed into MP-BGP. Cheapest, most stable.</text>
+  <rect x="24" y="276" width="852" height="24" rx="1" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="292"><tspan style="font-weight:700">2. Inside the VRF toward MP-BGP:</tspan> aggregate the customer's own prefixes and advertise only the aggregate. Keeps the customer's IGP untouched.</text>
+  <rect x="24" y="304" width="852" height="24" rx="1" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="c" x="36" y="320" fill="#7a5b18"><tspan style="font-weight:700">3. At the reflector:</tspan> possible, but it makes the reflector a policy point and a single point of failure for reachability. Rarely worth it.</text>
+
+  <rect x="24" y="336" width="852" height="40" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="336" width="4" height="40" fill="#c0392b"/>
+  <text class="c" x="40" y="354" fill="#c0392b"><tspan style="font-weight:700">The null0 rule:</tspan> a summary without a discard route is a promise about prefixes that may not exist. When one disappears, the summary keeps forwarding into a void.</text>
+  <text class="c" x="40" y="370" fill="#c0392b">Write the summary and the null0 route as one configuration item, so nobody can add one without the other.</text>
+</svg>

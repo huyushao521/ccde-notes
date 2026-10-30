@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t1019 d1019">
+  <title id="t1019">IP Source Guard depends on a binding table it does not build itself, and three host types that break it</title>
+  <desc id="d1019">Top: the chain. DHCP snooping watches the exchange between client and server and records a binding of port, MAC, address, VLAN and lease time; IP Source Guard then filters every data packet against that table, dropping any packet whose source address is not the one leased on that port. The important consequence: the filtering is only as good as the table, and the table only knows about hosts that used DHCP. Middle: three host types. A DHCP client works with no extra configuration. A static-address host is dropped until a static binding is entered by hand - the classic symptom is a printer or a building management controller that works until the day snooping is enabled. A server with a reservation still needs the lease in the table, and a moved cable needs a moved binding. Bottom: four failure modes. The binding table is empty because snooping was enabled on the server-facing port instead of the client-facing ones. The static bindings were never created, so the affected hosts go dark with no log anywhere. The lease expires while the host keeps the address. And the untrusted port carries a DHCP server the team forgot about, which poisons the table. A footer says the design question is not whether to enable it, but who maintains the static bindings and how a new static host gets one.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="436" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">IP Source Guard is only as strong as a table somebody else built</text>
+  <text class="s" x="24" y="45">It does not discover addresses. It enforces a binding list, and the binding list only knows about DHCP.</text>
+
+  <rect x="24" y="62" width="130" height="44" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="89" y="80" text-anchor="middle">client</text>
+  <text class="w" x="89" y="96" text-anchor="middle">DHCP Discover</text>
+
+  <rect x="168" y="62" width="150" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="243" y="80" text-anchor="middle">DHCP snooping</text>
+  <text class="w" x="243" y="96" text-anchor="middle">watches the exchange</text>
+
+  <rect x="332" y="62" width="176" height="44" rx="3" fill="#e7f2f0" stroke="#bcdcd6" stroke-width=".9"/>
+  <text class="c" x="420" y="80" text-anchor="middle">binding table</text>
+  <text class="w" x="420" y="96" text-anchor="middle">port · MAC · IP · VLAN · lease</text>
+
+  <rect x="522" y="62" width="164" height="44" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".9"/>
+  <text class="c" x="604" y="80" text-anchor="middle">IP Source Guard</text>
+  <text class="w" x="604" y="96" text-anchor="middle">filters data against the table</text>
+
+  <rect x="700" y="62" width="176" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="788" y="80" text-anchor="middle">forward or drop</text>
+  <text class="w" x="788" y="96" text-anchor="middle">wrong source = silent drop</text>
+
+  <line x1="154" y1="84" x2="168" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="318" y1="84" x2="332" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="508" y1="84" x2="522" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="686" y1="84" x2="700" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+
+  <text class="k" x="24" y="132">THREE HOST TYPES, THREE OUTCOMES</text>
+  <rect x="24" y="142" width="270" height="96" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="b" x="36" y="160">DHCP client</text>
+  <text class="w" x="36" y="178">works with no extra configuration</text>
+  <text class="c" x="36" y="198">the lease creates the binding, the</text>
+  <text class="c" x="36" y="212">binding permits the traffic</text>
+  <text class="w" x="36" y="232">this is the population the design assumes</text>
+
+  <rect x="306" y="142" width="270" height="96" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".9"/>
+  <text class="b" x="318" y="160">Static-address host</text>
+  <text class="w" x="318" y="178">dropped until a static binding is added</text>
+  <text class="c" x="318" y="198">printers, cameras, building controllers,</text>
+  <text class="c" x="318" y="212">anything the vendor fixed at the factory</text>
+  <text class="x" x="318" y="232">works until the day snooping is enabled</text>
+
+  <rect x="588" y="142" width="288" height="96" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="600" y="160">Server with a reservation</text>
+  <text class="w" x="600" y="178">still needs the lease in the table</text>
+  <text class="c" x="600" y="198">a reservation is a promise about the</text>
+  <text class="c" x="600" y="212">address, not an entry in the binding list</text>
+  <text class="x" x="600" y="232">a moved cable needs a moved binding</text>
+
+  <text class="k" x="24" y="264">FOUR WAYS THE TABLE LIES</text>
+  <text class="c" x="24" y="282">1  snooping enabled on the server-facing port instead of the client ports - the table stays empty and everything is dropped</text>
+  <text class="c" x="24" y="298">2  static bindings never created - the affected hosts go dark with no log line anywhere to explain it</text>
+  <text class="c" x="24" y="314">3  the lease expires while the host keeps using the address - works, then stops, then works again</text>
+  <text class="c" x="24" y="330">4  an unauthorised DHCP server on an untrusted port - the table is poisoned by design, and the gateway moves</text>
+
+  <rect x="24" y="344" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="365">The real design question is not whether to enable it, but who maintains the static bindings and what the workflow is when a new fixed-address device arrives.</text>
+
+  <text class="w" x="24" y="394">Roll it out in this order: enable snooping with the server port trusted, watch the table populate for a week, then enable source guard on one access switch and let the tickets name the static hosts.</text>
+  <text class="w" x="24" y="410">Export the static bindings to the same repository as the golden configuration. A binding that lives only in the switch is lost with the switch.</text>
+  <text class="w" x="24" y="426">If the site has a large fixed-address population, say so before the project starts - it changes the estimate from weeks to months.</text>
+</svg>

@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 8 · about 18807 words</span></div><h1 id="chapter-8-layer-3-technologies-8">Chapter 8: Layer 3 Technologies · 第 8 章：三层技术<a class="anchor" href="#chapter-8-layer-3-technologies-8" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 8 · about 19173 words</span></div><h1 id="chapter-8-layer-3-technologies-8">Chapter 8: Layer 3 Technologies · 第 8 章：三层技术<a class="anchor" href="#chapter-8-layer-3-technologies-8" title="Permanent link"></a></h1>
 <blockquote>
 <p><em>CCDE 400-007 Official Cert Guide</em> · English study notes | Original edition, Chapter 8 (pp. 322–433)</p>
 </blockquote>
@@ -58,6 +58,7 @@
 </div>
 <hr />
 <h2 id="chapter-introduction-five-counter-intuitive-truths-about-layer-3-design">Chapter Introduction: Five Counter-Intuitive Truths About Layer 3 Design · 本章导读：三层设计的五条反直觉认知<a class="anchor" href="#chapter-introduction-five-counter-intuitive-truths-about-layer-3-design" title="Permanent link"></a></h2>
+<p><img alt="Five counter-intuitive truths about Layer 3 design, with the mechanism behind each" src="assets/fig/en08-01-five-truths.svg" /></p>
 <h3 id="counter-intuitive-truth-1-your-carefully-designed-bgp-policy-can-be-silently-overridden-by-an-igp-metric-bgp-igp">Counter-Intuitive Truth #1: Your Carefully Designed BGP Policy Can Be Silently Overridden by an IGP Metric · 反直觉一：你精心设计的 BGP 策略，会被 IGP 度量悄悄推翻<a class="anchor" href="#counter-intuitive-truth-1-your-carefully-designed-bgp-policy-can-be-silently-overridden-by-an-igp-metric-bgp-igp" title="Permanent link"></a></h3>
 <p>BGP path selection has 13 criteria, and the first six look precise enough — Weight, Local Preference, locally originated, AS_PATH, Origin, MED. Engineers usually build a complete design on those six, then discover during acceptance testing that "<strong>nothing I change makes any difference</strong>".</p>
 <div class="zh">
@@ -499,6 +500,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 </div>
 <hr />
 <h2 id="layer-3-design-methodology-six-steps-in-order">Layer 3 Design Methodology: Six Steps in Order · 三层设计方法论：六步定序<a class="anchor" href="#layer-3-design-methodology-six-steps-in-order" title="Permanent link"></a></h2>
+<p><img alt="The six steps of Layer 3 design, and what each one locks in" src="assets/fig/en08-02-six-steps.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -697,6 +699,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 </table>
 </div>
 <h4 id="from-rib-to-fib-four-mechanisms-you-must-understand-rib-fib">From RIB to FIB: Four Mechanisms You Must Understand · 从 RIB 到 FIB：必须理解的四个机制<a class="anchor" href="#from-rib-to-fib-four-mechanisms-you-must-understand-rib-fib" title="Permanent link"></a></h4>
+<p><img alt="RIB to FIB: longest match, administrative distance, metric and recursion" src="assets/fig/en08-03-rib-to-fib.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -902,6 +905,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 </blockquote>
 </div>
 <h4 id="classification-of-routing-protocols">Classification of Routing Protocols · 路由协议的分类<a class="anchor" href="#classification-of-routing-protocols" title="Permanent link"></a></h4>
+<p><img alt="Three routing protocol families and what each one distributes" src="assets/fig/en08-04-protocol-classification.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -979,6 +983,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 <p>链路状态路由协议使用 Dijkstra 最短路径优先 (SPF) 算法计算最佳路径。OSPF 和 IS-IS 是典型的链路状态协议。</p>
 </div>
 <h3 id="the-link-state-database-lsdb-build-process-lsdb">The Link-State Database (LSDB) Build Process · 链路状态数据库 (LSDB) 构建过程<a class="anchor" href="#the-link-state-database-lsdb-build-process-lsdb" title="Permanent link"></a></h3>
+<p><img alt="Building the link-state database in five steps, and the three corollaries" src="assets/fig/en08-05-lsdb-build.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1104,6 +1109,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 </table>
 </div>
 <h3 id="link-state-design-in-hub-and-spoke-topologies-hub-and-spoke">Link-State Design in Hub-and-Spoke Topologies · Hub-and-Spoke 拓扑中的链路状态设计<a class="anchor" href="#link-state-design-in-hub-and-spoke-topologies-hub-and-spoke" title="Permanent link"></a></h3>
+<p><img alt="Summarization in a hub-and-spoke link-state network makes a branch transit" src="assets/fig/en08-06-hub-spoke-loop.svg" /></p>
 <p>Hub-and-spoke (star) topologies are extremely common in retail and branch networks. Using a link-state protocol in them raises three structural problems:</p>
 <div class="zh">
 <p>Hub-and-Spoke（星型）在零售、分支网络中极为常见。用链路状态协议时会遇到三个结构性问题：</p>
@@ -1221,6 +1227,7 @@ With summarization:    the core only knows 10.1.0.0/16 → a /24 fails, the core
 </blockquote>
 </div>
 <h3 id="the-size-of-the-flooding-domain-an-underestimated-quantitative-constraint">The Size of the Flooding Domain: An Underestimated Quantitative Constraint · 泛洪域的规模：一个被低估的量化约束<a class="anchor" href="#the-size-of-the-flooding-domain-an-underestimated-quantitative-constraint" title="Permanent link"></a></h3>
+<p><img alt="Flooding domain size against the cost of one topology change" src="assets/fig/en08-07-flooding-domain.svg" /></p>
 <p>The scalability of a link-state protocol is fundamentally determined by <strong>the number of routers inside the flooding domain</strong>:</p>
 <div class="zh">
 <p>链路状态协议的可扩展性，本质上是<strong>泛洪域内的路由器数量</strong>决定的：</p>
@@ -1388,6 +1395,7 @@ interface GigabitEthernet1/0/1
 <hr />
 <h2 id="ospf-design-considerations-ospf">OSPF Design Considerations · OSPF 设计考量<a class="anchor" href="#ospf-design-considerations-ospf" title="Permanent link"></a></h2>
 <h3 id="ospf-lsa-types-ospf-lsa">OSPF LSA Types · OSPF LSA 类型<a class="anchor" href="#ospf-lsa-types-ospf-lsa" title="Permanent link"></a></h3>
+<p><img alt="OSPF LSA types by generator, scope and design consequence" src="assets/fig/en08-08-lsa-types.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1519,6 +1527,7 @@ interface GigabitEthernet1/0/1
 <p><strong>Type 4 为什么存在</strong>（很多人不知道）：Type 5 里只写了 ASBR 的 Router ID，其他区域的路由器要算"到 ASBR 怎么走"，就需要知道 ASBR 的<strong>可达地址</strong>。Type 4 就是 ABR 替 ASBR 做的"位置说明书"。<strong>stub 区域不需要 Type 4/5，因为那里不允许外部路由。</strong></p>
 </div>
 <h3 id="ospf-area-types-ospf">OSPF Area Types · OSPF 区域类型<a class="anchor" href="#ospf-area-types-ospf" title="Permanent link"></a></h3>
+<p><img alt="OSPF area types and the decision path for choosing one" src="assets/fig/en08-09-area-types.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1700,6 +1709,7 @@ route-map LOCAL-EXIT permit 10
 </blockquote>
 </div>
 <h3 id="ospf-network-types-ospf">OSPF Network Types · OSPF 网络类型<a class="anchor" href="#ospf-network-types-ospf" title="Permanent link"></a></h3>
+<p><img alt="OSPF network types and the three scenarios where the default is wrong" src="assets/fig/en08-10-network-types.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1885,6 +1895,7 @@ interface Tunnel0
 </blockquote>
 </div>
 <h3 id="ospf-fast-convergence-techniques-ospf">OSPF Fast Convergence Techniques · OSPF 快速收敛技术<a class="anchor" href="#ospf-fast-convergence-techniques-ospf" title="Permanent link"></a></h3>
+<p><img alt="Shrinking Hello timers versus BFD, and the four tiers of a convergent response" src="assets/fig/en08-11-fast-convergence.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2066,6 +2077,7 @@ interface Tunnel0
 </blockquote>
 </div>
 <h3 id="ospf-metric-design-auto-cost-must-be-a-network-wide-decision-ospf-auto-cost">OSPF Metric Design: <code>auto-cost</code> Must Be a Network-Wide Decision · OSPF 度量设计：<code>auto-cost</code> 必须是全网一致的决策<a class="anchor" href="#ospf-metric-design-auto-cost-must-be-a-network-wide-decision-ospf-auto-cost" title="Permanent link"></a></h3>
+<p><img alt="OSPF cost formula: default reference bandwidth versus a 100G reference" src="assets/fig/en08-12-auto-cost.svg" /></p>
 <p>OSPF's default cost is <code>reference bandwidth / interface bandwidth</code>, with the reference bandwidth defaulting to <strong>100 Mbps</strong>. That creates a serious historical problem:</p>
 <div class="zh">
 <p>OSPF 的默认 cost 计算是 <code>参考带宽 / 接口带宽</code>，参考带宽默认 <strong>100 Mbps</strong>。这带来一个历史上的严重问题：</p>
@@ -2235,6 +2247,7 @@ router ospf 1
 </blockquote>
 </div>
 <h3 id="ospf-summarization-ospf">OSPF Summarization · OSPF 汇总<a class="anchor" href="#ospf-summarization-ospf" title="Permanent link"></a></h3>
+<p><img alt="Summarization with null0, and the three states it changes" src="assets/fig/en08-13-summarization.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2400,6 +2413,7 @@ router ospf 1
 <p>IS-IS 是另一个链路状态协议，与 OSPF 在概念上高度相似，但在<strong>扩展性、封装层级、厂商生态</strong>上有明显差异。</p>
 </div>
 <h3 id="ospf-vs-is-is-ospf-is-is">OSPF vs IS-IS · OSPF 与 IS-IS 的对比<a class="anchor" href="#ospf-vs-is-is-ospf-is-is" title="Permanent link"></a></h3>
+<p><img alt="OSPF and IS-IS compared on the seven dimensions that decide it" src="assets/fig/en08-14-ospf-vs-isis.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2511,6 +2525,7 @@ router ospf 1
 </table>
 </div>
 <h3 id="key-is-is-design-details-is-is">Key IS-IS Design Details · IS-IS 的关键设计细节<a class="anchor" href="#key-is-is-design-details-is-is" title="Permanent link"></a></h3>
+<p><img alt="IS-IS specifics: NET, levels, metric styles and four traps" src="assets/fig/en08-15-isis-details.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2708,6 +2723,7 @@ interface TenGigabitEthernet1/1/1
 <p>EIGRP 是 Cisco 的高级距离矢量（混合型）协议，核心是 <strong>DUAL（扩散更新算法）</strong>。它与链路状态协议的根本差异在于：<strong>它不构建拓扑图，而是维护"到每个目的地的可行路径集合"，靠可行性条件保证无环。</strong></p>
 </div>
 <h3 id="the-four-tables-and-three-terms-of-eigrp-eigrp">The Four Tables and Three Terms of EIGRP · EIGRP 的四张表与三个术语<a class="anchor" href="#the-four-tables-and-three-terms-of-eigrp-eigrp" title="Permanent link"></a></h3>
+<p><img alt="EIGRP three tables and the feasible successor inequality" src="assets/fig/en08-16-eigrp-tables.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2835,6 +2851,7 @@ interface TenGigabitEthernet1/1/1
 </code></pre>
 </div>
 <h3 id="the-query-domain-the-part-of-eigrp-that-most-needs-design-query-eigrp">The Query Domain: The Part of EIGRP That Most Needs Design · Query 域：EIGRP 最需要设计的部分<a class="anchor" href="#the-query-domain-the-part-of-eigrp-that-most-needs-design-query-eigrp" title="Permanent link"></a></h3>
+<p><img alt="How an EIGRP query spreads, and the four ways to bound it" src="assets/fig/en08-17-eigrp-query.svg" /></p>
 <p>When a path fails and there is <strong>no feasible successor</strong>, the router enters the <strong>Active</strong> state and sends a <strong>Query</strong> to all neighbors: "do you have a route to X?" If a neighbor does not, it queries its own neighbors — <strong>this is query diffusion</strong>.</p>
 <div class="zh">
 <p>当一条路径失效且<strong>没有可行后继</strong>时，路由器进入 <strong>Active</strong> 状态，向所有邻居发 <strong>Query</strong>："你有到 X 的路吗？" 邻居如果没有，继续向它们的邻居查 —— <strong>这就是 Query 扩散</strong>。</p>
@@ -3030,6 +3047,7 @@ router eigrp CAMPUS
 </blockquote>
 </div>
 <h3 id="eigrp-metrics-and-why-it-does-not-route-by-bandwidth-eigrp">EIGRP Metrics and "Why It Does Not Route by Bandwidth" · EIGRP 度量与"为什么它不按带宽选路"<a class="anchor" href="#eigrp-metrics-and-why-it-does-not-route-by-bandwidth-eigrp" title="Permanent link"></a></h3>
+<p><img alt="The EIGRP composite metric and one slow hop capping a fast path" src="assets/fig/en08-18-eigrp-metric.svg" /></p>
 <p>The classic EIGRP composite metric:</p>
 <div class="zh">
 <p>EIGRP 的经典复合度量：</p>
@@ -3234,6 +3252,7 @@ SPF 认为等价 → 负载分担 50/50
 </ol>
 </div>
 <h3 id="the-four-layers-of-path-control">The Four Layers of Path Control · 路径控制的四个层次<a class="anchor" href="#the-four-layers-of-path-control" title="Permanent link"></a></h3>
+<p><img alt="Four layers of path control, and equal cost hiding a ten to one gap" src="assets/fig/en08-19-path-control.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -3886,6 +3905,7 @@ SPF 认为等价 → 负载分担 50/50
 </blockquote>
 </div>
 <h3 id="bgp-scalability-options-bgp">BGP Scalability Options · BGP 可扩展性选项<a class="anchor" href="#bgp-scalability-options-bgp" title="Permanent link"></a></h3>
+<p><img alt="iBGP full mesh growth and the route reflector alternative" src="assets/fig/en08-20-bgp-scaling.svg" /></p>
 <h4 id="route-reflector-rr">Route Reflector (RR) · 路由反射器<a class="anchor" href="#route-reflector-rr" title="Permanent link"></a></h4>
 <table>
 <thead>
@@ -4212,6 +4232,7 @@ router bgp 65000
 </ol>
 </div>
 <h3 id="the-bgp-best-path-selection-process-the-13-criteria-in-detail-bgp-13">The BGP Best Path Selection Process (the 13 Criteria in Detail) · BGP 选路过程（13 条判据详解）<a class="anchor" href="#the-bgp-best-path-selection-process-the-13-criteria-in-detail-bgp-13" title="Permanent link"></a></h3>
+<p><img alt="BGP best path: twelve criteria in order, with criterion eight highlighted" src="assets/fig/en08-21-bgp-bestpath.svg" /></p>
 <p>BGP picks the best path out of several candidates by comparing the following criteria <strong>one by one in order, stopping at the first difference</strong>:</p>
 <div class="zh">
 <p>BGP 从多条路径中选择最佳路径，按以下顺序<strong>逐条比较，遇到不同即停止</strong>：</p>
@@ -5041,6 +5062,7 @@ router bgp 65000
 <hr />
 <h2 id="route-redistribution">Route Redistribution · 路由重分发<a class="anchor" href="#route-redistribution" title="Permanent link"></a></h2>
 <h3 id="why-redistribution-is-the-easiest-part-of-a-design-to-lose-control-of">Why Redistribution Is the Easiest Part of a Design to Lose Control Of · 为什么重分发是"设计里最容易失控的部分"<a class="anchor" href="#why-redistribution-is-the-easiest-part-of-a-design-to-lose-control-of" title="Permanent link"></a></h3>
+<p><img alt="What redistribution loses, and the tag pattern that prevents feedback" src="assets/fig/en08-22-redistribution.svg" /></p>
 <p>Redistribution "translates" the routes of one protocol into another. The trouble comes from three things:</p>
 <div class="zh">
 <p>重分发把一个协议的路由"翻译"给另一个协议。麻烦来自三件事：</p>
@@ -5400,6 +5422,7 @@ router bgp 65000
 <hr />
 <h2 id="enterprise-routing-design-recommendations">Enterprise Routing Design Recommendations · 企业路由设计建议<a class="anchor" href="#enterprise-routing-design-recommendations" title="Permanent link"></a></h2>
 <h3 id="protocol-selection-matrix">Protocol Selection Matrix · 协议选择矩阵<a class="anchor" href="#protocol-selection-matrix" title="Permanent link"></a></h3>
+<p><img alt="Protocol selection matrix by requirement" src="assets/fig/en08-23-protocol-matrix.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -5580,6 +5603,7 @@ router bgp 65000
 </table>
 </div>
 <h3 id="routing-design-acceptance-checklist">Routing Design Acceptance Checklist · 路由设计的验收清单<a class="anchor" href="#routing-design-acceptance-checklist" title="Permanent link"></a></h3>
+<p><img alt="Eight-item acceptance checklist with the evidence required for each" src="assets/fig/en08-24-acceptance.svg" /></p>
 <table>
 <thead>
 <tr>

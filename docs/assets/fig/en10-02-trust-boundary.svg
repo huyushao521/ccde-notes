@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1002 d1002">
+  <title id="t1002">A secure zone is the wrong diagram; the trust boundary inventory is the right artifact</title>
+  <desc id="d1002">Left: the diagram that gets drawn, a dashed box labelled secure zone around core, server, switch and firewall, assuming everything inside is safe and everything outside is hostile. It enforces nothing and hides the flows that actually matter. Right: the artifact that gets built, six boundary relationships with the direction of the trust change and the control each one needs. Employee endpoint to internal server, low to high, needs authentication plus authorization plus inspection. Branch to headquarters, low to high, needs an encrypted tunnel plus policy. Operations staff to network devices, medium to highest, needs a bastion, two factors and audit. DMZ to internal, lowest to high, must be one-way and default deny. Partner to one service, external to a subset, needs one-way extranet access and least privilege. Office to production, needs isolation with no lateral movement allowed. A footer states the inventory is page one of the design, the device list is page four.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A zone is a surface. A trust boundary is an edge. Only the edge enforces anything.</text>
+  <text class="s" x="24" y="45">Left: the diagram that gets drawn. Right: the artifact that gets built.</text>
+
+  <rect x="24" y="60" width="240" height="286" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="36" y="78">WHAT GETS DRAWN</text>
+  <rect x="40" y="90" width="208" height="140" rx="3" fill="none" stroke="#c0392b" stroke-width=".9" stroke-dasharray="4 3"/>
+  <text class="x" x="144" y="106" text-anchor="middle">SECURE ZONE</text>
+  <rect x="58" y="118" width="70" height="20" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="w" x="93" y="132" text-anchor="middle">core</text>
+  <rect x="152" y="118" width="76" height="20" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="w" x="190" y="132" text-anchor="middle">server</text>
+  <rect x="58" y="154" width="70" height="20" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="w" x="93" y="168" text-anchor="middle">switch</text>
+  <rect x="152" y="154" width="76" height="20" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="w" x="190" y="168" text-anchor="middle">firewall</text>
+  <text class="c" x="144" y="200" text-anchor="middle">inside = safe, outside = hostile</text>
+  <text class="c" x="144" y="216" text-anchor="middle">and nothing in between is described</text>
+  <text class="c" x="36" y="250">This box enforces nothing. It cannot say</text>
+  <text class="c" x="36" y="264">who may talk to whom, and it hides the</text>
+  <text class="c" x="36" y="278">flows that matter: the vendor link, the</text>
+  <text class="c" x="36" y="292">operations path, the DMZ return traffic.</text>
+  <text class="x" x="36" y="318">An incident travels along a relationship,</text>
+  <text class="x" x="36" y="332">never across a perimeter.</text>
+
+  <text class="k" x="288" y="78">WHAT GETS BUILT - SIX EDGES, SIX CONTROLS</text>
+  <text class="k" x="288" y="98">EDGE</text>
+  <text class="k" x="500" y="98">TRUST CHANGE</text>
+  <text class="k" x="590" y="98">CONTROL IT NEEDS</text>
+  <line x1="288" y1="104" x2="876" y2="104" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="288" y="110" width="588" height="34" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="298" y="131">Employee endpoint to internal server</text>
+  <text class="x" x="500" y="131">low to high</text>
+  <text class="w" x="590" y="131">authentication + authorization + inspection</text>
+
+  <rect x="288" y="148" width="588" height="34" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="298" y="169">Branch to headquarters</text>
+  <text class="x" x="500" y="169">low to high</text>
+  <text class="w" x="590" y="169">encrypted tunnel + policy, not trust by default</text>
+
+  <rect x="288" y="186" width="588" height="34" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".6"/>
+  <text class="c" x="298" y="207">Operations staff to network devices</text>
+  <text class="r" x="500" y="207">medium to highest</text>
+  <text class="w" x="590" y="207">bastion + two factors + full audit</text>
+
+  <rect x="288" y="224" width="588" height="34" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".6"/>
+  <text class="c" x="298" y="245">DMZ to internal</text>
+  <text class="x" x="500" y="245">lowest to high</text>
+  <text class="w" x="590" y="245">one-way, default deny, no return path initiated</text>
+
+  <rect x="288" y="262" width="588" height="34" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="298" y="283">Partner to one specific service</text>
+  <text class="x" x="500" y="283">external to subset</text>
+  <text class="w" x="590" y="283">one-way extranet access, least privilege, logged</text>
+
+  <rect x="288" y="300" width="588" height="34" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="298" y="321">Office network to production</text>
+  <text class="x" x="500" y="321">high against low</text>
+  <text class="w" x="590" y="321">isolation, no lateral path in either direction</text>
+
+  <rect x="288" y="344" width="588" height="1" fill="#dfe6f1"/>
+  <text class="c" x="288" y="366">Every row here becomes an ACL, a zone pair, a VRF or a segmentation tag later - and every row has an owner, because a boundary</text>
+  <text class="c" x="288" y="380">without an owner is a boundary nobody maintains.</text>
+
+  <rect x="24" y="392" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="413">Page order in the design document: assets, then boundaries and flows, then controls, then devices. The device list is page four.</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 462" width="100%" role="img" aria-labelledby="t816 d816">
+
+  <title id="t816">EIGRP: the three tables, the three terms that decide local repair, and a worked feasible-successor example</title>
+  <desc id="d816">Three table cards on the left: the neighbour table holds adjacencies and is the transport table; the topology table holds every route every neighbour has offered, with reported distance and feasible distance per entry; the routing table holds only the successors that were selected. Three terms are defined in the middle: reported distance, the neighbour's own cost to the destination; feasible distance, this router's total cost through that neighbour, equal to reported distance plus the link cost; and feasible successor, a neighbour whose reported distance is strictly less than the current feasible distance, because that inequality proves the neighbour is not routing back through us. The worked example: the current best path has feasible distance 1000 via neighbour A, neighbour B reports 800, so 800 is less than 1000, B is a feasible successor and the repair is immediate and local, with no query sent. A note explains that without a feasible successor, DUAL must query, and once a query starts it can spread across the whole autonomous system.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="462" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">EIGRP is three tables and one inequality; the inequality is what makes it fast</text>
+  <text class="s" x="24" y="45">A feasible successor means recovery with no protocol conversation at all &#8212; the rest of the design is about keeping that true</text>
+
+  <text class="k" x="24" y="66">THE THREE TABLES</text>
+
+  <rect x="24" y="74" width="272" height="112" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="92">&#9312; Neighbour table</text>
+  <text class="c" x="36" y="110">Adjacencies. Also the transport</text>
+  <text class="c" x="36" y="123">table: every reliable packet is</text>
+  <text class="c" x="36" y="136">ACKed or retransmitted through it.</text>
+  <text class="w" x="36" y="156">If an adjacency is missing, nothing</text>
+  <text class="w" x="36" y="169">below it can be correct.</text>
+
+  <rect x="304" y="74" width="272" height="112" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="316" y="92">&#9313; Topology table</text>
+  <text class="c" x="316" y="110">Every route every neighbour has</text>
+  <text class="c" x="316" y="123">offered, with the reported distance</text>
+  <text class="c" x="316" y="136">and the feasible distance per entry.</text>
+  <text class="w" x="316" y="156">This is the table to read when</text>
+  <text class="w" x="316" y="169">a route is missing from the FIB.</text>
+
+  <rect x="584" y="74" width="292" height="112" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="596" y="92">&#9314; Routing table</text>
+  <text class="c" x="596" y="110">Only the successors selected from</text>
+  <text class="c" x="596" y="123">the topology table.</text>
+  <text class="c" x="596" y="136">One best path per prefix, plus</text>
+  <text class="c" x="596" y="149">equal-cost paths where configured.</text>
+  <text class="w" x="596" y="169">A prefix here but not there is a DUAL decision, not a bug.</text>
+
+  <text class="k" x="24" y="210">THE THREE TERMS</text>
+
+  <rect x="24" y="218" width="272" height="66" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="236">Reported distance (RD)</text>
+  <text class="c" x="36" y="252">The neighbour's own cost to the</text>
+  <text class="c" x="36" y="265">destination. What it told you.</text>
+
+  <rect x="304" y="218" width="272" height="66" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="316" y="236">Feasible distance (FD)</text>
+  <text class="c" x="316" y="252">Your total cost through that</text>
+  <text class="c" x="316" y="265">neighbour: RD + link cost.</text>
+
+  <rect x="584" y="218" width="292" height="66" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="596" y="236" fill="#c0392b">Feasible successor (FS)</text>
+  <text class="c" x="596" y="252" fill="#c0392b">A neighbour whose RD is <tspan style="font-weight:700">strictly less</tspan></text>
+  <text class="c" x="596" y="265" fill="#c0392b">than the current FD.</text>
+
+  <text class="k" x="24" y="304">THE INEQUALITY, WITH NUMBERS</text>
+  <rect x="24" y="312" width="852" height="72" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+
+  <rect x="40" y="326" width="140" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="r" x="52" y="345">current path via A</text>
+  <text class="c" x="196" y="345">FD = 1000 &#183; this path is up and installed</text>
+
+  <rect x="420" y="326" width="150" height="30" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="r" x="432" y="345">candidate via B</text>
+  <text class="c" x="586" y="338" fill="#0f7f73">RD = 800  &#183;  800 &lt; 1000  &#8594;  feasible</text>
+  <text class="c" x="586" y="352" fill="#0f7f73">B is a feasible successor. Link A fails &#8594; B installs</text>
+  <text class="c" x="586" y="366" fill="#0f7f73">immediately. No query, no wait, no network-wide event.</text>
+
+  <rect x="24" y="394" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="394" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="412" fill="#c0392b"><tspan style="font-weight:700">Why the inequality works:</tspan> if B's cost to the destination were greater than or equal to yours, B could be reaching it through you &#8212;</text>
+  <text class="c" x="40" y="428" fill="#c0392b">which would make B a loop, not an alternative. Requiring RD &lt; FD is a loop-freedom proof, computed locally, with no topology knowledge.</text>
+</svg>

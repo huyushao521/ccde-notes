@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 434" width="100%" role="img" aria-labelledby="t1008 d1008">
+  <title id="t1008">The three-plane model: what each plane is, how it is attacked, and why management plane loss is total</title>
+  <desc id="d1008">Three columns. Management plane: SSH, SNMP, syslog, NTP, TACACS - the plane that changes the device. Attacked by credential theft, weak passwords, exposed management addresses and insecure protocols. Controlled by out-of-band access, a management VRF, two factors, SSH only, SNMPv3 and command accounting. Losing it means the attacker owns the device completely. Control plane: routing protocols, ARP, STP, LACP, IGMP - the plane that decides where traffic goes. Attacked by forged adjacencies, floods that starve the CPU and protocol abuse. Controlled by CoPP, CPPr, rACL, authentication, TTL security and prefix limits. Losing it means traffic takes a path the attacker chose. Data plane: forwarding, ACLs, QoS, replication - the plane that moves packets. Attacked by spoofing, floods, VLAN hopping and table exhaustion. Controlled by uRPF, ACL placement, storm control, port security and segmentation. Bottom: an escalation ladder - data plane gives reach, control plane gives direction, management plane gives the device itself, and that is why management plane exposure is the only one that cannot be compensated for.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="434" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three planes, three different fights - and only one of them is unrecoverable</text>
+  <text class="s" x="24" y="45">"Harden the device" means nothing until you say which plane, because the controls do not overlap.</text>
+
+  <rect x="24" y="62" width="270" height="252" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".9"/>
+  <text class="k" x="36" y="80">MANAGEMENT PLANE</text>
+  <text class="b" x="36" y="98">The plane that changes the device</text>
+  <text class="w" x="36" y="116">SSH, SNMP, syslog, NTP, TACACS+</text>
+  <text class="k" x="36" y="140">ATTACKED BY</text>
+  <text class="c" x="36" y="156">stolen or default credentials</text>
+  <text class="c" x="36" y="170">a management address reachable from the internet</text>
+  <text class="c" x="36" y="184">telnet, SNMPv1/v2c, TFTP config pulls</text>
+  <text class="k" x="36" y="208">CONTROLLED BY</text>
+  <text class="c" x="36" y="224">out-of-band or management VRF</text>
+  <text class="c" x="36" y="238">two factors, per-command accounting</text>
+  <text class="c" x="36" y="252">SSH only, SNMPv3 authPriv, signed images</text>
+  <text class="x" x="36" y="278">If this is lost, everything else is lost:</text>
+  <text class="x" x="36" y="292">the attacker can change the ACLs that</text>
+  <text class="x" x="36" y="306">were supposed to stop him.</text>
+
+  <rect x="306" y="62" width="270" height="252" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".9"/>
+  <text class="k" x="318" y="80">CONTROL PLANE</text>
+  <text class="b" x="318" y="98">The plane that decides direction</text>
+  <text class="w" x="318" y="116">OSPF, BGP, IS-IS, ARP, STP, LACP</text>
+  <text class="k" x="318" y="140">ATTACKED BY</text>
+  <text class="c" x="318" y="156">forged hellos or updates with no authentication</text>
+  <text class="c" x="318" y="170">floods that push the CPU to 100 percent</text>
+  <text class="c" x="318" y="184">a route injection that black-holes a prefix</text>
+  <text class="k" x="318" y="208">CONTROLLED BY</text>
+  <text class="c" x="318" y="224">CoPP and CPPr with per-class rates</text>
+  <text class="c" x="318" y="238">rACL / iACL, GTSM, protocol authentication</text>
+  <text class="c" x="318" y="252">maximum prefix, route policy, BPDU guard</text>
+  <text class="x" x="318" y="278">If this is lost, traffic still flows - but</text>
+  <text class="x" x="318" y="292">along the path the attacker chose, and</text>
+  <text class="x" x="318" y="306">the monitoring looks normal.</text>
+
+  <rect x="588" y="62" width="288" height="252" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".9"/>
+  <text class="k" x="600" y="80">DATA PLANE</text>
+  <text class="b" x="600" y="98">The plane that moves the packets</text>
+  <text class="w" x="600" y="116">forwarding, ACLs, QoS, replication</text>
+  <text class="k" x="600" y="140">ATTACKED BY</text>
+  <text class="c" x="600" y="156">source address spoofing</text>
+  <text class="c" x="600" y="170">VLAN hopping, MAC and table exhaustion</text>
+  <text class="c" x="600" y="184">floods from a single compromised host</text>
+  <text class="k" x="600" y="208">CONTROLLED BY</text>
+  <text class="c" x="600" y="224">uRPF, ACL placement at the enforcement point</text>
+  <text class="c" x="600" y="238">storm control, port security, private VLAN</text>
+  <text class="c" x="600" y="252">segmentation so a host reaches only its peers</text>
+  <text class="x" x="600" y="278">If this is lost, the blast radius is whatever</text>
+  <text class="x" x="600" y="292">that segment can reach - which is exactly</text>
+  <text class="x" x="600" y="306">what segmentation is meant to bound.</text>
+
+  <text class="k" x="24" y="342">ESCALATION LADDER</text>
+  <rect x="24" y="352" width="270" height="30" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".7"/>
+  <text class="c" x="36" y="371">data plane: reach - a foothold, one segment</text>
+  <rect x="306" y="352" width="270" height="30" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="318" y="371">control plane: direction - traffic, silently rerouted</text>
+  <rect x="588" y="352" width="288" height="30" rx="2" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="x" x="600" y="371">management plane: the device itself</text>
+
+  <text class="c" x="24" y="404">Only the third rung cannot be compensated for from elsewhere in the network: every other control is configured by the plane that is now under someone else's control.</text>
+  <text class="w" x="24" y="422">That is why management plane hardening comes first in the priority list, even though it protects the asset nobody considers exciting.</text>
+</svg>

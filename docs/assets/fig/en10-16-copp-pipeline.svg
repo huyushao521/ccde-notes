@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 444" width="100%" role="img" aria-labelledby="t1015 d1015">
+  <title id="t1015">The CoPP pipeline from the punt path to the CPU, and why a template tuned for steady state breaks at convergence</title>
+  <desc id="d1015">Top: the pipeline. Packets destined for the device itself leave the forwarding path on the punt path, enter a classifier that sorts them into classes, pass a policer per class, then reach CPU queues and finally the protocol process. CoPP acts at the policer, so it protects the CPU from volume but cannot tell a legitimate flood from an attack - both are dropped. Middle: the four classes that matter with an honest rate and the consequence of tuning them too low. Routing protocol class: needs tens of megabits during a full table update, and at 500 kbps the BGP session resets and re-establishes in a loop. Management class: SSH and SNMP, small but must be guaranteed, or the device becomes unreachable during an incident. Exception class: TTL, ICMP and fragmentation, easy to over-police until PMTUD fails and large packets vanish. Best-effort catch-all: everything else, which should be the only class allowed to drop freely. Bottom: the arithmetic and the two rules. A full BGP table update arrives as tens of megabits of punt traffic against a template rate of 500 kbps, a ratio of two orders of magnitude, and the failure looks like a flapping neighbour rather than a policy. Rule one: measure the punt rate during convergence before choosing the rate. Rule two: keep a lab copy of every CoPP policy, because the failure mode is a device you cannot log into.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="444" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">CoPP protects the CPU from volume, not from intent</text>
+  <text class="s" x="24" y="45">The same policer that stops a flood also stops a legitimate full-table update - and both look identical to the classifier.</text>
+
+  <rect x="24" y="62" width="150" height="44" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="c" x="99" y="80" text-anchor="middle">forwarding path</text>
+  <text class="w" x="99" y="96" text-anchor="middle">most packets never leave it</text>
+
+  <rect x="188" y="62" width="150" height="44" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="263" y="80" text-anchor="middle">punt path</text>
+  <text class="w" x="263" y="96" text-anchor="middle">destined to the device</text>
+
+  <rect x="352" y="62" width="150" height="44" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="c" x="427" y="80" text-anchor="middle">classifier</text>
+  <text class="w" x="427" y="96" text-anchor="middle">by protocol, port, precedence</text>
+
+  <rect x="516" y="62" width="150" height="44" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".9"/>
+  <text class="c" x="591" y="80" text-anchor="middle">policer per class</text>
+  <text class="w" x="591" y="96" text-anchor="middle">this is where CoPP acts</text>
+
+  <rect x="680" y="62" width="196" height="44" rx="3" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".8"/>
+  <text class="c" x="778" y="80" text-anchor="middle">CPU queue and process</text>
+  <text class="w" x="778" y="96" text-anchor="middle">the thing being defended</text>
+
+  <line x1="174" y1="84" x2="188" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="338" y1="84" x2="352" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="502" y1="84" x2="516" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+  <line x1="666" y1="84" x2="680" y2="84" stroke="#c9d8f6" stroke-width="1.1"/>
+
+  <text class="k" x="34" y="130">CLASS</text>
+  <text class="k" x="230" y="130">HONEST RATE</text>
+  <text class="k" x="380" y="130">IF TUNED TOO LOW</text>
+  <line x1="24" y1="138" x2="876" y2="138" stroke="#dfe6f1" stroke-width=".7"/>
+
+  <rect x="24" y="144" width="852" height="42" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="c" x="34" y="162">routing protocols (BGP, OSPF, IS-IS)</text>
+  <text class="c" x="230" y="162">tens of Mbps during a full update</text>
+  <text class="x" x="380" y="162">session resets, re-establishes, resets again</text>
+  <text class="w" x="34" y="178">the neighbour looks flaky; the CoPP policy is the cause, and it is not in the log line anyone reads</text>
+
+  <rect x="24" y="190" width="852" height="42" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="c" x="34" y="208">management (SSH, SNMP, syslog)</text>
+  <text class="c" x="230" y="208">small, but must never drop</text>
+  <text class="x" x="380" y="208">you cannot log in during the incident</text>
+  <text class="w" x="34" y="224">guarantee it explicitly; a shared best-effort class is how devices become unreachable when busy</text>
+
+  <rect x="24" y="236" width="852" height="42" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="c" x="34" y="254">exception (TTL, ICMP, fragments)</text>
+  <text class="c" x="230" y="254">low, but not zero</text>
+  <text class="x" x="380" y="254">PMTUD breaks, big packets vanish</text>
+  <text class="w" x="34" y="270">the symptom is "the web page loads and the file does not" - nobody blames CoPP</text>
+
+  <rect x="24" y="282" width="852" height="42" rx="2" fill="#eef7f5" stroke="#bcdcd6" stroke-width=".7"/>
+  <text class="c" x="34" y="300">catch-all best effort</text>
+  <text class="c" x="230" y="300">whatever is left</text>
+  <text class="g" x="380" y="300">this is the only class that should drop</text>
+  <text class="w" x="34" y="316">if this class is generous, the policy protects nothing; if it is tiny, unknown protocols break silently</text>
+
+  <rect x="24" y="336" width="418" height="62" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="36" y="354">THE ARITHMETIC</text>
+  <text class="m" x="36" y="372">full BGP table punt: 30 - 80 Mbps</text>
+  <text class="m" x="36" y="386">template default: 500 kbps</text>
+  <text class="x" x="240" y="386">ratio 60x - 160x</text>
+
+  <rect x="456" y="336" width="420" height="62" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="468" y="354">TWO RULES</text>
+  <text class="c" x="468" y="372">1  measure the punt rate during convergence before choosing a rate</text>
+  <text class="c" x="468" y="386">2  keep a lab copy of every CoPP policy - the failure mode locks you out</text>
+
+  <text class="w" x="24" y="418">Deployment order that avoids the self-inflicted outage: apply the policy with the routing class generous, observe for a week, then tighten. Never the other way round.</text>
+  <text class="w" x="24" y="436">If a CoPP change is being made to a device you cannot reach by out-of-band, schedule it with a rollback that a remote hand can execute.</text>
+</svg>

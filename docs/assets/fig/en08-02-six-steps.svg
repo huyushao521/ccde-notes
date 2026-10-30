@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t802 d802">
+
+  <title id="t802">The six steps of Layer 3 design in fixed order, with the consequence of getting each one wrong</title>
+  <desc id="d802">Six numbered steps in a left column with, for each, the decision to be made and the consequence of getting it wrong: addressing plan and summarizability, domain and hierarchy split, protocol selection, path design, convergence and stability, boundaries and redistribution. Step one is emphasised because summarization capability is a product of the addressing plan, not of the protocol. A lower panel lists the four hard rules for the addressing plan: allocate hierarchically, reserve two to three times the growth space, give loopbacks and management addresses their own block, and plan Internet egress and the DMZ separately. A closing note says each step constrains the next, so a mistake in step one is paid for in steps two to six.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 11px "Segoe UI",sans-serif;fill:#fff}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Six steps, in this order: each one removes options from the ones that follow</text>
+  <text class="s" x="24" y="45">The order is the content &#8212; doing step 4 before step 1 means designing on top of a mistake</text>
+
+  <text class="k" x="52" y="66">DECISION</text>
+  <text class="k" x="340" y="66">IF YOU GET IT WRONG</text>
+
+  <rect x="24" y="72" width="10" height="50" rx="2" fill="#1f4fc0"/>
+  <text class="n" x="27" y="102">1</text>
+  <text class="b" x="52" y="86">Addressing plan and summarizability</text>
+  <text class="w" x="52" y="99">does every area get a contiguous block?</text>
+  <text class="w" x="52" y="112">is the block sized to be summarised by one prefix?</text>
+  <text class="c" x="340" y="92">Not summarizable &#8594; the table explodes and every later step becomes damage control.</text>
+
+  <rect x="24" y="128" width="10" height="44" rx="2" fill="#c9d8ef"/>
+  <text class="n" x="27" y="155" fill="#1a2233">2</text>
+  <text class="b" x="52" y="140">Domain and hierarchy split</text>
+  <text class="w" x="52" y="153">how many IGP areas or levels, and where are the edges?</text>
+  <text class="c" x="340" y="146">Too large: one big flooding domain. Too small: complex summaries and paths.</text>
+
+  <rect x="24" y="178" width="10" height="44" rx="2" fill="#c9d8ef"/>
+  <text class="n" x="27" y="205" fill="#1a2233">3</text>
+  <text class="b" x="52" y="190">Protocol selection</text>
+  <text class="w" x="52" y="203">which IGP, and is BGP needed at all?</text>
+  <text class="c" x="340" y="196">Wrong choice &#8594; the team cannot operate it; every later decision gets blamed on it.</text>
+
+  <rect x="24" y="228" width="10" height="44" rx="2" fill="#c9d8ef"/>
+  <text class="n" x="27" y="255" fill="#1a2233">4</text>
+  <text class="b" x="52" y="240">Path design</text>
+  <text class="w" x="52" y="253">primary/backup, load sharing, traffic engineering</text>
+  <text class="c" x="340" y="246">You draw lots with default tie-breakers and call the result &#8220;behaviour&#8221;.</text>
+
+  <rect x="24" y="278" width="10" height="44" rx="2" fill="#c9d8ef"/>
+  <text class="n" x="27" y="305" fill="#1a2233">5</text>
+  <text class="b" x="52" y="290">Convergence and stability</text>
+  <text class="w" x="52" y="303">time budget per stage, flap suppression</text>
+  <text class="c" x="340" y="296">Slow recovery, or a network that flaps continuously and never settles.</text>
+
+  <rect x="24" y="328" width="10" height="44" rx="2" fill="#c9d8ef"/>
+  <text class="n" x="27" y="355" fill="#1a2233">6</text>
+  <text class="b" x="52" y="340">Boundaries and redistribution</text>
+  <text class="w" x="52" y="353">one-way or two-way, what is tagged, what is filtered</text>
+  <text class="c" x="340" y="346">Loops, suboptimal paths and metric pollution &#8212; the classic fourth-quarter outage.</text>
+
+  <rect x="24" y="384" width="852" height="54" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <rect x="24" y="384" width="4" height="54" fill="#b8862b"/>
+  <text class="c" x="40" y="402" fill="#7a5b18"><tspan style="font-weight:700">Why step 1 is first:</tspan> summarization capability is a product of the addressing plan, not of the protocol.</text>
+  <text class="c" x="40" y="416" fill="#7a5b18">Four hard rules: allocate hierarchically (core &#8594; region &#8594; building &#8594; floor) &#183; reserve 2&#8211;3&#215; growth per region &#183; give loopbacks</text>
+  <text class="c" x="40" y="430" fill="#7a5b18">and management their own block (ACLs and policies then reference one prefix) &#183; plan Internet egress and the DMZ separately.</text>
+</svg>

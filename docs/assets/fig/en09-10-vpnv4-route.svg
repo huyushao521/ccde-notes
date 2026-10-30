@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t910 d910">
+  <title id="t910">Anatomy of an MP-BGP VPNv4 route: the NLRI fields and the attributes that carry policy</title>
+  <desc id="d910">A route drawn as a labelled byte strip: eight bytes of route distinguisher, four bytes of IPv4 prefix, and a three-byte label field, followed by the attributes: route targets as an extended community, the next hop which is the PE loopback, the origin and AS path, local preference and MED. Annotations explain each field's job: the RD makes the prefix unique, the IPv4 part is the customer's own prefix unchanged, the label is the VPN label that identifies the destination VRF at the egress, and the route target is the only field that policy acts on. A right panel contrasts what happens at the ingress and egress PE: push at ingress, pop at egress. A closing note warns that the next hop must be reachable through the transport, which is why a broken LSP makes BGP look broken.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A VPNv4 route is a prefix plus a label plus a policy tag &#8212; nothing more</text>
+  <text class="s" x="24" y="45">Read the fields left to right and every L3VPN behaviour becomes obvious</text>
+
+  <text class="k" x="24" y="70">THE NLRI</text>
+  <rect x="24" y="78" width="200" height="34" rx="1" fill="#fdf9f0" stroke="#c99a2e" stroke-width=".8"/>
+  <text class="c" x="40" y="99">RD &#183; 8 bytes</text>
+  <rect x="224" y="78" width="190" height="34" rx="1" fill="#f7f9fd" stroke="#9aa8ba" stroke-width=".8"/>
+  <text class="c" x="240" y="99">IPv4 prefix &#183; 4 bytes</text>
+  <rect x="414" y="78" width="130" height="34" rx="1" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="c" x="428" y="99">Label &#183; 3 bytes</text>
+
+  <text class="w" x="24" y="128">unique per VRF</text>
+  <text class="w" x="224" y="128">the customer's own prefix</text>
+  <text class="w" x="414" y="128">the VPN label</text>
+
+  <text class="k" x="24" y="158">THE ATTRIBUTES THAT MATTER</text>
+  <rect x="24" y="166" width="520" height="118" rx="2" fill="#ffffff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="184"><tspan style="font-weight:700">Route targets</tspan> (extended community, 8 bytes each): the only field any policy acts on.</text>
+  <text class="c" x="36" y="204"><tspan style="font-weight:700">Next hop:</tspan> the advertising PE loopback &#8212; must be reachable through transport, or the route is unusable.</text>
+  <text class="c" x="36" y="224"><tspan style="font-weight:700">AS path / origin / MED:</tspan> unchanged in meaning from IPv4 BGP; still the inter-AS tie-breakers.</text>
+  <text class="c" x="36" y="244"><tspan style="font-weight:700">Local preference:</tspan> still the first real decision inside the AS, now applied to VPN routes.</text>
+  <text class="w" x="36" y="268">The customer prefix is carried verbatim: no summarization and no rewriting happens in the core.</text>
+
+  <rect x="560" y="166" width="316" height="118" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="572" y="184" fill="#0f7f73">Where the label comes from and goes</text>
+  <text class="c" x="572" y="202">Ingress PE: allocates a VPN label per VRF</text>
+  <text class="c" x="572" y="215">(or per prefix) and advertises it with the route.</text>
+  <text class="c" x="572" y="236">Egress PE: reads the label, chooses the VRF,</text>
+  <text class="c" x="572" y="249">removes it, delivers the IP packet.</text>
+  <text class="c" x="572" y="270" fill="#0f7f73">The core swaps only the transport label above it.</text>
+  <text class="w" x="572" y="284">This is why P routers need no VPN routes at all.</text>
+
+  <rect x="24" y="296" width="852" height="46" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="296" width="4" height="46" fill="#c0392b"/>
+  <text class="c" x="40" y="314" fill="#c0392b"><tspan style="font-weight:700">The dependency nobody draws:</tspan> MP-BGP is not self-sufficient. Its next hop lives in the transport layer, so if the LSP to the next hop breaks,</text>
+  <text class="c" x="40" y="330" fill="#c0392b">BGP keeps the route and the FIB drops it. Symptoms look like &#8220;BGP is flapping&#8221; while the actual fault is one IGP adjacency two hops away.</text>
+
+  <text class="w" x="24" y="360">Reading order in a ticket: VPNv4 table (is the route there, with which RT and label) &#8594; next hop reachable through transport &#8594; LFIB for the transport label &#8594; VRF table (was it imported).</text>
+  <text class="w" x="24" y="376">Each step rules out one of the four fields above; guessing skips all four.</text>
+</svg>

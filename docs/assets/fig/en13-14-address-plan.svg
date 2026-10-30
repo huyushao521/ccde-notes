@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t1314 d1314">
+  <title id="t1314">Address planning: one allocation tree, three hard rules and three checks that run in CI</title>
+  <desc id="d1314">Left: the allocation tree from a single block - 239.0.0.0/8 divided by site into a second octet, by service into a third octet, and by channel index into the fourth, so an address can be read aloud and understood. Middle: three hard rules - one group belongs to exactly one PIM mode, service groups must never fall in 224.0.0.0/24 and 232/8 must not be mixed with 239/8, and every address in the network must exist in the source of truth or raise an alert. Right: the three mandatory checks that make the rules executable - MAC collision detection computing 01:00:5e plus the low 23 bits per group, out-of-range detection by ACL audit and source-of-truth validation, and unplanned group detection by diffing periodic show ip mroute snapshots. A bottom band notes that a plan without a script is a document nobody enforces.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">An address that can be read aloud is an address that survives an outage</text>
+  <text class="s" x="24" y="45">The plan is a tree plus a script. The tree makes it readable, the script makes it true.</text>
+
+  <rect x="24" y="58" width="330" height="176" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="74">THE ALLOCATION TREE</text>
+  <text class="m" x="36" y="96">239 . &lt;site&gt; . &lt;service&gt; . &lt;index&gt;</text>
+  <line x1="46" y1="112" x2="46" y2="212" stroke="#c3d5f2" stroke-width=".8"/>
+  <path d="M46 112 L66 112" stroke="#c3d5f2" stroke-width=".8"/>
+  <path d="M46 140 L66 140" stroke="#c3d5f2" stroke-width=".8"/>
+  <path d="M46 168 L66 168" stroke="#c3d5f2" stroke-width=".8"/>
+  <path d="M46 196 L66 196" stroke="#c3d5f2" stroke-width=".8"/>
+  <text class="b" x="70" y="116">239</text>
+  <text class="c" x="106" y="116">administratively scoped, never global</text>
+  <text class="b" x="70" y="144">site</text>
+  <text class="c" x="106" y="144">one octet per site or region, 1..250</text>
+  <text class="b" x="70" y="172">service</text>
+  <text class="c" x="106" y="172">IPTV / surveillance / data / training</text>
+  <text class="b" x="70" y="200">index</text>
+  <text class="c" x="106" y="200">channel or camera, sequential</text>
+  <text class="c" x="36" y="228">Example: 239.10.20.5 is site 10, service 20, channel 5.</text>
+
+  <rect x="368" y="58" width="240" height="176" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="k" x="380" y="74">THREE HARD RULES</text>
+  <text class="b" x="380" y="92">1. One group, one mode</text>
+  <text class="c" x="380" y="106">232/8 and BiDir are mutually exclusive.</text>
+  <text class="c" x="380" y="118">The RP mapping must agree on every router.</text>
+  <text class="b" x="380" y="140">2. Never cross the ranges</text>
+  <text class="c" x="380" y="154">Service groups stay out of 224.0.0.0/24;</text>
+  <text class="c" x="380" y="166">232/8 and 239/8 are never mixed in one plan.</text>
+  <text class="b" x="380" y="188">3. No address without a record</text>
+  <text class="c" x="380" y="202">A group that is not in the source of truth</text>
+  <text class="c" x="380" y="214">is an incident, not a discovery.</text>
+  <text class="c" x="380" y="230">Rules are worthless without rule 3.</text>
+
+  <rect x="620" y="58" width="256" height="176" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="632" y="74">THREE CHECKS, IN CI</text>
+  <text class="b" x="632" y="92">MAC collision detection</text>
+  <text class="c" x="632" y="106">Compute 01:00:5e + low 23 bits for every</text>
+  <text class="c" x="632" y="118">group. Duplicates in one VLAN fail the build.</text>
+  <text class="b" x="632" y="140">Out-of-range detection</text>
+  <text class="c" x="632" y="154">ACL audit against 224/24 and the 232/239</text>
+  <text class="c" x="632" y="166">separation rule.</text>
+  <text class="b" x="632" y="188">Unplanned group detection</text>
+  <text class="c" x="632" y="202">Diff periodic show ip mroute snapshots</text>
+  <text class="c" x="632" y="214">against the register. Alert on the difference.</text>
+  <text class="c" x="632" y="230">All three fit in a pipeline step.</text>
+
+  <rect x="24" y="248" width="852" height="112" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="k" x="36" y="264">WHAT THE SCRIPT LOOKS LIKE, IN ONE FUNCTION</text>
+  <text class="m" x="36" y="284">def mcast_mac(ip):  </text>
+  <text class="c" x="180" y="284">o = [int(x) for x in ip.split('.')]</text>
+  <text class="m" x="36" y="302">                    </text>
+  <text class="c" x="180" y="302">b = [1, 0, 0x5e, o[1] &amp; 0x7f, o[2], o[3]]</text>
+  <text class="m" x="36" y="320">                    </text>
+  <text class="c" x="180" y="320">return "01:00:5e:" + ":".join(f"{x:02x}" for x in b[3:])</text>
+  <text class="c" x="36" y="340">Note the mask: 0x7f drops the top bit of the second octet. That single bit is why 32 groups share one MAC, and why the check must run per VLAN, not globally.</text>
+  <text class="c" x="36" y="354">Run it on every proposed block before allocation, and on every change afterwards.</text>
+
+  <rect x="24" y="374" width="852" height="50" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="b" x="36" y="394">A plan without a script is a document nobody enforces</text>
+  <text class="c" x="36" y="410">The failure is never "we had no plan". It is "the plan lived in a spreadsheet that the last engineer took with them", and the new group was allocated by hand at 2 a.m.</text>
+</svg>

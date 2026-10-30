@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 386" width="100%" role="img" aria-labelledby="t915 d915">
+  <title id="t915">Why a backdoor link beats the VPN path, and how a sham link restores a fair comparison</title>
+  <desc id="d915">Left panel shows the preference order used by OSPF: intra-area first, then inter-area, then external routes, with cost only compared inside the same class. A backdoor link between two sites makes the remote prefix look intra-area, so it wins even when the VPN path is faster. Right panel shows the sham link: a loopback-to-loopback tunnel across the MPLS VPN that is advertised into OSPF as an intra-area link, so the VPN path is now also intra-area and the comparison falls back to cost. Three prerequisites are listed for the sham link to come up: the same area, matching authentication, and the endpoints reachable through the VPN rather than the core. A closing note explains the design decision: use the sham link when the customer insists on OSPF at the PE-CE and a backdoor exists, otherwise choose eBGP and delete the problem.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="386" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">OSPF compares route class before it compares cost &#8212; that is the whole problem</text>
+  <text class="s" x="24" y="45">A sham link does not change the metric; it changes which class the VPN path belongs to</text>
+
+  <text class="k" x="24" y="70">THE PREFERENCE ORDER</text>
+  <rect x="24" y="78" width="200" height="30" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="b" x="40" y="98" fill="#0f7f73">1. Intra-area (O)</text>
+  <rect x="232" y="78" width="200" height="30" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="b" x="248" y="98" fill="#1f4fc0">2. Inter-area (O IA)</text>
+  <rect x="440" y="78" width="200" height="30" rx="2" fill="#fdf9f0" stroke="#c99a2e" stroke-width=".8"/>
+  <text class="b" x="456" y="98" fill="#7a5b18">3. External (E1 / E2)</text>
+
+  <text class="w" x="24" y="126">Class wins first. Cost only breaks ties inside a class.</text>
+
+  <rect x="24" y="140" width="410" height="112" rx="3" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".7"/>
+  <text class="b" x="36" y="158" fill="#c0392b">Without the sham link</text>
+  <text class="c" x="36" y="176" fill="#c0392b">Site A learns site B's prefix two ways:</text>
+  <text class="c" x="36" y="192" fill="#c0392b">&#183; via the VPN: OSPF <tspan style="font-weight:700">inter-area</tspan> from PE2</text>
+  <text class="c" x="36" y="208" fill="#c0392b">&#183; via the backdoor: OSPF <tspan style="font-weight:700">intra-area</tspan>, cost 50</text>
+  <text class="c" x="36" y="228" fill="#c0392b">The backdoor wins even if its cost is worse, and it</text>
+  <text class="c" x="36" y="241" fill="#c0392b">carries traffic the VPN was built to carry.</text>
+
+  <rect x="450" y="140" width="426" height="112" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="462" y="158" fill="#0f7f73">With the sham link</text>
+  <text class="c" x="462" y="176" fill="#0f7f73">A tunnel between PE1 and PE2 loopbacks, carried</text>
+  <text class="c" x="462" y="192" fill="#0f7f73">inside the VPN, advertised into OSPF as a normal</text>
+  <text class="c" x="462" y="208" fill="#0f7f73">link &#8212; so the VPN path becomes <tspan style="font-weight:700">intra-area</tspan> too.</text>
+  <text class="c" x="462" y="228" fill="#0f7f73">Now both paths are in the same class, so plain cost</text>
+  <text class="c" x="462" y="241" fill="#0f7f73">decides. The design regains control of the comparison.</text>
+
+  <text class="k" x="24" y="278">THREE PREREQUISITES, ALL MANDATORY</text>
+  <rect x="24" y="286" width="852" height="44" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="c" x="36" y="304">1. Both ends in the same OSPF area &#8212; a mismatch leaves the adjacency down and looks like a routing fault.</text>
+  <text class="c" x="36" y="322">2. Matching authentication on both ends, including key ID and key chain, or the tunnel never comes up.</text>
+
+  <text class="k" x="24" y="346">AND THE THIRD, WHICH IS A DESIGN QUESTION RATHER THAN A CONFIG LINE</text>
+  <rect x="24" y="352" width="852" height="26" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <text class="w" x="36" y="369" fill="#7a5b18">3. The tunnel endpoints must be reachable through the VPN, not through the core IGP &#8212; otherwise the sham link rides on the very path it is meant to override.</text>
+</svg>

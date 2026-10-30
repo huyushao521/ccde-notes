@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1012 d1012">
+  <title id="t1012">AAA for network devices: the flow, TACACS+ against RADIUS, and the three anti-patterns that undo both</title>
+  <desc id="d1012">Top left: the AAA flow. An engineer on a bastion host authenticates to the device, which forwards to the TACACS+ server, which consults the directory group and returns a per-command authorization decision; accounting records every command to a collector that the device cannot edit. Top right: the comparison. TACACS+ uses TCP 49, encrypts the whole payload, and supports per-command authorization - correct for device administration. RADIUS uses UDP, encrypts only the password, and authorizes at session level - correct for network access, wrong for CLI administration. Both can coexist: TACACS+ for devices, RADIUS for 802.1X. Bottom: three anti-patterns. A shared local administrator account used by the whole team, which makes accounting worthless and turns every departure into a password rotation for the estate. No accounting at all, so the only record of a change is the change ticket, which is written by the person who made the change. A fallback that authenticates locally with the same username and a weaker password, which means the attacker only needs to make the AAA server unreachable - and a flood is enough to do that. A footer states that authorization without accounting is a lock with no log, and that the fallback design is the part most often decided by accident.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">AAA on network devices: the flow is simple, the failure modes are cultural</text>
+  <text class="s" x="24" y="45">Three letters, one requirement: every change is attributable to a person who is still employed here.</text>
+
+  <rect x="24" y="60" width="440" height="146" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="78">THE FLOW</text>
+  <rect x="40" y="90" width="84" height="30" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".7"/>
+  <text class="w" x="82" y="109" text-anchor="middle">engineer</text>
+  <rect x="144" y="90" width="84" height="30" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".7"/>
+  <text class="w" x="186" y="109" text-anchor="middle">bastion</text>
+  <rect x="248" y="90" width="84" height="30" rx="2" fill="#ffffff" stroke="#dfe6f1" stroke-width=".7"/>
+  <text class="w" x="290" y="109" text-anchor="middle">device</text>
+  <rect x="352" y="90" width="96" height="30" rx="2" fill="#e7f2f0" stroke="#bcdcd6" stroke-width=".7"/>
+  <text class="w" x="400" y="109" text-anchor="middle">TACACS+</text>
+  <line x1="124" y1="105" x2="144" y2="105" stroke="#7c8b9f" stroke-width=".8"/>
+  <line x1="228" y1="105" x2="248" y2="105" stroke="#7c8b9f" stroke-width=".8"/>
+  <line x1="332" y1="105" x2="352" y2="105" stroke="#7c8b9f" stroke-width=".8"/>
+  <text class="c" x="40" y="144">authentication: who are you - from the directory, never a local database</text>
+  <text class="c" x="40" y="160">authorization: which commands - evaluated per command, not per session</text>
+  <text class="c" x="40" y="176">accounting: what was done - shipped off the device, tamper-evident</text>
+  <text class="w" x="40" y="196">the device keeps a local fallback only for the break-glass account, in a sealed envelope</text>
+
+  <rect x="476" y="60" width="400" height="146" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="488" y="78">TACACS+ AGAINST RADIUS</text>
+  <text class="k" x="488" y="98">TACACS+</text>
+  <text class="k" x="640" y="98">RADIUS</text>
+  <line x1="488" y1="104" x2="864" y2="104" stroke="#dfe6f1" stroke-width=".6"/>
+  <text class="c" x="488" y="120">TCP 49</text>
+  <text class="c" x="640" y="120">UDP 1812/1813</text>
+  <text class="c" x="488" y="136">whole payload encrypted</text>
+  <text class="c" x="640" y="136">password only</text>
+  <text class="g" x="488" y="152">per-command authorization</text>
+  <text class="c" x="640" y="152">session-level authorization</text>
+  <text class="c" x="488" y="168">device administration</text>
+  <text class="c" x="640" y="168">network access (802.1X)</text>
+  <text class="w" x="488" y="190">use both, for their own jobs - not one for everything</text>
+
+  <text class="k" x="24" y="232">THREE ANTI-PATTERNS</text>
+
+  <rect x="24" y="242" width="278" height="104" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="36" y="260">Shared local admin</text>
+  <text class="w" x="36" y="278">one account, whole team, password in</text>
+  <text class="w" x="36" y="290">a vault nobody rotates</text>
+  <text class="x" x="36" y="310">accounting proves nothing and every</text>
+  <text class="x" x="36" y="324">departure requires an estate-wide reset</text>
+
+  <rect x="314" y="242" width="278" height="104" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="b" x="326" y="260">No accounting</text>
+  <text class="w" x="326" y="278">authorization configured, logging left</text>
+  <text class="w" x="326" y="290">at the default, no collector attached</text>
+  <text class="x" x="326" y="310">the only record of a change is the ticket,</text>
+  <text class="x" x="326" y="324">written by the person who made it</text>
+
+  <rect x="604" y="242" width="272" height="104" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="b" x="616" y="260">The accidental fallback</text>
+  <text class="w" x="616" y="278">local user with the same name and a</text>
+  <text class="w" x="616" y="290">weaker password, left enabled</text>
+  <text class="x" x="616" y="310">the attacker only has to make the AAA</text>
+  <text class="x" x="616" y="324">server unreachable - a flood will do it</text>
+
+  <rect x="24" y="360" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="381">Authorization without accounting is a lock with no log: it stops the wrong command and cannot tell you it happened. Both, or neither is worth the effort.</text>
+
+  <text class="w" x="24" y="412">Fallback design, spelled out: break-glass credential in a sealed envelope, use triggers an alarm to the security team, and the credential is rotated the same day it is used.</text>
+  <text class="w" x="24" y="428">Review question: name the last change made to the core and who made it. If that takes longer than a minute, accounting is decorative.</text>
+</svg>

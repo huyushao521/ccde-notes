@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1317 d1317">
+  <title id="t1317">IGMP versions side by side, and the rule that one old host downgrades the whole VLAN</title>
+  <desc id="d1317">A comparison table of IGMPv1, v2 and v3 across joining, leaving, source filtering, querier election, default query interval, report suppression and the typical problem. Version 1 has no leave and relies on a three-minute timeout, and its querier is really the PIM designated router. Version 2 adds leave and elects the querier by lowest IP with a 125 second query interval. Version 3 adds source filtering with include and exclude modes, which is what makes SSM possible, and removes report suppression. A bottom band gives the three coexistence rules: everything runs at the lowest version present, so one v1 host removes leave from the whole VLAN; IGMPv3 is a hard prerequisite for SSM; and mixed environments need a host policy that unifies the version rather than a switch configuration that tolerates it.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="440" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Three versions, one rule</text>
+  <text class="s" x="24" y="45">The lowest version in the VLAN wins. That single sentence decides whether SSM is available to you.</text>
+  <text class="k" x="24" y="66">FEATURE</text>
+  <text class="k" x="380" y="66">IGMPv1</text>
+  <text class="k" x="556" y="66">IGMPv2</text>
+  <text class="k" x="732" y="66">IGMPv3</text>
+  <line x1="24" y1="72" x2="876" y2="72" stroke="#dfe6f0" stroke-width=".8"/>
+
+  <rect x="24" y="80" width="852" height="34" rx="2" fill="#f7f9fc"/>
+  <text class="c" x="34" y="102">Joining a group</text>
+  <text class="c" x="380" y="102">Report is the join</text>
+  <text class="c" x="556" y="102">Report</text>
+  <text class="c" x="732" y="102">Report with source filter</text>
+
+  <rect x="24" y="118" width="852" height="34" rx="2" fill="#fdf0ee"/>
+  <text class="c" x="34" y="140">Leaving</text>
+  <text class="x" x="380" y="140">No Leave: timeout only</text>
+  <text class="g" x="556" y="140">Leave</text>
+  <text class="g" x="732" y="140">Leave</text>
+
+  <rect x="24" y="156" width="852" height="34" rx="2" fill="#f5fdfa"/>
+  <text class="c" x="34" y="178">Source filtering (SSM)</text>
+  <text class="c" x="380" y="178">no</text>
+  <text class="c" x="556" y="178">no</text>
+  <text class="g" x="732" y="178">yes, INCLUDE / EXCLUDE</text>
+
+  <rect x="24" y="194" width="852" height="34" rx="2" fill="#f7f9fc"/>
+  <text class="c" x="34" y="216">Querier election</text>
+  <text class="c" x="380" y="216">by PIM DR</text>
+  <text class="c" x="556" y="216">lowest IP</text>
+  <text class="c" x="732" y="216">lowest IP</text>
+
+  <rect x="24" y="232" width="852" height="34" rx="2" fill="#f7f9fc"/>
+  <text class="c" x="34" y="254">Default query interval</text>
+  <text class="m" x="380" y="254">60 s</text>
+  <text class="m" x="556" y="254">125 s</text>
+  <text class="m" x="732" y="254">125 s</text>
+
+  <rect x="24" y="270" width="852" height="34" rx="2" fill="#f7f9fc"/>
+  <text class="c" x="34" y="292">Report suppression</text>
+  <text class="c" x="380" y="292">yes</text>
+  <text class="c" x="556" y="292">yes</text>
+  <text class="c" x="732" y="292">no (every host reports)</text>
+
+  <rect x="24" y="308" width="852" height="34" rx="2" fill="#fdf7e8"/>
+  <text class="c" x="34" y="330">Typical problem</text>
+  <text class="c" x="380" y="330">slow leave, 3 minute timeout</text>
+  <text class="c" x="556" y="330">compatibility mode with v1</text>
+  <text class="x" x="732" y="330">automatic downgrade with v2</text>
+
+  <rect x="24" y="356" width="852" height="76" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="372">THREE COEXISTENCE RULES</text>
+  <text class="b" x="36" y="390">1. Everything runs at the lowest version</text>
+  <text class="c" x="36" y="404">One IGMPv1 host in a VLAN pushes the whole VLAN to v1: no Leave, three-minute timeouts.</text>
+  <text class="b" x="36" y="420">2. IGMPv3 is a hard prerequisite for SSM   </text>
+  <text class="c" x="386" y="420">3. Unify the version by endpoint policy, not by switch tolerance.</text>
+  <text class="c" x="36" y="432">No v3, no (S,G) join, no SSM: the design falls back to an RP you did not plan for.</text>
+</svg>

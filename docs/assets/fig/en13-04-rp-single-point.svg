@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1304 d1304">
+  <title id="t1304">The rendezvous point in PIM-SM: a meeting place, a register handler and a state centre, and what survives when it fails</title>
+  <desc id="d1304">Top: a source reaches its first-hop router, which encapsulates traffic in Register messages to the RP; receivers join the shared tree toward the RP; the RP joins the source tree and stops the register. Bottom left: what still works after the RP dies - established (S,G) shortest path trees keep forwarding, existing receivers keep watching. Bottom right: what breaks - no new (*,G) join can complete, so new receivers see nothing, no new source can register, so new channels never open, and any RP-dependent monitoring goes blind.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The RP is not a router in the path. It is the place where senders and receivers meet.</text>
+  <text class="s" x="24" y="45">Three jobs, one address: rendezvous, register de-encapsulation, and source state that other PEs learn through MSDP.</text>
+
+  <rect x="24" y="58" width="852" height="132" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".7"/>
+  <circle cx="86" cy="112" r="14" fill="#fff" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="c" x="79" y="115">S</text>
+  <text class="w" x="70" y="140">10.1.1.10</text>
+  <circle cx="196" cy="112" r="16" fill="#fff" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="c" x="187" y="115">FHR</text>
+  <circle cx="366" cy="112" r="18" fill="#f3effc" stroke="#6b4fbf" stroke-width="1"/>
+  <text class="c" x="356" y="115">RP</text>
+  <circle cx="536" cy="112" r="16" fill="#fff" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="c" x="527" y="115">LHR</text>
+  <circle cx="646" cy="112" r="14" fill="#fff" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="c" x="639" y="115">R</text>
+  <path d="M100 112 L178 112" stroke="#6b4fbf" stroke-width=".9" marker-end="url(#b1)"/>
+  <text class="w" x="112" y="104">multicast stream</text>
+  <path d="M212 112 L346 112" stroke="#6b4fbf" stroke-width="1.6" marker-end="url(#b1)"/>
+  <text class="w" x="232" y="104">Register (unicast, PIM-encapsulated)</text>
+  <path d="M384 112 L518 112" stroke="#6b4fbf" stroke-width=".9" marker-end="url(#b1)"/>
+  <text class="w" x="404" y="104">join the source tree, then Register-Stop</text>
+  <path d="M552 112 L630 112" stroke="#6b4fbf" stroke-width=".9" marker-end="url(#b1)"/>
+  <text class="w" x="556" y="104">shared tree</text>
+  <text class="c" x="736" y="96">Receivers join (*,G) toward the RP,</text>
+  <text class="c" x="736" y="108">never toward the source. That is the</text>
+  <text class="c" x="736" y="120">whole reason the RP exists.</text>
+  <text class="m" x="736" y="140">join 239.10.1.1 -&gt; RP 10.0.0.1</text>
+  <text class="c" x="36" y="170">Second job: de-encapsulate. The register carries real traffic until the RP has pulled the source tree, then Register-Stop ends the encapsulation.</text>
+  <text class="c" x="36" y="182">Third job: hold the source state other RPs must learn about, which is why Anycast-RP needs MSDP and a single RP does not.</text>
+
+  <rect x="24" y="204" width="404" height="146" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="36" y="220">SURVIVES AN RP FAILURE</text>
+  <text class="b" x="36" y="238">Anything already on a source tree</text>
+  <text class="c" x="36" y="254">(S,G) state built by SPT switchover keeps forwarding</text>
+  <text class="c" x="36" y="266">without any RP involvement. Existing viewers keep watching.</text>
+  <text class="b" x="36" y="288">Anything already registered</text>
+  <text class="c" x="36" y="304">The source is flowing, the FHR was told to stop registering,</text>
+  <text class="c" x="36" y="316">and no RP is needed for that path to stay up.</text>
+  <text class="x" x="36" y="338">This is exactly why an RP outage looks partial, not total.</text>
+
+  <rect x="448" y="204" width="428" height="146" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="460" y="220">BREAKS THE MOMENT THE RP DIES</text>
+  <text class="b" x="460" y="238">New receivers cannot complete a join</text>
+  <text class="c" x="460" y="254">(*,G) join travels toward an unreachable RP. A channel that</text>
+  <text class="c" x="460" y="266">was working stays up; a channel nobody is watching cannot be opened.</text>
+  <text class="b" x="460" y="288">New sources cannot register</text>
+  <text class="c" x="460" y="304">No register means no first packet at the RP, so a new channel</text>
+  <text class="c" x="460" y="316">stays black even though the sender is transmitting perfectly.</text>
+  <text class="x" x="460" y="338">One RP, no redundancy: this is a permanent outage for new sessions, not a slow one.</text>
+
+  <rect x="24" y="364" width="852" height="48" rx="3" fill="#fdf7e8" stroke="#e8d6a6" stroke-width=".7"/>
+  <text class="b" x="36" y="384">Design consequence</text>
+  <text class="c" x="36" y="400">If the business cannot accept "new channels fail", the RP needs Anycast-RP with MSDP or Phantom RP - and the failover budget must be written down, not assumed.</text>
+  <defs>
+    <marker id="b1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#6b4fbf"/></marker>
+  </defs>
+</svg>

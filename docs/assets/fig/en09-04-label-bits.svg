@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="100%" role="img" aria-labelledby="t904 d904">
+  <title id="t904">The 32-bit MPLS label: field widths, what each field is for, and the two reserved labels that appear in every design</title>
+  <desc id="d904">A bit ruler from bit 0 to bit 31 split into the four fields: a 20-bit label value, a 3-bit EXP field now called traffic class, a 1-bit bottom-of-stack flag and an 8-bit TTL. Each field carries a note on why a designer cares: the label range and the reserved 0 to 15, EXP mapping DSCP to the MPLS traffic class, the S bit telling the egress PE this is the last label, and TTL being copied from the IP header so traceroute and loop detection still work. Two reserved labels are drawn with their behaviour: label 3, implicit null, where the penultimate hop pops and the egress receives plain IP, and label 0, IPv4 explicit null, where the penultimate hop swaps to 0 so the egress PE still sees the EXP bits. A closing panel gives the design rule about end-to-end QoS depending on which of the two is used.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="400" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four bytes, four fields &#8212; and two of them decide whether your QoS survives to the last hop</text>
+  <text class="s" x="24" y="45">Memorise the widths once; most MPLS arguments in a design review come down to the 3-bit field</text>
+
+  <text class="k" x="24" y="70">ONE LABEL = 32 BITS</text>
+  <rect x="24" y="78" width="420" height="26" rx="1" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".8"/>
+  <text class="r" x="140" y="95" fill="#1f4fc0">Label &#183; 20 bits</text>
+  <rect x="444" y="78" width="90" height="26" rx="1" fill="#fdf9f0" stroke="#c99a2e" stroke-width=".8"/>
+  <text class="r" x="458" y="95" fill="#7a5b18">EXP &#183; 3</text>
+  <rect x="534" y="78" width="60" height="26" rx="1" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".8"/>
+  <text class="r" x="548" y="95" fill="#0f7f73">S &#183; 1</text>
+  <rect x="594" y="78" width="160" height="26" rx="1" fill="#f7f5fd" stroke="#6b4fbf" stroke-width=".8"/>
+  <text class="r" x="660" y="95" fill="#6b4fbf">TTL &#183; 8</text>
+
+  <text class="w" x="24" y="120">bit 19</text>
+  <text class="w" x="432" y="120">bit 0</text>
+  <text class="w" x="534" y="120">S</text>
+  <text class="w" x="594" y="120">bit 7</text>
+  <text class="w" x="742" y="120">bit 0</text>
+
+  <rect x="24" y="130" width="240" height="70" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="148">Label (20 bit)</text>
+  <text class="c" x="36" y="164">0 to 1 048 575. The range 0&#8211;15 is</text>
+  <text class="c" x="36" y="177">reserved: not assignable, and the</text>
+  <text class="c" x="36" y="190">source of the two labels below.</text>
+
+  <rect x="278" y="130" width="180" height="70" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="290" y="148">EXP / TC (3 bit)</text>
+  <text class="c" x="290" y="164">QoS class carried with the label.</text>
+  <text class="c" x="290" y="177">Maps from IP DSCP. 8 classes,</text>
+  <text class="c" x="290" y="190">same granularity as an IP header.</text>
+
+  <rect x="472" y="130" width="150" height="70" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="484" y="148">S (1 bit)</text>
+  <text class="c" x="484" y="164">Bottom of stack. When it is 1,</text>
+  <text class="c" x="484" y="177">this is the last label: after</text>
+  <text class="c" x="484" y="190">this comes the payload.</text>
+
+  <rect x="636" y="130" width="240" height="70" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="b" x="648" y="148">TTL (8 bit)</text>
+  <text class="c" x="648" y="164">Copied from the IP TTL. Keeps</text>
+  <text class="c" x="648" y="177">traceroute working and stops</text>
+  <text class="c" x="648" y="190">label-switched loops from living forever.</text>
+
+  <text class="k" x="24" y="228">THE TWO RESERVED LABELS YOU WILL MEET EVERY WEEK</text>
+
+  <rect x="24" y="236" width="410" height="86" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="36" y="254" fill="#0f7f73">Label 3 &#183; implicit null &#183; PHP enabled</text>
+  <text class="c" x="36" y="272">The penultimate hop pops the label and sends plain IP.</text>
+  <text class="c" x="36" y="285">Egress PE does one lookup instead of two: cheaper and faster.</text>
+  <text class="c" x="36" y="304" fill="#c0392b">But the EXP bits are gone. The egress PE cannot queue on</text>
+  <text class="c" x="36" y="317" fill="#c0392b">MPLS class for the last segment, only on the IP header.</text>
+
+  <rect x="446" y="236" width="430" height="86" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="458" y="254" fill="#1f4fc0">Label 0 &#183; IPv4 explicit null &#183; PHP disabled</text>
+  <text class="c" x="458" y="272">The penultimate hop swaps to label 0 instead of popping.</text>
+  <text class="c" x="458" y="285">The egress PE still sees a label, so it still sees EXP.</text>
+  <text class="c" x="458" y="304" fill="#0f7f73">Costs one extra label operation and one extra lookup; buys</text>
+  <text class="c" x="458" y="317" fill="#0f7f73">end-to-end QoS enforcement at the egress, plus a visible</text>
+
+  <rect x="24" y="334" width="852" height="52" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="334" width="4" height="52" fill="#c0392b"/>
+  <text class="c" x="40" y="352" fill="#c0392b"><tspan style="font-weight:700">Design rule:</tspan> if the service needs end-to-end QoS for voice or video across the MPLS core, ask the carrier which of these two is in use on the last hop.</text>
+  <text class="c" x="40" y="368" fill="#c0392b">&#8220;Voice is degraded inside the carrier network&#8221; is almost always PHP discarding EXP, not a bandwidth shortage. Put the answer in the design document, with the carrier's name next to it.</text>
+</svg>

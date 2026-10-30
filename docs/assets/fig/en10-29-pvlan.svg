@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="100%" role="img" aria-labelledby="t1029 d1029">
+  <title id="t1029">Private VLAN: one primary VLAN split into isolated and community segments behind a promiscuous port, and why it lost to SGT and VXLAN</title>
+  <desc id="d1029">Top left: the three port roles inside one primary VLAN. The promiscuous port faces the gateway or load balancer and can talk to everything. Isolated ports on their own isolated secondary VLAN can talk only to the promiscuous port, not to each other. Community ports on the same community secondary VLAN can talk to each other and to the promiscuous port. Top right: the resulting communication matrix - isolated to isolated is blocked, isolated to community is blocked, community to community within the same community VLAN is allowed, and promiscuous to anything is allowed. Middle: where it fits - hotels, dormitories and apartments where every room is isolated but one subnet and one gateway are shared; several web servers in a DMZ where a compromised server must not reach its peers; and carrier access where customer isolation is the product. Bottom: four reasons it stayed niche - configuration complexity with vendor differences, difficulty across switches because VTPv3 or manual synchronisation drifts, no equivalent inside VXLAN/EVPN overlays, and troubleshooting where a failure could be PVLAN, an ACL or routing and nothing says which. The modern replacements are SGT with policy in the campus and VXLAN with micro-segmentation in the data centre.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ar29" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="ar29x" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <text class="h" x="24" y="28">Private VLAN: split one subnet into segments the switch enforces, without touching the gateway</text>
+  <text class="s" x="24" y="45">Everyone keeps the same address range and the same default gateway, but peers simply cannot reach each other</text>
+
+  <!-- Roles -->
+  <rect x="24" y="62" width="470" height="192" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="36" y="80" fill="#5b4a86">ONE PRIMARY VLAN · THREE PORT ROLES</text>
+
+  <rect x="36" y="90" width="446" height="152" rx="2" fill="#ffffff" stroke="#d6c9f0" stroke-width=".7"/>
+  <text class="w" x="44" y="104">primary VLAN 100 - one subnet, one SVI, one gateway</text>
+
+  <rect x="46" y="112" width="120" height="36" rx="2" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="b" x="106" y="127" text-anchor="middle">Promiscuous</text>
+  <text class="w" x="106" y="140" text-anchor="middle">gateway · LB · firewall</text>
+
+  <rect x="186" y="112" width="130" height="52" rx="2" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="g" x="251" y="126" text-anchor="middle">Community VLAN 101</text>
+  <text class="c" x="251" y="140" text-anchor="middle">host 1 · host 2 - they may</text>
+  <text class="c" x="251" y="152" text-anchor="middle">talk to each other</text>
+
+  <rect x="336" y="112" width="136" height="52" rx="2" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="x" x="404" y="126" text-anchor="middle">Isolated VLAN 102</text>
+  <text class="c" x="404" y="140" text-anchor="middle">host 3 · host 4 - each is</text>
+  <text class="c" x="404" y="152" text-anchor="middle">alone, even inside VLAN 102</text>
+
+  <line x1="166" y1="130" x2="184" y2="136" stroke="#0f7f73" stroke-width="1" marker-end="url(#ar29)"/>
+  <line x1="166" y1="140" x2="334" y2="140" stroke="#0f7f73" stroke-width="1" marker-end="url(#ar29)"/>
+  <text class="w" x="250" y="178">Secondary VLANs do not get an SVI. The gateway lives only on the primary VLAN,</text>
+  <text class="w" x="250" y="190">which is why the subnet does not change when you turn PVLAN on.</text>
+  <text class="w" x="44" y="222">Isolated ports: gateway only. Community ports: each other plus gateway. Promiscuous: everything.</text>
+
+  <!-- Matrix -->
+  <rect x="506" y="62" width="370" height="192" rx="3" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+  <text class="k" x="518" y="80">WHO CAN REACH WHOM</text>
+
+  <rect x="518" y="88" width="346" height="20" fill="#2b3446"/>
+  <text class="th" x="526" y="102">FROM → TO</text>
+  <text class="th" x="640" y="102">RESULT</text>
+
+  <rect x="518" y="108" width="346" height="22" fill="#ffffff"/>
+  <text class="c" x="526" y="123">isolated → isolated</text>
+  <text class="x" x="640" y="123">blocked at the switch</text>
+
+  <rect x="518" y="130" width="346" height="22" fill="#ffffff"/>
+  <text class="c" x="526" y="145">isolated → community</text>
+  <text class="x" x="640" y="145">blocked</text>
+
+  <rect x="518" y="152" width="346" height="22" fill="#ffffff"/>
+  <text class="c" x="526" y="167">community → same community</text>
+  <text class="g" x="640" y="167">allowed</text>
+
+  <rect x="518" y="174" width="346" height="22" fill="#ffffff"/>
+  <text class="c" x="526" y="189">community → other community</text>
+  <text class="x" x="640" y="189">blocked</text>
+
+  <rect x="518" y="196" width="346" height="22" fill="#eef7f5"/>
+  <text class="c" x="526" y="211">promiscuous → anything</text>
+  <text class="g" x="640" y="211">allowed</text>
+
+  <text class="w" x="518" y="234">No ACL, no extra subnet, no routing change.</text>
+  <text class="w" x="518" y="246">The decision is made by the port's own role.</text>
+
+  <!-- Where it fits -->
+  <rect x="24" y="264" width="424" height="98" rx="3" fill="#eef7f5" stroke="#bfe0d9" stroke-width=".8"/>
+  <text class="k" x="36" y="282" fill="#0f7f73">WHERE IT STILL FITS</text>
+  <text class="b" x="36" y="300">Hotels · dormitories · serviced apartments</text>
+  <text class="c" x="36" y="313">Every room isolated, one shared subnet and gateway -</text>
+  <text class="c" x="36" y="325">resident-to-resident traffic never happens by design</text>
+  <text class="b" x="36" y="342">Several web servers in a DMZ</text>
+  <text class="c" x="36" y="355">isolated ports plus one promiscuous load balancer: a compromised server cannot</text>
+
+  <!-- Limitations -->
+  <rect x="456" y="264" width="420" height="98" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="468" y="282" fill="#b0452f">WHY IT STAYED NICHE</text>
+  <text class="x" x="468" y="300">1 · Complex, and vendors differ in behaviour</text>
+  <text class="x" x="468" y="314">2 · Hard across switches - VTPv3 or hand sync that drifts</text>
+  <text class="x" x="468" y="328">3 · No equivalent inside VXLAN/EVPN overlays</text>
+  <text class="x" x="468" y="342">4 · Ambiguous to troubleshoot: PVLAN, ACL or route?</text>
+  <text class="c" x="468" y="356">Replacements: SGT + policy in the campus, VXLAN + EPG in the DC</text>
+
+  <rect x="24" y="372" width="852" height="36" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="390">Design judgement:</text>
+  <text class="c" x="146" y="390">PVLAN buys port isolation at the price of a construct nobody else in the network understands. In a greenfield design the same</text>
+  <text class="c" x="36" y="402">outcome usually comes cheaper from a segmentation tag (SGT) or from simply cutting a second VLAN - and both survive the move to an overlay.</text>
+
+  <text class="w" x="24" y="430">Rule of thumb: if the requirement is "same subnet, no peer traffic, old hardware", PVLAN is the only tool. In every other case it is the wrong tool.</text>
+</svg>

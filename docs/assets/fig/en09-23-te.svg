@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t923 d923">
+  <title id="t923">Why traffic engineering exists: the cost of IGP shortest path, what TE buys, and what it costs</title>
+  <desc id="d923">Upper left: a topology with two paths between the same pair, one at 10 Gbps and one at 1 Gbps, and the note that the IGP sends both flows down the shorter path until it saturates while the other link stays idle. Upper right: the four capabilities TE adds, CSPF path computation from a traffic-engineering database, bandwidth reservation, fast reroute with pre-computed backup, and automatic bandwidth adjustment. Lower left: the four costs of TE, state on every router along the path, a second control plane to operate, tunnels that must be re-optimised, and complex failure behaviour. Lower right: the three current alternatives, segment routing which removes per-flow state, SD-WAN which moves the decision to an application policy layer, and over-provisioning which is cheaper until it is not. A closing band gives the deciding question.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Traffic engineering exists because shortest path is not the same as least loaded</text>
+  <text class="s" x="24" y="45">Four capabilities, four costs, and three alternatives that did not exist when TE was invented</text>
+
+  <rect x="24" y="60" width="410" height="112" rx="3" fill="#f8fbff" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#1f4fc0">The problem</text>
+  <rect x="48" y="92" width="60" height="22" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="w" x="58" y="107">PE-A</text>
+  <rect x="330" y="92" width="60" height="22" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="w" x="340" y="107">PE-B</text>
+  <line x1="108" y1="98" x2="330" y2="98" stroke="#c0392b" stroke-width="1.6"/>
+  <text class="w" x="150" y="93" fill="#c0392b">short path &#183; 1G &#183; saturated</text>
+  <line x1="108" y1="110" x2="330" y2="122" stroke="#9aa8ba" stroke-width=".9"/>
+  <text class="w" x="180" y="136">longer path &#183; 10G &#183; idle</text>
+  <text class="c" x="48" y="160">The IGP compares costs, not occupancy, so it fills the small link first and</text>
+
+  <rect x="460" y="60" width="416" height="112" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="472" y="78" fill="#0f7f73">What TE adds</text>
+  <text class="c" x="472" y="96">1. CSPF: path chosen from the TE database, not from hop cost.</text>
+  <text class="c" x="472" y="112">2. Reservation: the bandwidth is promised, not hoped for.</text>
+  <text class="c" x="472" y="128">3. Fast reroute: a backup path exists before the failure.</text>
+  <text class="c" x="472" y="144">4. Automatic bandwidth: tunnels resize as traffic shifts.</text>
+  <text class="w" x="472" y="164">Only 2 is genuinely new; 1, 3 and 4 can be done without RSVP.</text>
+
+  <rect x="24" y="188" width="410" height="112" rx="3" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".7"/>
+  <text class="b" x="36" y="206" fill="#c0392b">What it costs</text>
+  <text class="c" x="36" y="224" fill="#c0392b">State on every router along every tunnel, which grows with</text>
+  <text class="c" x="36" y="238" fill="#c0392b">tunnels rather than with sites.</text>
+  <text class="c" x="36" y="256" fill="#c0392b">A second control plane to operate, with its own timers.</text>
+  <text class="c" x="36" y="274" fill="#c0392b">Re-optimisation as a scheduled task nobody owns.</text>
+  <text class="c" x="36" y="292" fill="#c0392b">Failure behaviour that is harder to explain than routing.</text>
+
+  <rect x="460" y="188" width="416" height="112" rx="3" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".7"/>
+  <text class="b" x="472" y="206" fill="#6b4fbf">The three alternatives now available</text>
+  <text class="c" x="472" y="224" fill="#6b4fbf">Segment routing: source-routed paths, no per-flow state.</text>
+  <text class="c" x="472" y="242" fill="#6b4fbf">SD-WAN: policy per application, measured per path.</text>
+  <text class="c" x="472" y="260" fill="#6b4fbf">Over-provisioning: buy bandwidth instead of engineering it.</text>
+  <text class="w" x="472" y="280">All three are cheaper to operate than RSVP-TE at most scales.</text>
+  <text class="w" x="472" y="292">None of them gives a hard bandwidth guarantee per flow.</text>
+
+  <rect x="24" y="316" width="852" height="62" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="316" width="4" height="62" fill="#c0392b"/>
+  <text class="c" x="40" y="334" fill="#c0392b"><tspan style="font-weight:700">The deciding question:</tspan> do you need a per-flow bandwidth guarantee that the network enforces, or do you need traffic to avoid a congested link?</text>
+  <text class="c" x="40" y="350" fill="#c0392b">The first is TE and only TE does it. The second is a routing preference, and segment routing or a metric change solves it with a fraction of the state.</text>
+  <text class="c" x="40" y="366" fill="#c0392b">Most RSVP-TE deployments were bought for the second reason and are now maintained for the first, which is why they outlive their justification.</text>
+</svg>

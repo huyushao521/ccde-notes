@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 462" width="100%" role="img" aria-labelledby="t814 d814">
+
+  <title id="t814">OSPF and IS-IS compared across seven dimensions, with the selection guidance</title>
+  <desc id="d814">Seven comparison rows. Extensibility: OSPF uses LSAs with fixed formats and needs new types, IS-IS uses type-length-value fields so new capabilities are added without a new protocol version. Hierarchy: OSPF uses areas with a mandatory backbone that must touch area 0, IS-IS uses levels with level-2 continuous and no separate backbone area. Running over IP: OSPF runs over IP protocol 89 and needs IP reachability first, IS-IS runs directly over layer 2 with protocol 124, so it can route before IP is up. Migration: OSPF is easier to migrate and has broader vendor support and more people know it; IS-IS is harder to understand and has fewer trained engineers. Segment routing: IS-IS with wide metrics has become the common choice in large service provider cores, OSPF supports it but is less common there. Vendor reality: OSPF is present everywhere; IS-IS is present on most but not on all low-end platforms. The verdict is that complexity is not the deciding factor, operational familiarity is; and given equal capability, choose the one the team can troubleshoot at three in the morning.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="462" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">OSPF and IS-IS compared on the seven dimensions that actually decide it</text>
+  <text class="s" x="24" y="45">The differences are real, but only two of them change an outcome at most enterprises</text>
+
+  <text class="k" x="36" y="66">DIMENSION</text>
+  <text class="k" x="196" y="66">OSPF</text>
+  <text class="k" x="486" y="66">IS-IS</text>
+
+  <rect x="24" y="72" width="852" height="40" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".5"/>
+  <text class="b" x="36" y="96">Extensibility</text>
+  <text class="c" x="196" y="90">LSAs have fixed formats; a new capability</text>
+  <text class="c" x="196" y="103">usually means a new LSA type or a new version.</text>
+  <text class="c" x="486" y="90" fill="#6b4fbf"><tspan style="font-weight:700">TLV-based:</tspan> new capability = new sub-TLV, no new</text>
+  <text class="c" x="486" y="103" fill="#6b4fbf">protocol version, and unknown TLVs are ignored safely.</text>
+
+  <rect x="24" y="116" width="852" height="40" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="140">Hierarchy</text>
+  <text class="c" x="196" y="134">Areas with a mandatory backbone; every non-</text>
+  <text class="c" x="196" y="147">backbone area must touch area 0.</text>
+  <text class="c" x="486" y="134">Levels 1 and 2; level-2 is contiguous and needs no</text>
+  <text class="c" x="486" y="147">separate backbone area. Fewer constraints, stricter nodes.</text>
+
+  <rect x="24" y="160" width="852" height="40" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="b" x="36" y="184">Runs over</text>
+  <text class="c" x="196" y="178">IP protocol 89 &#8212; needs IP reachability before it</text>
+  <text class="c" x="196" y="191">can build adjacencies.</text>
+  <text class="c" x="486" y="178" fill="#0f7f73">Layer 2 directly, protocol 124 &#8212; it can route</text>
+  <text class="c" x="486" y="191" fill="#0f7f73">before IP is up, which is why it suits transport networks.</text>
+
+  <rect x="24" y="204" width="852" height="40" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="b" x="36" y="228">Migration and skills</text>
+  <text class="c" x="196" y="222" fill="#7a5b18">Broader support, easier to migrate to, more</text>
+  <text class="c" x="196" y="235" fill="#7a5b18">people on the market already know it.</text>
+  <text class="c" x="486" y="222" fill="#7a5b18">Harder to learn (NSAP addressing, levels), fewer</text>
+  <text class="c" x="486" y="235" fill="#7a5b18">engineers, so the training cost is real and ongoing.</text>
+
+  <rect x="24" y="248" width="852" height="40" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="272">Segment routing</text>
+  <text class="c" x="196" y="266">Supported, but less common in large cores.</text>
+  <text class="c" x="196" y="279">Wide metrics are needed for the larger label space.</text>
+  <text class="c" x="486" y="266">The common choice for large service provider cores:</text>
+  <text class="c" x="486" y="279">wide metric plus TLV extension, and it is already layer 2 native.</text>
+
+  <rect x="24" y="292" width="852" height="40" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="316">Platform coverage</text>
+  <text class="c" x="196" y="310">Available essentially everywhere, down to</text>
+  <text class="c" x="196" y="323">small switches and firewalls.</text>
+  <text class="c" x="486" y="310">Present on most platforms, but not all &#8212; verify the</text>
+  <text class="c" x="486" y="323">low-end model before standardising on it.</text>
+
+  <rect x="24" y="336" width="852" height="40" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="b" x="36" y="360">Troubleshooting</text>
+  <text class="c" x="196" y="354">Readable LSDB and neighbour states; the output</text>
+  <text class="c" x="196" y="367">maps onto how people describe the network.</text>
+  <text class="c" x="486" y="354">The LSP and TLV model is less intuitive at first,</text>
+  <text class="c" x="486" y="367">but the database is flat and predictable once learned.</text>
+
+  <rect x="24" y="384" width="852" height="66" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="384" width="4" height="66" fill="#c0392b"/>
+  <text class="c" x="40" y="402" fill="#c0392b"><tspan style="font-weight:700">The honest verdict:</tspan> only two rows usually change an enterprise outcome &#8212; platform coverage and the skills already on the team.</text>
+  <text class="c" x="40" y="418" fill="#c0392b">TLV extensibility matters at service provider scale and in segment routing cores; it does not matter in a 300-router campus.</text>
+  <text class="c" x="40" y="434" fill="#c0392b">Given similar capability, choose the protocol the on-call engineer can troubleshoot at 3 a.m. That is an engineering criterion, not a political one.</text>
+</svg>

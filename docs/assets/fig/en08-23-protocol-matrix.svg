@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 452" width="100%" role="img" aria-labelledby="t823 d823">
+
+  <title id="t823">Protocol selection matrix by requirement, with the six principles that outrank the matrix</title>
+  <desc id="d823">A matrix with requirements as rows and four protocols as columns: OSPF, IS-IS, EIGRP and BGP. Strong fit is marked with a filled dot, workable with an open dot, weak with a dash. Rows: single vendor campus, multivendor requirement, more than 500 routers in one domain, sub-second convergence need, rich policy and path control, segment routing core, and team already trained. OSPF is strong for campus, multivendor and trained teams, workable at scale, weak for policy. IS-IS is strong at scale, for segment routing and multivendor, weak for team familiarity. EIGRP is strong for single vendor campus and convergence, weak for multivendor and policy. BGP is strong for policy and scale, weak for campus simplicity. A right-hand panel lists six principles: use one IGP plus BGP rather than three IGPs; choose by operating model; keep the flooding domain small; design the addressing plan before the protocol; test failure not configuration; and write the decision down with its reason.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .g{font:700 10px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .o{font:700 10px "Segoe UI",sans-serif;fill:#9aa8ba}
+  </style>
+
+  <rect x="0" y="0" width="900" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Choose the protocol by requirement, then let the operating model break the tie</text>
+  <text class="s" x="24" y="45">Filled dot = strong fit &#183; open dot = workable &#183; dash = poor fit. The matrix narrows the field; it does not pick the winner</text>
+
+  <text class="k" x="36" y="70">REQUIREMENT</text>
+  <text class="k" x="376" y="70">OSPF</text>
+  <text class="k" x="460" y="70">IS-IS</text>
+  <text class="k" x="548" y="70">EIGRP</text>
+  <text class="k" x="636" y="70">BGP</text>
+
+  <rect x="24" y="76" width="852" height="30" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="95">Single-vendor campus</text>
+  <text class="g" x="386" y="95">&#9679;</text><text class="o" x="470" y="95">&#9675;</text><text class="g" x="558" y="95">&#9679;</text><text class="o" x="646" y="95">&#9675;</text>
+
+  <rect x="24" y="110" width="852" height="30" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".5"/>
+  <text class="c" x="36" y="129">Multivendor requirement</text>
+  <text class="g" x="386" y="129">&#9679;</text><text class="g" x="470" y="129">&#9679;</text><text class="c" x="558" y="129">&#8212;</text><text class="g" x="646" y="129">&#9679;</text>
+
+  <rect x="24" y="144" width="852" height="30" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="36" y="163">More than 500 routers in one domain</text>
+  <text class="o" x="386" y="163">&#9675;</text><text class="g" x="470" y="163">&#9679;</text><text class="c" x="558" y="163">&#8212;</text><text class="g" x="646" y="163">&#9679;</text>
+
+  <rect x="24" y="178" width="852" height="30" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".5"/>
+  <text class="c" x="36" y="197">Sub-second convergence with a small team</text>
+  <text class="o" x="386" y="197">&#9675;</text><text class="o" x="470" y="197">&#9675;</text><text class="g" x="558" y="197">&#9679;</text><text class="c" x="646" y="197">&#8212;</text>
+
+  <rect x="24" y="212" width="852" height="30" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".5"/>
+  <text class="c" x="36" y="231">Rich policy and path control</text>
+  <text class="c" x="386" y="231">&#8212;</text><text class="c" x="470" y="231">&#8212;</text><text class="o" x="558" y="231">&#9675;</text><text class="g" x="646" y="231">&#9679;</text>
+
+  <rect x="24" y="246" width="852" height="30" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".5"/>
+  <text class="c" x="36" y="265">Segment routing core</text>
+  <text class="o" x="386" y="265">&#9675;</text><text class="g" x="470" y="265">&#9679;</text><text class="c" x="558" y="265">&#8212;</text><text class="o" x="646" y="265">&#9675;</text>
+
+  <rect x="24" y="280" width="852" height="30" rx="2" fill="#fdf1ee" stroke="#e6c3bc" stroke-width=".5"/>
+  <text class="c" x="36" y="299">Team already trained and on call</text>
+  <text class="g" x="386" y="299">&#9679;</text><text class="c" x="470" y="299">&#8212;</text><text class="g" x="558" y="299">&#9679;</text><text class="o" x="646" y="299">&#9675;</text>
+
+  <text class="k" x="24" y="332">SIX PRINCIPLES THAT OUTRANK ANY MATRIX</text>
+  <rect x="24" y="340" width="852" height="76" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="c" x="36" y="358">1. One IGP plus BGP, not three IGPs. Each extra protocol doubles the redistribution surface.</text>
+  <text class="c" x="36" y="374">2. Choose by operating model: who is on call, and what they can debug at 3 a.m.</text>
+  <text class="c" x="36" y="390">3. Keep the flooding domain small. The protocol will not save a topology that is too flat.</text>
+  <text class="c" x="36" y="406">4. Design the addressing plan before the protocol &#8212; summarization is a product of the plan.</text>
+
+  <text class="w" x="24" y="432">5. Test failure, not configuration: shut the link, kill the process, pull the power, and measure. 6. Write the decision and its reason in the design document, or the next team will re-decide it by rumour.</text>
+</svg>

@@ -34,6 +34,8 @@
 
 ## Chapter Introduction: Fifteen Counterintuitive Truths About Multicast Design · 本章导读：组播设计的十五个反直觉认知
 
+![The fifteen truths at a glance, grouped into path, control plane, capacity and trust](assets/fig/en13-01-fifteen-truths.svg)
+
 Multicast is the field where "the shortest configuration produces the longest outage". One line of `ip pim sparse-mode` plus one RP address makes it "run", yet production incidents routinely last hours, because multicast forwarding **does not follow unicast intuition**.
 
 <div class="zh" markdown="1">
@@ -43,6 +45,8 @@ Multicast is the field where "the shortest configuration produces the longest ou
 </div>
 
 ### 1. Multicast has no "destination-based routing", only "reverse check of the source" · 组播没有"目的地址选路"，只有"源的反向检查"
+
+![Unicast forwards toward a destination; multicast forwards away from a verified source](assets/fig/en13-02-rpf-inverted.svg)
 
 Unicast forwarding looks at the **destination** and takes the longest match. Multicast forwarding looks at the **source**: the router checks "did this packet arrive on the **optimal interface toward the source**?" — that is **RPF (Reverse Path Forwarding)**.
 
@@ -82,6 +86,8 @@ Unicast forwarding looks at the **destination** and takes the longest match. Mul
 
 ### 2. Multicast is a "broadcast domain problem", not just a "routing problem" · 组播是"广播域问题"，不只是"路由问题"
 
+![How one unpruned multicast group multiplies across a broadcast domain](assets/fig/en13-03-broadcast-domain.svg)
+
 Multicast frames are sent at Layer 2 using multicast MAC addresses. Without **IGMP Snooping**, a switch treats them as broadcast and **floods them across the whole VLAN** — a 4 Mbps video stream gets pushed to 500 ports.
 
 <div class="zh" markdown="1">
@@ -108,6 +114,8 @@ Conversely, if Snooping is enabled but there is **no Querier** (no PIM router in
 
 ### 3. The RP is not an "optional component"; in PIM-SM it is "a single point plus the state centre" · RP 不是"可选组件"，在 PIM-SM 里它是"单点 + 状态中心"
 
+![The RP's three jobs and what fails when it is a single box](assets/fig/en13-04-rp-single-point.svg)
+
 In PIM-SM every (*,G) state converges toward the RP. When the RP dies:
 - Established (S,G) shortest-path trees **keep forwarding** (because they already switched to the SPT)
 - But **new receivers cannot join** and **new sources cannot register**
@@ -129,6 +137,8 @@ So **"the RP died and nothing broke" is a dangerous illusion** — it only prove
 </div>
 
 ### 4. The default SPT switchover is not always a good thing · 默认的 SPT 切换不总是好事
+
+![SPT switchover: what it buys and where the cost lands](assets/fig/en13-05-spt-switchover.svg)
 
 PIM-SM by default switches from the shared tree (RPT) to the **shortest-path tree (SPT)** once a receiver gets the first packet. Latency is optimal, at the cost of:
 - **N copies of (S,G) state at the source side** (one path per receiver branch)
@@ -153,6 +163,8 @@ In some scenarios (source close to the RP, very many channels) the shared tree s
 </div>
 
 ### 5. SSM is the modern default answer · SSM 才是现代组播的默认答案
+
+![Why SSM is the modern default answer](assets/fig/en13-06-ssm-default.svg)
 
 Almost all of PIM-SM's complexity (RP, registration, shared tree, SPT switchover, MSDP) comes from "**not knowing where the source is**". Yet in reality the vast majority of enterprise multicast (IPTV, video conferencing, market-data push, CCTV) **has known, fixed sources**.
 
@@ -215,6 +227,8 @@ Unicast has TCP retransmission and window control; multicast (usually UDP) **los
 </div>
 
 ### 8. The multicast "control plane" and "data plane" are two completely independent states · 组播的"控制面"与"数据面"是两套完全独立的状态
+
+![Control plane and data plane as two independent states that must both be right](assets/fig/en13-07-two-planes.svg)
 
 In unicast, "the routing table is right, therefore forwarding is right". In multicast **the two can be fully decoupled**:
 
@@ -332,6 +346,8 @@ These three questions shrink "a multicast fault" from "the whole network" to "on
 
 ### 10. DR, Querier, Assert Winner and DF are four **different** roles · DR、Querier、Assert Winner、DF 是四个**不同**的角色
 
+![DR, Querier, Assert winner and DF: four elections, four scopes, four tie-breakers](assets/fig/en13-08-four-roles.svg)
+
 This is the favourite confusion of CCDE multiple-choice questions and a frequent source of real outages:
 
 <div class="zh" markdown="1">
@@ -389,6 +405,8 @@ This is the favourite confusion of CCDE multiple-choice questions and a frequent
 </div>
 
 ### 11. Multicast "bandwidth" is not "stream bandwidth" but "stream bandwidth × number of branches × (1 + redundancy factor)" · 组播的"带宽"不是"流带宽"，而是"流带宽 × 分支数 × (1 + 冗余系数)"
+
+![Multicast bandwidth: stream rate times branches, redundancy and headroom](assets/fig/en13-09-bandwidth-math.svg)
 
 This is where capacity planning is most often miscalculated. Unicast bandwidth is one end-to-end path; multicast bandwidth must be counted on every edge of the tree.
 
@@ -494,6 +512,8 @@ AP 上组播开销 = 组播帧大小 × 每秒帧数 × 最低基础速率对应
 
 ### 12. Multicast failure modes are silent: no ICMP, no syslog, no retransmission · 组播的故障模式是"沉默的"：没有 ICMP、没有 syslog、没有重传
 
+![Silent failure modes and the five observability layers that make them visible](assets/fig/en13-10-silent-failures.svg)
+
 The feedback loop of the unicast world is entirely missing in multicast:
 
 <div class="zh" markdown="1">
@@ -559,6 +579,8 @@ The feedback loop of the unicast world is entirely missing in multicast:
 </div>
 
 ### 13. The real bottleneck in multicast design is state count, not bandwidth · 组播设计真正的瓶颈是"状态数量"，不是"带宽"
+
+![State count as the real capacity limit, not link bandwidth](assets/fig/en13-11-state-count.svg)
 
 This determines the shape of every large-scale multicast design. **Router and switch multicast state capacity is a hard limit**, and it is limited in **three resource dimensions at once**:
 
@@ -765,6 +787,8 @@ Multicast is a natural amplifier: **a 1 Mbps source can saturate 100 gigabit lin
 ---
 
 ## Multicast Design Methodology (Seven Steps) · 组播设计方法论（七步）
+
+![The seven design steps and the artifact each one must produce](assets/fig/en13-12-seven-steps.svg)
 
 | Step | What to do | Output | Common mistake |
 |------|---------|------|---------|
@@ -1196,6 +1220,8 @@ interface Gi1/0/1
 
 ### Multicast Address Ranges (your first "land deed" in the design) · 组播地址范围（设计的第一份"土地证"）
 
+![Six multicast address ranges and the behaviour each one implies](assets/fig/en13-13-address-ranges.svg)
+
 | Range | Block | Forwarding behaviour | Use | Design note |
 |------|-------|---------|------|---------|
 | **Link-local control** | 224.0.0.0/24 | **TTL=1, not forwarded by routers** | the protocols themselves (PIM/OSPF/IGMP/HSRP) | never allocate to services |
@@ -1251,6 +1277,10 @@ interface Gi1/0/1
 </div>
 
 ### Multicast Address Planning (write executable rules) · 组播地址规划（写出可执行的规则）
+
+![An address plan as an allocation tree, with three hard rules and three checks](assets/fig/en13-14-address-plan.svg)
+
+![The 32:1 MAC address collision and the guards that keep it harmless](assets/fig/en13-15-mac-collision.svg)
 
 One of the most common enterprise multicast incidents is "addresses grabbed at random", which becomes unauditable after a few years. Plan along these lines (directly usable in a design document):
 
@@ -1432,6 +1462,8 @@ Switches treat **unknown destination MACs** (multicast MACs included) as broadca
 
 ### The Four Key IGMP Snooping Mechanisms · IGMP Snooping 的四个关键机制
 
+![The four IGMP snooping mechanisms and the symptom each one produces when missing](assets/fig/en13-16-igmp-snooping.svg)
+
 | Mechanism | Function | What happens without it |
 |------|------|------------|
 | **Snooping Join/Report** | adds the port to the multicast forwarding table | multicast floods the whole VLAN |
@@ -1479,6 +1511,8 @@ Switches treat **unknown destination MACs** (multicast MACs included) as broadca
 </div>
 
 ### IGMP Version Comparison · IGMP 版本对比
+
+![IGMPv1, v2 and v3 compared on queries, leave and source filtering](assets/fig/en13-17-igmp-versions.svg)
 
 | Feature | IGMPv1 | IGMPv2 | IGMPv3 |
 |------|--------|--------|--------|
@@ -1537,6 +1571,8 @@ Switches treat **unknown destination MACs** (multicast MACs included) as broadca
 </div>
 
 ### PIM Snooping vs IGMP Snooping
+
+![MVR and PIM snooping: what each one moves rather than solves](assets/fig/en13-18-mvr-pim-snooping.svg)
 
 | Dimension | IGMP Snooping | PIM Snooping |
 |------|--------------|--------------|
@@ -2019,6 +2055,8 @@ interface Vlan200
 ## Layer 3 Multicast Routing · 三层组播路由
 
 ### RPF (Reverse Path Forwarding): the only criterion for multicast forwarding · RPF（反向路径转发）：组播转发的唯一判据
+
+![The five-level RPF source stack and the three commands that read it](assets/fig/en13-19-rpf-stack.svg)
 
 > RPF is the core concept of multicast routing. On receiving a multicast packet, the router **checks the source address** — it forwards only if the incoming interface is the "optimal path interface toward the source", otherwise it **drops the packet silently**.
 
@@ -2516,6 +2554,10 @@ B 听到 Prune → 立即发 Join 覆盖（Prune Override，约 3 秒内）
 
 ### PIM Mode Selection (the core design decision) · PIM 模式选择（设计决策的核心）
 
+![Choosing a PIM mode: the decision path from group count to address range](assets/fig/en13-20-mode-decision.svg)
+
+![The four PIM modes compared on state, tree shape and RP dependence](assets/fig/en13-21-pim-modes.svg)
+
 | PIM mode | Mechanism | Tree shape | State | Where it fits | Main drawback |
 |---------|------|------|-------|---------|---------|
 | **PIM-DM** | push (flood and prune), periodic re-flooding | source tree (one per source) | medium (prune state) | small networks, dense receivers, few sources | flooding waste, timer-driven state refresh, not for large scale |
@@ -2581,6 +2623,8 @@ Is the source address fixed and known?
 </div>
 
 ### The Complete PIM-SM Workflow (including the role of each message) · PIM-SM 完整工作流程（含每个报文的作用）
+
+![PIM-SM in four phases and twelve messages](assets/fig/en13-22-pim-sm-flow.svg)
 
 ```
 [Phase 1: receiver joins (shared tree)]
@@ -2968,6 +3012,8 @@ access-list 1 permit 232.1.1.0 0.0.0.255
 
 ### SSM in Depth: Five Details That Must Be Clarified · SSM 深入：五个必须澄清的细节
 
+![Five details of SSM that must be decided before rollout](assets/fig/en13-23-ssm-details.svg)
+
 #### Detail 1: the SSM group range can be changed, but should not be · 细节 1：SSM 的组范围可以改，但不该改
 
 The standard specifies **232.0.0.0/8** (IPv4) / **FF3x::/32** (IPv6) for SSM. Devices usually have a default SSM range, which can be changed:
@@ -3187,6 +3233,8 @@ SSM 跨域只需要两件事：
 </div>
 
 ### BiDir-PIM in Depth: DF Election and the State Model · BiDir-PIM 深入：DF 选举与状态模型
+
+![BiDir: one shared tree at the RP and a DF election that is per group and directional](assets/fig/en13-24-bidir-df.svg)
 
 #### The BiDir tree model · BiDir 的树模型
 
@@ -3473,6 +3521,8 @@ interface Serial0/0
 
 ### Comparing the Four RP Discovery Methods · 四种 RP 发现方式对比
 
+![Four RP discovery methods and what each costs later](assets/fig/en13-25-rp-discovery.svg)
+
 | Method | Standardisation | Mechanism | Advantages | Disadvantages | Fit |
 |------|-------|------|------|------|------|
 | **Static RP** | standard | configure `ip pim rp-address` manually on every router | simple, deterministic, no protocol overhead | changes need network-wide edits; no automatic redundancy | small networks, stable topology |
@@ -3550,6 +3600,8 @@ interface Serial0/0
 </div>
 
 ### How Anycast-RP Works (and why MSDP is required) · Anycast-RP 的工作机制（含 MSDP 的必要性）
+
+![Anycast-RP: shared address, synchronised state, and why MSDP is mandatory](assets/fig/en13-26-anycast-msdp.svg)
 
 ```
         RP-1 (RP address 10.0.0.1, router-id 1.1.1.1)
@@ -4423,6 +4475,8 @@ router bgp 65000
 
 ### The Four Approaches to Cross-Domain Multicast · 跨域组播的四种方案
 
+![Four ways to cross a domain boundary, ordered by cost](assets/fig/en13-27-interdomain.svg)
+
 | Approach | Mechanism | Fit | Complexity |
 |------|------|------|--------|
 | **Single domain (no crossing)** | solved inside one PIM domain | inside the enterprise | low |
@@ -4921,6 +4975,8 @@ router bgp 65000
 
 ### Multicast VPN (MVPN): Choosing Among Five Profiles · 组播 VPN（MVPN）：五种 profile 的选择
 
+![MVPN profiles and the default-MDT versus data-MDT arithmetic](assets/fig/en13-28-mvpn-profiles.svg)
+
 MPLS L3VPN does **not forward multicast by default** (PEs only exchange unicast VRF routes). To carry multicast across MPLS you must deploy MVPN.
 
 <div class="zh" markdown="1">
@@ -5203,6 +5259,8 @@ internal network (has receivers)     firewall          external network (source/
 
 ### Live-Live (Dual-Active Multicast) · Live-Live（双活组播）
 
+![Live-Live: two groups, two physical paths, one merged stream](assets/fig/en13-29-live-live.svg)
+
 **Goal**: when one path fails the receiver **notices nothing** (no dropped frames, no re-join).
 
 <div class="zh" markdown="1">
@@ -5391,6 +5449,8 @@ Live-Live 后故障概率：P2 = P1 × P(两条路径同时故障)
 </div>
 
 ### QoS Design for Multicast (end to end; one missing segment and it fails) · 组播的 QoS 设计（端到端，缺一段就失效）
+
+![The five-stage multicast QoS chain and the weakest-link rule](assets/fig/en13-30-qos-layers.svg)
 
 **Multicast QoS is harder than unicast because**:
 
@@ -5654,6 +5714,8 @@ The source side is the "starting point" of multicast and the most neglected part
 
 ### Multicast Convergence and Switchover Design (a time budget table) · 组播的收敛与切换设计（时间预算表）
 
+![Convergence budget by failure type versus the interruption each service allows](assets/fig/en13-31-convergence-budget.svg)
+
 | Failure type | Detection mechanism | Detection time | Recovery action | End-to-end interruption (experience) |
 |---------|---------|---------|---------|-------------------|
 | **Link down** | interface down / BFD | < 1 s (BFD 50 ms × 3) | IGP converges → the multicast tree rebuilds | 1–5 s |
@@ -5814,6 +5876,8 @@ The source side is the "starting point" of multicast and the most neglected part
 
 ### Reading the mroute Flags (the first language of troubleshooting) · mroute 标志位完整解读（排障的第一门语言）
 
+![Fifteen mroute flags and the four combinations worth memorising](assets/fig/en13-32-mroute-flags.svg)
+
 ```
 R1# show ip mroute 239.10.1.1
 (*, 239.10.1.1), 00:10:23/00:02:47, RP 10.0.0.1, flags: SJC
@@ -5909,6 +5973,8 @@ R1# show ip mroute 239.10.1.1
 </div>
 
 ### The Multicast Troubleshooting Decision Tree (turn it straight into a runbook) · 组播排障的决策树（可直接做成 Runbook）
+
+![The six-question troubleshooting tree as a runbook](assets/fig/en13-33-troubleshooting-tree.svg)
 
 ```
 【Symptom: the receiver gets no multicast】

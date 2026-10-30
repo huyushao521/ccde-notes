@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 448" width="100%" role="img" aria-labelledby="t1005 d1005">
+  <title id="t1005">The four-step security method from assets to technology, and the asset classification ladder that sets the budget</title>
+  <desc id="d1005">Four steps in order. Assets: what are we protecting, and how bad is it if each one is exposed, altered or unavailable - the artifact is a classified asset list, and the failure is that every asset gets classified as important. Threats: who would want it and how would they get it - the artifact is a STRIDE table with the attack surface, the failure is a generic threat list copied from the internet. Controls: which control, placed where, at what cost - the artifact is a control matrix mapping each threat to prevention or detection with an owner, the failure is buying a product and then inventing a threat for it. Verify: how do we know it works - the artifact is a test case per control, the failure is trusting the vendor datasheet. Bottom: the classification ladder, four tiers. Tier one, regulated or life-safety, gets the strongest control and the only 24x7 monitoring. Tier two, business-critical, gets segmentation plus logging. Tier three, internal, gets baseline hygiene. Tier four, public or guest, gets isolation only and nothing more, because spending on guests is spending taken away from tier one. A footer says the ladder is the yardstick for every later argument about budget.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="448" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four steps, in this order, each with one artifact and one characteristic failure</text>
+  <text class="s" x="24" y="45">Skip a step and the argument moves to technology, where it can never be settled, because the disagreement was about assets.</text>
+
+  <rect x="24" y="62" width="204" height="166" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="k" x="36" y="80">STEP 1</text>
+  <text class="b" x="36" y="98">Assets</text>
+  <text class="c" x="36" y="118">What are we protecting, and how</text>
+  <text class="c" x="36" y="132">bad is exposure, alteration or</text>
+  <text class="c" x="36" y="146">unavailability of each one?</text>
+  <text class="w" x="36" y="168">artifact: classified asset list</text>
+  <text class="x" x="36" y="186">failure: everything is "critical"</text>
+  <text class="w" x="36" y="204">when all assets are equal, no</text>
+  <text class="w" x="36" y="218">budget decision can be made</text>
+
+  <rect x="240" y="62" width="204" height="166" rx="3" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+  <text class="k" x="252" y="80">STEP 2</text>
+  <text class="b" x="252" y="98">Threats</text>
+  <text class="c" x="252" y="118">Who would want it, and through</text>
+  <text class="c" x="252" y="132">which surface would they reach</text>
+  <text class="c" x="252" y="146">it - identity, network, physical?</text>
+  <text class="w" x="252" y="168">artifact: STRIDE table + surface</text>
+  <text class="x" x="252" y="186">failure: the generic threat list</text>
+  <text class="w" x="252" y="204">copied from a blog tells you about</text>
+  <text class="w" x="252" y="218">someone else's network</text>
+
+  <rect x="456" y="62" width="204" height="166" rx="3" fill="#f7f3fe" stroke="#d6c9f0" stroke-width=".8"/>
+  <text class="k" x="468" y="80">STEP 3</text>
+  <text class="b" x="468" y="98">Controls</text>
+  <text class="c" x="468" y="118">Which control, placed where, at</text>
+  <text class="c" x="468" y="132">what operational cost, and who</text>
+  <text class="c" x="468" y="146">owns it after go-live?</text>
+  <text class="w" x="468" y="168">artifact: threat to control matrix</text>
+  <text class="x" x="468" y="186">failure: buy first, invent a threat</text>
+  <text class="w" x="468" y="204">to justify the purchase - the most</text>
+  <text class="w" x="468" y="218">expensive way to write a design</text>
+
+  <rect x="672" y="62" width="204" height="166" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="684" y="80">STEP 4</text>
+  <text class="b" x="684" y="98">Verify</text>
+  <text class="c" x="684" y="118">How do we know the control is</text>
+  <text class="c" x="684" y="132">working today - not at the moment</text>
+  <text class="c" x="684" y="146">it was installed?</text>
+  <text class="w" x="684" y="168">artifact: one test case per control</text>
+  <text class="x" x="684" y="186">failure: trusting the datasheet</text>
+  <text class="w" x="684" y="204">"configured" and "effective" are</text>
+  <text class="w" x="684" y="218">different states, on different days</text>
+
+  <text class="k" x="24" y="256">THE ASSET LADDER - the yardstick every later budget argument is measured against</text>
+
+  <rect x="24" y="266" width="204" height="86" rx="3" fill="#fdf0ee" stroke="#c0392b" stroke-width=".9"/>
+  <text class="b" x="36" y="284">Tier 1  Regulated / life-safety</text>
+  <text class="w" x="36" y="302">patient records, payment keys,</text>
+  <text class="w" x="36" y="314">control systems that move things</text>
+  <text class="c" x="36" y="332">strongest control, 24x7 monitoring,</text>
+  <text class="c" x="36" y="344">tested recovery, named owner</text>
+
+  <rect x="240" y="266" width="204" height="86" rx="3" fill="#ffffff" stroke="#b8862b" stroke-width=".9"/>
+  <text class="b" x="252" y="284">Tier 2  Business-critical</text>
+  <text class="w" x="252" y="302">ERP, mail, file services, the</text>
+  <text class="w" x="252" y="314">systems whose outage is measured</text>
+  <text class="c" x="252" y="332">segmentation, logging, four-hour</text>
+  <text class="c" x="252" y="344">recovery, business-hours support</text>
+
+  <rect x="456" y="266" width="204" height="86" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="468" y="284">Tier 3  Internal</text>
+  <text class="w" x="468" y="302">intranet, collaboration, the tools</text>
+  <text class="w" x="468" y="314">nobody outside the company uses</text>
+  <text class="c" x="468" y="332">baseline hygiene, patching,</text>
+  <text class="c" x="468" y="344">next-business-day response</text>
+
+  <rect x="672" y="266" width="204" height="86" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="684" y="284">Tier 4  Public / guest</text>
+  <text class="w" x="684" y="302">visitor Wi-Fi, kiosks, anything</text>
+  <text class="w" x="684" y="314">you do not administer</text>
+  <text class="c" x="684" y="332">isolate and forget - it gets</text>
+  <text class="c" x="684" y="344">nothing that tier 1 needs</text>
+
+  <rect x="24" y="366" width="852" height="34" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".7"/>
+  <text class="c" x="36" y="387">Every budget argument is really a tier argument. Say "this is tier 2" and the discussion becomes finite; say "this is important" and it never ends.</text>
+
+  <text class="w" x="24" y="422">Practical note: the ladder is only useful if the tier is written on the asset record, not in someone's head. The tier is what the firewall policy, the backup policy and the patching window all quote.</text>
+  <text class="w" x="24" y="438">And tier 4 is not a punishment: it is the only way to stop guest access from consuming the security budget of tier 1.</text>
+</svg>

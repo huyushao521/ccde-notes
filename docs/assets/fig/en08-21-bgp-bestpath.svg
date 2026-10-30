@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t821 d821">
+
+  <title id="t821">The BGP best-path decision process as an ordered sequence, with criterion eight highlighted</title>
+  <desc id="d821">Twelve criteria evaluated in order, stopping at the first difference. One, highest weight, local to the router and never advertised. Two, highest local preference, shared inside the autonomous system. Three, locally originated, either a network command or a redistribute. Four, shortest AS_PATH. Five, lowest origin code, where IGP beats EGP beats incomplete. Six, lowest multi-exit discriminator. Seven, external over internal, then internal over confederation-external. Eight, lowest IGP metric to the next hop, which is the criterion that silently decides many enterprise designs. Nine, oldest route for external BGP. Ten, lowest router ID of the advertising neighbour. Eleven, shortest cluster list. Twelve, lowest neighbour address. Criterion eight is highlighted with a note explaining that criteria one to seven can all tie and then an IGP cost nobody chose becomes the winner. A side note lists three facts that are commonly wrong: weight is local and never leaves the router, MED is only compared between paths from the same neighbouring autonomous system by default, and a route not installed may fail because its next hop is unreachable rather than because of a policy.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#6b7a90}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Best path: compare in order, stop at the first difference &#8212; there is no scoring and no averaging</text>
+  <text class="s" x="24" y="45">Read the list as a tie-breaker chain; most real disagreements are settled by items 1 to 8</text>
+
+  <rect x="24" y="58" width="560" height="52" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="80">1&#8211;3</text>
+  <text class="c" x="76" y="76"><tspan style="font-weight:700">Weight</tspan> (highest, local only) &#8594; <tspan style="font-weight:700">Local preference</tspan> (highest, whole AS) &#8594; <tspan style="font-weight:700">locally originated</tspan></text>
+  <text class="w" x="76" y="94">The three you control directly. If a design &#8220;does not work&#8221;, check these first &#8212; they consume no IGP knowledge and no convergence.</text>
+
+  <rect x="24" y="116" width="560" height="52" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="138">4&#8211;6</text>
+  <text class="c" x="76" y="134"><tspan style="font-weight:700">Shortest AS_PATH</tspan> &#8594; <tspan style="font-weight:700">lowest origin</tspan> (IGP &lt; EGP &lt; incomplete) &#8594; <tspan style="font-weight:700">lowest MED</tspan></text>
+  <text class="w" x="76" y="152">The inter-domain set. MED only compares paths from the same neighbouring AS, so it is a hint, not a decision.</text>
+
+  <rect x="24" y="174" width="560" height="52" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="n" x="36" y="196">7</text>
+  <text class="c" x="76" y="192"><tspan style="font-weight:700">eBGP over iBGP</tspan> over confederation-external</text>
+  <text class="w" x="76" y="210">This is why an external path with a worse AS_PATH can still beat a cleaner internal one: the origin class outranks the path length here.</text>
+
+  <rect x="24" y="232" width="560" height="56" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <rect x="24" y="232" width="4" height="56" fill="#c0392b"/>
+  <text class="n" x="36" y="256" fill="#c0392b">8</text>
+  <text class="c" x="76" y="250" fill="#c0392b" style="font-weight:700">Lowest IGP metric to the NEXT_HOP</text>
+  <text class="c" x="76" y="266" fill="#c0392b">Items 1&#8211;7 can all tie. Then an IGP cost that nobody designed for BGP decides the path, and it is the</text>
+  <text class="c" x="76" y="280" fill="#c0392b">sum of interface costs that came from a bandwidth formula. Design the IGP cost and the BGP policy together.</text>
+
+  <rect x="24" y="294" width="560" height="44" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="320">9&#8211;10</text>
+  <text class="c" x="76" y="314"><tspan style="font-weight:700">Oldest eBGP route</tspan> &#8594; <tspan style="font-weight:700">lowest router ID</tspan> of the advertising neighbour</text>
+  <text class="w" x="76" y="331">Tie-breakers with no design meaning. If you reach them, the policy above was not specific enough.</text>
+
+  <rect x="24" y="344" width="560" height="44" rx="2" fill="#f7f9fd" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="370">11&#8211;12</text>
+  <text class="c" x="76" y="364"><tspan style="font-weight:700">Shortest cluster list</tspan> &#8594; <tspan style="font-weight:700">lowest neighbour address</tspan></text>
+  <text class="w" x="76" y="381">Which is effectively the router's own address book deciding. Document it if it ever shows up in a post-mortem.</text>
+
+  <text class="k" x="600" y="58">THREE THINGS PEOPLE GET WRONG</text>
+
+  <rect x="600" y="66" width="276" height="82" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="612" y="84">Weight is local</text>
+  <text class="c" x="612" y="100">It is never advertised and never received. A weight set</text>
+  <text class="c" x="612" y="113">on one router is invisible to its peers, so &#8220;we set weight</text>
+  <text class="c" x="612" y="126">everywhere&#8221; often means &#8220;on the router I logged into&#8221;.</text>
+  <text class="c" x="612" y="140">Use local preference when the intent is network-wide.</text>
+
+  <rect x="600" y="156" width="276" height="82" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="612" y="174">MED is not an absolute</text>
+  <text class="c" x="612" y="190">By default it is compared only between paths from the</text>
+  <text class="c" x="612" y="203">same neighbouring AS. Setting MED 50 towards one ISP</text>
+  <text class="c" x="612" y="216">and 100 towards another compares nothing at all.</text>
+  <text class="c" x="612" y="230">It is a suggestion inside one business relationship.</text>
+
+  <rect x="600" y="246" width="276" height="82" rx="2" fill="#fff8f7" stroke="#e0b4ae" stroke-width=".6"/>
+  <text class="b" x="612" y="264" fill="#c0392b">Best path is not installed path</text>
+  <text class="c" x="612" y="280" fill="#c0392b">A route can win the comparison and still not reach the</text>
+  <text class="c" x="612" y="293" fill="#c0392b">FIB, because its NEXT_HOP is unreachable through the</text>
+  <text class="c" x="612" y="306" fill="#c0392b">IGP. That is a recursive lookup failure, not a policy bug.</text>
+  <text class="c" x="612" y="320" fill="#c0392b">Check next-hop reachability before editing attributes.</text>
+
+  <rect x="24" y="400" width="852" height="56" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <rect x="24" y="400" width="4" height="56" fill="#b8862b"/>
+  <text class="c" x="40" y="418" fill="#7a5b18"><tspan style="font-weight:700">How to use this list in operations:</tspan> when two paths disagree with the intent, walk down the list with the actual output in hand until the first item</text>
+  <text class="c" x="40" y="434" fill="#7a5b18">that differs. That item is the answer &#8212; not the attribute you assumed was in charge. Writing the item number in the ticket turns a debate</text>
+  <text class="c" x="40" y="450" fill="#7a5b18">into a fact, and it is the fastest way to find a policy that was applied in the wrong direction.</text>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 462" width="100%" role="img" aria-labelledby="t822 d822">
+
+  <title id="t822">What redistribution actually loses, the seed metric problem, and the two-point feedback loop</title>
+  <desc id="d822">Left panel shows two domains joined by a boundary router. Three things are lost at the boundary: the metric, because costs are not comparable across protocols and the seed value must be supplied explicitly; the path reasoning, because the receiving protocol sees only a static-like prefix with no history; and the failure knowledge, because the boundary router decides the whole domain's reachability. A note explains that a missing seed metric produces either a zero cost that wins every comparison or infinity that never installs, and both failures are silent. Right panel shows two boundary routers redistributing in both directions, forming a feedback loop: each learns the other's redistributed copy, the metric worsens on each pass, and the loop only stops when both directions are filtered or tagged. The recommended pattern is shown: tag redistributed routes with a well-known value, then deny that tag on the way back in.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="462" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Redistribution is not a translation; it is a lossy conversion with a seed value</text>
+  <text class="s" x="24" y="45">Every problem it causes comes from one of three losses, and all three are silent until traffic stops</text>
+
+  <rect x="24" y="58" width="440" height="150" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="k" x="36" y="74">THE BOUNDARY</text>
+
+  <rect x="44" y="92" width="120" height="34" rx="2" fill="#f4f8fe" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="r" x="56" y="113">OSPF domain</text>
+  <rect x="184" y="88" width="96" height="42" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".8"/>
+  <text class="r" x="196" y="104" fill="#c0392b">ASBR</text>
+  <text class="w" x="196" y="118">redistribute</text>
+  <rect x="300" y="92" width="140" height="34" rx="2" fill="#f5fdfa" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="r" x="312" y="113">EIGRP domain</text>
+
+  <line x1="164" y1="109" x2="184" y2="109" stroke="#9aa8ba" stroke-width=".8"/>
+  <line x1="280" y1="109" x2="300" y2="109" stroke="#9aa8ba" stroke-width=".8"/>
+
+  <text class="c" x="44" y="148"><tspan style="font-weight:700">Loss 1 &#8212; the metric.</tspan> Cost 20 and metric 2 816 000 are not comparable, so a seed</text>
+  <text class="c" x="44" y="161">must be supplied by hand. Omit it and you get 0 (wins everything) or infinity (never installs).</text>
+  <text class="c" x="44" y="174"><tspan style="font-weight:700">Loss 2 &#8212; the reasoning.</tspan> The receiver sees a prefix with no history, only a claim.</text>
+  <text class="c" x="44" y="187"><tspan style="font-weight:700">Loss 3 &#8212; the failure knowledge.</tspan> The boundary decides reachability for the whole domain.</text>
+
+  <text class="k" x="492" y="74">THE TWO-POINT FEEDBACK LOOP</text>
+  <rect x="492" y="82" width="384" height="126" rx="3" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+
+  <rect x="512" y="100" width="96" height="30" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="r" x="524" y="119" fill="#c0392b">R1</text>
+  <rect x="760" y="100" width="96" height="30" rx="2" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <text class="r" x="772" y="119" fill="#c0392b">R2</text>
+
+  <line x1="608" y1="108" x2="760" y2="108" stroke="#c0392b" stroke-width="1"/>
+  <text class="w" x="640" y="102" fill="#c0392b">R1 &#8594; OSPF &#8594; R2</text>
+  <line x1="608" y1="124" x2="760" y2="124" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text class="w" x="640" y="138" fill="#c0392b">R2 &#8594; OSPF &#8594; R1 &#183; metric worsens each pass</text>
+
+  <text class="c" x="512" y="158">Both routers redistribute in both directions, so each</text>
+  <text class="c" x="512" y="171">relearns the other's copy of the same prefix. The loop</text>
+  <text class="c" x="512" y="184">stops only when one direction is filtered or tagged.</text>
+  <text class="c" x="512" y="200">A flapping link then makes the metric climb indefinitely.</text>
+
+  <text class="k" x="24" y="228">THE PATTERN THAT WORKS</text>
+  <rect x="24" y="236" width="852" height="92" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+
+  <rect x="36" y="250" width="180" height="62" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="b" x="48" y="268" fill="#0f7f73">Step 1 &#183; tag on the way out</text>
+  <text class="c" x="48" y="284">route-map SET-TAG permit 10</text>
+  <text class="c" x="48" y="297">set tag 100</text>
+
+  <rect x="228" y="250" width="200" height="62" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="b" x="240" y="268" fill="#0f7f73">Step 2 &#183; deny the tag coming in</text>
+  <text class="c" x="240" y="284">route-map INTO-EIGRP deny 5</text>
+  <text class="c" x="240" y="297">match tag 100</text>
+
+  <rect x="440" y="250" width="200" height="62" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="b" x="452" y="268" fill="#0f7f73">Step 3 &#183; explicit seed metric</text>
+  <text class="c" x="452" y="284">redistribute ospf 1 metric 100000</text>
+  <text class="c" x="452" y="297">1 255 1 1500</text>
+
+  <rect x="652" y="250" width="212" height="62" rx="2" fill="#ffffff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="b" x="664" y="268" fill="#0f7f73">Step 4 &#183; one-way is the default</text>
+  <text class="c" x="664" y="284">Prefer a single boundary. Two-way at two points</text>
+  <text class="c" x="664" y="297">costs more than the redundancy is worth.</text>
+
+  <rect x="24" y="340" width="852" height="76" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="340" width="4" height="76" fill="#c0392b"/>
+  <text class="c" x="40" y="358" fill="#c0392b"><tspan style="font-weight:700">Why this is the fourth-quarter outage:</tspan> redistribution is configured once, works, and is never tested again. Then someone adds a</text>
+  <text class="c" x="40" y="374" fill="#c0392b">summary, or a second boundary, or a static route for a migration &#8212; and the loop or the zero seed metric that was there all along becomes</text>
+  <text class="c" x="40" y="390" fill="#c0392b">visible. The design document must state, for every boundary: direction, seed metric, tag, and which prefixes are allowed through, both ways.</text>
+  <text class="c" x="40" y="406" fill="#c0392b">If that table cannot be filled in, the boundary is not designed &#8212; it is merely configured.</text>
+
+  <text class="w" x="24" y="436">Test in every change window: add the new prefix on the far side, then confirm from both domains that exactly one path exists and that its metric is the intended one. Repeat with the boundary link down.</text>
+</svg>

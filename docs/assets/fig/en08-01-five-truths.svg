@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t801 d801">
+
+  <title id="t801">Five counter-intuitive truths about Layer 3 design, each with the mechanism behind it</title>
+  <desc id="d801">Five rows. Truth 1: a BGP policy can be overridden by an IGP metric, because criteria one to seven can all tie and criterion eight, the IGP metric to the next hop, then decides. Truth 2: protocol choice is an operating model question, team familiarity weighs most and theoretical scalability weighs least. Truth 3: summarization hides information, a failed /24 stays hidden behind a living summary and traffic is dropped inside the area. Truth 4: faster convergence is not automatically better, a 50 ms BFD timer with no throttling lets a 200 ms flap trigger a network-wide SPF run. Truth 5: each extra protocol multiplies complexity, two protocols mean two redistribution directions and three protocols mean six. A note at the bottom says a design that cannot be explained on a whiteboard in five minutes will not be operable at three in the morning.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .n{font:700 13px "Segoe UI",sans-serif;fill:#6b7a90}
+  </style>
+
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Five things that are true about Layer 3 design, and are not what the configuration guide implies</text>
+  <text class="s" x="24" y="45">Each row is a mechanism, not an opinion &#8212; the mechanism is what makes it worth a chapter</text>
+
+  <text class="k" x="52" y="66">THE TRUTH</text>
+  <text class="k" x="250" y="66">WHY IT IS TRUE, MECHANICALLY</text>
+  <text class="k" x="632" y="66">WHAT IT CHANGES IN THE DESIGN</text>
+
+  <rect x="24" y="72" width="852" height="60" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="96">1</text>
+  <text class="b" x="52" y="92">A BGP policy you designed can be</text>
+  <text class="b" x="52" y="104">undone by an IGP metric</text>
+  <text class="c" x="250" y="86">Criteria 1&#8211;7 (Weight, LP, local origin, AS_PATH, Origin, MED) can all tie.</text>
+  <text class="c" x="250" y="99">Criterion 8 &#8212; the IGP metric to NEXT_HOP &#8212; then decides, and that</text>
+  <text class="c" x="250" y="112">metric came from a bandwidth formula nobody chose.</text>
+  <text class="c" x="632" y="86">Design the IGP cost and the BGP attributes</text>
+  <text class="c" x="632" y="99">together. Change one, check the other.</text>
+  <text class="c" x="632" y="112">&#8220;show ip bgp&#8221; changing is not the FIB changing.</text>
+
+  <rect x="24" y="138" width="852" height="60" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="n" x="36" y="162">2</text>
+  <text class="b" x="52" y="158">Choosing a protocol is an operating-</text>
+  <text class="b" x="52" y="170">model question, not a technical one</text>
+  <text class="c" x="250" y="152">Real weight order: what the team can troubleshoot &#8594; multivendor need</text>
+  <text class="c" x="250" y="165">&#8594; path-control need &#8594; convergence &#8594; theoretical scalability (lowest).</text>
+  <text class="c" x="632" y="152">The design document must state why this</text>
+  <text class="c" x="632" y="165">protocol, and the reason must include the</text>
+  <text class="c" x="632" y="178">team, not only the standard.</text>
+
+  <rect x="24" y="204" width="852" height="60" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="n" x="36" y="228">3</text>
+  <text class="b" x="52" y="224">Summarization hides information;</text>
+  <text class="b" x="52" y="236">the price is losing visibility</text>
+  <text class="c" x="250" y="218">One /24 fails. The summary 10.1.0.0/16 survives as long as any other</text>
+  <text class="c" x="250" y="231">/24 is reachable. Traffic keeps entering the area and dies inside it.</text>
+  <text class="c" x="632" y="218">Pair every summary with a null0 route.</text>
+  <text class="c" x="632" y="231">A summary without null0 is a design flaw.</text>
+  <text class="c" x="632" y="244">Troubleshoot inside the area, not at the core.</text>
+
+  <rect x="24" y="270" width="852" height="60" rx="2" fill="#f7f5fd" stroke="#cfc6ea" stroke-width=".6"/>
+  <text class="n" x="36" y="294">4</text>
+  <text class="b" x="52" y="290">Faster convergence is not</text>
+  <text class="b" x="52" y="302">always better</text>
+  <text class="c" x="250" y="284">BFD at 50 ms, Hello at 1 s, no SPF throttling: a 200 ms optic flap</text>
+  <text class="c" x="250" y="297">runs SPF across the whole area, the CPU saturates, and rehashing moves</text>
+  <text class="c" x="250" y="310">TCP flows &#8212; reordering, retransmits, collapsed throughput.</text>
+  <text class="c" x="632" y="284">Tiered response: detect in ms, repair</text>
+  <text class="c" x="632" y="297">locally in 100 ms, recompute SPF in</text>
+  <text class="c" x="632" y="310">seconds. Throttling is a requirement.</text>
+
+  <rect x="24" y="336" width="852" height="60" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="n" x="36" y="360">5</text>
+  <text class="b" x="52" y="356">Each extra protocol doubles the</text>
+  <text class="b" x="52" y="368">complexity; it does not add one</text>
+  <text class="c" x="250" y="350">1 protocol = 1 path set. 2 = 2 redistribution directions. 3 = 6</text>
+  <text class="c" x="250" y="363">directions, and the B&#8596;C pair usually appears by accident, not by design.</text>
+  <text class="c" x="632" y="350">Keep the protocol count small. Dual-</text>
+  <text class="c" x="632" y="363">point dual-direction redistribution costs</text>
+  <text class="c" x="632" y="376">more than the problem it solves.</text>
+
+  <rect x="24" y="406" width="852" height="50" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="406" width="4" height="50" fill="#c0392b"/>
+  <text class="c" x="40" y="425" fill="#c0392b"><tspan style="font-weight:700">The through-line:</tspan> every truth above is a case where the network obeys a mechanism the designer never chose on purpose.</text>
+  <text class="c" x="40" y="441" fill="#c0392b">If a design cannot be explained on a whiteboard in five minutes, it will not be operable at 3 a.m. when it is broken.</text>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 486" width="100%" role="img" aria-labelledby="t1040 d1040">
+  <title id="t1040">Why IPsec breaks large packets: the encapsulation arithmetic, the four symptoms it produces, and the fix order led by MSS clamping</title>
+  <desc id="d1040">Top: the arithmetic. An original packet is twenty bytes of IP header, twenty of TCP header and fourteen hundred and sixty of data for fifteen hundred bytes. After IPsec tunnel encapsulation it becomes twenty bytes of new IP, eight of ESP header, sixteen of IV, the whole original fifteen hundred bytes, two of ESP trailer and sixteen of integrity check - about fifteen hundred and sixty-two bytes, which exceeds a fifteen hundred byte MTU and must be fragmented or dropped. Middle: the four symptoms, all with the same signature - small packets pass and large packets are dropped. Ping works but the web page does not open; SSH login succeeds and hangs after a listing; the HTTPS handshake completes and the download sticks at zero percent; and some sites work while others do not because the path MTU differs. Bottom: the fix order with honest verdicts. Lowering the tunnel interface MTU to fourteen hundred is not enough because the host still emits fifteen hundred. Clamping the TCP MSS to thirteen sixty by rewriting the SYN and SYN-ACK is the key measure. Relying on path MTU discovery is unreliable because many firewalls drop the ICMP that carries it. Clearing the DF bit causes fragmentation with poor performance and security devices may still drop the fragments. A final note explains the classic case: the login form is small and the submit payload is not, and the branch router needed to fragment while encapsulation was happening, but PMTUD was broken in the path.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#8a97a8}
+    .k{font:600 7.5px "Segoe UI",sans-serif;fill:#6b7c93;letter-spacing:.05em}
+    .x{font:600 8px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:600 8px "Segoe UI",sans-serif;fill:#0f7f73}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .th{font:600 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+
+  <text class="h" x="24" y="28">"The tunnel is up, ping works, and the application does nothing"</text>
+  <text class="s" x="24" y="45">Nearly always MTU. The arithmetic is deterministic, so the diagnosis should be too</text>
+
+  <!-- Arithmetic -->
+  <text class="k" x="24" y="68">THE ARITHMETIC · WHERE THE OVERHEAD COMES FROM</text>
+  <g>
+    <rect x="24" y="76" width="52" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="50" y="93" text-anchor="middle">IP 20</text>
+    <rect x="76" y="76" width="52" height="26" fill="#eef3fd" stroke="#c9d8f6" stroke-width=".8"/>
+    <text class="w" x="102" y="93" text-anchor="middle">TCP 20</text>
+    <rect x="128" y="76" width="272" height="26" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+    <text class="w" x="264" y="93" text-anchor="middle">data 1460 → the whole packet is exactly 1500</text>
+  </g>
+  <text class="w" x="24" y="116">original packet</text>
+
+  <g>
+    <rect x="24" y="124" width="52" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="50" y="141" text-anchor="middle">new IP 20</text>
+    <rect x="76" y="124" width="56" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="104" y="141" text-anchor="middle">ESP 8</text>
+    <rect x="132" y="124" width="56" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="160" y="141" text-anchor="middle">IV 16</text>
+    <rect x="188" y="124" width="212" height="26" fill="#f4f7fb" stroke="#dbe3ee" stroke-width=".8"/>
+    <text class="w" x="294" y="141" text-anchor="middle">the whole original packet 1500 - encrypted</text>
+    <rect x="400" y="124" width="56" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="428" y="141" text-anchor="middle">tr 2</text>
+    <rect x="456" y="124" width="56" height="26" fill="#fdf0ee" stroke="#e0b3aa" stroke-width=".8"/>
+    <text class="x" x="484" y="141" text-anchor="middle">ICV 16</text>
+  </g>
+  <text class="x" x="24" y="164">encapsulated ≈ 1562 bytes - against a 1500 byte link MTU</text>
+
+  <rect x="540" y="66" width="336" height="106" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".8"/>
+  <text class="k" x="552" y="84" fill="#b0452f">THE TWO POSSIBLE OUTCOMES</text>
+  <text class="b" x="552" y="104">DF bit set (the normal case)</text>
+  <text class="c" x="552" y="118">The router may not fragment. It should send ICMP "fragmentation</text>
+  <text class="c" x="552" y="130">needed" back and the sender should shrink - unless a device in</text>
+  <text class="c" x="552" y="142">the path eats ICMP, and then the packet simply disappears.</text>
+  <text class="x" x="552" y="160">Silent loss of exactly the packets you needed.</text>
+
+  <!-- Symptoms -->
+  <rect x="24" y="182" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="198">SYMPTOM</text>
+  <text class="th" x="330" y="198">WHAT IS ACTUALLY HAPPENING</text>
+  <text class="th" x="700" y="198">SIGNATURE</text>
+
+  <rect x="24" y="206" width="852" height="26" fill="#ffffff"/>
+  <text class="c" x="40" y="223">ping works, web pages do not open</text>
+  <text class="c" x="330" y="223">The TCP handshake is small; the first data segment is not</text>
+  <text class="x" x="700" y="223">the classic</text>
+
+  <rect x="24" y="232" width="852" height="26" fill="#f7f9fc"/>
+  <text class="c" x="40" y="249">SSH login succeeds, then hangs after a large listing</text>
+  <text class="c" x="330" y="249">Interactive bytes pass, bulk output does not</text>
+  <text class="x" x="700" y="249">same signature</text>
+
+  <rect x="24" y="258" width="852" height="26" fill="#ffffff"/>
+  <text class="c" x="40" y="275">HTTPS handshake fine, download sticks at 0%</text>
+  <text class="c" x="330" y="275">Certificate exchange is small, transfer is not</text>
+  <text class="x" x="700" y="275">same signature</text>
+
+  <rect x="24" y="284" width="852" height="26" fill="#f7f9fc"/>
+  <text class="c" x="40" y="301">Some sites work, others never do</text>
+  <text class="c" x="330" y="301">Path MTU differs per destination - test path by path</text>
+  <text class="c" x="700" y="301">path dependent</text>
+
+  <!-- Fix order -->
+  <rect x="24" y="320" width="852" height="24" rx="2" fill="#2b3446"/>
+  <text class="th" x="40" y="336">MEASURE</text>
+  <text class="th" x="240" y="336">EFFECT</text>
+  <text class="th" x="620" y="336">IS IT ENOUGH?</text>
+
+  <rect x="24" y="344" width="852" height="26" fill="#ffffff"/>
+  <text class="m" x="40" y="361">ip mtu 1400</text>
+  <text class="c" x="240" y="361">the tunnel stops emitting packets larger than 1400</text>
+  <text class="x" x="620" y="361">not enough - hosts still send 1500</text>
+
+  <rect x="24" y="370" width="852" height="26" fill="#eef7f5"/>
+  <text class="m" x="40" y="387">ip tcp adjust-mss 1360</text>
+  <text class="c" x="240" y="387">rewrites MSS in SYN / SYN-ACK so TCP shrinks in advance</text>
+  <text class="g" x="620" y="387">the key measure</text>
+
+  <rect x="24" y="396" width="852" height="26" fill="#ffffff"/>
+  <text class="c" x="40" y="413">rely on PMTUD</text>
+  <text class="c" x="240" y="413">depends on ICMP "fragmentation needed" reaching the sender</text>
+  <text class="x" x="620" y="413">unreliable - firewalls eat ICMP</text>
+
+  <rect x="24" y="422" width="852" height="26" fill="#f7f9fc"/>
+  <text class="c" x="40" y="439">clear the DF bit</text>
+  <text class="c" x="240" y="439">lets routers fragment instead of dropping</text>
+  <text class="x" x="620" y="439">poor performance, fragments may be dropped</text>
+
+  <rect x="24" y="456" width="852" height="24" rx="3" fill="#f8f6ee" stroke="#e4dcc0" stroke-width=".8"/>
+  <text class="b" x="36" y="472">Case to remember:</text>
+  <text class="c" x="144" y="472">the OA login form is a few hundred bytes and the submit payload is several kilobytes. Login worked, submit spun forever - and the fix was clamping MSS, not raising anything.</text>
+</svg>

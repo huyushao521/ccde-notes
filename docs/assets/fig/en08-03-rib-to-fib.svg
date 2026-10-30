@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" role="img" aria-labelledby="t803 d803">
+
+  <title id="t803">From RIB to FIB: the four mechanisms that decide which route is installed, plus the administrative distance ladder</title>
+  <desc id="d803">Four mechanism cards above: longest match, administrative distance, metric and recursive lookup, each with the design impact. Below, a ladder of default administrative distances drawn on a common scale from zero to 255: connected 0, static 1, eBGP 20, EIGRP internal 90, OSPF 110, IS-IS 115, RIP 120, EIGRP external 170, iBGP 200, unreachable 255. The ladder highlights two traps: eBGP at 20 beats OSPF at 110, so an accidental external advertisement overwrites an internal prefix, and iBGP at 200 is the weakest of all, so if the IGP carries the same prefix the IGP wins.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .v{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+
+  <rect x="0" y="0" width="900" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">RIB is the candidate pool; the FIB is the decision. Four mechanisms sit in between</text>
+  <text class="s" x="24" y="45">A RIB change does not always change the FIB &#8212; and half of the &#8220;my policy does not work&#8221; tickets live in that gap</text>
+
+  <text class="k" x="24" y="66">MECHANISM</text>
+  <text class="k" x="476" y="66">MECHANISM</text>
+
+  <rect x="24" y="72" width="400" height="56" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="36" y="90">&#9312; Longest match</text>
+  <text class="c" x="36" y="104">Several entries match &#8594; the longest mask wins.</text>
+  <text class="c" x="36" y="117">A summary always yields to a detail; the default route always comes last.</text>
+
+  <rect x="476" y="72" width="400" height="56" rx="2" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".6"/>
+  <text class="b" x="488" y="90">&#9313; Administrative distance</text>
+  <text class="c" x="488" y="104">Same prefix, different sources &#8594; the smaller AD wins.</text>
+  <text class="c" x="488" y="117">This is the whole &#8220;static vs OSPF vs BGP&#8221; priority order in one number.</text>
+
+  <rect x="24" y="134" width="400" height="56" rx="2" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".6"/>
+  <text class="b" x="36" y="152">&#9314; Metric</text>
+  <text class="c" x="36" y="166">Compares path quality <tspan style="font-weight:700">inside one protocol only</tspan>.</text>
+  <text class="c" x="36" y="179">Across protocols it is meaningless &#8212; the root problem of redistribution.</text>
+
+  <rect x="476" y="134" width="400" height="56" rx="2" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".6"/>
+  <text class="b" x="488" y="152">&#9315; Recursive lookup</text>
+  <text class="c" x="488" y="166">The next hop is itself reached through another next hop, down to connected.</text>
+  <text class="c" x="488" y="179">A BGP next hop must resolve through the IGP, or the route is never installed.</text>
+
+  <text class="k" x="24" y="212">DEFAULT ADMINISTRATIVE DISTANCE (CISCO) &#8212; SMALLER IS STRONGER, SCALE 0&#8211;255</text>
+
+  <text class="v" x="24" y="230">Connected</text><rect x="150" y="221" width="6" height="11" rx="1" fill="#0f7f73"/><text class="w" x="164" y="230">0</text>
+  <text class="v" x="24" y="249">Static to interface</text><rect x="177" y="240" width="6" height="11" rx="1" fill="#0f7f73"/><text class="w" x="191" y="249">1</text>
+  <text class="v" x="24" y="268">eBGP</text><rect x="201" y="259" width="12" height="11" rx="1" fill="#c0392b"/><text class="w" x="221" y="268">20 &#8212; beats every IGP below</text>
+  <text class="v" x="24" y="287">EIGRP internal</text><rect x="270" y="278" width="45" height="11" rx="1" fill="#1f4fc0"/><text class="w" x="323" y="287">90</text>
+  <text class="v" x="24" y="306">OSPF</text><rect x="327" y="297" width="55" height="11" rx="1" fill="#1f4fc0"/><text class="w" x="390" y="306">110</text>
+  <text class="v" x="24" y="325">IS-IS</text><rect x="342" y="316" width="57" height="11" rx="1" fill="#1f4fc0"/><text class="w" x="407" y="325">115</text>
+  <text class="v" x="24" y="344">RIP</text><rect x="354" y="335" width="60" height="11" rx="1" fill="#6b7a90"/><text class="w" x="422" y="344">120</text>
+  <text class="v" x="24" y="363">EIGRP external</text><rect x="415" y="354" width="85" height="11" rx="1" fill="#b8862b"/><text class="w" x="508" y="363">170 &#8212; redistributed routes are demoted</text>
+  <text class="v" x="24" y="382">iBGP</text><rect x="462" y="373" width="100" height="11" rx="1" fill="#c0392b"/><text class="w" x="570" y="382">200 &#8212; the weakest usable source</text>
+  <text class="v" x="24" y="401">Unreachable</text><rect x="590" y="392" width="127" height="11" rx="1" fill="#d8dee7"/><text class="w" x="725" y="401">255 &#8212; never installed</text>
+
+  <line x1="150" y1="415" x2="717" y2="415" stroke="#c9d3e0" stroke-width=".5"/>
+  <text class="w" x="150" y="425">0</text>
+  <text class="w" x="290" y="425">50</text>
+  <text class="w" x="428" y="425">100</text>
+  <text class="w" x="568" y="425">150</text>
+  <text class="w" x="707" y="425">255</text>
+
+  <rect x="24" y="436" width="852" height="34" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="436" width="4" height="34" fill="#c0392b"/>
+  <text class="c" x="40" y="450" fill="#c0392b"><tspan style="font-weight:700">Two traps:</tspan> eBGP 20 overwrites OSPF 110 &#8212; which is why eBGP must always have prefix filtering, to protect you from yourself.</text>
+  <text class="c" x="40" y="464" fill="#c0392b">iBGP 200 loses to every IGP &#8212; so never advertise the same prefix through both, or the IGP is what actually forwards.</text>
+</svg>

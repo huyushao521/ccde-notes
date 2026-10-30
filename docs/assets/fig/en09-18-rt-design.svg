@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t918 d918">
+  <title id="t918">Three RT topologies written as tables: full mesh, hub-and-spoke, and spoke-to-spoke through the hub</title>
+  <desc id="d918">Three panels, each with a small topology sketch and the export and import table that produces it. Full mesh: every VRF exports and imports the same route target, so every site reaches every other site directly. Hub and spoke: the hub exports its own RT and imports every spoke RT; each spoke exports its own RT and imports only the hub RT, so spokes reach each other only through the hub. Spoke to spoke through the hub: the hub additionally re-advertises, which requires the hub to import and re-export, and the note warns that this turns the hub into a transit point for spoke traffic and must be sized for it. A bottom band states the rule for building a new RT plan: derive the RT from the topology, never from the customer name, and keep one table as the authority.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:600 7.5px "Segoe UI",sans-serif;fill:#1a2233}
+  </style>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A topology drawing is an RT design; the RT table is the drawing written as data</text>
+  <text class="s" x="24" y="45">Three topologies cover almost every request, and each is three lines of table</text>
+
+  <rect x="24" y="60" width="272" height="176" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="b" x="36" y="78" fill="#1f4fc0">Full mesh</text>
+  <circle cx="80" cy="106" r="8" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="160" cy="106" r="8" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <circle cx="240" cy="106" r="8" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <line x1="88" y1="106" x2="152" y2="106" stroke="#1f4fc0" stroke-width=".6"/>
+  <line x1="168" y1="106" x2="232" y2="106" stroke="#1f4fc0" stroke-width=".6"/>
+  <line x1="80" y1="114" x2="236" y2="128" stroke="#1f4fc0" stroke-width=".6"/>
+  <text class="c" x="36" y="146">export: <tspan style="font-weight:700">RT 100</tspan> on every VRF</text>
+  <text class="c" x="36" y="162">import: <tspan style="font-weight:700">RT 100</tspan> on every VRF</text>
+  <text class="w" x="36" y="184">One RT, one line per VRF. Every site reaches</text>
+  <text class="w" x="36" y="197">every other site directly, so N&#215;(N&#8722;1)/2</text>
+  <text class="w" x="36" y="210">conversations must be funded and secured.</text>
+
+  <rect x="312" y="60" width="272" height="176" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="b" x="324" y="78" fill="#0f7f73">Hub and spoke</text>
+  <rect x="352" y="96" width="40" height="20" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="w" x="362" y="110">hub</text>
+  <rect x="332" y="140" width="44" height="18" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="w" x="342" y="153">spoke1</text>
+  <rect x="396" y="140" width="44" height="18" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="w" x="406" y="153">spoke2</text>
+  <line x1="368" y1="116" x2="356" y2="140" stroke="#0f7f73" stroke-width=".6"/>
+  <line x1="378" y1="116" x2="414" y2="140" stroke="#0f7f73" stroke-width=".6"/>
+  <text class="c" x="324" y="178">hub: export 100, import 101 + 102</text>
+  <text class="c" x="324" y="192">spoke1: export 101, import 100 only</text>
+  <text class="c" x="324" y="206">spoke2: export 102, import 100 only</text>
+  <text class="w" x="324" y="226">The import list is where the topology lives.</text>
+
+  <rect x="600" y="60" width="276" height="176" rx="3" fill="#fdf9f0" stroke="#e6d3a8" stroke-width=".7"/>
+  <text class="b" x="612" y="78" fill="#7a5b18">Spoke to spoke via the hub</text>
+  <text class="c" x="612" y="100">The hub must now forward traffic between</text>
+  <text class="c" x="612" y="114">spokes, so it imports and re-exports.</text>
+  <text class="c" x="612" y="136">hub: export 100, import 101 + 102</text>
+  <text class="c" x="612" y="150">spokes: unchanged</text>
+  <text class="c" x="612" y="172" fill="#c0392b">The speak-to-speak path now crosses the</text>
+  <text class="c" x="612" y="186" fill="#c0392b">hub twice: size its CPU, bandwidth and</text>
+  <text class="c" x="612" y="200" fill="#c0392b">firewall policy for transit, not for a star.</text>
+  <text class="w" x="612" y="222">Easiest change to request, hardest to</text>
+  <text class="w" x="612" y="233">operate afterwards.</text>
+
+  <rect x="24" y="248" width="852" height="50" rx="2" fill="#f8fbff" stroke="#d6e0ee" stroke-width=".6"/>
+  <text class="b" x="36" y="266">The authoritative table, one row per VRF</text>
+  <text class="c" x="36" y="284">VRF &#183; RD &#183; export RT list &#183; import RT list &#183; domain ID (if OSPF is the PE-CE) &#183; which topologies this site belongs to.</text>
+
+  <rect x="24" y="308" width="852" height="76" rx="3" fill="#fff8f7" stroke="#c0392b" stroke-width=".7"/>
+  <rect x="24" y="308" width="4" height="76" fill="#c0392b"/>
+  <text class="c" x="40" y="326" fill="#c0392b"><tspan style="font-weight:700">How RT plans go wrong:</tspan> the RT is derived from the customer name, so it encodes an organisation instead of a topology. Two customers merge, or one</text>
+  <text class="c" x="40" y="342" fill="#c0392b">buys another, and the RT plan has to be rewritten across every PE. Derive the RT from the topology (mesh, hub, shared service) and the same</text>
+  <text class="c" x="40" y="358" fill="#c0392b">change becomes one import line. This is the single cheapest decision in an L3VPN design, and the one most often made by accident.</text>
+  <text class="c" x="40" y="374" fill="#c0392b">Keep the table in version control. When it lives in a spreadsheet on someone's laptop, the network is already undocumented.</text>
+</svg>

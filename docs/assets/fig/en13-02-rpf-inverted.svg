@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="100%" role="img" aria-labelledby="t1302 d1302">
+  <title id="t1302">Unicast forwards on the destination, multicast forwards on a reverse check of the source</title>
+  <desc id="d1302">Two panels. Left: unicast looks up the destination in the FIB, takes the longest match and forwards out that interface, whatever the ingress port was. Right: multicast reads the source address, looks up the route back to that source, and compares it with the ingress interface; only an exact match forwards into the outgoing interface list. A bottom band lists the three causes of RPF failure - asymmetric unicast and multicast paths, ECMP, and a BGP next hop that is unreachable - and notes that the failure is silent.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+  </style>
+  <rect x="0" y="0" width="900" height="430" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The lookup is inverted</text>
+  <text class="s" x="24" y="45">Unicast asks "where is the destination". Multicast asks "did this packet arrive the way back to its source".</text>
+
+  <rect x="24" y="60" width="404" height="196" rx="3" fill="#f4f8fe" stroke="#c3d5f2" stroke-width=".7"/>
+  <text class="k" x="36" y="76">UNICAST</text>
+  <text class="b" x="36" y="94">Decide on the destination address</text>
+  <rect x="36" y="106" width="96" height="34" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="44" y="121">packet arrives</text>
+  <text class="m" x="44" y="133">on any link</text>
+  <path d="M132 123 L166 123" stroke="#1f4fc0" stroke-width=".8" marker-end="url(#a1)"/>
+  <rect x="166" y="106" width="118" height="34" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="174" y="121">lookup dst in FIB</text>
+  <text class="m" x="174" y="133">longest match</text>
+  <path d="M284 123 L318 123" stroke="#1f4fc0" stroke-width=".8" marker-end="url(#a1)"/>
+  <rect x="318" y="106" width="98" height="34" rx="2" fill="#fff" stroke="#1f4fc0" stroke-width=".7"/>
+  <text class="c" x="326" y="121">forward out</text>
+  <text class="m" x="326" y="133">that interface</text>
+  <text class="c" x="36" y="162">The ingress interface is irrelevant. The same packet arriving</text>
+  <text class="c" x="36" y="175">on a "wrong" link is still forwarded, and the network has no</text>
+  <text class="c" x="36" y="188">way to notice a forwarding loop created by policy.</text>
+  <text class="c" x="36" y="212">Loop protection is a different mechanism: TTL, uRPF.</text>
+  <text class="c" x="36" y="228">Neither of them builds or constrains a distribution tree.</text>
+  <text class="w" x="36" y="248">The forwarding state is per prefix, independent of who is receiving.</text>
+
+  <rect x="448" y="60" width="428" height="196" rx="3" fill="#f5fdfa" stroke="#bfe3de" stroke-width=".7"/>
+  <text class="k" x="460" y="76">MULTICAST</text>
+  <text class="b" x="460" y="94">Decide on the source address, at the ingress</text>
+  <rect x="460" y="106" width="100" height="34" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="468" y="121">packet in</text>
+  <text class="m" x="468" y="133">src 10.1.1.10</text>
+  <path d="M560 123 L590 123" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a2)"/>
+  <rect x="590" y="106" width="120" height="34" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="598" y="121">route back to</text>
+  <text class="m" x="598" y="133">10.1.1.10 = Gi0/1</text>
+  <path d="M710 123 L740 123" stroke="#0f7f73" stroke-width=".8" marker-end="url(#a2)"/>
+  <rect x="740" y="106" width="124" height="34" rx="2" fill="#fff" stroke="#0f7f73" stroke-width=".7"/>
+  <text class="c" x="748" y="121">ingress == Gi0/1 ?</text>
+  <text class="m" x="748" y="133">yes: forward to OIL</text>
+  <text class="c" x="460" y="162">The check happens once, on the way in. The outgoing interface</text>
+  <text class="c" x="460" y="175">list is built by joins, not by the destination address.</text>
+  <text class="c" x="460" y="194">A mismatch drops the packet with no ICMP, no log, no counter</text>
+  <text class="c" x="460" y="207">except the drop counter on the interface.</text>
+  <text class="w" x="460" y="232">show ip rpf 10.1.1.10  ->  RPF interface, RPF neighbour, RPF type</text>
+  <text class="w" x="460" y="248">RPF type tells you where the answer came from: unicast, static, mbgp, mtrie.</text>
+
+  <rect x="24" y="272" width="852" height="130" rx="3" fill="#fdf0ee" stroke="#eec7bf" stroke-width=".7"/>
+  <text class="k" x="36" y="288">WHY THE CHECK FAILS, AND WHY YOU DO NOT HEAR ABOUT IT</text>
+  <text class="b" x="36" y="306">1. Asymmetric path</text>
+  <text class="c" x="36" y="320">Unicast prefers A, multicast arrives on B.</text>
+  <text class="c" x="36" y="332">Fix the metric, or pin a static mroute.</text>
+  <text class="b" x="36" y="352">2. ECMP</text>
+  <text class="c" x="36" y="366">The return route has two equal paths and the</text>
+  <text class="c" x="36" y="378">chosen one is not the ingress. ip multicast multipath</text>
+  <text class="c" x="36" y="390">hashes on the source, so one source still uses one path.</text>
+  <text class="b" x="316" y="306">3. iBGP next hop</text>
+  <text class="c" x="316" y="320">The BGP route is best but its next hop is not</text>
+  <text class="c" x="316" y="332">reachable: next-hop-self, or a static mroute.</text>
+  <text class="b" x="316" y="352">The silent part</text>
+  <text class="c" x="316" y="366">No ICMP unreachable, no syslog, no retransmission.</text>
+  <text class="c" x="316" y="378">Only show ip mroute count and a packet capture</text>
+  <text class="c" x="316" y="390">prove the drop, which is why RPF comes first in every runbook.</text>
+  <text class="x" x="676" y="306">Never debug the receiver first.</text>
+  <text class="c" x="676" y="322">Ask where the packet entered, then ask</text>
+  <text class="c" x="676" y="334">where the route to the source points.</text>
+  <text class="c" x="676" y="354">Static mroute outranks every other</text>
+  <text class="c" x="676" y="366">source: a leftover from last year's</text>
+  <text class="c" x="676" y="378">migration is the classic trap.</text>
+  <defs>
+    <marker id="a1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#1f4fc0"/></marker>
+    <marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0f7f73"/></marker>
+  </defs>
+</svg>
