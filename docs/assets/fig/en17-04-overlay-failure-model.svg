@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">MPLS failure visibility against the Internet plus overlay failure model, with six comparison dimensions</title>
+  <desc id="d15">Left panel: MPLS reports its own state through a carrier alarm, PE-CE protocol state and prefix withdrawal, so detection is free and convergence is dominated by timers. Right panel: on the Internet the underlay degrades with no signal, the tunnel and its security association stay up, and the first detector is the user, so detection must be built from IP SLA, BFD and application probes. A six-row table compares quality predictability, failure visibility, encryption, multicast, cost shape and the verdict for each model. The failure model decides the tooling: MPLS needs a route policy review, the Internet needs probes and a measurement budget, and the real question is who fills the SLA gap and how failure is detected, not which transport is cheaper.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">MPLS fails by telling you; the Internet fails by saying nothing</text>  <text class="s" x="24" y="45">The requirement is identical, the observability is opposite - so what you must build to see failure differs</text>
+  <rect x="24" y="68" width="416" height="150" rx="3" fill="#f2fbf9" stroke="#bfe6df" stroke-width=".8"/>
+  <text class="k" x="36" y="86">MPLS FAILURE MODEL</text>
+  <text class="b" x="36" y="103">The network reports its own state</text>
+  <rect x="40" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="98" y="128" text-anchor="middle">carrier alarm</text>
+  <text class="w" x="98" y="144" text-anchor="middle">ticket + NOC</text>
+  <line x1="156" y1="132" x2="172" y2="132" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="172" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="230" y="128" text-anchor="middle">PE-CE state</text>
+  <text class="w" x="230" y="144" text-anchor="middle">BGP/IGP down</text>
+  <line x1="288" y1="132" x2="304" y2="132" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="304" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="362" y="128" text-anchor="middle">withdrawal</text>
+  <text class="w" x="362" y="144" text-anchor="middle">path removed</text>
+  <text class="c" x="36" y="170">Detection is free: the protocol withdraws the prefix.</text>
+  <text class="c" x="36" y="186">Your job: make sure the withdrawal reaches the RIB.</text>
+  <text class="g" x="36" y="204">Convergence: seconds, dominated by timers.</text>
+  <rect x="460" y="68" width="416" height="150" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="472" y="86">INTERNET + OVERLAY FAILURE MODEL</text>
+  <text class="b" x="472" y="103">Nobody tells you: you must measure it</text>
+  <rect x="476" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <text class="c" x="534" y="128" text-anchor="middle">underlay degrades</text>
+  <text class="w" x="534" y="144" text-anchor="middle">no signal at all</text>
+  <line x1="592" y1="132" x2="608" y2="132" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <rect x="608" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <text class="c" x="666" y="128" text-anchor="middle">tunnel stays up</text>
+  <text class="w" x="666" y="144" text-anchor="middle">the SA is still there</text>
+  <line x1="724" y1="132" x2="740" y2="132" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <rect x="740" y="112" width="116" height="40" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <text class="c" x="798" y="128" text-anchor="middle">users report</text>
+  <text class="w" x="798" y="144" text-anchor="middle">after the meeting</text>
+  <text class="c" x="472" y="170">Detection must be built: IP SLA, BFD, app probes.</text>
+  <text class="c" x="472" y="186">Tunnel state is not path state.</text>
+  <text class="x" x="472" y="204">Misjudgement: 'Internet is a cheaper MPLS'.</text>
+  <rect x="24" y="232" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="247">DIMENSION</text>  <text class="k" x="202.0" y="247">MPLS</text>  <text class="k" x="532.0" y="247">INTERNET + OVERLAY</text>  <rect x="24" y="254" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="269">Quality predictability</text>  <text class="c" x="202.0" y="269">high: SLA and queues</text>  <text class="c" x="532.0" y="269">low: per-hop, cross-domain</text>  <line x1="24" y1="277" x2="876" y2="277" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="277" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="292">Failure visibility</text>  <text class="c" x="202.0" y="292">carrier alarm + PE-CE state</text>  <text class="c" x="532.0" y="292">only your own probes</text>  <line x1="24" y1="300" x2="876" y2="300" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="300" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="315">Encryption</text>  <text class="c" x="202.0" y="315">optional, already isolated</text>  <text class="c" x="532.0" y="315">mandatory, public transport</text>  <line x1="24" y1="323" x2="876" y2="323" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="323" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="338">Multicast</text>  <text class="c" x="202.0" y="338">needs mVPN</text>  <text class="c" x="532.0" y="338">needs GRE or DMVPN</text>  <line x1="24" y1="346" x2="876" y2="346" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="346" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="361">Cost shape</text>  <text class="c" x="202.0" y="361">bandwidth and distance</text>  <text class="c" x="532.0" y="361">cheap, fast to grow</text>  <line x1="24" y1="369" x2="876" y2="369" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="369" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="384">Verdict</text>  <text class="c" x="202.0" y="384">core services that must be stable</text>  <text class="c" x="532.0" y="384">flexible multi-path general traffic</text>  <line x1="24" y1="392" x2="876" y2="392" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="404" x2="876" y2="404" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="422">The failure model decides the tooling: MPLS needs a route policy review, the Internet needs probes and a measurement budget</text>
+  <text class="x" x="24" y="438">An overlay adds encryption and topology; it cannot add underlying quality.</text>
+  <text class="c" x="24" y="456">So the question is never 'MPLS or Internet' but 'who fills the SLA gap, and how do we detect it'.</text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 414" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The bandwidth-delay product, the 64 kilobyte window ceiling, loss effects and the symptom-to-cause table</title>
+  <desc id="d15">The left panel computes the bandwidth-delay product: one hundred megabits times eighty milliseconds is eight megabits, or one megabyte in flight, and a single flow with a 64 kilobyte window is therefore capped near 6.5 megabits no matter how much bandwidth the pipe has. The right panel shows loss as the second ceiling: at zero loss the flow is window-limited only, at one tenth of a percent it retransmits roughly every thousand packets, and at one percent throughput collapses on long round trips, so the fix is the window, the number of flows or the distance rather than more bandwidth. A table maps four symptoms to actual causes and effective remedies: a single flow that will not rise is a BDP limit addressed by window scaling and parallel flows, video pixelation is jitter plus loss addressed by buffering and forward error correction, robotic voice is loss plus jitter addressed by priority queueing and shaping, and large files slow with small pages fast is slow start plus RTT addressed by concurrency and edge caching.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="414" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Why more bandwidth does not make a single transfer faster</text>  <text class="s" x="24" y="45">The bandwidth-delay product, the 64 KB window and a tenth of a percent of loss decide what one TCP flow can ever reach</text>
+  <rect x="24" y="68" width="424" height="150" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">BANDWIDTH-DELAY PRODUCT</text>
+  <text class="m" x="36" y="108">BDP = bandwidth x RTT</text>
+  <text class="m" x="36" y="126">100 Mbps x 80 ms = 8 Mb</text>
+  <text class="m" x="36" y="144">8 Mb / 8 = 1 MB in flight</text>
+  <line x1="36" y1="154" x2="436" y2="154" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="b" x="36" y="172">64 KB window: ceiling ~ 6.5 Mbps</text>
+  <text class="m" x="36" y="190">64 KB x 8 / 0.08 s = 6.5 Mbps</text>
+  <text class="c" x="36" y="208">The pipe is 100 Mbps; one flow uses 6.5.</text>
+  <rect x="464" y="68" width="412" height="150" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="476" y="86">LOSS IS THE SECOND CEILING</text>
+  <text class="m" x="476" y="108">0% </text>
+  <text class="c" x="524" y="108">window-limited only</text>
+  <text class="m" x="476" y="130">0.1%</text>
+  <text class="c" x="524" y="130">retransmit every ~1000 packets</text>
+  <text class="m" x="476" y="152">1%  </text>
+  <text class="c" x="524" y="152">throughput collapses on long RTT</text>
+  <line x1="476" y1="158" x2="864" y2="158" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="476" y="176">Long RTT turns a tiny loss into a large stall.</text>
+  <text class="x" x="476" y="194">Buying 2x bandwidth does not move either ceiling.</text>
+  <text class="g" x="476" y="210">Fix the window, the number of flows, or the distance.</text>
+  <rect x="24" y="232" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="247">SYMPTOM</text>  <text class="k" x="282.0" y="247">ACTUAL CAUSE</text>  <text class="k" x="542.0" y="247">WHAT ACTUALLY HELPS</text>  <rect x="24" y="254" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="270">Single flow will not rise</text>  <text class="c" x="282.0" y="270">window / RTT limit (BDP)</text>  <text class="c" x="542.0" y="270">window scaling, parallel flows, caching</text>  <line x1="24" y1="278" x2="876" y2="278" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="278" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="294">Video pixelates</text>  <text class="c" x="282.0" y="294">jitter plus loss</text>  <text class="c" x="542.0" y="294">jitter buffer, priority queue, FEC</text>  <line x1="24" y1="302" x2="876" y2="302" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="302" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="318">Voice sounds robotic</text>  <text class="c" x="282.0" y="318">loss plus jitter</text>  <text class="c" x="542.0" y="318">LLQ, shaping, link-quality probing</text>  <line x1="24" y1="326" x2="876" y2="326" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="326" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="342">Large files slow, small pages fast</text>  <text class="c" x="282.0" y="342">per-flow slow start plus RTT</text>  <text class="c" x="542.0" y="342">concurrent connections, CDN at the edge</text>  <line x1="24" y1="350" x2="876" y2="350" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="366" x2="876" y2="366" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="384">Before blaming the WAN, measure RTT, per-flow throughput and loss on the same flow - the three numbers separate path from application</text>
+  <text class="c" x="24" y="400">Most 'the WAN is slow' tickets are application or DNS latency, and a BDP calculation settles the argument in two minutes.</text>
+</svg>

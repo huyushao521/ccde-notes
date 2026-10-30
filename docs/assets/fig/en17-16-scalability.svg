@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The five artefacts that change per site, four delivery models and the change-count formula behind WAN operating cost</title>
+  <desc id="d15">Five artefacts change with every new site: device configuration, hub configuration, routing policy, QoS policy and monitoring. Multiplying them by sites and by changes per year turns into the debt formula - eighty sites, twelve changes a year and five artefacts is four thousand eight hundred manual actions, which is a team rather than a process. A table compares four delivery models: hand-built costs five changes per site with error rates that grow with headcount and one to two weeks to turn up; template plus zero-touch provisioning reduces it to one template and one site profile in hours but drifts without audit; a controller or SD-WAN reduces it to one policy reference and minutes, at the cost of a controller single point; zero-touch with GitOps gives one reviewed commit with minutes and auditability but must be tested like software. The test for design review is to add a site on paper and list every file touched: more than two means the design is not scalable.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="460" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Scalability is the number of places that must change to add one site</text>  <text class="s" x="24" y="45">Five artefacts change for every new branch, and how you deliver them decides the operating cost of the whole WAN</text>
+  <rect x="24" y="68" width="852" height="96" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">THE FIVE ARTEFACTS THAT CHANGE PER SITE</text>
+  <rect x="36" y="96" width="152" height="54" rx="3" fill="#f7f9fd" stroke="#dde5f2" stroke-width=".8"/>
+  <text class="b" x="46" y="114">Device config</text>
+  <text class="c" x="46" y="128">interfaces, tunnel, routing</text>
+  <text class="k" x="46" y="142">x1 per site</text>
+  <rect x="204" y="96" width="152" height="54" rx="3" fill="#f7f9fd" stroke="#dde5f2" stroke-width=".8"/>
+  <text class="b" x="214" y="114">Hub config</text>
+  <text class="c" x="214" y="128">peer, NHRP entry, summary</text>
+  <text class="k" x="214" y="142">x1 per site</text>
+  <rect x="372" y="96" width="152" height="54" rx="3" fill="#f7f9fd" stroke="#dde5f2" stroke-width=".8"/>
+  <text class="b" x="382" y="114">Routing policy</text>
+  <text class="c" x="382" y="128">route-map, prefix list</text>
+  <text class="k" x="382" y="142">x1 per site</text>
+  <rect x="540" y="96" width="152" height="54" rx="3" fill="#f7f9fd" stroke="#dde5f2" stroke-width=".8"/>
+  <text class="b" x="550" y="114">QoS</text>
+  <text class="c" x="550" y="128">class map, shaper rate</text>
+  <text class="k" x="550" y="142">x1 per site</text>
+  <rect x="708" y="96" width="152" height="54" rx="3" fill="#f7f9fd" stroke="#dde5f2" stroke-width=".8"/>
+  <text class="b" x="718" y="114">Monitoring</text>
+  <text class="c" x="718" y="128">probe, threshold, dashboard</text>
+  <text class="k" x="718" y="142">x1 per site</text>
+  <text class="c" x="36" y="158">Multiply by sites and by changes per year: 80 sites x 12 changes x 5 artefacts = 4,800 manual actions.</text>
+  <rect x="24" y="190" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="205">DELIVERY MODEL</text>  <text class="k" x="202.0" y="205">CHANGES PER SITE</text>  <text class="k" x="422.0" y="205">WHAT YOU TRADE</text>  <text class="k" x="672.0" y="205">TIME TO TURN UP</text>  <rect x="24" y="212" width="852" height="25" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="229">Hand-built</text>  <text class="x" x="202.0" y="229">5 x sites, all manual</text>  <text class="x" x="422.0" y="229">error rate grows with people</text>  <text class="x" x="672.0" y="229">1-2 weeks per site</text>  <line x1="24" y1="237" x2="876" y2="237" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="237" width="852" height="25" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="254">Template + ZTP</text>  <text class="c" x="202.0" y="254">1 template, 1 site profile</text>  <text class="c" x="422.0" y="254">drift returns without audit</text>  <text class="c" x="672.0" y="254">hours per site</text>  <line x1="24" y1="262" x2="876" y2="262" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="262" width="852" height="25" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="279">Controller / SD-WAN</text>  <text class="g" x="202.0" y="279">1 policy reference</text>  <text class="c" x="422.0" y="279">controller becomes the single point</text>  <text class="g" x="672.0" y="279">minutes per site</text>  <line x1="24" y1="287" x2="876" y2="287" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="287" width="852" height="25" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="304">Zero-touch + GitOps</text>  <text class="g" x="202.0" y="304">1 commit, reviewed</text>  <text class="c" x="422.0" y="304">must be tested like software</text>  <text class="g" x="672.0" y="304">minutes, auditable</text>  <line x1="24" y1="312" x2="876" y2="312" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="24" y="336" width="412" height="76" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="36" y="354">THE DEBT FORMULA</text>
+  <text class="m" x="36" y="374">debt = artefacts x sites x changes/year</text>
+  <text class="c" x="36" y="392">4,800 actions a year is a team, not a process.</text>
+  <rect x="452" y="336" width="424" height="76" rx="3" fill="#f2fbf9" stroke="#bfe6df" stroke-width=".8"/>
+  <text class="k" x="464" y="354">THE TEST TO APPLY IN DESIGN REVIEW</text>
+  <text class="b" x="464" y="372">Add a site on paper, then list every file you touch.</text>
+  <text class="c" x="464" y="390">More than two files: the design is not scalable, however well it runs today.</text>
+  <line x1="24" y1="428" x2="876" y2="428" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="24" y="446">The trade is honest: automation moves effort from per-site typing to a controller or repository you must staff and back up.</text>
+</svg>

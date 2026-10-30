@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 432" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Six practical QoS classes, the LLQ police and CE shaper percentages, and where marking and enforcement actually happen</title>
+  <desc id="d15">The left panel lists six classes that survive most contracts: voice at EF, video at AF41, critical applications at AF31, interactive traffic at AF21, bulk at AF11 and best effort for the rest, with a note that six is the practical maximum because every extra class dilutes the guarantee. The right panel gives the two numbers that prevent most complaints: local queue policing at thirty percent of the uplink, since voice above that indicates a signalling or codec fault, and a CE shaper at ninety-five percent of committed rate so the provider edge never drops what you send. Marking happens at the CE on LAN ingress, enforcement at the PE per purchased class, no guarantee crosses an inter-carrier boundary, overlay traffic exposes only one outer class, and verification requires per-class counters at both ends.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="432" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">QoS only works when your class names match the classes the carrier sold you</text>  <text class="s" x="24" y="45">Marking at the CE, enforcement at the PE, and the shaping arithmetic that keeps the contract honest</text>
+  <rect x="24" y="68" width="424" height="168" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">SIX CLASSES THAT SURVIVE MOST CONTRACTS</text>
+  <rect x="36" y="96" width="8" height="8" rx="2" fill="#d0564a" stroke="none"/>
+  <text class="b" x="52" y="104">Voice</text>
+  <text class="c" x="140" y="104">EF, 150 bps per call</text>
+  <rect x="36" y="119" width="8" height="8" rx="2" fill="#d99b2b" stroke="none"/>
+  <text class="b" x="52" y="127">Video</text>
+  <text class="c" x="140" y="127">AF41, 2-4 Mbps per stream</text>
+  <rect x="36" y="142" width="8" height="8" rx="2" fill="#8b6bd0" stroke="none"/>
+  <text class="b" x="52" y="150">Critical app</text>
+  <text class="c" x="140" y="150">AF31, business hours</text>
+  <rect x="36" y="165" width="8" height="8" rx="2" fill="#29a08f" stroke="none"/>
+  <text class="b" x="52" y="173">Interactive</text>
+  <text class="c" x="140" y="173">AF21, SSH and RDP</text>
+  <rect x="36" y="188" width="8" height="8" rx="2" fill="#4a7ee0" stroke="none"/>
+  <text class="b" x="52" y="196">Bulk</text>
+  <text class="c" x="140" y="196">AF11, backups after hours</text>
+  <rect x="36" y="211" width="8" height="8" rx="2" fill="#8a97ab" stroke="none"/>
+  <text class="b" x="52" y="219">Default</text>
+  <text class="c" x="140" y="219">best effort, everything else</text>
+  <text class="c" x="36" y="226">Six is the practical maximum: each extra class dilutes the guarantee.</text>
+  <rect x="460" y="68" width="416" height="168" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="472" y="86">THE TWO NUMBERS THAT PREVENT MOST COMPLAINTS</text>
+  <text class="m" x="472" y="106">LLQ police = 30% of uplink</text>
+  <text class="c" x="472" y="122">voice above 30% is a signalling or codec bug</text>
+  <text class="m" x="472" y="146">CE shaper = 95% of CIR</text>
+  <text class="c" x="472" y="162">shaping just under the contract avoids PE drops</text>
+  <line x1="472" y1="174" x2="864" y2="174" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="472" y="190">The PE polices what you send; it cannot repair what you drop.</text>
+  <text class="x" x="472" y="206">Shaping at line rate is the same as not shaping.</text>
+  <text class="g" x="472" y="226">Measure: class counters at the CE, queue drops at the PE.</text>
+  <rect x="24" y="250" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="265">WHERE</text>  <text class="k" x="202.0" y="265">WHAT HAPPENS</text>  <text class="k" x="542.0" y="265">WHAT TO WRITE DOWN</text>  <rect x="24" y="272" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="288">Marking</text>  <text class="c" x="202.0" y="288">CE, on ingress from the LAN</text>  <text class="c" x="542.0" y="288">trust boundary must be explicit</text>  <line x1="24" y1="296" x2="876" y2="296" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="296" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="312">Enforcement</text>  <text class="c" x="202.0" y="312">PE, per the purchased class</text>  <text class="c" x="542.0" y="312">unmarked traffic becomes best effort</text>  <line x1="24" y1="320" x2="876" y2="320" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="320" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="336">Across carriers</text>  <text class="c" x="202.0" y="336">no end-to-end guarantee</text>  <text class="c" x="542.0" y="336">each NNI has its own policy</text>  <line x1="24" y1="344" x2="876" y2="344" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="344" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="360">Overlay traffic</text>  <text class="c" x="202.0" y="360">outer header, one class</text>  <text class="c" x="542.0" y="360">inner DSCP needs mapping</text>  <line x1="24" y1="368" x2="876" y2="368" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="368" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="384">Verification</text>  <text class="c" x="202.0" y="384">per-class counters both ends</text>  <text class="c" x="542.0" y="384">a claim is not a measurement</text>  <line x1="24" y1="392" x2="876" y2="392" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="384" x2="876" y2="384" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="402">Negotiate the class table first, then configure it: five classes in the contract and six in the router is a ticket queue</text>
+  <text class="c" x="24" y="418">Put the class map, the police rates and the shaper in the LLD, so the next engineer does not renegotiate by accident.</text>
+</svg>

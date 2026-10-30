@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 472" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Four site tiers with their standard kits, the redundancy each covers and the effect of tiering on operations</title>
+  <desc id="d15">Four tier columns each carry a standard kit. L1 is a single circuit with a static or default route, a single CPE and optional cellular backup, appropriate for small non-critical branches and covering no redundancy at all. L2 is dual link on a single CPE with static plus IP SLA or eBGP and tunnels, which covers a link failure but not the box. L3 is dual link with dual CPE, two carriers or two transports, eBGP with an interior protocol and DMVPN or SD-WAN, covering the box but not the duct. L4 is a regional WAN core with multiple transports, hierarchical BGP, N minus one capacity and cloud on-ramps. A table contrasts per-site design with a tiered kit: four templates instead of eighty designs, four written acceptance tests, one spare per tier, and a defined trigger for moving up a tier such as relocation, merger or doubled bandwidth. The caveat is that a tier is a promise about what the site survives, and that sentence should be written for each tier.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="472" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Four site tiers, four standard kits - design the kit, not the site</text>  <text class="s" x="24" y="45">Tiering turns eighty individual designs into four templates, four acceptance tests and four maintenance routines</text>
+  <rect x="24" y="68" width="200" height="214" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <rect x="24" y="68" width="200" height="3" rx="1" fill="#d0564a" stroke="none"/>
+  <text class="h" x="36" y="90" fill="#d0564a">L1</text>
+  <text class="b" x="68" y="90">Single link</text>
+  <text class="k" x="36" y="110">STANDARD KIT</text>
+  <text class="c" x="36" y="126">- 1 circuit: MPLS or Internet</text>
+  <text class="c" x="36" y="140">- static or default route</text>
+  <text class="c" x="36" y="154">- single CPE</text>
+  <text class="c" x="36" y="168">- 4G backup optional</text>
+  <line x1="36" y1="186" x2="212" y2="186" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="36" y="202">WHO</text>
+  <text class="w" x="36" y="216">small, non-critical</text>
+  <text class="k" x="36" y="240">REDUNDANCY</text>
+  <text class="w" x="36" y="254">covers: nothing redundant</text>
+  <text class="w" x="36" y="268"></text>
+  <rect x="240" y="68" width="200" height="214" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <rect x="240" y="68" width="200" height="3" rx="1" fill="#d99b2b" stroke="none"/>
+  <text class="h" x="252" y="90" fill="#d99b2b">L2</text>
+  <text class="b" x="284" y="90">Dual link, single CP</text>
+  <text class="k" x="252" y="110">STANDARD KIT</text>
+  <text class="c" x="252" y="126">- MPLS + Internet or 2 ISPs</text>
+  <text class="c" x="252" y="140">- static + IP SLA or eBGP</text>
+  <text class="c" x="252" y="154">- single CPE, tunnels</text>
+  <text class="c" x="252" y="168">- link-level redundancy</text>
+  <line x1="252" y1="186" x2="428" y2="186" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="252" y="202">WHO</text>
+  <text class="w" x="252" y="216">medium, ordinary business</text>
+  <text class="k" x="252" y="240">REDUNDANCY</text>
+  <text class="w" x="252" y="254">covers: a link, not the bo</text>
+  <text class="w" x="252" y="268">x</text>
+  <rect x="456" y="68" width="200" height="214" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <rect x="456" y="68" width="200" height="3" rx="1" fill="#29a08f" stroke="none"/>
+  <text class="h" x="468" y="90" fill="#29a08f">L3</text>
+  <text class="b" x="500" y="90">Dual link, dual CPE</text>
+  <text class="k" x="468" y="110">STANDARD KIT</text>
+  <text class="c" x="468" y="126">- 2 carriers or 2 transports</text>
+  <text class="c" x="468" y="140">- eBGP + IGP inside</text>
+  <text class="c" x="468" y="154">- dual CPE + DMVPN/SD-WAN</text>
+  <text class="c" x="468" y="168">- link + device redundancy</text>
+  <line x1="468" y1="186" x2="644" y2="186" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="468" y="202">WHO</text>
+  <text class="w" x="468" y="216">large branch, regional</text>
+  <text class="k" x="468" y="240">REDUNDANCY</text>
+  <text class="w" x="468" y="254">covers: box, not the duct</text>
+  <text class="w" x="468" y="268"></text>
+  <rect x="672" y="68" width="200" height="214" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <rect x="672" y="68" width="200" height="3" rx="1" fill="#8b6bd0" stroke="none"/>
+  <text class="h" x="684" y="90" fill="#8b6bd0">L4</text>
+  <text class="b" x="716" y="90">Regional WAN core</text>
+  <text class="k" x="684" y="110">STANDARD KIT</text>
+  <text class="c" x="684" y="126">- MPLS + Internet + dedicated</text>
+  <text class="c" x="684" y="140">- BGP with hierarchy</text>
+  <text class="c" x="684" y="154">- N-1 capacity, full redundancy</text>
+  <text class="c" x="684" y="168">- cloud on-ramp</text>
+  <line x1="684" y1="186" x2="860" y2="186" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="684" y="202">WHO</text>
+  <text class="w" x="684" y="216">HQ, hub, data centre</text>
+  <text class="k" x="684" y="240">REDUNDANCY</text>
+  <text class="w" x="684" y="254">covers: one whole element</text>
+  <text class="w" x="684" y="268"></text>
+  <rect x="24" y="296" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="311">EFFECT</text>  <text class="k" x="232.0" y="311">PER-SITE DESIGN</text>  <text class="k" x="532.0" y="311">TIERED KIT</text>  <rect x="24" y="318" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="334">Design effort</text>  <text class="x" x="232.0" y="334">per site, 80 times</text>  <text class="g" x="532.0" y="334">4 templates, 80 times</text>  <line x1="24" y1="342" x2="876" y2="342" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="342" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="358">Acceptance test</text>  <text class="x" x="232.0" y="358">invented each time</text>  <text class="g" x="532.0" y="358">4 written tests</text>  <line x1="24" y1="366" x2="876" y2="366" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="366" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="382">Spares and skills</text>  <text class="x" x="232.0" y="382">whatever was bought</text>  <text class="g" x="532.0" y="382">one spare per tier</text>  <line x1="24" y1="390" x2="876" y2="390" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="390" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="406">Tier change trigger</text>  <text class="c" x="232.0" y="406">ad hoc</text>  <text class="c" x="532.0" y="406">relocation, merger, 2x bandwidth</text>  <line x1="24" y1="414" x2="876" y2="414" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="24" y="404" width="852" height="56" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="36" y="422">THE HONEST CAVEAT</text>
+  <text class="b" x="36" y="440">A tier is a promise about what the site survives. Write that sentence for each tier, and the design review becomes a comparison, not an argument.</text>
+  <text class="c" x="36" y="454">L2 does not survive its own CPE; L3 does not survive the duct; L4 does not survive a bad change without rollback.</text>
+</svg>

@@ -48,7 +48,11 @@ WAN 是全书里"最容易画出漂亮拓扑、最难解释故障行为"的一�
 
 </div>
 
+![Fifteen claims about WAN design grouped into five families of failure](assets/fig/en17-01-fifteen-truths.svg)
+
 ### 1. The First-Order Question in WAN Design Is Not "MPLS or Internet" — It Is "Who Fills the SLA Gap" · WAN 设计的第一性问题不是"用 MPLS 还是 Internet"，而是"SLA 缺口由谁补"
+
+![The SLA gap across five handoffs and the arithmetic that decides whether an overlay is needed](assets/fig/en17-02-sla-gap.svg)
 
 The SLA your carrier signs covers only **its own segment**, while the business experiences **end to end**. The gap opens in three places: **the last mile, inter-carrier interconnection, and your own CPE and policy**.
 
@@ -86,6 +90,8 @@ The SLA your carrier signs covers only **its own segment**, while the business e
 
 ### 2. The Difference Between L2 and L3 MPLS VPN Is Not "Speed" — It Is "Who Owns the Routing" · L2 与 L3 MPLS VPN 的差别不在"速度"，而在"谁负责路由"
 
+![L2 and L3 MPLS VPN compared, decided by who owns routing rather than by speed](assets/fig/en17-03-l2-vs-l3.svg)
+
 | Dimension | L2 MPLS VPN (VPLS/VLL) | L3 MPLS VPN |
 |---|---|---|
 | What the carrier delivers | An "Ethernet segment / LAN" | A "routable VPN" (VRF) |
@@ -117,6 +123,8 @@ The SLA your carrier signs covers only **its own segment**, while the business e
 </div>
 
 ### 3. "Internet + Overlay" Is Not a Cheap Substitute; It Is a Different Failure Model · "Internet + 覆盖层"不是廉价替代品，而是另一种失效模型
+
+![MPLS failure visibility against the Internet plus overlay failure model](assets/fig/en17-04-overlay-failure-model.svg)
 
 MPLS fails by **the carrier telling you it is down**; the Internet fails by **nobody telling you anything — it simply does not work**.
 
@@ -158,6 +166,8 @@ MPLS 的失效是"运营商告诉你断了"；Internet 的失效是"**没人告�
 
 ### 4. Choosing an Overlay Is Really a Trade-off Between Tunnel Count and Control-Plane Complexity · 覆盖技术的选择，本质是"隧道数量与控制面复杂度"的取舍
 
+![Full-mesh tunnel arithmetic against hub-and-spoke scaling with six overlay technologies](assets/fig/en17-05-tunnel-count.svg)
+
 | Technology | Tunnel shape | Tunnel count | Control plane | Best fit |
 |---|---|---|---|---|
 | IPsec (point to point) | Static | O(n²) when fully meshed | None (manual) | Few sites, strict compliance |
@@ -189,6 +199,8 @@ MPLS 的失效是"运营商告诉你断了"；Internet 的失效是"**没人告�
 </div>
 
 ### 5. The Three DMVPN Phases Decide "Can I Summarise" and "Can Spokes Talk Directly" · DMVPN 的三个阶段，决定了"能不能汇总"与"能不能直连"
+
+![DMVPN phase one, two and three compared for spoke-to-spoke behaviour and summarisation](assets/fig/en17-06-dmvpn-phases.svg)
 
 This is a high-frequency CCDE topic and the place where configurations most often go wrong:
 
@@ -223,6 +235,8 @@ This is a high-frequency CCDE topic and the place where configurations most ofte
 </div>
 
 ### 6. The Tunnel's First Hidden Tax Is MTU; the Second Is Encrypted Throughput · 隧道的第一笔"隐形税"是 MTU，第二笔是加密吞吐
+
+![Header overhead per encapsulation, the MSS calculation and the encrypted throughput tax](assets/fig/en17-07-mtu-tax.svg)
 
 | Encapsulation | Extra overhead (approx.) | Consequence |
 |---|---|---|
@@ -276,6 +290,8 @@ This is a high-frequency CCDE topic and the place where configurations most ofte
 
 ### 7. The Hub Is the Most Expensive Single Point in the WAN: Bandwidth by N−1, Hardware by Encrypted Throughput · Hub 是 WAN 里最贵的单点：带宽按"N−1"算，设备按"加密后吞吐"算
 
+![Four hub capacities sized in sequence with the N minus one requirement](assets/fig/en17-08-hub-sizing.svg)
+
 A common mistake: set hub bandwidth = Σ(branch bandwidth) × a convergence ratio, then size it from "average utilisation".
 
 <div class="zh" markdown="1">
@@ -312,6 +328,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 
 ### 8. Static Routes with Floating Backup Are Almost Always Wrong in the WAN · 静态路由 + 浮动备份在 WAN 里几乎总是错的
 
+![Time to switch paths by mechanism, from floating static to eBGP with BFD](assets/fig/en17-09-floating-static.svg)
+
 | Approach | What it can detect | Convergence time | Best fit |
 |---|---|---|---|
 | Static + floating | Link down only | Depends on probes, or on a human | Very small scale, temporary |
@@ -339,6 +357,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 
 ### 9. Multicast Across the WAN Is Not Just "Turn On PIM" · 组播跨 WAN 不是"打开 PIM"就行
+
+![Three ways to carry multicast across a WAN with their replication points and costs](assets/fig/en17-10-multicast-wan.svg)
 
 | Transport option | What it requires | What it costs |
 |---|---|---|
@@ -368,6 +388,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 
 ### 10. Multi-VRF CE Is "Segmentation", Not "Encryption" · Multi-VRF CE 是"分段"不是"加密"
 
+![One CE carrying three VRFs, and the difference between routing separation and encryption](assets/fig/en17-11-multivrf-ce.svg)
+
 | Item | Multi-VRF CE (VRF-Lite) | Real security isolation |
 |---|---|---|
 | What is isolated | Routing tables (control plane) | Data-plane policy plus encryption |
@@ -393,6 +415,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 
 ### 11. WAN Optimisation Has Been Pushed to the Edge by "Protocol Evolution + Encryption" · WAN 优化（WAN Optimization）已被"协议演进 + 加密"挤到边缘
+
+![The four classic WAN optimisation promises against their modern status](assets/fig/en17-12-wan-optimisation.svg)
 
 | Traditional value | Where it stands now |
 |---|---|
@@ -422,6 +446,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 
 ### 12. QoS in the WAN Is Not "Configure a Few Queues" — It Is "Align with the Class You Bought" · QoS 在 WAN 上不是"配几个队列"，而是"与运营商签的等级对齐"
 
+![Six practical QoS classes, the LLQ police and CE shaper percentages, and where enforcement happens](assets/fig/en17-13-qos-alignment.svg)
+
 | Layer | Who does it | The key action |
 |---|---|---|
 | Application marking | Endpoint or gateway | Mark at the trust boundary (otherwise users can forge it) |
@@ -450,6 +476,8 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 
 ### 13. "Dual Carrier" in the WAN Also Requires Physical Diversity to Be Verified · "双运营商"在 WAN 里同样要验证物理多样性
 
+![Three diversity checks, five connectivity shapes and the WAN single points that hide](assets/fig/en17-14-carrier-diversity.svg)
+
 The same logic as the internet edge: **same duct, same exchange building, same metro ring = a single point**. The WAN adds two single points of its own:
 
 <div class="zh" markdown="1">
@@ -473,6 +501,8 @@ The same logic as the internet edge: **same duct, same exchange building, same m
 </div>
 
 ### 14. Cloud and SaaS Move the WAN "Exit Point" from Headquarters to "Where the Application Lives" · 云与 SaaS 把 WAN 的"出口位置"从总部挪到了"离应用最近的地方"
+
+![Traditional hub backhaul against destination-steered flows for internal, SaaS and IaaS traffic](assets/fig/en17-15-cloud-exit-point.svg)
 
 | Traffic type | Traditional path | Optimised path |
 |---|---|---|
@@ -499,6 +529,8 @@ The same logic as the internet edge: **same duct, same exchange building, same m
 </div>
 
 ### 15. WAN Scalability = "How Many Places Must Change to Add One Site" · WAN 的可扩展性 = "加一个站点要动几处"
+
+![The five artefacts that change per site and four delivery models with their change counts](assets/fig/en17-16-scalability.svg)
 
 | Action | What does not scale | What scales |
 |---|---|---|
@@ -529,6 +561,8 @@ The same logic as the internet edge: **same duct, same exchange building, same m
 ---
 
 ## The Six-Step WAN Design Method · WAN 设计的六步方法论
+
+![The six-step WAN method with inputs, deliverables, hurdles and the cost of each skipped step](assets/fig/en17-17-six-steps.svg)
 
 The easiest mistake in WAN design is to start by comparing carrier quotes. The correct order is: **business reachability first, then transport model, then redundancy shape, then overlay and virtualisation, then routing and QoS, and finally capacity and verification**.
 
@@ -621,6 +655,8 @@ WAN 设计最容易犯的错，是从"比较运营商报价"开始。正确顺�
 ---
 
 ## 1. The Three WAN Transport Models · 一、三种 WAN 传输模型
+
+![L2 MPLS VPN, L3 MPLS VPN and Internet plus overlay compared over ten dimensions](assets/fig/en17-18-three-models.svg)
 
 ### L2 MPLS VPN: VPLS and VLL · L2 MPLS VPN：VPLS 与 VLL
 
@@ -798,6 +834,8 @@ The carrier keeps a VRF per customer and distributes VPN routes between PEs with
 
 ### Five Tiers of Single-Site Connectivity · 单站点连接形态的五个层级
 
+![Five capabilities that make a site edge survivable and the failure-to-fix matrix](assets/fig/en17-19-site-edge.svg)
+
 | Form | Redundancy dimension | Consequence of failure | Best fit |
 |---|---|---|---|
 | Single link, single CPE | None | Total outage | Non-critical branches |
@@ -921,6 +959,8 @@ The carrier keeps a VRF per customer and distributes VPN routes between PEs with
 ---
 
 ## 3. Overlay Technologies · 三、覆盖技术
+
+![GRE and IPsec compared over eight capabilities with three decision questions](assets/fig/en17-20-gre-vs-ipsec.svg)
 
 ### IPsec: The Most Basic — and the Easiest to Configure into Oblivion · IPsec：最基础也最容易"配错到不可维护"
 
@@ -1154,6 +1194,8 @@ The carrier keeps a VRF per customer and distributes VPN routes between PEs with
 
 ## 4. WAN Virtualisation: Multi-VRF CE, CSC and Inter-AS · 四、WAN 虚拟化：Multi-VRF CE、CSC 与 Inter-AS
 
+![Three layers of WAN virtualisation and the three Inter-AS options](assets/fig/en17-21-virtualisation.svg)
+
 ### Multi-VRF CE (VRF-Lite)
 
 The CE keeps several VRFs but **runs no MP-BGP towards the carrier**; instead each VRF maps to a "logical link" through a subinterface/802.1Q tag, and the carrier side terminates it in a matching VRF.
@@ -1291,6 +1333,8 @@ A "carrier's carrier": one carrier (the customer carrier) treats another carrier
 ---
 
 ## 5. WAN Design Options by Scale · 五、WAN 设计选项（按规模）
+
+![Four site tiers with their standard kits and the redundancy each covers](assets/fig/en17-22-scale-tiers.svg)
 
 The original book gives a four-tier model based on site size and business criticality. In practice, express it as **site tiers plus a standard kit per tier** rather than designing each site individually.
 
@@ -1518,6 +1562,8 @@ policy-map SHAPE-WAN
 
 ### Latency, Jitter and What TCP Actually Does · 时延、抖动与 TCP 的真实关系
 
+![The bandwidth-delay product, the 64 kilobyte window ceiling and the symptom-to-cause table](assets/fig/en17-23-tcp-performance.svg)
+
 | Symptom | Cause | Mitigation |
 |---|---|---|
 | Single-flow throughput will not rise | BDP limit (window / RTT) | Window scaling, multiple flows, front-end caching or acceleration |
@@ -1589,6 +1635,8 @@ BDP = 带宽 × RTT
 ---
 
 ## 7. WAN Routing Design · 七、WAN 路由设计
+
+![Three topologies with their routing models, the four hub-spoke questions and redistribution boundaries](assets/fig/en17-24-routing-design.svg)
 
 ### Matching Topology to Routing · 三种拓扑与路由的对应关系
 
@@ -1687,6 +1735,8 @@ BDP = 带宽 × RTT
 ---
 
 ## 8. Migration: From Traditional WAN to MPLS L3VPN (Original-Book Topic) · 八、迁移：从传统 WAN 到 MPLS L3VPN（原文专题）
+
+![The overlap state during a WAN migration with two clouds, two defaults and a backdoor link](assets/fig/en17-25-migration.svg)
 
 > The book devotes a dedicated section to migration right after WAN virtualisation, for a very direct reason: **WAN projects rarely fail because the target architecture is wrong; they fail because nobody designed the intermediate state**. If the design deliverable contains only the end-state topology, the implementation team will invent its own migration order, and once that order is wrong the problems stay in production as "intermittent loops and suboptimal paths".
 
@@ -1983,6 +2033,8 @@ N−1（双 Hub）→ 单 Hub 需 ≥960 Mbps
 ---
 
 ## 10. From Design to Delivery: The Nine Tables This Chapter Requires · 十、从设计到交付：本章必须的 9 张表
+
+![The nine deliverable tables of a WAN design with their owners, and the cost model](assets/fig/en17-26-nine-tables.svg)
 
 | # | Table | Content | Who uses it |
 |---|---|---|---|

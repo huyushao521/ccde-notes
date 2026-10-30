@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 532" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Three topologies with their routing models, the four hub-spoke questions and the boundaries of summarisation and redistribution</title>
+  <desc id="d15">Three topology panels map routing to shape: hub-spoke with spokes defaulting to the hub and the hub summarising downward is simple, central and cheap but detours spoke traffic and bottlenecks the hub; partial mesh with regional hubs and hierarchical summarisation plus inter-region BGP balances cost and experience at the price of many summary points; full mesh via carrier MP-BGP or iBGP with route reflectors gives optimal paths without detours but costs more and enlarges tables and failure domains. Four hub-spoke questions pair the wrong answer with the right one: whether spokes need direct paths (check the traffic matrix first, direct only above about thirty percent east-west), whether hub summarisation breaks them (it does in phase two, so phase three is required for summarise plus direct), whether a default route is enough (not with dual uplinks), and what happens if the hub fails (the backup needs the same subnet, policy and preference, plus detection). A table gives the four boundaries of summarisation and redistribution, including the rule never to redistribute both ways between MPLS and the Internet, and a side panel lists BGP's four uses with the scaling test of fifty and one hundred sites.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="532" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Topology, summarisation and redistribution are one decision, taken three times</text>  <text class="s" x="24" y="45">The routing design fails at the boundaries: where a summary is generated, and where two protocols exchange routes</text>
+  <text class="k" x="24" y="78">THREE TOPOLOGIES AND THE ROUTING THAT FITS EACH</text>
+  <rect x="24" y="88" width="264" height="86" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <text class="b" x="36" y="106">Hub-spoke</text>
+  <text class="c" x="36" y="124">spokes default to hub, hub summarises down</text>
+  <text class="c" x="36" y="138"></text>
+  <text class="g" x="36" y="154">+ simple, central, cheap</text>
+  <text class="x" x="36" y="168">- detours + hub bottleneck</text>
+  <rect x="312" y="88" width="264" height="86" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="b" x="324" y="106">Partial mesh</text>
+  <text class="c" x="324" y="124">regional hubs, hierarchical summary + inte</text>
+  <text class="c" x="324" y="138">r-region BGP</text>
+  <text class="g" x="324" y="154">+ balance of cost and experience</text>
+  <text class="x" x="324" y="168">- many summary points</text>
+  <rect x="600" y="88" width="264" height="86" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <text class="b" x="612" y="106">Full mesh</text>
+  <text class="c" x="612" y="124">MP-BGP from the carrier, or iBGP with RRs</text>
+  <text class="c" x="612" y="138"></text>
+  <text class="g" x="612" y="154">+ optimal paths, no detour</text>
+  <text class="x" x="612" y="168">- cost, table size, failure domain</text>
+  <text class="k" x="24" y="196">FOUR QUESTIONS HUB-SPOKE MUST ANSWER, WITH THE WRONG ANSWER NEXT TO THE RIGHT ONE</text>
+  <text class="b" x="24" y="218">Do spokes need direct paths?</text>
+  <text class="x" x="300" y="218">"Yes, build a full mesh"</text>
+  <text class="c" x="468" y="218">Look at the traffic matrix: direct only above ~30% east-west</text>
+  <text class="b" x="24" y="248">Does hub summarisation break them?</text>
+  <text class="x" x="300" y="248">"No"</text>
+  <text class="c" x="468" y="248">In phase 2 it does: summarise + direct needs phase 3</text>
+  <text class="b" x="24" y="278">Is a default route enough?</text>
+  <text class="x" x="300" y="278">"Yes"</text>
+  <text class="c" x="468" y="278">Not with dual uplinks: per-prefix or per-attribute selection</text>
+  <text class="b" x="24" y="308">What if the hub fails?</text>
+  <text class="x" x="300" y="308">"We have a backup hub"</text>
+  <text class="c" x="468" y="308">It needs the same subnet, policy, preference - and detection</text>
+  <rect x="24" y="336" width="560" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="351">BOUNDARY</text>  <text class="k" x="212.0" y="351">RULE</text>  <text class="k" x="412.0" y="351">RISK IF IGNORED</text>  <rect x="24" y="358" width="560" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="374">Regional hub -&gt; core</text>  <text class="c" x="212.0" y="374">summarise regional prefixes</text>  <text class="c" x="412.0" y="374">detours during failures</text>  <line x1="24" y1="382" x2="584" y2="382" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="382" width="560" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="398">Core -&gt; regional hub</text>  <text class="c" x="212.0" y="398">default or summary only</text>  <text class="c" x="412.0" y="398">no detail, harder troubleshooting</text>  <line x1="24" y1="406" x2="584" y2="406" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="406" width="560" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="422">MPLS &lt;-&gt; Internet</text>  <text class="x" x="212.0" y="422">never redistribute both ways</text>  <text class="x" x="412.0" y="422">loops, suboptimal, leaks</text>  <line x1="24" y1="430" x2="584" y2="430" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="430" width="560" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="446">IGP &lt;-&gt; BGP</text>  <text class="g" x="212.0" y="446">one direction + whitelist + tag</text>  <text class="c" x="412.0" y="446">full-table leak, churn</text>  <line x1="24" y1="454" x2="584" y2="454" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="600" y="336" width="276" height="132" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="612" y="354">FOUR USES OF BGP IN A WAN</text>
+  <text class="c" x="612" y="372">- multihomed path selection</text>
+  <text class="c" x="612" y="388">- PE-CE for carrier L3VPN</text>
+  <text class="c" x="612" y="404">- large-scale iBGP any-to-any</text>
+  <text class="c" x="612" y="420">- cloud VPC / VNet exchange</text>
+  <line x1="612" y1="436" x2="864" y2="436" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="g" x="612" y="452">&lt; 50 sites: an IGP is enough</text>
+  <text class="g" x="612" y="466">&gt; 100 sites or any-to-any: BGP + RRs</text>
+  <line x1="24" y1="484" x2="876" y2="484" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="502">One iron rule: redistribution in the WAN is one-directional, whitelisted and tagged, or it is an incident waiting for a failure</text>
+  <text class="c" x="24" y="518">Two-way redistribution appears to work: it is the classic 'nobody can explain it when it breaks' design.</text>
+</svg>

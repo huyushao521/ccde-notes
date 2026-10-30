@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 474" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The four classic WAN optimisation promises against their modern status, and where the value moved</title>
+  <desc id="d15">Four rows examine the classic promises. Header compression is defeated by ubiquitous TLS and now helps only uplink bandwidth. Data deduplication still works on bulk backup and VDI patterns. TCP acceleration has been largely absorbed by modern stacks and QUIC and matters mainly on paths above one hundred milliseconds. Caching lost its HTTP object role to TLS plus CDN. A table adds the structural changes: most enterprise WAN traffic is encrypted so dedup sees ciphertext, HTTP/2 and HTTP/3 break per-connection tricks, users always blame the WAN when the cause is usually the application or DNS, and the value moved to path selection and local breakout decided per destination. The surviving job is steering each flow onto the transport that fits it instead of hauling SaaS traffic to a central hub, and the advice is to measure before buying.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="474" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Encryption and the modern web pushed WAN optimisation out to the edge</text>  <text class="s" x="24" y="45">Compression, deduplication and protocol acceleration lost most of their territory; latency and SaaS path selection did not</text>
+  <text class="k" x="24" y="78">WHAT THE APPLIANCE PROMISED, AND WHAT SURVIVED</text>
+  <rect x="24" y="96" width="4" height="32" rx="2" fill="#d0564a" stroke="none"/>
+  <text class="b" x="38" y="108">Header compression</text>
+  <text class="c" x="38" y="124">shrinks 40 B of header on 60 B of payload</text>
+  <text class="c" x="360" y="108">defeated by TLS everywhere</text>
+  <text class="w" x="360" y="124">still worth it for: uplink bandwidth only</text>
+  <rect x="24" y="140" width="4" height="32" rx="2" fill="#29a08f" stroke="none"/>
+  <text class="b" x="38" y="152">Data deduplication</text>
+  <text class="c" x="38" y="168">3x on repeated backup/VDI patterns</text>
+  <text class="c" x="360" y="152">still works on bulk, not on video</text>
+  <text class="w" x="360" y="168">still worth it for: backup and DR links</text>
+  <rect x="24" y="184" width="4" height="32" rx="2" fill="#d99b2b" stroke="none"/>
+  <text class="b" x="38" y="196">TCP acceleration</text>
+  <text class="c" x="38" y="212">window scaling over high RTT</text>
+  <text class="c" x="360" y="196">absorbed by modern stacks and QUIC</text>
+  <text class="w" x="360" y="212">still worth it for: long fat pipes above 100 ms</text>
+  <rect x="24" y="228" width="4" height="32" rx="2" fill="#d0564a" stroke="none"/>
+  <text class="b" x="38" y="240">Caching</text>
+  <text class="c" x="38" y="256">HTTP object reuse</text>
+  <text class="c" x="360" y="240">TLS + CDN moved it to the browser</text>
+  <text class="w" x="360" y="256">still worth it for: nothing worth buying</text>
+  <text class="c" x="24" y="274">If the traffic is already inside a tunnel, the appliance's own tunnel is a second encapsulation: MTU and PPS taxes double.</text>
+  <rect x="24" y="292" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="307">CHANGE</text>  <text class="k" x="282.0" y="307">WHAT HAPPENED</text>  <text class="k" x="582.0" y="307">CONSEQUENCE FOR DESIGN</text>  <rect x="24" y="314" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="330">Encrypted traffic share</text>  <text class="c" x="282.0" y="330">most enterprise WAN traffic</text>  <text class="c" x="582.0" y="330">dedup and compression see ciphertext</text>  <line x1="24" y1="338" x2="876" y2="338" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="338" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="354">Browser protocols</text>  <text class="c" x="282.0" y="354">HTTP/2, HTTP/3, QUIC</text>  <text class="c" x="582.0" y="354">per-connection tricks stop working</text>  <line x1="24" y1="362" x2="876" y2="362" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="362" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="378">What users blame</text>  <text class="c" x="282.0" y="378">the WAN, always</text>  <text class="c" x="582.0" y="378">usually the app or DNS, not the path</text>  <line x1="24" y1="386" x2="876" y2="386" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="386" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="402">Where the value moved</text>  <text class="g" x="282.0" y="402">path selection and local breakout</text>  <text class="c" x="582.0" y="402">decided per destination, at the edge</text>  <line x1="24" y1="410" x2="876" y2="410" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="426" x2="876" y2="426" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="444">The surviving job is path selection: send each flow on the transport that fits it, and stop carrying SaaS traffic to a central hub</text>
+  <text class="c" x="24" y="460">Measure before buying: if the WAN latency is already below the application's tolerance, an optimiser is a tunnel with a licence fee.</text>
+</svg>

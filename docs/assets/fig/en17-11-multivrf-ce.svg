@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 396" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">One CE carrying three VRFs to three PE VRF handshakes, and the difference between routing separation and encryption</title>
+  <desc id="d15">Topology panel: one physical CE exposes subinterfaces for corp, guest and OT, each mapped to its own VRF and to a matching PE VRF with its own PE-CE session, routing table and default route. Traffic between VRFs must be hairpinned through a firewall rather than leaked through a route. A comparison table sets routing separation against data separation: a VRF separates the RIB and FIB and keeps the data logical on shared media, but it does not protect anything in transit because the carrier still sees plaintext. The panel closes with the sentence that ends the argument: a VRF answers whether two networks may talk, encryption answers who may read, and designs that confuse the two fail audit rather than ping. Where regulation rather than policy forces separation, stack the tools: VRF for routing and IPsec or MACsec for confidentiality.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="396" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Multi-VRF CE segments routes; it does not encrypt anything</text>  <text class="s" x="24" y="45">One physical CE, one subinterface per VRF, one PE VRF per segment - isolation by routing table, not by crypto</text>
+  <rect x="24" y="68" width="520" height="180" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">ONE CE, THREE VRFs, THREE PE VRF HANDSHAKES</text>
+  <rect x="44" y="100" width="120" height="120" rx="3" fill="#f7f9fd" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="b" x="104" y="118" text-anchor="middle">CE</text>
+  <rect x="56" y="126" width="96" height="22" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="104" y="141" text-anchor="middle">Gi0/0.10  CORP</text>
+  <rect x="56" y="156" width="96" height="22" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <text class="c" x="104" y="171" text-anchor="middle">Gi0/0.20  GUEST</text>
+  <rect x="56" y="186" width="96" height="22" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <text class="c" x="104" y="201" text-anchor="middle">Gi0/0.30  OT</text>
+  <rect x="300" y="108" width="110" height="30" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="355" y="128" text-anchor="middle">VRF CORP</text>
+  <line x1="252" y1="137" x2="300" y2="123" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="c" x="410" y="128">PE VRF CORP</text>
+  <line x1="410" y1="123" x2="462" y2="123" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="300" y="152" width="110" height="30" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <text class="c" x="355" y="172" text-anchor="middle">VRF GUEST</text>
+  <line x1="252" y1="137" x2="300" y2="167" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="c" x="410" y="172">PE VRF GUEST</text>
+  <line x1="410" y1="167" x2="462" y2="167" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="300" y="196" width="110" height="30" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <text class="c" x="355" y="216" text-anchor="middle">VRF OT</text>
+  <line x1="252" y1="137" x2="300" y2="211" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="c" x="410" y="216">PE VRF OT</text>
+  <line x1="410" y1="211" x2="462" y2="211" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <text class="c" x="36" y="238">Each VRF has its own PE-CE session, its own routing table, its own default.</text>
+  <text class="x" x="36" y="254">Hairpinning between VRFs is a firewall job, not a route leak.</text>
+  <rect x="564" y="68" width="312" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="572" y="83">DIMENSION</text>  <text class="k" x="684.0" y="83">VRF</text>  <text class="k" x="794.0" y="83">IPsec</text>  <rect x="564" y="90" width="312" height="30" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="572" y="112">Separates routing</text>  <text class="g" x="684.0" y="112">yes: separate RIB and FIB</text>  <text class="c" x="794.0" y="112">n/a</text>  <line x1="564" y1="120" x2="876" y2="120" stroke="#eef2f8" stroke-width=".7"/>  <rect x="564" y="120" width="312" height="30" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="572" y="142">Separates data</text>  <text class="c" x="684.0" y="142">logically, on shared media</text>  <text class="g" x="794.0" y="142">yes, on the wire</text>  <line x1="564" y1="150" x2="876" y2="150" stroke="#eef2f8" stroke-width=".7"/>  <rect x="564" y="150" width="312" height="30" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="572" y="172">Protects in transit</text>  <text class="x" x="684.0" y="172">no: carrier sees plaintext</text>  <text class="g" x="794.0" y="172">yes</text>  <line x1="564" y1="180" x2="876" y2="180" stroke="#eef2f8" stroke-width=".7"/>  <rect x="564" y="180" width="312" height="30" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="572" y="202">Proves compliance</text>  <text class="c" x="684.0" y="202">routing policy evidence</text>  <text class="c" x="794.0" y="202">crypto evidence</text>  <line x1="564" y1="210" x2="876" y2="210" stroke="#eef2f8" stroke-width=".7"/>  <rect x="564" y="210" width="312" height="30" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="572" y="232">Adds cost</text>  <text class="g" x="684.0" y="232">hardware, not bandwidth</text>  <text class="c" x="794.0" y="232">bandwidth overhead</text>  <line x1="564" y1="240" x2="876" y2="240" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="564" y="254" width="312" height="78" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="576" y="272">THE SENTENCE THAT ENDS THE ARGUMENT</text>
+  <text class="b" x="576" y="290">VRF answers 'can these two talk?'</text>
+  <text class="b" x="576" y="306">Encryption answers 'who can read it?'</text>
+  <text class="c" x="576" y="322">Designs that confuse them fail audit, not ping.</text>
+  <line x1="24" y1="344" x2="876" y2="344" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="362">If regulation, not policy, forces separation, stack the tools: VRF for routing, IPsec or MACsec for confidentiality</text>
+  <text class="c" x="24" y="378">A guest-Wi-Fi segment and an OT segment usually need different answers, even on the same CE.</text>
+</svg>

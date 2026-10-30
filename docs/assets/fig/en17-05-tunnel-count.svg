@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 518" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Full-mesh tunnel arithmetic against hub-and-spoke scaling, with six overlay technologies compared</title>
+  <desc id="d15">Left panel gives the full-mesh formula n times n minus one over two: ten sites need forty-five tunnels, thirty sites four hundred thirty-five, fifty sites one thousand two hundred twenty-five and one hundred sites four thousand nine hundred fifty, so every added site touches every existing site in configuration and security associations. Right panel shows a hub with O of n tunnels, one NHRP domain and on-demand spoke-to-spoke paths, where the hub carries policy, summarisation and failure concentration. A table compares point-to-point IPsec, GRE, DMVPN, FlexVPN, GET VPN and SD-WAN on tunnel count, control plane and best fit. Three questions pick the technology: site count, whether spokes must talk directly, and whether more than one transport exists; DMVPN buys on-demand direct connectivity with O of n hub configuration, which is an operating-cost fix rather than a bandwidth fix.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="518" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Choosing an overlay is a trade between tunnel count and control-plane complexity</text>  <text class="s" x="24" y="45">Full mesh grows quadratically; a hub grows linearly but concentrates failure and policy</text>
+  <rect x="24" y="68" width="424" height="176" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">FULL MESH: n(n-1)/2 TUNNELS</text>
+  <text class="c" x="36" y="100">10 sites</text>
+  <rect x="110" y="90" width="32" height="12" rx="3" fill="#4a7ee0" stroke="none" opacity=".25"/>
+  <text class="b" x="170" y="100">45 tunnels</text>
+  <text class="c" x="36" y="124">30 sites</text>
+  <rect x="110" y="114" width="52" height="12" rx="3" fill="#4a7ee0" stroke="none" opacity=".25"/>
+  <text class="b" x="190" y="124">435 tunnels</text>
+  <text class="c" x="36" y="148">50 sites</text>
+  <rect x="110" y="138" width="72" height="12" rx="3" fill="#4a7ee0" stroke="none" opacity=".25"/>
+  <text class="b" x="210" y="148">1,225 tunnels</text>
+  <text class="c" x="36" y="172">100 sites</text>
+  <rect x="110" y="162" width="92" height="12" rx="3" fill="#4a7ee0" stroke="none" opacity=".25"/>
+  <text class="b" x="230" y="172">4,950 tunnels</text>
+  <text class="x" x="36" y="206">Every new site touches every existing site: configuration and SA count.</text>
+  <text class="c" x="36" y="222">Point-to-point IPsec and GRE fail here first; so does troubleshooting.</text>
+  <text class="g" x="36" y="238">Still right for a handful of sites with strict compliance.</text>
+  <rect x="460" y="68" width="416" height="176" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="472" y="86">HUB AND SPOKE: O(n) ON THE HUB</text>
+  <rect x="634" y="108" width="68" height="30" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="b" x="668" y="127" text-anchor="middle">HUB</text>
+  <rect x="476" y="208" width="48" height="24" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="c" x="500" y="224" text-anchor="middle">S1</text>
+  <line x1="668" y1="138" x2="500" y2="208" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="572" y="208" width="48" height="24" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="c" x="596" y="224" text-anchor="middle">S2</text>
+  <line x1="668" y1="138" x2="596" y2="208" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="668" y="208" width="48" height="24" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="c" x="692" y="224" text-anchor="middle">S3</text>
+  <line x1="668" y1="138" x2="692" y2="208" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="764" y="208" width="48" height="24" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="c" x="788" y="224" text-anchor="middle">S4</text>
+  <line x1="668" y1="138" x2="788" y2="208" stroke="#9fb3d1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="c" x="472" y="250">Hub carries the policy, the summary and the failure.</text>
+  <rect x="472" y="258" width="76" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="510.0" y="269" text-anchor="middle">tunnels: n</text>
+  <rect x="556" y="258" width="140" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="626.0" y="269" text-anchor="middle">control: 1 NHRP domain</text>
+  <rect x="704" y="258" width="160" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="784.0" y="269" text-anchor="middle">spoke-to-spoke: on demand</text>
+  <rect x="24" y="292" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="307">TECHNOLOGY</text>  <text class="k" x="192.0" y="307">TUNNEL COUNT</text>  <text class="k" x="382.0" y="307">CONTROL PLANE</text>  <text class="k" x="572.0" y="307">BEST FIT</text>  <rect x="24" y="314" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="330">Point-to-point IPsec</text>  <text class="c" x="192.0" y="330">O(n^2) full mesh</text>  <text class="c" x="382.0" y="330">none, manual</text>  <text class="c" x="572.0" y="330">few sites, strict compliance</text>  <line x1="24" y1="338" x2="876" y2="338" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="338" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="354">GRE</text>  <text class="c" x="192.0" y="354">O(n^2)</text>  <text class="c" x="382.0" y="354">none</text>  <text class="c" x="572.0" y="354">multicast or non-IP needed</text>  <line x1="24" y1="362" x2="876" y2="362" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="362" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="378">DMVPN</text>  <text class="c" x="192.0" y="378">O(n) on the hub</text>  <text class="c" x="382.0" y="378">NHRP + routing</text>  <text class="c" x="572.0" y="378">hub-spoke wanting direct paths</text>  <line x1="24" y1="386" x2="876" y2="386" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="386" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="402">FlexVPN</text>  <text class="c" x="192.0" y="402">O(n), one per peer</text>  <text class="c" x="382.0" y="402">IKEv2 + routing</text>  <text class="c" x="572.0" y="402">large scale, per-peer policy</text>  <line x1="24" y1="410" x2="876" y2="410" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="410" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="426">GET VPN</text>  <text class="c" x="192.0" y="426">0, no tunnels</text>  <text class="c" x="382.0" y="426">group key</text>  <text class="c" x="572.0" y="426">encryption over trusted MPLS</text>  <line x1="24" y1="434" x2="876" y2="434" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="434" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="450">SD-WAN</text>  <text class="c" x="192.0" y="450">O(n), orchestrated</text>  <text class="c" x="382.0" y="450">controller + policy</text>  <text class="c" x="572.0" y="450">multi-transport, cloud access</text>  <line x1="24" y1="458" x2="876" y2="458" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="470" x2="876" y2="470" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="488">Three questions pick the technology: site count, whether spokes must talk directly, and whether you have more than one transport</text>
+  <text class="c" x="24" y="504">DMVPN's value is O(n) hub configuration buying on-demand O(n^2) connectivity - an operating-cost fix, not a bandwidth fix.</text>
+</svg>

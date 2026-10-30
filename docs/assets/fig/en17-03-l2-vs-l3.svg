@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">L2 MPLS VPN against L3 MPLS VPN, decided by who owns routing rather than by speed</title>
+  <desc id="d15">Left panel: the carrier emulates one switch, CEs form a routing adjacency across the segment, and STP, broadcast and MAC-table limits belong to the customer. The fault boundary is blurred because the cloud interior is invisible, but the customer keeps full topology freedom, which fits when something must genuinely run at Layer 2. Right panel: the carrier keeps a VRF per customer and distributes routes with MP-BGP using RD and RT, so the customer peers with the PE by static, eBGP or IGP, the fault boundary is clean at PE-CE, and topology is constrained by the product. A four-column table compares who runs routing, topology freedom, broadcast and multicast, fault localisation and best fit. The one-line test is whether anything must run at Layer 2 across the WAN: yes means L2, no means L3.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">L2 and L3 MPLS VPN differ in who owns the routing, not in speed</text>  <text class="s" x="24" y="45">The same carrier cloud delivers either one Ethernet segment or one routable VRF - that decides your operating model</text>
+  <rect x="24" y="68" width="416" height="214" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">L2 MPLS VPN / VPLS OR VLL</text>
+  <text class="b" x="36" y="103">The carrier emulates a switch; you run routing</text>
+  <rect x="44" y="118" width="72" height="34" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="b" x="80" y="139" text-anchor="middle">CE A</text>
+  <rect x="344" y="118" width="72" height="34" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="b" x="380" y="139" text-anchor="middle">CE B</text>
+  <rect x="140" y="110" width="180" height="50" rx="3" fill="#f7f9fd" stroke="#c9dcfb" stroke-width=".8" stroke-dasharray="3 3"/>
+  <text class="c" x="230" y="130" text-anchor="middle">carrier L2 cloud</text>
+  <text class="c" x="230" y="145" text-anchor="middle">one broadcast domain</text>
+  <line x1="116" y1="135" x2="140" y2="135" stroke="#4a7ee0" stroke-width="1.1" marker-end="url(#ab)"/>
+  <line x1="320" y1="135" x2="344" y2="135" stroke="#4a7ee0" stroke-width="1.1" marker-end="url(#ab)"/>
+  <text class="c" x="36" y="182">Routing adjacency runs CE to CE over the segment.</text>
+  <text class="c" x="36" y="198">Fault boundary blurred: inside the cloud is invisible.</text>
+  <text class="c" x="36" y="214">Scale limit: MAC table, broadcast, port policy.</text>
+  <text class="x" x="36" y="230">STP over L2 VPN: a customer loop reaches the carrier.</text>
+  <text class="g" x="36" y="248">Fit: must run something at Layer 2 - legacy, non-IP, migration.</text>
+  <rect x="36" y="258" width="168" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="120.0" y="269" text-anchor="middle">routing: 1 domain you own</text>
+  <rect x="214" y="258" width="128" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="278.0" y="269" text-anchor="middle">MTU: you police it</text>
+  <rect x="460" y="68" width="416" height="214" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="472" y="86">L3 MPLS VPN / VRF</text>
+  <text class="b" x="472" y="103">The carrier keeps a VRF; you peer with its PE</text>
+  <rect x="480" y="118" width="72" height="34" rx="3" fill="#eef3fb" stroke="#29a08f" stroke-width=".8"/>
+  <text class="b" x="516" y="139" text-anchor="middle">CE A</text>
+  <rect x="780" y="118" width="72" height="34" rx="3" fill="#eef3fb" stroke="#29a08f" stroke-width=".8"/>
+  <text class="b" x="816" y="139" text-anchor="middle">CE B</text>
+  <rect x="566" y="110" width="44" height="50" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="588" y="130" text-anchor="middle">PE</text>
+  <text class="w" x="588" y="145" text-anchor="middle">VRF</text>
+  <rect x="696" y="110" width="44" height="50" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="718" y="130" text-anchor="middle">PE</text>
+  <text class="w" x="718" y="145" text-anchor="middle">VRF</text>
+  <line x1="610" y1="135" x2="696" y2="135" stroke="#29a08f" stroke-width="1.6"/>
+  <text class="w" x="653" y="128" text-anchor="middle">MP-BGP</text>
+  <text class="w" x="653" y="150" text-anchor="middle">RD + RT</text>
+  <line x1="552" y1="135" x2="566" y2="135" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <line x1="740" y1="135" x2="780" y2="135" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <text class="c" x="472" y="182">PE-CE routing you choose: static, eBGP, OSPF/EIGRP.</text>
+  <text class="g" x="472" y="198">Clean demarcation: PE-CE is the fault boundary.</text>
+  <text class="c" x="472" y="214">Topology constrained by product: hub-spoke or any-to-any.</text>
+  <text class="c" x="472" y="230">Multicast needs mVPN; changes ride the ticket queue.</text>
+  <text class="x" x="472" y="248">You cannot see inside - but you do get a clean handoff.</text>
+  <rect x="472" y="258" width="168" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="556.0" y="269" text-anchor="middle">routing: 1 session per site</text>
+  <rect x="650" y="258" width="150" height="16" rx="8.0" fill="#eef3fb" stroke="#c9dcfb" stroke-width=".7"/>  <text class="c" x="725.0" y="269" text-anchor="middle">QoS: classes in contract</text>
+  <rect x="24" y="296" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="311">DIMENSION</text>  <text class="k" x="182.0" y="311">L2 MPLS VPN</text>  <text class="k" x="430.0" y="311">L3 MPLS VPN</text>  <text class="k" x="678.0" y="311">WHAT IT DECIDES</text>  <rect x="24" y="318" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="333">Who runs routing</text>  <text class="c" x="182.0" y="333">you, between CEs</text>  <text class="c" x="430.0" y="333">carrier PE peers with your CE</text>  <text class="g" x="678.0" y="333">decides the whole model</text>  <line x1="24" y1="341" x2="876" y2="341" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="341" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="356">Topology freedom</text>  <text class="c" x="182.0" y="356">yours, incl. L2 adjacency</text>  <text class="c" x="430.0" y="356">constrained by the product</text>  <text class="c" x="678.0" y="356">need L2? choose L2</text>  <line x1="24" y1="364" x2="876" y2="364" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="364" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="379">Broadcast / multicast</text>  <text class="c" x="182.0" y="379">yours, incl. STP risk</text>  <text class="c" x="430.0" y="379">mVPN support required</text>  <text class="c" x="678.0" y="379">cost shifts, not vanishes</text>  <line x1="24" y1="387" x2="876" y2="387" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="387" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="402">Fault localisation</text>  <text class="c" x="182.0" y="402">blurred inside the cloud</text>  <text class="c" x="430.0" y="402">clean PE-CE demarcation</text>  <text class="c" x="678.0" y="402">operating cost</text>  <line x1="24" y1="410" x2="876" y2="410" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="410" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="425">Best fit</text>  <text class="c" x="182.0" y="425">L2 adjacency, non-IP, migration</text>  <text class="c" x="430.0" y="425">most enterprises, scalable</text>  <text class="g" x="678.0" y="425">default to L3</text>  <line x1="24" y1="433" x2="876" y2="433" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="448" x2="876" y2="448" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="466">One-line test: is there anything that must run at Layer 2 across the WAN? Yes - L2. No - L3, and keep the demarcation clean.</text>
+  <text class="c" x="24" y="482">If it can be solved at Layer 3, do not stretch Layer 2 across a carrier backbone.</text>
+</svg>

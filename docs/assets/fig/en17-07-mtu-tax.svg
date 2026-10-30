@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 434" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Header overhead per encapsulation, the MSS calculation that prevents most MTU tickets, and the encrypted throughput tax</title>
+  <desc id="d15">Five bars show header overhead: plain IP adds nothing and keeps 1500 bytes, GRE adds 24 bytes, IPsec tunnel mode about 60, GRE plus IPsec about 84 and VXLAN about 50, with options, NAT traversal and double encapsulation stacking on top. A panel gives the MSS formula and works an example: after GRE plus IPsec the interface MTU is 1400, so MSS becomes 1340, and it lists the four symptoms users report in order - ping works but file copy stalls, small pages load but uploads fail, SSH connects then freezes, the TLS handshake hangs - with a warning never to fix it by lowering MTU everywhere. A table contrasts what datasheets claim with what design must use: a nominal 1 Gbps crypto engine delivers 400 to 600 Mbps on realistic packet mixes, packets per second is often the true ceiling, the hub must fit the sum of spokes, and MSS clamping belongs at the CE.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="434" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Every tunnel pays twice: MTU first, encrypted throughput second</text>  <text class="s" x="24" y="45">Overhead is additive per encapsulation, and the tax is paid again at every encryption device the packet crosses</text>
+  <text class="k" x="24" y="76">HEADER OVERHEAD IN BYTES (TYPICAL, WITHOUT EXTRA OPTIONS)</text>
+  <text class="w" x="24" y="101">Plain IP</text>
+  <rect x="120" y="92" width="6" height="12" rx="2" fill="#c9d3e2" stroke="none" opacity=".8"/>
+  <text class="c" x="128" y="101">0 B</text>
+  <text class="c" x="380" y="101">usable 1500 B</text>
+  <text class="w" x="24" y="127">GRE</text>
+  <rect x="120" y="118" width="52.800000000000004" height="12" rx="2" fill="#d0564a" stroke="none" opacity=".8"/>
+  <text class="c" x="174.8" y="127">+24 B</text>
+  <text class="c" x="380" y="127">usable 1476 B</text>
+  <text class="w" x="24" y="153">IPsec tunnel</text>
+  <rect x="120" y="144" width="132.0" height="12" rx="2" fill="#d0564a" stroke="none" opacity=".8"/>
+  <text class="c" x="254.0" y="153">+60 B</text>
+  <text class="c" x="380" y="153">usable 1440 B</text>
+  <text class="w" x="24" y="179">GRE + IPsec</text>
+  <rect x="120" y="170" width="184.8" height="12" rx="2" fill="#d0564a" stroke="none" opacity=".8"/>
+  <text class="c" x="306.8" y="179">+84 B</text>
+  <text class="c" x="380" y="179">usable 1416 B</text>
+  <text class="w" x="24" y="205">VXLAN</text>
+  <rect x="120" y="196" width="110.00000000000001" height="12" rx="2" fill="#d0564a" stroke="none" opacity=".8"/>
+  <text class="c" x="232.0" y="205">+50 B</text>
+  <text class="c" x="380" y="205">usable 1450 B</text>
+  <text class="c" x="24" y="236">Options, NAT-T, and double encapsulation stack on top: read the actual interface, not the datasheet.</text>
+  <rect x="430" y="68" width="446" height="168" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="442" y="86">THE MSS FIX THAT PREVENTS 90% OF TICKETS</text>
+  <text class="m" x="442" y="106">MSS = MTU - 40 (IPv4) - 20 (TCP)</text>
+  <text class="m" x="442" y="122">GRE+IPsec: 1400 - 40 - 20 = 1340</text>
+  <line x1="442" y1="132" x2="864" y2="132" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="c" x="442" y="150">Symptoms of an MTU fault, in the order users report them:</text>
+  <text class="c" x="452" y="166">- ping works, file copy stalls</text>
+  <text class="c" x="452" y="181">- small pages load, uploads fail</text>
+  <text class="c" x="452" y="196">- SSH connects then freezes</text>
+  <text class="c" x="452" y="211">- TLS handshake hangs</text>
+  <text class="x" x="442" y="228">Never 'fix' this by lowering the NIC MTU everywhere.</text>
+  <rect x="24" y="252" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="267">DIMENSION</text>  <text class="k" x="252.0" y="267">WHAT THE DATASHEET SAYS</text>  <text class="k" x="512.0" y="267">WHAT THE DESIGN MUST USE</text>  <rect x="24" y="274" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="290">Nominal crypto throughput</text>  <text class="c" x="252.0" y="290">1 Gbps on the datasheet</text>  <text class="c" x="512.0" y="290">400-600 Mbps with IMIX and small packets</text>  <line x1="24" y1="298" x2="876" y2="298" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="298" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="314">Packets per second</text>  <text class="c" x="252.0" y="314">often the real ceiling</text>  <text class="c" x="512.0" y="314">64-byte traffic hits it first</text>  <line x1="24" y1="322" x2="876" y2="322" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="322" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="338">Hub as aggregator</text>  <text class="c" x="252.0" y="338">spoke sum must fit one box</text>  <text class="c" x="512.0" y="338">80 x 20 Mbps needs a 2 Gbps class device</text>  <line x1="24" y1="346" x2="876" y2="346" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="346" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="362">MTU inside the tunnel</text>  <text class="c" x="252.0" y="362">1400 or lower</text>  <text class="c" x="512.0" y="362">policy must clamp MSS at the CE</text>  <line x1="24" y1="370" x2="876" y2="370" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="386" x2="876" y2="386" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="404">Size the hub by encrypted throughput with realistic packet mix, not by the interface rate printed on the box</text>
+  <text class="c" x="24" y="420">Both taxes are permanent: budget them in the design, never discover them in the first month of operation.</text>
+</svg>

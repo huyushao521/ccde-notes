@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 472" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Time to switch paths by mechanism, from floating static to eBGP with BFD, and what each mechanism can actually detect</title>
+  <desc id="d15">Four bars compare detection plus switching time. A floating static takes more than 180 seconds because it waits for the interface, which never drops for a carrier-side fault. Static plus IP SLA switches within the probe budget, twelve seconds at a typical interval, if the probe targets the right address. eBGP with BFD converges in about 900 milliseconds, three hundred milliseconds times three. Plain eBGP without BFD waits out the 180-second hold time. A table compares what each mechanism detects, whether it sees a carrier-side fault, configuration cost, routing feedback and when it is appropriate. The rule is that the WAN must be able to withdraw a path, and a static route cannot be withdrawn by a peer, so it cannot express failure; floating statics remain appropriate only for device-level backup you control at both ends.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="472" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Floating static is almost always wrong in a WAN, because link state is not path state</text>  <text class="s" x="24" y="45">The carrier's failure happens inside its cloud: your interface stays up and the tunnel stays up with it</text>
+  <text class="k" x="24" y="78">TIME FROM A CARRIER-SIDE FAULT TO TRAFFIC MOVING, BY MECHANISM</text>
+  <text class="b" x="24" y="106">Floating static</text>
+  <rect x="150" y="96" width="312.0" height="14" rx="3" fill="#d0564a" stroke="none" opacity=".28"/>
+  <text class="b" x="470.0" y="107">&gt; 180 s</text>
+  <text class="c" x="520" y="107">never, until the interface drops</text>
+  <text class="b" x="24" y="140">Static + IP SLA</text>
+  <rect x="150" y="130" width="32.0" height="14" rx="3" fill="#d99b2b" stroke="none" opacity=".28"/>
+  <text class="b" x="190.0" y="141">12 s</text>
+  <text class="c" x="520" y="141">probe interval x failures</text>
+  <text class="b" x="24" y="174">eBGP + BFD</text>
+  <rect x="150" y="164" width="13.666666666666666" height="14" rx="3" fill="#29a08f" stroke="none" opacity=".28"/>
+  <text class="b" x="171.66666666666666" y="175">1 s</text>
+  <text class="c" x="520" y="175">300 ms x 3 = 900 ms</text>
+  <text class="b" x="24" y="208">eBGP only</text>
+  <rect x="150" y="198" width="312.0" height="14" rx="3" fill="#8b6bd0" stroke="none" opacity=".28"/>
+  <text class="b" x="470.0" y="209">&gt; 180 s</text>
+  <text class="c" x="520" y="209">hold time 180 s</text>
+  <text class="c" x="24" y="236">The bar shows detection plus switching, assuming the probe is already configured on the right path.</text>
+  <text class="x" x="24" y="254">A floating static with a 5 s track still waits for the interface, not for the path.</text>
+  <rect x="24" y="274" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="289">MECHANISM</text>  <text class="k" x="222.0" y="289">FLOATING STATIC</text>  <text class="k" x="432.0" y="289">STATIC + IP SLA</text>  <text class="k" x="652.0" y="289">eBGP + BFD</text>  <rect x="24" y="296" width="852" height="25" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="313">What it detects</text>  <text class="c" x="222.0" y="313">interface down</text>  <text class="c" x="432.0" y="313">probe reachability</text>  <text class="c" x="652.0" y="313">session and path liveness</text>  <line x1="24" y1="321" x2="876" y2="321" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="321" width="852" height="25" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="338">Carrier-side fault</text>  <text class="x" x="222.0" y="338">never</text>  <text class="c" x="432.0" y="338">within the probe budget</text>  <text class="g" x="652.0" y="338">within BFD x 3</text>  <line x1="24" y1="346" x2="876" y2="346" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="346" width="852" height="25" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="363">Configuration cost</text>  <text class="c" x="222.0" y="363">2 lines</text>  <text class="c" x="432.0" y="363">probe + track + static</text>  <text class="c" x="652.0" y="363">BGP + timers + policy</text>  <line x1="24" y1="371" x2="876" y2="371" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="371" width="852" height="25" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="388">Routing feedback</text>  <text class="c" x="222.0" y="388">none: a static cannot be withdrawn by a peer</text>  <text class="c" x="432.0" y="388">none</text>  <text class="g" x="652.0" y="388">prefix withdrawal</text>  <line x1="24" y1="396" x2="876" y2="396" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="396" width="852" height="25" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="413">Use it when</text>  <text class="c" x="222.0" y="413">backup for a device you can see</text>  <text class="c" x="432.0" y="413">no routing protocol possible</text>  <text class="g" x="652.0" y="413">any WAN worth the name</text>  <line x1="24" y1="421" x2="876" y2="421" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="424" x2="876" y2="424" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="442">Rule: the WAN must be able to withdraw a path. A static route cannot be withdrawn by anybody, so it cannot express failure.</text>
+  <text class="c" x="24" y="458">Keep floating statics for device-level backup where you control both ends; use BGP where a carrier sits in the middle.</text>
+</svg>

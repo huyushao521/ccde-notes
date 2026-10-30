@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 436" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Traditional hub backhaul against destination-steered flows for internal, SaaS and IaaS traffic</title>
+  <desc id="d15">Two panels compare eras. Traditionally every flow goes branch to hub and only then to SaaS or the data centre, which gives one inspection point and one policy but makes SaaS pay the hub detour twice while hub bandwidth and crypto carry every byte. With destination steering, internal traffic still uses the hub while SaaS goes direct to the nearest point of presence and IaaS uses a dedicated interconnect, so the round trip is saved once per session at every site, at the price of moving inspection to the edge or into the cloud. A table compares the three traffic classes and adds that the policy decision moves from per site to per flow - by DNS, policy-based routing or a controller - and that the security consequence must be designed with the path, because a branch that breaks out locally without its own security stack has moved the hole rather than the exit point.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="436" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Cloud moved the WAN exit point from the site to the destination of each flow</text>  <text class="s" x="24" y="45">Three traffic classes, three different best paths, and one policy that has to choose per flow rather than per branch</text>
+  <text class="k" x="24" y="78">THE SAME FLOW, TWO DESIGN ERAS</text>
+  <rect x="24" y="88" width="412" height="132" rx="3" fill="#ffffff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="36" y="106">TRADITIONAL: EVERYTHING VIA THE HUB</text>
+  <rect x="44" y="118" width="52" height="26" rx="3" fill="#eef3fb" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="c" x="70" y="136" text-anchor="middle">branch</text>
+  <rect x="150" y="118" width="52" height="26" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="176" y="136" text-anchor="middle">hub</text>
+  <rect x="256" y="110" width="60" height="20" rx="3" fill="#f7f9fd" stroke="#8a97ab" stroke-width=".8"/>
+  <text class="c" x="286" y="124" text-anchor="middle">SaaS</text>
+  <rect x="256" y="136" width="60" height="20" rx="3" fill="#f7f9fd" stroke="#8a97ab" stroke-width=".8"/>
+  <text class="c" x="286" y="150" text-anchor="middle">DC</text>
+  <line x1="96" y1="131" x2="150" y2="131" stroke="#4a7ee0" stroke-width="1.1" marker-end="url(#ab)"/>
+  <line x1="202" y1="128" x2="256" y2="120" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <line x1="202" y1="140" x2="256" y2="146" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <text class="c" x="36" y="170">Backhaul for inspection, one policy, one choke point.</text>
+  <text class="x" x="36" y="186">SaaS round trip pays the hub detour twice.</text>
+  <text class="c" x="36" y="204">Cost: hub bandwidth and hub crypto on every byte.</text>
+  <rect x="464" y="88" width="412" height="132" rx="3" fill="#ffffff" stroke="#bfe6df" stroke-width=".8"/>
+  <text class="k" x="476" y="106">DESTINATION-STEERED: PER FLOW</text>
+  <rect x="484" y="118" width="52" height="26" rx="3" fill="#eef3fb" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="510" y="136" text-anchor="middle">branch</text>
+  <rect x="590" y="118" width="52" height="26" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="616" y="136" text-anchor="middle">hub</text>
+  <rect x="700" y="110" width="60" height="20" rx="3" fill="#f7f9fd" stroke="#8a97ab" stroke-width=".8"/>
+  <text class="c" x="730" y="124" text-anchor="middle">SaaS</text>
+  <rect x="700" y="136" width="60" height="20" rx="3" fill="#f7f9fd" stroke="#8a97ab" stroke-width=".8"/>
+  <text class="c" x="730" y="150" text-anchor="middle">IaaS</text>
+  <line x1="536" y1="131" x2="590" y2="131" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <line x1="536" y1="124" x2="700" y2="118" stroke="#9fb3d1" stroke-width="1.1" marker-end="url(#ag)"/>
+  <line x1="536" y1="140" x2="700" y2="146" stroke="#9fb3d1" stroke-width="1.1" marker-end="url(#ag)"/>
+  <text class="c" x="476" y="170">Direct Internet for SaaS, hub for internal traffic.</text>
+  <text class="g" x="476" y="186">Round trip saved once per session, at every site.</text>
+  <text class="c" x="476" y="204">Cost: security must follow the flow out of the site.</text>
+  <rect x="24" y="236" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="251">TRAFFIC CLASS</text>  <text class="k" x="232.0" y="251">TRADITIONAL PATH</text>  <text class="k" x="512.0" y="251">DESTINATION-STEERED PATH</text>  <rect x="24" y="258" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="274">Internal (DC to DC)</text>  <text class="c" x="232.0" y="274">hub or MPLS</text>  <text class="c" x="512.0" y="274">unchanged</text>  <line x1="24" y1="282" x2="876" y2="282" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="282" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="298">SaaS</text>  <text class="c" x="232.0" y="298">backhaul to hub</text>  <text class="g" x="512.0" y="298">direct, ideally to the nearest PoP</text>  <line x1="24" y1="306" x2="876" y2="306" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="306" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="322">IaaS / cloud VPC</text>  <text class="c" x="232.0" y="322">backhaul to hub</text>  <text class="g" x="512.0" y="322">dedicated interconnect</text>  <line x1="24" y1="330" x2="876" y2="330" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="330" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="346">Policy decision</text>  <text class="c" x="232.0" y="346">per site</text>  <text class="c" x="512.0" y="346">per flow: DNS, PBR or controller</text>  <line x1="24" y1="354" x2="876" y2="354" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="354" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="370">Security consequence</text>  <text class="c" x="232.0" y="370">one inspection point</text>  <text class="c" x="512.0" y="370">inspection moves to the edge or the cloud</text>  <line x1="24" y1="378" x2="876" y2="378" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="370" x2="876" y2="370" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="388">Steer by destination, then decide where inspection happens - the two decisions cannot be separated</text>
+  <text class="c" x="24" y="404">A branch that breaks out locally without its own security stack is a branch that moved the hole, not the exit.</text>
+  <text class="x" x="24" y="422">Count the flows before choosing: 80% SaaS means the hub is now a detour with a firewall bill.</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The six-step WAN method with inputs, deliverables, per-step hurdles and the cost of each skipped step</title>
+  <desc id="d15">Six columns run left to right: business map, transport model, redundancy shape, overlay and segmentation, routing and QoS, and capacity and validation. Each column lists its inputs, its deliverable and the hurdle that must be cleared immediately - whether any two sites must talk, whether core applications accept Internet quality, whether a carrier failure must trigger a switchover, whether summarisation conflicts with direct spoke paths, which egress enforces QoS, and whether the hub is sized at full-site peak after encryption. A five-row table gives the cost of skipping each step, from hub bottlenecks and paper-only redundancy to O of n squared tunnels, head-office-only QoS and a hub that cannot grow without new hardware. The method cannot be reordered because each step's output constrains the next, and negotiating bandwidth before asking about encryption ends in discovering the throughput halving after signature.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The six-step WAN method cannot be reordered, because each step constrains the next</text>  <text class="s" x="24" y="45">Every step has an input, a deliverable and one hurdle that must be cleared on the spot - and a known cost if skipped</text>
+  <rect x="24" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <rect x="24" y="68" width="135" height="3" rx="1" fill="#29a08f" stroke="none"/>
+  <text class="h" x="34" y="90" fill="#29a08f">1</text>
+  <text class="b" x="34" y="108">Business map</text>
+  <text class="k" x="34" y="126">INPUT</text>
+  <text class="c" x="34" y="140">sites, spread, apps</text>
+  <text class="c" x="34" y="152">latency needs</text>
+  <text class="k" x="34" y="172">OUTPUT</text>
+  <text class="c" x="34" y="186">site tiers + matrix</text>
+  <text class="c" x="34" y="198"></text>
+  <line x1="34" y1="208" x2="149" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="34" y="222">HURDLE</text>
+  <text class="w" x="34" y="236">must any two sites talk?</text>
+  <text class="w" x="34" y="248"></text>
+  <line x1="159" y1="175" x2="167" y2="175" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="167" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#4a7ee0" stroke-width=".8"/>
+  <rect x="167" y="68" width="135" height="3" rx="1" fill="#4a7ee0" stroke="none"/>
+  <text class="h" x="177" y="90" fill="#4a7ee0">2</text>
+  <text class="b" x="177" y="108">Transport model</text>
+  <text class="k" x="177" y="126">INPUT</text>
+  <text class="c" x="177" y="140">circuits per site</text>
+  <text class="c" x="177" y="152">budget, SLA</text>
+  <text class="k" x="177" y="172">OUTPUT</text>
+  <text class="c" x="177" y="186">transport per tier</text>
+  <text class="c" x="177" y="198"></text>
+  <line x1="177" y1="208" x2="292" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="177" y="222">HURDLE</text>
+  <text class="w" x="177" y="236">will core apps accept Internet</text>
+  <text class="w" x="177" y="248">?</text>
+  <line x1="302" y1="175" x2="310" y2="175" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="310" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <rect x="310" y="68" width="135" height="3" rx="1" fill="#8b6bd0" stroke="none"/>
+  <text class="h" x="320" y="90" fill="#8b6bd0">3</text>
+  <text class="b" x="320" y="108">Redundancy shape</text>
+  <text class="k" x="320" y="126">INPUT</text>
+  <text class="c" x="320" y="140">availability target</text>
+  <text class="c" x="320" y="152">switchover budget</text>
+  <text class="k" x="320" y="172">OUTPUT</text>
+  <text class="c" x="320" y="186">link/CPE/carrier mix</text>
+  <text class="c" x="320" y="198"></text>
+  <line x1="320" y1="208" x2="435" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="320" y="222">HURDLE</text>
+  <text class="w" x="320" y="236">must carrier failure switch?</text>
+  <text class="w" x="320" y="248"></text>
+  <line x1="445" y1="175" x2="453" y2="175" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="453" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <rect x="453" y="68" width="135" height="3" rx="1" fill="#d99b2b" stroke="none"/>
+  <text class="h" x="463" y="90" fill="#d99b2b">4</text>
+  <text class="b" x="463" y="108">Overlay and segmentation</text>
+  <text class="k" x="463" y="126">INPUT</text>
+  <text class="c" x="463" y="140">crypto, multicast</text>
+  <text class="c" x="463" y="152">segment needs</text>
+  <text class="k" x="463" y="172">OUTPUT</text>
+  <text class="c" x="463" y="186">overlay + VRF plan</text>
+  <text class="c" x="463" y="198"></text>
+  <line x1="463" y1="208" x2="578" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="463" y="222">HURDLE</text>
+  <text class="w" x="463" y="236">summary vs direct path?</text>
+  <text class="w" x="463" y="248"></text>
+  <line x1="588" y1="175" x2="596" y2="175" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="596" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <rect x="596" y="68" width="135" height="3" rx="1" fill="#d0564a" stroke="none"/>
+  <text class="h" x="606" y="90" fill="#d0564a">5</text>
+  <text class="b" x="606" y="108">Routing and QoS</text>
+  <text class="k" x="606" y="126">INPUT</text>
+  <text class="c" x="606" y="140">domains, addressing</text>
+  <text class="c" x="606" y="152">service classes</text>
+  <text class="k" x="606" y="172">OUTPUT</text>
+  <text class="c" x="606" y="186">IGP/BGP + shaping points</text>
+  <text class="c" x="606" y="198"></text>
+  <line x1="606" y1="208" x2="721" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="606" y="222">HURDLE</text>
+  <text class="w" x="606" y="236">which egress enforces QoS?</text>
+  <text class="w" x="606" y="248"></text>
+  <line x1="731" y1="175" x2="739" y2="175" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="739" y="68" width="135" height="214" rx="3" fill="#ffffff" stroke="#8a97ab" stroke-width=".8"/>
+  <rect x="739" y="68" width="135" height="3" rx="1" fill="#8a97ab" stroke="none"/>
+  <text class="h" x="749" y="90" fill="#8a97ab">6</text>
+  <text class="b" x="749" y="108">Capacity and validation</text>
+  <text class="k" x="749" y="126">INPUT</text>
+  <text class="c" x="749" y="140">traffic model, crypto</text>
+  <text class="c" x="749" y="152">growth forecast</text>
+  <text class="k" x="749" y="172">OUTPUT</text>
+  <text class="c" x="749" y="186">capacity table + budget</text>
+  <text class="c" x="749" y="198"></text>
+  <line x1="749" y1="208" x2="864" y2="208" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="k" x="749" y="222">HURDLE</text>
+  <text class="w" x="749" y="236">hub sized at full peak?</text>
+  <text class="w" x="749" y="248"></text>
+  <text class="k" x="24" y="298">THE ORDER MATTERS: EACH STEP'S OUTPUT IS THE NEXT STEP'S CONSTRAINT</text>
+  <rect x="24" y="306" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="321">SKIPPED</text>  <text class="k" x="162.0" y="321">WHAT IS DECIDED WITHOUT EVIDENCE</text>  <text class="k" x="562.0" y="321">COST, 3-12 MONTHS AFTER GO-LIVE</text>  <rect x="24" y="328" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="343">Skip 1</text>  <text class="c" x="162.0" y="343">hub-spoke carries heavy spoke-to-spoke traffic</text>  <text class="c" x="562.0" y="343">hub becomes the bottleneck</text>  <line x1="24" y1="351" x2="876" y2="351" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="351" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="366">Skip 3</text>  <text class="c" x="162.0" y="366">two carriers share the last mile</text>  <text class="c" x="562.0" y="366">redundancy exists on paper</text>  <line x1="24" y1="374" x2="876" y2="374" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="374" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="389">Skip 4</text>  <text class="c" x="162.0" y="389">O(n^2) tunnels, MTU untouched</text>  <text class="c" x="562.0" y="389">spoke-to-spoke fails</text>  <line x1="24" y1="397" x2="876" y2="397" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="397" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="412">Skip 5</text>  <text class="c" x="162.0" y="412">QoS only at headquarters</text>  <text class="c" x="562.0" y="412">voice dies on the first congested branch</text>  <line x1="24" y1="420" x2="876" y2="420" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="420" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="435">Skip 6</text>  <text class="c" x="162.0" y="435">hub accepted without crypto throughput test</text>  <text class="c" x="562.0" y="435">growth means new hardware</text>  <line x1="24" y1="443" x2="876" y2="443" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="452" x2="876" y2="452" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="470">The hurdle column is the review: if nobody in the room can answer it, the step is not finished, whatever the slide says</text>
+  <text class="c" x="24" y="486">Negotiate bandwidth before asking about encryption and you will discover the throughput halving after signature.</text>
+</svg>

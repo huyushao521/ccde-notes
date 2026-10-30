@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 17 · about 14940 words</span></div><h1 id="chapter-17-enterprise-wan-architecture-design-17-wan">Chapter 17: Enterprise WAN Architecture Design · 第 17 章：企业 WAN 架构设计<a class="anchor" href="#chapter-17-enterprise-wan-architecture-design-17-wan" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 17 · about 15403 words</span></div><h1 id="chapter-17-enterprise-wan-architecture-design-17-wan">Chapter 17: Enterprise WAN Architecture Design · 第 17 章：企业 WAN 架构设计<a class="anchor" href="#chapter-17-enterprise-wan-architecture-design-17-wan" title="Permanent link"></a></h1>
 <blockquote>
 <p>English study notes on the <em>CCDE 400-007 Official Cert Guide</em> | original pages 774–849
 <strong>Where this chapter sits</strong>: it is the longest chapter in the book and the one with the <strong>least design freedom</strong>. In the campus you can swap hardware, pull fibre and carve VLANs; in the WAN <strong>the circuits are rented, the backbone belongs to somebody else, and the SLA is only paper</strong>. So the central question of WAN design becomes: <strong>given that the last mile is not yours, how do overlays, routing policy and QoS wrap "transport you cannot control" into "a service you can"</strong>.</p>
@@ -74,7 +74,9 @@
 <div class="zh">
 <p>WAN 是全书里"最容易画出漂亮拓扑、最难解释故障行为"的一章。原因很简单：<strong>你只能控制两端，中间那段只能"相信"</strong>。以下十五条，是设计评审里最常被追问的地方。</p>
 </div>
+<p><img alt="Fifteen claims about WAN design grouped into five families of failure" src="assets/fig/en17-01-fifteen-truths.svg" /></p>
 <h3 id="1-the-first-order-question-in-wan-design-is-not-mpls-or-internet-it-is-who-fills-the-sla-gap-wan-mpls-internetsla">1. The First-Order Question in WAN Design Is Not "MPLS or Internet" — It Is "Who Fills the SLA Gap" · WAN 设计的第一性问题不是"用 MPLS 还是 Internet"，而是"SLA 缺口由谁补"<a class="anchor" href="#1-the-first-order-question-in-wan-design-is-not-mpls-or-internet-it-is-who-fills-the-sla-gap-wan-mpls-internetsla" title="Permanent link"></a></h3>
+<p><img alt="The SLA gap across five handoffs and the arithmetic that decides whether an overlay is needed" src="assets/fig/en17-02-sla-gap.svg" /></p>
 <p>The SLA your carrier signs covers only <strong>its own segment</strong>, while the business experiences <strong>end to end</strong>. The gap opens in three places: <strong>the last mile, inter-carrier interconnection, and your own CPE and policy</strong>.</p>
 <div class="zh">
 <p>运营商给你的 SLA 只覆盖"它那段"，而业务感知的是"端到端"。缺口在三处：<strong>最后一公里、跨运营商互联、你自己的 CPE 与策略</strong>。</p>
@@ -152,6 +154,7 @@
 </blockquote>
 </div>
 <h3 id="2-the-difference-between-l2-and-l3-mpls-vpn-is-not-speed-it-is-who-owns-the-routing-l2-l3-mpls-vpn">2. The Difference Between L2 and L3 MPLS VPN Is Not "Speed" — It Is "Who Owns the Routing" · L2 与 L3 MPLS VPN 的差别不在"速度"，而在"谁负责路由"<a class="anchor" href="#2-the-difference-between-l2-and-l3-mpls-vpn-is-not-speed-it-is-who-owns-the-routing-l2-l3-mpls-vpn" title="Permanent link"></a></h3>
+<p><img alt="L2 and L3 MPLS VPN compared, decided by who owns routing rather than by speed" src="assets/fig/en17-03-l2-vs-l3.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -245,6 +248,7 @@
 </blockquote>
 </div>
 <h3 id="3-internet-overlay-is-not-a-cheap-substitute-it-is-a-different-failure-model-internet">3. "Internet + Overlay" Is Not a Cheap Substitute; It Is a Different Failure Model · "Internet + 覆盖层"不是廉价替代品，而是另一种失效模型<a class="anchor" href="#3-internet-overlay-is-not-a-cheap-substitute-it-is-a-different-failure-model-internet" title="Permanent link"></a></h3>
+<p><img alt="MPLS failure visibility against the Internet plus overlay failure model" src="assets/fig/en17-04-overlay-failure-model.svg" /></p>
 <p>MPLS fails by <strong>the carrier telling you it is down</strong>; the Internet fails by <strong>nobody telling you anything — it simply does not work</strong>.</p>
 <div class="zh">
 <p>MPLS 的失效是"运营商告诉你断了"；Internet 的失效是"<strong>没人告诉你，但就是不通</strong>"。</p>
@@ -342,6 +346,7 @@
 </blockquote>
 </div>
 <h3 id="4-choosing-an-overlay-is-really-a-trade-off-between-tunnel-count-and-control-plane-complexity">4. Choosing an Overlay Is Really a Trade-off Between Tunnel Count and Control-Plane Complexity · 覆盖技术的选择，本质是"隧道数量与控制面复杂度"的取舍<a class="anchor" href="#4-choosing-an-overlay-is-really-a-trade-off-between-tunnel-count-and-control-plane-complexity" title="Permanent link"></a></h3>
+<p><img alt="Full-mesh tunnel arithmetic against hub-and-spoke scaling with six overlay technologies" src="assets/fig/en17-05-tunnel-count.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -463,6 +468,7 @@
 </blockquote>
 </div>
 <h3 id="5-the-three-dmvpn-phases-decide-can-i-summarise-and-can-spokes-talk-directly-dmvpn">5. The Three DMVPN Phases Decide "Can I Summarise" and "Can Spokes Talk Directly" · DMVPN 的三个阶段，决定了"能不能汇总"与"能不能直连"<a class="anchor" href="#5-the-three-dmvpn-phases-decide-can-i-summarise-and-can-spokes-talk-directly-dmvpn" title="Permanent link"></a></h3>
+<p><img alt="DMVPN phase one, two and three compared for spoke-to-spoke behaviour and summarisation" src="assets/fig/en17-06-dmvpn-phases.svg" /></p>
 <p>This is a high-frequency CCDE topic and the place where configurations most often go wrong:</p>
 <div class="zh">
 <p>这是 CCDE 的高频考点，也是最容易配错的地方：</p>
@@ -538,6 +544,7 @@
 </blockquote>
 </div>
 <h3 id="6-the-tunnels-first-hidden-tax-is-mtu-the-second-is-encrypted-throughput-mtu">6. The Tunnel's First Hidden Tax Is MTU; the Second Is Encrypted Throughput · 隧道的第一笔"隐形税"是 MTU，第二笔是加密吞吐<a class="anchor" href="#6-the-tunnels-first-hidden-tax-is-mtu-the-second-is-encrypted-throughput-mtu" title="Permanent link"></a></h3>
+<p><img alt="Header overhead per encapsulation, the MSS calculation and the encrypted throughput tax" src="assets/fig/en17-07-mtu-tax.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -669,6 +676,7 @@
 </blockquote>
 </div>
 <h3 id="7-the-hub-is-the-most-expensive-single-point-in-the-wan-bandwidth-by-n1-hardware-by-encrypted-throughput-hub-wan-n1">7. The Hub Is the Most Expensive Single Point in the WAN: Bandwidth by N−1, Hardware by Encrypted Throughput · Hub 是 WAN 里最贵的单点：带宽按"N−1"算，设备按"加密后吞吐"算<a class="anchor" href="#7-the-hub-is-the-most-expensive-single-point-in-the-wan-bandwidth-by-n1-hardware-by-encrypted-throughput-hub-wan-n1" title="Permanent link"></a></h3>
+<p><img alt="Four hub capacities sized in sequence with the N minus one requirement" src="assets/fig/en17-08-hub-sizing.svg" /></p>
 <p>A common mistake: set hub bandwidth = Σ(branch bandwidth) × a convergence ratio, then size it from "average utilisation".</p>
 <div class="zh">
 <p>一个常见错误：Hub 带宽 = Σ(分支带宽) × 收敛比，然后按"平均利用率"选型。</p>
@@ -694,6 +702,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="8-static-routes-with-floating-backup-are-almost-always-wrong-in-the-wan-wan">8. Static Routes with Floating Backup Are Almost Always Wrong in the WAN · 静态路由 + 浮动备份在 WAN 里几乎总是错的<a class="anchor" href="#8-static-routes-with-floating-backup-are-almost-always-wrong-in-the-wan-wan" title="Permanent link"></a></h3>
+<p><img alt="Time to switch paths by mechanism, from floating static to eBGP with BFD" src="assets/fig/en17-09-floating-static.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -777,6 +786,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="9-multicast-across-the-wan-is-not-just-turn-on-pim-wan-pim">9. Multicast Across the WAN Is Not Just "Turn On PIM" · 组播跨 WAN 不是"打开 PIM"就行<a class="anchor" href="#9-multicast-across-the-wan-is-not-just-turn-on-pim-wan-pim" title="Permanent link"></a></h3>
+<p><img alt="Three ways to carry multicast across a WAN with their replication points and costs" src="assets/fig/en17-10-multicast-wan.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -850,6 +860,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="10-multi-vrf-ce-is-segmentation-not-encryption-multi-vrf-ce">10. Multi-VRF CE Is "Segmentation", Not "Encryption" · Multi-VRF CE 是"分段"不是"加密"<a class="anchor" href="#10-multi-vrf-ce-is-segmentation-not-encryption-multi-vrf-ce" title="Permanent link"></a></h3>
+<p><img alt="One CE carrying three VRFs, and the difference between routing separation and encryption" src="assets/fig/en17-11-multivrf-ce.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -913,6 +924,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="11-wan-optimisation-has-been-pushed-to-the-edge-by-protocol-evolution-encryption-wan-wan-optimization">11. WAN Optimisation Has Been Pushed to the Edge by "Protocol Evolution + Encryption" · WAN 优化（WAN Optimization）已被"协议演进 + 加密"挤到边缘<a class="anchor" href="#11-wan-optimisation-has-been-pushed-to-the-edge-by-protocol-evolution-encryption-wan-wan-optimization" title="Permanent link"></a></h3>
+<p><img alt="The four classic WAN optimisation promises against their modern status" src="assets/fig/en17-12-wan-optimisation.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -976,6 +988,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="12-qos-in-the-wan-is-not-configure-a-few-queues-it-is-align-with-the-class-you-bought-qos-wan">12. QoS in the WAN Is Not "Configure a Few Queues" — It Is "Align with the Class You Bought" · QoS 在 WAN 上不是"配几个队列"，而是"与运营商签的等级对齐"<a class="anchor" href="#12-qos-in-the-wan-is-not-configure-a-few-queues-it-is-align-with-the-class-you-bought-qos-wan" title="Permanent link"></a></h3>
+<p><img alt="Six practical QoS classes, the LLQ police and CE shaper percentages, and where enforcement happens" src="assets/fig/en17-13-qos-alignment.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1049,6 +1062,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="13-dual-carrier-in-the-wan-also-requires-physical-diversity-to-be-verified-wan">13. "Dual Carrier" in the WAN Also Requires Physical Diversity to Be Verified · "双运营商"在 WAN 里同样要验证物理多样性<a class="anchor" href="#13-dual-carrier-in-the-wan-also-requires-physical-diversity-to-be-verified-wan" title="Permanent link"></a></h3>
+<p><img alt="Three diversity checks, five connectivity shapes and the WAN single points that hide" src="assets/fig/en17-14-carrier-diversity.svg" /></p>
 <p>The same logic as the internet edge: <strong>same duct, same exchange building, same metro ring = a single point</strong>. The WAN adds two single points of its own:</p>
 <div class="zh">
 <p>与互联网边缘一样的逻辑：<strong>同管道、同局房、同城域网 = 单点</strong>。此外 WAN 还有两个特有单点：</p>
@@ -1098,6 +1112,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </table>
 </div>
 <h3 id="14-cloud-and-saas-move-the-wan-exit-point-from-headquarters-to-where-the-application-lives-saas-wan">14. Cloud and SaaS Move the WAN "Exit Point" from Headquarters to "Where the Application Lives" · 云与 SaaS 把 WAN 的"出口位置"从总部挪到了"离应用最近的地方"<a class="anchor" href="#14-cloud-and-saas-move-the-wan-exit-point-from-headquarters-to-where-the-application-lives-saas-wan" title="Permanent link"></a></h3>
+<p><img alt="Traditional hub backhaul against destination-steered flows for internal, SaaS and IaaS traffic" src="assets/fig/en17-15-cloud-exit-point.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1161,6 +1176,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </blockquote>
 </div>
 <h3 id="15-wan-scalability-how-many-places-must-change-to-add-one-site-wan">15. WAN Scalability = "How Many Places Must Change to Add One Site" · WAN 的可扩展性 = "加一个站点要动几处"<a class="anchor" href="#15-wan-scalability-how-many-places-must-change-to-add-one-site-wan" title="Permanent link"></a></h3>
+<p><img alt="The five artefacts that change per site and four delivery models with their change counts" src="assets/fig/en17-16-scalability.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -1235,6 +1251,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 <hr />
 <h2 id="the-six-step-wan-design-method-wan">The Six-Step WAN Design Method · WAN 设计的六步方法论<a class="anchor" href="#the-six-step-wan-design-method-wan" title="Permanent link"></a></h2>
+<p><img alt="The six-step WAN method with inputs, deliverables, hurdles and the cost of each skipped step" src="assets/fig/en17-17-six-steps.svg" /></p>
 <p>The easiest mistake in WAN design is to start by comparing carrier quotes. The correct order is: <strong>business reachability first, then transport model, then redundancy shape, then overlay and virtualisation, then routing and QoS, and finally capacity and verification</strong>.</p>
 <div class="zh">
 <p>WAN 设计最容易犯的错，是从"比较运营商报价"开始。正确顺序是：<strong>先定业务可达性需求，再定传输模型，再定冗余形态，再定覆盖与虚拟化，再定路由与 QoS，最后定容量与验证</strong>。</p>
@@ -1429,6 +1446,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 <h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <hr />
 <h2 id="1-the-three-wan-transport-models-wan">1. The Three WAN Transport Models · 一、三种 WAN 传输模型<a class="anchor" href="#1-the-three-wan-transport-models-wan" title="Permanent link"></a></h2>
+<p><img alt="L2 MPLS VPN, L3 MPLS VPN and Internet plus overlay compared over ten dimensions" src="assets/fig/en17-18-three-models.svg" /></p>
 <h3 id="l2-mpls-vpn-vpls-and-vll-l2-mpls-vpnvpls-vll">L2 MPLS VPN: VPLS and VLL · L2 MPLS VPN：VPLS 与 VLL<a class="anchor" href="#l2-mpls-vpn-vpls-and-vll-l2-mpls-vpnvpls-vll" title="Permanent link"></a></h3>
 <p>The carrier sells you a "Layer 2 pipe" and you run routing or Layer 2 protocols across it yourself.</p>
 <div class="zh">
@@ -1951,6 +1969,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 <hr />
 <h2 id="2-wan-edge-connectivity-design-wan">2. WAN Edge Connectivity Design · 二、WAN 边缘连接设计<a class="anchor" href="#2-wan-edge-connectivity-design-wan" title="Permanent link"></a></h2>
 <h3 id="five-tiers-of-single-site-connectivity">Five Tiers of Single-Site Connectivity · 单站点连接形态的五个层级<a class="anchor" href="#five-tiers-of-single-site-connectivity" title="Permanent link"></a></h3>
+<p><img alt="Five capabilities that make a site edge survivable and the failure-to-fix matrix" src="assets/fig/en17-19-site-edge.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -2314,6 +2333,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 <hr />
 <h2 id="3-overlay-technologies">3. Overlay Technologies · 三、覆盖技术<a class="anchor" href="#3-overlay-technologies" title="Permanent link"></a></h2>
+<p><img alt="GRE and IPsec compared over eight capabilities with three decision questions" src="assets/fig/en17-20-gre-vs-ipsec.svg" /></p>
 <h3 id="ipsec-the-most-basic-and-the-easiest-to-configure-into-oblivion-ipsec">IPsec: The Most Basic — and the Easiest to Configure into Oblivion · IPsec：最基础也最容易"配错到不可维护"<a class="anchor" href="#ipsec-the-most-basic-and-the-easiest-to-configure-into-oblivion-ipsec" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -2974,6 +2994,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 <hr />
 <h2 id="4-wan-virtualisation-multi-vrf-ce-csc-and-inter-as-wan-multi-vrf-cecsc-inter-as">4. WAN Virtualisation: Multi-VRF CE, CSC and Inter-AS · 四、WAN 虚拟化：Multi-VRF CE、CSC 与 Inter-AS<a class="anchor" href="#4-wan-virtualisation-multi-vrf-ce-csc-and-inter-as-wan-multi-vrf-cecsc-inter-as" title="Permanent link"></a></h2>
+<p><img alt="Three layers of WAN virtualisation and the three Inter-AS options" src="assets/fig/en17-21-virtualisation.svg" /></p>
 <h3 id="multi-vrf-ce-vrf-lite">Multi-VRF CE (VRF-Lite)<a class="anchor" href="#multi-vrf-ce-vrf-lite" title="Permanent link"></a></h3>
 <p>The CE keeps several VRFs but <strong>runs no MP-BGP towards the carrier</strong>; instead each VRF maps to a "logical link" through a subinterface/802.1Q tag, and the carrier side terminates it in a matching VRF.</p>
 <div class="zh">
@@ -3242,6 +3263,7 @@ Hub 出口按 2:1 收敛 = 800 Mbps  →  看似够
 </div>
 <hr />
 <h2 id="5-wan-design-options-by-scale-wan">5. WAN Design Options by Scale · 五、WAN 设计选项（按规模）<a class="anchor" href="#5-wan-design-options-by-scale-wan" title="Permanent link"></a></h2>
+<p><img alt="Four site tiers with their standard kits and the redundancy each covers" src="assets/fig/en17-22-scale-tiers.svg" /></p>
 <p>The original book gives a four-tier model based on site size and business criticality. In practice, express it as <strong>site tiers plus a standard kit per tier</strong> rather than designing each site individually.</p>
 <div class="zh">
 <p>原书按"站点规模与业务关键度"给出四级模型。落地时建议用"<strong>站点分级 + 每级的标准套件</strong>"来表达，而不是"每站点单独设计"。</p>
@@ -3800,6 +3822,7 @@ policy-map SHAPE-WAN
 </blockquote>
 </div>
 <h3 id="latency-jitter-and-what-tcp-actually-does-tcp">Latency, Jitter and What TCP Actually Does · 时延、抖动与 TCP 的真实关系<a class="anchor" href="#latency-jitter-and-what-tcp-actually-does-tcp" title="Permanent link"></a></h3>
+<p><img alt="The bandwidth-delay product, the 64 kilobyte window ceiling and the symptom-to-cause table" src="assets/fig/en17-23-tcp-performance.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -3951,6 +3974,7 @@ If a single flow has only a 64 KB window -&gt; ceiling ~ 6.5 Mbps (no matter how
 </div>
 <hr />
 <h2 id="7-wan-routing-design-wan">7. WAN Routing Design · 七、WAN 路由设计<a class="anchor" href="#7-wan-routing-design-wan" title="Permanent link"></a></h2>
+<p><img alt="Three topologies with their routing models, the four hub-spoke questions and redistribution boundaries" src="assets/fig/en17-24-routing-design.svg" /></p>
 <h3 id="matching-topology-to-routing">Matching Topology to Routing · 三种拓扑与路由的对应关系<a class="anchor" href="#matching-topology-to-routing" title="Permanent link"></a></h3>
 <table>
 <thead>
@@ -4217,6 +4241,7 @@ If a single flow has only a 64 KB window -&gt; ceiling ~ 6.5 Mbps (no matter how
 </div>
 <hr />
 <h2 id="8-migration-from-traditional-wan-to-mpls-l3vpn-original-book-topic-wan-mpls-l3vpn">8. Migration: From Traditional WAN to MPLS L3VPN (Original-Book Topic) · 八、迁移：从传统 WAN 到 MPLS L3VPN（原文专题）<a class="anchor" href="#8-migration-from-traditional-wan-to-mpls-l3vpn-original-book-topic-wan-mpls-l3vpn" title="Permanent link"></a></h2>
+<p><img alt="The overlap state during a WAN migration with two clouds, two defaults and a backdoor link" src="assets/fig/en17-25-migration.svg" /></p>
 <blockquote>
 <p>The book devotes a dedicated section to migration right after WAN virtualisation, for a very direct reason: <strong>WAN projects rarely fail because the target architecture is wrong; they fail because nobody designed the intermediate state</strong>. If the design deliverable contains only the end-state topology, the implementation team will invent its own migration order, and once that order is wrong the problems stay in production as "intermittent loops and suboptimal paths".</p>
 </blockquote>
@@ -4820,6 +4845,7 @@ N−1（双 Hub）→ 单 Hub 需 ≥960 Mbps
 </div>
 <hr />
 <h2 id="10-from-design-to-delivery-the-nine-tables-this-chapter-requires-9">10. From Design to Delivery: The Nine Tables This Chapter Requires · 十、从设计到交付：本章必须的 9 张表<a class="anchor" href="#10-from-design-to-delivery-the-nine-tables-this-chapter-requires-9" title="Permanent link"></a></h2>
+<p><img alt="The nine deliverable tables of a WAN design with their owners, and the cost model" src="assets/fig/en17-26-nine-tables.svg" /></p>
 <table>
 <thead>
 <tr>

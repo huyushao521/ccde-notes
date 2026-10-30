@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 468" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">GRE and IPsec compared over eight capabilities, with three decision questions and two special cases</title>
+  <desc id="d15">Eight capabilities are compared: GRE carries multicast, broadcast and non-IP protocols with only 24 bytes of overhead and keeps the inner header visible for QoS and troubleshooting, but provides no confidentiality and needs no NAT traversal; IPsec provides confidentiality at 50 to 73 bytes of overhead but carries no multicast or non-IP traffic, hides the inner header, and requires NAT traversal on UDP 4500; the combined GRE over IPsec costs 84 to 97 bytes and needs deliberate DSCP mapping. Three questions decide the design - whether anything needs multicast or a non-IP protocol, whether the transport is public, and whether tunnel count exceeds a few dozen - and the answer for yes, public and many is GRE over IPsec with DMVPN or FlexVPN. Two special cases are covered: GET VPN with a group key over MPLS and no per-peer security association, and DMVPN with one IPsec profile per spoke tier.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="468" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">GRE and IPsec solve different problems; neither one is 'the tunnel'</text>  <text class="s" x="24" y="45">GRE carries anything and hides nothing; IPsec hides everything and carries only what it understands</text>
+  <rect x="24" y="68" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="83">CAPABILITY</text>  <text class="k" x="232.0" y="83">GRE</text>  <text class="k" x="442.0" y="83">IPSEC</text>  <text class="k" x="652.0" y="83">COMBINED GRE OVER IPSEC</text>  <rect x="24" y="90" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="106">Multicast / broadcast</text>  <text class="g" x="232.0" y="106">yes</text>  <text class="x" x="442.0" y="106">no</text>  <text class="c" x="652.0" y="106">need a tunnel inside</text>  <line x1="24" y1="114" x2="876" y2="114" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="114" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="130">Non-IP protocols</text>  <text class="g" x="232.0" y="130">yes</text>  <text class="x" x="442.0" y="130">no</text>  <text class="c" x="652.0" y="130">legacy only</text>  <line x1="24" y1="138" x2="876" y2="138" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="138" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="154">Confidentiality</text>  <text class="x" x="232.0" y="154">none</text>  <text class="g" x="442.0" y="154">yes</text>  <text class="c" x="652.0" y="154">mandatory on Internet</text>  <line x1="24" y1="162" x2="876" y2="162" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="162" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="178">Overhead, typical</text>  <text class="g" x="232.0" y="178">24 B</text>  <text class="c" x="442.0" y="178">50-73 B</text>  <text class="x" x="652.0" y="178">84-97 B combined</text>  <line x1="24" y1="186" x2="876" y2="186" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="186" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="202">QoS visibility</text>  <text class="g" x="232.0" y="202">inner header visible</text>  <text class="c" x="442.0" y="202">copy outer DSCP</text>  <text class="c" x="652.0" y="202">deliberate mapping</text>  <line x1="24" y1="210" x2="876" y2="210" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="210" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="226">Troubleshooting</text>  <text class="g" x="232.0" y="226">tunnel interfaces, easy</text>  <text class="c" x="442.0" y="226">SA state, opaque</text>  <text class="x" x="652.0" y="226">two layers to check</text>  <line x1="24" y1="234" x2="876" y2="234" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="234" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="250">NAT traversal</text>  <text class="c" x="232.0" y="250">none needed</text>  <text class="c" x="442.0" y="250">NAT-T, UDP 4500</text>  <text class="c" x="652.0" y="250">must be allowed</text>  <line x1="24" y1="258" x2="876" y2="258" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="258" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="274">Best fit</text>  <text class="c" x="232.0" y="274">multicast, non-IP, DMVPN</text>  <text class="c" x="442.0" y="274">site-to-site crypto</text>  <text class="g" x="652.0" y="274">Internet WAN default</text>  <line x1="24" y1="282" x2="876" y2="282" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="24" y="290" width="412" height="118" rx="3" fill="#ffffff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="36" y="308">DECISION IN THREE QUESTIONS</text>
+  <text class="w" x="36" y="328">1.  Does anything need multicast or a non-IP protocol?</text>
+  <text class="w" x="36" y="354">2.  Is the transport public or untrusted?</text>
+  <text class="w" x="36" y="380">3.  Is there a tunnel count above a few dozen?</text>
+  <text class="c" x="36" y="396">Yes / public / many -&gt; GRE over IPsec with DMVPN or FlexVPN.</text>
+  <rect x="452" y="290" width="424" height="118" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="464" y="308">TWO SPECIAL CASES</text>
+  <text class="b" x="464" y="326">GET VPN</text>
+  <text class="c" x="464" y="340">group key over MPLS, no tunnels, no per-peer SA</text>
+  <text class="b" x="464" y="358">DMVPN + IPsec profiles</text>
+  <text class="c" x="464" y="372">one profile per spoke tier, NHRP still resolves peers</text>
+  <text class="x" x="464" y="392">Problem: encryption everywhere at the cost of one big flat trust domain.</text>
+  <line x1="24" y1="420" x2="876" y2="420" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="438">Write down which layer owns which job: GRE owns reachability, IPsec owns confidentiality, routing owns path choice</text>
+  <text class="c" x="24" y="454">The design failure is silent double encryption: a GET VPN domain inside an IPsec tunnel at half the throughput.</text>
+</svg>

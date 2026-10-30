@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 478" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Three ways to carry multicast across a WAN, with replication point, RPF behaviour and cost driver for each</title>
+  <desc id="d15">Three panels compare carrier mVPN, a GRE or DMVPN tunnel, and application-layer distribution. With mVPN the carrier replicates inside its cloud, PIM runs at the CE, RPF must pass the carrier check, and the cost is the carrier product plus tickets. With a tunnel the enterprise replicates at the hub over unicast, PIM runs over the tunnel with RPF pointing at the hub, and cost scales with hub bandwidth times receivers. With application-layer distribution the app or CDN replicates at Layer 7, no multicast exists in the WAN, and cost is licence plus egress. A table compares Internet transport support, receiver scale, routing requirements and typical use, noting that the tunnel option is limited by the hub uplink while the other two scale with the replicator. The settling question is who is allowed to replicate and where the replication bandwidth comes from.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="478" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Multicast across a WAN is three different problems wearing one name</text>  <text class="s" x="24" y="45">The carrier's mVPN, your own tunnel and the application layer each move the replication point somewhere else</text>
+  <rect x="24" y="68" width="268" height="146" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="h" x="36" y="86" fill="#29a08f">1</text>
+  <text class="b" x="58" y="86">mVPN from the carrier</text>
+  <text class="c" x="36" y="106">replication: carrier replicates inside its cloud</text>
+  <text class="c" x="36" y="124">config: PIM-SM/SSM at the CE</text>
+  <line x1="36" y1="134" x2="280" y2="134" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="w" x="36" y="152">RPF check</text>
+  <text class="c" x="36" y="168">must pass the carrier</text>
+  <text class="w" x="36" y="184">Cost driver</text>
+  <text class="c" x="36" y="200">carrier product + ticket</text>
+  <rect x="316" y="68" width="268" height="146" rx="3" fill="#ffffff" stroke="#8b6bd0" stroke-width=".8"/>
+  <text class="h" x="328" y="86" fill="#8b6bd0">2</text>
+  <text class="b" x="350" y="86">GRE or DMVPN tunnel</text>
+  <text class="c" x="328" y="106">replication: you replicate at the hub, over unicast</text>
+  <text class="c" x="328" y="124">config: PIM over the tunnel, RPF to hub</text>
+  <line x1="328" y1="134" x2="572" y2="134" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="w" x="328" y="152">RPF check</text>
+  <text class="c" x="328" y="168">must point at the hub</text>
+  <text class="w" x="328" y="184">Cost driver</text>
+  <text class="c" x="328" y="200">hub bandwidth x receivers</text>
+  <rect x="608" y="68" width="268" height="146" rx="3" fill="#ffffff" stroke="#4a7ee0" stroke-width=".8"/>
+  <text class="h" x="620" y="86" fill="#4a7ee0">3</text>
+  <text class="b" x="642" y="86">Application distribution</text>
+  <text class="c" x="620" y="106">replication: the app or CDN replicates at Layer 7</text>
+  <text class="c" x="620" y="124">config: no multicast in the WAN at all</text>
+  <line x1="620" y1="134" x2="864" y2="134" stroke="#eef2f8" stroke-width=".8"/>
+  <text class="w" x="620" y="152">RPF check</text>
+  <text class="c" x="620" y="168">not applicable</text>
+  <text class="w" x="620" y="184">Cost driver</text>
+  <text class="c" x="620" y="200">app licence + egress</text>
+  <rect x="24" y="228" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="243">CRITERION</text>  <text class="k" x="242.0" y="243">CARRIER mVPN</text>  <text class="k" x="452.0" y="243">TUNNEL</text>  <text class="k" x="662.0" y="243">APPLICATION LAYER</text>  <rect x="24" y="250" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="266">Works on Internet transport</text>  <text class="x" x="242.0" y="266">no</text>  <text class="g" x="452.0" y="266">yes</text>  <text class="g" x="662.0" y="266">yes</text>  <line x1="24" y1="274" x2="876" y2="274" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="274" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="290">Receiver scale</text>  <text class="g" x="242.0" y="290">high, carrier replicates</text>  <text class="x" x="452.0" y="290">limited by hub uplink</text>  <text class="g" x="662.0" y="290">high, CDN replicates</text>  <line x1="24" y1="298" x2="876" y2="298" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="298" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="314">Site-to-site routing needed</text>  <text class="c" x="242.0" y="314">multicast routing in the VPN</text>  <text class="c" x="452.0" y="314">PIM + tunnel RPF</text>  <text class="g" x="662.0" y="314">none</text>  <line x1="24" y1="322" x2="876" y2="322" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="322" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="338">Typical use</text>  <text class="c" x="242.0" y="338">trading floor, IPTV to branches</text>  <text class="c" x="452.0" y="338">small fan-out with legacy apps</text>  <text class="c" x="662.0" y="338">town halls, training video</text>  <line x1="24" y1="346" x2="876" y2="346" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="24" y="366" width="852" height="68" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="36" y="384">THE QUESTION THAT SETTLES IT</text>
+  <text class="b" x="36" y="402">Who is allowed to replicate, and where does the bandwidth for replication come from? Carrier, hub uplink, or CDN edge.</text>
+  <text class="c" x="36" y="420">If the answer is the hub, the design is limited by the hub uplink - the same N-1 arithmetic as unicast, applied to copies.</text>
+  <line x1="24" y1="448" x2="876" y2="448" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="24" y="464">Multicast is rarely the requirement: one-to-many delivery is. Ask which layer is cheapest to replicate at before choosing PIM.</text>
+</svg>

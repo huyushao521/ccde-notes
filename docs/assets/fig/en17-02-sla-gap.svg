@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 424" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The SLA gap across five handoffs and the arithmetic that decides whether an overlay is needed</title>
+  <desc id="d15">Five nodes are chained: local loop, carrier backbone, inter-carrier handoff, your own edge and the business application. Only the backbone is committed PE to PE; the local loop is partly covered, the handoff is loosely covered, and your edge and policy are outside the contract. A table compares four SLA items against end-to-end reality: 99.9 percent availability is 43 minutes per month before local loops, latency is committed PE to PE, loss and jitter are usually uncommitted, and fault response is ticket time while the business counts from the first second. The panel does the arithmetic: one four-hour last-mile repair consumes 240 minutes against a 43-minute budget, and 99.99 percent leaves only 4.3 minutes, so availability is a product over the chain. The conclusion is to compute what is left after the promise before buying an overlay; the deliverable is the degradation action, not the contract.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="424" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The SLA covers the carrier's segment; the business experiences the whole chain</text>  <text class="s" x="24" y="45">Five handoffs, three of them outside the contract, and the arithmetic that decides whether you need an overlay</text>
+  <rect x="24" y="96" width="156" height="78" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="k" x="34" y="110">LOCAL LOOP</text>
+  <text class="b" x="34" y="126">Last mile</text>
+  <text class="c" x="34" y="142">owner: carrier or you</text>
+  <text class="c" x="34" y="156">in SLA: partly</text>
+  <line x1="180" y1="134" x2="198" y2="134" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="198" y="96" width="156" height="78" rx="3" fill="#ffffff" stroke="#29a08f" stroke-width=".8"/>
+  <text class="k" x="208" y="110">BACKBONE</text>
+  <text class="b" x="208" y="126">PE to PE</text>
+  <text class="c" x="208" y="142">owner: carrier</text>
+  <text class="c" x="208" y="156">in SLA: yes</text>
+  <line x1="354" y1="134" x2="372" y2="134" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <rect x="372" y="96" width="156" height="78" rx="3" fill="#ffffff" stroke="#d99b2b" stroke-width=".8"/>
+  <text class="k" x="382" y="110">NNI</text>
+  <text class="b" x="382" y="126">Carrier handoff</text>
+  <text class="c" x="382" y="142">owner: both carriers</text>
+  <text class="c" x="382" y="156">in SLA: loosely</text>
+  <line x1="528" y1="134" x2="546" y2="134" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <rect x="546" y="96" width="156" height="78" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <text class="k" x="556" y="110">YOUR EDGE</text>
+  <text class="b" x="556" y="126">CPE and policy</text>
+  <text class="c" x="556" y="142">owner: you</text>
+  <text class="c" x="556" y="156">in SLA: no</text>
+  <line x1="702" y1="134" x2="720" y2="134" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <rect x="720" y="96" width="156" height="78" rx="3" fill="#ffffff" stroke="#d0564a" stroke-width=".8"/>
+  <text class="k" x="730" y="110">BUSINESS</text>
+  <text class="b" x="730" y="126">Application</text>
+  <text class="c" x="730" y="142">owner: nobody alone</text>
+  <text class="c" x="730" y="156">in SLA: no</text>
+  <text class="k" x="24" y="86">ONE FAILURE DOMAIN PER HANDOFF - THE CONTRACT COVERS SEGMENTS, NOT THE CHAIN</text>
+  <rect x="24" y="196" width="512" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="211">SLA ITEM</text>  <text class="k" x="152.0" y="211">WHAT IS PROMISED</text>  <text class="k" x="342.0" y="211">WHAT E2E LOOKS LIKE</text>  <rect x="24" y="218" width="512" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="234">99.9% available</text>  <text class="c" x="152.0" y="234">backbone and PE segment</text>  <text class="c" x="342.0" y="234">43 min/month before local loops</text>  <line x1="24" y1="242" x2="536" y2="242" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="242" width="512" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="258">Latency</text>  <text class="c" x="152.0" y="258">PE to PE, measured in the core</text>  <text class="c" x="342.0" y="258">plus queueing and last mile</text>  <line x1="24" y1="266" x2="536" y2="266" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="266" width="512" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="282">Loss and jitter</text>  <text class="c" x="152.0" y="282">usually not committed</text>  <text class="c" x="342.0" y="282">voice and video fail first</text>  <line x1="24" y1="290" x2="536" y2="290" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="290" width="512" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="306">Fault response</text>  <text class="c" x="152.0" y="306">ticket time, not outage time</text>  <text class="c" x="342.0" y="306">business counts from second one</text>  <line x1="24" y1="314" x2="536" y2="314" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="552" y="196" width="324" height="148" rx="3" fill="#f4f8ff" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="k" x="564" y="214">THE ARITHMETIC THAT DECIDES THE DESIGN</text>
+  <text class="m" x="564" y="234">99.9%  = 43 min/month allowed</text>
+  <text class="m" x="564" y="250">1 last-mile repair (4h) = 240 min</text>
+  <text class="m" x="564" y="266">99.99% = 4.3 min/month allowed</text>
+  <line x1="564" y1="276" x2="858" y2="276" stroke="#c9dcfb" stroke-width=".8"/>
+  <text class="c" x="564" y="292">Availability is a product over the chain,</text>
+  <text class="c" x="564" y="306">never a promise on one segment.</text>
+  <text class="x" x="564" y="326">Do not console yourself with a contract.</text>
+  <text class="b" x="24" y="372">Conclusion: compute what is left after the carrier's promise, then decide whether to build overlay and redundancy</text>
+  <text class="c" x="24" y="388">The deliverable is the degradation action: which probe fires, which path takes over, how long the user notices.</text>
+  <text class="x" x="24" y="406">The trap: treating an SLA credit as availability - the credit pays for the outage, it does not shorten it.</text>
+</svg>

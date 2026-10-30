@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 362" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Five capabilities that make a site edge survivable and the failure-to-fix matrix for the site edge</title>
+  <desc id="d15">Five capabilities make a site edge survivable: dual power feeds with separate circuits, dual uplinks on different line cards, hardware bypass so traffic still passes on power loss, configuration rollback to the last known good state, and out-of-band console or LTE access so a bad change does not require a site visit. A five-row matrix maps failures to what the site sees and the fix that works: a PE-CE link failure is withdrawn by BGP in under a second but a static route never notices, a provider router failure gives the CE no notification so probes and a second carrier are needed, a CE failure takes the site offline unless a dual CPE with first-hop redundancy exists, carrier maintenance needs a pre-agreed window plus a backup path, and a bad configuration - the most common outage cause - needs rollback discipline.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="362" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The site edge survives what the CPE survives: five capabilities, not one chassis</text>  <text class="s" x="24" y="45">Dual power, dual uplink, bypass, rollback and out-of-band are cheaper than a second router and fail more often than the carrier</text>
+  <text class="k" x="24" y="78">FIVE CAPABILITIES OF A SURVIVABLE SITE EDGE</text>
+  <rect x="24" y="90" width="4" height="22" rx="2" fill="#29a08f" stroke="none"/>
+  <text class="b" x="38" y="100">Dual power feed</text>
+  <text class="c" x="38" y="112">two PSUs, two circuits, one UPS</text>
+  <text class="c" x="300" y="106">cheapest redundancy you can buy</text>
+  <rect x="24" y="120" width="4" height="22" rx="2" fill="#4a7ee0" stroke="none"/>
+  <text class="b" x="38" y="130">Dual uplink</text>
+  <text class="c" x="38" y="142">two WAN ports, two next hops</text>
+  <text class="c" x="300" y="136">must be on different line cards</text>
+  <rect x="24" y="150" width="4" height="22" rx="2" fill="#8b6bd0" stroke="none"/>
+  <text class="b" x="38" y="160">Hardware bypass</text>
+  <text class="c" x="38" y="172">power loss passes traffic through</text>
+  <text class="c" x="300" y="166">verify it exists and is enabled</text>
+  <rect x="24" y="180" width="4" height="22" rx="2" fill="#d99b2b" stroke="none"/>
+  <text class="b" x="38" y="190">Config rollback</text>
+  <text class="c" x="38" y="202">last known good, one command</text>
+  <text class="c" x="300" y="196">a bad change is the top outage cause</text>
+  <rect x="24" y="210" width="4" height="22" rx="2" fill="#d0564a" stroke="none"/>
+  <text class="b" x="38" y="220">Out-of-band access</text>
+  <text class="c" x="38" y="232">console or LTE side channel</text>
+  <text class="c" x="300" y="226">without it, a bad change is a site visit</text>
+  <text class="c" x="24" y="254">The most expensive failure is the one that needs a truck roll.</text>
+  <rect x="460" y="90" width="416" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="468" y="105">FAILURE</text>  <text class="k" x="588.0" y="105">WHAT THE SITE SEES</text>  <text class="k" x="758.0" y="105">THE FIX THAT WORKS</text>  <rect x="460" y="112" width="416" height="26" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="468" y="130">PE-CE link down</text>  <text class="c" x="588.0" y="130">BGP withdraws; static does not</text>  <text class="g" x="758.0" y="130">BGP with BFD: &lt; 1 s</text>  <line x1="460" y1="138" x2="876" y2="138" stroke="#eef2f8" stroke-width=".7"/>  <rect x="460" y="138" width="416" height="26" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="468" y="156">PE router failure</text>  <text class="c" x="588.0" y="156">no notification at the CE</text>  <text class="c" x="758.0" y="156">probe + second carrier</text>  <line x1="460" y1="164" x2="876" y2="164" stroke="#eef2f8" stroke-width=".7"/>  <rect x="460" y="164" width="416" height="26" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="468" y="182">CE failure</text>  <text class="c" x="588.0" y="182">site is offline</text>  <text class="c" x="758.0" y="182">dual CPE with VRRP/HSRP</text>  <line x1="460" y1="190" x2="876" y2="190" stroke="#eef2f8" stroke-width=".7"/>  <rect x="460" y="190" width="416" height="26" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="468" y="208">Carrier maintenance</text>  <text class="c" x="588.0" y="208">planned, but rarely your window</text>  <text class="c" x="758.0" y="208">pre-agreed window + backup path</text>  <line x1="460" y1="216" x2="876" y2="216" stroke="#eef2f8" stroke-width=".7"/>  <rect x="460" y="216" width="416" height="26" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="468" y="234">Bad configuration</text>  <text class="x" x="588.0" y="234">the most common outage</text>  <text class="g" x="758.0" y="234">rollback + change window</text>  <line x1="460" y1="242" x2="876" y2="242" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="24" y="262" width="852" height="56" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="36" y="280">DESIGN REVIEW QUESTION</text>
+  <text class="b" x="36" y="298">If the CPE loses power, does the site lose the WAN - and if it does, is there a bypass or a second path that is not the same box?</text>
+  <text class="c" x="36" y="312">Answer it before the second carrier: redundancy that shares the CPE is a contract, not a design.</text>
+  <line x1="24" y1="330" x2="876" y2="330" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="24" y="348">Turn up the site with a documented acceptance test: pull each of the five capabilities and record what the user notices.</text>
+</svg>

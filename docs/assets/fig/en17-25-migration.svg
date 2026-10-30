@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 492" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The overlap state during a WAN migration with two clouds, two defaults and a backdoor link, and the six migration rules</title>
+  <desc id="d15">The overlap state shows the legacy hub-and-spoke cloud with its own default route on the left, the new carrier L3VPN cloud with its own default route on the right, and a backdoor link on the far right that becomes a second redistribution point the moment the two clouds are joined. Two consequences follow: two default routes mean administrative distance decides, so failures become inexplicable, and a summary crossing a wave boundary eats the detail routes of un-migrated sites. The working sequence is to inventory backdoors and autonomous system numbers first, build the new cloud beside the old, move sites in waves rather than in one night, verify summarisation at every wave boundary, and decommission the old default last. Six rules follow, each with the trap behind it: phase the migration, inventory backdoors, check PE-CE protocol integration with BGP as the usual choice, decide who generates the default, find every summarisation point, and confirm L2VPN carrier topology. The case lesson is that a media company's Frame Relay to L3VPN move left video loss explained by the old bandwidth and the hub double hop rather than by the new cloud.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="492" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">A WAN migration is a routing design problem, not a circuit swap</text>  <text class="s" x="24" y="45">During the overlap there are two clouds, two defaults and one backdoor link - and every one of them can become a redistribution point</text>
+  <text class="k" x="24" y="78">THE OVERLAP STATE NOBODY DRAWS</text>
+  <rect x="44" y="96" width="190" height="66" rx="3" fill="#f7f9fd" stroke="#8a97ab" stroke-width=".8" stroke-dasharray="4 3"/>
+  <text class="c" x="139" y="116" text-anchor="middle">legacy hub-spoke cloud</text>
+  <text class="w" x="139" y="132" text-anchor="middle">Frame Relay / old MPLS</text>
+  <text class="c" x="139" y="148" text-anchor="middle">old default route here</text>
+  <rect x="410" y="96" width="190" height="66" rx="3" fill="#f0fbf8" stroke="#29a08f" stroke-width=".8"/>
+  <text class="c" x="505" y="116" text-anchor="middle">new L3VPN cloud</text>
+  <text class="w" x="505" y="132" text-anchor="middle">carrier MPLS VPN</text>
+  <text class="c" x="505" y="148" text-anchor="middle">new default route here</text>
+  <rect x="680" y="96" width="196" height="66" rx="3" fill="#fdf5f4" stroke="#d0564a" stroke-width=".8"/>
+  <text class="c" x="778" y="116" text-anchor="middle">backdoor link</text>
+  <text class="w" x="778" y="132" text-anchor="middle">branch to branch, or to DC</text>
+  <text class="x" x="778" y="148" text-anchor="middle">second redistribution point</text>
+  <line x1="234" y1="129" x2="410" y2="129" stroke="#29a08f" stroke-width="1.1" marker-end="url(#at)"/>
+  <text class="w" x="322" y="122" text-anchor="middle">migrated sites</text>
+  <line x1="600" y1="129" x2="680" y2="129" stroke="#d0564a" stroke-width="1.1" marker-end="url(#ar)"/>
+  <text class="c" x="64" y="186">Two defaults: administrative distance decides, so failures become inexplicable.</text>
+  <text class="c" x="64" y="202">One summary crossing the boundary eats the detail routes of un-migrated sites.</text>
+  <text class="x" x="64" y="218">The classic incident: the summary is right on both sides and wrong in between.</text>
+  <text class="k" x="400" y="186">SEQUENCE THAT WORKS</text>
+  <text class="c" x="400" y="202">1. inventory backdoors and AS numbers first</text>
+  <text class="c" x="400" y="218">2. build the new cloud beside the old</text>
+  <text class="c" x="400" y="234">3. move sites in waves, not in one night</text>
+  <text class="c" x="400" y="250">4. verify summarisation at every wave boundary</text>
+  <text class="c" x="400" y="266">5. decommission the old default last</text>
+  <rect x="24" y="296" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="311">#</text>  <text class="k" x="66.0" y="311">RULE</text>  <text class="k" x="466.0" y="311">THE TRAP BEHIND IT</text>  <rect x="24" y="318" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="333">1</text>  <text class="b" x="66.0" y="333">Many branches, many exits: always phase it</text>  <text class="c" x="466.0" y="333">one-shot cutover is network-wide risk</text>  <line x1="24" y1="341" x2="876" y2="341" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="341" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="356">2</text>  <text class="b" x="66.0" y="356">Inventory backdoors, IGP areas, AS numbers</text>  <text class="c" x="466.0" y="356">a backdoor becomes a second redistribution point</text>  <line x1="24" y1="364" x2="876" y2="364" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="364" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="379">3</text>  <text class="b" x="66.0" y="379">Check PE-CE protocol integration (BGP first)</text>  <text class="c" x="466.0" y="379">OSPF as PE-CE constrains areas and LSAs</text>  <line x1="24" y1="387" x2="876" y2="387" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="387" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="402">4</text>  <text class="b" x="66.0" y="402">Decide who generates the default</text>  <text class="c" x="466.0" y="402">two defaults let AD decide, unexplainably</text>  <line x1="24" y1="410" x2="876" y2="410" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="410" width="852" height="23" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="425">5</text>  <text class="b" x="66.0" y="425">Find every summarisation point</text>  <text class="c" x="466.0" y="425">summary across a wave boundary is a black hole</text>  <line x1="24" y1="433" x2="876" y2="433" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="433" width="852" height="23" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="448">6</text>  <text class="b" x="66.0" y="448">For L2VPN confirm the carrier topology</text>  <text class="c" x="466.0" y="448">FR hub-spoke to VPLS mesh changes STP entirely</text>  <line x1="24" y1="456" x2="876" y2="456" stroke="#eef2f8" stroke-width=".7"/>
+  <text class="b" x="24" y="462">Case lesson: a media company moved Frame Relay to L3VPN with video already on IP - FR bandwidth and the hub double hop, not the new cloud, explained the loss</text>
+  <text class="x" x="24" y="478">Migrating transport does not fix a traffic path that was already wrong; measure before you attribute the fault.</text>
+</svg>

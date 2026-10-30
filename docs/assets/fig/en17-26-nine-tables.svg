@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">The nine deliverable tables of a WAN design with their owners, and the cost model that decides which transport they describe</title>
+  <desc id="d15">Nine numbered deliverables are listed with content and owner: site tiering with tier, business, endpoints and bandwidth; transport selection from site through MPLS, Internet or 5G to carrier, committed rate and SLA; the reachability matrix of traffic share and direction; redundancy and single points across link, CPE, carrier, last mile and power; overlay technology with tunnel count, multicast, crypto and phase; segmentation and VRF with route targets and permitted paths; routing and summarisation with prefix, summary point, direction and accepted suboptimality; QoS with class, marking, queue, shaping point and bandwidth; and acceptance cases that kill a link, a carrier or the hub and test MTU and congestion. A cost table compares MPLS with Internet plus overlay on unit bandwidth, hardware, operations, cost of failure and cloud egress, concluding that the Internet is genuinely cheaper only when the business tolerates quality variation and the team can operate the overlay; otherwise the saved bandwidth fee is spent on staff and user experience.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">Nine tables turn a WAN design into something a procurement team can buy</text>  <text class="s" x="24" y="45">Each table has one owner and one acceptance use - and the cost model decides which transport they describe</text>
+  <text class="k" x="24" y="78">THE DELIVERABLES, IN THE ORDER THE REVIEW ASKS FOR THEM</text>
+  <rect x="24" y="92" width="18" height="18" rx="9" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="33" y="105" text-anchor="middle">1</text>
+  <text class="b" x="52" y="105">Site tiering</text>
+  <text class="c" x="230" y="105">site / tier L1-L4 / business / endpoints / bandwidth</text>
+  <text class="c" x="676" y="105">design + procurement</text>
+  <rect x="24" y="117" width="18" height="18" rx="9" fill="#6b8ec9" stroke="none"/>
+  <text class="w" x="33" y="130" text-anchor="middle">2</text>
+  <text class="b" x="52" y="130">Transport selection</text>
+  <text class="c" x="230" y="130">site -&gt; MPLS/Internet/5G -&gt; carrier -&gt; CIR/SLA</text>
+  <text class="c" x="676" y="130">procurement + architecture</text>
+  <rect x="24" y="142" width="18" height="18" rx="9" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="33" y="155" text-anchor="middle">3</text>
+  <text class="b" x="52" y="155">Reachability matrix</text>
+  <text class="c" x="230" y="155">traffic share and direction between sites</text>
+  <text class="c" x="676" y="155">topology</text>
+  <rect x="24" y="167" width="18" height="18" rx="9" fill="#6b8ec9" stroke="none"/>
+  <text class="w" x="33" y="180" text-anchor="middle">4</text>
+  <text class="b" x="52" y="180">Redundancy and single points</text>
+  <text class="c" x="230" y="180">link / CPE / carrier / last mile / power</text>
+  <text class="c" x="676" y="180">availability review</text>
+  <rect x="24" y="192" width="18" height="18" rx="9" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="33" y="205" text-anchor="middle">5</text>
+  <text class="b" x="52" y="205">Overlay technology</text>
+  <text class="c" x="230" y="205">technology / tunnels / multicast / crypto / phase</text>
+  <text class="c" x="676" y="205">implementation</text>
+  <rect x="24" y="217" width="18" height="18" rx="9" fill="#6b8ec9" stroke="none"/>
+  <text class="w" x="33" y="230" text-anchor="middle">6</text>
+  <text class="b" x="52" y="230">Segmentation and VRF</text>
+  <text class="c" x="230" y="230">segment / VRF / RT / permitted paths</text>
+  <text class="c" x="676" y="230">security review</text>
+  <rect x="24" y="242" width="18" height="18" rx="9" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="33" y="255" text-anchor="middle">7</text>
+  <text class="b" x="52" y="255">Routing and summarisation</text>
+  <text class="c" x="230" y="255">prefix / summary point / direction / accepted suboptimality</text>
+  <text class="c" x="676" y="255">operations</text>
+  <rect x="24" y="267" width="18" height="18" rx="9" fill="#6b8ec9" stroke="none"/>
+  <text class="w" x="33" y="280" text-anchor="middle">8</text>
+  <text class="b" x="52" y="280">QoS</text>
+  <text class="c" x="230" y="280">class / marking / queue / shaping point / bandwidth</text>
+  <text class="c" x="676" y="280">implementation + acceptance</text>
+  <rect x="24" y="292" width="18" height="18" rx="9" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="33" y="305" text-anchor="middle">9</text>
+  <text class="b" x="52" y="305">Acceptance cases</text>
+  <text class="c" x="230" y="305">kill a link / a carrier / the hub; MTU; congestion</text>
+  <text class="c" x="676" y="305">acceptance</text>
+  <line x1="24" y1="322" x2="876" y2="322" stroke="#dfe6f1" stroke-width=".8"/>
+  <rect x="24" y="334" width="560" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="349">COST ITEM</text>  <text class="k" x="212.0" y="349">MPLS</text>  <text class="k" x="402.0" y="349">INTERNET + OVERLAY</text>  <rect x="24" y="356" width="560" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="372">Unit bandwidth price</text>  <text class="c" x="212.0" y="372">high, priced by distance</text>  <text class="g" x="402.0" y="372">low</text>  <line x1="24" y1="380" x2="584" y2="380" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="380" width="560" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="396">Hardware</text>  <text class="c" x="212.0" y="396">medium</text>  <text class="c" x="402.0" y="396">medium, plus crypto performance</text>  <line x1="24" y1="404" x2="584" y2="404" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="404" width="560" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="420">Operations</text>  <text class="g" x="212.0" y="420">low: the carrier runs it</text>  <text class="x" x="402.0" y="420">medium-high: you run tunnels and probes</text>  <line x1="24" y1="428" x2="584" y2="428" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="428" width="560" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="444">Cost of failure</text>  <text class="g" x="212.0" y="444">low: SLA credits</text>  <text class="x" x="402.0" y="444">high: experience-based losses</text>  <line x1="24" y1="452" x2="584" y2="452" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="452" width="560" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="468">Cloud egress</text>  <text class="x" x="212.0" y="468">hairpin or buy separately</text>  <text class="g" x="402.0" y="468">naturally local</text>  <line x1="24" y1="476" x2="584" y2="476" stroke="#eef2f8" stroke-width=".7"/>
+  <rect x="600" y="334" width="276" height="122" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="612" y="352">WHEN THE INTERNET IS REALLY CHEAPER</text>
+  <text class="c" x="612" y="372">Both conditions must hold:</text>
+  <text class="b" x="612" y="390">1. the business tolerates quality variation</text>
+  <text class="b" x="612" y="406">2. your team can run the overlay</text>
+  <line x1="612" y1="416" x2="864" y2="416" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="x" x="612" y="432">Otherwise the saved bandwidth fee is</text>
+  <text class="x" x="612" y="446">spent on staff and user experience.</text>
+  <line x1="24" y1="468" x2="876" y2="468" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="c" x="24" y="486">The nine tables are the contract between design and delivery: if a table has no owner, the design is not finished, only drawn.</text>
+</svg>

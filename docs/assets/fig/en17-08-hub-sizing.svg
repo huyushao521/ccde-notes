@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 456" width="100%" role="img" aria-labelledby="t15 d15">
+  <title id="t15">Four hub capacities sized in sequence, with the N minus one requirement and the over-subscription mistake</title>
+  <desc id="d15">Left panel walks the honest sequence: sum the committed rates - eighty sites at twenty megabits is 1.6 gigabits - apply concurrency of sixty percent for 960 megabits, divide by crypto efficiency of about 0.5 to obtain 1.9 gigabits nominal, then add N minus one so that one chassis must carry everything, arriving at roughly 3.8 gigabits of chassis capacity. It names the common mistake of applying a two-to-one over-subscription to get 800 megabits, which assumes failures are rare and short, while at the WAN hub they are neither. Right panel lists four separate capacities - aggregate bandwidth, encrypted throughput at IMIX, packets per second for small-packet voice and control, tunnels and security associations - each of which fails at a different load, and notes that whichever capacity was not sized becomes the outage story. A table gives the sizing method and example for each, including redundancy.</desc>
+  <style>
+    .h{font:600 12.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .s{font:9.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .b{font:600 9px "Segoe UI",sans-serif;fill:#1a2233}
+    .B{font:700 10.5px "Segoe UI",sans-serif;fill:#1a2233}
+    .c{font:8px "Segoe UI",sans-serif;fill:#4a5a72}
+    .w{font:7.5px "Segoe UI",sans-serif;fill:#7c8b9f}
+    .k{font:700 7px "Segoe UI",sans-serif;fill:#9aa8ba;letter-spacing:.5px}
+    .x{font:700 7.5px "Segoe UI",sans-serif;fill:#c0392b}
+    .g{font:700 7.5px "Segoe UI",sans-serif;fill:#0f7f73}
+    .r{font:700 7.5px "Segoe UI",sans-serif;fill:#1f4fc0}
+    .m{font:400 7.5px "Consolas",monospace;fill:#3b4657}
+    .n{font:700 8px "Segoe UI",sans-serif;fill:#ffffff}
+  </style>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9fb3d1"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#4a7ee0"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d0564a"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#29a08f"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="456" fill="#fbfcfe"/>
+  <text class="h" x="24" y="28">The hub is the WAN's most expensive single point, and it has four capacities</text>  <text class="s" x="24" y="45">Bandwidth, encrypted throughput, packets per second and tunnel count each fail at a different load</text>
+  <rect x="24" y="68" width="424" height="190" rx="3" fill="#ffffff" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="k" x="36" y="86">SIZING THE HUB: THE HONEST SEQUENCE</text>
+  <rect x="36" y="94" width="16" height="16" rx="8" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="44" y="106" text-anchor="middle">1</text>
+  <text class="b" x="60" y="106">Sum the CIR</text>
+  <text class="m" x="160" y="106">80 sites x 20 Mbps = 1.6 Gbps</text>
+  <rect x="36" y="124" width="16" height="16" rx="8" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="44" y="136" text-anchor="middle">2</text>
+  <text class="b" x="60" y="136">Apply concurrency</text>
+  <text class="m" x="160" y="136">60% simultaneous -&gt; 960 Mbps</text>
+  <rect x="36" y="154" width="16" height="16" rx="8" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="44" y="166" text-anchor="middle">3</text>
+  <text class="b" x="60" y="166">Divide by crypto</text>
+  <text class="m" x="160" y="166">0.5 efficiency -&gt; 1.9 Gbps nominal</text>
+  <rect x="36" y="184" width="16" height="16" rx="8" fill="#4a7ee0" stroke="none"/>
+  <text class="w" x="44" y="196" text-anchor="middle">4</text>
+  <text class="b" x="60" y="196">Add N-1</text>
+  <text class="m" x="160" y="196">lose one box -&gt; 3.8 Gbps of chassis</text>
+  <text class="x" x="36" y="226">The common mistake: 2:1 over-subscription -&gt; 800 Mbps.</text>
+  <text class="c" x="36" y="242">Over-subscription assumes failures are rare and short. At the WAN hub they are neither.</text>
+  <rect x="460" y="68" width="416" height="190" rx="3" fill="#fdf5f4" stroke="#f2cfcb" stroke-width=".8"/>
+  <text class="k" x="472" y="86">FOUR CAPACITIES, FOUR DIFFERENT FAILURES</text>
+  <rect x="472" y="100" width="4" height="26" rx="2" fill="#29a08f" stroke="none"/>
+  <text class="b" x="486" y="111">Bandwidth</text>
+  <text class="c" x="486" y="125">aggregate Mbps into the hub</text>
+  <text class="c" x="700" y="118">fails at peak hours</text>
+  <rect x="472" y="136" width="4" height="26" rx="2" fill="#8b6bd0" stroke="none"/>
+  <text class="b" x="486" y="147">Encrypted throughput</text>
+  <text class="c" x="486" y="161">Mbps after crypto, at IMIX</text>
+  <text class="c" x="700" y="154">fails as the first limit</text>
+  <rect x="472" y="172" width="4" height="26" rx="2" fill="#d99b2b" stroke="none"/>
+  <text class="b" x="486" y="183">Packets per second</text>
+  <text class="c" x="486" y="197">small-packet voice and control</text>
+  <text class="c" x="700" y="190">fails on voice calls</text>
+  <rect x="472" y="208" width="4" height="26" rx="2" fill="#d0564a" stroke="none"/>
+  <text class="b" x="486" y="219">Tunnels / SAs</text>
+  <text class="c" x="486" y="233">state table, NHRP and memory</text>
+  <text class="c" x="700" y="226">fails on reload</text>
+  <text class="c" x="472" y="246">Whichever capacity you did not size becomes the outage story.</text>
+  <rect x="24" y="274" width="852" height="22" rx="2" fill="#f2f6fd" stroke="none" stroke-width=".8"/>  <text class="k" x="32" y="289">CAPACITY</text>  <text class="k" x="222.0" y="289">HOW TO SIZE IT</text>  <text class="k" x="552.0" y="289">EXAMPLE / RULE</text>  <rect x="24" y="296" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="312">Hub bandwidth</text>  <text class="c" x="222.0" y="312">sum of spoke CIR x concurrency</text>  <text class="c" x="552.0" y="312">1.6 Gbps -&gt; 960 Mbps</text>  <line x1="24" y1="320" x2="876" y2="320" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="320" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="336">Crypto engine</text>  <text class="c" x="222.0" y="336">encrypted Mbps at realistic IMIX</text>  <text class="c" x="552.0" y="336">divide by 0.5-0.6</text>  <line x1="24" y1="344" x2="876" y2="344" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="344" width="852" height="24" rx="0" fill="#ffffff" stroke="none" stroke-width=".8" opacity="0"/>  <text class="b" x="32" y="360">Platform PPS</text>  <text class="c" x="222.0" y="360">voice and control plane mix</text>  <text class="c" x="552.0" y="360">datasheet rating is 64-byte</text>  <line x1="24" y1="368" x2="876" y2="368" stroke="#eef2f8" stroke-width=".7"/>  <rect x="24" y="368" width="852" height="24" rx="2" fill="#f7f9fd" stroke="none" stroke-width=".8"/>  <text class="b" x="32" y="384">Redundancy</text>  <text class="c" x="222.0" y="384">N-1: one box must carry all</text>  <text class="c" x="552.0" y="384">two hubs or a hub plus cloud gateway</text>  <line x1="24" y1="392" x2="876" y2="392" stroke="#eef2f8" stroke-width=".7"/>
+  <line x1="24" y1="408" x2="876" y2="408" stroke="#dfe6f1" stroke-width=".8"/>
+  <text class="b" x="24" y="426">Two hubs are not two capacities: state, routing and policy must let one box take the whole load without a redesign</text>
+  <text class="c" x="24" y="442">Test N-1 with traffic on it, not with a cable pulled in a maintenance window.</text>
+</svg>

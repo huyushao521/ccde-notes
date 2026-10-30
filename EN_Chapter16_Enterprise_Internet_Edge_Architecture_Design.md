@@ -46,7 +46,11 @@ The internet edge is the chapter with "the least configuration and the most inci
 
 </div>
 
+![Fifteen claims about the enterprise internet edge, grouped into five families of failure](assets/fig/en16-01-fifteen-truths.svg)
+
 ### 1. The First-Order Question Is Not "Which Provider", It Is "How Does the Business Degrade When the Exit Fails" · 第一性问题不是"选哪家运营商"，而是"出口失效时业务如何降级"
+
+![The failure-to-recovery timeline from zero to thirty seconds, four scenarios without and with an edge design, and the detection and recovery budget](assets/fig/en16-02-degradation-timeline.svg)
 
 Choosing a provider is a procurement question; degradation is a design question. The same "dual ISP" plan can deliver a seamless experience or a ten-minute network-wide freeze — the difference is entirely whether the degradation behaviour was designed.
 
@@ -84,6 +88,8 @@ Choosing a provider is a procurement question; degradation is a design question.
 
 ### 2. "Dual ISP" Is Not "Dual Path": Physical Sharing Eats All the Redundancy · "双 ISP"不等于"双路径"：物理层的共享会吃掉全部冗余
 
+![Five layers where two ISP links become one shared failure domain, with the question to ask and the action to take at each layer](assets/fig/en16-03-physical-sharing.svg)
+
 | Shared point | Typical symptom | How to verify |
 |---|---|---|
 | The same fibre into the building / the same duct | One dig cuts both providers | Demand **written evidence of physical route separation** |
@@ -114,6 +120,8 @@ Choosing a provider is a procurement question; degradation is a design question.
 
 ### 3. BGP Only Solves "Reachability and Path Selection", Not "Whether the Session Survives" · BGP 只解决"可达性与选路"，不解决"会话能不能活"
 
+![Control plane, forwarding plane and session state, with the four clocks that run between BGP convergence and user recovery](assets/fig/en16-04-three-planes.svg)
+
 | Layer | Who is responsible | Behaviour after a failure |
 |---|---|---|
 | Control plane (is the prefix reachable) | BGP / IGP | Seconds to minutes of convergence |
@@ -139,6 +147,8 @@ So between "BGP converged" and "the user recovered" there is always a gap: NAT t
 </div>
 
 ### 4. Outbound Load Sharing Is Easy; Inbound Is Nearly Impossible · 出向负载分担容易，入向几乎做不到
+
+![Outbound load sharing decided in your own RIB set against inbound traffic engineering that only influences someone else's RIB](assets/fig/en16-05-outbound-vs-inbound.svg)
 
 Outbound is your own routing table — one `local preference` settles it. Inbound is **somebody else's routing table**, where you can only make suggestions:
 
@@ -178,6 +188,8 @@ Outbound is your own routing table — one `local preference` settles it. Inboun
 
 ### 5. MED Is a Hint, Not an Instruction — and By Default Even the Hint Does Not Cross an AS · MED 是"暗示"不是"指令"，而且默认连暗示都不跨 AS
 
+![MED compared inside one neighbour AS versus ignored across two providers, with the four rules that decide its scope](assets/fig/en16-06-med-scope.svg)
+
 MED means "tell this neighbour AS which entry point is better from my side". There are two hard limits:
 
 <div class="zh" markdown="1">
@@ -205,6 +217,8 @@ So using MED to make traffic "go out through provider A" is **impossible in prin
 </div>
 
 ### 6. The Root Cause of Asymmetric Routing Is Never the Routing Protocol — It Is the Stateful Device on the Path · 非对称路由的根因从来不在路由协议，而在"路径上的状态设备"
+
+![An asymmetric return path crossing a second stateful firewall that never saw the session, five stateful elements and a diagnosis order](assets/fig/en16-07-asymmetry-state.svg)
 
 One packet leaving via A and returning via B is completely fine for stateless forwarding — that is exactly what IP was designed to do. What breaks is:
 
@@ -242,6 +256,8 @@ One packet leaving via A and returning via B is completely fine for stateless fo
 
 ### 7. NAT Is the Most Under-Rated "State" at the Edge, and the Most Easily Forgotten Break Point When Multihoming Switches Over · NAT 是互联网边缘最被低估的"状态"，也是多宿主切换时最容易被忽略的断点
 
+![The NAT binding that has to survive an exit switch, the port arithmetic behind one public address, and three pool designs for failover](assets/fig/en16-08-nat-state.svg)
+
 A NAT entry (inside IP:port ↔ outside IP:port) is runtime state with a lifetime. In a multihomed environment:
 
 <div class="zh" markdown="1">
@@ -271,6 +287,8 @@ NAT 表项（内网 IP:端口 ↔ 公网 IP:端口）是有生命周期的运行
 </div>
 
 ### 8. Routing Neighbours Crossing the Firewall Is Normal — but It Needs Explicitly Cut Holes · 路由邻居穿过防火墙是常态，但需要显式"开洞"
+
+![BGP neighbours crossing a firewall pair, with the six protocol and port holes to open and how to audit them](assets/fig/en16-09-fw-bgp-holes.svg)
 
 The typical edge topology is edge-router → firewall → internal network, but BGP neighbours often sit on opposite sides of the firewall:
 
@@ -310,6 +328,8 @@ The typical edge topology is edge-router → firewall → internal network, but 
 
 ### 9. A DMZ Is Not a VLAN — It Is "One Trust Level Plus One Unique Path" · DMZ 不是一个 VLAN，而是"一个信任等级 + 一条唯一路径"
 
+![Three trust levels with one-way rules into the DMZ, three ways to publish a service, and the layered skeleton behind a public service](assets/fig/en16-10-dmz-trust.svg)
+
 Putting public servers in a VLAN with public addresses is not a DMZ. A DMZ means: **inbound traffic can only enter this layer, and lateral traffic cannot return to the internal network**.
 
 <div class="zh" markdown="1">
@@ -347,6 +367,8 @@ Putting public servers in a VLAN with public addresses is not a DMZ. A DMZ means
 </div>
 
 ### 10. A Default Route Is Not a Design — It Is a Last Resort · 默认路由不是设计，是最后手段
+
+![A default-route black hole where every local signal looks healthy, four detection ladder steps, and what each still misses](assets/fig/en16-11-default-route.svg)
 
 Two default routes and no health checking is the classic internet-edge black-hole factory:
 
@@ -398,6 +420,8 @@ Symptom: a metro-network failure on the ISP-A side; the link stays up, the next 
 
 ### 11. The "Aggregability" of Your Public Prefix Decides How Operable Your Inbound Side Is · 公网前缀的"可聚合性"决定你的入向可运维性
 
+![Provider-aggregatable versus provider-independent address space decided by four scenarios, and the cost of renumbering](assets/fig/en16-12-prefix-space.svg)
+
 | Option | How you get it | Cost of changing provider | Where it fits |
 |---|---|---|---|
 | PA (Provider Aggregatable) | Allocated by the provider | **Whole-company renumbering** (DNS, ACLs, VPNs, allow lists, partners) | Single-homed, small scale |
@@ -421,6 +445,8 @@ Symptom: a metro-network failure on the ISP-A side; the link stays up, the next 
 </div>
 
 ### 12. The First Line of DDoS Defence Is at the Provider, Not a Firewall in Your Rack · DDoS 的第一道防线在运营商侧，不在机房里的防火墙
+
+![Four DDoS defence layers ordered by distance from the attack, the remote-triggered black hole flow, and attack types mapped to where they stop](assets/fig/en16-13-ddos-layers.svg)
 
 By the time attack traffic reaches your firewall it has already **filled your exit links** — at that point the strongest local device is useless (the packets cannot get in).
 
@@ -458,6 +484,8 @@ By the time attack traffic reaches your firewall it has already **filled your ex
 
 ### 13. IPv6 Is Not "Configure It Again" — It Is "Redesign the Exposure Surface After Removing NAT" · IPv6 不是"再配一遍"，是"取消 NAT 后重新设计暴露面"
 
+![IPv4 hiding the interior behind NAT compared with IPv6 exposing every address, plus three checks before enabling dual stack](assets/fig/en16-14-ipv6-exposure.svg)
+
 In the IPv4 era NAT incidentally provided "the internal network cannot initiate connections from outside". IPv6 has no NAT (NPTv6 aside), so **every address is globally reachable** and the exposure surface is defined entirely by ACL/firewall policy.
 
 <div class="zh" markdown="1">
@@ -494,6 +522,8 @@ IPv4 时代，NAT 顺带提供了"内网默认不可从外部发起连接"的效
 
 ### 14. Remote-Access VPN Headends Are a "Capacity + State" Problem, Not an "Encryption Strength" Problem · 远程接入 VPN 的头端是"容量 + 状态"问题，不是"加密强度"问题
 
+![VPN headend sizing arithmetic including N minus one capacity and the five dimensions that each produce a different number](assets/fig/en16-15-vpn-headend.svg)
+
 | Dimension | Real bottleneck | Design action |
 |---|---|---|
 | Throughput | Crypto offload (CPU / ASIC) | Size against "measured throughput with IPsec enabled", typically 30–60% of the datasheet |
@@ -515,6 +545,8 @@ IPv4 时代，NAT 顺带提供了"内网默认不可从外部发起连接"的效
 </div>
 
 ### 15. Internet-Edge Availability = Number of Exits × State Synchronisation × Detection; Miss One and It Is a Single Point · 互联网边缘的可用性 = 出口数量 × 状态同步 × 检测手段，缺一项即单点
+
+![Availability as the product of exit count, state synchronisation and detection speed, with four combinations and their user experience](assets/fig/en16-16-availability-product.svg)
 
 The three multiply:
 
@@ -553,6 +585,8 @@ The three multiply:
 ---
 
 ## The Six-Step Internet Edge Design Method · 互联网边缘设计的六步方法论
+
+![The six-step internet edge design method with the input, deliverable and unresolved hurdle of every step](assets/fig/en16-17-six-steps.svg)
 
 The easiest mistake at the edge is to start from "choose a provider, negotiate bandwidth". The correct order is: **define the exit services, then the trust levels, then the homing model, then routing and announcements, then the stateful devices, and finally resilience and validation**.
 
@@ -690,6 +724,8 @@ The book splits edge responsibilities into four classes: **connect, protect, pub
 
 ### The Three Edge Layers (the Book's Three-Tier Edge Structure) · 三种边缘分层（原书的三层结构）
 
+![The three-tier edge structure of edge distribution, firewall and DMZ, and edge routers, with what each layer should and should not do](assets/fig/en16-18-three-layers.svg)
+
 ```
               +------------------------------------------+
               |  Edge Distribution layer                 |
@@ -777,6 +813,8 @@ The book splits edge responsibilities into four classes: **connect, protect, pub
 ---
 
 ## 2. Multihoming Design: Three Scenarios · 二、多宿主设计：三种场景
+
+![Three homing scenarios - single-homed, multihomed on one router and multihomed on two routers - and the redundancy each one actually buys](assets/fig/en16-19-three-scenarios.svg)
 
 ### Scenario 1: Single-Homed · 场景一：单宿主
 
@@ -1020,6 +1058,8 @@ Each edge router connects to a different ISP (or a different PE of the same ISP)
 
 ### Attribute Quick Reference: First Work Out Whether It Steers Outbound or Inbound · 属性速查：先分清"管出向"还是"管入向"
 
+![A BGP attribute reference table across outbound and inbound directions with scope and precedence, plus one outbound and one inbound example](assets/fig/en16-20-attribute-reference.svg)
+
 | Attribute | Scope of propagation | Higher is better? | Direction it steers | Typical use |
 |---|---|---|---|---|
 | **Weight** | Local only (Cisco proprietary) | Yes | Outbound | Force preference for a neighbour on this device |
@@ -1236,6 +1276,8 @@ Return:   internet → global BGP → ISP-B → edge router B (the destination b
 
 ### Five Solutions and Their Boundaries · 五种解法与适用边界
 
+![Five solutions for asymmetric routing with principle, fit and cost, plus a selection table that starts from the constraint](assets/fig/en16-21-five-solutions.svg)
+
 | # | Solution | Principle | Where it fits | Cost |
 |---|---|---|---|---|
 | 1 | **Converge on a single stateful device** | Both ISPs connect to the same firewall pair (HA cluster); BGP and NAT live there | Medium-large, public services | That device becomes the capacity and failure focus (HA mandatory) |
@@ -1323,6 +1365,8 @@ Return:   internet → global BGP → ISP-B → edge router B (the destination b
 ## 5. NAT and Addressing: the Edge's Session State · 五、NAT 与地址：边缘的会话状态
 
 ### The Four Forms of NAT · NAT 的四种形态
+
+![Four NAT forms with their purpose and cost, the port ceiling behind one public address, and five questions the design must answer](assets/fig/en16-22-nat-forms.svg)
 
 | Form | Description | Typical scenario | Key constraint |
 |---|---|---|---|
@@ -1602,6 +1646,8 @@ Then N-1 redundancy ->  two headends at 15 Gbps each, or three at 10 Gbps each
 
 ## 7. Capacity and Scalability Models (Extended in These Notes) · 七、容量与可扩展性模型（本笔记延伸）
 
+![Four capacity numbers - bandwidth sized to N minus one, port and session arithmetic, table sizes and a measured convergence budget](assets/fig/en16-23-capacity.svg)
+
 The edge has four kinds of "table", and **every one of them runs out before bandwidth does**.
 
 <div class="zh" markdown="1">
@@ -1743,6 +1789,8 @@ Primary fails: ISP-B must now carry 100% -> if B only has 40% of the capacity ->
 ---
 
 ## 8. From Design to Delivery: the Nine Tables This Chapter Must Produce · 八、从设计到交付：本章必须的 9 张表
+
+![Six review themes with their essence, three questions each and a pass or fail criterion](assets/fig/en16-24-six-themes-review.svg)
 
 | # | Table | Content | Who uses it |
 |---|---|---|---|
@@ -2913,6 +2961,8 @@ Primary fails: ISP-B must now carry 100% -> if B only has 40% of the capacity ->
 </div>
 
 ### Scenario 3: After an Acquisition, Three Companies Each Have Their Own AS and PA Addresses — Consolidate the Internet Exit · 情景三：并购后 3 家公司各有 AS 与 PA 地址，要合并互联网出口
+
+![Three acquired companies with different exit, address and service states, and the six-phase migration order with downtime per phase](assets/fig/en16-25-acquisition-phases.svg)
 
 **Background**: the group acquires three companies, each in a different state:
 
