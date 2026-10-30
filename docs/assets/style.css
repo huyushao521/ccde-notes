@@ -452,6 +452,56 @@ html[data-theme="dark"] .badge[data-s="提纲"] { color: #e0b062; background: #2
 
 .card .badge { margin-top: 8px; }
 
+/* ===== 插图覆盖：卡片标记 + 首页一览 ===== */
+.fig-tag {
+  display: inline-block; margin: 8px 0 0 6px;
+  padding: 1px 8px; font-size: 11px; font-weight: 600; line-height: 18px;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--bg-soft); color: var(--text-soft);
+  white-space: nowrap;
+}
+.fig-tag.has { color: #1e5fd0; background: #e8f0fe; border-color: #c9dcfb; }
+.fig-tag.none { color: var(--text-mute); background: transparent; border-style: dashed; }
+html[data-theme="dark"] .fig-tag.has { color: #7aa9f7; background: #16233a; border-color: #263a5c; }
+html[data-theme="dark"] .fig-tag.none { color: #7b8798; }
+
+.fig-overview {
+  margin: 0 0 34px; padding: 18px 20px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--bg-soft);
+}
+.fig-overview .group-title { margin-bottom: 3px; }
+.fig-rows { display: flex; flex-direction: column; gap: 11px; margin-top: 15px; }
+.fig-row { display: flex; gap: 12px; align-items: flex-start; }
+.fig-label {
+  flex: none; width: 156px; padding-top: 3px;
+  font-size: 12px; font-weight: 600; color: var(--text-soft);
+}
+.fig-label em {
+  display: block; margin-top: 1px;
+  font-style: normal; font-weight: 400; font-size: 11px; color: var(--text-mute);
+}
+.fig-label.has { color: #1e5fd0; }
+.fig-label.none { color: var(--text-mute); }
+html[data-theme="dark"] .fig-label.has { color: #7aa9f7; }
+.fig-chips { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.fig-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px; font-size: 12px; line-height: 17px;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--bg); color: var(--text-soft);
+}
+.fig-chip:hover { text-decoration: none; border-color: var(--brand); color: var(--brand); }
+.fig-chip b { font-family: var(--mono); font-size: 11px; color: var(--brand); }
+.fig-chip.none { border-style: dashed; color: var(--text-mute); }
+.fig-chip.none:hover { color: var(--text-soft); border-color: var(--line-strong); }
+.fig-empty { font-size: 12px; color: var(--text-mute); }
+
+@media (max-width: 620px) {
+  .fig-row { flex-direction: column; gap: 6px; }
+  .fig-label { width: auto; padding-top: 0; }
+}
+
 .hero-progress {
   max-width: 420px;
   height: 6px;

@@ -39,6 +39,7 @@ APPENDIX_DEFS = [
 STATUS_RULES = [(4000, "精讲"), (1800, "精读"), (800, "提纲"), (0, "骨架")]
 STATUS_RE = re.compile(r"<!--\s*status:\s*(.+?)\s*-->")
 H2_RE = re.compile(r'<h2[^>]*id="([^"]*)"[^>]*>(.*?)</h2>', re.S)
+FIG_RE = re.compile(r"assets/fig/([\w\-.]+\.svg)")
 
 
 def slug(num: int) -> str:
@@ -165,6 +166,62 @@ def collect_appendices():
             }
         )
     return items
+
+
+def fig_stats(raw: str):
+    """返回 (已配好的插图数, 引用但缺文件的插图数)"""
+    names = list(dict.fromkeys(FIG_RE.findall(raw)))
+    ok = [n for n in names if (ASSETS / "fig" / n).exists()]
+    return len(ok), len(names) - len(ok)
+
+
+def fig_tag(item) -> str:
+    n = item.get("figs", 0)
+    if n:
+        return f'<span class="fig-tag has">插图 {n}</span>'
+    return '<span class="fig-tag none">待配图</span>'
+
+
+def fig_overview_html(chapters, en_chapters) -> str:
+    total = sum(c["figs"] for c in chapters) + sum(c["figs"] for c in en_chapters)
+    cn_has = [c for c in chapters if c["figs"]]
+    cn_no = [c for c in chapters if not c["figs"]]
+    en_has = [c for c in en_chapters if c["figs"]]
+    en_no = [c for c in en_chapters if not c["figs"]]
+
+    def chips(items, is_en):
+        out = []
+        for c in items:
+            cls = "fig-chip has" if c["figs"] else "fig-chip none"
+            if is_en:
+                label = f'Ch {c["num"]:02d} · {c["title"]}'
+            else:
+                label = f'{c["num"]:02d} · {c["title"]}'
+            cnt = f'<b>{c["figs"]}</b>' if c["figs"] else ""
+            out.append(f'<a class="{cls}" href="{c["slug"]}.html">{label}{cnt}</a>')
+        return "".join(out) or '<span class="fig-empty">—</span>'
+
+    def row(label, items, is_en, kind):
+        return (
+            f'<div class="fig-row"><span class="fig-label {kind}">{label}</span>'
+            f'<div class="fig-chips">{chips(items, is_en)}</div></div>'
+        )
+
+    def stat(items):
+        return f'{len(items)} 章 · {sum(c["figs"] for c in items)} 张'
+
+    return (
+        '<section class="fig-overview">'
+        '<h2 class="group-title">插图覆盖一览</h2>'
+        f'<p class="group-sub">全站共 {total} 张 SVG 示意图 · 中文 {len(cn_has)}/{len(chapters)} 章已配图 · '
+        f'英文 {len(en_has)}/{len(en_chapters)} 章已配图</p>'
+        '<div class="fig-rows">'
+        + row(f'中文版 · 已配图 <em>{stat(cn_has)}</em>', cn_has, False, "has")
+        + row(f'中文版 · 待补图 <em>{len(cn_no)} 章</em>', cn_no, False, "none")
+        + row(f'English · 已配图 <em>{stat(en_has)}</em>', en_has, True, "has")
+        + row(f'English · 待补图 <em>{len(en_no)} 章</em>', en_no, True, "none")
+        + "</div></section>"
+    )
 
 
 def part_of(num: int):
@@ -399,6 +456,9 @@ def main():
     en_chapters = collect_en_chapters()
     nav_chain = chapters + appendices
 
+    for item in chapters + en_chapters:
+        item["figs"], item["figs_missing"] = fig_stats(item["raw"])
+
     search_index = []
 
     for i, ch in enumerate(chapters):
@@ -532,6 +592,7 @@ def main():
             f'<span class="card-body"><strong>{c["title"]}</strong>'
             f'<em>{c["h1"]}</em>'
             f'<span class="badge" data-s="{c["status"]}">{c["status"]}</span>'
+            f'{fig_tag(c)}'
             f'</span></a>'
             for c in items
         )
@@ -563,6 +624,7 @@ def main():
             f'<span class="card-body"><strong>Chapter {c["num"]} · {c["title"]}</strong>'
             f'<em>一段英文一段中文 · 约 {c["words"]} 词英文原文</em>'
             f'<span class="badge" data-s="English">English</span>'
+            f'{fig_tag(c)}'
             f'</span></a>'
             for c in en_chapters
         )
@@ -574,6 +636,9 @@ def main():
 
     done = sum(1 for c in chapters if c["status"] == "精讲")
     pct = round(done / len(chapters) * 100)
+    total_figs = sum(c["figs"] for c in chapters) + sum(c["figs"] for c in en_chapters)
+    fig_done = sum(1 for c in chapters if c["figs"]) + sum(1 for c in en_chapters if c["figs"])
+    fig_all = len(chapters) + len(en_chapters)
     hero = (
         '<div class="hero">'
         f'<h1>{SITE_TITLE}</h1>'
@@ -581,12 +646,18 @@ def main():
         f'<div class="hero-stats"><span><b>{len(chapters)}</b> 章笔记</span>'
         f'<span><b>{len(PART_DEFS)}</b> 大部分</span>'
         f'<span><b>{len(appendices)}</b> 个附录</span>'
-        f'<span><b>{done}/{len(chapters)}</b> 已精讲</span></div>'
+        f'<span><b>{done}/{len(chapters)}</b> 已精讲</span>'
+        f'<span><b>{total_figs}</b> 张插图</span>'
+        f'<span><b>{fig_done}/{fig_all}</b> 章已配图</span></div>'
         f'<div class="hero-progress" title="精讲进度 {pct}%">'
         f'<span style="width:{pct}%"></span></div>'
         "</div>"
     )
-    home_content = hero + '<div class="cards-wrap">' + "".join(cards) + "</div>"
+    home_content = (
+        hero
+        + fig_overview_html(chapters, en_chapters)
+        + '<div class="cards-wrap">' + "".join(cards) + "</div>"
+    )
     if home_parts:
         home_content += '<hr class="home-sep">' + "".join(home_parts)
 
