@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 508" width="100%" role="img" aria-labelledby="c13f18t c13f18d">
+  <title id="c13f18t">PIM-SM 的八个信令步骤与每一步产生的状态</title>
+  <desc id="c13f18d">拓扑上标注 PIM-SM 建立转发路径的八个动作：主机 IGMP Report、LHR 向 RP 发 (*,G) Join、源发流、FHR 发 Register、RP 向 FHR 发 (S,G) Join、LHR 向源方向发 (S,G) Join、LHR 发 rpt-prune、RP 发 Register-Stop。下方逐一给出该步骤产生的 mroute 状态与失败表现。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a181" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a182" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="508" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">PIM-SM 建树：八个动作、八处状态，缺一处就断在某一环</text>
+  <text class="s" x="24" y="48">实线是数据面，虚线是控制面。注意"先有共享树，再有源树，最后剪掉共享树"这条时间顺序</text>
+
+  <rect x="24" y="66" width="912" height="196" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="44" y="150" width="64" height="34" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="76" y="171" text-anchor="middle">源</text>
+  <rect x="140" y="146" width="72" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="176" y="172" text-anchor="middle">FHR</text>
+  <rect x="380" y="104" width="92" height="48" rx="5" fill="#fff4e5" stroke="#b06a00" stroke-width="1.6"/>
+  <text class="n" x="426" y="126" text-anchor="middle" fill="#b06a00">RP</text>
+  <text class="g" x="426" y="142" text-anchor="middle">共享树根</text>
+  <rect x="600" y="146" width="72" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="636" y="172" text-anchor="middle">LHR</text>
+  <rect x="740" y="150" width="84" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="782" y="171" text-anchor="middle">接收者</text>
+
+  <line x1="108" y1="167" x2="136" y2="167" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a182)"/>
+  <text class="b" x="112" y="158">③</text>
+  <line x1="740" y1="160" x2="676" y2="160" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a181)"/>
+  <text class="b" x="700" y="152">①</text>
+  <line x1="600" y1="146" x2="476" y2="140" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a181)"/>
+  <text class="b" x="530" y="136">②</text>
+  <line x1="212" y1="146" x2="376" y2="126" stroke="#2f6fed" stroke-dasharray="5 4" marker-end="url(#a181)"/>
+  <text class="b" x="286" y="126">④</text>
+  <line x1="376" y1="146" x2="216" y2="166" stroke="#2f6fed" stroke-dasharray="5 4" marker-end="url(#a181)"/>
+  <text class="b" x="300" y="170">⑤</text>
+  <line x1="426" y1="152" x2="426" y2="176" stroke="#0f7f73" stroke-width="1.8"/>
+  <line x1="426" y1="176" x2="640" y2="196" stroke="#0f7f73" stroke-width="1.8"/>
+  <line x1="640" y1="196" x2="640" y2="188" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a182)"/>
+  <text class="c" x="470" y="196">共享树下发（数据面）</text>
+  <line x1="600" y1="188" x2="180" y2="196" stroke="#0f7f73" stroke-dasharray="6 4" stroke-width="1.6"/>
+  <line x1="180" y1="196" x2="120" y2="186" stroke="#0f7f73" stroke-dasharray="6 4" stroke-width="1.6" marker-end="url(#a182)"/>
+  <text class="c" x="330" y="212">⑥ LHR → 源方向的 (S,G) Join</text>
+  <line x1="600" y1="140" x2="490" y2="128" stroke="#a32020" stroke-dasharray="4 3" marker-end="url(#a181)"/>
+  <text class="r" x="530" y="118">⑦ rpt-prune</text>
+  <line x1="380" y1="104" x2="216" y2="150" stroke="#2f6fed" stroke-dasharray="3 3" stroke-width="1.2" marker-end="url(#a181)"/>
+  <text class="b" x="240" y="112">⑧ Register-Stop</text>
+
+  <rect x="24" y="278" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="296">① 主机 IGMP Report（G）</text>
+  <text class="b" x="38" y="314">状态：LHR 建 (*,G)，出接口 = 主机侧</text>
+
+  <rect x="490" y="278" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="504" y="296">② LHR 向 RP 发 (*,G) Join</text>
+  <text class="b" x="504" y="314">状态：沿途建立共享树，RP 上是树的根</text>
+
+  <rect x="24" y="330" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="348">③ 源开始发流（数据面）</text>
+  <text class="b" x="38" y="366">状态：FHR 建 (S,G)，入接口 = 源侧（RPF 通过）</text>
+
+  <rect x="490" y="330" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="504" y="348">④ FHR 单播封装 Register → RP</text>
+  <text class="b" x="504" y="366">失败表现：RP 收不到 → 接收者全黑（防火墙拦单播即可致）</text>
+
+  <rect x="24" y="382" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="400">⑤ RP 向源方向发 (S,G) Join</text>
+  <text class="b" x="38" y="418">状态：RP 上出现 (S,G)，数据改走组播而非封装</text>
+
+  <rect x="490" y="382" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="504" y="400">⑥ LHR 发 (S,G) Join（SPT 切换）</text>
+  <text class="b" x="504" y="418">状态：LHR 建 (S,G)，入接口改为朝源方向</text>
+
+  <rect x="24" y="434" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="452">⑦ LHR 发 rpt-prune 给 RP</text>
+  <text class="b" x="38" y="470">状态：共享树在此处被剪断；此步与⑥重叠 → 短暂双份包</text>
+
+  <rect x="490" y="434" width="446" height="46" rx="5" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="504" y="452">⑧ RP 发 Register-Stop 给 FHR</text>
+  <text class="b" x="504" y="470">状态：FHR 停止单播封装，Register 风暴结束</text>
+
+  <text class="r" x="24" y="498">排障口诀：断在①看 IGMP/二层；断在②看 RP 可达与 (*,G)；断在④看单播可达性；断在⑥看 RPF 与源侧回程；断在⑦看是否有重复包。</text>
+</svg>

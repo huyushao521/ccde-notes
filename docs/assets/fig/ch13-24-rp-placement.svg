@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="100%" role="img" aria-labelledby="c13f24t c13f24d">
+  <title id="c13f24t">RP 放置的量化对比：集中式与区域式两种方案的带宽、状态与路径代价</title>
+  <desc id="c13f24d">方案 A 把 RP 放在总部，20 个分支的共享树流量全部经总部汇聚，总部 WAN 承载约 1 Gbps，RP 需要 20 个出接口，路径平均绕行两跳。方案 B 按区域部署两台 RP，每台承担 10 个分支约 500 Mbps，总部只承载源侧的注册流量。下方用四项指标对比两种方案。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .th{font:600 9px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+  </style>
+  <defs>
+    <marker id="a241" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">RP 放在哪里？用数字答，不用"习惯"答</text>
+  <text class="s" x="24" y="48">同一套业务、两种 RP 位置：占用的 WAN 带宽、RP 上的状态与出接口、平均路径长度完全不同</text>
+
+  <rect x="24" y="66" width="446" height="196" rx="8" fill="#fff" stroke="#e8c4c4"/>
+  <text class="k" x="40" y="86">方案 A：RP 集中在总部</text>
+  <rect x="176" y="96" width="96" height="44" rx="5" fill="#fff4e5" stroke="#b06a00" stroke-width="1.6"/>
+  <text class="n" x="224" y="116" text-anchor="middle" style="fill:#b06a00">RP</text>
+  <text class="g" x="224" y="132" text-anchor="middle">总部核心</text>
+  <rect x="40" y="170" width="72" height="26" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="76" y="188" text-anchor="middle">分支 1</text>
+  <rect x="126" y="170" width="72" height="26" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="162" y="188" text-anchor="middle">分支 2</text>
+  <rect x="212" y="170" width="72" height="26" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="248" y="188" text-anchor="middle">分支 3</text>
+  <rect x="298" y="170" width="72" height="26" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="334" y="188" text-anchor="middle">… ×20</text>
+  <line x1="224" y1="140" x2="76" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="224" y1="140" x2="162" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="224" y1="140" x2="248" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="224" y1="140" x2="334" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <text class="b" x="40" y="216">每分支 50 Mbps × 20 = 1 Gbps 全部经总部</text>
+  <text class="r" x="40" y="234">RP 需 20 个出接口；路径平均多绕 2 跳</text>
+  <text class="r" x="40" y="252">故障域：总部核心 = 全网新组</text>
+
+  <rect x="490" y="66" width="446" height="196" rx="8" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="506" y="86" style="fill:#0f7f73">方案 B：RP 按区域部署（2 台）</text>
+  <rect x="536" y="96" width="86" height="40" rx="5" fill="#e9f6f4" stroke="#0f7f73" stroke-width="1.6"/>
+  <text class="n" x="579" y="114" text-anchor="middle" style="fill:#0f7f73">RP-东区</text>
+  <text class="g" x="579" y="129" text-anchor="middle">10 个分支</text>
+  <rect x="796" y="96" width="86" height="40" rx="5" fill="#e9f6f4" stroke="#0f7f73" stroke-width="1.6"/>
+  <text class="n" x="839" y="114" text-anchor="middle" style="fill:#0f7f73">RP-西区</text>
+  <text class="g" x="839" y="129" text-anchor="middle">10 个分支</text>
+  <rect x="512" y="170" width="80" height="24" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="552" y="187" text-anchor="middle">东区分支</text>
+  <rect x="606" y="170" width="80" height="24" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="646" y="187" text-anchor="middle">东区分支</text>
+  <rect x="770" y="170" width="80" height="24" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="810" y="187" text-anchor="middle">西区分支</text>
+  <rect x="864" y="170" width="60" height="24" rx="3" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="b" x="894" y="187" text-anchor="middle">…</text>
+  <line x1="579" y1="136" x2="552" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="579" y1="136" x2="646" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="839" y1="136" x2="810" y2="168" stroke="#0f7f73" stroke-width="1.4" marker-end="url(#a241)"/>
+  <line x1="506" y1="116" x2="534" y2="116" stroke="#b06a00" stroke-dasharray="4 3"/>
+  <text class="b" x="506" y="216">每台 RP 承担 10 × 50 Mbps = 500 Mbps</text>
+  <text class="c" x="506" y="234">总部只承载"源→两台 RP"的两份流量</text>
+  <text class="c" x="506" y="252">故障域：单区域新组（范围减半）</text>
+
+  <rect x="24" y="274" width="912" height="30" rx="4" fill="#eef3ff"/>
+  <text class="th" x="40" y="294">指标</text>
+  <text class="th" x="300" y="294">方案 A：集中式 RP</text>
+  <text class="th" x="600" y="294">方案 B：区域式 RP</text>
+  <text class="th" x="830" y="294">谁更优</text>
+
+  <rect x="24" y="304" width="912" height="34" fill="#fff"/>
+  <text class="b" x="40" y="326">总部 WAN 组播占用</text>
+  <text class="r" x="300" y="326">约 1 Gbps（20 × 50 Mbps）</text>
+  <text class="c" x="600" y="326">约 100 Mbps（2 份源流量）</text>
+  <text class="b" x="830" y="326">B</text>
+
+  <rect x="24" y="338" width="912" height="34" fill="#f7f9fc"/>
+  <text class="b" x="40" y="360">RP 上的 (*,G) 状态</text>
+  <text class="r" x="300" y="360">全网组数（集中、易撞容量）</text>
+  <text class="c" x="600" y="360">各区域组数（可控、可扩容）</text>
+  <text class="b" x="830" y="360">B</text>
+
+  <rect x="24" y="372" width="912" height="34" fill="#fff"/>
+  <text class="b" x="40" y="394">平均路径长度</text>
+  <text class="r" x="300" y="394">多绕 2 跳（跨区回总部）</text>
+  <text class="c" x="600" y="394">区域内 1 跳</text>
+  <text class="b" x="830" y="394">B</text>
+
+  <rect x="24" y="406" width="912" height="34" fill="#f7f9fc"/>
+  <text class="b" x="40" y="428">运维复杂度</text>
+  <text class="c" x="300" y="428">低：一处配置、一处监控</text>
+  <text class="r" x="600" y="428">高：多处 RP + 一致性校验</text>
+  <text class="b" x="830" y="428">A</text>
+
+  <text class="r" x="24" y="462">结论：RP 应放在"流量重心"而不是"管理重心"。规模小（≤5 个站点、单区域）用集中式；跨区域、分支多，用区域式 + Anycast-RP 兼顾冗余。</text>
+  <text class="g" x="24" y="480">量化的意义：把"RP 放哪"变成可评审的数字（带宽、状态数、跳数），而不是"我们一直是这么放的"。</text>
+</svg>

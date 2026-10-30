@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 474" width="100%" role="img" aria-labelledby="c13f16t c13f16d">
+  <title id="c13f16t">RPF 判据的四层来源：静态 mroute、MBGP、单播路由、默认路由与隧道</title>
+  <desc id="c13f16d">左侧按优先级自上而下给出 RPF 查询的四个来源：静态 mroute 最高，其次 MBGP 的组播路由，再次单播路由表，最后默认路由与隧道。右侧逐层说明它什么时候被用到以及常见陷阱，底部给出 show ip rpf 的输出解读与三条设计约束。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Consolas","Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a161" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="474" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">RPF 不是"一条命令的结果"，而是四层来源按优先级叠出来的</text>
+  <text class="s" x="24" y="48">排障时若只看单播路由表，会漏掉静态 mroute 与 MBGP 这两层——"路由表里明明有"和"RPF 却指向别处"经常同时成立</text>
+
+  <line x1="70" y1="86" x2="70" y2="300" stroke="#2f6fed" stroke-dasharray="5 4" marker-end="url(#a161)"/>
+  <text class="b" x="40" y="200" transform="rotate(-90 40 200)" text-anchor="middle" style="fill:#2f6fed">RPF 查询顺序</text>
+
+  <rect x="88" y="74" width="252" height="44" rx="5" fill="#fdeaea" stroke="#a32020"/>
+  <text class="k" x="102" y="94">① 静态 mroute</text>
+  <text class="g" x="102" y="110">ip mroute &lt;源&gt; &lt;掩码&gt; &lt;接口&gt;</text>
+  <text class="b" x="360" y="90">何时用：源在"不该被 IGP 看到"的路径上、或需要强制改道</text>
+  <text class="r" x="360" y="108">陷阱：优先级最高，忘了删就会长期"顶掉"正常路由（最隐蔽）</text>
+
+  <rect x="88" y="134" width="252" height="44" rx="5" fill="#f3effb" stroke="#6b4fbb"/>
+  <text class="k" x="102" y="154">② MBGP（mRIB / SAFI 2）</text>
+  <text class="g" x="102" y="170">组播专用 BGP 路由表</text>
+  <text class="b" x="360" y="150">何时用：跨域、或单播与组播路径必须分离（隧道/防火墙）</text>
+  <text class="r" x="360" y="168">陷阱：MBGP 存在时组播不跟单播走，两边不一致就会"单向通"</text>
+
+  <rect x="88" y="194" width="252" height="44" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="k" x="102" y="214">③ 单播路由表（IGP / BGP）</text>
+  <text class="g" x="102" y="230">最常见的一层</text>
+  <text class="b" x="360" y="210">何时用：绝大多数域内场景</text>
+  <text class="r" x="360" y="228">陷阱：ECMP 时组播只选一条（哈希/最高邻居），与 Join 方向可能不同</text>
+
+  <rect x="88" y="254" width="252" height="44" rx="5" fill="#f7f9fc" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="k" x="102" y="274">④ 默认路由 / 隧道</text>
+  <text class="g" x="102" y="290">0.0.0.0/0、GRE、DMVPN</text>
+  <text class="b" x="360" y="270">何时用：源在远端、经隧道回到中心</text>
+  <text class="r" x="360" y="288">陷阱：默认路由把 RPF 指向"看似合理"的错误接口，故障极难定位</text>
+
+  <rect x="24" y="312" width="446" height="104" rx="6" fill="#f7f9fc" stroke="#d7e0ec"/>
+  <text class="k" x="44" y="332">输出解读：show ip rpf 10.1.1.1</text>
+  <text class="n" x="44" y="352">RPF information for 10.1.1.1</text>
+  <text class="n" x="44" y="368">  RPF interface: Gi0/1</text>
+  <text class="n" x="44" y="384">  RPF neighbor: 10.0.0.2</text>
+  <text class="n" x="44" y="400">  RPF route: 10.1.1.0/24 via 10.0.0.2</text>
+  <text class="r" x="44" y="412">入接口 ≠ RPF interface → 直接丢包，无日志</text>
+
+  <rect x="490" y="312" width="446" height="104" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="510" y="332" style="fill:#0f7f73">三条设计约束</text>
+  <text class="b" x="510" y="354">① 路径必须对称：任何"去程/回程不同"的设计都要显式评估</text>
+  <text class="b" x="510" y="372">② 只保留一条等价路径：组播不吃 ECMP 的"负载均衡"</text>
+  <text class="b" x="510" y="390">③ 静态 mroute 必须有台账：谁配的、为什么、什么时候删</text>
+  <text class="g" x="510" y="410">验收：逐跳 show ip rpf 源，确认"入接口 = RPF 接口"整条链一致</text>
+
+  <text class="r" x="24" y="440">典型误判：看到 show ip route 10.1.1.0 有路由就认为"RPF 一定对"。实际上静态 mroute、MBGP 或默认路由都可能在它之前生效。</text>
+  <text class="g" x="24" y="458">跨域场景：若两侧对源的"最优路径"判断不同（MBGP 策略不一致），会出现"单方向收到、另一个方向 RPF 失败"的经典故障（案例六）。</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" role="img" aria-labelledby="c13f8t c13f8d">
+  <title id="c13f8t">组播的故障是沉默的：五类典型现象与对应的取证命令</title>
+  <desc id="c13f8d">顶部说明组播没有 ICMP 不可达、没有重传、没有 syslog，因此故障不报警。表格列出五类沉默故障：RPF 失败、Snooping 表缺失、IGMP 版本降级、单向链路或非对称路径、剪枝过早，每类给出用户侧现象、真正的证据与取证命令。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .th{font:600 9px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="480" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">组播没有"报错"这条通道，所以故障默认是沉默的</text>
+  <text class="s" x="24" y="48">单播坏了有 ICMP、有 TCP 重传、有连接日志；组播坏了只有一个现象：画面不动</text>
+
+  <rect x="24" y="62" width="288" height="52" rx="6" fill="#fff4e5" stroke="#e0b877"/>
+  <text class="b" x="40" y="82" style="fill:#b06a00">没有 ICMP 不可达</text>
+  <text class="g" x="40" y="100">包被 RPF 丢弃时，不产生任何回包</text>
+  <rect x="336" y="62" width="288" height="52" rx="6" fill="#fff4e5" stroke="#e0b877"/>
+  <text class="b" x="352" y="82" style="fill:#b06a00">没有重传与拥塞控制</text>
+  <text class="g" x="352" y="100">丢包不可挽回，也没有"退让"机制</text>
+  <rect x="648" y="62" width="288" height="52" rx="6" fill="#fff4e5" stroke="#e0b877"/>
+  <text class="b" x="664" y="82" style="fill:#b06a00">没有 syslog</text>
+  <text class="g" x="664" y="100">剪枝、RPF 失败、Snooping 未命中都不报</text>
+
+  <rect x="24" y="132" width="912" height="30" rx="4" fill="#eef3ff"/>
+  <text class="th" x="40" y="152">沉默故障</text>
+  <text class="th" x="240" y="152">用户侧现象</text>
+  <text class="th" x="450" y="152">真正的证据</text>
+  <text class="th" x="672" y="152">取证命令</text>
+
+  <rect x="24" y="164" width="912" height="54" rx="4" fill="#fff" stroke="#eceff4"/>
+  <text class="b" x="40" y="186">① RPF 失败</text>
+  <text class="g" x="40" y="204">入接口与朝源方向不一致</text>
+  <text class="b" x="240" y="186">全黑，但 ping 源是通的</text>
+  <text class="g" x="240" y="204">正在"能连通但不能收流"</text>
+  <text class="b" x="450" y="186">mroute 入接口 Null / 计数不涨</text>
+  <text class="g" x="450" y="204">(S,G) 存在但无入包</text>
+  <text class="g" x="672" y="186">show ip rpf &lt;源&gt;</text>
+  <text class="g" x="672" y="204">show ip mroute &lt;组&gt;</text>
+
+  <rect x="24" y="220" width="912" height="54" rx="4" fill="#fff" stroke="#eceff4"/>
+  <text class="b" x="40" y="242">② Snooping 表缺失</text>
+  <text class="g" x="40" y="260">二层没有把包转给主机</text>
+  <text class="b" x="240" y="242">画面时通时断，重开频道恢复</text>
+  <text class="g" x="240" y="260">周期性（约 260 s）</text>
+  <text class="b" x="450" y="242">snooping groups 里没有该组</text>
+  <text class="g" x="450" y="260">或 mrouter 口不对</text>
+  <text class="g" x="672" y="242">show ip igmp snooping groups</text>
+  <text class="g" x="672" y="260">show ip igmp snooping mrouter</text>
+
+  <rect x="24" y="276" width="912" height="54" rx="4" fill="#fff" stroke="#eceff4"/>
+  <text class="b" x="40" y="298">③ IGMP 版本降级</text>
+  <text class="g" x="40" y="316">一个老主机拖累整个 VLAN</text>
+  <text class="b" x="240" y="298">换台慢、离开后仍在收流</text>
+  <text class="g" x="240" y="316">SSM 频道完全无法加入</text>
+  <text class="b" x="450" y="298">接口处于 v1/v2 兼容模式</text>
+  <text class="g" x="450" y="316">看不到带源过滤的 Report</text>
+  <text class="g" x="672" y="298">show ip igmp interface</text>
+  <text class="g" x="672" y="316">抓包看 Report 版本字段</text>
+
+  <rect x="24" y="332" width="912" height="54" rx="4" fill="#fff" stroke="#eceff4"/>
+  <text class="b" x="40" y="354">④ 单向链路 / 非对称</text>
+  <text class="g" x="40" y="372">信令一个方向、数据另一个方向</text>
+  <text class="b" x="240" y="354">"有时通有时不通"，按时间抖</text>
+  <text class="g" x="240" y="372">业务切换后更明显</text>
+  <text class="b" x="450" y="354">Join 能到上游，数据不回来</text>
+  <text class="g" x="450" y="372">或反之；BFD 可暴露</text>
+  <text class="g" x="672" y="354">show ip rpf / show ip route</text>
+  <text class="g" x="672" y="372">两端接口计数对比</text>
+
+  <rect x="24" y="388" width="912" height="54" rx="4" fill="#fff" stroke="#eceff4"/>
+  <text class="b" x="40" y="410">⑤ 剪枝过早（Prune Override）</text>
+  <text class="g" x="40" y="428">多个下游共用上游串行口</text>
+  <text class="b" x="240" y="410">刚打开就有、几秒后消失</text>
+  <text class="g" x="240" y="428">重新加入又恢复</text>
+  <text class="b" x="450" y="410">(S,G) 标志只有 P，OIL 为空</text>
+  <text class="g" x="450" y="428">而下游确实有接收者</text>
+  <text class="g" x="672" y="410">show ip mroute（看 flags）</text>
+  <text class="g" x="672" y="428">show ip igmp groups（下游）</text>
+
+  <text class="r" x="24" y="466">设计含义：既然故障沉默，验收就必须"主动注入 + 计数对比"——抓包、计数器、mroute 三条证据缺一不可，不能只凭"画面有影"签字。</text>
+</svg>

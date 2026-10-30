@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 474" width="100%" role="img" aria-labelledby="c13f12t c13f12d">
+  <title id="c13f12t">组播地址规划：站点 /16、业务 /24、序号取低 8 位</title>
+  <desc id="c13f12d">左侧给出 239.0.0.0/8 的三段式规划树：每站点一个 /16，每业务一个 /24，低 8 位作频道序号，239.255.0.0/16 保留给测试；右侧列出六条可执行的规划规则，并说明 232.0.0.0/8 按同样逻辑镜像一份给 SSM 业务。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Consolas","Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="474" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">地址规划不是"分配地址"，而是"让三年后的人能查得到"</text>
+  <text class="s" x="24" y="48">三段式：站点定 /16、业务定 /24、低 8 位是频道序号；SSM 段按同样规则镜像一份</text>
+
+  <rect x="44" y="74" width="180" height="30" rx="4" fill="#eaf1ff" stroke="#2f6fed" stroke-width="1.6"/>
+  <text class="n" x="56" y="94">239.0.0.0/8</text>
+  <text class="g" x="134" y="94">企业私有</text>
+  <line x1="124" y1="104" x2="124" y2="396" stroke="#8494a8"/>
+  <line x1="124" y1="140" x2="136" y2="140" stroke="#8494a8"/>
+  <line x1="124" y1="320" x2="136" y2="320" stroke="#8494a8"/>
+  <line x1="124" y1="356" x2="136" y2="356" stroke="#8494a8"/>
+  <line x1="124" y1="392" x2="136" y2="392" stroke="#8494a8"/>
+
+  <rect x="136" y="126" width="200" height="28" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="148" y="145">239.10.0.0/16</text>
+  <text class="g" x="250" y="145">北京总部</text>
+  <rect x="136" y="306" width="200" height="28" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="148" y="325">239.20.0.0/16</text>
+  <text class="g" x="250" y="325">上海</text>
+  <rect x="136" y="342" width="200" height="28" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="148" y="361">239.30.0.0/16</text>
+  <text class="g" x="250" y="361">广州</text>
+  <rect x="136" y="378" width="200" height="28" rx="4" fill="#f7f9fc" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="n" x="148" y="397">239.255.0.0/16</text>
+  <text class="g" x="256" y="397">保留：测试/临时</text>
+
+  <line x1="310" y1="140" x2="310" y2="285" stroke="#8494a8"/>
+  <line x1="310" y1="166" x2="320" y2="166" stroke="#8494a8"/>
+  <line x1="310" y1="203" x2="320" y2="203" stroke="#8494a8"/>
+  <line x1="310" y1="240" x2="320" y2="240" stroke="#8494a8"/>
+  <line x1="310" y1="277" x2="320" y2="277" stroke="#8494a8"/>
+  <line x1="300" y1="140" x2="310" y2="140" stroke="#8494a8"/>
+
+  <rect x="320" y="152" width="196" height="28" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="332" y="171">239.10.10.0/24</text>
+  <text class="g" x="440" y="171">视频会议</text>
+  <rect x="320" y="189" width="196" height="28" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="332" y="208">239.10.20.0/24</text>
+  <text class="g" x="440" y="208">IPTV</text>
+  <rect x="320" y="226" width="196" height="28" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="332" y="245">239.10.30.0/24</text>
+  <text class="g" x="440" y="245">监控</text>
+  <rect x="320" y="263" width="196" height="28" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="332" y="282">239.10.40.0/24</text>
+  <text class="g" x="440" y="282">行情</text>
+
+  <text class="b" x="44" y="164">站点 ID 固定在第二字节</text>
+  <text class="b" x="44" y="182">10 = 北京，20 = 上海，30 = 广州</text>
+  <text class="b" x="44" y="204">业务 ID 固定在第三字节</text>
+  <text class="b" x="44" y="222">10 会议 · 20 IPTV · 30 监控 · 40 行情</text>
+  <text class="b" x="44" y="244">第四字节 = 频道序号</text>
+  <text class="n" x="44" y="262">239.10.20.11 = 北京/IPTV/11 频道</text>
+  <text class="c" x="44" y="284">好处：看一眼地址就知道"哪个站点、什么业务"</text>
+
+  <rect x="560" y="70" width="376" height="212" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="rt" x="576" y="90" style="fill:#b06a00">六条可执行的规划规则</text>
+  <text class="b" x="576" y="112">① 224.0.0.0/24 一律不分配给业务</text>
+  <text class="b" x="576" y="132">② 每站点一块 /16，禁止跨站点借用</text>
+  <text class="b" x="576" y="152">③ 每业务一块 /24，第四字节留序号</text>
+  <text class="b" x="576" y="172">④ 239.255.0.0/16 只给测试与临时活动</text>
+  <text class="b" x="576" y="192">⑤ SSM 业务在 232.0.0.0/8 镜像同一套编码</text>
+  <text class="b" x="576" y="212">⑥ 地址与业务名进 IPAM/CMDB，禁止本地文件</text>
+  <text class="c" x="576" y="238">落地方式：CI 里跑一个脚本，检查</text>
+  <text class="c" x="576" y="256">"地址前缀合法 / 无重复 / MAC 不冲突"，</text>
+  <text class="c" x="576" y="274">不合规就不许合并（见下一张图）</text>
+
+  <rect x="560" y="294" width="376" height="98" rx="6" fill="#fff8e6" stroke="#e0b877"/>
+  <text class="b" x="576" y="314" style="fill:#b06a00">为什么"按站点切 /16"而不是"按业务切 /8"</text>
+  <text class="b" x="576" y="334">按站点切：跨站点扩展不需要动策略；按业务切：</text>
+  <text class="b" x="576" y="350">一个业务扩张会吃掉其他站点的地址，且 ACL/</text>
+  <text class="b" x="576" y="366">边界过滤无法按站点收敛</text>
+  <text class="r" x="576" y="384">边界过滤时，"一个 /16 = 一个站点"是最省心的粒度</text>
+
+  <text class="r" x="24" y="436">常见事故：同一业务在不同站点用了同一组地址 → 跨站点 Live-Live 或 MSDP 交换时会出现"两路源",画面出现鬼影（案例十五）。</text>
+  <text class="g" x="24" y="454">规划产出物：地址分配表（站点/业务/频道/源/责任人/有效期）+ 自动化校验脚本 + 变更流程。</text>
+</svg>

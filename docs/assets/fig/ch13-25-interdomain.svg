@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="100%" role="img" aria-labelledby="c13f25t c13f25d">
+  <title id="c13f25t">跨域组播：MSDP 通告源、MBGP 决定跨域 RPF</title>
+  <desc id="c13f25d">域 A 内源经 FHR 注册到 RP-A，RP-A 通过 MSDP 会话把源信息通告给域 B 的 RP-B；域 B 的接收者发出 (*,G) Join 到 RP-B，RP-B 依据 SA 与 MBGP 提供的跨域路由向源方向发起 (S,G) Join，数据沿源树经两个边界路由器交付。底部说明 SA 过滤、跨域 RPF 一致性与 SSM 跨域三种注意点。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a251" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6b4fbb"/>
+    </marker>
+    <marker id="a252" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a253" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">跨域组播需要两件事同时成立：知道"源在哪"，且"去源的路由与单播一致"</text>
+  <text class="s" x="24" y="48">MSDP 解决"知道"，MBGP 解决"一致"。只配 MSDP 不配 MBGP，是最常见的跨域组播故障</text>
+
+  <rect x="24" y="66" width="430" height="196" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="86">域 A（源域，AS 65001）</text>
+  <rect x="44" y="140" width="56" height="32" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="72" y="160" text-anchor="middle">源</text>
+  <rect x="128" y="136" width="62" height="40" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="159" y="161" text-anchor="middle">FHR</text>
+  <rect x="212" y="102" width="86" height="44" rx="5" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.6"/>
+  <text class="n" x="255" y="122" text-anchor="middle" fill="#6b4fbb">RP-A</text>
+  <text class="g" x="255" y="138" text-anchor="middle">域内会合点</text>
+  <rect x="350" y="136" width="72" height="40" rx="4" fill="#fff4e5" stroke="#b06a00"/>
+  <text class="n" x="386" y="155" text-anchor="middle" style="fill:#b06a00">BR-A</text>
+  <text class="g" x="386" y="170" text-anchor="middle">边界</text>
+  <line x1="100" y1="156" x2="124" y2="156" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a253)"/>
+  <line x1="190" y1="146" x2="208" y2="135" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a252)"/>
+  <text class="b" x="192" y="128">①</text>
+  <line x1="298" y1="130" x2="350" y2="146" stroke="#8494a8" stroke-dasharray="3 3"/>
+  <line x1="212" y1="150" x2="348" y2="162" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a253)"/>
+  <text class="c" x="248" y="182">共享树流量（切 SPT 前）</text>
+  <text class="g" x="44" y="216">① FHR 用 Register 把源注册到 RP-A</text>
+  <text class="g" x="44" y="234">RP-A 随后发 (S,G) Join 到源，建立源树</text>
+  <text class="g" x="44" y="252">跨域时还需：MBGP 通告源前缀（否则 RPF 失败）</text>
+
+  <rect x="506" y="66" width="430" height="196" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="522" y="86">域 B（接收域，AS 65002）</text>
+  <rect x="522" y="136" width="72" height="40" rx="4" fill="#fff4e5" stroke="#b06a00"/>
+  <text class="n" x="558" y="155" text-anchor="middle" style="fill:#b06a00">BR-B</text>
+  <text class="g" x="558" y="170" text-anchor="middle">边界</text>
+  <rect x="630" y="102" width="86" height="44" rx="5" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.6"/>
+  <text class="n" x="673" y="122" text-anchor="middle" fill="#6b4fbb">RP-B</text>
+  <text class="g" x="673" y="138" text-anchor="middle">域内会合点</text>
+  <rect x="752" y="136" width="62" height="40" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="783" y="161" text-anchor="middle">LHR</text>
+  <rect x="838" y="140" width="70" height="32" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="873" y="160" text-anchor="middle">接收者</text>
+  <line x1="876" y1="140" x2="800" y2="132" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a252)"/>
+  <line x1="752" y1="150" x2="718" y2="140" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a252)"/>
+  <text class="b" x="726" y="166">③ (*,G) Join</text>
+  <line x1="630" y1="140" x2="596" y2="152" stroke="#0f7f73" stroke-dasharray="5 4" stroke-width="1.6" marker-end="url(#a253)"/>
+  <text class="c" x="600" y="128">④ (S,G) Join 朝源</text>
+  <text class="g" x="522" y="216">③ 接收者加入 → LHR 向 RP-B 发 (*,G)</text>
+  <text class="g" x="522" y="234">④ RP-B 依据 SA 得知源存在，按 MBGP 路由</text>
+  <text class="g" x="522" y="252">向源发 (S,G) Join → 数据沿源树跨域交付</text>
+
+  <path d="M255 102 C 330 60, 620 60, 673 102" fill="none" stroke="#6b4fbb" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#a251)"/>
+  <text class="b" x="424" y="72" text-anchor="middle">② MSDP SA（TCP 639）</text>
+  <path d="M386 180 C 420 214, 520 214, 558 182" fill="none" stroke="#2f6fed" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text class="b" x="470" y="212" text-anchor="middle">MBGP（SAFI 2）</text>
+
+  <rect x="24" y="278" width="292" height="112" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="40" y="298">注意一：SA 必须过滤</text>
+  <text class="b" x="40" y="320">默认会把"全部组 + 全部源"通告出去，</text>
+  <text class="b" x="40" y="338">导致对端学到无效的 SA、状态膨胀。</text>
+  <text class="c" x="40" y="360">做法：按组段/源段双向过滤 SA</text>
+  <text class="g" x="40" y="378">show ip msdp sa-cache 看实际条目</text>
+
+  <rect x="334" y="278" width="292" height="112" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="350" y="298">注意二：跨域 RPF 一致性</text>
+  <text class="b" x="350" y="320">组播的 RPF 必须与单播 BGP 选路一致，</text>
+  <text class="b" x="350" y="338">否则"SA 学到了、Join 却发不出去"。</text>
+  <text class="c" x="350" y="360">做法：MBGP 策略与单播策略保持一致</text>
+  <text class="g" x="350" y="378">两端 show ip rpf 源，比对入接口</text>
+
+  <rect x="644" y="278" width="292" height="112" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="658" y="298" style="fill:#0f7f73">注意三：跨域优先考虑 SSM</text>
+  <text class="b" x="658" y="320">若接收端已知源，SSM 跨域只需</text>
+  <text class="b" x="658" y="338">MBGP（或隧道），不需要 MSDP 与 RP。</text>
+  <text class="c" x="658" y="360">代价：需要地址与通道信息端到端协调</text>
+  <text class="g" x="658" y="378">收益：去掉整个 SA 同步的故障面</text>
+
+  <text class="r" x="24" y="414">四种跨域方案（按复杂度递增）：① 纯 SSM + MBGP；② MSDP + MBGP（标准 ASM 跨域）；③ 隧道把源"搬进"本域；④ 专用组播交换中心/运营商代播。</text>
+  <text class="g" x="24" y="434">选型原则：能 SSM 就 SSM；必须 ASM 时，MSDP 与 MBGP 必须成对设计、成对验收。</text>
+  <text class="g" x="24" y="452">验收：域 B 的 mroute 上 (S,G) 的 RPF 邻居应指向 BR-B，且 SA 缓存中该源条目的 RP 为 RP-A。</text>
+</svg>

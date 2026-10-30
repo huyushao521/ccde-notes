@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 478" width="100%" role="img" aria-labelledby="c13f20t c13f20d">
+  <title id="c13f20t">SSM 的六个落地细节</title>
+  <desc id="c13f20d">六张卡片分别说明：通道由应用层决定、IGMPv3 的 INCLUDE 模式、无 RP 无 Register 带来的简化、232.0.0.0/8 与边界过滤、与 ASM 共存时的地址划分，以及 SSM 不提供源冗余和故障沉默这两个坑。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:8.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Consolas",monospace;fill:#1f4fc0}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="478" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">SSM 把复杂问题变简单，但把"源"的责任交给了应用层</text>
+  <text class="s" x="24" y="48">六个细节决定 SSM 项目是"三个月的顺利上线"还是"上线后天天解释为什么换源要重开播放器"</text>
+
+  <rect x="24" y="66" width="292" height="126" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="40" y="86" style="fill:#0f7f73">① 通道 (S,G) 由应用层决定</text>
+  <text class="b" x="40" y="108">接收者必须"知道源 IP"才能加入。</text>
+  <text class="b" x="40" y="126">所以频道列表 = (源, 组) 二元组，</text>
+  <text class="b" x="40" y="144">由播放器/EPG/配置下发提供。</text>
+  <text class="r" x="40" y="166">源变更 = 通道变更：播放器要重新加入</text>
+  <text class="g" x="40" y="184">→ 源冗余必须由应用层或 Live-Live 解决</text>
+
+  <rect x="334" y="66" width="292" height="126" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="350" y="86">② IGMPv3 的 INCLUDE 模式</text>
+  <text class="b" x="350" y="108">主机用 INCLUDE 列出"只收这些源"；</text>
+  <text class="b" x="350" y="126">路由器据此直接建 (S,G)，不建 (*,G)。</text>
+  <text class="b" x="350" y="144">没有 RP、没有 Register、没有切换。</text>
+  <text class="c" x="350" y="166">控制面报文集：Report / Query / (S,G) Join</text>
+  <text class="g" x="350" y="184">抓包时看不到 (*,G)，别误判"PIM 没起来"</text>
+
+  <rect x="644" y="66" width="292" height="126" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="658" y="86">③ 地址与边界：232.0.0.0/8</text>
+  <text class="b" x="658" y="108">SSM 业务必须落在 232/8（含 232.0.0.0/8</text>
+  <text class="b" x="658" y="126">保留段之外的自定义子块）。</text>
+  <text class="b" x="658" y="144">边界 ACL 放行 232/8、224.0.0.22（v3 报告）</text>
+  <text class="r" x="658" y="166">常见坑：ACL 放行了 239/8 却忘 232/8 → 全黑</text>
+  <text class="g" x="658" y="184">跨域：需 MBGP + 边界 SSM 映射策略</text>
+
+  <rect x="24" y="204" width="292" height="126" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="224">④ 与 ASM 共存：两套地址并行</text>
+  <text class="b" x="40" y="246">新业务走 232/8（SSM），老业务留 239/8</text>
+  <text class="b" x="40" y="264">（ASM）。同一台设备可以同时跑。</text>
+  <text class="b" x="40" y="282">关键是"地址段与业务一一对应"，</text>
+  <text class="b" x="40" y="300">否则无法按组配 SPT/ACL 策略。</text>
+  <text class="c" x="40" y="320">迁移路径：同业务双发一段，终端分批切</text>
+
+  <rect x="334" y="204" width="292" height="126" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="k" x="350" y="224" style="fill:#a32020">⑤ 坑：SSM 不提供源冗余</text>
+  <text class="b" x="350" y="246">协议层没有"源切换"的概念：</text>
+  <text class="b" x="350" y="264">主播端挂了，接收者不会自动换到备源。</text>
+  <text class="b" x="350" y="282">必须靠 Live-Live 双路 + 接收端去重，</text>
+  <text class="b" x="350" y="300">或应用层切换源（重新 Join）。</text>
+  <text class="r" x="350" y="320">设计文档要写清："源切换由谁负责"</text>
+
+  <rect x="644" y="204" width="292" height="126" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="k" x="658" y="224" style="fill:#a32020">⑥ 坑：故障依然是沉默的</text>
+  <text class="b" x="658" y="246">SSM 简化了信令，但 RPF 失败、二层未建表、</text>
+  <text class="b" x="658" y="264">版本不匹配依旧无告警。</text>
+  <text class="b" x="658" y="282">验收必须做四件事：mroute 状态、入方向计数、</text>
+  <text class="b" x="658" y="300">二层 snooping 表、终端侧实际收包。</text>
+  <text class="c" x="658" y="320">SSM 只是"少一个故障点"，不是"没有故障点"</text>
+
+  <text class="r" x="24" y="360">一句话总结：ASM 的复杂度在"网络侧"（RP、Register、共享树），SSM 的复杂度在"应用侧"（通道、源、冗余、切换）。选型就是选"谁来承担复杂度"。</text>
+  <text class="g" x="24" y="380">经验：以"单源、多接收者、长期稳定"为主的业务（IPTV、监控、行情分发）改 SSM 收益最大；</text>
+  <text class="g" x="24" y="398">以"多源、频繁变化、终端不可控"为主的业务（视频会议、临时直播）留 ASM 更省事。</text>
+
+  <rect x="24" y="410" width="912" height="50" rx="6" fill="#eef3ff" stroke="#b9cffb"/>
+  <text class="b" x="40" y="430">SSM 的最小可用配置清单：全链路 IGMPv3 → 业务地址落 232/8 → PIM-SM 设备保留但无需 RP → 边界放行 232/8 与 224.0.0.22</text>
+  <text class="b" x="40" y="448">→ 终端侧确认能发"带源列表"的 Report → 验收时用 show ip mroute 看 (S,G) 的 IIF 是否为朝源方向。</text>
+</svg>

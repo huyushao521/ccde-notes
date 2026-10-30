@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="100%" role="img" aria-labelledby="c13f1t c13f1d">
+  <title id="c13f1t">组播设计的十五个反直觉认知总览</title>
+  <desc id="c13f1d">十五条认知按三列五排排列，每张卡片同时给出认知点与对应的设计含义：RPF 判据、二层广播域、RP 单点、SPT 切换、SSM、无重传、地址规划、控制面数据面分离、单向建树、四个角色、带宽乘法公式、沉默故障、状态数量瓶颈、树的正确形状、限速与边界。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .t{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .d{font:8.5px "Microsoft YaHei",sans-serif;fill:#5b6b83}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="600" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">十五个反直觉认知：这一章的骨架</text>
+  <text class="s" x="24" y="48">每一条都对应后面一个具体机制。排障时先回到这张表，判断现象落在哪一格，再决定查哪条命令</text>
+
+  <rect x="24" y="66" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="42" cy="88" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="42" y="91" text-anchor="middle" fill="#1f4fc0">1</text>
+  <text class="t" x="62" y="91">没有"目的地址选路"，只有源的反向检查</text>
+  <text class="d" x="34" y="115">转发判据只有 RPF：包必须从"朝源的方向"进来，</text>
+  <text class="d" x="34" y="130">否则静默丢弃，连一条日志都不会留下</text>
+
+  <rect x="332" y="66" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="350" cy="88" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="350" y="91" text-anchor="middle" fill="#1f4fc0">2</text>
+  <text class="t" x="370" y="91">是"广播域问题"，不只是"路由问题"</text>
+  <text class="d" x="342" y="115">第一跳永远发生在二层。Snooping、Querier、mrouter</text>
+  <text class="d" x="342" y="130">三者缺一，主机就"看得到频道但播不出来"</text>
+
+  <rect x="640" y="66" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="658" cy="88" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="658" y="91" text-anchor="middle" fill="#1f4fc0">3</text>
+  <text class="t" x="678" y="91">RP 不是"可选组件"，是单点 + 状态中心</text>
+  <text class="d" x="650" y="115">它集中承载 (*,G) 状态，也是新组加入的唯一入口。</text>
+  <text class="d" x="650" y="130">没有冗余的 RP，就是"新频道全黑"的定时炸弹</text>
+
+  <rect x="24" y="164" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="42" cy="186" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="42" y="189" text-anchor="middle" fill="#1f4fc0">4</text>
+  <text class="t" x="62" y="189">默认的 SPT 切换不总是好事</text>
+  <text class="d" x="34" y="213">大量小频道 + 海量接收者时，保留共享树能把</text>
+  <text class="d" x="34" y="228">(S,G) 状态消掉一个数量级</text>
+
+  <rect x="332" y="164" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="350" cy="186" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="350" y="189" text-anchor="middle" fill="#1f4fc0">5</text>
+  <text class="t" x="370" y="189">SSM 才是现代组播的默认答案</text>
+  <text class="d" x="342" y="213">232.0.0.0/8 + IGMPv3：没有 RP、没有 Register、</text>
+  <text class="d" x="342" y="228">没有共享树，控制面被砍掉一大半</text>
+
+  <rect x="640" y="164" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="658" cy="186" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="658" y="189" text-anchor="middle" fill="#1f4fc0">6</text>
+  <text class="t" x="678" y="189">没有重传，也没有拥塞控制</text>
+  <text class="d" x="650" y="213">丢一个包就是画面花一下，TCP 帮不上忙。</text>
+  <text class="d" x="650" y="228">设计只能靠 QoS + 冗余，不能靠"补发"</text>
+
+  <rect x="24" y="262" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="42" cy="284" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="42" y="287" text-anchor="middle" fill="#1f4fc0">7</text>
+  <text class="t" x="62" y="287">组播地址是稀缺资源，必须规划</text>
+  <text class="d" x="34" y="311">239.0.0.0/8 按"站点 / 业务 / 序号"三段切块，</text>
+  <text class="d" x="34" y="326">随手取地址的设备三年后无法审计</text>
+
+  <rect x="332" y="262" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="350" cy="284" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="350" y="287" text-anchor="middle" fill="#1f4fc0">8</text>
+  <text class="t" x="370" y="287">控制面与数据面是两套完全独立的状态</text>
+  <text class="d" x="342" y="311">mroute 有表 ≠ 数据在走；Join 通了 ≠ 包在过。</text>
+  <text class="d" x="342" y="326">验收必须分别验证两层</text>
+
+  <rect x="640" y="262" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="658" cy="284" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="658" y="287" text-anchor="middle" fill="#1f4fc0">9</text>
+  <text class="t" x="678" y="287">组播是"单向"的：只有接收方向要建树</text>
+  <text class="d" x="650" y="311">源侧只有 FHR 做 Register；设计的重心在</text>
+  <text class="d" x="650" y="326">LHR、RP 与树的形状上</text>
+
+  <rect x="24" y="360" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="42" cy="382" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="42" y="385" text-anchor="middle" fill="#1f4fc0">10</text>
+  <text class="t" x="62" y="385">DR、Querier、Assert Winner、DF 是四个角色</text>
+  <text class="d" x="34" y="409">它们由不同机制选出、在不同层面生效。</text>
+  <text class="d" x="34" y="424">排障第一问：这件事到底谁负责？</text>
+
+  <rect x="332" y="360" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="350" cy="382" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="350" y="385" text-anchor="middle" fill="#1f4fc0">11</text>
+  <text class="t" x="370" y="385">带宽不是"流带宽"，是"流 × 分支 ×(1+冗余)"</text>
+  <text class="d" x="342" y="409">100 Mbps 的流，20 个分支就是 2 Gbps。</text>
+  <text class="d" x="342" y="424">WAN 设计必须按分支数算，不按流算</text>
+
+  <rect x="640" y="360" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="658" cy="382" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="658" y="385" text-anchor="middle" fill="#1f4fc0">12</text>
+  <text class="t" x="678" y="385">故障模式是"沉默的"</text>
+  <text class="d" x="650" y="409">没有 ICMP 不可达、没有重传、没有 syslog。</text>
+  <text class="d" x="650" y="424">只能靠 mroute/mtrace 与计数器主动取证</text>
+
+  <rect x="24" y="458" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="42" cy="480" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="42" y="483" text-anchor="middle" fill="#1f4fc0">13</text>
+  <text class="t" x="62" y="483">真正的瓶颈是"状态数量"，不是"带宽"</text>
+  <text class="d" x="34" y="507">(S,G) 数 × 出接口数 × 平台容量，通常比</text>
+  <text class="d" x="34" y="522">Mbps 更早撞墙（案例五）</text>
+
+  <rect x="332" y="458" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="350" cy="480" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="350" y="483" text-anchor="middle" fill="#1f4fc0">14</text>
+  <text class="t" x="370" y="483">"能看"和"看对"是两件事</text>
+  <text class="d" x="342" y="507">设计必须写出"树的正确形状"（谁的上游是谁），</text>
+  <text class="d" x="342" y="522">否则只能证明"有画面"，无法证明"没绕路"</text>
+
+  <rect x="640" y="458" width="296" height="86" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <circle cx="658" cy="480" r="10" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="658" y="483" text-anchor="middle" fill="#1f4fc0">15</text>
+  <text class="t" x="678" y="483">最后一道防线是"限速与边界"，不是"信任"</text>
+  <text class="d" x="650" y="507">源侧限速 + 边界 ACL + BSR/MSDP 过滤；</text>
+  <text class="d" x="650" y="522">内部信任换不来外部可用性（案例十六）</text>
+
+  <text class="r" x="24" y="576">用法：设计评审时逐条对照——能在文档里指出"这一条我这样处理"，才算把组播设计讲清楚了；指不出来的一条，通常就是将来事故的那一条。</text>
+</svg>

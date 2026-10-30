@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 474" width="100%" role="img" aria-labelledby="c13f7t c13f7d">
+  <title id="c13f7t">组播带宽 = 流带宽 × 分支数 ×(1+冗余系数)</title>
+  <desc id="c13f7d">顶部给出带宽计算公式；中部用 Hub-Spoke 拓扑演示一台 100 Mbps 的流在 20 个分支上如何变成 2 Gbps 的上行占用，叠加 Live-Live 双路后变成 4 Gbps，再加 20% 余量为 4.8 Gbps；底部对比"按流买带宽"的误区与正确算法，并说明复制发生在树的每个分叉点。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .f{font:600 14px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a71" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="474" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">组播的带宽是"乘"出来的，不是"加"出来的</text>
+  <text class="s" x="24" y="48">单播里 100 Mbps 流 = 100 Mbps 占用；组播里同一条流会在每个分叉点被复制，WAN 上看到的是"分支数份"</text>
+
+  <rect x="24" y="62" width="912" height="56" rx="8" fill="#eef3ff" stroke="#b9cffb"/>
+  <text class="f" x="44" y="97">占用带宽 = 单流带宽 × 分支数 × (1 + 冗余系数)</text>
+  <text class="b" x="640" y="88">分支数 = 需要这份流的"下游链路"条数</text>
+  <text class="b" x="640" y="106">冗余系数 = Live-Live 双路、FEC、突发余量</text>
+
+  <rect x="24" y="130" width="912" height="180" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="48" y="196" width="120" height="52" rx="5" fill="#e9f6f4" stroke="#0f7f73" stroke-width="1.6"/>
+  <text class="n" x="108" y="218" text-anchor="middle">总部 / 源</text>
+  <text class="g" x="108" y="234" text-anchor="middle">单流 100 Mbps</text>
+  <rect x="300" y="196" width="110" height="52" rx="5" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="355" y="218" text-anchor="middle">Hub 路由器</text>
+  <text class="g" x="355" y="234" text-anchor="middle">复制点 / 分支点</text>
+  <rect x="560" y="146" width="120" height="34" rx="4" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="620" y="167" text-anchor="middle">分支 B · 30 人</text>
+  <rect x="560" y="196" width="120" height="34" rx="4" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="620" y="217" text-anchor="middle">分支 C · 20 人</text>
+  <rect x="560" y="246" width="120" height="34" rx="4" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="620" y="267" text-anchor="middle">分支 D · 10 人</text>
+  <text class="b" x="700" y="200">…… 共 20 条下游链路</text>
+  <text class="b" x="700" y="220">每条都收到同一份 100 Mbps</text>
+  <line x1="168" y1="222" x2="296" y2="222" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a71)"/>
+  <text class="c" x="232" y="214" text-anchor="middle">100 Mbps</text>
+  <line x1="410" y1="204" x2="556" y2="163" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a71)"/>
+  <line x1="410" y1="222" x2="556" y2="213" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a71)"/>
+  <line x1="410" y1="240" x2="556" y2="263" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a71)"/>
+  <text class="c" x="480" y="190">100 Mbps × 20</text>
+  <text class="r" x="440" y="292">Hub 上行必须按 2 Gbps 规划，而不是 100 Mbps</text>
+
+  <rect x="24" y="322" width="440" height="108" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="lb" x="44" y="342" style="fill:#0f7f73">算一遍：同一个业务的真实占用</text>
+  <text class="b" x="44" y="364">单流 100 Mbps × 20 分支 = 2 000 Mbps（2 Gbps）</text>
+  <text class="b" x="44" y="382">叠加 Live-Live 双路 ×2 = 4 Gbps</text>
+  <text class="b" x="44" y="400">再留 20% 余量（突发/组播叠加）= 4.8 Gbps</text>
+  <text class="g" x="44" y="420">→ 结论：这条"100 Mbps 的画质"实际买的是 5 Gbps WAN</text>
+
+  <rect x="496" y="322" width="440" height="108" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="516" y="342">三个常见误算</text>
+  <text class="b" x="516" y="364">① 按"流带宽"买带宽：忽略分支数，上线即拥塞</text>
+  <text class="b" x="516" y="382">② 按"接收者人数"算：人数不等于链路数（同层共享）</text>
+  <text class="b" x="516" y="400">③ 忘记双路/备份：主备同时承载时占用翻倍（案例七）</text>
+  <text class="r" x="516" y="420">正确算法：数"链路"与"树的分叉点"，不是数人</text>
+
+  <text class="r" x="24" y="452">设计含义：组播的成本不在"源侧一次发送"，而在"每个分叉点的复制"。要降成本就减少分叉（拉长共享路径）、或用 SSM 按需建树。</text>
+</svg>

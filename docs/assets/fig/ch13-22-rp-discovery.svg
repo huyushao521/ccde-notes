@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="100%" role="img" aria-labelledby="c13f22t c13f22d">
+  <title id="c13f22t">RP 发现机制：静态配置、BSR、Auto-RP、Anycast-RP 四种方式对比与报文流</title>
+  <desc id="c13f22d">上方四张卡片对比静态 RP、BSR、Auto-RP 与 Anycast-RP 的机制、优点与缺点。下方左侧给出 BSR 的四步报文流：C-BSR 选举、RP 向 BSR 声明、BSR 泛洪 RP-Set、所有路由器加载 RP 表；右侧单独列出 Auto-RP 使用的 224.0.1.39 与 224.0.1.40 两个地址及设计建议。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:8.5px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:8.5px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:8.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a221" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">所有路由器必须对"RP 是谁"有一致答案，否则树永远对不上</text>
+  <text class="s" x="24" y="48">四种机制本质上都在解决同一件事：把 RP 地址分发给每一台 PIM 路由器，并且在 RP 变化时尽快收敛</text>
+
+  <rect x="24" y="66" width="216" height="132" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="86">① 静态 RP</text>
+  <text class="b" x="38" y="106">每台设备手工配同一 RP 地址</text>
+  <text class="c" x="38" y="126">优点：确定、无控制面、无收敛</text>
+  <text class="r" x="38" y="146">缺点：改动要逐台改；漏配即"局部断"</text>
+  <text class="g" x="38" y="166">适合：小规模、地址稳定的网络</text>
+  <text class="r" x="38" y="184">风险：漏一台 → 这台后面的新组全黑</text>
+
+  <rect x="252" y="66" width="216" height="132" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="266" y="86">② BSR（标准）</text>
+  <text class="b" x="266" y="106">C-BSR 选举 + C-RP 声明 + RP-Set 泛洪</text>
+  <text class="c" x="266" y="126">优点：多厂商互通、自动收敛</text>
+  <text class="r" x="266" y="146">缺点：RP-Set 泛洪范围需靠 BSR 边界限制</text>
+  <text class="g" x="266" y="166">适合：多厂商、中等规模</text>
+  <text class="r" x="266" y="184">注意：BSR 消息发往 224.0.0.13，全 PIM 域泛洪</text>
+
+  <rect x="480" y="66" width="216" height="132" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="494" y="86">③ Auto-RP（Cisco）</text>
+  <text class="b" x="494" y="106">C-RP → 224.0.1.39；MA → 224.0.1.40</text>
+  <text class="c" x="494" y="126">优点：部署简单、可分层（MA）</text>
+  <text class="r" x="494" y="146">缺点：私有机制，多厂商环境慎用</text>
+  <text class="g" x="494" y="166">适合：纯单一厂商、需要快速落地</text>
+  <text class="r" x="494" y="184">注意：两个组地址方向相反，ACL 写错就学不到 RP</text>
+
+  <rect x="708" y="66" width="228" height="132" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="722" y="86" style="fill:#0f7f73">④ Anycast-RP + MSDP</text>
+  <text class="b" x="722" y="106">多台 RP 共享一个 RP 地址，MSDP 同步源信息</text>
+  <text class="c" x="722" y="126">优点：RP 冗余、就近接入、无客户端改动</text>
+  <text class="r" x="722" y="146">缺点：实现有厂商差异，需要一致性设计</text>
+  <text class="g" x="722" y="166">适合：大规模、要求 RP 高可用</text>
+  <text class="c" x="722" y="184">这是生产环境的标准答案（见下一张图）</text>
+
+  <rect x="24" y="212" width="516" height="212" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="232">BSR 的四步报文流（按顺序排障）</text>
+  <rect x="40" y="246" width="112" height="34" rx="4" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="96" y="267" text-anchor="middle">① C-BSR 选举</text>
+  <rect x="176" y="246" width="112" height="34" rx="4" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="232" y="267" text-anchor="middle">② C-RP 声明</text>
+  <rect x="312" y="246" width="112" height="34" rx="4" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="368" y="267" text-anchor="middle">③ 泛洪 RP-Set</text>
+  <rect x="40" y="310" width="112" height="34" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="96" y="331" text-anchor="middle">④ 装载 RP 表</text>
+  <line x1="152" y1="263" x2="172" y2="263" stroke="#2f6fed" marker-end="url(#a221)"/>
+  <line x1="288" y1="263" x2="308" y2="263" stroke="#2f6fed" marker-end="url(#a221)"/>
+  <line x1="368" y1="280" x2="120" y2="306" stroke="#0f7f73" marker-end="url(#a221)"/>
+  <text class="b" x="176" y="300">Bootstrap 消息（224.0.0.13）</text>
+  <text class="b" x="176" y="330">逐跳、按 RPF 接口向全域泛洪</text>
+  <text class="b" x="176" y="348">每台路由器据此选出"该组用哪个 RP"</text>
+  <text class="r" x="40" y="374">排障顺序：C-BSR 是否选出来（看 Bootstrap 计数器）→ C-RP 是否声明成功 →</text>
+  <text class="r" x="40" y="392">RP-Set 是否到达最后一跳 → 每台设备的 RP 表是否一致。四步都不能跳。</text>
+  <text class="g" x="40" y="412">常见故障：中间某台设备 ACL 拦了 224.0.0.13，导致"半边网络有 RP、半边没有"。</text>
+
+  <rect x="556" y="212" width="380" height="212" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="572" y="232">设计建议（写进 LLD 的四句话）</text>
+  <text class="b" x="572" y="254">① 优先选"Anycast-RP + 静态/BSR 结合"：地址靠机制分发，</text>
+  <text class="b" x="572" y="272">身份靠 anycast 保证冗余。</text>
+  <text class="b" x="572" y="292">② 用一种机制，不要 BSR 与 Auto-RP 混跑（两套结果可能不同）。</text>
+  <text class="b" x="572" y="312">③ 在边界显式限制 RP 信息传播（BSR 边界 / Auto-RP 过滤），</text>
+  <text class="b" x="572" y="330">防止"外部 RP 被学到、内部流量被引走"。</text>
+  <text class="b" x="572" y="350">④ 监控"RP 表一致性"：全网各设备的 RP 表应完全相同。</text>
+  <text class="r" x="572" y="374">RFC 4610 提供标准的 Anycast-RP 机制（注册消息发给全部 RP），</text>
+  <text class="r" x="572" y="392">与早期的 MSDP 全互联方式相比，减少了对等体数量。</text>
+  <text class="g" x="572" y="412">验收：show ip pim rp mapping 全网对比，差异为零。</text>
+
+  <text class="r" x="24" y="448">一句话：RP 发现机制决定"收敛速度"与"错误传播范围"。机制越自动，越需要在边界加锁。</text>
+  <text class="g" x="24" y="466">物理位置建议：RP 应部署在"流量重心"上（通常是核心或数据中心），而不是"管理方便的地方"。</text>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" width="100%" role="img" aria-labelledby="c13f17t c13f17d">
+  <title id="c13f17t">PIM 模式选择决策树：SSM、BiDir 还是 ASM</title>
+  <desc id="c13f17d">决策树从"接收端是否已知源 IP"开始：已知且终端全为 IGMPv3 时选 SSM；终端版本不齐时退化到 ASM 加 Anycast-RP。不知道源时看"是否存在多发送者互为接收者"：是则用 BiDir 双向树，否则用 ASM 共享树加 SPT 切换。右侧给出三种模式的适用场景、状态量与常见反模式。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+  </style>
+  <defs>
+    <marker id="a171" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="486" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">先选模式，再选参数：模式选错，后面所有调优都是白费</text>
+  <text class="s" x="24" y="48">两个问题定模式：接收端知不知道源？发送者是不是同时也是接收者？</text>
+
+  <rect x="24" y="74" width="200" height="46" rx="5" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="k" x="38" y="94">问题一：接收端是否</text>
+  <text class="k" x="38" y="110">已知源 IP（通道化）？</text>
+
+  <line x1="224" y1="86" x2="286" y2="86" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="c" x="236" y="80">知道</text>
+  <line x1="124" y1="120" x2="124" y2="182" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="r" x="130" y="146">不知道</text>
+
+  <rect x="286" y="64" width="216" height="46" rx="5" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="k" x="300" y="84">问题二：终端是否</text>
+  <text class="k" x="300" y="100">全部支持 IGMPv3？</text>
+  <line x1="502" y1="76" x2="566" y2="76" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="c" x="514" y="70">全部 v3</text>
+  <line x1="394" y1="110" x2="394" y2="182" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="r" x="400" y="140">有老终端</text>
+
+  <rect x="566" y="52" width="150" height="48" rx="5" fill="#e9f6f4" stroke="#0f7f73" stroke-width="1.6"/>
+  <text class="k" x="580" y="72">SSM</text>
+  <text class="g" x="580" y="88">232/8 + (S,G)</text>
+
+  <rect x="286" y="182" width="216" height="46" rx="5" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="k" x="300" y="202">问题三：多发送者是否</text>
+  <text class="k" x="300" y="218">互为接收者？</text>
+  <line x1="394" y1="228" x2="394" y2="290" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="c" x="400" y="258">是（多对多）</text>
+  <line x1="502" y1="205" x2="566" y2="205" stroke="#8494a8" marker-end="url(#a171)"/>
+  <text class="r" x="514" y="199">否（多源单收）</text>
+
+  <rect x="566" y="181" width="150" height="48" rx="5" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.6"/>
+  <text class="k" x="580" y="201">BiDir</text>
+  <text class="g" x="580" y="217">双向树 + 逐链路 DF</text>
+
+  <rect x="286" y="290" width="216" height="46" rx="5" fill="#fff4e5" stroke="#b06a00" stroke-width="1.6"/>
+  <text class="k" x="300" y="310">BiDir（多对多、每对量小）</text>
+  <text class="g" x="300" y="326">避免每源一条 (S,G)</text>
+
+  <rect x="24" y="182" width="200" height="60" rx="5" fill="#fdeaea" stroke="#a32020"/>
+  <text class="k" x="38" y="202">退路：ASM</text>
+  <text class="b" x="38" y="220">RP + 共享树 + SPT 切换</text>
+  <text class="r" x="38" y="236">（状态量最不可控）</text>
+
+  <rect x="24" y="290" width="216" height="46" rx="5" fill="#fdeaea" stroke="#a32020" stroke-width="1.6"/>
+  <text class="k" x="38" y="310">ASM：多源给不同接收组</text>
+  <text class="g" x="38" y="326">RP 集中，需 Anycast-RP 冗余</text>
+
+  <rect x="24" y="356" width="912" height="30" rx="4" fill="#eef3ff"/>
+  <text class="lb" x="38" y="376">三种模式的对照（评审时直接抄这三行）</text>
+
+  <rect x="24" y="394" width="292" height="46" rx="5" fill="#fff" stroke="#0f7f73"/>
+  <text class="k" x="38" y="412" style="fill:#0f7f73">SSM：单源/少源、接收者海量</text>
+  <text class="b" x="38" y="430">状态 = 组×源；无 RP、无共享树</text>
+
+  <rect x="334" y="394" width="292" height="46" rx="5" fill="#fff" stroke="#6b4fbb"/>
+  <text class="k" x="348" y="412" style="fill:#6b4fbb">BiDir：多对多、每对流量小</text>
+  <text class="b" x="348" y="430">状态 = 组；无源状态，靠 DF 定向</text>
+
+  <rect x="644" y="394" width="292" height="46" rx="5" fill="#fff" stroke="#b06a00"/>
+  <text class="k" x="658" y="412" style="fill:#b06a00">ASM：源不固定、终端版本不齐</text>
+  <text class="b" x="658" y="430">状态 = 接收者×源；必须做 RP 冗余</text>
+
+  <text class="r" x="24" y="464">三个反模式：① 拿 ASM 做"多对多小流量"（状态爆炸）；② 拿 BiDir 跑"单源高清"（流量集中、DF 链路瓶颈）；③ SSM 却没升级终端（老设备直接看不了）。</text>
+</svg>

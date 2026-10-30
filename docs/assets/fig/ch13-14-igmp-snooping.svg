@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 508" width="100%" role="img" aria-labelledby="c13f14t c13f14d">
+  <title id="c13f14t">IGMP Snooping 的四个机制与关键定时器</title>
+  <desc id="c13f14d">上半部分在一个接入交换机拓扑上标出四个机制：侦听 Report 建表、把 Join 转发给 mrouter 端口、收到 Leave 后发组特定查询、由 Querier 周期性发查询维持表项。下半部分是与之对应的时间轴：查询间隔 125 秒、组特定查询两次间隔 1 秒、组超时约 260 秒，以及 Leave 无响应后的剪枝动作。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+  </style>
+  <defs>
+    <marker id="a141" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a142" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a143" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#b06a00"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="508" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">IGMP Snooping 不是"开一个开关"，是四个机制同时在跑</text>
+  <text class="s" x="24" y="48">四个机制各管一件事：建表、上行、确认离开、维持不老化。缺哪一个，故障现象都不一样</text>
+
+  <rect x="24" y="62" width="912" height="196" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="446" y="74" width="96" height="38" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="494" y="98" text-anchor="middle">PIM 路由器</text>
+  <rect x="416" y="150" width="156" height="38" rx="4" fill="#e9f6f4" stroke="#0f7f73" stroke-width="1.6"/>
+  <text class="n" x="494" y="174" text-anchor="middle">接入交换机（Snooping）</text>
+  <line x1="494" y1="150" x2="494" y2="114" stroke="#2f6fed" stroke-width="1.6" marker-end="url(#a141)"/>
+  <text class="g" x="502" y="134">mrouter 口</text>
+
+  <rect x="60" y="226" width="110" height="26" rx="3" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="115" y="244" text-anchor="middle">主机 A 订阅</text>
+  <rect x="300" y="226" width="110" height="26" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="355" y="244" text-anchor="middle">主机 B 离开</text>
+  <rect x="620" y="226" width="110" height="26" rx="3" fill="#fff" stroke="#d7e0ec" stroke-dasharray="3 3"/>
+  <text class="g" x="675" y="244" text-anchor="middle">主机 C 未订阅</text>
+  <line x1="115" y1="226" x2="440" y2="190" stroke="#2f6fed" stroke-width="1.4" marker-end="url(#a141)"/>
+  <line x1="355" y1="226" x2="452" y2="190" stroke="#b06a00" stroke-width="1.4" marker-end="url(#a143)"/>
+  <line x1="675" y1="226" x2="548" y2="190" stroke="#d7e0ec" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <text class="lb" x="40" y="278">① 侦听 Report</text>
+  <text class="b" x="150" y="278">把端口加入 (G) 转发表</text>
+  <text class="lb" x="300" y="278">② 转发给 mrouter</text>
+  <text class="b" x="418" y="278">Join 才能上行到 PIM 域</text>
+  <text class="lb" x="600" y="278">③ Leave → 组特定查询</text>
+  <text class="b" x="736" y="278">确认是否还有成员</text>
+
+  <text class="b" x="40" y="212">①</text>
+  <text class="b" x="330" y="212">②</text>
+  <text class="b" x="690" y="208">③</text>
+  <text class="r" x="680" y="120">④ Querier 周期查询：</text>
+  <text class="r" x="680" y="134">表项的"续命"机制</text>
+
+  <rect x="24" y="272" width="912" height="128" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="292">关键定时器（默认值，跨厂商略有差异，设计时要写成明文要求）</text>
+  <line x1="120" y1="330" x2="900" y2="330" stroke="#8494a8"/>
+  <line x1="120" y1="324" x2="120" y2="336" stroke="#8494a8"/>
+  <text class="n" x="120" y="322" text-anchor="middle">0</text>
+  <line x1="300" y1="324" x2="300" y2="336" stroke="#8494a8"/>
+  <text class="n" x="300" y="322" text-anchor="middle">1 s</text>
+  <line x1="380" y1="324" x2="380" y2="336" stroke="#8494a8"/>
+  <text class="n" x="380" y="322" text-anchor="middle">2 s</text>
+  <line x1="700" y1="324" x2="700" y2="336" stroke="#8494a8"/>
+  <text class="n" x="700" y="322" text-anchor="middle">125 s</text>
+  <line x1="860" y1="324" x2="860" y2="336" stroke="#8494a8"/>
+  <text class="n" x="860" y="322" text-anchor="middle">260 s</text>
+
+  <rect x="120" y="340" width="180" height="18" rx="3" fill="#fff4e5" stroke="#b06a00"/>
+  <text class="b" x="210" y="353" text-anchor="middle">组特定查询 ×2（各 1 s）</text>
+  <rect x="120" y="364" width="740" height="18" rx="3" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="b" x="470" y="377" text-anchor="middle">查询间隔 125 s：Querier 周期性发 General Query</text>
+  <rect x="120" y="388" width="620" height="0" fill="none"/>
+  <text class="r" x="40" y="358">无应答</text>
+  <text class="r" x="40" y="374">超时 260 s</text>
+  <text class="g" x="40" y="392">离开流程</text>
+
+  <text class="r" x="24" y="424">故障对照：缺 Querier → 表项 260 s 老化 → "每几分钟断一次"；缺 mrouter → 三层收不到 Join → "本地交换机有表但路由器无 (*,G)"；缺 Leave 处理 → 离开后仍在占带宽（无线尤其明显）。</text>
+  <text class="g" x="24" y="444">MVR：把组播流放在一个专用 VLAN 里传输，接收 VLAN 只做"成员关系转发"，用于 IPTV 多 VLAN 大规模场景。</text>
+  <text class="g" x="24" y="462">PIM Snooping：汇聚层一台交换机接多台路由器时，侦听 PIM Join/Prune，只给"真正要这份流"的路由器转发，避免复制到所有路由器。</text>
+  <text class="c" x="24" y="484">验收命令：show ip igmp snooping groups / mrouter / querier / statistics（四个都要看一次，才算验收完二层）。</text>
+</svg>

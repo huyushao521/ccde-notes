@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" role="img" aria-labelledby="c13f3t c13f3d">
+  <title id="c13f3t">组播的第一跳在二层：没有 Snooping 就泛洪，没有 Querier 就周期性中断</title>
+  <desc id="c13f3d">左侧为无 IGMP Snooping 时组播帧被泛洪到 VLAN 内四个端口；右侧为开启 Snooping 后只复制到订阅端口与 mrouter 上行口。底部说明 Querier 缺失导致 Snooping 表项按 260 秒超时老化、画面周期性黑屏的机理与对策。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="ar31" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#a32020"/>
+    </marker>
+    <marker id="ar32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">组播"能不能看到"，先由二层决定，再由三层路由决定</text>
+  <text class="s" x="24" y="48">三层建好 PIM 树只说明"包到了这台路由器"；包能否落到主机网卡，取决于二层有没有把它转出去</text>
+
+  <rect x="24" y="66" width="440" height="272" rx="8" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="44" y="88">没有 IGMP Snooping：按广播处理</text>
+  <text class="b" x="44" y="110">组播帧的目的 MAC 没有学习表项 → 未知单播 → 全 VLAN 泛洪</text>
+  <line x1="240" y1="196" x2="240" y2="140" stroke="#a32020" stroke-width="1.8" marker-end="url(#ar31)"/>
+  <text class="g" x="250" y="152">上游组播流</text>
+  <rect x="150" y="196" width="180" height="38" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="240" y="220" text-anchor="middle">接入交换机 VLAN 100</text>
+  <rect x="52" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="92" y="275" text-anchor="middle">PC1 订阅</text>
+  <rect x="150" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="190" y="275" text-anchor="middle">PC2</text>
+  <rect x="248" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="288" y="275" text-anchor="middle">PC3</text>
+  <rect x="346" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="386" y="275" text-anchor="middle">打印机</text>
+  <line x1="240" y1="234" x2="92" y2="254" stroke="#a32020" stroke-dasharray="4 3" marker-end="url(#ar31)"/>
+  <line x1="240" y1="234" x2="190" y2="254" stroke="#a32020" stroke-dasharray="4 3" marker-end="url(#ar31)"/>
+  <line x1="240" y1="234" x2="288" y2="254" stroke="#a32020" stroke-dasharray="4 3" marker-end="url(#ar31)"/>
+  <line x1="240" y1="234" x2="386" y2="254" stroke="#a32020" stroke-dasharray="4 3" marker-end="url(#ar31)"/>
+  <text class="b" x="44" y="304">一份流量被复制 4 份</text>
+  <text class="r" x="44" y="322">伤的不是骨干带宽，是无关主机的 CPU 与无线空口（案例十四）</text>
+
+  <rect x="496" y="66" width="440" height="272" rx="8" fill="#fff" stroke="#bcd6d1" stroke-width="1.6"/>
+  <text class="lb" x="516" y="88" style="fill:#0f7f73">开启 IGMP Snooping：只复制给订阅者与 mrouter</text>
+  <text class="b" x="516" y="110">侦听到 IGMP Report → 把该端口加入组的转发表</text>
+  <line x1="712" y1="196" x2="712" y2="140" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#ar32)"/>
+  <text class="c" x="640" y="152">只有上行口一个复制点</text>
+  <rect x="622" y="196" width="180" height="38" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="712" y="220" text-anchor="middle">接入交换机 VLAN 100</text>
+  <rect x="524" y="256" width="80" height="28" rx="3" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="564" y="275" text-anchor="middle">PC1 订阅</text>
+  <rect x="622" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#d7e0ec" stroke-dasharray="3 3"/>
+  <text class="g" x="662" y="275" text-anchor="middle">PC2</text>
+  <rect x="720" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#d7e0ec" stroke-dasharray="3 3"/>
+  <text class="g" x="760" y="275" text-anchor="middle">PC3</text>
+  <rect x="818" y="256" width="80" height="28" rx="3" fill="#fff" stroke="#d7e0ec" stroke-dasharray="3 3"/>
+  <text class="g" x="858" y="275" text-anchor="middle">打印机</text>
+  <line x1="712" y1="234" x2="564" y2="254" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#ar32)"/>
+  <text class="b" x="516" y="304">mrouter 端口三种来源：动态侦听查询/PIM Hello · 静态配置 · PIM Snooping</text>
+  <text class="c" x="516" y="322">只复制 1 份，无关端口零流量；这是"组播不吃带宽"的真正来源</text>
+
+  <rect x="24" y="352" width="912" height="92" rx="6" fill="#fff8e6" stroke="#e0b877"/>
+  <text class="rt" x="44" y="372" style="fill:#b06a00">最常见故障：VLAN 里没有 Querier → 转发表周期性老化 → "每隔几分钟黑一下，重开又好了"</text>
+  <text class="b" x="44" y="392">机制：Snooping 表项靠 IGMP 查询维持。纯二层接入 VLAN 里没有三层组播路由器，就没人发查询，条目按组超时（默认约 260 s）老化；</text>
+  <text class="b" x="44" y="408">主机若不再主动重发 Report，流量即停。用户侧表现为"看几分钟黑一下"，重新打开频道（触发新 Report）便恢复 —— 这就是案例三。</text>
+  <text class="r" x="44" y="428">对策：在交换机上启用 IGMP Snooping Querier（配一个该 VLAN 的 SVI 地址），并保证 mrouter 指向真正转发组播的三层设备。</text>
+
+  <text class="g" x="24" y="466">三层与二层是两道独立闸门：PIM 树建好了但 Snooping 表没建 → 只有路由器在收包；Snooping 表建好了但 RPF 失败 → 只有二层在等流。</text>
+  <text class="g" x="24" y="484">验收顺序：show ip igmp snooping groups（二层）→ show ip igmp groups（主机侧）→ show ip mroute（三层）→ 计数器是否增长（数据面）。</text>
+</svg>

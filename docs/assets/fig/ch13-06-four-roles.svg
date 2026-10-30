@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="100%" role="img" aria-labelledby="c13f6t c13f6d">
+  <title id="c13f6t">DR、Querier、Assert Winner、DF 是四个不同角色</title>
+  <desc id="c13f6d">四列对照四个角色：IGMP Querier 由同网段最低 IP 选出、工作在二层、负责维持 Snooping 表；PIM DR 由最高优先级再比最高 IP 选出、在三层同 LAN 代发 Join 与 Register；Assert Winner 按到源 metric 最小再比最高 IP 选出、解决同一 LAN 重复流入；BiDir DF 按到 RP 的路由最优选出、每条链路选一台向 RP 方向转发。每列给出失败表现与取证命令。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 10px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">四个角色，四套选举规则，四种故障指纹</text>
+  <text class="s" x="24" y="48">它们常被混为一谈。排障时第一步就该问：这件事归谁管？答案不同，命令完全不同</text>
+
+  <rect x="24" y="66" width="216" height="336" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="24" y="66" width="216" height="34" rx="8" fill="#eaf1ff" stroke="#d7e0ec"/>
+  <text class="k" x="38" y="88">① IGMP Querier</text>
+  <text class="b" x="38" y="122">选出：同网段最低 IP</text>
+  <text class="b" x="38" y="142">层面：二层（交换机也做）</text>
+  <text class="b" x="38" y="168">职责：周期发 IGMP 查询，</text>
+  <text class="b" x="38" y="184">让成员关系保住 Snooping 表</text>
+  <text class="r" x="38" y="212">失败：无 Querier → 表项定期</text>
+  <text class="r" x="38" y="228">老化 → 每隔几分钟断流</text>
+  <text class="g" x="38" y="256">show ip igmp snooping querier</text>
+  <text class="g" x="38" y="276">show ip igmp snooping groups</text>
+  <text class="c" x="38" y="308">典型场景：纯二层接入 VLAN</text>
+  <text class="c" x="38" y="324">（没有三层组播路由器）</text>
+  <text class="g" x="38" y="356">与 FHRP 的关系：Querier 可能</text>
+  <text class="g" x="38" y="372">落在 Standby 上，注意 mrouter</text>
+
+  <rect x="252" y="66" width="216" height="336" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="252" y="66" width="216" height="34" rx="8" fill="#eaf1ff" stroke="#d7e0ec"/>
+  <text class="k" x="266" y="88">② PIM DR</text>
+  <text class="b" x="266" y="122">选出：最高 DR 优先级，</text>
+  <text class="b" x="266" y="138">再比最高 IP</text>
+  <text class="b" x="266" y="158">层面：三层，同一 LAN</text>
+  <text class="b" x="266" y="184">职责：代表整个 LAN 发</text>
+  <text class="b" x="266" y="200">Join / Prune / Register</text>
+  <text class="r" x="266" y="228">失败：优先级配错 → 由非预期</text>
+  <text class="r" x="266" y="244">设备注册；双 DR 假象 → 重复流</text>
+  <text class="g" x="266" y="272">show ip pim neighbor</text>
+  <text class="g" x="266" y="292">show ip pim interface df / dr</text>
+  <text class="c" x="266" y="324">设计要点：源侧 DR 决定谁做</text>
+  <text class="c" x="266" y="340">Register，别让它落在低配设备上</text>
+  <text class="g" x="266" y="372">Hello 30 s；DR 变化会引发</text>
+  <text class="g" x="266" y="388">短时信令抖动</text>
+
+  <rect x="480" y="66" width="216" height="336" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="480" y="66" width="216" height="34" rx="8" fill="#eaf1ff" stroke="#d7e0ec"/>
+  <text class="k" x="494" y="88">③ Assert Winner</text>
+  <text class="b" x="494" y="122">选出：到源 metric 最小，</text>
+  <text class="b" x="494" y="138">再比最高 IP</text>
+  <text class="b" x="494" y="158">层面：三层，共享 LAN</text>
+  <text class="b" x="494" y="184">职责：同一份流重复到达时，</text>
+  <text class="b" x="494" y="200">只留一台往下游转发</text>
+  <text class="r" x="494" y="228">失败：断言不生效 → 下游收到</text>
+  <text class="r" x="494" y="244">双份包（画面卡顿/花屏）</text>
+  <text class="g" x="494" y="272">show ip mroute（看 OIL 的 A 计数）</text>
+  <text class="g" x="494" y="292">debug ip pim / show ip pim ... assert</text>
+  <text class="c" x="494" y="324">常见诱因：两条等价路径收敛到</text>
+  <text class="c" x="494" y="340">同一 LAN，且 metric 相同</text>
+  <text class="g" x="494" y="372">注意：Assert 只处理"同一 LAN 内"</text>
+  <text class="g" x="494" y="388">的重复，不解决全网环路</text>
+
+  <rect x="708" y="66" width="228" height="336" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="708" y="66" width="228" height="34" rx="8" fill="#eaf1ff" stroke="#d7e0ec"/>
+  <text class="k" x="722" y="88">④ BiDir DF</text>
+  <text class="b" x="722" y="122">选出：到 RP 的路由最优，</text>
+  <text class="b" x="722" y="138">再比最高 IP</text>
+  <text class="b" x="722" y="158">层面：双向树，逐链路</text>
+  <text class="b" x="722" y="184">职责：每条链路指定一台，</text>
+  <text class="b" x="722" y="200">把组播往 RP 方向转发</text>
+  <text class="r" x="722" y="228">失败：DF 不一致 → 重复或断流；</text>
+  <text class="r" x="722" y="244">无 DF → 该链路整段不通</text>
+  <text class="g" x="722" y="272">show ip pim df（各厂商命令略异）</text>
+  <text class="g" x="722" y="292">show ip mroute bidir</text>
+  <text class="c" x="722" y="324">注意：DF 是"逐链路"的，不是</text>
+  <text class="c" x="722" y="340">全网一台；改路由会重算 DF</text>
+  <text class="g" x="722" y="372">设计要点：BiDir 只适合"多对多、</text>
+  <text class="g" x="722" y="388">每对流量小"的场景</text>
+
+  <text class="r" x="24" y="428">四个角色可能分布在四台不同设备上。故障现象都像"重复或断流"，但它们的命令与设计修法完全不同——先定位角色，再谈修。</text>
+  <text class="g" x="24" y="448">一句话记忆：Querier 管二层表、DR 管信令代发、Assert 管同 LAN 去重、DF 管双向树逐链路方向。</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 452" width="100%" role="img" aria-labelledby="c13f2t c13f2d">
+  <title id="c13f2t">单播查目的地址，组播查源：RPF 是唯一转发判据</title>
+  <desc id="c13f2d">左panel 单播转发只看目的地址在 FIB 中的出接口；右panel 组播要求数据包从"朝源的方向"进入才转发。R2 用 show ip rpf 10.1.1.1 查出的接口必须等于实际入接口，否则进入 RPF Failure 静默丢弃。底部说明入口不对称与 ECMP 两条典型失败场景。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="452" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">同一个包，两种查表方式：单播查"往哪去"，组播查"从哪来"</text>
+  <text class="s" x="24" y="48">组播转发没有"目的地址选路"这回事——包能否被接受，取决于它是不是从"朝源的方向"进来的</text>
+
+  <rect x="24" y="66" width="440" height="228" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="lb" x="44" y="88">单播：查目的（DST）</text>
+  <rect x="44" y="122" width="76" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="82" y="143" text-anchor="middle">S 10.1.1.1</text>
+  <rect x="156" y="118" width="62" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="187" y="144" text-anchor="middle">R1</text>
+  <rect x="290" y="118" width="62" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="321" y="144" text-anchor="middle">R2</text>
+  <rect x="388" y="122" width="56" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="416" y="143" text-anchor="middle">H .9</text>
+  <line x1="120" y1="139" x2="152" y2="139" stroke="#2f6fed" marker-end="url(#ar)"/>
+  <line x1="218" y1="139" x2="286" y2="139" stroke="#2f6fed" marker-end="url(#ar)"/>
+  <line x1="352" y1="139" x2="384" y2="139" stroke="#2f6fed" marker-end="url(#ar)"/>
+  <text class="b" x="44" y="190">查 FIB：目的 10.9.9.9 → 出接口 Gi0/2</text>
+  <text class="b" x="44" y="208">只关心"往哪去"，不关心"从哪来"</text>
+  <text class="g" x="44" y="228">只要路径单向可达，业务就能通（ping 通即证明）</text>
+  <text class="g" x="44" y="246">转发结果与"包的入口"无关——这正是组播不成立的地方</text>
+  <text class="c" x="44" y="272">设计含义：单播的验收方法（ping/traceroute）无法验证组播</text>
+
+  <rect x="496" y="66" width="440" height="228" rx="8" fill="#fff" stroke="#d7e0ec" stroke-width="1.6"/>
+  <text class="lb" x="516" y="88">组播：查源（SRC），并要求"入口 = RPF 接口"</text>
+  <rect x="516" y="122" width="76" height="34" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="554" y="143" text-anchor="middle">S 10.1.1.1</text>
+  <rect x="628" y="118" width="62" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="659" y="144" text-anchor="middle">R1</text>
+  <rect x="762" y="118" width="62" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="793" y="144" text-anchor="middle">R2</text>
+  <rect x="860" y="122" width="56" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="888" y="143" text-anchor="middle">Rcv</text>
+  <line x1="592" y1="139" x2="624" y2="139" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#arg)"/>
+  <line x1="690" y1="139" x2="758" y2="139" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#arg)"/>
+  <line x1="824" y1="139" x2="856" y2="139" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#arg)"/>
+  <text class="g" x="738" y="112" text-anchor="middle">239.1.1.1</text>
+  <rect x="748" y="166" width="90" height="26" rx="13" fill="#fff8e6" stroke="#b06a00"/>
+  <text class="r" x="793" y="183" text-anchor="middle" style="fill:#b06a00">RPF 检查点</text>
+  <rect x="516" y="200" width="404" height="44" rx="5" fill="#f7f9fc" stroke="#d7e0ec" stroke-dasharray="4 3"/>
+  <text class="b" x="530" y="216">R2# show ip rpf 10.1.1.1  →  RPF interface = Gi0/1</text>
+  <text class="b" x="530" y="234">实际入接口 = Gi0/1  →  一致，接受；若为 Gi0/3 则丢弃（RPF Failure）</text>
+  <text class="c" x="516" y="266">RPF 只看"朝源的那条单播路径"，与目的地址、接收者在哪完全无关</text>
+  <text class="g" x="516" y="284">出接口列表（OIL）由 Join 决定；入接口由 RPF 决定 —— 两个方向各管一段</text>
+
+  <rect x="24" y="308" width="440" height="86" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="40" y="328">失败场景一：入口不对称 → RPF Failure</text>
+  <text class="b" x="40" y="348">非对称路由、单臂（one-arm）转发、策略路由把去程与回程</text>
+  <text class="b" x="40" y="364">拆到两条链路时，组播会被静默丢弃：mroute 表还在，</text>
+  <text class="b" x="40" y="380">入接口显示 Null，接收者一个包也收不到（案例二）</text>
+
+  <rect x="496" y="308" width="440" height="86" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="512" y="328">失败场景二：ECMP 并行 → "有时通有时不通"</text>
+  <text class="b" x="512" y="348">组播通常只选一条等价路径（按哈希或最高邻居）。若下行</text>
+  <text class="b" x="512" y="364">Join 与上行数据走不同成员口，检查永远对不上，表现为</text>
+  <text class="b" x="512" y="380">"隔几分钟断一下"。设计上要么收敛为单路径，要么用 BFD 兜底</text>
+
+  <text class="r" x="24" y="422">设计含义：组播的可用性前提是"路径对称"。凡是会制造非对称的设计（策略路由、单臂防火墙、非对称 ECMP），都必须显式评估组播影响。</text>
+  <text class="g" x="24" y="440">对照命令：show ip rpf &lt;源&gt;（判据）· show ip mroute &lt;组&gt;（状态）· show ip mroute count（数据面计数）</text>
+</svg>

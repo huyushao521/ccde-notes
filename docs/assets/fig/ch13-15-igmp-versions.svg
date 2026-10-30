@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 486" width="100%" role="img" aria-labelledby="c13f15t c13f15d">
+  <title id="c13f15t">IGMP v1/v2/v3 的能力矩阵与"按最低版本工作"的降级规则</title>
+  <desc id="c13f15d">左侧表格对比 IGMPv1、v2、v3 在加入方式、离开、源过滤、查询器选举、查询间隔、报告抑制与兼容行为上的差异。右侧说明同一 VLAN 内只要出现一台低版本主机，整段就进入兼容模式并失去 Leave 或源过滤，以及报告抑制如何导致部分端口漏建表。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .th{font:600 9px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .k{font:600 9px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <rect x="0" y="0" width="960" height="486" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">IGMP 版本不是"越新越好"，而是"整段按最低版本工作"</text>
+  <text class="s" x="24" y="48">一台老设备可以让整个 VLAN 失去 Leave 或失去源过滤——这是"SSM 配了但老电视看不了"的根因（案例八）</text>
+
+  <rect x="24" y="62" width="576" height="26" rx="4" fill="#eef3ff"/>
+  <text class="th" x="36" y="80">能力</text>
+  <text class="th" x="236" y="80">v1</text>
+  <text class="th" x="356" y="80">v2</text>
+  <text class="th" x="466" y="80">v3</text>
+  <rect x="24" y="88" width="576" height="30" fill="#fff"/>
+  <text class="k" x="36" y="108">加入方式</text>
+  <text class="b" x="236" y="108">Report（无抑制协调）</text>
+  <text class="b" x="356" y="108">Report</text>
+  <text class="b" x="466" y="108">Report 含源列表</text>
+  <rect x="24" y="118" width="576" height="30" fill="#f7f9fc"/>
+  <text class="k" x="36" y="138">离开（Leave）</text>
+  <text class="r" x="236" y="138">无，靠超时</text>
+  <text class="b" x="356" y="138">有</text>
+  <text class="b" x="466" y="138">有</text>
+  <rect x="24" y="148" width="576" height="30" fill="#fff"/>
+  <text class="k" x="36" y="168">源过滤 / SSM</text>
+  <text class="r" x="236" y="168">不支持</text>
+  <text class="r" x="356" y="168">不支持</text>
+  <text class="c" x="466" y="168">支持 INCLUDE/EXCLUDE</text>
+  <rect x="24" y="178" width="576" height="30" fill="#f7f9fc"/>
+  <text class="k" x="36" y="198">查询器选举</text>
+  <text class="b" x="236" y="198">依赖 PIM DR</text>
+  <text class="b" x="356" y="198">最低 IP</text>
+  <text class="b" x="466" y="198">最低 IP</text>
+  <rect x="24" y="208" width="576" height="30" fill="#fff"/>
+  <text class="k" x="36" y="228">默认查询间隔</text>
+  <text class="b" x="236" y="228">60 s</text>
+  <text class="b" x="356" y="228">125 s</text>
+  <text class="b" x="466" y="228">125 s</text>
+  <rect x="24" y="238" width="576" height="30" fill="#f7f9fc"/>
+  <text class="k" x="36" y="258">报告抑制</text>
+  <text class="b" x="236" y="258">有</text>
+  <text class="b" x="356" y="258">有</text>
+  <text class="c" x="466" y="258">无（各自上报）</text>
+  <rect x="24" y="268" width="576" height="30" fill="#fff"/>
+  <text class="k" x="36" y="288">典型问题</text>
+  <text class="b" x="236" y="288">离开慢（约 3 分钟）</text>
+  <text class="b" x="356" y="288">与 v1 混跑进兼容模式</text>
+  <text class="b" x="466" y="288">与 v2 混跑降级 → 失去源过滤</text>
+
+  <rect x="616" y="62" width="320" height="236" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="632" y="82">降级：一台老主机拖累整个 VLAN</text>
+  <rect x="632" y="94" width="120" height="26" rx="3" fill="#fff" stroke="#8494a8"/>
+  <text class="n" x="692" y="112" text-anchor="middle">v3 主机 ×10</text>
+  <rect x="632" y="130" width="120" height="26" rx="3" fill="#fdeaea" stroke="#a32020" stroke-width="1.6"/>
+  <text class="r" x="692" y="148" text-anchor="middle">v1 老设备 ×1</text>
+  <rect x="780" y="100" width="140" height="52" rx="4" fill="#fff8e6" stroke="#b06a00"/>
+  <text class="b" x="850" y="120" text-anchor="middle" style="fill:#b06a00">整段进入</text>
+  <text class="b" x="850" y="136" text-anchor="middle" style="fill:#b06a00">v1 兼容模式</text>
+  <line x1="752" y1="107" x2="776" y2="118" stroke="#8494a8"/>
+  <line x1="752" y1="143" x2="776" y2="132" stroke="#a32020"/>
+  <text class="r" x="632" y="176">后果一：失去 Leave → 离开后仍收流（最长 3 分钟）</text>
+  <text class="r" x="632" y="194">后果二：SSM 频道完全无法加入（无源过滤）</text>
+  <text class="b" x="632" y="216">检测：show ip igmp interface 看当前版本与兼容模式</text>
+  <text class="b" x="632" y="234">对策：终端策略统一版本，或把老设备隔离到单独 VLAN</text>
+  <text class="g" x="632" y="256">设计规则：关键组播 VLAN 内禁止出现 v1 设备；</text>
+  <text class="g" x="632" y="272">SSM 业务的 VLAN 必须全 v3。</text>
+
+  <rect x="24" y="316" width="446" height="104" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="44" y="336">报告抑制的连带伤害</text>
+  <text class="b" x="44" y="358">v1/v2 主机看到同组别人已报告，就自己不发 →</text>
+  <text class="b" x="44" y="376">依赖 Report 建表的交换机漏掉这些端口 →</text>
+  <text class="b" x="44" y="394">"部分主机收不到"且不稳定复现</text>
+  <text class="c" x="44" y="412">对策：开 Snooping Querier 逼所有主机应答，或关主机侧抑制</text>
+
+  <rect x="490" y="316" width="446" height="104" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="510" y="336" style="fill:#0f7f73">设计决策（写进 LLD 的三句话）</text>
+  <text class="b" x="510" y="358">① 新建组播业务：全链路 IGMPv3 + SSM（232/8）</text>
+  <text class="b" x="510" y="376">② 遗留 ASM 业务：保持 v2，并显式配置 Querier</text>
+  <text class="b" x="510" y="394">③ 每次扩容前：确认新终端版本不低于 VLAN 现值</text>
+  <text class="g" x="510" y="414">版本是"VLAN 级"属性，不是"设备级"属性——这是关键认知</text>
+
+  <text class="r" x="24" y="444">排障提示：SSM"明明配好但某几个房间看不了"时，先查那几个房间接入交换机所在 VLAN 的 IGMP 当前工作版本，而不是先查 RP 与 PIM。</text>
+  <text class="g" x="24" y="462">延伸：IGMPv3 报告目的地址是 224.0.0.22，ACL 必须放行；很多"新频道全黑"是它被安全策略拦掉。</text>
+</svg>

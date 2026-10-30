@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 494" width="100%" role="img" aria-labelledby="c13f26t c13f26d">
+  <title id="c13f26t">MVPN 的主要 Profile 与"P 网不支持组播"时的隧道方案</title>
+  <desc id="c13f26d">上方示意图说明当运营商 P 网没有组播能力时，PE 之间用 GRE 或 mLDP 的 P2MP 隧道承载客户组播流量。下方表格列出 Profile 0、1、2、3、4 五种主要实现方式的隧道类型、路由分发机制、适用场景与配置复杂度，并说明 Profile 5 及以上属于扩展形态。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .th{font:600 9px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a261" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="494" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">MVPN 的本质：把"客户组播"装进"运营商能转发的隧道里"</text>
+  <text class="s" x="24" y="48">选 Profile 只看三件事：P 网能不能跑组播、要不要 BGP 分发、隧道是 GRE 还是 mLDP/RSVP-TE</text>
+
+  <rect x="24" y="66" width="912" height="118" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="86">客户网络（CE 侧）</text>
+  <rect x="40" y="100" width="70" height="34" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="75" y="121" text-anchor="middle">源</text>
+  <rect x="140" y="96" width="64" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="172" y="112" text-anchor="middle">PE-1</text>
+  <text class="g" x="172" y="128" text-anchor="middle">VRF</text>
+  <rect x="430" y="104" width="120" height="26" rx="13" fill="#f7f9fc" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="g" x="490" y="121" text-anchor="middle">P 网（可无组播）</text>
+  <rect x="660" y="96" width="64" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="692" y="112" text-anchor="middle">PE-2</text>
+  <text class="g" x="692" y="128" text-anchor="middle">VRF</text>
+  <rect x="770" y="100" width="80" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="810" y="121" text-anchor="middle">接收者</text>
+  <line x1="110" y1="117" x2="136" y2="117" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a261)"/>
+  <line x1="204" y1="117" x2="426" y2="117" stroke="#6b4fbb" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a261)"/>
+  <line x1="554" y1="117" x2="656" y2="117" stroke="#6b4fbb" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a261)"/>
+  <line x1="724" y1="117" x2="766" y2="117" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a261)"/>
+  <text class="c" x="330" y="108" text-anchor="middle">P2MP 隧道（GRE / mLDP / RSVP-TE）</text>
+  <text class="r" x="330" y="156" text-anchor="middle">客户看不到外层隧道；P 设备只按隧道转发，无需运行客户 PIM</text>
+  <text class="g" x="40" y="172">关键：同一客户组播流在 P 网里只需要"一份"（P2MP），而不是每个 PE 一条 P2P 隧道</text>
+
+  <rect x="24" y="196" width="912" height="26" rx="4" fill="#eef3ff"/>
+  <text class="th" x="36" y="214">Profile</text>
+  <text class="th" x="180" y="214">隧道类型</text>
+  <text class="th" x="380" y="214">组播路由分发</text>
+  <text class="th" x="600" y="214">适用场景</text>
+  <text class="th" x="820" y="214">复杂度</text>
+
+  <rect x="24" y="222" width="912" height="38" fill="#fff"/>
+  <text class="k" x="36" y="246">0　原生</text>
+  <text class="b" x="180" y="246">无隧道，P 网直接跑 PIM/mLDP</text>
+  <text class="b" x="380" y="246">客户 PIM 直接扩展</text>
+  <text class="b" x="600" y="246">自建骨干、可全组播</text>
+  <text class="c" x="820" y="246">最低</text>
+
+  <rect x="24" y="260" width="912" height="38" fill="#f7f9fc"/>
+  <text class="k" x="36" y="284">1　GRE + PIM</text>
+  <text class="b" x="180" y="284">mGRE / P2MP GRE</text>
+  <text class="b" x="380" y="284">PIM（C-PIM 在隧道上跑）</text>
+  <text class="b" x="600" y="284">P 网无组播，规模中等</text>
+  <text class="b" x="820" y="284">中</text>
+
+  <rect x="24" y="298" width="912" height="38" fill="#fff"/>
+  <text class="k" x="36" y="322">2　GRE + BGP-AD</text>
+  <text class="b" x="180" y="322">P2MP GRE</text>
+  <text class="b" x="380" y="322">BGP MVPN 路由（类型 1–7）</text>
+  <text class="b" x="600" y="322">P 网无组播、要求 BGP 统一控制面</text>
+  <text class="b" x="820" y="322">较高</text>
+
+  <rect x="24" y="336" width="912" height="38" fill="#f7f9fc"/>
+  <text class="k" x="36" y="360">3　mLDP in-band</text>
+  <text class="b" x="180" y="360">mLDP P2MP LSP</text>
+  <text class="b" x="380" y="360">PIM Join 触发 LSP 建立（带内信令）</text>
+  <text class="b" x="600" y="360">MPLS 骨干、希望复用标签转发</text>
+  <text class="b" x="820" y="360">中</text>
+
+  <rect x="24" y="374" width="912" height="38" fill="#fff"/>
+  <text class="k" x="36" y="398">4　mLDP + BGP-AD</text>
+  <text class="b" x="180" y="398">mLDP P2MP LSP</text>
+  <text class="b" x="380" y="398">BGP-AD 分发 + 带内 mLDP</text>
+  <text class="b" x="600" y="398">大型 MPLS、需要快速收敛与策略控制</text>
+  <text class="r" x="820" y="398">高</text>
+
+  <text class="b" x="24" y="432">Profile 5 及以上（RSVP-TE P2MP、SR P2MP、PCC 等）多用于特定厂商或新架构，选型时应以"两端设备都支持且已在现网验证"为前提。</text>
+  <text class="r" x="24" y="452">最常见的事故：两端 Profile 不一致（一侧 GRE+PIM、一侧 mLDP+BGP-AD）——隧道永远建不起来，而客户只看到"组播不通"。</text>
+  <text class="g" x="24" y="470">验收要点：看 PE 上的 MVPN 路由（类型 1/3/4/5/6/7）是否齐全、P2MP 隧道是否 Up、客户 (S,G) 是否映射到同一隧道、\</text>
+  <text class="g" x="24" y="486">以及切换测试：主隧道断后，备用路径能否在业务可接受时间内接管。</text>
+</svg>

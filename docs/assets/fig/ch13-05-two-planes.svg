@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="100%" role="img" aria-labelledby="c13f5t c13f5d">
+  <title id="c13f5t">控制面与数据面是两套独立状态：Join 通了不等于包在过</title>
+  <desc id="c13f5d">上半部分把组播拆成上下两层：控制面由 IGMP Report、(*,G) Join、Register、Register-Stop、(S,G) Join、rpt-prune 组成；数据面是源到接收者的实际流量路径。下半部分列出四种控制面与数据面不一致的典型组合，以及各自的取证命令。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a51" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+    <marker id="a52" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">组播有两套状态：一套是"谁要"，一套是"谁在送"</text>
+  <text class="s" x="24" y="48">控制面决定出接口列表（OIL）与入接口（IIF）；数据面才决定包是否真的按这张表被复制出去</text>
+
+  <rect x="24" y="62" width="912" height="82" rx="8" fill="#eef3ff" stroke="#b9cffb"/>
+  <text class="lb" x="40" y="82">控制面（信令）：全部是逆向的"我要"</text>
+  <rect x="40" y="94" width="112" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="96" y="115" text-anchor="middle">IGMP Report</text>
+  <text class="g" x="96" y="140" text-anchor="middle">主机 → 网关</text>
+  <rect x="184" y="94" width="112" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="240" y="115" text-anchor="middle">(*,G) Join</text>
+  <text class="g" x="240" y="140" text-anchor="middle">LHR → RP</text>
+  <rect x="328" y="94" width="112" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="384" y="115" text-anchor="middle">Register</text>
+  <text class="g" x="384" y="140" text-anchor="middle">FHR → RP（单播）</text>
+  <rect x="472" y="94" width="112" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="528" y="115" text-anchor="middle">(S,G) Join</text>
+  <text class="g" x="528" y="140" text-anchor="middle">RP / LHR → 源</text>
+  <rect x="616" y="94" width="112" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="672" y="115" text-anchor="middle">rpt-prune</text>
+  <text class="g" x="672" y="140" text-anchor="middle">LHR → RP 剪共享树</text>
+  <rect x="760" y="94" width="160" height="34" rx="4" fill="#fff" stroke="#2f6fed"/>
+  <text class="n" x="840" y="115" text-anchor="middle">PIM Prune（离开）</text>
+  <text class="g" x="840" y="140" text-anchor="middle">逐跳剪枝</text>
+  <line x1="152" y1="111" x2="180" y2="111" stroke="#2f6fed" marker-end="url(#a51)"/>
+  <line x1="296" y1="111" x2="324" y2="111" stroke="#2f6fed" marker-end="url(#a51)"/>
+  <line x1="440" y1="111" x2="468" y2="111" stroke="#2f6fed" marker-end="url(#a51)"/>
+  <line x1="584" y1="111" x2="612" y2="111" stroke="#2f6fed" marker-end="url(#a51)"/>
+  <line x1="728" y1="111" x2="756" y2="111" stroke="#2f6fed" marker-end="url(#a51)"/>
+
+  <rect x="24" y="152" width="912" height="86" rx="8" fill="#eefaf7" stroke="#b6ddd6"/>
+  <text class="lb" x="40" y="172" style="fill:#0f7f73">数据面（转发）：单向、按树复制、无重传</text>
+  <rect x="40" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="80" y="205" text-anchor="middle">源</text>
+  <rect x="168" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="208" y="205" text-anchor="middle">FHR</text>
+  <rect x="296" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="336" y="205" text-anchor="middle">RP</text>
+  <rect x="424" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="464" y="205" text-anchor="middle">LHR</text>
+  <rect x="552" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="592" y="205" text-anchor="middle">接入交换</text>
+  <rect x="680" y="184" width="80" height="34" rx="4" fill="#fff" stroke="#0f7f73"/>
+  <text class="n" x="720" y="205" text-anchor="middle">接收者</text>
+  <line x1="120" y1="201" x2="164" y2="201" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a52)"/>
+  <line x1="248" y1="201" x2="292" y2="201" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a52)"/>
+  <line x1="376" y1="201" x2="420" y2="201" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a52)"/>
+  <line x1="504" y1="201" x2="548" y2="201" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a52)"/>
+  <line x1="632" y1="201" x2="676" y2="201" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a52)"/>
+  <text class="c" x="780" y="196">SPT 切换后</text>
+  <text class="c" x="780" y="212">此段被旁路</text>
+
+  <text class="b" x="24" y="262">四种"两层不一致"的典型组合（排障时先判断落在哪一格）：</text>
+  <rect x="24" y="272" width="220" height="104" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="rt" x="38" y="292" style="fill:#b06a00">① 有表无包</text>
+  <text class="b" x="38" y="312">mroute 表齐全，但入方向</text>
+  <text class="b" x="38" y="328">计数不增长</text>
+  <text class="g" x="38" y="348">→ 上游没送 / RPF 失败</text>
+  <text class="g" x="38" y="364">查 show ip mroute count</text>
+  <rect x="256" y="272" width="220" height="104" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="rt" x="270" y="292" style="fill:#b06a00">② 有包无出接口</text>
+  <text class="b" x="270" y="312">入方向在涨，OIL 为空</text>
+  <text class="b" x="270" y="328">或全被 Prune</text>
+  <text class="g" x="270" y="348">→ 下游没发 Join</text>
+  <text class="g" x="270" y="364">查下游 mroute 与 IGMP 表</text>
+  <rect x="488" y="272" width="220" height="104" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="rt" x="502" y="292" style="fill:#b06a00">③ 只有 (*,G)</text>
+  <text class="b" x="502" y="312">接收者加入成功，但没</text>
+  <text class="b" x="502" y="328">有 (S,G) 状态</text>
+  <text class="g" x="502" y="348">→ 源没发 / Register 未成功</text>
+  <text class="g" x="502" y="364">查 FHR 的 F 标志与实际发包</text>
+  <rect x="720" y="272" width="216" height="104" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="rt" x="734" y="292" style="fill:#b06a00">④ 表对包丢</text>
+  <text class="b" x="734" y="312">状态与计数都正常，主机</text>
+  <text class="b" x="734" y="328">仍收不到</text>
+  <text class="g" x="734" y="348">→ 二层 Snooping / 平台资源</text>
+  <text class="g" x="734" y="364">/ MTU / QoS 丢弃</text>
+
+  <rect x="24" y="392" width="912" height="60" rx="6" fill="#f7f9fc" stroke="#d7e0ec" stroke-dasharray="4 3"/>
+  <text class="b" x="40" y="412">验收必须分两层各查一次：控制面看"表对不对"（show ip mroute / show ip igmp groups），数据面看"计数涨不涨"（show ip mroute count / 接口计数 / 镜像抓包）。</text>
+  <text class="b" x="40" y="432">只有一层正常就宣布"组播已通"，是这类项目最常见的交付事故。</text>
+</svg>

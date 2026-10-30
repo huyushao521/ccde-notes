@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 494" width="100%" role="img" aria-labelledby="c13f27t c13f27d">
+  <title id="c13f27t">Live-Live 双路冗余：两条真正分离的路径加接收端去重</title>
+  <desc id="c13f27d">主播出同时发出 A、B 两路内容相同的流，经过两条物理分离的路径到达接收端；接收端用 RTP 序号与时间戳去重合并，任一路中断时画面无缝。底部列出 ST 2022-7、应用层主备、编码器双发三种实现方式，以及"路径真分离、时钟对齐、缓冲预算、双路监控"四条设计要求与常见伪冗余错误。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a271" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="494" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Live-Live 解决的只有一件事：单条路径断的时候，画面不断</text>
+  <text class="s" x="24" y="48">它不是"备份"，而是"两路同时在送、接收端只播一份"。所以任何一段共用设备，都会让冗余失效</text>
+
+  <rect x="24" y="66" width="912" height="168" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="44" y="112" width="86" height="60" rx="5" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="87" y="136" text-anchor="middle">编码器</text>
+  <text class="g" x="87" y="152" text-anchor="middle">输出双路</text>
+  <rect x="176" y="90" width="120" height="34" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="236" y="111" text-anchor="middle">路径 A · 运营商 1</text>
+  <rect x="176" y="160" width="120" height="34" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="236" y="181" text-anchor="middle">路径 B · 运营商 2</text>
+  <line x1="130" y1="130" x2="172" y2="110" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a271)"/>
+  <line x1="130" y1="154" x2="172" y2="174" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a271)"/>
+  <rect x="336" y="90" width="180" height="34" rx="4" fill="#f7f9fc" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="g" x="426" y="111" text-anchor="middle">不同光纤 / 不同城市入口</text>
+  <rect x="336" y="160" width="180" height="34" rx="4" fill="#f7f9fc" stroke="#8494a8" stroke-dasharray="4 3"/>
+  <text class="g" x="426" y="181" text-anchor="middle">不同设备 / 不同汇聚</text>
+  <rect x="556" y="112" width="120" height="60" rx="5" fill="#fff4e5" stroke="#b06a00" stroke-width="1.6"/>
+  <text class="n" x="616" y="136" text-anchor="middle" style="fill:#b06a00">去重 / 合并</text>
+  <text class="g" x="616" y="152" text-anchor="middle">按 RTP 序号 + 时间戳</text>
+  <rect x="716" y="124" width="86" height="36" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="759" y="147" text-anchor="middle">播放器</text>
+  <line x1="296" y1="107" x2="332" y2="107" stroke="#0f7f73" stroke-width="1.6"/>
+  <line x1="296" y1="177" x2="332" y2="177" stroke="#0f7f73" stroke-width="1.6"/>
+  <line x1="516" y1="107" x2="552" y2="128" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a271)"/>
+  <line x1="516" y1="177" x2="552" y2="156" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a271)"/>
+  <line x1="676" y1="140" x2="712" y2="140" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a271)"/>
+  <text class="c" x="330" y="214">两路内容相同、路径不同：任何一条断，去重器仍能连续输出</text>
+  <text class="r" x="600" y="214">要求：两路时延差 ≤ 缓冲预算（常见 200–500 ms）</text>
+  <text class="g" x="44" y="214">主备（Live-Standby）不算 Live-Live：切换要几秒，直播场景用户能看见黑屏</text>
+
+  <rect x="24" y="246" width="292" height="120" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="266">实现①：ST 2022-7 无缝保护</text>
+  <text class="b" x="40" y="288">广电级标准：同一 RTP 流双路发送，</text>
+  <text class="b" x="40" y="306">接收端逐包"先到先用"。</text>
+  <text class="c" x="40" y="328">优点：真无缝、丢包互补</text>
+  <text class="g" x="40" y="348">代价：需要支持标准的设备与网关</text>
+  <text class="g" x="40" y="362">带宽：两倍（无法避免）</text>
+
+  <rect x="334" y="246" width="292" height="120" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="350" y="266">实现②：应用层主备切换</text>
+  <text class="b" x="350" y="288">接收端同时收两路，只在主路异常</text>
+  <text class="b" x="350" y="306">（超时/序号跳变）时切到备路。</text>
+  <text class="c" x="350" y="328">优点：实现简单、终端普及</text>
+  <text class="r" x="350" y="348">代价：切换瞬间有可感知的卡顿</text>
+  <text class="g" x="350" y="362">适合：非严格直播（监控回看等）</text>
+
+  <rect x="644" y="246" width="292" height="120" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="658" y="266">实现③：编码器双发 + SSM 双通道</text>
+  <text class="b" x="658" y="288">两条独立的 (S,G) 通道（不同源地址），</text>
+  <text class="b" x="658" y="306">接收端两路解码后择优输出。</text>
+  <text class="c" x="658" y="328">优点：与 SSM 天然兼容、网络侧无特殊要求</text>
+  <text class="r" x="658" y="348">代价：接收端要做"帧级"选择，实现复杂度高</text>
+  <text class="g" x="658" y="362">适合：自研播放器的行业专网</text>
+
+  <rect x="24" y="378" width="446" height="84" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="40" y="398" style="fill:#0f7f73">四条设计要求（缺一条就只是"伪冗余"）</text>
+  <text class="b" x="40" y="418">① 路径真分离：不同光纤、不同设备、不同电源（含机房入口）</text>
+  <text class="b" x="40" y="436">② 时钟与序号对齐：两端同一时间基准，否则去重失效</text>
+  <text class="b" x="40" y="454">③ 缓冲预算明确：时延差必须小于缓冲，且写入 SLA</text>
+
+  <rect x="490" y="378" width="446" height="84" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="506" y="398">三种典型"伪冗余"（案例十七）</text>
+  <text class="b" x="506" y="418">① 两条路径共用同一台核心交换机 / 同一个 POP 入口</text>
+  <text class="b" x="506" y="436">② 双路同源（同一路编码器输出，编码器一挂两路都没）</text>
+  <text class="b" x="506" y="454">③ 只监控主路：备路早已静默失效，切换时才发现</text>
+
+  <text class="r" x="24" y="480">成本认知：Live-Live 必然让 WAN 组播占用翻倍。这就是"带宽乘法公式"里"冗余系数"的来源，不能既要求无缝又抱怨带宽。</text>
+</svg>

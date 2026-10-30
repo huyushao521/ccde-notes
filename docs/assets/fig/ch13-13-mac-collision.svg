@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="100%" role="img" aria-labelledby="c13f13t c13f13d">
+  <title id="c13f13t">组播地址到 MAC 的 32:1 折叠与冲突检测</title>
+  <desc id="c13f13d">组播 MAC 为 01:00:5E 加上 IP 的低 23 位，因此 32 个不同的组播 IP 会映射到同一个 MAC。图中给出 239.10.20.11 与 239.138.20.11 映射到同一 MAC 的例子，以及放进 CI 流水线的唯一性校验伪代码。底部说明冲突在二层的三种后果与处理策略。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Consolas","Segoe UI",sans-serif;fill:#1a2233}
+    .m{font:9px "Consolas",monospace;fill:#1f4fc0}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a131" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8494a8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="470" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">组播 IP 到 MAC 是"折起来"的：32 个 IP 共用一个 MAC</text>
+  <text class="s" x="24" y="48">三层能区分这些组，二层不能。这就是"同 VLAN 两个频道串台"的技术根源</text>
+
+  <rect x="24" y="66" width="300" height="188" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="86">映射规则</text>
+  <text class="n" x="40" y="110">MAC = 01:00:5E + IP 的低 23 位</text>
+  <text class="b" x="40" y="132">例：239.10.20.11</text>
+  <text class="m" x="40" y="150">  239 . 10 . 20 . 11</text>
+  <text class="m" x="40" y="166">= EF  · 0A · 14 · 0B</text>
+  <text class="m" x="40" y="182">低 23 位 → 0A:14:0B</text>
+  <text class="m" x="40" y="200">MAC = 01:00:5E:0A:14:0B</text>
+  <text class="r" x="40" y="224">第二个字节的最高位被丢掉 →</text>
+  <text class="r" x="40" y="240">每"折叠"一次覆盖 32 个 IP</text>
+
+  <rect x="336" y="66" width="300" height="188" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="352" y="86">折叠示意：4 个 IP → 1 个 MAC</text>
+  <rect x="352" y="98" width="150" height="24" rx="3" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="360" y="114">239.10.20.11</text>
+  <rect x="352" y="128" width="150" height="24" rx="3" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="360" y="144">239.42.20.11</text>
+  <rect x="352" y="158" width="150" height="24" rx="3" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="360" y="174">239.138.20.11</text>
+  <rect x="352" y="188" width="150" height="24" rx="3" fill="#eef3ff" stroke="#2f6fed"/>
+  <text class="n" x="360" y="204">… 共 32 个</text>
+  <rect x="530" y="128" width="92" height="60" rx="4" fill="#fff4e5" stroke="#b06a00" stroke-width="1.6"/>
+  <text class="n" x="576" y="152" text-anchor="middle" style="fill:#b06a00">01:00:5E</text>
+  <text class="n" x="576" y="170" text-anchor="middle" style="fill:#b06a00">:0A:14:0B</text>
+  <line x1="504" y1="110" x2="526" y2="140" stroke="#8494a8" marker-end="url(#a131)"/>
+  <line x1="504" y1="140" x2="526" y2="152" stroke="#8494a8" marker-end="url(#a131)"/>
+  <line x1="504" y1="170" x2="526" y2="166" stroke="#8494a8" marker-end="url(#a131)"/>
+  <line x1="504" y1="200" x2="526" y2="178" stroke="#8494a8" marker-end="url(#a131)"/>
+  <text class="r" x="352" y="234">接入交换机只认 MAC：两个不同频道会被当成同一流</text>
+  <text class="g" x="352" y="248">→ 订阅 A 频道的端口也会收到 B 频道（串台/花屏）</text>
+
+  <rect x="648" y="66" width="288" height="188" rx="6" fill="#f7f9fc" stroke="#d7e0ec"/>
+  <text class="k" x="664" y="86">放进 CI：唯一性校验</text>
+  <text class="n" x="664" y="110">for ip in plan:</text>
+  <text class="n" x="676" y="126">mac = f"01:00:5e:{(ip&gt;&gt;23)&amp;0x7f:02x}:</text>
+  <text class="n" x="676" y="140">        {(ip&gt;&gt;15)&amp;0xff:02x}:</text>
+  <text class="n" x="676" y="154">        {(ip&gt;&gt;7)&amp;0xff:02x}"</text>
+  <text class="n" x="664" y="172">dup = mac 出现两次以上的组</text>
+  <text class="n" x="664" y="188">if dup: fail("MAC 冲突: " + dup)</text>
+  <text class="c" x="664" y="212">同一 VLAN 内必须 MAC 唯一；</text>
+  <text class="c" x="664" y="226">不同 VLAN 可以允许冲突</text>
+  <text class="g" x="664" y="246">运行时机：合并前 + 每次新增频道</text>
+
+  <rect x="24" y="266" width="446" height="104" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="44" y="286">冲突的三种可见后果</text>
+  <text class="b" x="44" y="308">① 串台：订阅 A 的端口收到 B 的数据（最常见）</text>
+  <text class="b" x="44" y="326">② 花屏/绿屏：两个流的 RTP 序号交织在一起</text>
+  <text class="b" x="44" y="344">③ 误判为"带宽不足"：实际是两路流同时进了一个端口</text>
+  <text class="g" x="44" y="362">三层看到的 mroute 完全正常，二层才是问题所在</text>
+
+  <rect x="490" y="266" width="446" height="104" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="510" y="286" style="fill:#0f7f73">处理策略（按代价从低到高）</text>
+  <text class="b" x="510" y="308">① 规划阶段就保证同 VLAN 内 MAC 唯一（首选）</text>
+  <text class="b" x="510" y="326">② 把冲突的两个组划到不同 VLAN / 不同站点</text>
+  <text class="b" x="510" y="344">③ 启用 IGMP Snooping 的按组过滤 / 组隔离审计</text>
+  <text class="b" x="510" y="362">④ 无法避免时，改用 SSM 并限制单端口只订一个频道</text>
+
+  <text class="r" x="24" y="396">设计含义：这件事无法在运行期"修"，只能在规划期"防"。所以冲突检测属于设计交付物，不属于运维巡检项。</text>
+  <text class="g" x="24" y="414">经验值：一个 /24 里安排 16 个以上频道时，冲突概率显著上升；跨站点复用地址前先算 MAC。</text>
+  <text class="g" x="24" y="432">顺带提醒：MAC 冲突不影响三层 RPF 判定，所以 "show ip mroute 正常但画面串台" 是这类问题的标准指纹。</text>
+</svg>

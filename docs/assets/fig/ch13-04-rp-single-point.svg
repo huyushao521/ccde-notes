@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 484" width="100%" role="img" aria-labelledby="c13f4t c13f4d">
+  <title id="c13f4t">RP 是 PIM-SM 的状态中心与单点：正常时的星形共享树，故障时"老组照旧、新组全黑"</title>
+  <desc id="c13f4d">上半部分是 PIM-SM 的组成：源经 FHR 用 Register 单播把流量送到 RP，RP 沿共享树把流量下发给各 LHR，LHR 向 RP 发 (*,G) Join。下半部分对比 RP 正常与 RP 故障两种状态：已切换到 SPT 的老组继续可用，新组无法建立 (*,G)。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .lb{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1f4fc0}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a41" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a42" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="484" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">PIM-SM 的形状：所有信令都经过 RP，所有"新组"都必须先到达 RP</text>
+  <text class="s" x="24" y="48">这不是"配一个 RP 地址"那么简单——RP 同时承担三件事：终止 Register、承载 (*,G) 状态、成为新接收者的会合点</text>
+
+  <rect x="24" y="62" width="912" height="214" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="52" y="126" width="76" height="34" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="90" y="147" text-anchor="middle">源 10.1.1.1</text>
+  <rect x="176" y="122" width="76" height="42" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="214" y="140" text-anchor="middle">FHR</text>
+  <text class="g" x="214" y="154" text-anchor="middle">首跳路由器</text>
+  <rect x="432" y="118" width="96" height="50" rx="6" fill="#fff4e5" stroke="#b06a00" stroke-width="1.8"/>
+  <text class="n" x="480" y="139" text-anchor="middle" fill="#b06a00">RP</text>
+  <text class="g" x="480" y="154" text-anchor="middle">(G) 会合点</text>
+  <text class="g" x="480" y="181" text-anchor="middle">承载全部 (*,G) 状态</text>
+  <line x1="128" y1="143" x2="172" y2="143" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a41)"/>
+  <text class="c" x="150" y="134" text-anchor="middle">组播流</text>
+  <line x1="252" y1="138" x2="428" y2="140" stroke="#2f6fed" stroke-dasharray="5 4" marker-end="url(#a42)"/>
+  <text class="b" x="330" y="130" text-anchor="middle">PIM Register（单播封装）</text>
+  <text class="g" x="330" y="156" text-anchor="middle">SPT 建成前，流量靠它送到 RP</text>
+
+  <rect x="700" y="82" width="76" height="34" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="738" y="103" text-anchor="middle">LHR-1</text>
+  <rect x="700" y="146" width="76" height="34" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="738" y="167" text-anchor="middle">LHR-2</text>
+  <rect x="700" y="210" width="76" height="34" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="738" y="231" text-anchor="middle">LHR-3</text>
+  <line x1="532" y1="132" x2="696" y2="100" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a41)"/>
+  <line x1="532" y1="146" x2="696" y2="163" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a41)"/>
+  <line x1="532" y1="158" x2="696" y2="226" stroke="#0f7f73" stroke-width="1.6" marker-end="url(#a41)"/>
+  <line x1="700" y1="110" x2="536" y2="130" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a42)"/>
+  <line x1="700" y1="150" x2="536" y2="142" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a42)"/>
+  <text class="b" x="618" y="60" text-anchor="middle">实线 = 数据面（组播流）</text>
+  <text class="b" x="618" y="76" text-anchor="middle">虚线 = 控制面（Join / Register）</text>
+  <rect x="800" y="82" width="112" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="856" y="103" text-anchor="middle">接收者</text>
+  <rect x="800" y="146" width="112" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="856" y="167" text-anchor="middle">接收者</text>
+  <rect x="800" y="210" width="112" height="34" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="856" y="231" text-anchor="middle">接收者</text>
+  <line x1="776" y1="99" x2="796" y2="99" stroke="#8494a8"/>
+  <line x1="776" y1="163" x2="796" y2="163" stroke="#8494a8"/>
+  <line x1="776" y1="227" x2="796" y2="227" stroke="#8494a8"/>
+  <text class="b" x="44" y="200">Register-Stop</text>
+  <text class="g" x="44" y="216">SPT 建好后 RP 通知 FHR 停止单播封装</text>
+  <text class="g" x="44" y="248">若 RP 迟迟建不好到源的 (S,G)，Register 会持续封装 → RP CPU/带宽飙高</text>
+  <text class="r" x="44" y="266">这就是"Register 风暴"：现象是 RP CPU 高、频道时断时续</text>
+
+  <rect x="24" y="290" width="440" height="104" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="lb" x="44" y="310" style="fill:#0f7f73">RP 正常时它承担的三件事</text>
+  <text class="b" x="44" y="332">① 终止 Register：把单播封装解开，转为组播下发</text>
+  <text class="b" x="44" y="350">② 维护 (*,G)：每个"有接收者的组"在 RP 上一条状态</text>
+  <text class="b" x="44" y="368">③ 会合点：新接收者的 Join 只能朝 RP 发，树上行必过 RP</text>
+  <text class="g" x="44" y="386">→ 所有"新组"的命运都压在这一台设备上</text>
+
+  <rect x="496" y="290" width="440" height="104" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="516" y="310">RP 故障时：老组照旧，新组全黑（案例四）</text>
+  <text class="b" x="516" y="332">已切 SPT 的老组：数据面直连源，与 RP 无关 → 画面正常</text>
+  <text class="b" x="516" y="350">新组 / 新接收者：(*,G) 无处建立 → 完全收不到</text>
+  <text class="b" x="516" y="368">已保留共享树的组：上行仍在 RP → 直接断流</text>
+  <text class="r" x="516" y="386">"老频道能看、新频道打不开"就是 RP 单点的指纹</text>
+
+  <text class="r" x="24" y="424">设计结论：RP 必须做成"可替换的同一身份"——Anycast-RP（同一 RP 地址多台）、Phantom RP 或 BSR/Auto-RP 的冗余 RP，否则 RTO 就是"新业务上线时间"。</text>
+  <text class="g" x="24" y="444">容量维度：(*,G) 条数、Register 速率、RP 进程 CPU、MSDP SA 条数——四项都要有基线告警。</text>
+  <text class="g" x="24" y="462">演进方向：接收者只需"某几个源"的业务（IPTV、行情、监控），直接改 SSM，把 RP 从关键路径上删掉。</text>
+</svg>

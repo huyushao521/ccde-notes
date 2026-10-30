@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 478" width="100%" role="img" aria-labelledby="c13f21t c13f21d">
+  <title id="c13f21t">BiDir 双向树：逐链路 DF 选举与只有 (*,G) 的状态模型</title>
+  <desc id="c13f21d">链条拓扑上逐段标注 DF（Designated Forwarder）：每条链路只有一台设备负责把流量朝 RP 方向转发，反向下行则由同一条链路按树结构返回。下方给出 DF 选举规则、两种典型失败模式，并对比 ASM、SSM、BiDir 三种模式的状态数量。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Consolas",monospace;fill:#1f4fc0}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a211" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a212" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6b4fbb"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="478" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">BiDir 的关键不是"树"，是"每条链路选一台"（DF）</text>
+  <text class="s" x="24" y="48">流量上行走 DF，下行沿同一棵树返回；所以全网只维护 (*,G)，不存在 (S,G)</text>
+
+  <rect x="24" y="66" width="912" height="164" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="44" y="128" width="70" height="38" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="79" y="152" text-anchor="middle">源</text>
+  <rect x="150" y="124" width="70" height="46" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="185" y="152" text-anchor="middle">R1</text>
+  <rect x="286" y="120" width="96" height="54" rx="5" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.8"/>
+  <text class="n" x="334" y="144" text-anchor="middle" fill="#6b4fbb">RP</text>
+  <text class="g" x="334" y="162" text-anchor="middle">双向树根</text>
+  <rect x="446" y="124" width="70" height="46" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="481" y="152" text-anchor="middle">R3</text>
+  <rect x="590" y="124" width="70" height="46" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="625" y="152" text-anchor="middle">R2</text>
+  <rect x="730" y="128" width="120" height="38" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="790" y="152" text-anchor="middle">接收者组</text>
+
+  <line x1="114" y1="147" x2="146" y2="147" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a211)"/>
+  <line x1="220" y1="147" x2="282" y2="147" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a211)"/>
+  <line x1="382" y1="147" x2="442" y2="147" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a211)"/>
+  <line x1="516" y1="147" x2="586" y2="147" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a211)"/>
+  <line x1="660" y1="147" x2="726" y2="147" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a211)"/>
+
+  <text class="c" x="130" y="96">DF 在此</text>
+  <text class="c" x="252" y="96">DF 在此</text>
+  <text class="c" x="412" y="96">DF 在此</text>
+  <text class="c" x="552" y="96">DF 在此</text>
+  <text class="g" x="240" y="186">每条链路上只有一个方向被指定为"朝 RP"；</text>
+  <text class="g" x="240" y="202">下行不另选，沿同一棵双向树返回</text>
+  <text class="r" x="640" y="186">DF 由"到 RP 的路由最优 → 最高 IP"决出，</text>
+  <text class="r" x="640" y="202">路由一变，DF 就重算（可能整段换向）</text>
+
+  <rect x="24" y="244" width="292" height="118" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="264">状态模型</text>
+  <text class="b" x="40" y="286">BiDir：只有 (*,G)</text>
+  <text class="b" x="40" y="304">ASM：(*,G) + 每条 (S,G)</text>
+  <text class="b" x="40" y="322">SSM：只有 (S,G)</text>
+  <text class="c" x="40" y="344">BiDir 的状态量与"源的数量"无关</text>
+  <text class="g" x="40" y="356">这是它适合"多对多"的根本原因</text>
+
+  <rect x="334" y="244" width="292" height="118" rx="6" fill="#fff" stroke="#e8c4c4"/>
+  <text class="rt" x="350" y="264">失败模式一：DF 不一致</text>
+  <text class="b" x="350" y="286">两台设备都认为自己是 DF → 重复包</text>
+  <text class="b" x="350" y="304">没人认为自己是 DF → 该链路全断</text>
+  <text class="b" x="350" y="322">原因：到 RP 的路由在两侧不对称，或</text>
+  <text class="b" x="350" y="340">路由刚变更、DF 尚未重算完成</text>
+  <text class="g" x="350" y="356">排查：show ip pim df 逐链路比对</text>
+
+  <rect x="644" y="244" width="292" height="118" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="658" y="264">失败模式二：RD 与 DF 混淆</text>
+  <text class="b" x="658" y="286">BiDir 还需要"指定路由器（RD/DR）"</text>
+  <text class="b" x="658" y="304">负责把接收者的 Join 发向 RP。</text>
+  <text class="b" x="658" y="322">若 DR 与 DF 落在不同设备，且其中一台</text>
+  <text class="b" x="658" y="340">没有 (*,G)，流量就会"进了但出不去"。</text>
+  <text class="g" x="658" y="356">设计建议：让 DR 与 DF 尽量同机</text>
+
+  <text class="r" x="24" y="386">适用边界：BiDir 适合"很多源、每个源流量很小、源与接收者重叠"的场景（多方会议、交易撮合、即时消息分发）。不适合"单源大流量"（流量会全部挤在 DF 链路上）。</text>
+  <text class="g" x="24" y="404">代价：路径不再最优（永远经 RP），时延比 SPT 高；且 RP 承载全部流量，必须做成 Anycast/Phantom 冗余。</text>
+  <text class="g" x="24" y="422">验收要点：逐链路确认"恰好一台 DF"、确认 (*,G) 在所有相关设备上存在、确认反向流量沿同树返回。</text>
+</svg>

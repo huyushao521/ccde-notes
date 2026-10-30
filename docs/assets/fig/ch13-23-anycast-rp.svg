@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 502" width="100%" role="img" aria-labelledby="c13f23t c13f23d">
+  <title id="c13f23t">Anycast-RP 的三种实现与故障切换时间预算</title>
+  <desc id="c13f23d">拓扑上两台 RP 共享同一环回地址，通过 MSDP 全互联或 RFC 4610 机制同步注册与源信息，源侧 FHR 与接收侧 LHR 都只认这一个 RP 地址。下方列出 MSDP 全互联、RFC 4610、Phantom RP 三种实现方式，以及切换时间预算：IGP/BFD 收敛、PIM Join 重建、MSDP SA 同步三段耗时与验收目标值。</desc>
+  <style>
+    .h{font:600 13px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .s{font:10px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .k{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#1a2233}
+    .b{font:9px "Microsoft YaHei",sans-serif;fill:#4a5a72}
+    .n{font:9px "Segoe UI",sans-serif;fill:#1a2233}
+    .m{font:9px "Consolas",monospace;fill:#1f4fc0}
+    .g{font:8.5px "Microsoft YaHei",sans-serif;fill:#7c8b9f}
+    .c{font:9px "Microsoft YaHei",sans-serif;fill:#0f7f73}
+    .r{font:9px "Microsoft YaHei",sans-serif;fill:#a32020}
+    .rt{font:600 9.5px "Microsoft YaHei",sans-serif;fill:#a32020}
+  </style>
+  <defs>
+    <marker id="a231" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f7f73"/>
+    </marker>
+    <marker id="a232" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#2f6fed"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="502" fill="#fbfcfe"/>
+  <text class="h" x="24" y="30">Anycast-RP：让"RP 地址"成为一张可以随时换人的名片</text>
+  <text class="s" x="24" y="48">所有设备只认一个 RP 地址，实际由多台设备承载；一台挂掉，IGP 把地址路由指到另一台</text>
+
+  <rect x="24" y="66" width="912" height="176" rx="8" fill="#fff" stroke="#d7e0ec"/>
+  <rect x="60" y="98" width="70" height="38" rx="4" fill="#e9f6f4" stroke="#0f7f73"/>
+  <text class="n" x="95" y="122" text-anchor="middle">源</text>
+  <rect x="160" y="94" width="66" height="46" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="193" y="122" text-anchor="middle">FHR</text>
+  <rect x="272" y="88" width="140" height="58" rx="6" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.8"/>
+  <text class="n" x="342" y="110" text-anchor="middle" fill="#6b4fbb">RP-A</text>
+  <text class="m" x="342" y="126" text-anchor="middle">10.255.0.1</text>
+  <text class="g" x="342" y="140" text-anchor="middle">anycast loopback</text>
+  <rect x="272" y="176" width="140" height="58" rx="6" fill="#f3effb" stroke="#6b4fbb" stroke-width="1.8"/>
+  <text class="n" x="342" y="198" text-anchor="middle" fill="#6b4fbb">RP-B</text>
+  <text class="m" x="342" y="214" text-anchor="middle">10.255.0.1</text>
+  <text class="g" x="342" y="228" text-anchor="middle">同一地址</text>
+  <line x1="342" y1="146" x2="342" y2="172" stroke="#6b4fbb" stroke-dasharray="5 4" stroke-width="1.6"/>
+  <text class="m" x="352" y="164">MSDP mesh</text>
+  <rect x="474" y="128" width="72" height="46" rx="4" fill="#eaf1ff" stroke="#2f6fed"/>
+  <text class="n" x="510" y="156" text-anchor="middle">LHR</text>
+  <rect x="592" y="132" width="96" height="38" rx="4" fill="#f4f7fb" stroke="#8494a8"/>
+  <text class="n" x="640" y="156" text-anchor="middle">接收者</text>
+  <line x1="130" y1="117" x2="156" y2="117" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a231)"/>
+  <line x1="226" y1="117" x2="268" y2="117" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a232)"/>
+  <text class="b" x="236" y="106">Register</text>
+  <line x1="412" y1="117" x2="470" y2="140" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a231)"/>
+  <line x1="546" y1="152" x2="588" y2="152" stroke="#0f7f73" stroke-width="1.8" marker-end="url(#a231)"/>
+  <line x1="474" y1="166" x2="416" y2="196" stroke="#2f6fed" stroke-dasharray="4 3" marker-end="url(#a232)"/>
+  <text class="b" x="440" y="196">(*,G) Join</text>
+  <text class="c" x="474" y="104">LHR 只认 10.255.0.1：</text>
+  <text class="c" x="474" y="120">它落到哪台，由 IGP 决定</text>
+  <text class="r" x="700" y="104">RP-A 故障时：</text>
+  <text class="r" x="700" y="120">IGP 把 /32 指到 RP-B，</text>
+  <text class="r" x="700" y="136">新 Join 立刻落到 RP-B</text>
+  <text class="g" x="700" y="158">已建立的 (S,G) 数据面</text>
+  <text class="g" x="700" y="174">不受影响（不经过 RP）</text>
+  <text class="g" x="700" y="198">受影响的只有：共享树流量</text>
+  <text class="g" x="700" y="214">与"新建 (*,G)"</text>
+
+  <rect x="24" y="254" width="292" height="132" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="40" y="274">实现①：MSDP 全互联（Cisco 早期）</text>
+  <text class="b" x="40" y="296">每组 RP 之间建立 MSDP 会话，</text>
+  <text class="b" x="40" y="314">收到 Register 的一方向所有 peer 发 SA。</text>
+  <text class="c" x="40" y="336">优点：成熟、行为确定</text>
+  <text class="r" x="40" y="354">缺点：N 台 RP 需 N(N-1)/2 条会话</text>
+  <text class="g" x="40" y="374">适用：RP 数量少（2–4 台）的站点</text>
+
+  <rect x="334" y="254" width="292" height="132" rx="6" fill="#fff" stroke="#bcd6d1"/>
+  <text class="k" x="350" y="274" style="fill:#0f7f73">实现②：RFC 4610 标准机制</text>
+  <text class="b" x="350" y="296">RP 把 Register 同时发给所有 RP 地址</text>
+  <text class="b" x="350" y="314">的持有者（无需 MSDP 会话）。</text>
+  <text class="c" x="350" y="336">优点：会话数量降为 0，标准互通</text>
+  <text class="r" x="350" y="354">缺点：不同厂商支持程度不同</text>
+  <text class="g" x="350" y="374">适用：新建网络、多厂商环境</text>
+
+  <rect x="644" y="254" width="292" height="132" rx="6" fill="#fff" stroke="#d7e0ec"/>
+  <text class="k" x="658" y="274">实现③：Phantom RP（常用于 BiDir）</text>
+  <text class="b" x="658" y="296">RP 地址是"不落在任何设备上"的地址，</text>
+  <text class="b" x="658" y="314">靠 IGP 度量选出一主一备承载。</text>
+  <text class="c" x="658" y="336">优点：BiDir 下天然主备、无需 MSDP</text>
+  <text class="r" x="658" y="354">缺点：设计约束强（度量、路由注入）</text>
+  <text class="g" x="658" y="374">适用：BiDir 双向树为核心的大型网络</text>
+
+  <rect x="24" y="400" width="912" height="60" rx="6" fill="#fff8e6" stroke="#e0b877"/>
+  <text class="rt" x="40" y="420" style="fill:#b06a00">切换时间预算（把这三段写进验收标准，而不是写"高可用"两个字）</text>
+  <text class="b" x="40" y="438">① 地址路由收敛：IGP + BFD，目标亚秒级（无 BFD 时可能 3–30 s）｜② 新 Join 落到新 RP：地址可达即完成，通常 &lt; 1 s</text>
+  <text class="b" x="40" y="454">③ MSDP SA / 源信息同步：秒级（取决于 SA 缓存与定时器）　→ 合计目标：新组恢复 &lt; 5 s，已建立组不受影响</text>
+
+  <text class="r" x="24" y="480">验收方法（必做）：直接关掉 RP-A 的进程或链路，实测"新开频道"恢复时间与"已开频道"的中断情况，并记录到设计文档。</text>
+</svg>
