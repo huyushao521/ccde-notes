@@ -33,7 +33,7 @@
   <div class="scrim" id="scrim"></div>
 
   <main class="main">
-    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 15 · about 18147 words</span></div><h1 id="chapter-15-scalable-enterprise-campus-architecture-design-15">Chapter 15: Scalable Enterprise Campus Architecture Design · 第 15 章：可扩展企业园区架构设计<a class="anchor" href="#chapter-15-scalable-enterprise-campus-architecture-design-15" title="Permanent link"></a></h1>
+    <article class="article markdown-body"><div class="ch-meta"><span class="badge" data-s="English">English · 中文对照</span><span class="ch-words">Chapter 15 · about 18397 words</span></div><h1 id="chapter-15-scalable-enterprise-campus-architecture-design-15">Chapter 15: Scalable Enterprise Campus Architecture Design · 第 15 章：可扩展企业园区架构设计<a class="anchor" href="#chapter-15-scalable-enterprise-campus-architecture-design-15" title="Permanent link"></a></h1>
 <blockquote>
 <p>English study notes on the <em>CCDE 400-007 Official Cert Guide</em> | original pages 708–746
 <strong>Where this chapter sits</strong>: the first chapter of Part III. The previous fourteen chapters answered "how do I choose a single technology" (which Layer 2, which Layer 3, which virtualisation). This chapter answers <strong>how to organise those choices into a campus that can grow</strong>. The same protocol set, placed in a different architecture, behaves completely differently at failure time — the most consistently under-rated point in campus design.</p>
@@ -66,11 +66,13 @@
 </div>
 <hr />
 <h2 id="chapter-roadmap-fifteen-counter-intuitive-truths-about-campus-design">Chapter Roadmap: Fifteen Counter-intuitive Truths About Campus Design · 本章导读：园区设计的十五个反直觉认知<a class="anchor" href="#chapter-roadmap-fifteen-counter-intuitive-truths-about-campus-design" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-1 · Fifteen truths in four themes" src="assets/fig/en15-01-fifteen-truths.svg" /></p>
 <p>Most people treat campus design as "draw a topology + configure protocols": three-tier or two-tier, OSPF or EIGRP, vPC or not. What actually decides whether a campus is still healthy in ten years is <strong>how those choices behave together at the moment of failure</strong>. The fifteen statements below are the ones most often got wrong — and most often challenged — in design reviews.</p>
 <div class="zh">
 <p>很多人把园区设计当成"画拓扑 + 配协议"：选三层还是二层、OSPF 还是 EIGRP、要不要 vPC。真正决定一个园区能活十年的，是<strong>这些选择在故障时刻的联合行为</strong>。以下十五条，是设计评审里最容易说错、也最容易被追问的地方。</p>
 </div>
 <h3 id="1-the-first-order-question-is-how-big-is-the-failure-domain-not-which-protocol">1. The First-Order Question Is "How Big Is the Failure Domain", Not "Which Protocol" · 园区设计的第一性问题是"故障域有多大"，不是"用什么协议"<a class="anchor" href="#1-the-first-order-question-is-how-big-is-the-failure-domain-not-which-protocol" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-2 · The failure-domain ladder" src="assets/fig/en15-02-failure-domain.svg" /></p>
 <p>Asking "OSPF or EIGRP here?" is like asking "which tyres does this car need?" without asking where you are driving or how bad the roads are.</p>
 <div class="zh">
 <p>问"这里用 OSPF 还是 EIGRP"，等于问"这台车用什么轮胎"，却没问"你要开去哪、路有多烂"。</p>
@@ -158,6 +160,7 @@
 </blockquote>
 </div>
 <h3 id="2-layer-2-is-simpler-is-the-biggest-illusion-in-the-campus-the-configuration-is-simple-the-behaviour-is-not">2. "Layer 2 Is Simpler" Is the Biggest Illusion in the Campus: the Configuration Is Simple, the Behaviour Is Not · "二层更简单"是园区里最大的错觉：简单的是配置，复杂的是行为<a class="anchor" href="#2-layer-2-is-simpler-is-the-biggest-illusion-in-the-campus-the-configuration-is-simple-the-behaviour-is-not" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-3 · Nine lines of config, eight pieces of state" src="assets/fig/en15-03-l2-illusion.svg" /></p>
 <p>Plug a Layer 2 switch in and it passes traffic; the configuration really is simple. The behavioural complexity only appears when something fails:</p>
 <div class="zh">
 <p>二层交换机插上就能通，配置确实简单。但二层的行为复杂度在故障时才暴露：</p>
@@ -245,6 +248,7 @@
 </blockquote>
 </div>
 <h3 id="3-hierarchy-is-not-about-a-pretty-diagram-it-makes-change-local">3. Hierarchy Is Not About a Pretty Diagram — It Makes Change Local · 层次化不是为了画图好看，是为了让"变化"局部化<a class="anchor" href="#3-hierarchy-is-not-about-a-pretty-diagram-it-makes-change-local" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-4 · Hierarchy makes change local" src="assets/fig/en15-04-change-locality.svg" /></p>
 <p>The textbook explanation of hierarchy is "clear core / distribution / access responsibilities". Clear responsibility is only the surface; the real benefit is:</p>
 <div class="zh">
 <p>层次化的标准解释是"核心—分布—接入职责清晰"。但职责清晰只是表象，真正的收益是：</p>
@@ -262,6 +266,7 @@
 <p>反例：一个 60 台交换机的扁平二层园区。加一栋楼（+8 台接入）要动 STP 根、要重算 VLAN 裁剪、要调 FHRP 优先级、还要担心新链路的边缘端口没配导致 30 秒收敛。<strong>增量成本随规模非线性上升 —— 这就是"不可扩展"的准确定义。</strong></p>
 </div>
 <h3 id="4-convergence-time-is-not-configured-it-is-the-sum-of-every-timer-on-the-worst-path">4. Convergence Time Is Not "Configured" — It Is the Sum of Every Timer on the Worst Path · 收敛时间不是"配出来的"，是"最坏路径上所有定时器之和"<a class="anchor" href="#4-convergence-time-is-not-configured-it-is-the-sum-of-every-timer-on-the-worst-path" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-5 · Convergence is a sum of timers" src="assets/fig/en15-05-convergence-waterfall.svg" /></p>
 <p>Campus outages are almost never a forwarding-performance problem; they are the accumulation of <strong>detection + notification + recomputation + host refresh</strong>. A typical legacy path (multitier STP + FHRP + OSPF):</p>
 <div class="zh">
 <p>园区中断几乎从来不是转发性能问题，而是 <strong>检测 + 通知 + 重算 + 主机刷新</strong> 的叠加。一条典型的老式路径（多层 STP + FHRP + OSPF）：</p>
@@ -289,6 +294,7 @@
 </blockquote>
 </div>
 <h3 id="5-the-problem-with-stp-is-not-slowness-it-has-no-topological-intent-stp">5. The Problem With STP Is Not "Slowness" — It Has No Topological Intent · STP 的问题不是"慢"，而是"它没有拓扑意图"<a class="anchor" href="#5-the-problem-with-stp-is-not-slowness-it-has-no-topological-intent-stp" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-6 · STP has no topological intent" src="assets/fig/en15-06-stp-intent.svg" /></p>
 <p>STP works by "detect a loop, block a port". It does not care about the business. Two classic dilemmas follow:</p>
 <div class="zh">
 <p>STP 的机制是"发现环路就阻塞一个口"，它不关心业务。于是有两个经典困境：</p>
@@ -316,6 +322,7 @@
 </blockquote>
 </div>
 <h3 id="6-fhrp-solves-the-gateway-address-never-disappears-not-the-first-hop-never-breaks-fhrp">6. FHRP Solves "the Gateway Address Never Disappears", Not "the First Hop Never Breaks" · FHRP 解决的是"网关地址不消失"，不是"第一跳不中断"<a class="anchor" href="#6-fhrp-solves-the-gateway-address-never-disappears-not-the-first-hop-never-breaks-fhrp" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-7 · What FHRP preserves and what it does not" src="assets/fig/en15-07-fhrp-reality.svg" /></p>
 <p>HSRP/VRRP provide a virtual IP plus a virtual MAC. What they solve is: <strong>hosts do not have to change their gateway</strong>. What they do not solve:</p>
 <div class="zh">
 <p>HSRP/VRRP 提供一个虚拟 IP + 虚拟 MAC，解决的问题是：<strong>主机不用改网关</strong>。它没有解决的问题：</p>
@@ -383,6 +390,7 @@
 </blockquote>
 </div>
 <h3 id="7-routed-access-moves-the-layer-2-traps-into-layer-3-and-unifies-the-troubleshooting-language">7. Routed Access Moves the Layer 2 Traps Into Layer 3 and Unifies the Troubleshooting Language · 路由接入把二层的坑搬到三层，同时统一了"排障语言"<a class="anchor" href="#7-routed-access-moves-the-layer-2-traps-into-layer-3-and-unifies-the-troubleshooting-language" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-8 · Every L2 trap has an L3 twin" src="assets/fig/en15-08-trap-migration.svg" /></p>
 <p>Routed access pushes the L2/L3 boundary down to the access switch:</p>
 <div class="zh">
 <p>路由接入（Routed Access）把 L2/L3 边界下移到接入交换机：</p>
@@ -406,6 +414,7 @@
 </blockquote>
 </div>
 <h3 id="8-switch-clustering-is-the-simplest-and-it-welds-two-devices-failures-into-one">8. Switch Clustering Is the "Simplest" — and It Welds Two Devices' Failures Into One · 交换机集群最"简单"，但把两台设备的故障绑成一次故障<a class="anchor" href="#8-switch-clustering-is-the-simplest-and-it-welds-two-devices-failures-into-one" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-9 · Clustering as fate sharing" src="assets/fig/en15-09-cluster-fate.svg" /></p>
 <p>Clustering (StackWise / VSS / vPC / mLAG) presents two physical devices as one logical device:</p>
 <div class="zh">
 <p>集群（StackWise / VSS / vPC / mLAG）把两台物理设备呈现为一台逻辑设备：</p>
@@ -473,6 +482,7 @@
 </blockquote>
 </div>
 <h3 id="9-the-three-access-models-differ-not-in-bandwidth-but-in-their-behaviour-when-something-fails">9. The Three Access Models Differ Not in Bandwidth but in Their Behaviour When Something Fails · 三种接入模型的差别不在带宽，而在"故障时的行为"<a class="anchor" href="#9-the-three-access-models-differ-not-in-bandwidth-but-in-their-behaviour-when-something-fails" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-10 · Failure-behaviour matrix" src="assets/fig/en15-10-three-models-failure.svg" /></p>
 <p>Beginners compare the three models by calculating bandwidth utilisation (50% versus 100%). In a campus, bandwidth is rarely the bottleneck (1G access with 10G uplinks is the norm). The real differences are:</p>
 <div class="zh">
 <p>初学者比较三种模型喜欢算带宽利用率（50% vs 100%）。园区里带宽通常不是瓶颈（1G 接入 + 10G 上行是常态），真正的差别是：</p>
@@ -572,6 +582,7 @@
 </blockquote>
 </div>
 <h3 id="10-igp-selection-is-not-which-protocol-is-better-but-team-skill-convergence-budget-areaquery-design-igp">10. IGP Selection Is Not "Which Protocol Is Better" but "Team Skill + Convergence Budget + Area/Query Design" · IGP 选型不是"技术优劣"，而是"团队能力 + 收敛预算 + 区域/查询设计"<a class="anchor" href="#10-igp-selection-is-not-which-protocol-is-better-but-team-skill-convergence-budget-areaquery-design-igp" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-11 · IGP selection in three constraints" src="assets/fig/en15-11-igp-selection.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -667,6 +678,7 @@
 </blockquote>
 </div>
 <h3 id="11-the-real-cost-of-campus-virtualisation-is-operational-mental-load-and-time-to-locate-a-fault">11. The Real Cost of Campus Virtualisation Is "Operational Mental Load" and "Time to Locate a Fault" · 园区虚拟化的真实成本是"运维心智"和"故障定位时间"<a class="anchor" href="#11-the-real-cost-of-campus-virtualisation-is-operational-mental-load-and-time-to-locate-a-fault" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-12 · Virtualisation concentrates work" src="assets/fig/en15-12-virt-load.svg" /></p>
 <p>Virtualisation (VRF, VN, MPLS VPN) sells "many logical networks on one physical plant". The on-paper benefits (CAPEX/OPEX, service velocity) look great in a slide deck; the hidden costs rarely make it into the design document:</p>
 <div class="zh">
 <p>虚拟化（VRF、VN、MPLS VPN）的卖点是"多张逻辑网络共用一套物理"。账面收益（CAPEX/OPEX/开通速度）在 PPT 上很清楚，隐形成本很少写进设计文档：</p>
@@ -742,6 +754,7 @@
 </blockquote>
 </div>
 <h3 id="12-path-isolation-is-not-security-isolation-a-vrf-is-not-a-firewall-vrf">12. Path Isolation Is Not Security Isolation (a VRF Is Not a Firewall) · 路径隔离 ≠ 安全隔离（VRF 不是防火墙）<a class="anchor" href="#12-path-isolation-is-not-security-isolation-a-vrf-is-not-a-firewall-vrf" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-13 · A VRF is not a firewall" src="assets/fig/en15-13-vrf-not-firewall.svg" /></p>
 <table>
 <thead>
 <tr>
@@ -797,6 +810,7 @@
 </blockquote>
 </div>
 <h3 id="13-the-real-bottleneck-of-service-virtualisation-is-the-return-path-not-throughput">13. The Real Bottleneck of Service Virtualisation Is the Return Path, Not Throughput · 服务虚拟化的真正瓶颈是"回流路径"，不是吞吐<a class="anchor" href="#13-the-real-bottleneck-of-service-virtualisation-is-the-return-path-not-throughput" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-14 · The bottleneck is the return path" src="assets/fig/en15-14-return-path.svg" /></p>
 <p>After inserting virtual firewalls or load balancers, the most common failure mode is not "not enough performance" but:</p>
 <div class="zh">
 <p>引入防火墙/负载均衡虚拟化后，最常见的故障形态不是"性能不够"，而是：</p>
@@ -880,6 +894,7 @@
 </blockquote>
 </div>
 <h3 id="14-wireless-makes-layer-2-a-first-class-citizen-again">14. Wireless Makes Layer 2 a First-Class Citizen Again · 无线让"二层"重新变成第一公民<a class="anchor" href="#14-wireless-makes-layer-2-a-first-class-citizen-again" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-15 · Wireless puts L2 back in charge" src="assets/fig/en15-15-wireless-l2.svg" /></p>
 <p>In the wired world, routed access can compress Layer 2 into the wiring closet — but wireless drags Layer 2 back:</p>
 <div class="zh">
 <p>有线时代可以用路由接入把二层压缩到配线间，但无线把二层又拉回来了：</p>
@@ -947,6 +962,7 @@
 </blockquote>
 </div>
 <h3 id="15-scalability-means-is-the-incremental-cost-linear-not-how-many-can-it-hold">15. Scalability Means "Is the Incremental Cost Linear", Not "How Many Can It Hold" · 可扩展性 = "增量的成本是否线性"，不是"能装多少台"<a class="anchor" href="#15-scalability-means-is-the-incremental-cost-linear-not-how-many-can-it-hold" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-16 · Scalability is the slope, not the maximum" src="assets/fig/en15-16-scalability-linear.svg" /></p>
 <p>"How many users can this design support?" is the wrong question. The right question is:</p>
 <div class="zh">
 <p>"这个设计能支持多少人"是错问题。对的问题是：</p>
@@ -1023,6 +1039,7 @@
 </div>
 <hr />
 <h2 id="the-six-step-campus-design-method">The Six-Step Campus Design Method · 园区设计的六步方法论<a class="anchor" href="#the-six-step-campus-design-method" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-17 · The six-step method" src="assets/fig/en15-17-six-steps.svg" /></p>
 <p>The most common mistake in campus design is starting from "choose a protocol". The correct order is: <strong>define the boundaries, then the tiers, then the boundary point, then the routing, then the virtualisation, and finally capacity and validation</strong>.</p>
 <div class="zh">
 <p>园区设计最容易犯的错，是从"选协议"开始。正确顺序是：<strong>先定边界，再定层次，再定分界点，再定路由，再定虚拟化，最后定容量与验证</strong>。</p>
@@ -1209,6 +1226,7 @@
 <h2 id="foundation-topics">Foundation Topics · 基础内容<a class="anchor" href="#foundation-topics" title="Permanent link"></a></h2>
 <hr />
 <h2 id="1-the-campus-hierarchy-model-three-tiers-or-two">1. The Campus Hierarchy Model: Three Tiers or Two · 一、园区分层模型：三层还是二层<a class="anchor" href="#1-the-campus-hierarchy-model-three-tiers-or-two" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-18 · Three tiers or two" src="assets/fig/en15-18-three-vs-two-tier.svg" /></p>
 <p>A campus network covers a single geographic location (one building or several). The enterprise usually owns the physical cabling inside the campus, so a high-speed infrastructure (1/10/40/100 Gbps) can be deployed — <strong>which is what makes campus design far more free than WAN design</strong>: bandwidth is cheap, latency is controllable, and the bottleneck is almost always "architecture and failure domain" rather than "link speed".</p>
 <div class="zh">
 <p>园区网络覆盖单一地理位置（一栋楼或多栋楼），企业通常拥有园区内的物理线缆，因此可以部署高速基础设施（1/10/40/100 Gbps）——<strong>这一点决定了园区的设计自由度远高于 WAN</strong>：带宽便宜、时延可控，瓶颈几乎总在"架构与故障域"，而不是"链路速率"。</p>
@@ -1547,6 +1565,7 @@ Long-term OPEX explodes (migration windows, double operations, migration risk)
 </div>
 <hr />
 <h2 id="2-the-three-accessdistribution-design-models">2. The Three Access–Distribution Design Models · 二、接入—分布层三种设计模型<a class="anchor" href="#2-the-three-accessdistribution-design-models" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-19 · The three access models" src="assets/fig/en15-19-three-access-models.svg" /></p>
 <p>The book offers three ways to connect the access layer to the distribution layer. <strong>The core difference is only two things: where the L2/L3 boundary sits, and who provides the Layer 3 gateway service.</strong></p>
 <div class="zh">
 <p>原书给出三种把接入层接到分布层的模型，<strong>核心差异只有两点：L2/L3 边界放哪里、L3 网关服务由谁提供</strong>。</p>
@@ -3062,6 +3081,7 @@ Good design: access stub + distribution summary → queries stop at the distribu
 </div>
 <hr />
 <h2 id="5-the-four-path-isolation-techniques">5. The Four Path-Isolation Techniques · 五、路径隔离的四种技术<a class="anchor" href="#5-the-four-path-isolation-techniques" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-20 · Four path-isolation techniques" src="assets/fig/en15-20-path-isolation.svg" /></p>
 <p>The book lists four end-to-end path-isolation techniques; the choice rests on <strong>scale, complexity and team knowledge</strong>.</p>
 <div class="zh">
 <p>原书列出四种端到端路径隔离技术，选择依据是<strong>规模、复杂度、团队知识</strong>。</p>
@@ -3413,6 +3433,7 @@ Good design: access stub + distribution summary → queries stop at the distribu
 <p>路径隔离解决"业务之间不互通"，服务虚拟化解决"<strong>多个业务域如何共享同一批服务</strong>"（互联网出口、文件服务器、DNS、AD、打印、监控）。</p>
 </div>
 <h3 id="the-three-service-access-models">The Three Service-Access Models · 服务访问的三种模型<a class="anchor" href="#the-three-service-access-models" title="Permanent link"></a></h3>
+<p><img alt="Figure 15-21 · Three service-access models" src="assets/fig/en15-21-service-access-models.svg" /></p>
 <pre><code>Model A: independent services per domain      Model B: shared services + service edge
 +-------+ +-------+                          +-------+   +-------+
 |DomainA| |DomainB|                          |DomainA|   |DomainB|
@@ -3822,6 +3843,7 @@ User -&gt; Access -&gt; Distribution --&gt; [vFW] --&gt; server
 </div>
 <hr />
 <h2 id="7-capacity-and-scalability-models-extended-in-these-notes">7. Capacity and Scalability Models (Extended in These Notes) · 七、容量与可扩展性模型（本笔记延伸）<a class="anchor" href="#7-capacity-and-scalability-models-extended-in-these-notes" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-22 · Four budgets that get skipped" src="assets/fig/en15-22-capacity-budgets.svg" /></p>
 <p>The book focuses on architectural decisions; this section adds the part where <strong>the architecture is turned into numbers</strong> — the most frequently mis-calculated and most often skipped content in architecture work.</p>
 <div class="zh">
 <p>原书侧重架构决策，本章补上"把架构算成数字"的部分 —— 这是架构设计里最容易算错、也最容易被忽略的内容。</p>
@@ -4305,6 +4327,7 @@ User -&gt; Access -&gt; Distribution --&gt; [vFW] --&gt; server
 </div>
 <hr />
 <h2 id="8-from-design-to-delivery-the-nine-tables-this-chapter-must-produce-9">8. From Design to Delivery: The Nine Tables This Chapter Must Produce · 八、从设计到交付：本章必须的 9 张表<a class="anchor" href="#8-from-design-to-delivery-the-nine-tables-this-chapter-must-produce-9" title="Permanent link"></a></h2>
+<p><img alt="Figure 15-23 · The nine deliverable tables" src="assets/fig/en15-23-nine-tables.svg" /></p>
 <p>A campus design that is "only a topology diagram" cannot be reviewed or accepted. The book implies, and this note makes explicit, nine tables a campus design deliverable must contain:</p>
 <div class="zh">
 <p>设计文档不是散文。以下九张表是园区方案的"可评审载体"，缺一张就有一类决策没有被固化。</p>
